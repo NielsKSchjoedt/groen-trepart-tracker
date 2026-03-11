@@ -37,7 +37,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
 
   return (
     <div className="flex flex-col items-center">
-      <svg width={size} height={size * 0.78} viewBox={`0 0 ${size} ${size * 0.78}`} className="drop-shadow-sm">
+      <svg width={size} height={size * 0.92} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-sm overflow-visible">
         <defs>
           <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="hsl(152 44% 38%)" />
