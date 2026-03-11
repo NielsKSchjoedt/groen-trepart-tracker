@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { X, Droplets, MapPin, Hammer } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 import type { Plan, Catchment, ProjectCounts } from '@/lib/types';
 
@@ -21,30 +21,36 @@ export function DetailPanel({ plan, catchment, onClose }: DetailPanelProps) {
     <div className="bg-background border-l border-border h-full overflow-y-auto p-6 relative">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-1.5 rounded-md hover:bg-muted transition-colors"
+        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors"
         aria-label="Luk"
       >
-        <X className="w-5 h-5 text-muted-foreground" />
+        <X className="w-4 h-4 text-muted-foreground" />
       </button>
 
-      <h2 className="text-xl font-semibold text-foreground pr-8 mb-6" style={{ fontFamily: "'Public Sans', sans-serif" }}>
+      <h2
+        className="text-lg font-bold text-foreground pr-8 mb-6"
+        style={{ fontFamily: "'Fraunces', serif" }}
+      >
         {name}
       </h2>
 
       {/* Nitrogen */}
       <div className="mb-6">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Kvælstofreduktion</h3>
+        <div className="flex items-center gap-2 mb-2">
+          <Droplets className="w-4 h-4 text-nature-water" />
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Kvælstofreduktion</h3>
+        </div>
         {nitrogenGoal > 0 ? (
           <>
             <p className="text-sm text-foreground mb-2">
               {formatDanishNumber(nitrogenAchieved, 1)} af {formatDanishNumber(nitrogenGoal, 1)} ton ({Math.round(nitrogenPct)}%)
             </p>
-            <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+            <div className="h-2.5 w-full rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{
                   width: `${Math.min(nitrogenPct, 100)}%`,
-                  backgroundColor: 'hsl(210 100% 52%)',
+                  background: 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))',
                 }}
               />
             </div>
@@ -59,7 +65,10 @@ export function DetailPanel({ plan, catchment, onClose }: DetailPanelProps) {
 
       {/* Extraction */}
       <div className="mb-6">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Udtagning</h3>
+        <div className="flex items-center gap-2 mb-2">
+          <MapPin className="w-4 h-4 text-nature-earth" />
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Udtagning</h3>
+        </div>
         {extractionPotential > 0 ? (
           <p className="text-sm text-foreground">
             {formatDanishNumber(extractionAchieved, 1)} af {formatDanishNumber(extractionPotential, 1)} ha
@@ -73,20 +82,23 @@ export function DetailPanel({ plan, catchment, onClose }: DetailPanelProps) {
 
       {/* Projects pipeline */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Projekter</h3>
-        <div className="space-y-2">
+        <div className="flex items-center gap-2 mb-3">
+          <Hammer className="w-4 h-4 text-nature-sky" />
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Projekter</h3>
+        </div>
+        <div className="space-y-2.5">
           {[
-            { label: 'Skitser', count: projects.sketches, color: 'hsl(210 40% 78%)' },
-            { label: 'Vurderet', count: projects.assessed, color: 'hsl(210 60% 60%)' },
-            { label: 'Godkendt', count: projects.approved, color: 'hsl(210 80% 45%)' },
-            { label: 'Anlagt', count: projects.established, color: 'hsl(142 71% 45%)' },
+            { label: 'Skitser', count: projects.sketches, color: 'hsl(150 20% 78%)' },
+            { label: 'Vurderet', count: projects.assessed, color: 'hsl(152 30% 60%)' },
+            { label: 'Godkendt', count: projects.approved, color: 'hsl(152 44% 45%)' },
+            { label: 'Anlagt', count: projects.established, color: 'hsl(95 55% 48%)' },
           ].map((stage) => (
             <div key={stage.label} className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: stage.color }} />
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stage.color }} />
                 <span className="text-muted-foreground">{stage.label}</span>
               </div>
-              <span className="text-foreground font-medium">{formatDanishNumber(stage.count)}</span>
+              <span className="text-foreground font-semibold">{formatDanishNumber(stage.count)}</span>
             </div>
           ))}
         </div>

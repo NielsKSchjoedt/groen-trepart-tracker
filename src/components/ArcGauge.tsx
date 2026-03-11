@@ -9,12 +9,11 @@ interface ArcGaugeProps {
   size?: number;
 }
 
-export function ArcGauge({ value, max, pct, unit, label, size = 280 }: ArcGaugeProps) {
-  const strokeWidth = 20;
+export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeProps) {
+  const strokeWidth = 22;
   const radius = (size - strokeWidth) / 2;
   const center = size / 2;
 
-  // 270° arc: starts at 135° (bottom-left), ends at 405° (bottom-right)
   const startAngle = 135;
   const totalAngle = 270;
   const endAngle = startAngle + totalAngle;
@@ -38,7 +37,14 @@ export function ArcGauge({ value, max, pct, unit, label, size = 280 }: ArcGaugeP
 
   return (
     <div className="flex flex-col items-center">
-      <svg width={size} height={size * 0.82} viewBox={`0 0 ${size} ${size * 0.82}`} className="overflow-visible">
+      <svg width={size} height={size * 0.82} viewBox={`0 0 ${size} ${size * 0.82}`} className="overflow-visible drop-shadow-sm">
+        {/* Subtle glow behind arc */}
+        <defs>
+          <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="hsl(152 44% 38%)" />
+            <stop offset="100%" stopColor="hsl(95 55% 48%)" />
+          </linearGradient>
+        </defs>
         {/* Background arc */}
         <path
           d={describeArc(startAngle, endAngle)}
@@ -47,37 +53,38 @@ export function ArcGauge({ value, max, pct, unit, label, size = 280 }: ArcGaugeP
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
-        {/* Progress arc */}
+        {/* Progress arc with nature gradient */}
         {pct > 0 && (
           <path
             d={describeArc(startAngle, progressAngle)}
             fill="none"
-            stroke="hsl(210 100% 52%)"
+            stroke="url(#arcGradient)"
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
         )}
-        {/* Center text */}
+        {/* Center percentage */}
         <text
           x={center}
-          y={center - 16}
+          y={center - 18}
           textAnchor="middle"
           className="fill-foreground"
-          style={{ fontSize: '2.5rem', fontWeight: 600, fontFamily: "'Public Sans', sans-serif" }}
+          style={{ fontSize: '2.75rem', fontWeight: 700, fontFamily: "'Fraunces', serif" }}
         >
           {Math.round(pct)}%
         </text>
+        {/* Sub-text */}
         <text
           x={center}
-          y={center + 14}
+          y={center + 16}
           textAnchor="middle"
           className="fill-muted-foreground"
-          style={{ fontSize: '0.875rem', fontFamily: "'Public Sans', sans-serif" }}
+          style={{ fontSize: '0.875rem', fontFamily: "'DM Sans', sans-serif" }}
         >
           {formatDanishNumber(value, 0)} af {formatDanishNumber(max)} {unit}
         </text>
       </svg>
-      <p className="mt-2 text-sm text-muted-foreground text-center max-w-xs">{label}</p>
+      <p className="mt-3 text-sm text-muted-foreground text-center max-w-xs">{label}</p>
     </div>
   );
 }
