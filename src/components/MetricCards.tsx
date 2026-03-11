@@ -20,10 +20,13 @@ export function MetricCards({ data }: MetricCardsProps) {
         <NatureWatermark animal="bee" size={100} />
       </div>
       <div className="absolute left-0 bottom-0 opacity-[0.08] hidden lg:block">
-        <NatureWatermark animal="hedgehog" size={80} />
+        <NatureWatermark animal="crab" size={75} />
       </div>
       <div className="absolute right-1/3 -top-2 opacity-[0.07] hidden md:block animate-gentle-sway">
         <NatureWatermark animal="dragonfly" size={50} className="rotate-[-20deg]" />
+      </div>
+      <div className="absolute left-1/4 top-4 opacity-[0.08] hidden lg:block">
+        <NatureWatermark animal="flounder" size={70} className="rotate-6" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Lavbundsarealer */}

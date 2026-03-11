@@ -42,8 +42,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
     const denmarkBounds = L.latLngBounds(
-      L.latLng(54.4, 7.5),   // SW corner
-      L.latLng(57.9, 15.5),  // NE corner
+      L.latLng(54.4, 7.5),
+      L.latLng(57.9, 15.5),
     );
     const map = L.map(mapContainerRef.current, {
       center: [56.0, 11.5],
@@ -175,13 +175,19 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-10 relative overflow-hidden">
       <div className="absolute right-2 top-16 opacity-[0.10] hidden lg:block">
-        <NatureWatermark animal="fish" size={110} className="-rotate-12" />
+        <NatureWatermark animal="seatrout" size={110} className="-rotate-12" />
       </div>
       <div className="absolute left-0 bottom-10 opacity-[0.08] hidden lg:block">
-        <NatureWatermark animal="fox" size={90} />
+        <NatureWatermark animal="seal" size={100} />
       </div>
       <div className="absolute right-1/3 bottom-4 opacity-[0.07] hidden md:block">
-        <NatureWatermark animal="hedgehog" size={65} />
+        <NatureWatermark animal="shrimp" size={65} className="rotate-[15deg]" />
+      </div>
+      <div className="absolute left-1/4 top-8 opacity-[0.08] hidden xl:block">
+        <NatureWatermark animal="seaweed" size={90} />
+      </div>
+      <div className="absolute right-8 bottom-24 opacity-[0.07] hidden lg:block">
+        <NatureWatermark animal="crab" size={60} />
       </div>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2.5">
