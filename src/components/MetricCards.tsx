@@ -1,6 +1,7 @@
 import { formatDanishNumber } from '@/lib/format';
 import type { DashboardData } from '@/lib/types';
 import { Mountain, Trees, Hammer } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface MetricCardsProps {
   data: DashboardData;
