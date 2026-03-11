@@ -1,5 +1,5 @@
 import { ArcGauge } from './ArcGauge';
-import { daysUntil, formatDanishNumber } from '@/lib/format';
+import { CountdownProjection } from './CountdownProjection';
 import type { DashboardData } from '@/lib/types';
 import { Leaf, TreePine } from 'lucide-react';
 
@@ -9,7 +9,6 @@ interface HeroSectionProps {
 
 export function HeroSection({ data }: HeroSectionProps) {
   const { targets, progress } = { targets: data.national.targets, progress: data.national.progress };
-  const remaining = daysUntil(targets.deadline);
 
   return (
     <section className="w-full py-14 md:py-24 text-center relative overflow-hidden">
@@ -53,11 +52,13 @@ export function HeroSection({ data }: HeroSectionProps) {
         />
       </div>
 
-      <div className="inline-flex items-center gap-2.5 rounded-full bg-card border border-border px-5 py-3 text-sm text-muted-foreground shadow-sm">
-        <span className="inline-block w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
-        <span>
-          <strong className="text-foreground font-semibold">{formatDanishNumber(remaining)}</strong> dage til 2030
-        </span>
+      <div className="px-4">
+        <CountdownProjection
+          deadline={targets.deadline}
+          achieved={progress.nitrogenAchievedT}
+          target={targets.nitrogenReductionT}
+          trackingStart="2024-01-01"
+        />
       </div>
     </section>
   );
