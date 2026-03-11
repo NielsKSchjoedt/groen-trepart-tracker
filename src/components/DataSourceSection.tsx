@@ -1,4 +1,5 @@
 import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface DataSourceSectionProps {
   fetchedAt: string;
