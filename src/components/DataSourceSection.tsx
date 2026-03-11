@@ -66,6 +66,12 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
       <div className="absolute left-2 top-10 opacity-[0.10] hidden md:block animate-gentle-sway">
         <NatureWatermark animal="butterfly" size={55} className="rotate-12" />
       </div>
+      <div className="absolute right-1/4 top-6 opacity-[0.08] hidden lg:block">
+        <NatureWatermark animal="owl" size={80} className="rotate-6" />
+      </div>
+      <div className="absolute left-8 bottom-20 opacity-[0.09] hidden md:block">
+        <NatureWatermark animal="rabbit" size={70} />
+      </div>
       <div className="flex items-center gap-2.5 mb-2">
         <Database className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

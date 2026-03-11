@@ -24,6 +24,12 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       <div className="absolute -left-6 bottom-8 opacity-[0.10] hidden lg:block">
         <NatureWatermark animal="heron" size={140} />
       </div>
+      <div className="absolute right-4 top-4 opacity-[0.09] hidden md:block">
+        <NatureWatermark animal="fox" size={100} className="scale-x-[-1]" />
+      </div>
+      <div className="absolute left-1/3 top-2 opacity-[0.07] hidden lg:block animate-gentle-sway">
+        <NatureWatermark animal="butterfly" size={50} />
+      </div>
       <div className="flex items-center gap-2.5 mb-2">
         <GitPullRequestArrow className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
