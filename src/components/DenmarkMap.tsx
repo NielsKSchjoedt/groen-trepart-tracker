@@ -6,6 +6,7 @@ import { getProgressColor } from '@/lib/format';
 import { DetailPanel } from './DetailPanel';
 import type { Plan, Catchment, DashboardData } from '@/lib/types';
 import { Map } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 import 'leaflet/dist/leaflet.css';
 
 interface DenmarkMapProps {
