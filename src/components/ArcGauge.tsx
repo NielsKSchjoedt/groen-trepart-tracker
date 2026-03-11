@@ -37,7 +37,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
 
   return (
     <div className="flex flex-col items-center">
-      <svg width={size} height={size * 0.9} viewBox={`0 0 ${size} ${size * 0.9}`} className="overflow-visible drop-shadow-sm">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-sm">
         {/* Subtle glow behind arc */}
         <defs>
           <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -84,7 +84,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           {formatDanishNumber(value, 0)} af {formatDanishNumber(max)} {unit}
         </text>
       </svg>
-      <p className="mt-3 text-sm text-muted-foreground text-center max-w-xs">{label}</p>
+      <p className="-mt-10 text-sm text-muted-foreground text-center max-w-xs relative z-10">{label}</p>
     </div>
   );
 }
