@@ -177,6 +177,12 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       <div className="absolute right-2 top-16 opacity-[0.10] hidden lg:block">
         <NatureWatermark animal="fish" size={110} className="-rotate-12" />
       </div>
+      <div className="absolute left-0 bottom-10 opacity-[0.08] hidden lg:block">
+        <NatureWatermark animal="fox" size={90} />
+      </div>
+      <div className="absolute right-1/3 bottom-4 opacity-[0.07] hidden md:block">
+        <NatureWatermark animal="hedgehog" size={65} />
+      </div>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2.5">
           <Map className="w-5 h-5 text-primary" />
