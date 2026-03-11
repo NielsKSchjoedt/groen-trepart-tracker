@@ -1,4 +1,5 @@
 import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface DataSourceSectionProps {
   fetchedAt: string;
@@ -58,7 +59,13 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
   ];
 
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 py-10">
+    <section className="w-full max-w-4xl mx-auto px-4 py-10 relative overflow-hidden">
+      <div className="absolute right-0 bottom-4 opacity-[0.035] hidden lg:block">
+        <NatureWatermark animal="deer" size={130} className="scale-x-[-1]" />
+      </div>
+      <div className="absolute left-2 top-10 opacity-[0.04] hidden md:block animate-gentle-sway">
+        <NatureWatermark animal="butterfly" size={55} className="rotate-12" />
+      </div>
       <div className="flex items-center gap-2.5 mb-2">
         <Database className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

@@ -1,6 +1,7 @@
 import { formatDanishNumber } from '@/lib/format';
 import type { DashboardData } from '@/lib/types';
 import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface ProjectFunnelProps {
   data: DashboardData;
@@ -19,7 +20,10 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const maxCount = Math.max(...counts, 1);
 
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 py-10">
+    <section className="w-full max-w-4xl mx-auto px-4 py-10 relative overflow-hidden">
+      <div className="absolute -left-6 bottom-8 opacity-[0.04] hidden lg:block">
+        <NatureWatermark animal="heron" size={140} />
+      </div>
       <div className="flex items-center gap-2.5 mb-2">
         <GitPullRequestArrow className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

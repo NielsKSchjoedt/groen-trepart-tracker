@@ -1,5 +1,6 @@
 import { ArcGauge } from './ArcGauge';
 import { CountdownProjection } from './CountdownProjection';
+import { NatureWatermark } from './NatureWatermark';
 import type { DashboardData } from '@/lib/types';
 import { Leaf, TreePine } from 'lucide-react';
 
@@ -21,6 +22,13 @@ export function HeroSection({ data }: HeroSectionProps) {
       </div>
       <div className="absolute top-1/3 right-1/4 opacity-[0.04] pointer-events-none hidden md:block">
         <Leaf className="w-20 h-20 text-nature-leaf rotate-45" strokeWidth={1} />
+      </div>
+      {/* Animal watermarks */}
+      <div className="absolute bottom-16 left-4 opacity-[0.045] pointer-events-none hidden lg:block">
+        <NatureWatermark animal="deer" size={150} />
+      </div>
+      <div className="absolute top-20 right-6 opacity-[0.05] pointer-events-none hidden md:block animate-gentle-sway">
+        <NatureWatermark animal="butterfly" size={70} />
       </div>
 
       {/* Leaf emoji accent */}

@@ -1,6 +1,7 @@
 import { formatDanishNumber } from '@/lib/format';
 import type { DashboardData } from '@/lib/types';
 import { Mountain, Trees, Hammer } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface MetricCardsProps {
   data: DashboardData;
@@ -14,7 +15,10 @@ export function MetricCards({ data }: MetricCardsProps) {
   };
 
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 py-8">
+    <section className="w-full max-w-4xl mx-auto px-4 py-8 relative overflow-hidden">
+      <div className="absolute -right-4 top-2 opacity-[0.04] hidden md:block">
+        <NatureWatermark animal="bee" size={100} />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Lavbundsarealer */}
         <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
