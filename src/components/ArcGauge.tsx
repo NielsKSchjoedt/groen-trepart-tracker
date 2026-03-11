@@ -84,7 +84,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           {formatDanishNumber(value, 0)} af {formatDanishNumber(max)} {unit}
         </text>
       </svg>
-      <p className="mt-3 text-sm text-muted-foreground text-center max-w-xs">{label}</p>
+      <p className="-mt-6 text-sm text-muted-foreground text-center max-w-xs relative z-10">{label}</p>
     </div>
   );
 }
