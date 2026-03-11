@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { formatDanishNumber, getProgressColor } from '@/lib/format';
 import type { Plan } from '@/lib/types';
 import { ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface DataTableProps {
   plans: Plan[];
@@ -74,7 +75,24 @@ export function DataTable({ plans, onSelectPlan }: DataTableProps) {
   const totalNGoal = plans.reduce((s, p) => s + p.nitrogenGoalT, 0);
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 py-10">
+    <section className="w-full max-w-6xl mx-auto px-4 py-10 relative overflow-hidden">
+      {/* Sea life watermarks around the data table */}
+      <div className="absolute -right-4 top-20 opacity-[0.08] hidden lg:block">
+        <NatureWatermark animal="cod" size={100} className="rotate-[-10deg]" />
+      </div>
+      <div className="absolute left-0 bottom-16 opacity-[0.09] hidden lg:block">
+        <NatureWatermark animal="fox" size={90} className="scale-x-[-1]" />
+      </div>
+      <div className="absolute right-1/4 bottom-8 opacity-[0.07] hidden md:block">
+        <NatureWatermark animal="seaweed" size={80} />
+      </div>
+      <div className="absolute left-1/3 top-8 opacity-[0.06] hidden xl:block animate-gentle-sway">
+        <NatureWatermark animal="bee" size={50} />
+      </div>
+      <div className="absolute right-8 top-4 opacity-[0.08] hidden lg:block">
+        <NatureWatermark animal="rabbit" size={70} />
+      </div>
+
       <div className="flex items-center gap-2.5 mb-2">
         <TableProperties className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

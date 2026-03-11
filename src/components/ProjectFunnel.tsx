@@ -25,10 +25,16 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
         <NatureWatermark animal="heron" size={140} />
       </div>
       <div className="absolute right-4 top-4 opacity-[0.09] hidden md:block">
-        <NatureWatermark animal="fox" size={100} className="scale-x-[-1]" />
+        <NatureWatermark animal="seal" size={100} className="scale-x-[-1]" />
       </div>
       <div className="absolute left-1/3 top-2 opacity-[0.07] hidden lg:block animate-gentle-sway">
         <NatureWatermark animal="butterfly" size={50} />
+      </div>
+      <div className="absolute right-1/4 bottom-4 opacity-[0.08] hidden lg:block">
+        <NatureWatermark animal="cod" size={80} className="rotate-[-15deg]" />
+      </div>
+      <div className="absolute left-8 top-16 opacity-[0.07] hidden xl:block">
+        <NatureWatermark animal="eel" size={70} className="rotate-[20deg]" />
       </div>
       <div className="flex items-center gap-2.5 mb-2">
         <GitPullRequestArrow className="w-5 h-5 text-primary" />
@@ -50,7 +56,6 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
 
           return (
             <div key={stage.key}>
-              {/* Conversion arrow */}
               {i > 0 && (
                 <div className="flex items-center gap-2 ml-6 mb-2 -mt-1">
                   <div className="w-px h-4 bg-border" />
@@ -61,7 +66,6 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
               )}
 
               <div className="flex items-center gap-4">
-                {/* Icon */}
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: stage.color + '20' }}
@@ -69,7 +73,6 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                   <stage.icon className="w-5 h-5" style={{ color: stage.color }} />
                 </div>
 
-                {/* Bar + labels */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <div>
@@ -99,7 +102,6 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
         })}
       </div>
 
-      {/* Summary stat */}
       <div className="mt-8 p-4 rounded-xl bg-muted/50 border border-border">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">
