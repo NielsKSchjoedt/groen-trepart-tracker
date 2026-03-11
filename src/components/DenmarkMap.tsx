@@ -232,14 +232,14 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
         {panelOpen && (selectedPlan || selectedCatchment) && (
           <div className="hidden md:block w-2/5 min-h-[520px]">
-            <DetailPanel plan={selectedPlan} catchment={selectedCatchment} onClose={closePanel} />
+            <DetailPanel plan={selectedPlan} catchment={selectedCatchment} nationalData={data.national} onClose={closePanel} />
           </div>
         )}
       </div>
 
       {panelOpen && (selectedPlan || selectedCatchment) && (
         <div className="md:hidden mt-4 rounded-2xl border border-border shadow-md overflow-hidden">
-          <DetailPanel plan={selectedPlan} catchment={selectedCatchment} onClose={closePanel} />
+          <DetailPanel plan={selectedPlan} catchment={selectedCatchment} nationalData={data.national} onClose={closePanel} />
         </div>
       )}
     </section>

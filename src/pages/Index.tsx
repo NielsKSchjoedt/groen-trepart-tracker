@@ -3,7 +3,10 @@ import { loadDashboardData } from '@/lib/data';
 import type { DashboardData } from '@/lib/types';
 import { HeroSection } from '@/components/HeroSection';
 import { MetricCards } from '@/components/MetricCards';
+import { ProjectFunnel } from '@/components/ProjectFunnel';
 import { DenmarkMap } from '@/components/DenmarkMap';
+import { DataTable } from '@/components/DataTable';
+import { DataSourceSection } from '@/components/DataSourceSection';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
@@ -26,7 +29,10 @@ const Index = () => {
       <div className="max-w-6xl mx-auto">
         <HeroSection data={data} />
         <MetricCards data={data} />
+        <ProjectFunnel data={data} />
         <DenmarkMap data={data} />
+        <DataTable plans={data.plans} />
+        <DataSourceSection fetchedAt={data.fetchedAt} />
       </div>
       <Footer fetchedAt={data.fetchedAt} />
     </div>
