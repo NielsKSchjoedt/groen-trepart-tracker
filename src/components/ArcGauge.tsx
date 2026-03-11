@@ -37,8 +37,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
 
   return (
     <div className="flex flex-col items-center">
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-sm">
-        {/* Subtle glow behind arc */}
+      <svg width={size} height={size * 0.78} viewBox={`0 0 ${size} ${size * 0.78}`} className="drop-shadow-sm">
         <defs>
           <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="hsl(152 44% 38%)" />
@@ -53,7 +52,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
-        {/* Progress arc with nature gradient */}
+        {/* Progress arc */}
         {pct > 0 && (
           <path
             d={describeArc(startAngle, progressAngle)}
@@ -84,7 +83,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           {formatDanishNumber(value, 0)} af {formatDanishNumber(max)} {unit}
         </text>
       </svg>
-      <p className="-mt-10 text-sm text-muted-foreground text-center max-w-xs relative z-10">{label}</p>
+      <p className="text-sm text-muted-foreground text-center max-w-xs mt-2">{label}</p>
     </div>
   );
 }
