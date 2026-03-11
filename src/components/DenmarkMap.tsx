@@ -239,7 +239,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
       {panelOpen && (selectedPlan || selectedCatchment) && (
         <div className="md:hidden mt-4 rounded-2xl border border-border shadow-md overflow-hidden">
-          <DetailPanel plan={selectedPlan} catchment={selectedCatchment} onClose={closePanel} />
+          <DetailPanel plan={selectedPlan} catchment={selectedCatchment} nationalData={data.national} onClose={closePanel} />
         </div>
       )}
     </section>
