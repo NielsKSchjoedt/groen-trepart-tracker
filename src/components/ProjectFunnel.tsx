@@ -1,6 +1,7 @@
 import { formatDanishNumber } from '@/lib/format';
 import type { DashboardData } from '@/lib/types';
 import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
+import { NatureWatermark } from './NatureWatermark';
 
 interface ProjectFunnelProps {
   data: DashboardData;
