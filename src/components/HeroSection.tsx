@@ -14,20 +14,20 @@ export function HeroSection({ data }: HeroSectionProps) {
   return (
     <section className="w-full py-14 md:py-24 text-center relative overflow-hidden">
       {/* Decorative nature elements */}
-      <div className="absolute top-6 left-8 opacity-[0.07] pointer-events-none">
+      <div className="absolute top-6 left-8 opacity-[0.08] pointer-events-none">
         <Leaf className="w-32 h-32 text-primary animate-gentle-sway" strokeWidth={1} />
       </div>
-      <div className="absolute bottom-4 right-10 opacity-[0.06] pointer-events-none">
+      <div className="absolute bottom-4 right-10 opacity-[0.07] pointer-events-none">
         <TreePine className="w-40 h-40 text-nature-moss" strokeWidth={1} />
       </div>
-      <div className="absolute top-1/3 right-1/4 opacity-[0.04] pointer-events-none hidden md:block">
+      <div className="absolute top-1/3 right-1/4 opacity-[0.06] pointer-events-none hidden md:block">
         <Leaf className="w-20 h-20 text-nature-leaf rotate-45" strokeWidth={1} />
       </div>
       {/* Animal watermarks */}
-      <div className="absolute bottom-16 left-4 opacity-[0.045] pointer-events-none hidden lg:block">
+      <div className="absolute bottom-16 left-4 opacity-[0.10] pointer-events-none hidden lg:block">
         <NatureWatermark animal="deer" size={150} />
       </div>
-      <div className="absolute top-20 right-6 opacity-[0.05] pointer-events-none hidden md:block animate-gentle-sway">
+      <div className="absolute top-20 right-6 opacity-[0.12] pointer-events-none hidden md:block animate-gentle-sway">
         <NatureWatermark animal="butterfly" size={70} />
       </div>
 
