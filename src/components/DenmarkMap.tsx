@@ -40,9 +40,17 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
+    const denmarkBounds = L.latLngBounds(
+      L.latLng(54.4, 7.5),   // SW corner
+      L.latLng(57.9, 15.5),  // NE corner
+    );
     const map = L.map(mapContainerRef.current, {
       center: [56.0, 11.5],
       zoom: 7,
+      minZoom: 6,
+      maxZoom: 12,
+      maxBounds: denmarkBounds.pad(0.1),
+      maxBoundsViscosity: 1.0,
       scrollWheelZoom: true,
       zoomControl: true,
     });
