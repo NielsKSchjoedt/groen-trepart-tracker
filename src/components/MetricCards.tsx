@@ -16,7 +16,7 @@ export function MetricCards({ data }: MetricCardsProps) {
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 py-8 relative overflow-hidden">
-      <div className="absolute -right-4 top-2 opacity-[0.04] hidden md:block">
+      <div className="absolute -right-4 top-2 opacity-[0.10] hidden md:block">
         <NatureWatermark animal="bee" size={100} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
