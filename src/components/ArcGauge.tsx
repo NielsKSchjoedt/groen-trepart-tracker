@@ -78,7 +78,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           y={center + 16}
           textAnchor="middle"
           className="fill-muted-foreground"
-          style={{ fontSize: '0.875rem', fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontSize: '0.875rem', fontFamily: "'Manrope', sans-serif" }}
         >
           {formatDanishNumber(value, 0)} af {formatDanishNumber(max)} {unit}
         </text>
