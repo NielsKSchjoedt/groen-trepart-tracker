@@ -30,6 +30,15 @@ export function HeroSection({ data }: HeroSectionProps) {
       <div className="absolute top-20 right-6 opacity-[0.12] pointer-events-none hidden md:block animate-gentle-sway">
         <NatureWatermark animal="butterfly" size={70} />
       </div>
+      <div className="absolute top-40 left-1/4 opacity-[0.08] pointer-events-none hidden lg:block">
+        <NatureWatermark animal="dragonfly" size={60} className="rotate-12" />
+      </div>
+      <div className="absolute bottom-32 right-1/4 opacity-[0.09] pointer-events-none hidden md:block">
+        <NatureWatermark animal="rabbit" size={80} />
+      </div>
+      <div className="absolute top-10 left-1/3 opacity-[0.07] pointer-events-none hidden lg:block">
+        <NatureWatermark animal="owl" size={90} className="-rotate-6" />
+      </div>
 
       {/* Leaf emoji accent */}
       <div className="flex items-center justify-center gap-2 mb-4">
