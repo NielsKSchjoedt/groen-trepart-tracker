@@ -173,7 +173,10 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 py-10">
+    <section className="w-full max-w-6xl mx-auto px-4 py-10 relative overflow-hidden">
+      <div className="absolute right-2 top-16 opacity-[0.04] hidden lg:block">
+        <NatureWatermark animal="fish" size={110} className="-rotate-12" />
+      </div>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2.5">
           <Map className="w-5 h-5 text-primary" />
