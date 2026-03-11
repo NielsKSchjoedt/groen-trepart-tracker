@@ -1,0 +1,162 @@
+import { createContext, useContext } from 'react';
+import type { Animal } from '@/components/NatureWatermark';
+
+export type PillarId = 'nitrogen' | 'extraction' | 'afforestation' | 'co2' | 'nature';
+
+/**
+ * Configuration for a single pillar of the Green Tripartite agreement.
+ * Drives all downstream rendering: cards, map coloring, detail panel, theming.
+ */
+export interface PillarConfig {
+  id: PillarId;
+  /** Danish display name shown on cards and headers */
+  label: string;
+  /** Short Danish description for the pillar */
+  description: string;
+  /** National target value, or null if no numeric target exists */
+  target: number | null;
+  /** Unit label for values (e.g. "ton N/år", "ha") */
+  unit: string;
+  /** Deadline year for achieving the target */
+  deadlineYear: number;
+  /** Whether this pillar has numeric progress data */
+  hasData: boolean;
+  /** Whether per-catchment/plan geographic data exists for map coloring */
+  hasGeoBreakdown: boolean;
+  /** Whether the catchment/coastal layer toggle applies (nitrogen only) */
+  hasMultipleLayers: boolean;
+  /** Primary accent color for this pillar (hex) */
+  accentColor: string;
+  /** Field name on Catchment objects used for map choropleth coloring */
+  catchmentDataField: string;
+  /** Field name on Plan objects used for coastal water coloring */
+  planDataField: string;
+  /** Danish stub message for pillars without data */
+  stubMessage?: string;
+  /** Thematic animal silhouettes for this pillar */
+  watermarks: Animal[];
+  /** Subtle page background tint when this pillar is active */
+  backgroundTint: string;
+}
+
+export const PILLAR_CONFIGS: PillarConfig[] = [
+  {
+    id: 'nitrogen',
+    label: 'Kvælstof',
+    description: 'Kvælstofreduktion i vandmiljøet',
+    target: 13780,
+    unit: 'ton N/år',
+    deadlineYear: 2027,
+    hasData: true,
+    hasGeoBreakdown: true,
+    hasMultipleLayers: true,
+    accentColor: '#0d9488',
+    catchmentDataField: 'nitrogenAchievedT',
+    planDataField: 'nitrogenProgressPct',
+    watermarks: ['fish', 'flounder', 'seatrout', 'cod', 'eel', 'seal', 'crab', 'seaweed', 'shrimp'],
+    backgroundTint: 'hsl(192 30% 97%)',
+  },
+  {
+    id: 'extraction',
+    label: 'Lavbundsarealer',
+    description: 'Udtag af kulstofrige lavbundsjorde',
+    target: 140000,
+    unit: 'ha',
+    deadlineYear: 2030,
+    hasData: true,
+    hasGeoBreakdown: true,
+    hasMultipleLayers: false,
+    accentColor: '#a16207',
+    catchmentDataField: 'extractionAchievedHa',
+    planDataField: 'extractionAchievedHa',
+    watermarks: ['heron', 'dragonfly', 'eel', 'crab', 'seaweed', 'flounder'],
+    backgroundTint: 'hsl(35 25% 97%)',
+  },
+  {
+    id: 'afforestation',
+    label: 'Skovrejsning',
+    description: 'Ny skov plantet',
+    target: 250000,
+    unit: 'ha',
+    deadlineYear: 2045,
+    hasData: true,
+    hasGeoBreakdown: true,
+    hasMultipleLayers: false,
+    accentColor: '#15803d',
+    catchmentDataField: 'afforestationAchievedHa',
+    planDataField: 'afforestationAchievedHa',
+    watermarks: ['deer', 'fox', 'rabbit', 'owl', 'hedgehog', 'bee'],
+    backgroundTint: 'hsl(140 25% 97%)',
+  },
+  {
+    id: 'co2',
+    label: 'CO₂',
+    description: 'Drivhusgasudledning — 70% reduktion inden 2030',
+    target: 70,
+    unit: '% reduktion',
+    deadlineYear: 2030,
+    hasData: true,
+    hasGeoBreakdown: false,
+    hasMultipleLayers: false,
+    accentColor: '#737373',
+    catchmentDataField: '',
+    planDataField: '',
+    watermarks: ['deer', 'butterfly', 'owl'],
+    backgroundTint: 'hsl(0 0% 97%)',
+  },
+  {
+    id: 'nature',
+    label: 'Natur',
+    description: 'Beskyttet natur (Natura 2000, §3 m.fl.)',
+    target: 20,
+    unit: '% beskyttet',
+    deadlineYear: 2030,
+    hasData: true,
+    hasGeoBreakdown: true,
+    hasMultipleLayers: false,
+    accentColor: '#166534',
+    catchmentDataField: 'naturePotentialAreaHa',
+    planDataField: 'naturePotentialAreaHa',
+    watermarks: ['butterfly', 'bee', 'dragonfly', 'hedgehog', 'deer', 'heron'],
+    backgroundTint: 'hsl(120 20% 97%)',
+  },
+];
+
+/**
+ * Look up pillar config by id.
+ *
+ * @example
+ * ```ts
+ * const cfg = getPillarConfig('nitrogen');
+ * console.log(cfg.label); // "Kvælstof"
+ * ```
+ */
+export function getPillarConfig(id: PillarId): PillarConfig {
+  const cfg = PILLAR_CONFIGS.find((p) => p.id === id);
+  if (!cfg) throw new Error(`Unknown pillar: ${id}`);
+  return cfg;
+}
+
+export interface PillarContextValue {
+  activePillar: PillarId;
+  setActivePillar: (id: PillarId) => void;
+  config: PillarConfig;
+}
+
+export const PillarContext = createContext<PillarContextValue>({
+  activePillar: 'nitrogen',
+  setActivePillar: () => {},
+  config: PILLAR_CONFIGS[0],
+});
+
+/**
+ * Hook to access the active pillar state.
+ *
+ * @example
+ * ```tsx
+ * const { activePillar, setActivePillar, config } = usePillar();
+ * ```
+ */
+export function usePillar(): PillarContextValue {
+  return useContext(PillarContext);
+}

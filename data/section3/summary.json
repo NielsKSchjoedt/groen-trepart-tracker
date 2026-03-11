@@ -1,0 +1,60 @@
+{
+  "fetched_at": "2026-03-11T14:02:48.597284+00:00",
+  "source": "MiljøGIS WFS — natur:ais_par3",
+  "wfs_base": "https://wfs2-miljoegis.mim.dk/natur/ows",
+  "layer": "natur:ais_par3",
+  "coordinate_system": "EPSG:25832",
+  "total_feature_count": 186628,
+  "features_aggregated": 186628,
+  "totals": {
+    "total_area_ha": 406951.2,
+    "total_area_km2": 4069.5,
+    "denmark_land_area_km2": 42951,
+    "pct_of_land": 9.47,
+    "note": "Raw §3 total — overlaps with Natura 2000 must be deducted for combined protected area calculation"
+  },
+  "by_type": [
+    {
+      "type": "4110",
+      "name": "Hede (heath) — common",
+      "count": 25769,
+      "area_ha": 102607.6,
+      "area_km2": 1026.08
+    },
+    {
+      "type": "4120",
+      "name": "Mose (bog/fen)",
+      "count": 38137,
+      "area_ha": 91386.5,
+      "area_km2": 913.87
+    },
+    {
+      "type": "3220",
+      "name": "Vandløb (stream) — alpine",
+      "count": 9471,
+      "area_ha": 83144.6,
+      "area_km2": 831.45
+    },
+    {
+      "type": "5120",
+      "name": "Eng/Strandeng (meadow/salt marsh)",
+      "count": 95608,
+      "area_ha": 58389.9,
+      "area_km2": 583.9
+    },
+    {
+      "type": "4210",
+      "name": "Overdrev (dry grassland)",
+      "count": 3824,
+      "area_ha": 42899.2,
+      "area_km2": 428.99
+    },
+    {
+      "type": "3210",
+      "name": "Vandløb (stream/river)",
+      "count": 13819,
+      "area_ha": 28523.3,
+      "area_km2": 285.23
+    }
+  ]
+}

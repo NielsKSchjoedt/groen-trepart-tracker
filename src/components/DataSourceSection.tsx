@@ -1,4 +1,4 @@
-import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf } from 'lucide-react';
+import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf, TreePine, Shield, MapPin, AlertTriangle } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 
 interface DataSourceSectionProps {
@@ -19,23 +19,50 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
     {
       icon: Database,
       title: 'MARS API',
-      description: 'Miljøstyrelsens Arealregister indeholder data om alle virkemiddelprojekter, vandplaner og kvælstofreduktionsmål.',
+      description: 'Miljøstyrelsens Arealregister — alle virkemiddelprojekter, vandplaner og kvælstofreduktionsmål inkl. projektstatus.',
       url: 'https://mars.mst.dk',
       urlLabel: 'mars.mst.dk',
+      disclaimer: 'Projektdata opdeles efter fase: forundersøgelse, godkendt og anlagt. Kun anlagte projekter har realiseret effekt.',
     },
     {
       icon: FileCode2,
       title: 'Geodata (WFS)',
-      description: 'Kortdata for vandoplande og kystvande hentes fra Miljøstyrelsens Web Feature Service og konverteres til TopoJSON.',
+      description: 'Kortdata for vandoplande og kystvande fra Miljøstyrelsens Web Feature Service.',
       url: 'https://miljoegis.mim.dk',
       urlLabel: 'miljoegis.mim.dk',
+      disclaimer: 'Geometrier konverteres til TopoJSON med simplificering for webvisning.',
+    },
+    {
+      icon: Shield,
+      title: 'Natura 2000',
+      description: 'Beskyttede naturområder under EU\'s habitatdirektiv og fuglebeskyttelsesdirektiv (~250 lokaliteter).',
+      url: 'https://miljoegis.mim.dk',
+      urlLabel: 'miljoegis.mim.dk',
+      disclaimer: 'Marine/terrestrisk opdeling er heuristisk (navnebaseret). Præcis opdeling kræver spatiel overlay med kystlinje.',
+    },
+    {
+      icon: Leaf,
+      title: '§3-beskyttet natur',
+      description: 'Alle §3-beskyttede naturarealer — heder, moser, enge, strandenge, overdrev, søer (~187.000 polygoner).',
+      url: 'https://miljoegis.mim.dk',
+      urlLabel: 'miljoegis.mim.dk',
+      disclaimer: '§3-arealer overlapper med Natura 2000. Samlet beskyttet areal korrigeres for estimeret overlap (~30%).',
+    },
+    {
+      icon: TreePine,
+      title: 'Skovdata',
+      description: 'Fredskov (juridisk baseline, ~60.000 matrikler) og digitalt skovkort 2022 (aktuel skovdækning).',
+      url: 'https://miljoegis.mim.dk',
+      urlLabel: 'miljoegis.mim.dk',
+      disclaimer: 'Skovrejsningsmålet (250.000 ha) måles som nyt skovareal ud over fredskov-baseline.',
     },
     {
       icon: Scale,
       title: 'Den Grønne Trepart',
-      description: 'Reduktionsmålene stammer fra aftalen om Grøn Trepart (2023), der fastsatte 12.776 ton kvælstof inden 2030.',
+      description: 'Reduktionsmålene fra aftalen om Grøn Trepart (2023) — 12.776 ton N inden 2030, 250.000 ha ny skov.',
       url: 'https://www.fm.dk/nyheder/nyhedsarkiv/2023/december/groen-trepart/',
       urlLabel: 'Finansministeriet',
+      disclaimer: 'Politisk aftale — målene kan ændres ved ny lovgivning.',
     },
   ];
 
@@ -50,7 +77,11 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
     },
     {
       label: 'Projektpipeline',
-      explanation: 'Projekter gennemgår fire faser: Skitse → Vurderet → Godkendt → Anlagt. Kun anlagte projekter bidrager til kvælstofreduktionen.',
+      explanation: 'Projekter gennemgår faser: Forundersøgelsestilsagn → Etableringstilsagn → Anlagt. Kun anlagte projekter har realiseret miljøeffekt — øvrige er planlagte eller under vurdering.',
+    },
+    {
+      label: 'Beskyttet natur',
+      explanation: 'Natura 2000 (EU-beskyttelse) og §3-arealer (national beskyttelse) er de to hoveddatasæt. Overlap korrigeres konservativt. Målet er 20% beskyttet landareal.',
     },
     {
       label: 'Farveindeks (kort)',
@@ -86,27 +117,49 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
       </p>
 
       {/* Data sources */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
         {sources.map((source) => (
-          <div key={source.title} className="bg-card rounded-xl border border-border p-5 hover:shadow-md transition-shadow">
+          <div key={source.title} className="bg-card rounded-xl border border-border p-5 hover:shadow-md transition-shadow flex flex-col">
             <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
               <source.icon className="w-4.5 h-4.5 text-primary" />
             </div>
             <h3 className="text-sm font-bold text-foreground mb-1.5">{source.title}</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+            <p className="text-xs text-muted-foreground leading-relaxed mb-2">
               {source.description}
             </p>
+            {source.disclaimer && (
+              <p className="text-[11px] text-amber-700/70 dark:text-amber-400/60 leading-relaxed mb-3 italic flex gap-1.5">
+                <AlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                <span>{source.disclaimer}</span>
+              </p>
+            )}
             <a
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors mt-auto"
             >
               <ExternalLink className="w-3 h-3" />
               {source.urlLabel}
             </a>
           </div>
         ))}
+      </div>
+
+      {/* Phase awareness note */}
+      <div className="p-4 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-800/30 mb-8">
+        <div className="flex gap-2.5 items-start">
+          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-foreground mb-1">Om projektfaser og dataforbehold</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Alle projekttal opdeles efter fase: <strong>forundersøgelse</strong> (ansøgt, ikke godkendt),{' '}
+              <strong>godkendt</strong> (tilsagn givet, ikke bygget) og <strong>anlagt</strong> (faktisk gennemført).
+              Kun anlagte projekter har realiseret miljøeffekt. Tallene kan afvige fra officielle opgørelser pga.
+              tidsforskel i dataopdateringer. Al data er offentligt tilgængelig og kan verificeres via kilderne ovenfor.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Metric explanations */}

@@ -1,0 +1,1630 @@
+{
+  "lastUpdated": "2026-03-10T22:23:06.569146+00:00",
+  "nationalTargets": {
+    "nitrogenReductionGoalT": 12776,
+    "extractionEffortGoalHa": 140000,
+    "afforestationEffortGoalHa": 250000
+  },
+  "nationalProgress": {
+    "nitrogenAchievedT": 3433.404,
+    "nitrogenGoalT": 12769.482,
+    "nitrogenProgressPct": 26.9,
+    "totalProjects": 1164,
+    "establishedProjects": 84,
+    "approvedProjects": 462,
+    "assessedProjects": 727,
+    "sketchProjects": 5503,
+    "totalExtractionHa": 82235.695
+  },
+  "coastalWaterGroups": [
+    {
+      "id": "c856c979-75cb-40f7-874b-d3964e489767",
+      "name": "Anholt",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0,
+      "progressPct": 0,
+      "extractionHa": 0,
+      "established": 0,
+      "approved": 0,
+      "assessed": 0,
+      "sketches": 0
+    },
+    {
+      "id": "ed651a53-b420-43f2-a141-d2b679feaf05",
+      "name": "Århus Bugt og Begtrup Vig",
+      "nitrogenGoalT": 2.641,
+      "nitrogenAchievedT": 1.0761069575399347,
+      "progressPct": 40.7,
+      "extractionHa": 1417.888,
+      "established": 1,
+      "approved": 5,
+      "assessed": 6,
+      "sketches": 24
+    },
+    {
+      "id": "82c6b761-5683-4ab3-9aea-015353383665",
+      "name": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+      "nitrogenGoalT": 660.053,
+      "nitrogenAchievedT": 320.794943428001,
+      "progressPct": 48.6,
+      "extractionHa": 5647.514,
+      "established": 5,
+      "approved": 40,
+      "assessed": 38,
+      "sketches": 477
+    },
+    {
+      "id": "8aed8029-baad-4964-995a-26eaf032d934",
+      "name": "Det sydfynske Øhav",
+      "nitrogenGoalT": 192.869,
+      "nitrogenAchievedT": 34.00550455998287,
+      "progressPct": 17.6,
+      "extractionHa": 1202.598,
+      "established": 0,
+      "approved": 9,
+      "assessed": 7,
+      "sketches": 462
+    },
+    {
+      "id": "ec62cad6-4669-4179-990c-2a72299efc23",
+      "name": "Djursland Øst",
+      "nitrogenGoalT": 94.911,
+      "nitrogenAchievedT": 89.42818578077075,
+      "progressPct": 94.2,
+      "extractionHa": 7464.374,
+      "established": 1,
+      "approved": 7,
+      "assessed": 9,
+      "sketches": 44
+    },
+    {
+      "id": "b41d8880-ff90-4435-80b1-04f2a1ee6bab",
+      "name": "Ebeltoft Vig",
+      "nitrogenGoalT": 0.001,
+      "nitrogenAchievedT": 1.0041396099271829,
+      "progressPct": 100414.0,
+      "extractionHa": 159.088,
+      "established": 0,
+      "approved": 0,
+      "assessed": 1,
+      "sketches": 0
+    },
+    {
+      "id": "173ba947-d505-4eca-9bc1-8d62b1fa3e1f",
+      "name": "Fakse Bugt",
+      "nitrogenGoalT": 112.029,
+      "nitrogenAchievedT": 4.980898784183544,
+      "progressPct": 4.4,
+      "extractionHa": 944.793,
+      "established": 1,
+      "approved": 5,
+      "assessed": 5,
+      "sketches": 58
+    },
+    {
+      "id": "3c9f3f7f-9c46-44b4-ae4b-06a176992b0b",
+      "name": "Femerbælt",
+      "nitrogenGoalT": 390.242,
+      "nitrogenAchievedT": 149.70812543167597,
+      "progressPct": 38.4,
+      "extractionHa": 2344.916,
+      "established": 0,
+      "approved": 15,
+      "assessed": 14,
+      "sketches": 105
+    },
+    {
+      "id": "12b9b071-d566-4e1d-91cb-f99bc981959e",
+      "name": "Grønsund",
+      "nitrogenGoalT": 123.639,
+      "nitrogenAchievedT": 43.455333216565855,
+      "progressPct": 35.1,
+      "extractionHa": 771.411,
+      "established": 0,
+      "approved": 8,
+      "assessed": 4,
+      "sketches": 43
+    },
+    {
+      "id": "38012f79-8e4a-41de-bb4e-bdb9ab1e912d",
+      "name": "Guldborgsund",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0.07032681547000383,
+      "progressPct": 0,
+      "extractionHa": 578.372,
+      "established": 0,
+      "approved": 4,
+      "assessed": 3,
+      "sketches": 26
+    },
+    {
+      "id": "42b7dfee-e848-41fe-932f-40fa968c0f99",
+      "name": "Hevring Bugt",
+      "nitrogenGoalT": 304.653,
+      "nitrogenAchievedT": 278.3787786105519,
+      "progressPct": 91.4,
+      "extractionHa": 17714.201,
+      "established": 5,
+      "approved": 33,
+      "assessed": 46,
+      "sketches": 153
+    },
+    {
+      "id": "1f1df8de-4859-44be-9409-743940fbf104",
+      "name": "Hjelm Bugt",
+      "nitrogenGoalT": 30.538,
+      "nitrogenAchievedT": 14.734228732436424,
+      "progressPct": 48.2,
+      "extractionHa": 360.875,
+      "established": 0,
+      "approved": 4,
+      "assessed": 2,
+      "sketches": 14
+    },
+    {
+      "id": "9409a7da-4fad-432b-aec1-ffbc1c42cd30",
+      "name": "Jammerland Bugt og Musholm Bugt",
+      "nitrogenGoalT": 446.665,
+      "nitrogenAchievedT": 154.4910639154589,
+      "progressPct": 34.6,
+      "extractionHa": 7424.95,
+      "established": 6,
+      "approved": 15,
+      "assessed": 10,
+      "sketches": 122
+    },
+    {
+      "id": "ed7aef76-5adf-4db1-bb00-3e539daffb50",
+      "name": "Kalundborg Fjord",
+      "nitrogenGoalT": 7.634,
+      "nitrogenAchievedT": 0.6197838899419388,
+      "progressPct": 8.1,
+      "extractionHa": 117.758,
+      "established": 0,
+      "approved": 0,
+      "assessed": 1,
+      "sketches": 3
+    },
+    {
+      "id": "4f3de1d8-c7b0-42f9-a753-c45d711c8b71",
+      "name": "Kattegat, Aalborg Bugt",
+      "nitrogenGoalT": 212.156,
+      "nitrogenAchievedT": 24.204556628138523,
+      "progressPct": 11.4,
+      "extractionHa": 14213.586,
+      "established": 2,
+      "approved": 7,
+      "assessed": 15,
+      "sketches": 176
+    },
+    {
+      "id": "52ccb364-d0da-4ff4-808c-70b3189a2c4e",
+      "name": "Kattegat, Læsø",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0,
+      "progressPct": 0,
+      "extractionHa": 204.457,
+      "established": 0,
+      "approved": 0,
+      "assessed": 2,
+      "sketches": 0
+    },
+    {
+      "id": "2fe37485-e465-4df5-8f6c-c41f62e49806",
+      "name": "Kattegat, Nordsjælland",
+      "nitrogenGoalT": 984.61,
+      "nitrogenAchievedT": 110.03866591898932,
+      "progressPct": 11.2,
+      "extractionHa": 13082.715,
+      "established": 6,
+      "approved": 12,
+      "assessed": 32,
+      "sketches": 340
+    },
+    {
+      "id": "c30a7708-7834-4ec8-bd04-342230b0dc89",
+      "name": "Køge Bugt",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 50.85680033223888,
+      "progressPct": 0,
+      "extractionHa": 2762.847,
+      "established": 0,
+      "approved": 4,
+      "assessed": 6,
+      "sketches": 100
+    },
+    {
+      "id": "6ff14cfa-2c64-4dcf-b763-1c5defccb065",
+      "name": "Langelandssund",
+      "nitrogenGoalT": 115.02,
+      "nitrogenAchievedT": 15.05644325508821,
+      "progressPct": 13.1,
+      "extractionHa": 1167.512,
+      "established": 1,
+      "approved": 5,
+      "assessed": 11,
+      "sketches": 278
+    },
+    {
+      "id": "7880a4dd-3964-438f-9ff2-d2dd73227a66",
+      "name": "Lillebælt, Bredningen",
+      "nitrogenGoalT": 426.159,
+      "nitrogenAchievedT": 94.27272644494178,
+      "progressPct": 22.1,
+      "extractionHa": 1906.953,
+      "established": 1,
+      "approved": 18,
+      "assessed": 34,
+      "sketches": 462
+    },
+    {
+      "id": "d9275db8-79a3-46e5-8cfe-73fbe258743b",
+      "name": "Lillebælt, Snævringen",
+      "nitrogenGoalT": 403.548,
+      "nitrogenAchievedT": 49.19688512493646,
+      "progressPct": 12.2,
+      "extractionHa": 982.601,
+      "established": 2,
+      "approved": 8,
+      "assessed": 25,
+      "sketches": 104
+    },
+    {
+      "id": "5d33e0e4-3d43-440a-b180-6addc4697d65",
+      "name": "Lillebælt, syd",
+      "nitrogenGoalT": 217.429,
+      "nitrogenAchievedT": 23.057778249939272,
+      "progressPct": 10.6,
+      "extractionHa": 3092.948,
+      "established": 5,
+      "approved": 6,
+      "assessed": 30,
+      "sketches": 487
+    },
+    {
+      "id": "76293fee-a007-47ee-91ea-3f513aa20710",
+      "name": "Nibe Bredning og Langerak",
+      "nitrogenGoalT": 2868.116,
+      "nitrogenAchievedT": 1112.8423353035666,
+      "progressPct": 38.8,
+      "extractionHa": 55576.791,
+      "established": 7,
+      "approved": 122,
+      "assessed": 138,
+      "sketches": 701
+    },
+    {
+      "id": "b92ae170-7fcf-4f32-9f84-9b6e9109ed22",
+      "name": "Nordlige Kattegat, Ålbæk Bugt",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0.08524739417423388,
+      "progressPct": 0,
+      "extractionHa": 2959.888,
+      "established": 0,
+      "approved": 1,
+      "assessed": 7,
+      "sketches": 13
+    },
+    {
+      "id": "f041a782-df8d-4e1b-8326-becd5d7550e9",
+      "name": "Nordlige Lillebælt",
+      "nitrogenGoalT": 271.113,
+      "nitrogenAchievedT": 150.68533465020266,
+      "progressPct": 55.6,
+      "extractionHa": 2077.729,
+      "established": 3,
+      "approved": 15,
+      "assessed": 33,
+      "sketches": 156
+    },
+    {
+      "id": "d808bb3f-14f6-4cfc-bd12-cbe4715e895f",
+      "name": "Nordlige Øresund",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0.009600255676510927,
+      "progressPct": 0,
+      "extractionHa": 3890.655,
+      "established": 2,
+      "approved": 0,
+      "assessed": 6,
+      "sketches": 60
+    },
+    {
+      "id": "fd7675e7-0ea4-4092-961c-98cbe74ed0bb",
+      "name": "Østersøen, Bornholm",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0,
+      "progressPct": 0,
+      "extractionHa": 81.315,
+      "established": 0,
+      "approved": 0,
+      "assessed": 3,
+      "sketches": 0
+    },
+    {
+      "id": "cfd76b06-2e4a-4667-9f13-725af1f13ee3",
+      "name": "Østersøen, Christiansø",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 0,
+      "progressPct": 0,
+      "extractionHa": 0,
+      "established": 0,
+      "approved": 0,
+      "assessed": 0,
+      "sketches": 0
+    },
+    {
+      "id": "5c6e872e-a2c0-45aa-88a1-b357d7894296",
+      "name": "Sejerø Bugt",
+      "nitrogenGoalT": 10.222,
+      "nitrogenAchievedT": 0.7717965112268153,
+      "progressPct": 7.6,
+      "extractionHa": 2081.5,
+      "established": 0,
+      "approved": 1,
+      "assessed": 4,
+      "sketches": 30
+    },
+    {
+      "id": "fb87bd8e-b69a-4457-8b3c-759540a94eb9",
+      "name": "Skagerrak",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 5.097928885781499,
+      "progressPct": 0,
+      "extractionHa": 5589.374,
+      "established": 0,
+      "approved": 5,
+      "assessed": 7,
+      "sketches": 24
+    },
+    {
+      "id": "2af23368-d559-4be4-a36e-1fdc59fd68e9",
+      "name": "Smålandsfarvandet, åbne del",
+      "nitrogenGoalT": 171.273,
+      "nitrogenAchievedT": 33.986799484017986,
+      "progressPct": 19.8,
+      "extractionHa": 7607.846,
+      "established": 1,
+      "approved": 18,
+      "assessed": 17,
+      "sketches": 129
+    },
+    {
+      "id": "bab169fe-b3fd-4cea-b5eb-02515d8ae1cc",
+      "name": "Smålandsfarvandet, syd",
+      "nitrogenGoalT": 0,
+      "nitrogenAchievedT": 8.654390384056379,
+      "progressPct": 0,
+      "extractionHa": 2134.202,
+      "established": 0,
+      "approved": 4,
+      "assessed": 5,
+      "sketches": 25
+    },
+    {
+      "id": "12130c6d-f503-499f-98dd-d78534f3d7b8",
+      "name": "Stege Bugt",
+      "nitrogenGoalT": 69.998,
+      "nitrogenAchievedT": 3.5594433426251877,
+      "progressPct": 5.1,
+      "extractionHa": 676.181,
+      "established": 1,
+      "approved": 3,
+      "assessed": 2,
+      "sketches": 37
+    },
+    {
+      "id": "ea4ae662-43e9-4be6-b367-3444edf1036e",
+      "name": "Storebælt, NV",
+      "nitrogenGoalT": 77.721,
+      "nitrogenAchievedT": 5.083947299542546,
+      "progressPct": 6.5,
+      "extractionHa": 178.818,
+      "established": 1,
+      "approved": 2,
+      "assessed": 2,
+      "sketches": 91
+    },
+    {
+      "id": "996da154-ca1a-40e2-880d-2f4ea342ad67",
+      "name": "Storebælt, SV",
+      "nitrogenGoalT": 12.759,
+      "nitrogenAchievedT": 7.228779211320056,
+      "progressPct": 56.7,
+      "extractionHa": 1076.115,
+      "established": 3,
+      "approved": 1,
+      "assessed": 3,
+      "sketches": 73
+    },
+    {
+      "id": "db4a9a3e-0b52-48d1-8f56-b7264cff7ea8",
+      "name": "Vesterhavet, nord",
+      "nitrogenGoalT": 2142.85,
+      "nitrogenAchievedT": 645.9669203135061,
+      "progressPct": 30.1,
+      "extractionHa": 24064.964,
+      "established": 13,
+      "approved": 36,
+      "assessed": 98,
+      "sketches": 229
+    },
+    {
+      "id": "f24f9b88-7ce9-4525-a6d6-b85fa4aae784",
+      "name": "Vesterhavet, syd",
+      "nitrogenGoalT": 2420.633,
+      "nitrogenAchievedT": 0,
+      "progressPct": 0,
+      "extractionHa": 28437.142,
+      "established": 17,
+      "approved": 49,
+      "assessed": 101,
+      "sketches": 457
+    }
+  ],
+  "catchments": [
+    {
+      "id": "08eb614d-bead-43e2-ba65-45c0be09aaf6",
+      "name": "Nordlige Kattegat, Skagerrak",
+      "nitrogenAchievedT": 5.716952042281097,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 10,
+      "assessed": 19,
+      "sketches": 78
+    },
+    {
+      "id": "871d818f-613d-437e-ae6d-81651f2b0ee4",
+      "name": "Vadehavet",
+      "nitrogenAchievedT": 348.76886197172746,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 13,
+      "approved": 44,
+      "assessed": 83,
+      "sketches": 372
+    },
+    {
+      "id": "36e25f52-8cc9-410f-a323-c6f68c4aa6a8",
+      "name": "Lillebælt/Jylland",
+      "nitrogenAchievedT": 223.29166644137024,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 10,
+      "approved": 23,
+      "assessed": 90,
+      "sketches": 866
+    },
+    {
+      "id": "b95acc0c-794c-4faa-8290-948b80689ae7",
+      "name": "Lillebælt/Fyn",
+      "nitrogenAchievedT": 93.92203917593416,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 24,
+      "assessed": 24,
+      "sketches": 321
+    },
+    {
+      "id": "0fac071a-d6cb-40d0-8cde-6d08d4f3632e",
+      "name": "Odense Fjord",
+      "nitrogenAchievedT": 225.11633838343596,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 26,
+      "assessed": 13,
+      "sketches": 363
+    },
+    {
+      "id": "3a11a113-0833-4f40-a498-9614c76a09f5",
+      "name": "Storebælt",
+      "nitrogenAchievedT": 26.787679151241036,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 4,
+      "approved": 6,
+      "assessed": 11,
+      "sketches": 308
+    },
+    {
+      "id": "a88e337d-9157-4fbd-839c-082013909213",
+      "name": "Det Sydfynske Øhav",
+      "nitrogenAchievedT": 34.58694557267291,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 10,
+      "assessed": 10,
+      "sketches": 586
+    },
+    {
+      "id": "e657bbe8-581e-4e5e-92bd-e39cc965c2f2",
+      "name": "Limfjorden",
+      "nitrogenAchievedT": 1112.8413830700488,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 7,
+      "approved": 122,
+      "assessed": 138,
+      "sketches": 701
+    },
+    {
+      "id": "337be9b0-2d88-4a70-a3bd-02ecbdbc3e7b",
+      "name": "Mariager Fjord",
+      "nitrogenAchievedT": 23.67176858775036,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 3,
+      "assessed": 10,
+      "sketches": 136
+    },
+    {
+      "id": "090bd55b-d528-4d59-bd20-c6b7b7c5a9b9",
+      "name": "Nissum Fjord",
+      "nitrogenAchievedT": 389.2783120137599,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 2,
+      "approved": 15,
+      "assessed": 33,
+      "sketches": 87
+    },
+    {
+      "id": "aa17c4e9-c8ab-4a12-b62e-1efa7c4faf78",
+      "name": "Randers Fjord",
+      "nitrogenAchievedT": 276.90398202782336,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 5,
+      "approved": 31,
+      "assessed": 42,
+      "sketches": 148
+    },
+    {
+      "id": "de947faa-0933-4175-a353-cd5696abdf3f",
+      "name": "Djursland",
+      "nitrogenAchievedT": 91.90633226234249,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 10,
+      "assessed": 13,
+      "sketches": 49
+    },
+    {
+      "id": "9d70f0ec-36c1-48b7-93a4-4b9894ad3a43",
+      "name": "Århus Bugt",
+      "nitrogenAchievedT": 2.2062078596300756,
+      "extractionHa": 0,
+      "afforestationHa": 13.667855660624372,
+      "established": 1,
+      "approved": 5,
+      "assessed": 7,
+      "sketches": 48
+    },
+    {
+      "id": "2a6788a4-91d1-4a96-b0fa-9fbf0d4a4159",
+      "name": "Ringkøbing Fjord",
+      "nitrogenAchievedT": 256.6853240605765,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 11,
+      "approved": 21,
+      "assessed": 70,
+      "sketches": 145
+    },
+    {
+      "id": "75c134ee-fe5e-459e-9a7f-0b18a4163a00",
+      "name": "Horsens Fjord",
+      "nitrogenAchievedT": 94.54930395853545,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 4,
+      "approved": 14,
+      "assessed": 24,
+      "sketches": 91
+    },
+    {
+      "id": "9a0568dd-e915-4940-af8a-28929d54e2e5",
+      "name": "Kalundborg",
+      "nitrogenAchievedT": 142.54888806465678,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 3,
+      "approved": 11,
+      "assessed": 9,
+      "sketches": 92
+    },
+    {
+      "id": "13537c79-52f3-4346-9715-18d5d40524d0",
+      "name": "Isefjord og Roskilde Fjord",
+      "nitrogenAchievedT": 89.84194650670514,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 5,
+      "approved": 12,
+      "assessed": 28,
+      "sketches": 320
+    },
+    {
+      "id": "3223ec80-5515-4462-8873-d1fb85cfd122",
+      "name": "Øresund",
+      "nitrogenAchievedT": 20.198067105594088,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 5,
+      "approved": 0,
+      "assessed": 8,
+      "sketches": 77
+    },
+    {
+      "id": "99b38a10-f057-47f2-b814-c997bc5afc59",
+      "name": "Køge Bugt",
+      "nitrogenAchievedT": 50.857250662336654,
+      "extractionHa": 986.7016611732066,
+      "afforestationHa": 0,
+      "established": 0,
+      "approved": 4,
+      "assessed": 6,
+      "sketches": 100
+    },
+    {
+      "id": "008e0d05-3965-4d1e-ad9d-62887be42e47",
+      "name": "Smålandsfarvandet",
+      "nitrogenAchievedT": 99.55495144400604,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 4,
+      "approved": 38,
+      "assessed": 30,
+      "sketches": 313
+    },
+    {
+      "id": "1cedf69c-15fb-4ca1-91f8-3e80dd0466ee",
+      "name": "Østersøen",
+      "nitrogenAchievedT": 172.93615323126505,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 1,
+      "approved": 26,
+      "assessed": 21,
+      "sketches": 184
+    },
+    {
+      "id": "e88596ff-062e-4100-9ec4-6a947af76410",
+      "name": "Bornholm",
+      "nitrogenAchievedT": 0,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 0,
+      "approved": 0,
+      "assessed": 3,
+      "sketches": 0
+    },
+    {
+      "id": "ec7a81b9-db05-479b-9642-f3b7f2001937",
+      "name": "Vidå-Kruså",
+      "nitrogenAchievedT": 0,
+      "extractionHa": 0,
+      "afforestationHa": 0,
+      "established": 4,
+      "approved": 6,
+      "assessed": 20,
+      "sketches": 90
+    }
+  ],
+  "subsidySchemes": [
+    {
+      "id": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+      "name": "Permanent ekstensivering",
+      "organization": "SGAV"
+    },
+    {
+      "id": "0c0fb584-18d3-4bd2-9a87-d113eccc6537",
+      "name": "Øvrig udtagning",
+      "organization": ""
+    },
+    {
+      "id": "13ccc329-af28-4f1a-b389-930aa94bef26",
+      "name": "SGAV Klima-Lavbund",
+      "organization": "SGAV"
+    },
+    {
+      "id": "25301a9d-2e61-4305-911b-d437ccd1918c",
+      "name": "Minivådområder",
+      "organization": "SGAV"
+    },
+    {
+      "id": "5551b8e5-cc17-4e86-89a0-6e763f5594f0",
+      "name": "NST Skovrejsning",
+      "organization": "NST"
+    },
+    {
+      "id": "5c8902bd-4804-483c-9d58-94784002b83e",
+      "name": "Restaurering af ådale",
+      "organization": "SGAV"
+    },
+    {
+      "id": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+      "name": "Skovrejsning",
+      "organization": "SGAV"
+    },
+    {
+      "id": "9df33a22-2ec7-47fb-b5ad-5c45e2a06979",
+      "name": "Lavbundsprojekter",
+      "organization": "SGAV"
+    },
+    {
+      "id": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
+      "name": "Kvælstofvådområder",
+      "organization": "SGAV"
+    },
+    {
+      "id": "c12af4e6-eb14-4565-a151-c07445830b32",
+      "name": "NST Kvælstofvådområder",
+      "organization": "NST"
+    },
+    {
+      "id": "cba92156-2729-4a13-843a-e264cc3c8a25",
+      "name": "KLA-Lavbund",
+      "organization": "SGAV"
+    },
+    {
+      "id": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+      "name": "KLA-Kvælstofvådområder",
+      "organization": "SGAV"
+    },
+    {
+      "id": "d94c569c-a7f2-4c24-92e0-dd8a539ebe92",
+      "name": "NST Klima-Lavbund",
+      "organization": "NST"
+    },
+    {
+      "id": "dcea4652-70cf-4572-b645-2cee2193e2fa",
+      "name": "NST Øvrige statslige projekter",
+      "organization": "NST"
+    },
+    {
+      "id": "e1ed6ffa-f5ab-469b-bbfc-9c22b8711d00",
+      "name": "Privat Skovrejsning",
+      "organization": "LBST"
+    },
+    {
+      "id": "e6ad3fcf-88c1-4acc-a0d7-9ea2f21687bf",
+      "name": "NST Fosforvådområder",
+      "organization": "NST"
+    },
+    {
+      "id": "f5ec2c7c-5971-47dd-ae6e-7dfc026a5f81",
+      "name": "Fosforvådområder",
+      "organization": "SGAV"
+    }
+  ],
+  "mitigationMeasures": [
+    {
+      "id": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+      "name": "Lavbundsprojekter",
+      "nitrogenFactor": 40
+    },
+    {
+      "id": "9d4b932e-c6d6-4550-984f-6623601894c6",
+      "name": "Ekstensivering",
+      "nitrogenFactor": null
+    },
+    {
+      "id": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
+      "name": "Minivådområder",
+      "nitrogenFactor": 472
+    },
+    {
+      "id": "72688c3e-2616-48a3-b1a1-8869f12c5ec1",
+      "name": "Øvrige",
+      "nitrogenFactor": null
+    },
+    {
+      "id": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+      "name": "Kvælstofvådområder",
+      "nitrogenFactor": 90
+    },
+    {
+      "id": "dd264f93-915a-4df9-b94e-22190f9478e7",
+      "name": "Skovrejsning",
+      "nitrogenFactor": null
+    },
+    {
+      "id": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
+      "name": "Fosforvådområder og ådale",
+      "nitrogenFactor": null
+    }
+  ],
+  "municipalities": [
+    {
+      "id": "0101",
+      "name": "København",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.49390862,
+      "lat": 55.7040906
+    },
+    {
+      "id": "0147",
+      "name": "Frederiksberg",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.52373306,
+      "lat": 55.67936546
+    },
+    {
+      "id": "0151",
+      "name": "Ballerup",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.36851587,
+      "lat": 55.72707466
+    },
+    {
+      "id": "0153",
+      "name": "Brøndby",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.404382,
+      "lat": 55.64503727
+    },
+    {
+      "id": "0155",
+      "name": "Dragør",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.65022813,
+      "lat": 55.59380739
+    },
+    {
+      "id": "0157",
+      "name": "Gentofte",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.55072009,
+      "lat": 55.75097637
+    },
+    {
+      "id": "0159",
+      "name": "Gladsaxe",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.47620274,
+      "lat": 55.73986832
+    },
+    {
+      "id": "0161",
+      "name": "Glostrup",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.40923426,
+      "lat": 55.69595649
+    },
+    {
+      "id": "0163",
+      "name": "Herlev",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.4258168,
+      "lat": 55.74142265
+    },
+    {
+      "id": "0165",
+      "name": "Albertslund",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.35231988,
+      "lat": 55.68497387
+    },
+    {
+      "id": "0167",
+      "name": "Hvidovre",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.46855341,
+      "lat": 55.631373
+    },
+    {
+      "id": "0169",
+      "name": "Høje-Taastrup",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.25783217,
+      "lat": 55.66695566
+    },
+    {
+      "id": "0173",
+      "name": "Lyngby-Taarbæk",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.51127423,
+      "lat": 55.78319075
+    },
+    {
+      "id": "0175",
+      "name": "Rødovre",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.44866158,
+      "lat": 55.68180831
+    },
+    {
+      "id": "0183",
+      "name": "Ishøj",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.3344614,
+      "lat": 55.6223754
+    },
+    {
+      "id": "0185",
+      "name": "Tårnby",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.55128121,
+      "lat": 55.59508146
+    },
+    {
+      "id": "0187",
+      "name": "Vallensbæk",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.38791988,
+      "lat": 55.63460753
+    },
+    {
+      "id": "0190",
+      "name": "Furesø",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.37162862,
+      "lat": 55.79096831
+    },
+    {
+      "id": "0201",
+      "name": "Allerød",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.3601779,
+      "lat": 55.86213282
+    },
+    {
+      "id": "0210",
+      "name": "Fredensborg",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.40105802,
+      "lat": 55.9533974
+    },
+    {
+      "id": "0217",
+      "name": "Helsingør",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.51048064,
+      "lat": 56.01977461
+    },
+    {
+      "id": "0219",
+      "name": "Hillerød",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.25990832,
+      "lat": 55.91285671
+    },
+    {
+      "id": "0223",
+      "name": "Hørsholm",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.4880662,
+      "lat": 55.8762698
+    },
+    {
+      "id": "0230",
+      "name": "Rudersdal",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.50040792,
+      "lat": 55.8341766
+    },
+    {
+      "id": "0240",
+      "name": "Egedal",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.17627723,
+      "lat": 55.76506946
+    },
+    {
+      "id": "0250",
+      "name": "Frederikssund",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.04027849,
+      "lat": 55.82367218
+    },
+    {
+      "id": "0253",
+      "name": "Greve",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.26485283,
+      "lat": 55.58050482
+    },
+    {
+      "id": "0259",
+      "name": "Køge",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 12.15523977,
+      "lat": 55.42729938
+    },
+    {
+      "id": "0260",
+      "name": "Halsnæs",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.00519832,
+      "lat": 55.96345259
+    },
+    {
+      "id": "0265",
+      "name": "Roskilde",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 12.00994755,
+      "lat": 55.6306281
+    },
+    {
+      "id": "0269",
+      "name": "Solrød",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.20068558,
+      "lat": 55.53003561
+    },
+    {
+      "id": "0270",
+      "name": "Gribskov",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 12.26488965,
+      "lat": 56.05541826
+    },
+    {
+      "id": "0306",
+      "name": "Odsherred",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.62814816,
+      "lat": 55.82261613
+    },
+    {
+      "id": "0316",
+      "name": "Holbæk",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.64839825,
+      "lat": 55.67363052
+    },
+    {
+      "id": "0320",
+      "name": "Faxe",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 12.10133459,
+      "lat": 55.2767319
+    },
+    {
+      "id": "0326",
+      "name": "Kalundborg",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.26655879,
+      "lat": 55.66949754
+    },
+    {
+      "id": "0329",
+      "name": "Ringsted",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.82485088,
+      "lat": 55.4459649
+    },
+    {
+      "id": "0330",
+      "name": "Slagelse",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.31662419,
+      "lat": 55.35897671
+    },
+    {
+      "id": "0336",
+      "name": "Stevns",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 12.33218671,
+      "lat": 55.33753414
+    },
+    {
+      "id": "0340",
+      "name": "Sorø",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.63093735,
+      "lat": 55.4222363
+    },
+    {
+      "id": "0350",
+      "name": "Lejre",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.91637759,
+      "lat": 55.60893099
+    },
+    {
+      "id": "0360",
+      "name": "Lolland",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.3966948,
+      "lat": 54.79419398
+    },
+    {
+      "id": "0370",
+      "name": "Næstved",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.81938605,
+      "lat": 55.19506032
+    },
+    {
+      "id": "0376",
+      "name": "Guldborgsund",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 11.91989457,
+      "lat": 54.7765891
+    },
+    {
+      "id": "0390",
+      "name": "Vordingborg",
+      "regionId": "1085",
+      "regionName": "Region Sjælland",
+      "lon": 12.12017614,
+      "lat": 55.04040555
+    },
+    {
+      "id": "0400",
+      "name": "Bornholm",
+      "regionId": "1084",
+      "regionName": "Region Hovedstaden",
+      "lon": 14.87476,
+      "lat": 55.14034
+    },
+    {
+      "id": "0410",
+      "name": "Middelfart",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.8147628,
+      "lat": 55.48627296
+    },
+    {
+      "id": "0420",
+      "name": "Assens",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.98006099,
+      "lat": 55.27652
+    },
+    {
+      "id": "0430",
+      "name": "Faaborg-Midtfyn",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.19571299,
+      "lat": 55.17399476
+    },
+    {
+      "id": "0440",
+      "name": "Kerteminde",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.57120351,
+      "lat": 55.39108079
+    },
+    {
+      "id": "0450",
+      "name": "Nyborg",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.6781976,
+      "lat": 55.27680708
+    },
+    {
+      "id": "0461",
+      "name": "Odense",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.29848497,
+      "lat": 55.39170385
+    },
+    {
+      "id": "0479",
+      "name": "Svendborg",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.52326688,
+      "lat": 55.09621323
+    },
+    {
+      "id": "0480",
+      "name": "Nordfyns",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.16778758,
+      "lat": 55.50599426
+    },
+    {
+      "id": "0482",
+      "name": "Langeland",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.70871447,
+      "lat": 54.81986883
+    },
+    {
+      "id": "0492",
+      "name": "Ærø",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 10.39952748,
+      "lat": 54.85586896
+    },
+    {
+      "id": "0510",
+      "name": "Haderslev",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.29762312,
+      "lat": 55.24461821
+    },
+    {
+      "id": "0530",
+      "name": "Billund",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.00651005,
+      "lat": 55.69765926
+    },
+    {
+      "id": "0540",
+      "name": "Sønderborg",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.94828845,
+      "lat": 54.94264465
+    },
+    {
+      "id": "0550",
+      "name": "Tønder",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 8.85683082,
+      "lat": 55.04435506
+    },
+    {
+      "id": "0561",
+      "name": "Esbjerg",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 8.72094847,
+      "lat": 55.46178607
+    },
+    {
+      "id": "0563",
+      "name": "Fanø",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 8.42104862,
+      "lat": 55.40607728
+    },
+    {
+      "id": "0573",
+      "name": "Varde",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 8.60622686,
+      "lat": 55.68693144
+    },
+    {
+      "id": "0575",
+      "name": "Vejen",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.0502437,
+      "lat": 55.49285528
+    },
+    {
+      "id": "0580",
+      "name": "Aabenraa",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.27705335,
+      "lat": 54.9585711
+    },
+    {
+      "id": "0607",
+      "name": "Fredericia",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.65516922,
+      "lat": 55.55637765
+    },
+    {
+      "id": "0615",
+      "name": "Horsens",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.78768675,
+      "lat": 55.85455497
+    },
+    {
+      "id": "0621",
+      "name": "Kolding",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.37498479,
+      "lat": 55.47060605
+    },
+    {
+      "id": "0630",
+      "name": "Vejle",
+      "regionId": "1083",
+      "regionName": "Region Syddanmark",
+      "lon": 9.37618972,
+      "lat": 55.73553428
+    },
+    {
+      "id": "0657",
+      "name": "Herning",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 8.88429498,
+      "lat": 56.1230085
+    },
+    {
+      "id": "0661",
+      "name": "Holstebro",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 8.56543662,
+      "lat": 56.38166684
+    },
+    {
+      "id": "0665",
+      "name": "Lemvig",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 8.30756424,
+      "lat": 56.55654527
+    },
+    {
+      "id": "0671",
+      "name": "Struer",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 8.6078949,
+      "lat": 56.49723
+    },
+    {
+      "id": "0706",
+      "name": "Syddjurs",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 10.43095849,
+      "lat": 56.25099908
+    },
+    {
+      "id": "0707",
+      "name": "Norddjurs",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 10.56291765,
+      "lat": 56.4155959
+    },
+    {
+      "id": "0710",
+      "name": "Favrskov",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.91424009,
+      "lat": 56.29479671
+    },
+    {
+      "id": "0727",
+      "name": "Odder",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 10.1183543,
+      "lat": 55.96025818
+    },
+    {
+      "id": "0730",
+      "name": "Randers",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 10.04247254,
+      "lat": 56.53000764
+    },
+    {
+      "id": "0740",
+      "name": "Silkeborg",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.52543413,
+      "lat": 56.1427685
+    },
+    {
+      "id": "0741",
+      "name": "Samsø",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 10.59771925,
+      "lat": 55.86173834
+    },
+    {
+      "id": "0746",
+      "name": "Skanderborg",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.87853725,
+      "lat": 56.0296
+    },
+    {
+      "id": "0751",
+      "name": "Aarhus",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 10.12773415,
+      "lat": 56.21224752
+    },
+    {
+      "id": "0756",
+      "name": "Ikast-Brande",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.28127461,
+      "lat": 55.98959453
+    },
+    {
+      "id": "0760",
+      "name": "Ringkøbing-Skjern",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 8.41416362,
+      "lat": 56.02975282
+    },
+    {
+      "id": "0766",
+      "name": "Hedensted",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.7099019,
+      "lat": 55.78027082
+    },
+    {
+      "id": "0773",
+      "name": "Morsø",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 8.78925103,
+      "lat": 56.80379226
+    },
+    {
+      "id": "0779",
+      "name": "Skive",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 8.93825966,
+      "lat": 56.60693263
+    },
+    {
+      "id": "0787",
+      "name": "Thisted",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 8.6048282,
+      "lat": 56.93738773
+    },
+    {
+      "id": "0791",
+      "name": "Viborg",
+      "regionId": "1082",
+      "regionName": "Region Midtjylland",
+      "lon": 9.26285675,
+      "lat": 56.41625668
+    },
+    {
+      "id": "0810",
+      "name": "Brønderslev",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.9587543,
+      "lat": 57.24137483
+    },
+    {
+      "id": "0813",
+      "name": "Frederikshavn",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 10.43714858,
+      "lat": 57.42153949
+    },
+    {
+      "id": "0820",
+      "name": "Vesthimmerlands",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.39766159,
+      "lat": 56.77753389
+    },
+    {
+      "id": "0825",
+      "name": "Læsø",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 11.00485419,
+      "lat": 57.25820489
+    },
+    {
+      "id": "0840",
+      "name": "Rebild",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.83296698,
+      "lat": 56.85990768
+    },
+    {
+      "id": "0846",
+      "name": "Mariagerfjord",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.89916063,
+      "lat": 56.68403037
+    },
+    {
+      "id": "0849",
+      "name": "Jammerbugt",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.37992449,
+      "lat": 57.13854791
+    },
+    {
+      "id": "0851",
+      "name": "Aalborg",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.82791082,
+      "lat": 57.00464277
+    },
+    {
+      "id": "0860",
+      "name": "Hjørring",
+      "regionId": "1081",
+      "regionName": "Region Nordjylland",
+      "lon": 9.97693802,
+      "lat": 57.47284427
+    }
+  ]
+}

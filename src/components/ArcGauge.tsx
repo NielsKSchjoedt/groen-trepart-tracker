@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { formatDanishNumber } from '@/lib/format';
 
 interface ArcGaugeProps {
@@ -7,9 +8,48 @@ interface ArcGaugeProps {
   unit: string;
   label: string;
   size?: number;
+  /** Override the sub-text below the percentage. If not set, shows "X af Y unit". */
+  subText?: string;
 }
 
-export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeProps) {
+/**
+ * Interpolate between color stops along a 0–1 parameter.
+ * Stops are [t, h, s, l] where h/s/l are HSL values.
+ */
+function interpolateColor(
+  t: number,
+  stops: [number, number, number, number][],
+): string {
+  const clamped = Math.max(0, Math.min(1, t));
+  // Find the two surrounding stops
+  let lo = stops[0];
+  let hi = stops[stops.length - 1];
+  for (let i = 0; i < stops.length - 1; i++) {
+    if (clamped >= stops[i][0] && clamped <= stops[i + 1][0]) {
+      lo = stops[i];
+      hi = stops[i + 1];
+      break;
+    }
+  }
+  const range = hi[0] - lo[0];
+  const f = range > 0 ? (clamped - lo[0]) / range : 0;
+  const h = lo[1] + (hi[1] - lo[1]) * f;
+  const s = lo[2] + (hi[2] - lo[2]) * f;
+  const l = lo[3] + (hi[3] - lo[3]) * f;
+  return `hsl(${Math.round(h)} ${Math.round(s)}% ${Math.round(l)}%)`;
+}
+
+// Color stops: red → orange → yellow → yellow-green → green
+// Format: [position 0–1, hue, saturation%, lightness%]
+const COLOR_STOPS: [number, number, number, number][] = [
+  [0,    0,   72, 48],  // red
+  [0.25, 25,  85, 50],  // orange
+  [0.5,  45,  90, 48],  // yellow
+  [0.75, 80,  55, 42],  // yellow-green
+  [1,    142, 50, 36],  // green
+];
+
+export function ArcGauge({ value, max, pct, unit, label, size = 300, subText }: ArcGaugeProps) {
   const strokeWidth = 22;
   const radius = (size - strokeWidth) / 2;
   const center = size / 2;
@@ -35,15 +75,34 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
 
   const progressAngle = startAngle + (totalAngle * Math.min(pct, 100)) / 100;
 
+  // Build small arc segments that each get a color based on their position
+  // along the arc (0 = start/red, 1 = end/green). This creates a true
+  // path-following gradient instead of a screen-space linear gradient.
+  const SEGMENT_COUNT = 60;
+  const segments = useMemo(() => {
+    const clampedPct = Math.min(pct, 100);
+    if (clampedPct <= 0) return [];
+    const progressFraction = clampedPct / 100;
+    const count = Math.max(1, Math.round(SEGMENT_COUNT * progressFraction));
+    const segs: { d: string; color: string }[] = [];
+    for (let i = 0; i < count; i++) {
+      const t0 = i / count;
+      const t1 = (i + 1) / count;
+      const a0 = startAngle + totalAngle * progressFraction * t0;
+      const a1 = startAngle + totalAngle * progressFraction * t1;
+      // Color is based on position within the FULL arc (not just filled portion)
+      const tColor = (progressFraction * (t0 + t1)) / 2;
+      segs.push({
+        d: describeArc(a0, a1),
+        color: interpolateColor(tColor, COLOR_STOPS),
+      });
+    }
+    return segs;
+  }, [pct, size]);
+
   return (
     <div className="flex flex-col items-center">
       <svg width={size} height={size * 0.92} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-sm overflow-visible">
-        <defs>
-          <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="hsl(152 44% 38%)" />
-            <stop offset="100%" stopColor="hsl(95 55% 48%)" />
-          </linearGradient>
-        </defs>
         {/* Background arc */}
         <path
           d={describeArc(startAngle, endAngle)}
@@ -52,16 +111,17 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
-        {/* Progress arc */}
-        {pct > 0 && (
+        {/* Progress arc — rendered as many small colored segments */}
+        {segments.map((seg, i) => (
           <path
-            d={describeArc(startAngle, progressAngle)}
+            key={i}
+            d={seg.d}
             fill="none"
-            stroke="url(#arcGradient)"
+            stroke={seg.color}
             strokeWidth={strokeWidth}
-            strokeLinecap="round"
+            strokeLinecap={i === 0 || i === segments.length - 1 ? 'round' : 'butt'}
           />
-        )}
+        ))}
         {/* Center percentage */}
         <text
           x={center}
@@ -80,7 +140,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300 }: ArcGaugeP
           className="fill-muted-foreground"
           style={{ fontSize: '0.875rem', fontFamily: "'Manrope', sans-serif" }}
         >
-          {formatDanishNumber(value, 0)} af {formatDanishNumber(max)} {unit}
+          {subText ?? `${formatDanishNumber(value, 0)} af ${formatDanishNumber(max)} ${unit}`}
         </text>
       </svg>
       <p className="text-sm text-muted-foreground text-center max-w-xs mt-2">{label}</p>

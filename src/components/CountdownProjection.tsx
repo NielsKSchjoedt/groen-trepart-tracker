@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { formatDanishNumber } from '@/lib/format';
 import { TrendingUp, TrendingDown, Clock, Target } from 'lucide-react';
+import { InfoTooltip } from './InfoTooltip';
 
 interface CountdownProjectionProps {
   deadline: string;
   achieved: number;
   target: number;
+  /** Short unit label (e.g. "ton", "ha") used in progress text */
+  unit?: string;
+  /** Pillar accent color for the progress bar */
+  accentColor?: string;
   /** Approximate start date of tracking / agreement */
   trackingStart?: string;
 }
@@ -18,6 +23,8 @@ export function CountdownProjection({
   deadline,
   achieved,
   target,
+  unit = 'ton',
+  accentColor,
   trackingStart = '2024-01-01',
 }: CountdownProjectionProps) {
   const [now, setNow] = useState(() => new Date());
@@ -68,8 +75,20 @@ export function CountdownProjection({
       <div className="flex items-center justify-center gap-1.5 mb-2">
         <Clock className="w-3.5 h-3.5 text-primary" />
         <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-          Tid til deadline
+          Tid til deadline — {deadlineDate.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })}
         </span>
+        <InfoTooltip
+          title="Nedtælling og prognose"
+          content={
+            <>
+              <p>Nedtællingen viser tid til det valgte delmåls deadline.</p>
+              <p><strong>Prognosen</strong> bruger lineær ekstrapolation: nuværende fremskridt divideret med den forbrugte tidsandel giver et estimat for, hvor meget der nås inden deadline.</p>
+              <p>«Ikke på sporet» betyder at det nuværende tempo skal øges (vist som en x-faktor) for at nå målet.</p>
+            </>
+          }
+          size={12}
+          side="bottom"
+        />
       </div>
 
       <div className="flex items-center justify-center gap-2 mb-6">
@@ -113,10 +132,10 @@ export function CountdownProjection({
             </p>
             <p className={`text-xs leading-relaxed ${onTrack ? 'text-green-700/80' : 'text-orange-700/80'}`}>
               {onTrack ? (
-                <>Med nuværende tempo rammer vi {formatDanishNumber(Math.round(projectedTotal))} ton — {Math.round(projectedPct)}% af målet.</>
+                <>Med nuværende tempo rammer vi {formatDanishNumber(Math.round(projectedTotal))} {unit} — {Math.round(projectedPct)}% af målet.</>
               ) : (
-                <>Med nuværende tempo når vi kun <strong>{formatDanishNumber(Math.round(projectedTotal))} ton</strong> ({Math.round(projectedPct)}% af målet). 
-                  Vi skal <strong>{rateRatio.toFixed(1)}x</strong> hurtigere for at nå {formatDanishNumber(target)} ton.</>
+                <>Med nuværende tempo når vi kun <strong>{formatDanishNumber(Math.round(projectedTotal))} {unit}</strong> ({Math.round(projectedPct)}% af målet). 
+                  Vi skal <strong>{rateRatio.toFixed(1)}x</strong> hurtigere for at nå {formatDanishNumber(target)} {unit}.</>
               )}
             </p>
           </div>
@@ -125,10 +144,10 @@ export function CountdownProjection({
         {/* Visual projection bar */}
         <div className="mt-3.5">
           <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1">
-            <span>0 ton</span>
+            <span>0 {unit}</span>
             <span className="flex items-center gap-1">
               <Target className="w-2.5 h-2.5" />
-              {formatDanishNumber(target)} ton
+              {formatDanishNumber(target)} {unit}
             </span>
           </div>
           <div className="relative h-3 w-full rounded-full bg-muted overflow-hidden">
@@ -145,9 +164,11 @@ export function CountdownProjection({
               className="absolute inset-y-0 left-0 rounded-full transition-all"
               style={{
                 width: `${Math.min((achieved / target) * 100, 100)}%`,
-                background: onTrack
-                  ? 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))'
-                  : 'linear-gradient(90deg, hsl(30 60% 50%), hsl(38 70% 55%))',
+                background: accentColor
+                  ? accentColor
+                  : onTrack
+                    ? 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))'
+                    : 'linear-gradient(90deg, hsl(30 60% 50%), hsl(38 70% 55%))',
               }}
             />
             {/* Goal marker */}
@@ -165,7 +186,7 @@ export function CountdownProjection({
               </div>
             </div>
             <span className="text-[10px] font-medium text-muted-foreground tabular-nums">
-              {formatDanishNumber(Math.round(currentRate), 1)} ton/dag
+              {formatDanishNumber(Math.round(currentRate), 1)} {unit}/dag
             </span>
           </div>
         </div>

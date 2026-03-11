@@ -2,6 +2,7 @@ import { formatDanishNumber } from '@/lib/format';
 import type { DashboardData } from '@/lib/types';
 import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
+import { InfoTooltip } from './InfoTooltip';
 
 interface ProjectFunnelProps {
   data: DashboardData;
@@ -41,6 +42,20 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
           Projekt-pipeline
         </h2>
+        <InfoTooltip
+          title="Projekt-pipeline"
+          content={
+            <>
+              <p>Viser alle virkemiddelprojekter (vådområder, lavbundsarealer, minivådområder m.fl.) og deres fase i godkendelsesprocessen.</p>
+              <p><strong>Skitser:</strong> Indledende projektforslag.<br/>
+              <strong>Vurderet:</strong> Fagligt gennemgået af Miljøstyrelsen.<br/>
+              <strong>Godkendt:</strong> Tilsagn givet, klar til anlæg.<br/>
+              <strong>Anlagt:</strong> Fysisk gennemført — kun disse har realiseret miljøeffekt.</p>
+            </>
+          }
+          source="MARS API (Miljøstyrelsen)"
+          side="right"
+        />
       </div>
       <p className="text-sm text-muted-foreground mb-8">
         Sådan bevæger {formatDanishNumber(projects.total)} projekter sig fra skitse til virkelighed

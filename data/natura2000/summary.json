@@ -1,0 +1,2022 @@
+{
+  "fetched_at": "2026-03-11T14:02:15.735103+00:00",
+  "source": "MiljøGIS WFS — natur:natura_2000_omraader",
+  "wfs_base": "https://wfs2-miljoegis.mim.dk/natur/ows",
+  "layer": "natur:natura_2000_omraader",
+  "coordinate_system": "EPSG:25832",
+  "feature_count": 250,
+  "totals": {
+    "total_area_m2": 28005699388,
+    "total_area_ha": 2800569.9,
+    "total_area_km2": 28005.7,
+    "terrestrial_area_ha": 772808.9,
+    "terrestrial_area_km2": 7728.1,
+    "marine_area_ha": 2027761.0,
+    "marine_area_km2": 20277.6,
+    "denmark_land_area_km2": 42951,
+    "terrestrial_pct_of_land": 17.99,
+    "note": "Marine/terrestrial split is heuristic (name-based). For precise split, spatial overlay with coastline would be needed."
+  },
+  "sites": [
+    {
+      "n2000_nr": 1,
+      "n2000_navn": "Skagens Gren og Skagerrak",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 784534.9,
+      "area_km2": 7845.35,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 263,
+      "n2000_navn": "Nordvestlige Kattegat",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 476259.7,
+      "area_km2": 4762.6,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 89,
+      "n2000_navn": "Vadehavet",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 149869.3,
+      "area_km2": 1498.69,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 116,
+      "n2000_navn": "Centrale Storebælt og Vresen",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 129978.4,
+      "area_km2": 1299.78,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 252,
+      "n2000_navn": "Adler Grund og Rønne Banke",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 102532.3,
+      "area_km2": 1025.32,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 173,
+      "n2000_navn": "Smålandsfarvandet nord for Lolland, Guldborg Sund, Bøtø Nor og Hyllekrog-Rødsand",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 78852.1,
+      "area_km2": 788.52,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 14,
+      "n2000_navn": "Ålborg Bugt, Randers Fjord og Mariager Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 71096.6,
+      "area_km2": 710.97,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 197,
+      "n2000_navn": "Flensborg Fjord, Bredgrund og farvandet omkring Als",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 66390.8,
+      "area_km2": 663.91,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 154,
+      "n2000_navn": "Sejerø Bugt, Saltbæk Vig, Bjergene, Diesebjerg og Bollinge Bakke",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 52480.4,
+      "area_km2": 524.8,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 250,
+      "n2000_navn": "Gule Rev",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 47261.1,
+      "area_km2": 472.61,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 56,
+      "n2000_navn": "Horsens Fjord, havet øst for og Endelave",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 46153.9,
+      "area_km2": 461.54,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 127,
+      "n2000_navn": "Sydfynske Øhav",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 45272.8,
+      "area_km2": 452.73,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 16,
+      "n2000_navn": "Løgstør Bredning, Vejlerne og Bulbjerg",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 45137.8,
+      "area_km2": 451.38,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 112,
+      "n2000_navn": "Lillebælt",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 36093.2,
+      "area_km2": 360.93,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 28,
+      "n2000_navn": "Agger Tange, Nissum Bredning, Skibsted Fjord og Agerø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 33086.3,
+      "area_km2": 330.86,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 168,
+      "n2000_navn": "Havet og kysten mellem Præstø Fjord og Grønsund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 33008.5,
+      "area_km2": 330.08,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 69,
+      "n2000_navn": "Ringkøbing Fjord og Nymindestrømmen",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 28184.7,
+      "area_km2": 281.85,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 30,
+      "n2000_navn": "Lovns Bredning, Hjarbæk Fjord og Skals Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 24572.3,
+      "area_km2": 245.72,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 248,
+      "n2000_navn": "Jyske Rev, Lillefiskerbanke",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 24193.7,
+      "area_km2": 241.94,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 204,
+      "n2000_navn": "Schultz og Hastens Grund samt Briseis Flak",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 20832.9,
+      "area_km2": 208.33,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 15,
+      "n2000_navn": "Nibe Bredning, Halkær Ådal og Sønderup Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 19839.9,
+      "area_km2": 198.4,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 20,
+      "n2000_navn": "Havet omkring Nordre Rønner",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 18622.8,
+      "area_km2": 186.23,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 162,
+      "n2000_navn": "Skælskør Fjord og havet og kysten mellem Agersø og Glænø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 18206.3,
+      "area_km2": 182.06,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 169,
+      "n2000_navn": "Havet og kysten mellem Karrebæk Fjord og Knudshoved Odde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 17959.0,
+      "area_km2": 179.59,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 55,
+      "n2000_navn": "Stavns Fjord, Samsø Østerflak og Nordby Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 15730.5,
+      "area_km2": 157.31,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 136,
+      "n2000_navn": "Roskilde Fjord og Jægerspris Nordskov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 15195.3,
+      "area_km2": 151.95,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 195,
+      "n2000_navn": "Gilleleje Flak og Tragten",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 15113.0,
+      "area_km2": 151.13,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 108,
+      "n2000_navn": "Æbelø, havet syd for og Nærå",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 12769.7,
+      "area_km2": 127.7,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 84,
+      "n2000_navn": "Kallesmærsk Hede, Grærup Langsø, Fiilsø og Kærgård Klitplantage",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 12438.4,
+      "area_km2": 124.38,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 251,
+      "n2000_navn": "Femern Bælt",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 11503.6,
+      "area_km2": 115.04,
+      "likely_marine": true
+    },
+    {
+      "n2000_nr": 65,
+      "n2000_navn": "Nissum Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 11060.6,
+      "area_km2": 110.61,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 4,
+      "n2000_navn": "Hirsholmene, havet vest herfor og Ellinge Å's udløb",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 9495.5,
+      "area_km2": 94.95,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 202,
+      "n2000_navn": "Lønstrup Rødgrund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 9323.6,
+      "area_km2": 93.24,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 18,
+      "n2000_navn": "Rold Skov, Lindenborg Ådal og Madum Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 9021.2,
+      "area_km2": 90.21,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 133,
+      "n2000_navn": "Gribskov, Esrum Sø, Esrum Å og Snævret Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 8750.9,
+      "area_km2": 87.51,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 192,
+      "n2000_navn": "Læsø Trindel og Tønneberg Banke",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 8659.7,
+      "area_km2": 86.6,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 179,
+      "n2000_navn": "Nakskov Fjord og Indrefjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 8474.2,
+      "area_km2": 84.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 17,
+      "n2000_navn": "Lille Vildmose, Tofte Skov og Høstemark Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 7892.7,
+      "area_km2": 78.93,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 247,
+      "n2000_navn": "Thyborøn Stenvolde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 7836.7,
+      "area_km2": 78.37,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 142,
+      "n2000_navn": "Saltholm og omliggende hav",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 7256.4,
+      "area_km2": 72.56,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 66,
+      "n2000_navn": "Stadil Fjord og Vest Stadil Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6947.0,
+      "area_km2": 69.47,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 53,
+      "n2000_navn": "Sepstrup Sande, Vrads Sande, Velling Skov og Palsgård Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6521.9,
+      "area_km2": 65.22,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 24,
+      "n2000_navn": "Hanstholm Reservatet, Hanstholm Knuden, Nors Sø og Vandet Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6440.4,
+      "area_km2": 64.4,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 220,
+      "n2000_navn": "Sandbanker ud for Thorsminde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6390.5,
+      "area_km2": 63.91,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 219,
+      "n2000_navn": "Sandbanker ud for Thyborøn",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6352.0,
+      "area_km2": 63.52,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 143,
+      "n2000_navn": "Vestamager og havet syd for",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6206.7,
+      "area_km2": 62.07,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 186,
+      "n2000_navn": "Almindingen, Ølene og Paradisbakkerne",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6182.2,
+      "area_km2": 61.82,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 2,
+      "n2000_navn": "Råbjerg Mile og Hulsig Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 5899.0,
+      "area_km2": 58.99,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 166,
+      "n2000_navn": "Røsnæs, Røsnæs Rev og Kalundborg Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 5773.7,
+      "area_km2": 57.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 110,
+      "n2000_navn": "Odense Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 5301.3,
+      "area_km2": 53.01,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 134,
+      "n2000_navn": "Arresø, Ellemose og Lille Lyngby Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 5029.1,
+      "area_km2": 50.29,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 67,
+      "n2000_navn": "Borris Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4782.8,
+      "area_km2": 47.83,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 52,
+      "n2000_navn": "Salten Å, Salten Langsø, Mossø og søer syd for Salten Langsø og dele af Gudenå",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4726.9,
+      "area_km2": 47.27,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 206,
+      "n2000_navn": "Stevns Rev",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4663.6,
+      "area_km2": 46.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 3,
+      "n2000_navn": "Jerup Hede, Råbjerg og Tolshave Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4379.6,
+      "area_km2": 43.8,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 109,
+      "n2000_navn": "Havet mellem Romsø og Hindsholm samt Romsø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4275.4,
+      "area_km2": 42.75,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 128,
+      "n2000_navn": "Hesselø med omliggende stenrev",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4213.1,
+      "area_km2": 42.13,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 153,
+      "n2000_navn": "Havet og kysten mellem Hundested og Rørvig",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 4028.3,
+      "area_km2": 40.28,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 40,
+      "n2000_navn": "Karup Å, Kongenshus og Hessellund Heder",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3952.5,
+      "area_km2": 39.52,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 194,
+      "n2000_navn": "Mejl Flak",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3923.0,
+      "area_km2": 39.23,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 163,
+      "n2000_navn": "Suså, Tystrup-Bavelse Sø, Slagmosen, Holmegårds Mose og Porsmose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3921.0,
+      "area_km2": 39.21,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 177,
+      "n2000_navn": "Maribosøerne",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3893.7,
+      "area_km2": 38.94,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 139,
+      "n2000_navn": "Øvre Mølleådal, Furesø og Frederiksdal Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3844.0,
+      "area_km2": 38.44,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 43,
+      "n2000_navn": "Klitheder mellem Stenbjerg og Lodbjerg",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3644.2,
+      "area_km2": 36.44,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 64,
+      "n2000_navn": "Heder og klitter på Skovbjerg Bakkeø, Idom Å og Ormstrup Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3451.8,
+      "area_km2": 34.52,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 156,
+      "n2000_navn": "Store Åmose, Skarresø og Bregninge Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3434.8,
+      "area_km2": 34.35,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 157,
+      "n2000_navn": "Åmose, Tissø, Halleby Å og Flasken",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3394.7,
+      "area_km2": 33.95,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 207,
+      "n2000_navn": "Lysegrund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3172.9,
+      "area_km2": 31.73,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 171,
+      "n2000_navn": "Klinteskoven og Klinteskov kalkgrund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3101.1,
+      "area_km2": 31.01,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 21,
+      "n2000_navn": "Ejstrup Klit, Egvands Bakker og Lien med Underlien",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 3045.5,
+      "area_km2": 30.45,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 62,
+      "n2000_navn": "Venø, Venø Sund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2957.3,
+      "area_km2": 29.57,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 227,
+      "n2000_navn": "Mols Bjerge med kystvande",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2930.4,
+      "area_km2": 29.3,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 68,
+      "n2000_navn": "Skjern Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2688.7,
+      "area_km2": 26.89,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 78,
+      "n2000_navn": "Skove langs nordsiden af Vejle Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2556.3,
+      "area_km2": 25.56,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 75,
+      "n2000_navn": "Harrild Hede, Ulvemosen og heder i Nørlund Plantage",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2468.1,
+      "area_km2": 24.68,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 120,
+      "n2000_navn": "Skove og søer syd for Brahetrolleborg",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2445.4,
+      "area_km2": 24.45,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 76,
+      "n2000_navn": "Store Vandskel, Rørbæk Sø, Tinnet Krat og Holtum Ådal øvre del",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2427.6,
+      "area_km2": 24.28,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 93,
+      "n2000_navn": "Lindet Skov, Hønning Mose, Hønning Plantage og Lovrup Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2390.5,
+      "area_km2": 23.91,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 41,
+      "n2000_navn": "Hjelm Hede, Flyndersø og Stubbergård Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2272.5,
+      "area_km2": 22.72,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 131,
+      "n2000_navn": "Gurre Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2198.2,
+      "area_km2": 21.98,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 25,
+      "n2000_navn": "Vangså Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2197.1,
+      "area_km2": 21.97,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 107,
+      "n2000_navn": "Fyns Hoved, Lillegrund og Lillestrand",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2195.7,
+      "area_km2": 21.96,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 193,
+      "n2000_navn": "Store Middelgrund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2147.4,
+      "area_km2": 21.47,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 124,
+      "n2000_navn": "Maden på Helnæs og havet vest for",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2135.9,
+      "area_km2": 21.36,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 135,
+      "n2000_navn": "Tisvilde Hegn og Melby Overdrev",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2071.2,
+      "area_km2": 20.71,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 57,
+      "n2000_navn": "Silkeborgskovene",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1995.0,
+      "area_km2": 19.95,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 12,
+      "n2000_navn": "Store Vildmose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1865.3,
+      "area_km2": 18.65,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 51,
+      "n2000_navn": "Begtrup Vig og kystområder ved Helgenæs",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1829.8,
+      "area_km2": 18.3,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 29,
+      "n2000_navn": "Dråby Vig",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1690.9,
+      "area_km2": 16.91,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 27,
+      "n2000_navn": "Hvidbjerg Å, Ove Sø og Ørum Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1668.3,
+      "area_km2": 16.68,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 35,
+      "n2000_navn": "Hald Ege, Stanghede og Dollerup Bakker",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1597.1,
+      "area_km2": 15.97,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 144,
+      "n2000_navn": "Nedre Mølleådal og Jægersborg Dyrehave",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1529.0,
+      "area_km2": 15.29,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 126,
+      "n2000_navn": "Stenrev sydøst for Langeland",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1489.7,
+      "area_km2": 14.9,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 95,
+      "n2000_navn": "Hostrup Sø, Assenholm Mose og Felsted Vestermark",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1463.7,
+      "area_km2": 14.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 228,
+      "n2000_navn": "Stenholt Skov og Stenholt Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1427.3,
+      "area_km2": 14.27,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 191,
+      "n2000_navn": "Herthas Flak",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1386.9,
+      "area_km2": 13.87,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 146,
+      "n2000_navn": "Hejede Overdrev, Valborup Skov og Valsølille Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1349.2,
+      "area_km2": 13.49,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 205,
+      "n2000_navn": "Munkegrunde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1334.3,
+      "area_km2": 13.34,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 189,
+      "n2000_navn": "Ertholmene",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1264.7,
+      "area_km2": 12.65,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 26,
+      "n2000_navn": "Ålvand Klithede og Førby Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1239.7,
+      "area_km2": 12.4,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 44,
+      "n2000_navn": "Lild Strand og Lild Strandkær",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1197.8,
+      "area_km2": 11.98,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 13,
+      "n2000_navn": "Svinkløv Klitplantage og Grønne Strand",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1143.2,
+      "area_km2": 11.43,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 223,
+      "n2000_navn": "Kastbjerg Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1142.1,
+      "area_km2": 11.42,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 82,
+      "n2000_navn": "Randbøl Hede og klitter i Frederikshåb Plantage",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1135.7,
+      "area_km2": 11.36,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 32,
+      "n2000_navn": "Sønder Lem Vig og Geddal Strandenge",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1127.4,
+      "area_km2": 11.27,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 92,
+      "n2000_navn": "Pamhule Skov og Stevning Dam",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1105.4,
+      "area_km2": 11.05,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 208,
+      "n2000_navn": "Bøchers Grund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1104.7,
+      "area_km2": 11.05,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 260,
+      "n2000_navn": "Tokkekøb Hegn, Grønholt Hegn og Ny Hammersholt",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1096.3,
+      "area_km2": 10.96,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 238,
+      "n2000_navn": "Egtved Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1065.5,
+      "area_km2": 10.66,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 77,
+      "n2000_navn": "Uldum Kær, Tørring Kær og Ølholm Kær",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1059.8,
+      "area_km2": 10.6,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 8,
+      "n2000_navn": "Åsted Ådal, Bangsbo Ådal og omliggende overdrevsområder",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1019.7,
+      "area_km2": 10.2,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 88,
+      "n2000_navn": "Nørholm Hede, Nørholm Skov og Varde Å øst for Varde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1016.7,
+      "area_km2": 10.17,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 130,
+      "n2000_navn": "Teglstrup Hegn og Hammermølle Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 1007.2,
+      "area_km2": 10.07,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 19,
+      "n2000_navn": "Lundby Hede, Oudrup Østerhede og Vindblæs Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 980.3,
+      "area_km2": 9.8,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 81,
+      "n2000_navn": "Øvre Grejs Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 892.6,
+      "area_km2": 8.93,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 96,
+      "n2000_navn": "Bolderslev Skov og Uge Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 886.8,
+      "area_km2": 8.87,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 48,
+      "n2000_navn": "Stubbe Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 881.7,
+      "area_km2": 8.82,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 94,
+      "n2000_navn": "Rinkenæs Skov, Dyrehaven og Rode Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 878.7,
+      "area_km2": 8.79,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 209,
+      "n2000_navn": "Davids Banke",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 844.4,
+      "area_km2": 8.44,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 49,
+      "n2000_navn": "Gudenå og Gjern Bakker",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 834.9,
+      "area_km2": 8.35,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 83,
+      "n2000_navn": "Blåbjerg Egekrat, Lyngbos Hede og Hennegårds Klitter",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 828.5,
+      "area_km2": 8.29,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 99,
+      "n2000_navn": "Kongens Mose og Draved Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 824.5,
+      "area_km2": 8.24,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 91,
+      "n2000_navn": "Kongeå",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 815.4,
+      "area_km2": 8.15,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 231,
+      "n2000_navn": "Kobberhage kystarealer",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 791.7,
+      "area_km2": 7.92,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 98,
+      "n2000_navn": "Tinglev Sø og Mose, Ulvemose og Terkelsbøl Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 778.6,
+      "area_km2": 7.79,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 253,
+      "n2000_navn": "Stensbæk Plantage og Heder",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 767.0,
+      "area_km2": 7.67,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 224,
+      "n2000_navn": "Flynder Å og heder i Klosterhede Plantage",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 759.1,
+      "area_km2": 7.59,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 39,
+      "n2000_navn": "Mønsted og Daugbjerg Kalkgruber og Mønsted Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 755.5,
+      "area_km2": 7.55,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 230,
+      "n2000_navn": "Kaløskovene og Kaløvig",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 752.5,
+      "area_km2": 7.53,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 203,
+      "n2000_navn": "Knudegrund",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 751.1,
+      "area_km2": 7.51,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 33,
+      "n2000_navn": "Tjele Langsø og Vinge Møllebæk",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 739.3,
+      "area_km2": 7.39,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 10,
+      "n2000_navn": "Holtemmen, Højsande og Nordmarken",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 731.9,
+      "area_km2": 7.32,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 114,
+      "n2000_navn": "Odense Å med Hågerup Å, Sallinge Å og Lindved Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 721.2,
+      "area_km2": 7.21,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 175,
+      "n2000_navn": "Horreby Lyng og Listrup Lyng",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 715.2,
+      "area_km2": 7.15,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 121,
+      "n2000_navn": "Arreskov Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 701.6,
+      "area_km2": 7.02,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 104,
+      "n2000_navn": "Lilleskov og Troldsmose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 684.5,
+      "area_km2": 6.85,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 74,
+      "n2000_navn": "Husby Klit",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 658.4,
+      "area_km2": 6.58,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 5,
+      "n2000_navn": "Uggerby Klitplantage og Uggerby Å's udløb",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 654.9,
+      "area_km2": 6.55,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 58,
+      "n2000_navn": "Nordby Bakker",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 642.3,
+      "area_km2": 6.42,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 198,
+      "n2000_navn": "Hatter Barn",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 635.7,
+      "area_km2": 6.36,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 85,
+      "n2000_navn": "Hedeområder ved Store Råbjerg",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 629.7,
+      "area_km2": 6.3,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 6,
+      "n2000_navn": "Kærsgård Strand, Vandplasken og Liver Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 626.3,
+      "area_km2": 6.26,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 218,
+      "n2000_navn": "Hammer Bakker, østlig del",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 618.3,
+      "area_km2": 6.18,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 90,
+      "n2000_navn": "Sneum Å og Holsted Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 583.6,
+      "area_km2": 5.84,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 180,
+      "n2000_navn": "Stege Nor",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 579.2,
+      "area_km2": 5.79,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 258,
+      "n2000_navn": "Rude Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 578.5,
+      "area_km2": 5.79,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 235,
+      "n2000_navn": "Jægerspris Skydeterræn",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 571.9,
+      "area_km2": 5.72,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 222,
+      "n2000_navn": "Villestrup Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 564.3,
+      "area_km2": 5.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 184,
+      "n2000_navn": "Hammeren og Slotslyngen",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 557.1,
+      "area_km2": 5.57,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 147,
+      "n2000_navn": "Ølsemagle Strand og Staunings Ø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 540.8,
+      "area_km2": 5.41,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 233,
+      "n2000_navn": "Brabrand Sø med omgivelser",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 523.1,
+      "area_km2": 5.23,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 161,
+      "n2000_navn": "Søer ved Bregentved og Gisselfeld",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 521.8,
+      "area_km2": 5.22,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 234,
+      "n2000_navn": "Giber Å, Enemærket og Skåde Havbakker",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 519.8,
+      "area_km2": 5.2,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 22,
+      "n2000_navn": "Kielstrup Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 513.9,
+      "area_km2": 5.14,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 42,
+      "n2000_navn": "Mågerodde og Karby Odde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 499.2,
+      "area_km2": 4.99,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 225,
+      "n2000_navn": "Ovstrup Hede med Røjen Bæk",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 494.2,
+      "area_km2": 4.94,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 86,
+      "n2000_navn": "Vejen Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 475.3,
+      "area_km2": 4.75,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 254,
+      "n2000_navn": "Sønderskoven og Lambjerg Indtægt",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 474.4,
+      "area_km2": 4.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 103,
+      "n2000_navn": "Kogsbøl og Skast Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 463.6,
+      "area_km2": 4.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 196,
+      "n2000_navn": "Ryggen",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 438.9,
+      "area_km2": 4.39,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 97,
+      "n2000_navn": "Frøslev Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 421.2,
+      "area_km2": 4.21,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 73,
+      "n2000_navn": "Lønborg Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 419.9,
+      "area_km2": 4.2,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 226,
+      "n2000_navn": "Svanemose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 413.5,
+      "area_km2": 4.14,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 31,
+      "n2000_navn": "Kås Hoved",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 396.5,
+      "area_km2": 3.96,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 262,
+      "n2000_navn": "Annebjerg Skov og Ulkerup Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 395.4,
+      "area_km2": 3.95,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 255,
+      "n2000_navn": "Stigtehave, Bræmlevænge og Mørkholm Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 391.3,
+      "area_km2": 3.91,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 155,
+      "n2000_navn": "Udby Vig",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 384.7,
+      "area_km2": 3.85,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 244,
+      "n2000_navn": "Kyndby Kyst",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 366.1,
+      "area_km2": 3.66,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 149,
+      "n2000_navn": "Tryggevælde Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 357.4,
+      "area_km2": 3.57,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 72,
+      "n2000_navn": "Husby Sø og Nørresø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 355.2,
+      "area_km2": 3.55,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 137,
+      "n2000_navn": "Kattehale Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 346.9,
+      "area_km2": 3.47,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 59,
+      "n2000_navn": "Kysing Fjord",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 336.3,
+      "area_km2": 3.36,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 221,
+      "n2000_navn": "Risum Enge og Selde Vig",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 325.8,
+      "area_km2": 3.26,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 23,
+      "n2000_navn": "Vullum Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 316.8,
+      "area_km2": 3.17,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 79,
+      "n2000_navn": "Munkebjerg Strandskov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 308.4,
+      "area_km2": 3.08,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 7,
+      "n2000_navn": "Rubjerg Knude og Lønstrup Klit",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 304.6,
+      "area_km2": 3.05,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 117,
+      "n2000_navn": "Kajbjerg Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 295.7,
+      "area_km2": 2.96,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 261,
+      "n2000_navn": "Freerslev hegn",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 274.0,
+      "area_km2": 2.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 183,
+      "n2000_navn": "Busemarke Mose og Råby Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 264.5,
+      "area_km2": 2.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 259,
+      "n2000_navn": "Folehave skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 264.1,
+      "area_km2": 2.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 188,
+      "n2000_navn": "Dueodde",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 263.7,
+      "area_km2": 2.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 132,
+      "n2000_navn": "Rusland",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 249.4,
+      "area_km2": 2.49,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 100,
+      "n2000_navn": "Sølsted Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 243.5,
+      "area_km2": 2.43,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 164,
+      "n2000_navn": "Hov Vig",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 241.7,
+      "area_km2": 2.42,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 45,
+      "n2000_navn": "Korsø Knude",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 234.4,
+      "area_km2": 2.34,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 239,
+      "n2000_navn": "Ryegård Dyrehave, Bramsnæs og Garveriskov og Egernæs med holme og Fuglsø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 197.1,
+      "area_km2": 1.97,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 240,
+      "n2000_navn": "Svanninge Bakker",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 193.5,
+      "area_km2": 1.93,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 229,
+      "n2000_navn": "Bjerre Skov og Haslund Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 192.5,
+      "area_km2": 1.93,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 80,
+      "n2000_navn": "Højen Bæk",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 181.9,
+      "area_km2": 1.82,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 111,
+      "n2000_navn": "Røjle Klint og Kasmose Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 174.5,
+      "area_km2": 1.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 167,
+      "n2000_navn": "Skove ved Vemmetofte",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 174.3,
+      "area_km2": 1.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 214,
+      "n2000_navn": "Tolne Bakker",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 174.2,
+      "area_km2": 1.74,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 151,
+      "n2000_navn": "Ramsø Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 170.9,
+      "area_km2": 1.71,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 38,
+      "n2000_navn": "Bredsgård Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 166.7,
+      "area_km2": 1.67,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 216,
+      "n2000_navn": "Saltum Bjerge",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 165.3,
+      "area_km2": 1.65,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 242,
+      "n2000_navn": "Thurø Rev",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 163.1,
+      "area_km2": 1.63,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 47,
+      "n2000_navn": "Eldrup Skov og søer og moser i Løvenholm Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 158.5,
+      "area_km2": 1.58,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 256,
+      "n2000_navn": "Bangsebro Skov og Sønder Kohave",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 152.7,
+      "area_km2": 1.53,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 125,
+      "n2000_navn": "Vestlige del af Avernakø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 146.0,
+      "area_km2": 1.46,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 237,
+      "n2000_navn": "Ringive Kommuneplantage",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 145.4,
+      "area_km2": 1.45,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 243,
+      "n2000_navn": "Ebbeløkke Rev",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 141.0,
+      "area_km2": 1.41,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 232,
+      "n2000_navn": "Lillering Skov, Stjær Skov, Tåstrup Sø og Tåstrup Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 135.4,
+      "area_km2": 1.35,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 54,
+      "n2000_navn": "Yding Skov og Ejer Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 133.1,
+      "area_km2": 1.33,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 158,
+      "n2000_navn": "Allindelille Fredskov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 126.7,
+      "area_km2": 1.27,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 63,
+      "n2000_navn": "Sønder Feldborg Plantage",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 121.4,
+      "area_km2": 1.21,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 210,
+      "n2000_navn": "Spællinge Ådal, Døndal og Helligdomsklipperne",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 120.7,
+      "area_km2": 1.21,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 140,
+      "n2000_navn": "Vasby Mose og Sengeløse Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 120.2,
+      "area_km2": 1.2,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 123,
+      "n2000_navn": "Bøjden Nor",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 115.2,
+      "area_km2": 1.15,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 200,
+      "n2000_navn": "Navnsø med hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 106.5,
+      "area_km2": 1.06,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 113,
+      "n2000_navn": "Urup Dam, Brabæk Mose, Birkende Mose og Illemose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 102.4,
+      "area_km2": 1.02,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 201,
+      "n2000_navn": "Øster Lovnkær",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 97.9,
+      "area_km2": 0.98,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 213,
+      "n2000_navn": "Randkløve Skår",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 91.2,
+      "area_km2": 0.91,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 61,
+      "n2000_navn": "Skånsø og Tranemose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 87.6,
+      "area_km2": 0.88,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 160,
+      "n2000_navn": "Nordlige del af Sorø Sønderskov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 84.7,
+      "area_km2": 0.85,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 37,
+      "n2000_navn": "Rosborg Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 78.2,
+      "area_km2": 0.78,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 217,
+      "n2000_navn": "Nymølle Bæk og Nejsum Hede",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 67.6,
+      "area_km2": 0.68,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 152,
+      "n2000_navn": "Vallø Dyrehave",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 63.7,
+      "area_km2": 0.64,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 106,
+      "n2000_navn": "Mandbjerg Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 60.4,
+      "area_km2": 0.6,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 215,
+      "n2000_navn": "Tislum Møllebæk",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 60.2,
+      "area_km2": 0.6,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 148,
+      "n2000_navn": "Køge Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 57.7,
+      "area_km2": 0.58,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 115,
+      "n2000_navn": "Østerø Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 56.1,
+      "area_km2": 0.56,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 34,
+      "n2000_navn": "Brandstrup Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 54.5,
+      "area_km2": 0.55,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 150,
+      "n2000_navn": "Gammel Havdrup Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 54.3,
+      "area_km2": 0.54,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 119,
+      "n2000_navn": "Storelung",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 53.7,
+      "area_km2": 0.54,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 236,
+      "n2000_navn": "Bygholm Ådal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 52.0,
+      "area_km2": 0.52,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 36,
+      "n2000_navn": "Nipgård Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 50.2,
+      "area_km2": 0.5,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 241,
+      "n2000_navn": "Rødme Svinehaver",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 48.6,
+      "area_km2": 0.49,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 141,
+      "n2000_navn": "Brobæk Mose og Gentofte Sø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 47.5,
+      "area_km2": 0.47,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 118,
+      "n2000_navn": "Søer ved Tårup og Klintholm",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 45.5,
+      "area_km2": 0.46,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 87,
+      "n2000_navn": "Nørrebæk ved Tvilho",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 43.0,
+      "area_km2": 0.43,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 257,
+      "n2000_navn": "Halskov Vænge",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 42.3,
+      "area_km2": 0.42,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 11,
+      "n2000_navn": "Solsbæk",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 40.4,
+      "area_km2": 0.4,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 129,
+      "n2000_navn": "Gilbjerg Hoved",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 39.6,
+      "area_km2": 0.4,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 172,
+      "n2000_navn": "Lekkende Dyrehave",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 39.5,
+      "area_km2": 0.4,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 145,
+      "n2000_navn": "Ejby Ådal og omliggende kystskrænter",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 36.4,
+      "area_km2": 0.36,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 105,
+      "n2000_navn": "Augustenborg Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 32.7,
+      "area_km2": 0.33,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 181,
+      "n2000_navn": "Oreby Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 29.7,
+      "area_km2": 0.3,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 70,
+      "n2000_navn": "Mose ved Karstoft Å",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 26.7,
+      "area_km2": 0.27,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 122,
+      "n2000_navn": "Store Øresø, Sortesø og Iglesø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 23.5,
+      "area_km2": 0.23,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 176,
+      "n2000_navn": "Krenkerup Haveskov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 20.2,
+      "area_km2": 0.2,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 187,
+      "n2000_navn": "Kystskrænter ved Arnager Bugt",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 19.9,
+      "area_km2": 0.2,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 185,
+      "n2000_navn": "Gyldenså",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 14.3,
+      "area_km2": 0.14,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 159,
+      "n2000_navn": "Bagholt Mose",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 13.5,
+      "area_km2": 0.13,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 60,
+      "n2000_navn": "Skørsø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 11.9,
+      "area_km2": 0.12,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 50,
+      "n2000_navn": "Tved Kær",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6.3,
+      "area_km2": 0.06,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 182,
+      "n2000_navn": "Holtug Kridtbrud",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 6.2,
+      "area_km2": 0.06,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 178,
+      "n2000_navn": "Halsted Kloster Dyrehave",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 5.6,
+      "area_km2": 0.06,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 71,
+      "n2000_navn": "Kimmelkær Landkanal",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2.7,
+      "area_km2": 0.03,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 174,
+      "n2000_navn": "Maltrup Skov",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 2.4,
+      "area_km2": 0.02,
+      "likely_marine": false
+    },
+    {
+      "n2000_nr": 246,
+      "n2000_navn": "Sydlige Nordsø",
+      "status": "Gældende/Vedtaget",
+      "area_ha": 0.0,
+      "area_km2": 0.0,
+      "likely_marine": false
+    }
+  ]
+}

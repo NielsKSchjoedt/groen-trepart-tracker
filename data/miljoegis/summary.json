@@ -1,0 +1,73 @@
+{
+  "fetched_at": "2026-03-11T14:01:31.252932+00:00",
+  "wfs_base": "https://wfs2-miljoegis.mim.dk/vandprojekter/ows",
+  "coordinate_system": "EPSG:25832",
+  "layers": {
+    "kla_projektforslag": {
+      "status": "full",
+      "feature_count": 97,
+      "file_size_bytes": 15409592,
+      "properties": [
+        "projektn",
+        "areal_ha",
+        "a_runde",
+        "afgoer_fase2"
+      ]
+    },
+    "kla_projektomraader": {
+      "status": "full",
+      "feature_count": 3,
+      "file_size_bytes": 23139,
+      "properties": [
+        "projektn",
+        "areal_ha",
+        "a_runde",
+        "afgoer_fase2",
+        "projektgodk"
+      ]
+    },
+    "helhedsprojekter_tilsagn2020": {
+      "status": "full",
+      "feature_count": 2,
+      "file_size_bytes": 60117,
+      "properties": [
+        "area_ha",
+        "shape_leng",
+        "shape_area",
+        "projektnav",
+        "tilskudsor",
+        "tilsagnsaa"
+      ]
+    },
+    "kla_e23_bioprio": {
+      "status": "sampled",
+      "total_feature_count": 408524,
+      "sample_count": 100,
+      "sample_file_size_bytes": 178809,
+      "properties": [
+        "shape_leng",
+        "shape_area",
+        "kategori"
+      ]
+    },
+    "kvaelstofretention": {
+      "status": "sampled",
+      "total_feature_count": 4239419,
+      "sample_count": 100,
+      "sample_file_size_bytes": 72875,
+      "properties": [
+        "ret_tot"
+      ]
+    },
+    "vaadomraadepotentiale": {
+      "status": "sampled",
+      "total_feature_count": 94182,
+      "sample_count": 100,
+      "sample_file_size_bytes": 445483,
+      "properties": [
+        "ler_pct"
+      ]
+    }
+  },
+  "errors": []
+}

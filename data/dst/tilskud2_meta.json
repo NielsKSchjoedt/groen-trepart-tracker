@@ -1,0 +1,150 @@
+{
+  "id": "TILSKUD2",
+  "text": "Direkte tilskud til landbrugssektoren",
+  "description": "Direkte tilskud til landbrugssektoren efter tilskudsart og tid",
+  "unit": "Mio. kr.",
+  "suppressedDataValue": "0",
+  "updated": "2025-05-26T08:00:00",
+  "active": true,
+  "contacts": [
+    {
+      "name": "Simone Thun",
+      "phone": "+4551369251",
+      "mail": "sit@dst.dk"
+    }
+  ],
+  "documentation": {
+    "id": "a9fe5dae-435f-4ac2-9133-35e21a72cd0e",
+    "url": "https://www.dst.dk/statistikdokumentation/a9fe5dae-435f-4ac2-9133-35e21a72cd0e"
+  },
+  "footnote": {
+    "text": "Tabellen offentliggøres første gang juli 2024 med år 2021, 2022 og 2023. Den erstatter TILSKUD1, som ophører grundet ny EU fælles landbrugspolitik, CAP2023-2027. \r\nTabellen viser de totale beløb udbetalt via Landbrugsstyrelsens tilskudsordninger. Tilskud udbetalt via 3.3. Markedsstøtte og 4.4. Vådområder, samt en andel af 4.8 Øvrige tilskudsordninger, går ikke til primærproducenter. \r\nBeløbene angiver det år, hvor tilskuddene er udbetalt, ikke nødvendigvis det år som udbetalingerne henfører til. \r\nDe seneste to år er foreløbige.",
+    "mandatory": false
+  },
+  "variables": [
+    {
+      "id": "TILSKUDSART",
+      "text": "tilskudsart",
+      "elimination": true,
+      "time": false,
+      "values": [
+        {
+          "id": "300",
+          "text": "TILSKUD I ALT"
+        },
+        {
+          "id": "305",
+          "text": "Direkte støtte i alt (1+2+3)"
+        },
+        {
+          "id": "310",
+          "text": "1 Basisindkomststøtte og grøn støtte"
+        },
+        {
+          "id": "315",
+          "text": "2 Bio-ordninger i alt"
+        },
+        {
+          "id": "325",
+          "text": "2.1 Biodiversitet og bæredygtighed"
+        },
+        {
+          "id": "330",
+          "text": "2.2 Klima og miljøvenligt græs"
+        },
+        {
+          "id": "335",
+          "text": "2.3 Ekstensivering med slæt"
+        },
+        {
+          "id": "340",
+          "text": "2.4 Varieret planteproduktion"
+        },
+        {
+          "id": "345",
+          "text": "2.5 Økologisk arealstøtte"
+        },
+        {
+          "id": "350",
+          "text": "3 Anden direkte støtte i alt"
+        },
+        {
+          "id": "355",
+          "text": "3.1 Koblet støtte"
+        },
+        {
+          "id": "360",
+          "text": "3.2 Unge landbrugere"
+        },
+        {
+          "id": "365",
+          "text": "3.3 Markedsstøtte"
+        },
+        {
+          "id": "370",
+          "text": "3.4  Øvrig direkte støtte"
+        },
+        {
+          "id": "375",
+          "text": "4 Andre ordninger i alt"
+        },
+        {
+          "id": "380",
+          "text": "4.1 Natura 2000"
+        },
+        {
+          "id": "385",
+          "text": "4.2 Målrettet regulering"
+        },
+        {
+          "id": "390",
+          "text": "4.3 Økologisk arealtilskud og investeringsstøtte"
+        },
+        {
+          "id": "395",
+          "text": "4.4 Vådområder"
+        },
+        {
+          "id": "400",
+          "text": "4.5 Etableringsstøtte til unge landbrugere"
+        },
+        {
+          "id": "405",
+          "text": "4.6 Miljøteknologi og moderniseringsstøtte"
+        },
+        {
+          "id": "410",
+          "text": "4.7 Privat skovrejsning"
+        },
+        {
+          "id": "415",
+          "text": "4.8 Øvrige tilskudsordninger"
+        }
+      ]
+    },
+    {
+      "id": "Tid",
+      "text": "tid",
+      "elimination": false,
+      "time": true,
+      "values": [
+        {
+          "id": "2021",
+          "text": "2021"
+        },
+        {
+          "id": "2022",
+          "text": "2022"
+        },
+        {
+          "id": "2023",
+          "text": "2023"
+        },
+        {
+          "id": "2024",
+          "text": "2024"
+        }
+      ]
+    }
+  ]
+}

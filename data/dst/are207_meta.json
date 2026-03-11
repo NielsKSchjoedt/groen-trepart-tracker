@@ -1,0 +1,543 @@
+{
+  "id": "ARE207",
+  "text": "Areal 1. januar",
+  "description": "Areal 1. januar efter område og tid",
+  "unit": "Km2",
+  "suppressedDataValue": "0",
+  "updated": "2026-02-27T08:00:00",
+  "active": true,
+  "contacts": [
+    {
+      "name": "Dorthe Larsen",
+      "phone": "+4523498326",
+      "mail": "dla@dst.dk"
+    }
+  ],
+  "documentation": {
+    "id": "7df3027a-6825-4a7b-bc21-bbfeb6a7e319",
+    "url": "https://www.dst.dk/statistikdokumentation/7df3027a-6825-4a7b-bc21-bbfeb6a7e319"
+  },
+  "footnote": {
+    "text": "Fra 1. januar 2011 baseres opgørelsen af arealerne på data fra Geodatastyrelsens matrikelregister. Kun matrikulerede områder er medtaget ved opmålingen, hvilket medfører, at mange søer ikke er medtaget. For kommuner med umatrikulerede søer vil arealet derfor være faldet sammenlignet med tidligere. Pr. 1. januar 2011-2013 gælder yderligere for København og Frederiksberg, at vejene ikke er matrikuleret og derfor ikke indgår i det opmålte areal.",
+    "mandatory": false
+  },
+  "variables": [
+    {
+      "id": "OMRÅDE",
+      "text": "område",
+      "elimination": true,
+      "time": false,
+      "map": "Denmark_municipality_07",
+      "values": [
+        {
+          "id": "000",
+          "text": "Hele landet"
+        },
+        {
+          "id": "084",
+          "text": "Region Hovedstaden"
+        },
+        {
+          "id": "101",
+          "text": "København"
+        },
+        {
+          "id": "147",
+          "text": "Frederiksberg"
+        },
+        {
+          "id": "155",
+          "text": "Dragør"
+        },
+        {
+          "id": "185",
+          "text": "Tårnby"
+        },
+        {
+          "id": "165",
+          "text": "Albertslund"
+        },
+        {
+          "id": "151",
+          "text": "Ballerup"
+        },
+        {
+          "id": "153",
+          "text": "Brøndby"
+        },
+        {
+          "id": "157",
+          "text": "Gentofte"
+        },
+        {
+          "id": "159",
+          "text": "Gladsaxe"
+        },
+        {
+          "id": "161",
+          "text": "Glostrup"
+        },
+        {
+          "id": "163",
+          "text": "Herlev"
+        },
+        {
+          "id": "167",
+          "text": "Hvidovre"
+        },
+        {
+          "id": "169",
+          "text": "Høje-Taastrup"
+        },
+        {
+          "id": "183",
+          "text": "Ishøj"
+        },
+        {
+          "id": "173",
+          "text": "Lyngby-Taarbæk"
+        },
+        {
+          "id": "175",
+          "text": "Rødovre"
+        },
+        {
+          "id": "187",
+          "text": "Vallensbæk"
+        },
+        {
+          "id": "201",
+          "text": "Allerød"
+        },
+        {
+          "id": "240",
+          "text": "Egedal"
+        },
+        {
+          "id": "210",
+          "text": "Fredensborg"
+        },
+        {
+          "id": "250",
+          "text": "Frederikssund"
+        },
+        {
+          "id": "190",
+          "text": "Furesø"
+        },
+        {
+          "id": "270",
+          "text": "Gribskov"
+        },
+        {
+          "id": "260",
+          "text": "Halsnæs"
+        },
+        {
+          "id": "217",
+          "text": "Helsingør"
+        },
+        {
+          "id": "219",
+          "text": "Hillerød"
+        },
+        {
+          "id": "223",
+          "text": "Hørsholm"
+        },
+        {
+          "id": "230",
+          "text": "Rudersdal"
+        },
+        {
+          "id": "400",
+          "text": "Bornholm"
+        },
+        {
+          "id": "411",
+          "text": "Christiansø"
+        },
+        {
+          "id": "085",
+          "text": "Region Sjælland"
+        },
+        {
+          "id": "253",
+          "text": "Greve"
+        },
+        {
+          "id": "259",
+          "text": "Køge"
+        },
+        {
+          "id": "350",
+          "text": "Lejre"
+        },
+        {
+          "id": "265",
+          "text": "Roskilde"
+        },
+        {
+          "id": "269",
+          "text": "Solrød"
+        },
+        {
+          "id": "320",
+          "text": "Faxe"
+        },
+        {
+          "id": "376",
+          "text": "Guldborgsund"
+        },
+        {
+          "id": "316",
+          "text": "Holbæk"
+        },
+        {
+          "id": "326",
+          "text": "Kalundborg"
+        },
+        {
+          "id": "360",
+          "text": "Lolland"
+        },
+        {
+          "id": "370",
+          "text": "Næstved"
+        },
+        {
+          "id": "306",
+          "text": "Odsherred"
+        },
+        {
+          "id": "329",
+          "text": "Ringsted"
+        },
+        {
+          "id": "330",
+          "text": "Slagelse"
+        },
+        {
+          "id": "340",
+          "text": "Sorø"
+        },
+        {
+          "id": "336",
+          "text": "Stevns"
+        },
+        {
+          "id": "390",
+          "text": "Vordingborg"
+        },
+        {
+          "id": "083",
+          "text": "Region Syddanmark"
+        },
+        {
+          "id": "420",
+          "text": "Assens"
+        },
+        {
+          "id": "430",
+          "text": "Faaborg-Midtfyn"
+        },
+        {
+          "id": "440",
+          "text": "Kerteminde"
+        },
+        {
+          "id": "482",
+          "text": "Langeland"
+        },
+        {
+          "id": "410",
+          "text": "Middelfart"
+        },
+        {
+          "id": "480",
+          "text": "Nordfyns"
+        },
+        {
+          "id": "450",
+          "text": "Nyborg"
+        },
+        {
+          "id": "461",
+          "text": "Odense"
+        },
+        {
+          "id": "479",
+          "text": "Svendborg"
+        },
+        {
+          "id": "492",
+          "text": "Ærø"
+        },
+        {
+          "id": "530",
+          "text": "Billund"
+        },
+        {
+          "id": "561",
+          "text": "Esbjerg"
+        },
+        {
+          "id": "563",
+          "text": "Fanø"
+        },
+        {
+          "id": "607",
+          "text": "Fredericia"
+        },
+        {
+          "id": "510",
+          "text": "Haderslev"
+        },
+        {
+          "id": "621",
+          "text": "Kolding"
+        },
+        {
+          "id": "540",
+          "text": "Sønderborg"
+        },
+        {
+          "id": "550",
+          "text": "Tønder"
+        },
+        {
+          "id": "573",
+          "text": "Varde"
+        },
+        {
+          "id": "575",
+          "text": "Vejen"
+        },
+        {
+          "id": "630",
+          "text": "Vejle"
+        },
+        {
+          "id": "580",
+          "text": "Aabenraa"
+        },
+        {
+          "id": "082",
+          "text": "Region Midtjylland"
+        },
+        {
+          "id": "710",
+          "text": "Favrskov"
+        },
+        {
+          "id": "766",
+          "text": "Hedensted"
+        },
+        {
+          "id": "615",
+          "text": "Horsens"
+        },
+        {
+          "id": "707",
+          "text": "Norddjurs"
+        },
+        {
+          "id": "727",
+          "text": "Odder"
+        },
+        {
+          "id": "730",
+          "text": "Randers"
+        },
+        {
+          "id": "741",
+          "text": "Samsø"
+        },
+        {
+          "id": "740",
+          "text": "Silkeborg"
+        },
+        {
+          "id": "746",
+          "text": "Skanderborg"
+        },
+        {
+          "id": "706",
+          "text": "Syddjurs"
+        },
+        {
+          "id": "751",
+          "text": "Aarhus"
+        },
+        {
+          "id": "657",
+          "text": "Herning"
+        },
+        {
+          "id": "661",
+          "text": "Holstebro"
+        },
+        {
+          "id": "756",
+          "text": "Ikast-Brande"
+        },
+        {
+          "id": "665",
+          "text": "Lemvig"
+        },
+        {
+          "id": "760",
+          "text": "Ringkøbing-Skjern"
+        },
+        {
+          "id": "779",
+          "text": "Skive"
+        },
+        {
+          "id": "671",
+          "text": "Struer"
+        },
+        {
+          "id": "791",
+          "text": "Viborg"
+        },
+        {
+          "id": "081",
+          "text": "Region Nordjylland"
+        },
+        {
+          "id": "810",
+          "text": "Brønderslev"
+        },
+        {
+          "id": "813",
+          "text": "Frederikshavn"
+        },
+        {
+          "id": "860",
+          "text": "Hjørring"
+        },
+        {
+          "id": "849",
+          "text": "Jammerbugt"
+        },
+        {
+          "id": "825",
+          "text": "Læsø"
+        },
+        {
+          "id": "846",
+          "text": "Mariagerfjord"
+        },
+        {
+          "id": "773",
+          "text": "Morsø"
+        },
+        {
+          "id": "840",
+          "text": "Rebild"
+        },
+        {
+          "id": "787",
+          "text": "Thisted"
+        },
+        {
+          "id": "820",
+          "text": "Vesthimmerlands"
+        },
+        {
+          "id": "851",
+          "text": "Aalborg"
+        }
+      ]
+    },
+    {
+      "id": "Tid",
+      "text": "tid",
+      "elimination": false,
+      "time": true,
+      "values": [
+        {
+          "id": "2007",
+          "text": "2007"
+        },
+        {
+          "id": "2008",
+          "text": "2008"
+        },
+        {
+          "id": "2009",
+          "text": "2009"
+        },
+        {
+          "id": "2010",
+          "text": "2010"
+        },
+        {
+          "id": "2011",
+          "text": "2011"
+        },
+        {
+          "id": "2012",
+          "text": "2012"
+        },
+        {
+          "id": "2013",
+          "text": "2013"
+        },
+        {
+          "id": "2014",
+          "text": "2014"
+        },
+        {
+          "id": "2015",
+          "text": "2015"
+        },
+        {
+          "id": "2016",
+          "text": "2016"
+        },
+        {
+          "id": "2017",
+          "text": "2017"
+        },
+        {
+          "id": "2018",
+          "text": "2018"
+        },
+        {
+          "id": "2019",
+          "text": "2019"
+        },
+        {
+          "id": "2020",
+          "text": "2020"
+        },
+        {
+          "id": "2021",
+          "text": "2021"
+        },
+        {
+          "id": "2022",
+          "text": "2022"
+        },
+        {
+          "id": "2023",
+          "text": "2023"
+        },
+        {
+          "id": "2024",
+          "text": "2024"
+        },
+        {
+          "id": "2025",
+          "text": "2025"
+        },
+        {
+          "id": "2026",
+          "text": "2026"
+        }
+      ]
+    }
+  ]
+}

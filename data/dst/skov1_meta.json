@@ -1,0 +1,1296 @@
+{
+  "id": "SKOV1",
+  "text": "Skovarealet",
+  "description": "Skovarealet efter område, bevoksning og tid",
+  "unit": "ha",
+  "suppressedDataValue": "0",
+  "updated": "2002-06-28T09:30:00",
+  "active": false,
+  "contacts": [
+    {
+      "name": "Karsten Kjeld Larsen",
+      "phone": "+4521295576",
+      "mail": "kkl@dst.dk"
+    }
+  ],
+  "documentation": {
+    "id": "e34aaf8c-5993-4e0b-b256-dcbfae06e64c",
+    "url": "https://www.dst.dk/statistikdokumentation/e34aaf8c-5993-4e0b-b256-dcbfae06e64c"
+  },
+  "footnote": null,
+  "variables": [
+    {
+      "id": "OMRÅDE",
+      "text": "område",
+      "elimination": true,
+      "time": false,
+      "map": "Denmark_municipality",
+      "values": [
+        {
+          "id": "000",
+          "text": "Hele landet"
+        },
+        {
+          "id": "100",
+          "text": "København og Frederiksberg"
+        },
+        {
+          "id": "101",
+          "text": "København"
+        },
+        {
+          "id": "147",
+          "text": "Frederiksberg"
+        },
+        {
+          "id": "150",
+          "text": "Københavns Amt"
+        },
+        {
+          "id": "165",
+          "text": "Albertslund"
+        },
+        {
+          "id": "151",
+          "text": "Ballerup"
+        },
+        {
+          "id": "153",
+          "text": "Brøndby"
+        },
+        {
+          "id": "155",
+          "text": "Dragør"
+        },
+        {
+          "id": "157",
+          "text": "Gentofte"
+        },
+        {
+          "id": "159",
+          "text": "Gladsaxe"
+        },
+        {
+          "id": "161",
+          "text": "Glostrup"
+        },
+        {
+          "id": "163",
+          "text": "Herlev"
+        },
+        {
+          "id": "167",
+          "text": "Hvidovre"
+        },
+        {
+          "id": "169",
+          "text": "Høje Taastrup"
+        },
+        {
+          "id": "183",
+          "text": "Ishøj"
+        },
+        {
+          "id": "171",
+          "text": "Ledøje-Smørum"
+        },
+        {
+          "id": "173",
+          "text": "Lyngby-Taarbæk"
+        },
+        {
+          "id": "175",
+          "text": "Rødovre"
+        },
+        {
+          "id": "181",
+          "text": "Søllerød"
+        },
+        {
+          "id": "185",
+          "text": "Tårnby"
+        },
+        {
+          "id": "187",
+          "text": "Vallensbæk"
+        },
+        {
+          "id": "189",
+          "text": "Værløse"
+        },
+        {
+          "id": "200",
+          "text": "Frederiksborg Amt"
+        },
+        {
+          "id": "201",
+          "text": "Allerød"
+        },
+        {
+          "id": "205",
+          "text": "Birkerød"
+        },
+        {
+          "id": "207",
+          "text": "Farum"
+        },
+        {
+          "id": "208",
+          "text": "Fredensborg-Humlebæk"
+        },
+        {
+          "id": "209",
+          "text": "Frederikssund"
+        },
+        {
+          "id": "211",
+          "text": "Frederiksværk"
+        },
+        {
+          "id": "213",
+          "text": "Græsted-Gilleleje"
+        },
+        {
+          "id": "215",
+          "text": "Helsinge"
+        },
+        {
+          "id": "217",
+          "text": "Helsingør"
+        },
+        {
+          "id": "219",
+          "text": "Hillerød"
+        },
+        {
+          "id": "221",
+          "text": "Hundested"
+        },
+        {
+          "id": "223",
+          "text": "Hørsholm"
+        },
+        {
+          "id": "225",
+          "text": "Jægerspris"
+        },
+        {
+          "id": "227",
+          "text": "Karlebo"
+        },
+        {
+          "id": "229",
+          "text": "Skibby"
+        },
+        {
+          "id": "231",
+          "text": "Skævinge"
+        },
+        {
+          "id": "233",
+          "text": "Slangerup"
+        },
+        {
+          "id": "235",
+          "text": "Stenløse"
+        },
+        {
+          "id": "237",
+          "text": "Ølstykke"
+        },
+        {
+          "id": "250",
+          "text": "Roskilde Amt"
+        },
+        {
+          "id": "251",
+          "text": "Bramsnæs"
+        },
+        {
+          "id": "253",
+          "text": "Greve"
+        },
+        {
+          "id": "255",
+          "text": "Gundsø"
+        },
+        {
+          "id": "257",
+          "text": "Hvalsø"
+        },
+        {
+          "id": "259",
+          "text": "Køge"
+        },
+        {
+          "id": "261",
+          "text": "Lejre"
+        },
+        {
+          "id": "263",
+          "text": "Ramsø"
+        },
+        {
+          "id": "265",
+          "text": "Roskilde"
+        },
+        {
+          "id": "267",
+          "text": "Skovbo"
+        },
+        {
+          "id": "269",
+          "text": "Solrød"
+        },
+        {
+          "id": "271",
+          "text": "Vallø"
+        },
+        {
+          "id": "300",
+          "text": "Vestsjællands Amt"
+        },
+        {
+          "id": "301",
+          "text": "Bjergsted"
+        },
+        {
+          "id": "303",
+          "text": "Dianalund"
+        },
+        {
+          "id": "305",
+          "text": "Dragsholm"
+        },
+        {
+          "id": "307",
+          "text": "Fuglebjerg"
+        },
+        {
+          "id": "309",
+          "text": "Gørlev"
+        },
+        {
+          "id": "311",
+          "text": "Hashøj"
+        },
+        {
+          "id": "313",
+          "text": "Haslev"
+        },
+        {
+          "id": "315",
+          "text": "Holbæk"
+        },
+        {
+          "id": "317",
+          "text": "Hvidebæk"
+        },
+        {
+          "id": "319",
+          "text": "Høng"
+        },
+        {
+          "id": "321",
+          "text": "Jernløse"
+        },
+        {
+          "id": "323",
+          "text": "Kalundborg"
+        },
+        {
+          "id": "325",
+          "text": "Korsør"
+        },
+        {
+          "id": "327",
+          "text": "Nykøbing-Rørvig"
+        },
+        {
+          "id": "329",
+          "text": "Ringsted"
+        },
+        {
+          "id": "331",
+          "text": "Skælskør"
+        },
+        {
+          "id": "333",
+          "text": "Slagelse"
+        },
+        {
+          "id": "335",
+          "text": "Sorø"
+        },
+        {
+          "id": "337",
+          "text": "Stenlille"
+        },
+        {
+          "id": "339",
+          "text": "Svinninge"
+        },
+        {
+          "id": "341",
+          "text": "Tornved"
+        },
+        {
+          "id": "343",
+          "text": "Trundholm"
+        },
+        {
+          "id": "345",
+          "text": "Tølløse"
+        },
+        {
+          "id": "350",
+          "text": "Storstrøms Amt"
+        },
+        {
+          "id": "351",
+          "text": "Fakse"
+        },
+        {
+          "id": "353",
+          "text": "Fladså"
+        },
+        {
+          "id": "355",
+          "text": "Holeby"
+        },
+        {
+          "id": "357",
+          "text": "Holmegaard"
+        },
+        {
+          "id": "359",
+          "text": "Højreby"
+        },
+        {
+          "id": "361",
+          "text": "Langebæk"
+        },
+        {
+          "id": "363",
+          "text": "Maribo"
+        },
+        {
+          "id": "365",
+          "text": "Møn"
+        },
+        {
+          "id": "367",
+          "text": "Nakskov"
+        },
+        {
+          "id": "369",
+          "text": "Nykøbing-Falster"
+        },
+        {
+          "id": "371",
+          "text": "Nysted"
+        },
+        {
+          "id": "373",
+          "text": "Næstved"
+        },
+        {
+          "id": "375",
+          "text": "Nørre Alslev"
+        },
+        {
+          "id": "377",
+          "text": "Præstø"
+        },
+        {
+          "id": "379",
+          "text": "Ravnsborg"
+        },
+        {
+          "id": "381",
+          "text": "Rudbjerg"
+        },
+        {
+          "id": "383",
+          "text": "Rødby"
+        },
+        {
+          "id": "385",
+          "text": "Rønnede"
+        },
+        {
+          "id": "387",
+          "text": "Sakskøbing"
+        },
+        {
+          "id": "389",
+          "text": "Stevns"
+        },
+        {
+          "id": "391",
+          "text": "Stubbekøbing"
+        },
+        {
+          "id": "393",
+          "text": "Suså"
+        },
+        {
+          "id": "395",
+          "text": "Sydfalster"
+        },
+        {
+          "id": "397",
+          "text": "Vordingborg"
+        },
+        {
+          "id": "400",
+          "text": "Bornholm (excl. Christiansø)"
+        },
+        {
+          "id": "401",
+          "text": "Allinge-Gudhjem (- 2002)"
+        },
+        {
+          "id": "403",
+          "text": "Hasle (- 2002)"
+        },
+        {
+          "id": "405",
+          "text": "Nexø (- 2002)"
+        },
+        {
+          "id": "407",
+          "text": "Rønne (- 2002)"
+        },
+        {
+          "id": "409",
+          "text": "Aakirkeby (- 2002)"
+        },
+        {
+          "id": "411",
+          "text": "Christiansø (Uden for Kommuner)"
+        },
+        {
+          "id": "420",
+          "text": "Fyns Amt"
+        },
+        {
+          "id": "421",
+          "text": "Assens"
+        },
+        {
+          "id": "423",
+          "text": "Bogense"
+        },
+        {
+          "id": "425",
+          "text": "Broby"
+        },
+        {
+          "id": "427",
+          "text": "Egebjerg"
+        },
+        {
+          "id": "429",
+          "text": "Ejby"
+        },
+        {
+          "id": "431",
+          "text": "Faaborg"
+        },
+        {
+          "id": "433",
+          "text": "Glamsbjerg"
+        },
+        {
+          "id": "435",
+          "text": "Gudme"
+        },
+        {
+          "id": "437",
+          "text": "Haarby"
+        },
+        {
+          "id": "439",
+          "text": "Kerteminde"
+        },
+        {
+          "id": "441",
+          "text": "Langeskov"
+        },
+        {
+          "id": "443",
+          "text": "Marstal (-2005/2006)"
+        },
+        {
+          "id": "445",
+          "text": "Middelfart"
+        },
+        {
+          "id": "447",
+          "text": "Munkebo"
+        },
+        {
+          "id": "449",
+          "text": "Nyborg"
+        },
+        {
+          "id": "451",
+          "text": "Nørre Aaby"
+        },
+        {
+          "id": "461",
+          "text": "Odense"
+        },
+        {
+          "id": "471",
+          "text": "Otterup"
+        },
+        {
+          "id": "473",
+          "text": "Ringe"
+        },
+        {
+          "id": "475",
+          "text": "Rudkøbing"
+        },
+        {
+          "id": "477",
+          "text": "Ryslinge"
+        },
+        {
+          "id": "479",
+          "text": "Svendborg"
+        },
+        {
+          "id": "481",
+          "text": "Sydlangeland"
+        },
+        {
+          "id": "483",
+          "text": "Søndersø"
+        },
+        {
+          "id": "485",
+          "text": "Tommerup"
+        },
+        {
+          "id": "487",
+          "text": "Tranekær"
+        },
+        {
+          "id": "489",
+          "text": "Ullerslev"
+        },
+        {
+          "id": "491",
+          "text": "Vissenbjerg"
+        },
+        {
+          "id": "492",
+          "text": "Ærø (2005/2006-)"
+        },
+        {
+          "id": "493",
+          "text": "Ærøskøbing (-2005/2006)"
+        },
+        {
+          "id": "495",
+          "text": "Ørbæk"
+        },
+        {
+          "id": "497",
+          "text": "Årslev"
+        },
+        {
+          "id": "499",
+          "text": "Aarup"
+        },
+        {
+          "id": "500",
+          "text": "Sønderjyllands Amt"
+        },
+        {
+          "id": "501",
+          "text": "Augustenborg"
+        },
+        {
+          "id": "503",
+          "text": "Bov"
+        },
+        {
+          "id": "505",
+          "text": "Bredebro"
+        },
+        {
+          "id": "507",
+          "text": "Broager"
+        },
+        {
+          "id": "509",
+          "text": "Christiansfeld"
+        },
+        {
+          "id": "511",
+          "text": "Gram"
+        },
+        {
+          "id": "513",
+          "text": "Gråsten"
+        },
+        {
+          "id": "515",
+          "text": "Haderslev"
+        },
+        {
+          "id": "517",
+          "text": "Højer"
+        },
+        {
+          "id": "519",
+          "text": "Lundtoft"
+        },
+        {
+          "id": "521",
+          "text": "Løgumkloster"
+        },
+        {
+          "id": "523",
+          "text": "Nordborg"
+        },
+        {
+          "id": "525",
+          "text": "Nørre Rangstrup"
+        },
+        {
+          "id": "527",
+          "text": "Rødding"
+        },
+        {
+          "id": "529",
+          "text": "Rødekro"
+        },
+        {
+          "id": "531",
+          "text": "Skærbæk"
+        },
+        {
+          "id": "533",
+          "text": "Sundeved"
+        },
+        {
+          "id": "535",
+          "text": "Sydals"
+        },
+        {
+          "id": "537",
+          "text": "Sønderborg"
+        },
+        {
+          "id": "539",
+          "text": "Tinglev"
+        },
+        {
+          "id": "541",
+          "text": "Tønder"
+        },
+        {
+          "id": "543",
+          "text": "Vojens"
+        },
+        {
+          "id": "545",
+          "text": "Aabenraa"
+        },
+        {
+          "id": "550",
+          "text": "Ribe Amt"
+        },
+        {
+          "id": "551",
+          "text": "Billund"
+        },
+        {
+          "id": "553",
+          "text": "Blåbjerg"
+        },
+        {
+          "id": "555",
+          "text": "Blåvandshuk"
+        },
+        {
+          "id": "557",
+          "text": "Bramming"
+        },
+        {
+          "id": "559",
+          "text": "Brørup"
+        },
+        {
+          "id": "561",
+          "text": "Esbjerg"
+        },
+        {
+          "id": "563",
+          "text": "Fanø"
+        },
+        {
+          "id": "565",
+          "text": "Grindsted"
+        },
+        {
+          "id": "567",
+          "text": "Helle"
+        },
+        {
+          "id": "569",
+          "text": "Holsted"
+        },
+        {
+          "id": "571",
+          "text": "Ribe"
+        },
+        {
+          "id": "573",
+          "text": "Varde"
+        },
+        {
+          "id": "575",
+          "text": "Vejen"
+        },
+        {
+          "id": "577",
+          "text": "Ølgod"
+        },
+        {
+          "id": "600",
+          "text": "Vejle Amt"
+        },
+        {
+          "id": "601",
+          "text": "Brædstrup"
+        },
+        {
+          "id": "603",
+          "text": "Børkop"
+        },
+        {
+          "id": "605",
+          "text": "Egtved"
+        },
+        {
+          "id": "607",
+          "text": "Fredericia"
+        },
+        {
+          "id": "609",
+          "text": "Gedved"
+        },
+        {
+          "id": "611",
+          "text": "Give"
+        },
+        {
+          "id": "613",
+          "text": "Hedensted"
+        },
+        {
+          "id": "615",
+          "text": "Horsens"
+        },
+        {
+          "id": "617",
+          "text": "Jelling"
+        },
+        {
+          "id": "619",
+          "text": "Juelsminde"
+        },
+        {
+          "id": "621",
+          "text": "Kolding"
+        },
+        {
+          "id": "623",
+          "text": "Lunderskov"
+        },
+        {
+          "id": "625",
+          "text": "Nørre Snede"
+        },
+        {
+          "id": "627",
+          "text": "Tørring-Uldum"
+        },
+        {
+          "id": "629",
+          "text": "Vamdrup"
+        },
+        {
+          "id": "631",
+          "text": "Vejle"
+        },
+        {
+          "id": "650",
+          "text": "Ringkøbing Amt"
+        },
+        {
+          "id": "651",
+          "text": "Aulum-Haderup"
+        },
+        {
+          "id": "653",
+          "text": "Brande"
+        },
+        {
+          "id": "655",
+          "text": "Egvad"
+        },
+        {
+          "id": "657",
+          "text": "Herning"
+        },
+        {
+          "id": "659",
+          "text": "Holmsland"
+        },
+        {
+          "id": "661",
+          "text": "Holstebro"
+        },
+        {
+          "id": "663",
+          "text": "Ikast"
+        },
+        {
+          "id": "665",
+          "text": "Lemvig"
+        },
+        {
+          "id": "667",
+          "text": "Ringkøbing"
+        },
+        {
+          "id": "669",
+          "text": "Skjern"
+        },
+        {
+          "id": "671",
+          "text": "Struer"
+        },
+        {
+          "id": "673",
+          "text": "Thyborøn-Harboøre"
+        },
+        {
+          "id": "675",
+          "text": "Thyholm"
+        },
+        {
+          "id": "677",
+          "text": "Trehøje"
+        },
+        {
+          "id": "679",
+          "text": "Ulfborg-Vemb"
+        },
+        {
+          "id": "681",
+          "text": "Videbæk"
+        },
+        {
+          "id": "683",
+          "text": "Vinderup"
+        },
+        {
+          "id": "685",
+          "text": "Åskov"
+        },
+        {
+          "id": "700",
+          "text": "Århus Amt"
+        },
+        {
+          "id": "701",
+          "text": "Ebeltoft"
+        },
+        {
+          "id": "703",
+          "text": "Galten"
+        },
+        {
+          "id": "705",
+          "text": "Gjern"
+        },
+        {
+          "id": "707",
+          "text": "Grenaa"
+        },
+        {
+          "id": "709",
+          "text": "Hadsten"
+        },
+        {
+          "id": "711",
+          "text": "Hammel"
+        },
+        {
+          "id": "713",
+          "text": "Hinnerup"
+        },
+        {
+          "id": "715",
+          "text": "Hørning"
+        },
+        {
+          "id": "717",
+          "text": "Langå"
+        },
+        {
+          "id": "719",
+          "text": "Mariager"
+        },
+        {
+          "id": "721",
+          "text": "Midtdjurs"
+        },
+        {
+          "id": "723",
+          "text": "Nørhald"
+        },
+        {
+          "id": "725",
+          "text": "Nørre Djurs"
+        },
+        {
+          "id": "727",
+          "text": "Odder"
+        },
+        {
+          "id": "729",
+          "text": "Purhus"
+        },
+        {
+          "id": "731",
+          "text": "Randers"
+        },
+        {
+          "id": "733",
+          "text": "Rosenholm"
+        },
+        {
+          "id": "735",
+          "text": "Rougsø"
+        },
+        {
+          "id": "737",
+          "text": "Ry"
+        },
+        {
+          "id": "739",
+          "text": "Rønde"
+        },
+        {
+          "id": "741",
+          "text": "Samsø"
+        },
+        {
+          "id": "743",
+          "text": "Silkeborg"
+        },
+        {
+          "id": "745",
+          "text": "Skanderborg"
+        },
+        {
+          "id": "747",
+          "text": "Sønderhald"
+        },
+        {
+          "id": "749",
+          "text": "Them"
+        },
+        {
+          "id": "751",
+          "text": "Århus"
+        },
+        {
+          "id": "760",
+          "text": "Viborg Amt"
+        },
+        {
+          "id": "761",
+          "text": "Bjerringbro"
+        },
+        {
+          "id": "763",
+          "text": "Fjends"
+        },
+        {
+          "id": "765",
+          "text": "Hanstholm"
+        },
+        {
+          "id": "767",
+          "text": "Hvorslev"
+        },
+        {
+          "id": "769",
+          "text": "Karup"
+        },
+        {
+          "id": "771",
+          "text": "Kjellerup"
+        },
+        {
+          "id": "773",
+          "text": "Morsø"
+        },
+        {
+          "id": "775",
+          "text": "Møldrup"
+        },
+        {
+          "id": "777",
+          "text": "Sallingsund"
+        },
+        {
+          "id": "779",
+          "text": "Skive"
+        },
+        {
+          "id": "781",
+          "text": "Spøttrup"
+        },
+        {
+          "id": "783",
+          "text": "Sundsøre"
+        },
+        {
+          "id": "785",
+          "text": "Sydthy"
+        },
+        {
+          "id": "787",
+          "text": "Thisted"
+        },
+        {
+          "id": "789",
+          "text": "Tjele"
+        },
+        {
+          "id": "791",
+          "text": "Viborg"
+        },
+        {
+          "id": "793",
+          "text": "Aalestrup"
+        },
+        {
+          "id": "800",
+          "text": "Nordjyllands Amt"
+        },
+        {
+          "id": "801",
+          "text": "Arden"
+        },
+        {
+          "id": "803",
+          "text": "Brovst"
+        },
+        {
+          "id": "805",
+          "text": "Brønderslev"
+        },
+        {
+          "id": "807",
+          "text": "Dronninglund"
+        },
+        {
+          "id": "809",
+          "text": "Farsø"
+        },
+        {
+          "id": "811",
+          "text": "Fjerritslev"
+        },
+        {
+          "id": "813",
+          "text": "Frederikshavn"
+        },
+        {
+          "id": "815",
+          "text": "Hadsund"
+        },
+        {
+          "id": "817",
+          "text": "Hals"
+        },
+        {
+          "id": "819",
+          "text": "Hirtshals"
+        },
+        {
+          "id": "821",
+          "text": "Hjørring"
+        },
+        {
+          "id": "823",
+          "text": "Hobro"
+        },
+        {
+          "id": "825",
+          "text": "Læsø"
+        },
+        {
+          "id": "827",
+          "text": "Løgstør"
+        },
+        {
+          "id": "829",
+          "text": "Løkken-Vrå"
+        },
+        {
+          "id": "831",
+          "text": "Nibe"
+        },
+        {
+          "id": "833",
+          "text": "Nørager"
+        },
+        {
+          "id": "835",
+          "text": "Pandrup"
+        },
+        {
+          "id": "837",
+          "text": "Sejlflod"
+        },
+        {
+          "id": "839",
+          "text": "Sindal"
+        },
+        {
+          "id": "841",
+          "text": "Skagen"
+        },
+        {
+          "id": "843",
+          "text": "Skørping"
+        },
+        {
+          "id": "845",
+          "text": "Støvring"
+        },
+        {
+          "id": "847",
+          "text": "Sæby"
+        },
+        {
+          "id": "849",
+          "text": "Aabybro"
+        },
+        {
+          "id": "851",
+          "text": "Aalborg"
+        },
+        {
+          "id": "861",
+          "text": "Aars"
+        }
+      ]
+    },
+    {
+      "id": "BEVOKSNING",
+      "text": "bevoksning",
+      "elimination": true,
+      "time": false,
+      "values": [
+        {
+          "id": "1",
+          "text": "Skovareal i alt"
+        },
+        {
+          "id": "2",
+          "text": "Hjælpearealer"
+        },
+        {
+          "id": "3",
+          "text": "Skovbevokset areal i alt"
+        },
+        {
+          "id": "4",
+          "text": "Midlertidig ubevokset"
+        },
+        {
+          "id": "5",
+          "text": "Løvtræer, areal i alt"
+        },
+        {
+          "id": "6",
+          "text": "Bøg"
+        },
+        {
+          "id": "7",
+          "text": "Eg"
+        },
+        {
+          "id": "8",
+          "text": "Ask"
+        },
+        {
+          "id": "9",
+          "text": "Ær (Ahorn)"
+        },
+        {
+          "id": "10",
+          "text": "Andre løvtræarter"
+        },
+        {
+          "id": "11",
+          "text": "Nåletræer i alt"
+        },
+        {
+          "id": "12",
+          "text": "Rødgran"
+        },
+        {
+          "id": "13",
+          "text": "Sitkagran mv."
+        },
+        {
+          "id": "14",
+          "text": "Nobilis"
+        },
+        {
+          "id": "15",
+          "text": "Nordmannsgran"
+        },
+        {
+          "id": "16",
+          "text": "Andre ædelgranarter"
+        },
+        {
+          "id": "17",
+          "text": "Andre nåletræarter"
+        }
+      ]
+    },
+    {
+      "id": "Tid",
+      "text": "tid",
+      "elimination": false,
+      "time": true,
+      "values": [
+        {
+          "id": "1990",
+          "text": "1990"
+        },
+        {
+          "id": "2000",
+          "text": "2000"
+        }
+      ]
+    }
+  ]
+}

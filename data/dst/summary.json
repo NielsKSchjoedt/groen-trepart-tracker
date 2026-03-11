@@ -1,0 +1,31 @@
+{
+  "fetched_at": "2026-03-11T14:01:40.718212+00:00",
+  "api_base": "https://api.statbank.dk/v1",
+  "tables": {
+    "ARE207": {
+      "description": "Areal 1. januar — land area by region over time",
+      "row_count": 2100,
+      "file_size_bytes": 47676,
+      "has_metadata": true
+    },
+    "SKOV1": {
+      "description": "Skovarealet — forest area by region and tree type",
+      "row_count": 9962,
+      "file_size_bytes": 359123,
+      "has_metadata": true
+    },
+    "FOND19": {
+      "description": "Bevilligede fondsmidler til natur-, klima- og miljøformål",
+      "row_count": 63,
+      "file_size_bytes": 4117,
+      "has_metadata": true
+    },
+    "TILSKUD2": {
+      "description": "Direkte tilskud til landbrugssektoren",
+      "row_count": 92,
+      "file_size_bytes": 3541,
+      "has_metadata": true
+    }
+  },
+  "errors": []
+}

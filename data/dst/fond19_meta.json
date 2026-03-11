@@ -1,0 +1,99 @@
+{
+  "id": "FOND19",
+  "text": "Bevilligede fondsmidler til natur-, klima- og miljøformål",
+  "description": "Bevilligede fondsmidler til natur-, klima- og miljøformål efter fondstype, hovedområder og tid",
+  "unit": "Mio. kr.",
+  "suppressedDataValue": "0",
+  "updated": "2025-11-17T08:00:00",
+  "active": true,
+  "contacts": [
+    {
+      "name": "Sara Tvile Marker",
+      "phone": "+4523742836",
+      "mail": "stk@dst.dk"
+    }
+  ],
+  "documentation": {
+    "id": "0a34cb05-c536-4d5a-9f13-f1763cefb123",
+    "url": "https://www.dst.dk/statistikdokumentation/0a34cb05-c536-4d5a-9f13-f1763cefb123"
+  },
+  "footnote": null,
+  "variables": [
+    {
+      "id": "FONDSTYPE",
+      "text": "fondstype",
+      "elimination": true,
+      "time": false,
+      "values": [
+        {
+          "id": "1000",
+          "text": "Alle fonde"
+        },
+        {
+          "id": "1005",
+          "text": "Erhvervsdrivende fonde"
+        },
+        {
+          "id": "1010",
+          "text": "Almene fonde og fondslignende foreninger"
+        }
+      ]
+    },
+    {
+      "id": "HOMR",
+      "text": "hovedområder",
+      "elimination": false,
+      "time": false,
+      "values": [
+        {
+          "id": "4010",
+          "text": "Forebyggelse af klimaforandringer i form af CO2 reducerende formål"
+        },
+        {
+          "id": "4015",
+          "text": "Øvrige forbyggende formål af klimaforandringer"
+        },
+        {
+          "id": "4020",
+          "text": "Klimatilpasning"
+        },
+        {
+          "id": "4025",
+          "text": "Affaldshåndtering"
+        },
+        {
+          "id": "4030",
+          "text": "Beskyttelse af vandressourcer"
+        },
+        {
+          "id": "4035",
+          "text": "Naturbeskyttelse"
+        },
+        {
+          "id": "4040",
+          "text": "Andre formål"
+        }
+      ]
+    },
+    {
+      "id": "Tid",
+      "text": "tid",
+      "elimination": false,
+      "time": true,
+      "values": [
+        {
+          "id": "2022",
+          "text": "2022"
+        },
+        {
+          "id": "2023",
+          "text": "2023"
+        },
+        {
+          "id": "2024",
+          "text": "2024"
+        }
+      ]
+    }
+  ]
+}

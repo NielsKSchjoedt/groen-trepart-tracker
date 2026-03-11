@@ -1,0 +1,29 @@
+{
+  "fetched_at": "2026-03-11T14:03:05.630793+00:00",
+  "sources": {
+    "fredskov": {
+      "description": "Protected forests (cadastral parcels with fredskov status)",
+      "wfs_base": "https://wfs2-miljoegis.mim.dk/np3basis2020/ows",
+      "layer": "np3basis2020:np3b2020_fredskov",
+      "total_count": 59822,
+      "features_aggregated": 59822,
+      "total_area_m2": 5789497502,
+      "total_area_ha": 578949.8,
+      "total_area_km2": 5789.5,
+      "cadastral_districts": 6255
+    },
+    "skovkort_2022": {
+      "description": "Digital forest map 2022 (current forest cover polygons)",
+      "wfs_base": "https://wfs2-miljoegis.mim.dk/skovdrift/ows",
+      "layer": "skovdrift:digitalt_skovkort_2022",
+      "total_count": 61588,
+      "note": "Geometry-only layer — no area property. Feature count indicates forest cover extent."
+    }
+  },
+  "context": {
+    "mars_afforestation_ha": 49,
+    "klimaskovfonden_ha": 2871,
+    "national_target_ha": 250000,
+    "note": "Fredskov represents the legally protected forest baseline. The afforestation target (250,000 ha new forest by 2045) should be measured as new forest area above this baseline."
+  }
+}

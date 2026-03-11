@@ -1,0 +1,60 @@
+name: Fetch Tracker Data
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC (08:00 Danish time)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # ETL scripts must run from the etl/ directory so `from etl_log import ...` works
+      - name: Fetch MARS data
+        run: python3 fetch_mars.py
+        working-directory: etl
+
+      - name: Fetch DAWA data
+        run: python3 fetch_dawa.py
+        working-directory: etl
+
+      - name: Fetch MiljøGIS WFS data
+        run: python3 fetch_miljoegis.py
+        working-directory: etl
+
+      - name: Fetch Danmarks Statistik data
+        run: python3 fetch_dst.py
+        working-directory: etl
+
+      - name: Fetch VanDa station data
+        run: python3 fetch_vanda.py
+        working-directory: etl
+
+      - name: Build dashboard data
+        run: python3 build_dashboard_data.py
+        working-directory: etl
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit updated data
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "Trepart Tracker Bot"
+          git config user.email "bot@trepart-tracker.dk"
+          git add data/
+          DATE=$(date -u '+%Y-%m-%d')
+          git commit -m "data: update tracker data ($DATE)"
+          git push
