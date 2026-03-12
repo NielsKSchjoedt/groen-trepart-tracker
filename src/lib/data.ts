@@ -1,4 +1,4 @@
-import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData } from './types';
+import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog } from './types';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -11,6 +11,7 @@ let cachedGeometries: Record<string, [number, number][]> | null = null;
 let cachedCO2Data: CO2EmissionsData | null = null;
 let cachedCoastalStatus: CoastalWaterStatusData | null = null;
 let cachedWaterBodiesGeo: FeatureCollection<Geometry> | null = null;
+let cachedChangelog: ProjectChangelog | null = null;
 
 /**
  * Normalize the raw ETL JSON (which uses nested progress objects and
@@ -176,6 +177,19 @@ export async function loadCoastalWaterStatus(): Promise<CoastalWaterStatusData |
     cachedCoastalStatus = null;
   }
   return cachedCoastalStatus;
+}
+
+/** Load project changelog (recent status changes for the news ticker) */
+export async function loadProjectChangelog(): Promise<ProjectChangelog | null> {
+  if (cachedChangelog) return cachedChangelog;
+  try {
+    const res = await fetch('/data/project-changelog.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedChangelog = await res.json();
+  } catch {
+    cachedChangelog = null;
+  }
+  return cachedChangelog;
 }
 
 export function findPlanForFeature(

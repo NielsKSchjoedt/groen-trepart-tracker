@@ -20,7 +20,8 @@ Run via: mise run build-dashboard
 
 import json
 import os
-from datetime import datetime, timezone
+from collections import defaultdict
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -614,3 +615,113 @@ with open(lookup_path, "w") as f:
 
 print(f"Created {lookup_path}")
 print(f"Entries: {len(name_map)} name mappings")
+
+# ========================================
+# Build project changelog (recent activity)
+# ========================================
+# Identifies projects whose status changed within the last N days.
+# Uses `lastStateChanged` on each project to detect recent activity.
+# Produces data/project-changelog.json for the "recent news" UI component.
+
+CHANGELOG_WINDOW_DAYS = 30
+PHASE_LABELS_DA = {
+    "preliminary": "Ny forundersøgelse",
+    "approved": "Godkendt til anlæg",
+    "established": "Nyligt anlagt",
+}
+
+now_utc = datetime.now(timezone.utc)
+changelog_cutoff = now_utc - timedelta(days=CHANGELOG_WINDOW_DAYS)
+
+# Build plan name lookup: plan_id -> plan_name
+plan_name_by_id = {p["id"]: p["name"] for p in plans}
+# Also map geoLocationId -> plan name for the nested projects
+plan_name_by_geo = {p.get("geoLocationId"): p["name"] for p in plans}
+
+changelog_entries = []
+for p in plans:
+    plan_name = p["name"]
+    for proj in p.get("projects", []):
+        last_changed_str = proj.get("lastStateChanged", "")
+        if not last_changed_str:
+            continue
+        try:
+            # Parse ISO timestamp (handles both 'Z' and '+00:00' suffixes)
+            lc = last_changed_str.replace("Z", "+00:00")
+            if "+" not in lc and "-" not in lc[10:]:
+                lc += "+00:00"
+            dt = datetime.fromisoformat(lc)
+        except (ValueError, TypeError):
+            continue
+
+        if dt < changelog_cutoff:
+            continue
+
+        status = proj.get("projectStatus")
+        phase = PHASE_MAP.get(status)
+        if not phase:
+            continue
+
+        # Enrich with master data
+        measure = measure_lookup.get(proj.get("mitigationMeasureId"), {})
+
+        entry = {
+            "date": dt.strftime("%Y-%m-%d"),
+            "name": proj.get("projectName", "Unavngivet"),
+            "projectId": proj.get("projectId", ""),
+            "planName": plan_name,
+            "phase": phase,
+            "phaseLabelDa": PHASE_LABELS_DA.get(phase, phase),
+            "measureName": measure.get("name", ""),
+        }
+
+        # Add numeric effects only if > 0
+        n = proj.get("nitrogenReductionT", 0) or 0
+        if n > 0:
+            entry["nitrogenT"] = round(n, 3)
+        e = proj.get("extractionEffortHa", 0) or 0
+        if e > 0:
+            entry["extractionHa"] = round(e, 2)
+        a = proj.get("afforestationEffortHa", 0) or 0
+        if a > 0:
+            entry["afforestationHa"] = round(a, 2)
+        area = proj.get("overlappingAreaHa", 0) or 0
+        if area > 0:
+            entry["areaHa"] = round(area, 2)
+
+        changelog_entries.append(entry)
+
+# Group by date (newest first)
+entries_by_date = defaultdict(list)
+for e in changelog_entries:
+    entries_by_date[e["date"]].append(e)
+
+by_date_sorted = []
+for date_str in sorted(entries_by_date.keys(), reverse=True):
+    entries = sorted(entries_by_date[date_str], key=lambda x: x["name"])
+    by_date_sorted.append({"date": date_str, "entries": entries})
+
+# Summary counts by phase
+summary = {"preliminary": 0, "approved": 0, "established": 0}
+for e in changelog_entries:
+    summary[e["phase"]] += 1
+
+changelog_data = {
+    "builtAt": now_utc.isoformat(),
+    "windowDays": CHANGELOG_WINDOW_DAYS,
+    "totalChanges": len(changelog_entries),
+    "summary": summary,
+    "byDate": by_date_sorted,
+}
+
+changelog_path = f"{BASE}/data/project-changelog.json"
+with open(changelog_path, "w") as f:
+    json.dump(changelog_data, f, ensure_ascii=False, indent=2)
+
+print()
+print(f"Created {changelog_path}")
+print(f"Changelog: {len(changelog_entries)} changes in last {CHANGELOG_WINDOW_DAYS} days")
+print(f"  Preliminary: {summary['preliminary']}")
+print(f"  Approved:    {summary['approved']}")
+print(f"  Established: {summary['established']}")
+print(f"  Date groups: {len(by_date_sorted)}")

@@ -144,6 +144,51 @@ export interface SubsidyScheme {
   active: boolean;
 }
 
+// ============================================================
+// Project changelog — recent status changes for the news ticker
+// ============================================================
+
+/** A single project status change detected during ETL. */
+export interface ChangelogEntry {
+  /** ISO date of the change (YYYY-MM-DD) */
+  date: string;
+  /** Project name */
+  name: string;
+  /** MARS project ID */
+  projectId: string;
+  /** Plan (kystvandoplandsplan) the project belongs to */
+  planName: string;
+  /** New phase after the change */
+  phase: 'preliminary' | 'approved' | 'established';
+  /** Danish label for the phase */
+  phaseLabelDa: string;
+  /** Mitigation measure type */
+  measureName: string;
+  /** Numeric effects (only if > 0) */
+  nitrogenT?: number;
+  extractionHa?: number;
+  afforestationHa?: number;
+  areaHa?: number;
+}
+
+/** Top-level changelog artifact produced by the ETL. */
+export interface ProjectChangelog {
+  /** When the changelog was generated */
+  builtAt: string;
+  /** How many days back the changelog covers */
+  windowDays: number;
+  /** Total number of changes in the window */
+  totalChanges: number;
+  /** Summary counts by phase */
+  summary: {
+    preliminary: number;
+    approved: number;
+    established: number;
+  };
+  /** Changes grouped by date (newest first), each date's entries sorted by name */
+  byDate: { date: string; entries: ChangelogEntry[] }[];
+}
+
 // Coastal water ecological status from VP3 (EU Water Framework Directive)
 export type EcologicalStatus = 'Høj' | 'God' | 'Moderat' | 'Ringe' | 'Dårlig' | 'Ikke-god' | 'Ukendt' | 'Ikke relevant';
 
