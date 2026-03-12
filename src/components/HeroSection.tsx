@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArcGauge } from './ArcGauge';
 import { CountdownProjection } from './CountdownProjection';
 import { NatureWatermark } from './NatureWatermark';
+import { ShareButton } from './ShareButton';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { loadCO2Emissions } from '@/lib/data';
 import type { DashboardData, CO2EmissionsData } from '@/lib/types';
@@ -187,7 +188,7 @@ export function HeroSection({ data }: HeroSectionProps) {
       >
         Er vi på sporet?
       </h1>
-      <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-lg mx-auto leading-relaxed flex items-center justify-center gap-1.5 flex-wrap">
+      <p className="text-muted-foreground text-base md:text-lg mb-4 max-w-lg mx-auto leading-relaxed flex items-center justify-center gap-1.5 flex-wrap">
         <span>Følg Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, klima og natur</span>
         <InfoTooltip
           title="Hvad ser du her?"
@@ -202,6 +203,11 @@ export function HeroSection({ data }: HeroSectionProps) {
           side="bottom"
         />
       </p>
+
+      {/* Share button — lets users copy a direct link to the active pillar view */}
+      <div className="flex justify-center mb-8">
+        <ShareButton pillarLabel={config.label} />
+      </div>
 
       {/* Overall composite progress gauge */}
       <div className="mb-6 relative">

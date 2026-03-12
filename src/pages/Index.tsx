@@ -1,8 +1,11 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { loadDashboardData } from '@/lib/data';
 import type { DashboardData } from '@/lib/types';
-import { PillarContext, getPillarConfig, PILLAR_CONFIGS } from '@/lib/pillars';
+import { PillarContext, getPillarConfig } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
+import { slugToPillar, pillarToSlug } from '@/lib/slugs';
+import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
 import { PillarCards } from '@/components/PillarCards';
 import { ProjectFunnel } from '@/components/ProjectFunnel';
@@ -12,15 +15,58 @@ import { DataTable } from '@/components/DataTable';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { Footer } from '@/components/Footer';
 
-const Index = () => {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [activePillar, setActivePillar] = useState<PillarId>('nitrogen');
+/** Per-pillar meta descriptions for Google and social sharing. */
+const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
+  nitrogen:
+    'Følg Danmarks kvælstofreduktion i vandmiljøet. Se fremskridt mod 13.780 ton N/år-målet opdelt på kystvandoplande og vandoplande.',
+  extraction:
+    'Følg udtaget af kulstofrige lavbundsjorde i Danmark. Se fremskridt mod 140.000 ha-målet opdelt på vandoplande.',
+  afforestation:
+    'Følg skovrejsningen i Danmark. Se fremskridt mod 250.000 ha ny skov inden 2045 opdelt på vandoplande.',
+  co2:
+    'Følg Danmarks CO₂-udledning og fremskridt mod 70 % reduktion i 2030. Data fra KF25 (Klimastatus og -fremskrivning 2025).',
+  nature:
+    'Følg beskyttet natur i Danmark. Se fremskridt mod 20 %-målet for beskyttet natur inden 2030 opdelt på vandoplande.',
+};
 
-  const pillarContextValue = useMemo(() => ({
-    activePillar,
-    setActivePillar,
-    config: getPillarConfig(activePillar),
-  }), [activePillar]);
+const Index = () => {
+  const { pillarSlug } = useParams<{ pillarSlug: string }>();
+  const navigate = useNavigate();
+  const [data, setData] = useState<DashboardData | null>(null);
+
+  // Derive the active pillar from the URL slug. Default to nitrogen for
+  // any unrecognised slug (the effect below redirects unknown slugs away).
+  const activePillar: PillarId = slugToPillar(pillarSlug) ?? 'nitrogen';
+  const config = getPillarConfig(activePillar);
+
+  // Redirect unknown pillar slugs to /kvælstof
+  useEffect(() => {
+    if (pillarSlug && !slugToPillar(pillarSlug)) {
+      navigate('/kvælstof', { replace: true });
+    }
+  }, [pillarSlug, navigate]);
+
+  /**
+   * Navigate to a different pillar.
+   * Navigating to a new path intentionally drops all search params (panel
+   * state, map layer) so the new pillar starts clean.
+   */
+  const setActivePillar = useCallback(
+    (id: PillarId) => navigate(`/${pillarToSlug(id)}`),
+    [navigate],
+  );
+
+  const pillarContextValue = useMemo(
+    () => ({ activePillar, setActivePillar, config }),
+    [activePillar, setActivePillar, config],
+  );
+
+  // Update document.title, OG tags, and canonical link for the active pillar
+  usePageMeta({
+    title: config.label,
+    description: PILLAR_DESCRIPTIONS[activePillar],
+    path: `/${pillarToSlug(activePillar)}`,
+  });
 
   useEffect(() => {
     loadDashboardData().then(setData);

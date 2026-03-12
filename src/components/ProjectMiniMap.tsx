@@ -1,18 +1,22 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
+import { Maximize2 } from 'lucide-react';
 
 interface ProjectMiniMapProps {
   /** Polygon ring as [[lng, lat], [lng, lat], ...] */
   coordinates: [number, number][];
   /** Height in pixels (default 180) */
   height?: number;
+  /** Callback when the map is clicked to open the full overlay */
+  onClick?: () => void;
 }
 
 /**
  * Lightweight Leaflet mini-map showing a single project polygon.
- * No tile layer — just a clean polygon on a subtle basemap.
+ * When `onClick` is provided, the map becomes clickable with a
+ * visual hint to expand into a full-screen overlay.
  */
-export function ProjectMiniMap({ coordinates, height = 180 }: ProjectMiniMapProps) {
+export function ProjectMiniMap({ coordinates, height = 180, onClick }: ProjectMiniMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
 
@@ -69,10 +73,24 @@ export function ProjectMiniMap({ coordinates, height = 180 }: ProjectMiniMapProp
   if (coordinates.length < 3) return null;
 
   return (
-    <div
-      ref={containerRef}
-      style={{ height, width: '100%', borderRadius: '8px', overflow: 'hidden' }}
-      className="border border-gray-200"
-    />
+    <div className="relative group" style={{ height, width: '100%' }}>
+      <div
+        ref={containerRef}
+        style={{ height: '100%', width: '100%', borderRadius: '8px', overflow: 'hidden' }}
+        className="border border-gray-200"
+      />
+      {onClick && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onClick(); }}
+          className="absolute inset-0 rounded-lg cursor-pointer z-[400] flex items-center justify-center bg-transparent hover:bg-black/5 transition-colors"
+          aria-label="Åbn kort i fuld størrelse"
+        >
+          <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-md text-xs font-medium text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity">
+            <Maximize2 className="w-3.5 h-3.5" />
+            Åbn kort
+          </span>
+        </button>
+      )}
+    </div>
   );
 }

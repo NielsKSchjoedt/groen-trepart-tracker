@@ -3,25 +3,119 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary meta — updated dynamically per pillar by usePageMeta hook -->
     <title>Den Grønne Trepart — Er vi på sporet?</title>
-    <meta name="description" content="Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale. Kvælstofreduktion, lavbundsarealer, skovrejsning og natur." />
+    <meta name="description" content="Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale. Kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og natur." />
     <meta name="author" content="Trepart Tracker" />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="grøn trepart, kvælstofreduktion, lavbundsarealer, skovrejsning, natur, Danmark, klimamål, vandmiljø" />
+    <link rel="canonical" href="https://treparttracker.dk/kvælstof" />
 
-    <meta property="og:title" content="Den Grønne Trepart — Er vi på sporet?" />
-    <meta property="og:description" content="Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale." />
+    <!-- Open Graph — default values, overridden per pillar by usePageMeta -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://treparttracker.dk" />
+    <meta property="og:site_name" content="Trepart Tracker" />
+    <meta property="og:locale" content="da_DK" />
+    <meta property="og:title" content="Den Grønne Trepart — Er vi på sporet?" />
+    <meta property="og:description" content="Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale. Kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og natur." />
+    <meta property="og:url" content="https://treparttracker.dk/kvælstof" />
+    <!-- Replace with a proper 1200×630 OG image when available -->
+    <meta property="og:image" content="https://treparttracker.dk/android-chrome-512x512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Trepart Tracker — Danmarks grønne fremskridt" />
 
+    <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@treparttracker" />
+    <meta name="twitter:title" content="Den Grønne Trepart — Er vi på sporet?" />
+    <meta name="twitter:description" content="Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale." />
+    <meta name="twitter:image" content="https://treparttracker.dk/android-chrome-512x512.png" />
+    <meta name="twitter:image:alt" content="Trepart Tracker — Danmarks grønne fremskridt" />
 
+    <!-- Favicons & PWA -->
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#166534" />
-  </head>
 
+    <!-- Structured data — Dataset + WebSite schemas for Google rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://treparttracker.dk/#website",
+          "url": "https://treparttracker.dk",
+          "name": "Trepart Tracker",
+          "description": "Offentlig tracker for implementeringen af Danmarks Grønne Trepart-aftale",
+          "inLanguage": "da",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://treparttracker.dk/kvælstof?vandplan={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Dataset",
+          "@id": "https://treparttracker.dk/#dataset",
+          "name": "Den Grønne Trepart — Implementeringssporing",
+          "description": "Data om Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂-reduktion og beskyttet natur under den grønne trepart-aftale (2024–2030/2045).",
+          "url": "https://treparttracker.dk",
+          "inLanguage": "da",
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "temporalCoverage": "2024-06-01/..",
+          "spatialCoverage": {
+            "@type": "Place",
+            "name": "Danmark",
+            "geo": {
+              "@type": "GeoShape",
+              "box": "54.4 7.5 57.9 15.5"
+            }
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "Trepart Tracker",
+            "url": "https://treparttracker.dk"
+          },
+          "isBasedOn": [
+            {
+              "@type": "DataCatalog",
+              "name": "MARS — Miljøstyrelsens projektsystem",
+              "url": "https://mars.mst.dk"
+            },
+            {
+              "@type": "DataCatalog",
+              "name": "Danmarks Statistik",
+              "url": "https://www.dst.dk"
+            },
+            {
+              "@type": "DataCatalog",
+              "name": "Danmarks Miljøportal",
+              "url": "https://www.miljoeportal.dk"
+            }
+          ],
+          "keywords": [
+            "grøn trepart",
+            "kvælstofreduktion",
+            "lavbundsarealer",
+            "skovrejsning",
+            "natur",
+            "CO2",
+            "klimamål",
+            "vandmiljø",
+            "Danmark"
+          ]
+        }
+      ]
+    }
+    </script>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

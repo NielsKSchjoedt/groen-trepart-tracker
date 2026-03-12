@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import L from 'leaflet';
 import type { FeatureCollection, Geometry, Feature } from 'geojson';
 import { loadCatchmentsGeoJSON, loadCoastalWatersGeoJSON, loadWaterBodiesGeoJSON, loadNameLookup, loadCoastalWaterStatus, findPlanForFeature, findCatchmentForFeature } from '@/lib/data';
@@ -29,26 +30,127 @@ function getNumericField(obj: Record<string, unknown>, field: string): number {
   return typeof val === 'number' ? val : 0;
 }
 
+/**
+ * URL search-param keys used by this component.
+ *
+ * - `lag`      : map layer — "kyst" for coastal sub-catchments, absent = main catchments
+ * - `opland`   : nameNormalized of the selected catchment (opens detail panel)
+ * - `plan`     : id of the selected coastal plan (opens detail panel)
+ * - `kystvand` : name of the selected coastal water body (opens quality panel)
+ */
+const PARAM = {
+  lag:      'lag',
+  opland:   'opland',
+  plan:     'plan',
+  kystvand: 'kystvand',
+} as const;
+
 export function DenmarkMap({ data }: DenmarkMapProps) {
   const { activePillar, config: pillarConfig } = usePillar();
+  const [searchParams, setSearchParams] = useSearchParams();
   const showLayerToggle = pillarConfig.hasMultipleLayers;
   const isStub = !pillarConfig.hasData || !pillarConfig.hasGeoBreakdown;
 
-  const [layer, setLayer] = useState<MapLayer>('catchments');
+  // --- Derive state from URL params ---
+
+  /** Active map layer. Falls back to catchments if the pillar doesn't support coastal. */
+  const layer: MapLayer = (showLayerToggle && searchParams.get(PARAM.lag) === 'kyst')
+    ? 'coastal'
+    : 'catchments';
+
   const [catchmentsGeo, setCatchmentsGeo] = useState<FeatureCollection<Geometry> | null>(null);
   const [coastalGeo, setCoastalGeo] = useState<FeatureCollection<Geometry> | null>(null);
   const [waterBodiesGeo, setWaterBodiesGeo] = useState<FeatureCollection<Geometry> | null>(null);
   const [lookup, setLookup] = useState<Record<string, string>>({});
   const [coastalStatus, setCoastalStatus] = useState<CoastalWaterStatusData | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<Plan | undefined>();
-  const [selectedCatchment, setSelectedCatchment] = useState<Catchment | undefined>();
-  const [selectedCoastalWater, setSelectedCoastalWater] = useState<{ name: string; entry: CoastalWaterEntry } | undefined>();
   const [showWaterBodies, setShowWaterBodies] = useState(false);
-  const [panelOpen, setPanelOpen] = useState(false);
+
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
   const waterBodiesLayerRef = useRef<L.GeoJSON | null>(null);
+
+  // Derive selected items from URL params + loaded data
+  const selectedCatchment = useMemo((): Catchment | undefined => {
+    const id = searchParams.get(PARAM.opland);
+    if (!id) return undefined;
+    return data.catchments.find((c) => c.nameNormalized === id);
+  }, [searchParams, data.catchments]);
+
+  const selectedPlan = useMemo((): Plan | undefined => {
+    const id = searchParams.get(PARAM.plan);
+    if (!id) return undefined;
+    return data.plans.find((p) => p.id === id);
+  }, [searchParams, data.plans]);
+
+  const selectedCoastalWater = useMemo((): { name: string; entry: CoastalWaterEntry } | undefined => {
+    const name = searchParams.get(PARAM.kystvand);
+    if (!name || !coastalStatus) return undefined;
+    const entry = coastalStatus.waters[name];
+    return entry ? { name, entry } : undefined;
+  }, [searchParams, coastalStatus]);
+
+  const panelOpen = !!(selectedPlan || selectedCatchment || selectedCoastalWater);
+
+  // --- URL-updating helpers ---
+
+  /** Switch the active map layer and clear any open panel. */
+  const switchLayer = (newLayer: MapLayer) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (newLayer === 'coastal') {
+        next.set(PARAM.lag, 'kyst');
+      } else {
+        next.delete(PARAM.lag);
+      }
+      next.delete(PARAM.opland);
+      next.delete(PARAM.plan);
+      next.delete(PARAM.kystvand);
+      return next;
+    });
+  };
+
+  const openCatchmentPanel = useCallback((catchment: Catchment) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set(PARAM.opland, catchment.nameNormalized);
+      next.delete(PARAM.plan);
+      next.delete(PARAM.kystvand);
+      return next;
+    });
+  }, [setSearchParams]);
+
+  const openPlanPanel = useCallback((plan: Plan) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set(PARAM.plan, plan.id);
+      next.delete(PARAM.opland);
+      next.delete(PARAM.kystvand);
+      return next;
+    });
+  }, [setSearchParams]);
+
+  const openCoastalWaterPanel = useCallback((name: string) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set(PARAM.kystvand, name);
+      next.delete(PARAM.opland);
+      next.delete(PARAM.plan);
+      return next;
+    });
+  }, [setSearchParams]);
+
+  const closePanel = useCallback(() => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete(PARAM.opland);
+      next.delete(PARAM.plan);
+      next.delete(PARAM.kystvand);
+      return next;
+    });
+  }, [setSearchParams]);
+
+  // --- Data loading ---
 
   useEffect(() => {
     Promise.all([
@@ -65,6 +167,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       setCoastalStatus(cs);
     });
   }, []);
+
+  // --- Leaflet map init ---
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -93,19 +197,12 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
     };
   }, []);
 
-  // Reset to catchments layer when switching to a pillar that doesn't support coastal toggle
-  useEffect(() => {
-    if (!showLayerToggle && layer === 'coastal') {
-      setLayer('catchments');
-    }
-    closePanel();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activePillar]);
-
   const getFeatureName = useCallback((feature: Feature, currentLayer: MapLayer): string => {
     if (currentLayer === 'catchments') return feature.properties?.hov_na || '';
     return feature.properties?.op_navn || '';
   }, []);
+
+  // --- GeoJSON layer rendering ---
 
   useEffect(() => {
     const map = mapRef.current;
@@ -119,7 +216,6 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
     const dataField = layer === 'catchments' ? pillarConfig.catchmentDataField : pillarConfig.planDataField;
 
-    // Compute max value for relative coloring on catchments
     let maxVal = 1;
     if (layer === 'catchments' && dataField) {
       maxVal = Math.max(
@@ -149,7 +245,6 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
           return { fillColor: '#c8c4bb', fillOpacity: 0.3, weight: 1, color: '#d6d2c9' };
         }
 
-        // Coastal sub-catchment layer — color by nitrogen progress (same as before)
         const plan = findPlanForFeature(name, data.plans, lookup);
         if (plan) {
           return {
@@ -195,16 +290,13 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
           click: () => {
             if (layer === 'coastal') {
               const plan = findPlanForFeature(name, data.plans, lookup);
-              setSelectedPlan(plan);
-              setSelectedCatchment(undefined);
-              setSelectedCoastalWater(undefined);
+              if (plan) openPlanPanel(plan);
+              else closePanel();
             } else {
               const catchment = findCatchmentForFeature(name, data.catchments, lookup);
-              setSelectedCatchment(catchment);
-              setSelectedPlan(undefined);
-              setSelectedCoastalWater(undefined);
+              if (catchment) openCatchmentPanel(catchment);
+              else closePanel();
             }
-            setPanelOpen(true);
           },
         });
       },
@@ -212,24 +304,22 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
     geoJsonLayerRef.current = geoJsonLayer;
 
-    // Bring water body overlay back on top after land layer re-render
     if (waterBodiesLayerRef.current) {
       waterBodiesLayerRef.current.bringToFront();
     }
-  }, [layer, catchmentsGeo, coastalGeo, lookup, data, coastalStatus, getFeatureName, activePillar, pillarConfig, isStub]);
+  }, [layer, catchmentsGeo, coastalGeo, lookup, data, getFeatureName, activePillar, pillarConfig, isStub, openCatchmentPanel, openPlanPanel, closePanel]);
 
-  // Water body overlay — actual marine polygons colored by WFD ecological status
+  // --- Water body overlay ---
+
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    // Remove existing layer
     if (waterBodiesLayerRef.current) {
       map.removeLayer(waterBodiesLayerRef.current);
       waterBodiesLayerRef.current = null;
     }
 
-    // Only add if toggle is on and data is loaded
     if (!showWaterBodies || !waterBodiesGeo || !coastalStatus) return;
 
     const waterLayer = L.geoJSON(waterBodiesGeo, {
@@ -264,33 +354,17 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
           },
           click: () => {
             const entry = coastalStatus.waters[name];
-            if (entry) {
-              setSelectedCoastalWater({ name, entry });
-              setSelectedPlan(undefined);
-              setSelectedCatchment(undefined);
-              setPanelOpen(true);
-            }
+            if (entry) openCoastalWaterPanel(name);
           },
         });
       },
     }).addTo(map);
 
     waterBodiesLayerRef.current = waterLayer;
-  }, [showWaterBodies, waterBodiesGeo, coastalStatus]);
+  }, [showWaterBodies, waterBodiesGeo, coastalStatus, openCoastalWaterPanel]);
 
-  const closePanel = () => {
-    setPanelOpen(false);
-    setSelectedPlan(undefined);
-    setSelectedCatchment(undefined);
-    setSelectedCoastalWater(undefined);
-  };
+  // --- Legend data ---
 
-  const switchLayer = (newLayer: MapLayer) => {
-    setLayer(newLayer);
-    closePanel();
-  };
-
-  // Build legend from current pillar's color scale
   const legendItems = pillarConfig.hasData ? [
     { color: getPillarProgressColor(80, activePillar), label: '≥80%' },
     { color: getPillarProgressColor(60, activePillar), label: '60–79%' },

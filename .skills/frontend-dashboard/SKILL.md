@@ -240,6 +240,109 @@ Dark mode overrides use the `dark:` prefix: `dark:text-amber-400/60`.
 
 ---
 
+---
+
+## URL Structure & SEO
+
+### URL Design Principles
+
+The site uses path-based pillar routing combined with query params for sub-state.
+Danish words are used in all URL segments to maximise SEO relevance for Danish queries.
+
+### Pillar Routes
+
+| Pillar | Path | Internal ID |
+|--------|------|-------------|
+| Kvælstof (nitrogen) | `/kvælstof` | `nitrogen` |
+| Lavbundsarealer (extraction) | `/lavbund` | `extraction` |
+| Skovrejsning (afforestation) | `/skovrejsning` | `afforestation` |
+| CO₂ | `/co2` | `co2` |
+| Beskyttet natur | `/natur` | `nature` |
+
+`/` redirects to `/kvælstof` (the default, data-richest pillar).
+
+The slug ↔ pillar ID mapping lives in **`src/lib/slugs.ts`**.
+The routes are declared in **`src/App.tsx`** as `/:pillarSlug`.
+`Index.tsx` reads the slug via `useParams()` and derives `activePillar`.
+
+### Query Parameters
+
+Sub-state that should survive a page share is encoded as query params.
+Pillar navigation (`navigate('/skovrejsning')`) intentionally drops all params so each
+pillar view starts clean.
+
+| Param | Component | Meaning | Example |
+|-------|-----------|---------|---------|
+| `lag` | DenmarkMap | Map layer — `kyst` = coastal sub-catchments | `?lag=kyst` |
+| `opland` | DenmarkMap | Open catchment detail panel (value = `nameNormalized`) | `?opland=bornholm` |
+| `plan` | DenmarkMap | Open coastal plan detail panel (value = plan `id`) | `?plan=23` |
+| `kystvand` | DenmarkMap | Open water-body quality panel (value = water body name) | `?kystvand=Odense+Fjord` |
+| `vandplan` | DataTable | Expand a table row (value = plan `id`) | `?vandplan=23` |
+
+All components use `useSearchParams()` from react-router-dom. Use the functional
+update form to avoid race conditions:
+```typescript
+setSearchParams((prev) => {
+  const next = new URLSearchParams(prev);
+  next.set('opland', catchment.nameNormalized);
+  return next;
+});
+```
+
+### Shareable URL Examples
+
+```
+/kvælstof                                    → Nitrogen overview
+/kvælstof?lag=kyst                           → Nitrogen, coastal layer
+/kvælstof?opland=bornholm                    → Nitrogen, Bornholm catchment panel open
+/kvælstof?plan=23                            → Nitrogen, coastal plan 23 panel open
+/kvælstof?vandplan=23                        → Nitrogen, plan 23 expanded in table
+/lavbund?opland=randers-fjord                → Extraction, specific catchment panel
+```
+
+### Cloudflare Pages SPA Routing
+
+`public/_redirects` contains a single catch-all rule:
+```
+/*  /index.html  200
+```
+This serves `index.html` for every path (200, not 301/302), letting React Router
+handle routing client-side. **Without this file, navigating directly to `/skovrejsning`
+would return a 404 from Cloudflare.**
+
+### SEO Implementation
+
+**`index.html`** (static defaults — read by social scrapers at share time):
+- Full OG tags: `og:title`, `og:description`, `og:url`, `og:image`, `og:locale`, `og:site_name`
+- Twitter card tags
+- JSON-LD structured data: `WebSite` + `Dataset` schemas
+- `<link rel="canonical">` pointing to `/kvælstof`
+
+**`src/hooks/usePageMeta.ts`** (dynamic updates — read by Googlebot after JS execution):
+- Updates `document.title`, `meta[name="description"]`, OG tags, and canonical link
+  based on the active pillar
+- Called once in `Index.tsx` with pillar-specific titles and descriptions
+
+**`public/sitemap.xml`**: Lists all 5 pillar URLs with `changefreq` and `priority`.
+
+**`public/robots.txt`**: `Allow: /` + `Sitemap:` directive pointing to sitemap.xml.
+
+### Adding a New Pillar (URL checklist)
+
+1. Add slug to `PILLAR_SLUGS` in `src/lib/slugs.ts`
+2. Add pillar description to `PILLAR_DESCRIPTIONS` in `src/pages/Index.tsx`
+3. Add `<url>` entry to `public/sitemap.xml`
+4. Update the JSON-LD `keywords` in `index.html` if relevant
+
+### Share Button
+
+`src/components/ShareButton.tsx` renders a pill button in the HeroSection that opens
+a small popover with three options: copy URL, share on X, share on LinkedIn.
+It reads `window.location.href` directly so the shared URL always reflects the current
+pillar and all active query params.
+
+---
+
 ## Adding a New Dashboard Section
 
 When adding a new visualization or section:

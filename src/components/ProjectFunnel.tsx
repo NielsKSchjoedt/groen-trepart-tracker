@@ -1,5 +1,8 @@
+import { useMemo } from 'react';
 import { formatDanishNumber } from '@/lib/format';
-import type { DashboardData } from '@/lib/types';
+import type { DashboardData, ProjectCounts } from '@/lib/types';
+import { usePillar } from '@/lib/pillars';
+import type { PillarId } from '@/lib/pillars';
 import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 import { InfoTooltip } from './InfoTooltip';
@@ -15,10 +18,97 @@ const stages = [
   { key: 'established' as const, label: 'Anlagt', sublabel: 'Færdige projekter', icon: Hammer, color: 'hsl(95 55% 48%)' },
 ];
 
+/** Phase mapping from projectDetail.phase to our stage keys */
+const PHASE_TO_STAGE: Record<string, keyof ProjectCounts> = {
+  preliminary: 'assessed',
+  approved: 'approved',
+  established: 'established',
+};
+
+/**
+ * Compute pillar-specific project counts by filtering individual projects
+ * that have a non-zero effect for the given pillar.
+ *
+ * Each MARS project can contribute to multiple pillars simultaneously
+ * (e.g. a wetland project reduces nitrogen AND extracts lowland).
+ * This function counts only those relevant to the selected pillar.
+ */
+function computePillarCounts(
+  data: DashboardData,
+  pillarId: PillarId,
+): ProjectCounts {
+  const counts: ProjectCounts = { sketches: 0, assessed: 0, approved: 0, established: 0 };
+
+  const effectField = {
+    nitrogen: 'nitrogenT',
+    extraction: 'extractionHa',
+    afforestation: 'afforestationHa',
+  }[pillarId];
+
+  if (!effectField) return counts;
+
+  for (const plan of data.plans) {
+    // Count sketch projects with effect > 0
+    for (const sk of plan.sketchProjects) {
+      if ((sk as Record<string, unknown>)[effectField] as number > 0) {
+        counts.sketches++;
+      }
+    }
+    // Count detailed projects (assessed/approved/established) with effect > 0
+    for (const proj of plan.projectDetails) {
+      const stage = PHASE_TO_STAGE[proj.phase];
+      if (stage && (proj as Record<string, unknown>)[effectField] as number > 0) {
+        counts[stage]++;
+      }
+    }
+  }
+
+  return counts;
+}
+
+/** Pillar-specific descriptions for the funnel header */
+const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (total: number) => string; tooltip: string }> = {
+  nitrogen: {
+    title: 'Kvælstof-projekter',
+    subtitle: (total) => `${formatDanishNumber(total)} projekter med kvælstofreducerende effekt`,
+    tooltip: 'Projekter fra MARS-databasen der har en dokumenteret kvælstofreducerende effekt (N-reduktion > 0 ton/år). Samme projekt kan bidrage til flere delmål.',
+  },
+  extraction: {
+    title: 'Lavbunds-projekter',
+    subtitle: (total) => `${formatDanishNumber(total)} projekter med areal til lavbundsudtag`,
+    tooltip: 'Projekter der bidrager til udtag af kulstofrige lavbundsjorde (ekstraktions-areal > 0 ha). Mange projekter har effekt på tværs af delmål.',
+  },
+  afforestation: {
+    title: 'Skovrejsnings-projekter',
+    subtitle: (total) => `${formatDanishNumber(total)} projekter med skovrejsningsareal`,
+    tooltip: 'Projekter der bidrager til skovrejsning (skovrejsningsareal > 0 ha). Inkluderer MARS-registrerede projekter; Klimaskovfonden-bidrag tælles separat.',
+  },
+  nature: {
+    title: 'Naturprojekter',
+    subtitle: (_total) => 'Projekter fra alle typer virkemidler i MARS',
+    tooltip: 'For natur-delmålet vises den samlede projekt-pipeline — alle MARS-projekter uanset specifikt virkemiddel. Naturbeskyttelse afhænger af den samlede indsats.',
+  },
+};
+
 export function ProjectFunnel({ data }: ProjectFunnelProps) {
+  const { activePillar } = usePillar();
+
+  const pillarCounts = useMemo(
+    () => computePillarCounts(data, activePillar),
+    [data, activePillar],
+  );
+
+  // For nature, show the full national pipeline (all projects contribute indirectly)
+  // For nitrogen/extraction/afforestation, show pillar-specific counts
+  const isNature = activePillar === 'nature';
   const { projects } = data.national;
-  const counts = [projects.sketches, projects.assessed, projects.approved, projects.established];
+  const displayCounts = isNature ? projects : pillarCounts;
+
+  const counts = [displayCounts.sketches, displayCounts.assessed, displayCounts.approved, displayCounts.established];
+  const totalProjects = counts.reduce((a, b) => a + b, 0);
   const maxCount = Math.max(...counts, 1);
+
+  const desc = PILLAR_FUNNEL_DESCRIPTIONS[activePillar] ?? PILLAR_FUNNEL_DESCRIPTIONS.nitrogen;
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 py-10 relative overflow-hidden">
@@ -40,13 +130,13 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       <div className="flex items-center gap-2.5 mb-2">
         <GitPullRequestArrow className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-          Projekt-pipeline
+          {desc.title}
         </h2>
         <InfoTooltip
-          title="Projekt-pipeline"
+          title={desc.title}
           content={
             <>
-              <p>Viser alle virkemiddelprojekter (vådområder, lavbundsarealer, minivådområder m.fl.) og deres fase i godkendelsesprocessen.</p>
+              <p>{desc.tooltip}</p>
               <p><strong>Skitser:</strong> Indledende projektforslag.<br/>
               <strong>Vurderet:</strong> Fagligt gennemgået af Miljøstyrelsen.<br/>
               <strong>Godkendt:</strong> Tilsagn givet, klar til anlæg.<br/>
@@ -58,7 +148,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
         />
       </div>
       <p className="text-sm text-muted-foreground mb-8">
-        Sådan bevæger {formatDanishNumber(projects.total)} projekter sig fra skitse til virkelighed
+        {desc.subtitle(totalProjects)}
       </p>
 
       <div className="space-y-4">
@@ -123,7 +213,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
             Gennemførelsesrate (skitse → anlagt)
           </span>
           <span className="font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-            {projects.sketches > 0 ? ((projects.established / projects.sketches) * 100).toFixed(1) : 0}%
+            {displayCounts.sketches > 0 ? ((displayCounts.established / displayCounts.sketches) * 100).toFixed(1) : 0}%
           </span>
         </div>
       </div>

@@ -49,6 +49,38 @@ const COLOR_STOPS: [number, number, number, number][] = [
   [1,    142, 50, 36],  // green
 ];
 
+/**
+ * Converts polar coordinates (angle in degrees) to Cartesian (x, y).
+ * @param center - SVG center coordinate (same for x and y)
+ * @param radius - Circle radius in SVG units
+ * @param angle - Angle in degrees (0° = top, clockwise)
+ * @returns {x, y} SVG coordinates
+ * @example polarToCartesian(150, 128, 135) // => { x: ..., y: ... }
+ */
+function polarToCartesian(center: number, radius: number, angle: number) {
+  const rad = ((angle - 90) * Math.PI) / 180;
+  return {
+    x: center + radius * Math.cos(rad),
+    y: center + radius * Math.sin(rad),
+  };
+}
+
+/**
+ * Builds an SVG arc path string between two angles.
+ * @param center - SVG center coordinate
+ * @param radius - Circle radius in SVG units
+ * @param start - Start angle in degrees
+ * @param end - End angle in degrees
+ * @returns SVG path `d` attribute string
+ * @example describeArc(150, 128, 135, 405) // full 270° arc
+ */
+function describeArc(center: number, radius: number, start: number, end: number) {
+  const s = polarToCartesian(center, radius, start);
+  const e = polarToCartesian(center, radius, end);
+  const largeArc = end - start > 180 ? 1 : 0;
+  return `M ${s.x} ${s.y} A ${radius} ${radius} 0 ${largeArc} 1 ${e.x} ${e.y}`;
+}
+
 export function ArcGauge({ value, max, pct, unit, label, size = 300, subText }: ArcGaugeProps) {
   const strokeWidth = 22;
   const radius = (size - strokeWidth) / 2;
@@ -57,21 +89,6 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText }: 
   const startAngle = 135;
   const totalAngle = 270;
   const endAngle = startAngle + totalAngle;
-
-  const polarToCartesian = (angle: number) => {
-    const rad = ((angle - 90) * Math.PI) / 180;
-    return {
-      x: center + radius * Math.cos(rad),
-      y: center + radius * Math.sin(rad),
-    };
-  };
-
-  const describeArc = (start: number, end: number) => {
-    const s = polarToCartesian(start);
-    const e = polarToCartesian(end);
-    const largeArc = end - start > 180 ? 1 : 0;
-    return `M ${s.x} ${s.y} A ${radius} ${radius} 0 ${largeArc} 1 ${e.x} ${e.y}`;
-  };
 
   const progressAngle = startAngle + (totalAngle * Math.min(pct, 100)) / 100;
 
@@ -93,19 +110,19 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText }: 
       // Color is based on position within the FULL arc (not just filled portion)
       const tColor = (progressFraction * (t0 + t1)) / 2;
       segs.push({
-        d: describeArc(a0, a1),
+        d: describeArc(center, radius, a0, a1),
         color: interpolateColor(tColor, COLOR_STOPS),
       });
     }
     return segs;
-  }, [pct, size]);
+  }, [pct, center, radius]);
 
   return (
     <div className="flex flex-col items-center">
       <svg width={size} height={size * 0.92} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-sm overflow-visible">
         {/* Background arc */}
         <path
-          d={describeArc(startAngle, endAngle)}
+          d={describeArc(center, radius, startAngle, endAngle)}
           fill="none"
           stroke="hsl(var(--muted))"
           strokeWidth={strokeWidth}

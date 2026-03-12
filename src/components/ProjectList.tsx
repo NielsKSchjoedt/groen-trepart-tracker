@@ -1,9 +1,11 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { ChevronDown, ChevronRight, ExternalLink, Filter, Search, Droplets, MapPin, Trees, Leaf } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 import type { ProjectDetail, SketchProject, NaturePotential } from '@/lib/types';
 import { loadProjectGeometries } from '@/lib/data';
 import { ProjectMiniMap } from './ProjectMiniMap';
+import { ProjectMapOverlay } from './ProjectMapOverlay';
+import type { ProjectMapInfo } from './ProjectMapOverlay';
 
 type Tab = 'projects' | 'sketches' | 'nature';
 type PhaseFilter = 'all' | 'established' | 'approved' | 'preliminary';
@@ -38,6 +40,11 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [geometries, setGeometries] = useState<Record<string, [number, number][]> | null>(null);
   const geoLoadedRef = useRef(false);
+  const [overlayData, setOverlayData] = useState<{ coordinates: [number, number][]; info: ProjectMapInfo } | null>(null);
+
+  const openMapOverlay = useCallback((coords: [number, number][], info: ProjectMapInfo) => {
+    setOverlayData({ coordinates: coords, info });
+  }, []);
 
   // Lazy-load geometries on first expand
   useEffect(() => {
@@ -80,8 +87,8 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
         ))}
       </div>
 
-      {/* Search & filter bar (only for projects tab) */}
-      {activeTab === 'projects' && projectDetails.length > 5 && (
+      {/* Search & filter bar (projects and sketches tabs) */}
+      {(activeTab === 'projects' && projectDetails.length > 5) || (activeTab === 'sketches' && sketchProjects.length > 5) ? (
         <div className="flex gap-2 mb-3">
           <div className="flex-1 relative">
             <Search className="w-3 h-3 absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -89,22 +96,24 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Søg i projekter..."
+              placeholder={activeTab === 'sketches' ? 'Søg i skitser...' : 'Søg i projekter...'}
               className="w-full pl-7 pr-2 py-1.5 text-[11px] rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/30"
             />
           </div>
-          <select
-            value={phaseFilter}
-            onChange={e => setPhaseFilter(e.target.value as PhaseFilter)}
-            className="px-2 py-1.5 text-[11px] rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary/30"
-          >
-            <option value="all">Alle faser</option>
-            <option value="established">Anlagt</option>
-            <option value="approved">Godkendt</option>
-            <option value="preliminary">Forundersøgelse</option>
-          </select>
+          {activeTab === 'projects' && (
+            <select
+              value={phaseFilter}
+              onChange={e => setPhaseFilter(e.target.value as PhaseFilter)}
+              className="px-2 py-1.5 text-[11px] rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary/30"
+            >
+              <option value="all">Alle faser</option>
+              <option value="established">Anlagt</option>
+              <option value="approved">Godkendt</option>
+              <option value="preliminary">Forundersøgelse</option>
+            </select>
+          )}
         </div>
-      )}
+      ) : null}
 
       {/* Tab content */}
       {activeTab === 'projects' && (
@@ -115,20 +124,41 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
           expandedId={expandedId}
           onToggle={id => setExpandedId(expandedId === id ? null : id)}
           geometries={geometries}
+          onOpenMap={openMapOverlay}
         />
       )}
       {activeTab === 'sketches' && (
-        <SketchesTab sketches={sketchProjects} />
+        <SketchesTab
+          sketches={sketchProjects}
+          expandedId={expandedId}
+          onToggle={id => setExpandedId(expandedId === id ? null : id)}
+          geometries={geometries}
+          searchQuery={searchQuery}
+          onOpenMap={openMapOverlay}
+        />
       )}
       {activeTab === 'nature' && (
-        <NaturePotentialsTab potentials={naturePotentials} />
+        <NaturePotentialsTab
+          potentials={naturePotentials}
+          expandedId={expandedId}
+          onToggle={id => setExpandedId(expandedId === id ? null : id)}
+        />
+      )}
+
+      {/* Full-screen map overlay */}
+      {overlayData && (
+        <ProjectMapOverlay
+          coordinates={overlayData.coordinates}
+          info={overlayData.info}
+          onClose={() => setOverlayData(null)}
+        />
       )}
     </div>
   );
 }
 
 function ProjectsTab({
-  projects, phaseFilter, searchQuery, expandedId, onToggle, geometries
+  projects, phaseFilter, searchQuery, expandedId, onToggle, geometries, onOpenMap
 }: {
   projects: ProjectDetail[];
   phaseFilter: PhaseFilter;
@@ -136,6 +166,7 @@ function ProjectsTab({
   expandedId: string | null;
   onToggle: (id: string) => void;
   geometries: Record<string, [number, number][]> | null;
+  onOpenMap: (coords: [number, number][], info: ProjectMapInfo) => void;
 }) {
   const filtered = useMemo(() => {
     let list = projects;
@@ -293,7 +324,22 @@ function ProjectsTab({
 
                 {/* Mini-map for project polygon */}
                 {p.geoId && geometries?.[p.geoId] && geometries[p.geoId].length >= 3 && (
-                  <ProjectMiniMap coordinates={geometries[p.geoId]} height={160} />
+                  <ProjectMiniMap
+                    coordinates={geometries[p.geoId]}
+                    height={160}
+                    onClick={() => onOpenMap(geometries[p.geoId], {
+                      name: p.name,
+                      phase: p.phase,
+                      phaseLabelDa: (PHASE_LABELS[p.phase] || PHASE_LABELS.preliminary).label,
+                      measureName: p.measureName,
+                      schemeName: p.schemeName,
+                      schemeOrg: p.schemeOrg,
+                      areaHa: p.areaHa,
+                      nitrogenT: p.nitrogenT,
+                      extractionHa: p.extractionHa,
+                      afforestationHa: p.afforestationHa,
+                    })}
+                  />
                 )}
 
                 {/* External link */}
@@ -317,77 +363,256 @@ function ProjectsTab({
   );
 }
 
-function SketchesTab({ sketches }: { sketches: SketchProject[] }) {
-  const sorted = useMemo(() =>
-    [...sketches].sort((a, b) => b.nitrogenT - a.nitrogenT),
-    [sketches]
-  );
+function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, onOpenMap }: {
+  sketches: SketchProject[];
+  expandedId: string | null;
+  onToggle: (id: string) => void;
+  geometries: Record<string, [number, number][]> | null;
+  searchQuery: string;
+  onOpenMap: (coords: [number, number][], info: ProjectMapInfo) => void;
+}) {
+  const sorted = useMemo(() => {
+    let list = sketches;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(s =>
+        s.name.toLowerCase().includes(q) ||
+        s.measureName.toLowerCase().includes(q) ||
+        s.schemeName.toLowerCase().includes(q)
+      );
+    }
+    return [...list].sort((a, b) => b.nitrogenT - a.nitrogenT);
+  }, [sketches, searchQuery]);
+
+  if (sorted.length === 0) {
+    return (
+      <p className="text-[11px] text-muted-foreground py-3 text-center">
+        Ingen skitser matcher{searchQuery ? ` "${searchQuery}"` : ''}
+      </p>
+    );
+  }
 
   return (
-    <div className="space-y-1 max-h-[400px] overflow-y-auto pr-1">
-      {sorted.map(s => (
-        <div key={s.id} className="border border-border rounded-lg p-2.5 bg-card/50">
-          <div className="flex items-center gap-1.5 mb-0.5">
-            <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground flex-shrink-0" />
-            <span className="text-[11px] font-medium text-foreground truncate">{s.name}</span>
-          </div>
-          <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-            <span>Skitse</span>
-            {s.measureName && <span>· {s.measureName}</span>}
-            <span className="ml-auto flex items-center gap-1.5 flex-shrink-0">
-              {s.nitrogenT > 0 && (
-                <span className="flex items-center gap-0.5">
-                  <Droplets className="w-2.5 h-2.5" />
-                  {formatDanishNumber(s.nitrogenT, 2)} t
-                </span>
+    <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
+      {sorted.map(s => {
+        const expanded = expandedId === s.id;
+        const hasMetrics = s.nitrogenT > 0 || s.extractionHa > 0 || s.afforestationHa > 0;
+
+        return (
+          <div key={s.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
+            <button
+              onClick={() => onToggle(s.id)}
+              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors"
+            >
+              {expanded ? (
+                <ChevronDown className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />
               )}
-              {s.extractionHa > 0 && (
-                <span className="flex items-center gap-0.5">
-                  <MapPin className="w-2.5 h-2.5" />
-                  {formatDanishNumber(s.extractionHa, 1)} ha
-                </span>
-              )}
-            </span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground flex-shrink-0" />
+                  <span className="text-[11px] font-medium text-foreground truncate">{s.name}</span>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                  <span className="text-muted-foreground">Skitse</span>
+                  {s.measureName && <span>· {s.measureName}</span>}
+                  {hasMetrics && (
+                    <span className="ml-auto flex items-center gap-1.5 flex-shrink-0">
+                      {s.nitrogenT > 0 && (
+                        <span className="flex items-center gap-0.5">
+                          <Droplets className="w-2.5 h-2.5" />
+                          {formatDanishNumber(s.nitrogenT, 2)} t
+                        </span>
+                      )}
+                      {s.extractionHa > 0 && (
+                        <span className="flex items-center gap-0.5">
+                          <MapPin className="w-2.5 h-2.5" />
+                          {formatDanishNumber(s.extractionHa, 1)} ha
+                        </span>
+                      )}
+                      {s.afforestationHa > 0 && (
+                        <span className="flex items-center gap-0.5">
+                          <Trees className="w-2.5 h-2.5" />
+                          {formatDanishNumber(s.afforestationHa, 1)} ha
+                        </span>
+                      )}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </button>
+
+            {expanded && (
+              <div className="px-3 pb-3 pt-1 border-t border-border/50 space-y-2 text-[11px]">
+                {/* Type & area */}
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                  <div>
+                    <span className="text-muted-foreground">Status:</span>{' '}
+                    <span className="font-medium text-muted-foreground">Skitse</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Type:</span>{' '}
+                    <span className="font-medium text-foreground">{s.measureName || '—'}</span>
+                  </div>
+                  {s.areaHa > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">Areal:</span>{' '}
+                      <span className="font-medium text-foreground">{formatDanishNumber(s.areaHa, 1)} ha</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Metrics */}
+                {hasMetrics && (
+                  <div className="flex flex-wrap gap-3">
+                    {s.nitrogenT > 0 && (
+                      <div className="flex items-center gap-1">
+                        <Droplets className="w-3 h-3 text-nature-water" />
+                        <span className="text-muted-foreground">N-reduktion:</span>
+                        <span className="font-semibold text-foreground">{formatDanishNumber(s.nitrogenT, 3)} ton</span>
+                      </div>
+                    )}
+                    {s.extractionHa > 0 && (
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-nature-earth" />
+                        <span className="text-muted-foreground">Udtaget:</span>
+                        <span className="font-semibold text-foreground">{formatDanishNumber(s.extractionHa, 1)} ha</span>
+                      </div>
+                    )}
+                    {s.afforestationHa > 0 && (
+                      <div className="flex items-center gap-1">
+                        <Trees className="w-3 h-3 text-primary" />
+                        <span className="text-muted-foreground">Skov:</span>
+                        <span className="font-semibold text-foreground">{formatDanishNumber(s.afforestationHa, 1)} ha</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Scheme */}
+                {s.schemeName && (
+                  <div>
+                    <span className="text-muted-foreground">Tilskudsordning:</span>{' '}
+                    <span className="text-foreground">{s.schemeName}</span>
+                    {s.schemeOrg && <span className="text-muted-foreground"> ({s.schemeOrg})</span>}
+                  </div>
+                )}
+
+                {/* Mini-map for sketch polygon */}
+                {s.geoId && geometries?.[s.geoId] && geometries[s.geoId].length >= 3 && (
+                  <ProjectMiniMap
+                    coordinates={geometries[s.geoId]}
+                    height={160}
+                    onClick={() => onOpenMap(geometries![s.geoId], {
+                      name: s.name,
+                      phase: 'sketch',
+                      phaseLabelDa: 'Skitse',
+                      measureName: s.measureName,
+                      schemeName: s.schemeName,
+                      schemeOrg: s.schemeOrg,
+                      areaHa: s.areaHa,
+                      nitrogenT: s.nitrogenT,
+                      extractionHa: s.extractionHa,
+                      afforestationHa: s.afforestationHa,
+                    })}
+                  />
+                )}
+              </div>
+            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
-function NaturePotentialsTab({ potentials }: { potentials: NaturePotential[] }) {
+function NaturePotentialsTab({ potentials, expandedId, onToggle }: {
+  potentials: NaturePotential[];
+  expandedId: string | null;
+  onToggle: (id: string) => void;
+}) {
   const sorted = useMemo(() =>
     [...potentials].sort((a, b) => b.areaHa - a.areaHa),
     [potentials]
   );
 
   return (
-    <div className="space-y-1 max-h-[400px] overflow-y-auto pr-1">
-      {sorted.map(np => (
-        <div key={np.id} className="border border-border rounded-lg p-2.5 bg-card/50">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Leaf className="w-3 h-3 flex-shrink-0" style={{ color: '#166534' }} />
-            <span className="text-[11px] font-medium text-foreground">{np.name}</span>
+    <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
+      {sorted.map(np => {
+        const expanded = expandedId === np.id;
+        const hasBreakdown = np.biodiversityHa > 0 || np.natura2000Ha > 0 || np.section3Ha > 0 || np.protectedNatureHa > 0;
+
+        return (
+          <div key={np.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
+            <button
+              onClick={() => onToggle(np.id)}
+              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors"
+            >
+              {expanded ? (
+                <ChevronDown className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <Leaf className="w-3 h-3 flex-shrink-0" style={{ color: '#166534' }} />
+                  <span className="text-[11px] font-medium text-foreground truncate">{np.name}</span>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                  <span>Naturpotentiale</span>
+                  <span className="ml-auto font-semibold text-foreground flex-shrink-0">
+                    {formatDanishNumber(np.areaHa, 0)} ha
+                  </span>
+                </div>
+              </div>
+            </button>
+
+            {expanded && (
+              <div className="px-3 pb-3 pt-1 border-t border-border/50 space-y-2 text-[11px]">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                  <div>
+                    <span className="text-muted-foreground">Samlet areal:</span>{' '}
+                    <span className="font-semibold text-foreground">{formatDanishNumber(np.areaHa, 1)} ha</span>
+                  </div>
+                </div>
+
+                {hasBreakdown && (
+                  <div className="space-y-1.5">
+                    <span className="text-muted-foreground font-medium">Arealopdeling:</span>
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                      {np.biodiversityHa > 0 && (
+                        <div>
+                          <span className="text-muted-foreground">Biodiversitet:</span>{' '}
+                          <span className="font-semibold text-foreground">{formatDanishNumber(np.biodiversityHa, 0)} ha</span>
+                        </div>
+                      )}
+                      {np.natura2000Ha > 0 && (
+                        <div>
+                          <span className="text-muted-foreground">Natura 2000:</span>{' '}
+                          <span className="font-semibold text-foreground">{formatDanishNumber(np.natura2000Ha, 0)} ha</span>
+                        </div>
+                      )}
+                      {np.section3Ha > 0 && (
+                        <div>
+                          <span className="text-muted-foreground">§3 beskyttet:</span>{' '}
+                          <span className="font-semibold text-foreground">{formatDanishNumber(np.section3Ha, 0)} ha</span>
+                        </div>
+                      )}
+                      {np.protectedNatureHa > 0 && (
+                        <div>
+                          <span className="text-muted-foreground">Beskyttet natur:</span>{' '}
+                          <span className="font-semibold text-foreground">{formatDanishNumber(np.protectedNatureHa, 0)} ha</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[10px] text-muted-foreground">
-            <span>
-              <span className="font-semibold text-foreground">{formatDanishNumber(np.areaHa, 0)}</span> ha totalt
-            </span>
-            {np.biodiversityHa > 0 && (
-              <span>Biodiversitet: {formatDanishNumber(np.biodiversityHa, 0)} ha</span>
-            )}
-            {np.natura2000Ha > 0 && (
-              <span>Natura 2000: {formatDanishNumber(np.natura2000Ha, 0)} ha</span>
-            )}
-            {np.section3Ha > 0 && (
-              <span>§3: {formatDanishNumber(np.section3Ha, 0)} ha</span>
-            )}
-            {np.protectedNatureHa > 0 && (
-              <span>Beskyttet natur: {formatDanishNumber(np.protectedNatureHa, 0)} ha</span>
-            )}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

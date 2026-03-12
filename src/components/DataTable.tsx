@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { formatDanishNumber, getProgressColor } from '@/lib/format';
 import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
@@ -384,8 +385,16 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
   );
 }
 
+/**
+ * URL search param key for the expanded plan row.
+ * Value is the plan's `id` string.
+ * Example URL: /kvælstof?vandplan=23
+ */
+const VANDPLAN_PARAM = 'vandplan';
+
 export function DataTable({ plans, onSelectPlan }: DataTableProps) {
   const { activePillar, config: pillarConfig } = usePillar();
+  const [searchParams, setSearchParams] = useSearchParams();
   const columns = useMemo(() => getColumnsForPillar(activePillar), [activePillar]);
   const titles = PILLAR_TABLE_TITLES[activePillar];
 
@@ -393,11 +402,25 @@ export function DataTable({ plans, onSelectPlan }: DataTableProps) {
   const [sortKey, setSortKey] = useState<string>(defaultSortKey);
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [search, setSearch] = useState('');
-  const [expandedPlanId, setExpandedPlanId] = useState<string | null>(null);
 
-  // Reset expansion & sort when pillar changes
+  // Expanded plan ID is URL-driven: ?vandplan=<id>
+  // When the pillar changes (new path), search params are dropped automatically.
+  const expandedPlanId = searchParams.get(VANDPLAN_PARAM);
+
+  const setExpandedPlanId = (id: string | null) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (id === null) {
+        next.delete(VANDPLAN_PARAM);
+      } else {
+        next.set(VANDPLAN_PARAM, id);
+      }
+      return next;
+    });
+  };
+
+  // Reset sort when pillar changes (expansion clears automatically via URL)
   useEffect(() => {
-    setExpandedPlanId(null);
     const hasProgress = columns.some((c) => c.key === 'progress');
     setSortKey(hasProgress ? 'progress' : 'name');
     setSortDir('desc');
