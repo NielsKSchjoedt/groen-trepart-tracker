@@ -35,7 +35,7 @@
     "id": "ed651a53-b420-43f2-a141-d2b679feaf05",
     "name": "Århus Bugt og Begtrup Vig",
     "geoLocationId": "2fd93a13-8092-4883-bfee-bec0661bcdcc",
-    "totalNitrogenReductionT": 1.0761069575399347,
+    "totalNitrogenReductionT": 0.9416452956255297,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": 13.660028036282629,
     "totalNaturePotentialAreaHa": 0,
@@ -52,16 +52,16 @@
         "afforestationEffortHa": 0
       },
       {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 0.9416452954812687,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
+      },
+      {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 1.442609412925141e-10,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 13.660028036282629
-      },
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 1.0761069573956739,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
       }
     ],
     "projects": [
@@ -82,6 +82,22 @@
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
       },
       {
+        "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
+        "projectName": "Skanderborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.013121256389568643,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 8.858596549026863,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "4744b634-ab16-4148-8414-2868a2cc6cc1",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:05:27.872335+00:00"
+      },
+      {
         "projectId": "ec431c76-4d0f-48a0-8bb3-bb387c02e553",
         "projectName": "Lavbundsprojekt Maden",
         "projectStatus": 6,
@@ -96,6 +112,54 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
+        "projectName": "Syddjurs Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.926881855124427,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 117.20050925677597,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "44039323-41b3-4002-97ea-ac2f6548f74c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:17:28.714269+00:00"
+      },
+      {
+        "projectId": "4dcefd69-b960-47cd-9a8f-811d0571c18b",
+        "projectName": "Aarhus Kommnue Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0002123201459706847,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 328.8062820688102,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "005a7e12-8a55-4a7b-a73a-3dd76fbda817",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:30:11.164472+00:00"
+      },
+      {
+        "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
+        "projectName": "Silkeborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0014298638213023525,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 0.7517192614995181,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "fe06a6d4-554f-4a55-97da-3607085e1fd1",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:36:03.779944+00:00"
       },
       {
         "projectId": "f381b37a-4f6c-4199-9efb-259ee99d41d0",
@@ -176,70 +240,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-09-29T12:48:53.222469+00:00",
         "lastStateChanged": "2026-02-20T12:19:09.149595+00:00"
-      },
-      {
-        "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
-        "projectName": "Syddjurs Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.9699618227664646,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 136.9288539275582,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "9814f98e-086e-46fa-9589-da2d57cfb4d1",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:06:02.029477+00:00"
-      },
-      {
-        "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
-        "projectName": "Skanderborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.05842172423110089,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 9.6712990995864,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e63478f8-e116-431b-aee6-bae396de20b8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:26:39.403651+00:00"
-      },
-      {
-        "projectId": "4dcefd69-b960-47cd-9a8f-811d0571c18b",
-        "projectName": "Aarhus Kommnue Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.046402601724381355,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 337.2914055177732,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "38449b98-6398-4c54-84da-c8bee9fcf2bd",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:32:57.789743+00:00"
-      },
-      {
-        "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
-        "projectName": "Silkeborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.001320808673727171,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 0.7517192615001158,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "a22a5569-fdec-4353-836b-6a2a4aaf85e5",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:46:55.309347+00:00"
       },
       {
         "projectId": "24b6bc36-be59-4058-89dc-862276c86f0d",
@@ -537,12 +537,12 @@
     "id": "82c6b761-5683-4ab3-9aea-015353383665",
     "name": "Århus Bugt syd, Samsø og Nordlige Bælthav",
     "geoLocationId": "9e9cc438-62c2-4a2a-ad4b-940f43fd7c1d",
-    "totalNitrogenReductionT": 320.13364812098996,
+    "totalNitrogenReductionT": 320.1097021703355,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 27395.100158535894,
     "countApprovedProjects": 40,
-    "countAssessedProjects": 38,
+    "countAssessedProjects": 37,
     "countEstablishedProjects": 5,
     "countSketchProjects": 477,
     "countNaturePotentials": 18,
@@ -560,15 +560,15 @@
         "afforestationEffortHa": 0
       },
       {
-        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 20.0502851499537,
-        "extractionEffortHa": 780.4423407371708,
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 3.5035453397320135,
+        "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
       {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 3.5274912903865654,
-        "extractionEffortHa": 0,
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "nitrogenReductionT": 20.0502851499537,
+        "extractionEffortHa": 780.4423407371708,
         "afforestationEffortHa": 0
       },
       {
@@ -612,6 +612,22 @@
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
       },
       {
+        "projectId": "7025ad0d-60e9-448c-90e4-d82c4e4c63e9",
+        "projectName": "Samsø Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 1.1017277271818888,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 120.86710580166967,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "1d84c706-71d5-4200-840f-d4bd380e362e",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:01:44.691665+00:00"
+      },
+      {
         "projectId": "5344173d-172c-4831-882a-a46124508bd1",
         "projectName": "Arreskov Sø",
         "projectStatus": 6,
@@ -628,36 +644,20 @@
         "lastStateChanged": "2025-10-10T09:13:51.8874+00:00"
       },
       {
-        "projectId": "3dc3d86c-396b-4507-b73f-8a81839b6e9e",
-        "projectName": "Odder Kommune Permanent ekstensivering",
+        "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
+        "projectName": "Skanderborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.052384894528824194,
+        "nitrogenReductionT": 0.001512959046645039,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 11.39461448129146,
+        "overlappingAreaHa": 1.0214489673476554,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "ffc11f4e-e7fc-44a1-89fe-1c725c801c9c",
+        "geoLocationId": "4744b634-ab16-4148-8414-2868a2cc6cc1",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:56:24.323046+00:00"
-      },
-      {
-        "projectId": "f40d36a7-f444-40e2-bca6-157ac2ed788d",
-        "projectName": "Nordfyns Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.5099576449116481,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 72.48574052408614,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e6a709ff-9f71-4dbb-b5bc-a4b91d641fe8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:57:39.121702+00:00"
+        "lastStateChanged": "2026-03-11T14:05:27.872335+00:00"
       },
       {
         "projectId": "4da14e62-a52f-4ce3-b035-d55972aecfa8",
@@ -818,6 +818,22 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
+        "projectName": "Vejle Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.02187988654946441,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 2.4816276611154864,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:40.798993+00:00"
       },
       {
         "projectId": "b1a3df8f-f626-498d-bab9-512841a8d708",
@@ -1668,70 +1684,6 @@
         "lastStateChanged": "2026-02-02T09:18:58.935219+00:00"
       },
       {
-        "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
-        "projectName": "Skanderborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.006198278941265106,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 1.0260808001235018,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e63478f8-e116-431b-aee6-bae396de20b8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:26:39.403651+00:00"
-      },
-      {
-        "projectId": "4dcefd69-b960-47cd-9a8f-811d0571c18b",
-        "projectName": "Aarhus Kommnue Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.00041613283756547747,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 3.0247879310355716,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "38449b98-6398-4c54-84da-c8bee9fcf2bd",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:32:57.789743+00:00"
-      },
-      {
-        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-        "projectName": "Vejle Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.021496758819665687,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 2.577400056707334,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "07fc2bcc-43b6-43ad-a6d8-a55025ab4108",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:50:09.099936+00:00"
-      },
-      {
-        "projectId": "7025ad0d-60e9-448c-90e4-d82c4e4c63e9",
-        "projectName": "Samsø Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 1.1299663520709617,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 123.74061166383648,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "10d51946-5bfa-4f69-ba49-7fd3a8faa13e",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:51:51.146941+00:00"
-      },
-      {
         "projectId": "e5536847-4393-463e-93f2-622004a2130c",
         "projectName": "Seden Strand Vådområde",
         "projectStatus": 6,
@@ -1906,6 +1858,38 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:36:16.889591+00:00"
+      },
+      {
+        "projectId": "f40d36a7-f444-40e2-bca6-157ac2ed788d",
+        "projectName": "Nordfyns Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.5428170897339936,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 72.47287995345478,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "488ffee0-dba8-4404-ada1-a11d55e9a391",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:28:12.335106+00:00"
+      },
+      {
+        "projectId": "3dc3d86c-396b-4507-b73f-8a81839b6e9e",
+        "projectName": "Odder Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.02853644894338738,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 9.450258204789995,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "7e15c211-0028-4f20-955c-1d0859266fa9",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:33:18.6907+00:00"
       }
     ],
     "sketchProjects": [
@@ -7333,7 +7317,7 @@
     "id": "8aed8029-baad-4964-995a-26eaf032d934",
     "name": "Det sydfynske Øhav",
     "geoLocationId": "4376aeca-4f2c-4b43-8c07-259ab7988694",
-    "totalNitrogenReductionT": 34.02663426443357,
+    "totalNitrogenReductionT": 34.05187146688721,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 7401.261146494713,
@@ -7345,7 +7329,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 1.0207933808403127,
+        "nitrogenReductionT": 1.0460305832939603,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -7367,17 +7351,33 @@
         "projectId": "c5d2deaa-21c2-41c7-863e-02a185ac5ee1",
         "projectName": "Svendborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.06570652133981804,
+        "nitrogenReductionT": 0.09303990715799644,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 41.86436017396167,
+        "overlappingAreaHa": 41.496709805789955,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "53ae6090-cf4e-456b-85ca-01abe46bc1f5",
+        "geoLocationId": "322d0e84-87cd-4a7e-bfae-9092eb7f06ce",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:59:20.602208+00:00"
+        "lastStateChanged": "2026-03-11T14:12:34.596434+00:00"
+      },
+      {
+        "projectId": "eb861a70-bb1c-4061-9900-eabcfcd6f4d9",
+        "projectName": "Ærø Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.1292749477824343,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 41.73484949787298,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "2efda789-85c9-45d5-a650-f1906cb6f849",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:31:59.936365+00:00"
       },
       {
         "projectId": "002da579-82e1-4d89-a21f-f3059e53dfaf",
@@ -7540,38 +7540,6 @@
         "lastStateChanged": "2026-02-11T07:30:53.700884+00:00"
       },
       {
-        "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
-        "projectName": "Langeland Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.3939972745816441,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 47.676959472181146,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "63cf7675-5281-467e-a268-be05546bf9de",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:30:16.888481+00:00"
-      },
-      {
-        "projectId": "eb861a70-bb1c-4061-9900-eabcfcd6f4d9",
-        "projectName": "Ærø Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.14246834273573597,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 46.024610508118904,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "040ff3db-b72b-42de-a2ca-b151ac22f0aa",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:48:30.895484+00:00"
-      },
-      {
         "projectId": "31cb8c7e-d32a-43cc-ae5d-479b053ccb40",
         "projectName": "Knudsbølle vådområde",
         "projectStatus": 6,
@@ -7618,6 +7586,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T11:46:57.462261+00:00"
+      },
+      {
+        "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
+        "projectName": "Langeland Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.405094486170415,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 47.5317160357724,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "1bf8f18c-f496-4315-be2b-399fec04aa9c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:19:03.704486+00:00"
       }
     ],
     "sketchProjects": [
@@ -12781,7 +12765,7 @@
     "id": "ec62cad6-4669-4179-990c-2a72299efc23",
     "name": "Djursland Øst",
     "geoLocationId": "cea4e98e-95ab-473e-a273-cd019e54fe08",
-    "totalNitrogenReductionT": 89.42818578077075,
+    "totalNitrogenReductionT": 89.08774364331818,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 2090.9136131158093,
@@ -12791,6 +12775,12 @@
     "countSketchProjects": 44,
     "countNaturePotentials": 3,
     "mitigationMeasures": [
+      {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 3.607016976189324,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
+      },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "nitrogenReductionT": 85.14991192185667,
@@ -12808,15 +12798,25 @@
         "nitrogenReductionT": 0.25581474527217585,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 16.334747327666424
-      },
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 3.9474591136418784,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
       }
     ],
     "projects": [
+      {
+        "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
+        "projectName": "Syddjurs Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 3.1578095192112006,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 399.29240360171343,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "44039323-41b3-4002-97ea-ac2f6548f74c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:17:28.714269+00:00"
+      },
       {
         "projectId": "587fa95a-0adf-42c2-a0bd-56e39957117e",
         "projectName": "Tjerrild Å",
@@ -12962,38 +12962,6 @@
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
       },
       {
-        "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
-        "projectName": "Syddjurs Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 3.461328858994148,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 488.63345196068065,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "9814f98e-086e-46fa-9589-da2d57cfb4d1",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:06:02.029477+00:00"
-      },
-      {
-        "projectId": "0ae5cfbe-2020-486c-8962-4fc9af0c1c5f",
-        "projectName": "Norddjurs Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.4861302546477301,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 87.03348086814934,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "ce077541-e3c4-493b-8c4a-5f9fc1fc862a",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:14:59.768251+00:00"
-      },
-      {
         "projectId": "9a985db2-5db0-4c79-b64f-84339de26a82",
         "projectName": "Havmølle Å",
         "projectStatus": 10,
@@ -13088,6 +13056,22 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2026-03-02T12:00:00+00:00",
         "lastStateChanged": "2026-03-02T13:25:41.918686+00:00"
+      },
+      {
+        "projectId": "0ae5cfbe-2020-486c-8962-4fc9af0c1c5f",
+        "projectName": "Norddjurs Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.4492074569781231,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 73.88360069839712,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "39fc3547-7e5f-40e7-bb1a-2a592cacacba",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:27:27.419977+00:00"
       }
     ],
     "sketchProjects": [
@@ -13617,7 +13601,7 @@
     "id": "b41d8880-ff90-4435-80b1-04f2a1ee6bab",
     "name": "Ebeltoft Vig",
     "geoLocationId": "9d96ff09-9a9f-49b8-ba45-51aeee5a2b4d",
-    "totalNitrogenReductionT": 1.0041396099271829,
+    "totalNitrogenReductionT": 1.0552744674095742,
     "totalExtractionEffortHa": 0,
     "totalAfforestationEffortHa": 0,
     "totalNaturePotentialAreaHa": 164.31718578775366,
@@ -13629,7 +13613,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 1.0041396099271829,
+        "nitrogenReductionT": 1.0552744674095742,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -13639,17 +13623,17 @@
         "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
         "projectName": "Syddjurs Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 1.0041396099271829,
+        "nitrogenReductionT": 1.0552744674095742,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 141.75370900520383,
+        "overlappingAreaHa": 133.43524236912825,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "9814f98e-086e-46fa-9589-da2d57cfb4d1",
+        "geoLocationId": "44039323-41b3-4002-97ea-ac2f6548f74c",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:06:02.029477+00:00"
+        "lastStateChanged": "2026-03-11T14:17:28.714269+00:00"
       }
     ],
     "sketchProjects": [],
@@ -13703,7 +13687,7 @@
     "id": "173ba947-d505-4eca-9bc1-8d62b1fa3e1f",
     "name": "Fakse Bugt",
     "geoLocationId": "6de0ed23-f5f2-418e-aa1f-4155b7d36645",
-    "totalNitrogenReductionT": 4.975323520268998,
+    "totalNitrogenReductionT": 4.973280731768948,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 737.1256438853567,
@@ -13715,7 +13699,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.03613984388170518,
+        "nitrogenReductionT": 0.03409705538165413,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -13743,17 +13727,17 @@
         "projectId": "3c02986f-688f-48f0-8f92-37d1908ee82a",
         "projectName": "Vordingborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.03613984388170518,
+        "nitrogenReductionT": 0.03409705538165413,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 7.124835050304685,
+        "overlappingAreaHa": 7.030768462170958,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "738ee25d-177e-42cf-b262-efad115e43ba",
+        "geoLocationId": "6bb88139-7270-49dc-a42f-5c792ada19d5",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:01:21.966843+00:00"
+        "lastStateChanged": "2026-03-11T14:28:17.154728+00:00"
       },
       {
         "projectId": "bdfba3f0-e7bb-4567-9aa2-f94c5acae947",
@@ -14617,7 +14601,7 @@
     "id": "3c9f3f7f-9c46-44b4-ae4b-06a176992b0b",
     "name": "Femerbælt",
     "geoLocationId": "a68ff597-8666-407f-9daa-81dd6cebd6e8",
-    "totalNitrogenReductionT": 149.714591524014,
+    "totalNitrogenReductionT": 149.73880565526673,
     "totalExtractionEffortHa": 1241.5028832872022,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 794.693713676289,
@@ -14647,7 +14631,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 3.6107025708779483,
+        "nitrogenReductionT": 3.634916702130667,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -15070,22 +15054,6 @@
         "lastStateChanged": "2025-10-30T06:50:13.927847+00:00"
       },
       {
-        "projectId": "cda995d3-36e1-4ec9-b00c-aa663ca27989",
-        "projectName": "Lolland Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 3.4160886486250046,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 503.16426480364333,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "d2a0b405-bce1-4b47-b778-4eb10993a6a8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:20:24.969955+00:00"
-      },
-      {
         "projectId": "e11ad134-1593-46fe-98a2-557abe5d204b",
         "projectName": "Forprojekt lavbund Flintinge Øvre 2.0",
         "projectStatus": 6,
@@ -15116,6 +15084,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T11:48:02.063273+00:00"
+      },
+      {
+        "projectId": "cda995d3-36e1-4ec9-b00c-aa663ca27989",
+        "projectName": "Lolland Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 3.4403027798777233,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 482.4167926154485,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6db0b90f-22af-45cc-90e3-b2982febd4ac",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:20:47.435925+00:00"
       }
     ],
     "sketchProjects": [
@@ -16379,7 +16363,7 @@
     "id": "12b9b071-d566-4e1d-91cb-f99bc981959e",
     "name": "Grønsund",
     "geoLocationId": "6bebe18b-7ca3-4fef-a7fc-aaee46069140",
-    "totalNitrogenReductionT": 51.79001034330993,
+    "totalNitrogenReductionT": 51.776055670376294,
     "totalExtractionEffortHa": 621.7177658174704,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 0,
@@ -16391,7 +16375,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.19034155430605132,
+        "nitrogenReductionT": 0.1763868813724116,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -16419,17 +16403,17 @@
         "projectId": "3c02986f-688f-48f0-8f92-37d1908ee82a",
         "projectName": "Vordingborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.15017690721422783,
+        "nitrogenReductionT": 0.1362222342805881,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 29.60681556258566,
+        "overlappingAreaHa": 28.08884749448882,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "738ee25d-177e-42cf-b262-efad115e43ba",
+        "geoLocationId": "6bb88139-7270-49dc-a42f-5c792ada19d5",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:01:21.966843+00:00"
+        "lastStateChanged": "2026-03-11T14:28:17.154728+00:00"
       },
       {
         "projectId": "72e0d9c1-c019-4f13-9340-8a16480f8dd5",
@@ -17562,7 +17546,7 @@
     "id": "42b7dfee-e848-41fe-932f-40fa968c0f99",
     "name": "Hevring Bugt",
     "geoLocationId": "dcd18884-e2f6-41b9-bfb0-3a56911da16c",
-    "totalNitrogenReductionT": 278.08840875985595,
+    "totalNitrogenReductionT": 276.6842629198892,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 51663.94439268237,
@@ -17585,6 +17569,12 @@
         "afforestationEffortHa": 289.6332471331244
       },
       {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 4.072923747378398,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
+      },
+      {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "nitrogenReductionT": 176.4569113468387,
         "extractionEffortHa": 5958.349876501961,
@@ -17593,12 +17583,6 @@
       {
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
         "nitrogenReductionT": 0.545,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 5.477069587345232,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -17653,6 +17637,22 @@
         "lastStateChanged": "2026-02-18T12:55:05.343546+00:00"
       },
       {
+        "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
+        "projectName": "Skanderborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.19735592192775162,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 133.24154616086045,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "4744b634-ab16-4148-8414-2868a2cc6cc1",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:05:27.872335+00:00"
+      },
+      {
         "projectId": "1db59c21-6e92-4115-a5b2-40ae02d539e7",
         "projectName": "Lavbundsprojekt Hvolbækken",
         "projectStatus": 6,
@@ -17667,6 +17667,22 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
+        "projectName": "Syddjurs Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.4542247915655599,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 57.4349110344706,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "44039323-41b3-4002-97ea-ac2f6548f74c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:17:28.714269+00:00"
       },
       {
         "projectId": "2827cab9-857a-4c3b-84f6-c44e56054c80",
@@ -17717,6 +17733,22 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
+        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
+        "projectName": "Vejle Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.21607148045692853,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 24.506935237889238,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:40.798993+00:00"
+      },
+      {
         "projectId": "48d1b5b9-5a7c-4298-be1d-d892253026ce",
         "projectName": "Oksenbækken",
         "projectStatus": 6,
@@ -17731,6 +17763,38 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "4dcefd69-b960-47cd-9a8f-811d0571c18b",
+        "projectName": "Aarhus Kommnue Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 6.720113675569609e-07,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 1.0406999216404524,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "005a7e12-8a55-4a7b-a73a-3dd76fbda817",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:30:11.164472+00:00"
+      },
+      {
+        "projectId": "b9065a0b-4ae0-49a1-ab0c-ac4027b1cb98",
+        "projectName": "Viborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.662417438965161,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 113.71746617439746,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "28b6ef1c-e675-43ed-9acc-0939e3d481ab",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:35:42.055874+00:00"
       },
       {
         "projectId": "fc5c7b9d-0d61-476d-9f8b-8bea259e00e1",
@@ -17779,6 +17843,22 @@
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
+      },
+      {
+        "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
+        "projectName": "Silkeborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.23023083273841638,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 121.0387653580229,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "fe06a6d4-554f-4a55-97da-3607085e1fd1",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:36:03.779944+00:00"
       },
       {
         "projectId": "6a958d07-0de0-49a5-a2b8-59831703343f",
@@ -18629,86 +18709,6 @@
         "lastStateChanged": "2026-02-04T14:35:24.126705+00:00"
       },
       {
-        "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
-        "projectName": "Syddjurs Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.4076324031797572,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 57.545190419911336,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "9814f98e-086e-46fa-9589-da2d57cfb4d1",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:06:02.029477+00:00"
-      },
-      {
-        "projectId": "b9065a0b-4ae0-49a1-ab0c-ac4027b1cb98",
-        "projectName": "Viborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 1.3218530708154155,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 139.77682272443462,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e6f84cee-0fe4-402f-a927-4a7156e9939f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:11:03.570458+00:00"
-      },
-      {
-        "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
-        "projectName": "Randers Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.4557393451391592,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 106.33625886569051,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "1e5fb9d5-9042-456b-b730-604e524b42d5",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:13:22.801567+00:00"
-      },
-      {
-        "projectId": "0ae5cfbe-2020-486c-8962-4fc9af0c1c5f",
-        "projectName": "Norddjurs Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.6688712998880273,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 119.750204652955,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "ce077541-e3c4-493b-8c4a-5f9fc1fc862a",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:14:59.768251+00:00"
-      },
-      {
-        "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
-        "projectName": "Skanderborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.828379996827634,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 137.13239078228955,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e63478f8-e116-431b-aee6-bae396de20b8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:26:39.403651+00:00"
-      },
-      {
         "projectId": "d5b63ae1-403f-47af-8a54-bbc2c341432e",
         "projectName": "Dybdal 3",
         "projectStatus": 10,
@@ -18723,54 +18723,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-10-07T09:49:06.652814+00:00",
         "lastStateChanged": "2026-02-05T13:31:14.197415+00:00"
-      },
-      {
-        "projectId": "4dcefd69-b960-47cd-9a8f-811d0571c18b",
-        "projectName": "Aarhus Kommnue Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.0001431734790402231,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 1.04069992163764,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "38449b98-6398-4c54-84da-c8bee9fcf2bd",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:32:57.789743+00:00"
-      },
-      {
-        "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
-        "projectName": "Silkeborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.2268868181457401,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 129.1293695848768,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "a22a5569-fdec-4353-836b-6a2a4aaf85e5",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:46:55.309347+00:00"
-      },
-      {
-        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-        "projectName": "Vejle Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.25447922061240635,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 30.51133257527306,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "07fc2bcc-43b6-43ad-a6d8-a55025ab4108",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:50:09.099936+00:00"
       },
       {
         "projectId": "079c7a69-b433-4cbb-9bed-e96736367c70",
@@ -18947,6 +18899,38 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:30:58.951465+00:00"
+      },
+      {
+        "projectId": "0ae5cfbe-2020-486c-8962-4fc9af0c1c5f",
+        "projectName": "Norddjurs Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.48950978666497297,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 80.51234469527914,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "39fc3547-7e5f-40e7-bb1a-2a592cacacba",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:27:27.419977+00:00"
+      },
+      {
+        "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
+        "projectName": "Randers Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.5100285637901862,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 81.51453193906256,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "04b5fbc8-0d9f-4bf2-bc7e-2395a6345557",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:38:12.045916+00:00"
       }
     ],
     "sketchProjects": [
@@ -20864,7 +20848,7 @@
     "id": "1f1df8de-4859-44be-9409-743940fbf104",
     "name": "Hjelm Bugt",
     "geoLocationId": "a2d6762d-457a-4d9c-ad76-cd326910ca98",
-    "totalNitrogenReductionT": 14.734228732436424,
+    "totalNitrogenReductionT": 14.733426288937949,
     "totalExtractionEffortHa": 151.3551553815359,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 541.7796600141863,
@@ -20876,7 +20860,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.018278256278778465,
+        "nitrogenReductionT": 0.017475812780303784,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -20898,17 +20882,17 @@
         "projectId": "3c02986f-688f-48f0-8f92-37d1908ee82a",
         "projectName": "Vordingborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.018278256278778465,
+        "nitrogenReductionT": 0.017475812780303784,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 3.603489860658134,
+        "overlappingAreaHa": 3.603489860672049,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "738ee25d-177e-42cf-b262-efad115e43ba",
+        "geoLocationId": "6bb88139-7270-49dc-a42f-5c792ada19d5",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:01:21.966843+00:00"
+        "lastStateChanged": "2026-03-11T14:28:17.154728+00:00"
       },
       {
         "projectId": "e2eb7f6d-9b46-49fb-bca5-fc4681f84727",
@@ -21170,26 +21154,26 @@
     "id": "9409a7da-4fad-432b-aec1-ffbc1c42cd30",
     "name": "Jammerland Bugt og Musholm Bugt",
     "geoLocationId": "f698b310-ce38-4deb-99f0-c6cb08a84a41",
-    "totalNitrogenReductionT": 152.464479580161,
+    "totalNitrogenReductionT": 151.1527311468841,
     "totalExtractionEffortHa": 5103.082304163423,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 2552.44027648714,
     "countApprovedProjects": 15,
-    "countAssessedProjects": 10,
+    "countAssessedProjects": 9,
     "countEstablishedProjects": 6,
     "countSketchProjects": 122,
     "countNaturePotentials": 7,
     "mitigationMeasures": [
       {
-        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 139.21651764940881,
-        "extractionEffortHa": 4972.691304163423,
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 1.1515520128836085,
+        "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
       {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 2.463300446160508,
-        "extractionEffortHa": 0,
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "nitrogenReductionT": 139.21651764940881,
+        "extractionEffortHa": 4972.691304163423,
         "afforestationEffortHa": 0
       },
       {
@@ -21218,6 +21202,38 @@
       }
     ],
     "projects": [
+      {
+        "projectId": "509330f7-5149-4fba-911a-971049fa67aa",
+        "projectName": "Slagelse Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.041584127943994194,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 25.327492847544086,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "d3a73df2-29c2-48e5-b9a2-f29470200620",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:06:48.522496+00:00"
+      },
+      {
+        "projectId": "b10cede8-f935-4628-85de-112510e52f34",
+        "projectName": "Sorø Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.48996062277579994,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 124.49504699074429,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "9f7a7837-217a-4eb7-9cb7-935b9e7f211e",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:09:34.626441+00:00"
+      },
       {
         "projectId": "ee92617c-d118-48cd-a760-c4d420a25a55",
         "projectName": "Vestlig Åmose",
@@ -21265,22 +21281,6 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
-      },
-      {
-        "projectId": "c16fdbcc-b4da-4ae4-a38f-4da8563ab003",
-        "projectName": "Ringsted Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.03121797093582558,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 8.149676239043451,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "909b267f-7c14-4226-a856-d27ac26edc20",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:03:41.405668+00:00"
       },
       {
         "projectId": "22c079f9-8cfd-49b9-83bb-3a53b7aeaa5b",
@@ -21601,38 +21601,6 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
-      },
-      {
-        "projectId": "b10cede8-f935-4628-85de-112510e52f34",
-        "projectName": "Sorø Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 1.7633397700173912,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 157.28530288631572,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "59457e2c-5c41-425b-a3b1-79717209fb9f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:08:35.523286+00:00"
-      },
-      {
-        "projectId": "509330f7-5149-4fba-911a-971049fa67aa",
-        "projectName": "Slagelse Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.048735443043476545,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 31.732388480927224,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "6fc4e2c0-5c3c-44f0-8695-6f6ef5c65010",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:49:32.396373+00:00"
       },
       {
         "projectId": "dc484dca-4c54-436f-bafd-eaff6eb6ca66",
@@ -23219,7 +23187,7 @@
     "id": "4f3de1d8-c7b0-42f9-a753-c45d711c8b71",
     "name": "Kattegat, Aalborg Bugt",
     "geoLocationId": "e241c239-fa85-4d30-ac02-ef27dc7f0d7b",
-    "totalNitrogenReductionT": 24.204556628138523,
+    "totalNitrogenReductionT": 24.054467954875523,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 10517.053692738176,
@@ -23231,7 +23199,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 1.0831842170624824,
+        "nitrogenReductionT": 0.9330955437994868,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -23262,20 +23230,20 @@
     ],
     "projects": [
       {
-        "projectId": "d4f84af0-3de8-4b6f-8a85-3f3d7e5e02c5",
-        "projectName": "Rebild Kommune Permanent ekstensivering",
+        "projectId": "d764a461-9c98-4511-83d0-b0d4b9ea9c4d",
+        "projectName": "Aalborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.021976012149806975,
+        "nitrogenReductionT": 0.08774575944910026,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 3.7699675411283926,
+        "overlappingAreaHa": 33.00622438496392,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "69645c3d-cbb8-46ad-8077-78e771f7cfe1",
+        "geoLocationId": "587e649d-6009-48e4-807f-482d2e5c9cb7",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:07:54.69495+00:00"
+        "lastStateChanged": "2026-03-11T14:29:31.196748+00:00"
       },
       {
         "projectId": "b04f33dc-f321-4034-8b65-0b859721f16d",
@@ -23518,54 +23486,6 @@
         "lastStateChanged": "2026-01-28T12:06:29.271031+00:00"
       },
       {
-        "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
-        "projectName": "Randers Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.14646747106579985,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 34.17480427084958,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "1e5fb9d5-9042-456b-b730-604e524b42d5",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:13:22.801567+00:00"
-      },
-      {
-        "projectId": "d764a461-9c98-4511-83d0-b0d4b9ea9c4d",
-        "projectName": "Aalborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.08360553900465113,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 38.577193887611,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "60ad1a72-18aa-45f6-a02c-3e7ca9471c4a",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:19:02.831949+00:00"
-      },
-      {
-        "projectId": "152cf1ac-b0bc-4abc-82c7-6392bb3ab392",
-        "projectName": "Mariagerfjord Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.8311351948422244,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 82.24674679474582,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "3e4e5973-a652-4c7f-9739-3d9d21edb839",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:27:49.97729+00:00"
-      },
-      {
         "projectId": "4f49c2ec-8213-4d33-849d-12f94b517b6f",
         "projectName": "Lille Vildmose",
         "projectStatus": 6,
@@ -23644,6 +23564,54 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T11:42:56.71044+00:00"
+      },
+      {
+        "projectId": "152cf1ac-b0bc-4abc-82c7-6392bb3ab392",
+        "projectName": "Mariagerfjord Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.7509431701726393,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 78.66481944439681,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "f5b33ba6-f88b-469f-bcee-9ca34f31e76c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:24:20.901305+00:00"
+      },
+      {
+        "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
+        "projectName": "Randers Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.07628765818796884,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 12.192557812267236,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "04b5fbc8-0d9f-4bf2-bc7e-2395a6345557",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:38:12.045916+00:00"
+      },
+      {
+        "projectId": "d4f84af0-3de8-4b6f-8a85-3f3d7e5e02c5",
+        "projectName": "Rebild Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.018118955989778283,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 3.7699675411268836,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "fedc27e4-9d6f-499b-925f-bbc57dc86036",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:43:33.655365+00:00"
       }
     ],
     "sketchProjects": [
@@ -25753,14 +25721,14 @@
         "nitrogenReductionT": 0,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 427.3764741430831,
+        "overlappingAreaHa": 385.33438454536173,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "c31bd4ea-397e-4252-af14-43f7a49375c6",
+        "geoLocationId": "436353fb-1263-4854-8a7c-15b21a50d36f",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:39:26.39398+00:00"
+        "lastStateChanged": "2026-03-11T13:23:28.178425+00:00"
       }
     ],
     "sketchProjects": [],
@@ -25777,16 +25745,22 @@
     "id": "2fe37485-e465-4df5-8f6c-c41f62e49806",
     "name": "Kattegat, Nordsjælland",
     "geoLocationId": "5864a35f-1a2d-47a0-8ed8-96014995d05b",
-    "totalNitrogenReductionT": 107.98848045115987,
+    "totalNitrogenReductionT": 107.53728371546373,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 6755.6347078122235,
     "countApprovedProjects": 12,
-    "countAssessedProjects": 31,
+    "countAssessedProjects": 30,
     "countEstablishedProjects": 6,
     "countSketchProjects": 340,
     "countNaturePotentials": 14,
     "mitigationMeasures": [
+      {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 3.227082181898081,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
+      },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "nitrogenReductionT": 47.7811839935969,
@@ -25798,12 +25772,6 @@
         "nitrogenReductionT": 0.515820036357516,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 59.86613322821802
-      },
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 3.678278917594213,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
       },
       {
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
@@ -25825,6 +25793,22 @@
       }
     ],
     "projects": [
+      {
+        "projectId": "7d63c8f1-c6aa-4aeb-a88f-971ad1fd5e74",
+        "projectName": "Roskilde Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.6511041634335815,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 77.94649150384451,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "c571c5cf-d00a-4e0f-bc10-bc5ac57e6d2c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:57:27.19399+00:00"
+      },
       {
         "projectId": "726d2ee5-a581-4257-bf30-c932c27be140",
         "projectName": "Koelle_Svinninge_Aa_NY",
@@ -25872,22 +25856,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-10-07T06:21:14.306024+00:00"
-      },
-      {
-        "projectId": "c16fdbcc-b4da-4ae4-a38f-4da8563ab003",
-        "projectName": "Ringsted Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.014078495397582071,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 3.6752926594434006,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "909b267f-7c14-4226-a856-d27ac26edc20",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:03:41.405668+00:00"
       },
       {
         "projectId": "5ea7aeae-e6e1-4431-8829-e9952e6674c7",
@@ -26290,54 +26258,6 @@
         "lastStateChanged": "2026-02-04T10:59:07.680543+00:00"
       },
       {
-        "projectId": "7d63c8f1-c6aa-4aeb-a88f-971ad1fd5e74",
-        "projectName": "Roskilde Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.7740105928581422,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 103.23769030767174,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e5eee266-ada3-4ea4-920c-dc63d501d9b1",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:27:15.041372+00:00"
-      },
-      {
-        "projectId": "c1673167-6e73-4a2a-9525-45d825044841",
-        "projectName": "Lejre Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.5913990542844454,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 135.19268370559956,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "0249dbc1-fdeb-4cab-9bb5-8d42566458d2",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:37:16.785984+00:00"
-      },
-      {
-        "projectId": "9778f303-cfee-4213-a678-d69c661d9b46",
-        "projectName": "Odsherred Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.8639395151067795,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 120.49006842894914,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "9034d45c-48da-40f0-b3dd-3ce2e2eb813d",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:46:14.997831+00:00"
-      },
-      {
         "projectId": "66129af5-9488-4cfa-9287-085814c9b129",
         "projectName": "Hagerup Mose",
         "projectStatus": 10,
@@ -26608,6 +26528,38 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T13:13:02.416067+00:00"
+      },
+      {
+        "projectId": "c1673167-6e73-4a2a-9525-45d825044841",
+        "projectName": "Lejre Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.2801801148027637,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 56.65653171372705,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "ca3ce4fa-4468-4c1c-bc5e-2301b7a20963",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:19:43.106829+00:00"
+      },
+      {
+        "projectId": "9778f303-cfee-4213-a678-d69c661d9b46",
+        "projectName": "Odsherred Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.860946643714471,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 114.19947016466614,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "51f37461-ff62-4d85-8038-eab569f032a2",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:35:13.559526+00:00"
       }
     ],
     "sketchProjects": [
@@ -30535,14 +30487,30 @@
         "nitrogenReductionT": 0,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 6.587602825035821,
+        "overlappingAreaHa": 6.568657395792542,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "b33dc534-6b52-4502-a760-4f8bec837d92",
+        "geoLocationId": "b0857051-1674-4c63-aba2-1ee22ee01d02",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:55:57.281401+00:00"
+        "lastStateChanged": "2026-03-11T14:07:20.034623+00:00"
+      },
+      {
+        "projectId": "29661305-2b90-4280-8a25-95878ac3887f",
+        "projectName": "Stevns Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 6.617618890337743,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "ff7599eb-4de2-41d6-8cdb-9f291c5a0d78",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:10:10.20889+00:00"
       },
       {
         "projectId": "d74c504a-7c19-4085-8a52-cbe7a13a21d0",
@@ -30557,22 +30525,6 @@
         "geoLocationId": "757a55ba-29f6-4fc0-95de-4f0f77541170",
         "subsidySchemeId": "e1ed6ffa-f5ab-469b-bbfc-9c22b8711d00",
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
-      },
-      {
-        "projectId": "29661305-2b90-4280-8a25-95878ac3887f",
-        "projectName": "Stevns Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 9.770984888044355,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "646b4af8-a144-4863-902c-b5c5ea110bf4",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
@@ -31816,7 +31768,7 @@
     "id": "6ff14cfa-2c64-4dcf-b763-1c5defccb065",
     "name": "Langelandssund",
     "geoLocationId": "336a19fb-590c-4a25-a718-bfc59675b265",
-    "totalNitrogenReductionT": 15.046815978768244,
+    "totalNitrogenReductionT": 15.019270467307754,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 5896.6323989086595,
@@ -31834,7 +31786,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.30335484465962725,
+        "nitrogenReductionT": 0.27580933319913686,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -31907,22 +31859,6 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
-        "projectId": "d9b71652-b65b-44d2-b351-04b86e6d1814",
-        "projectName": "Nyborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.053,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 13.154518045802432,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "44556601-a8b1-48f7-92d6-c5f9f89d1815",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
-      },
-      {
         "projectId": "adea4d72-3b56-4ffc-b7fd-4179311e11c7",
         "projectName": "Vibeholm",
         "projectStatus": 6,
@@ -31942,17 +31878,17 @@
         "projectId": "c5d2deaa-21c2-41c7-863e-02a185ac5ee1",
         "projectName": "Svendborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.05670424445356515,
+        "nitrogenReductionT": 0.029158039665735574,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 36.12863479591711,
+        "overlappingAreaHa": 13.00477125863888,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "53ae6090-cf4e-456b-85ca-01abe46bc1f5",
+        "geoLocationId": "322d0e84-87cd-4a7e-bfae-9092eb7f06ce",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:59:20.602208+00:00"
+        "lastStateChanged": "2026-03-11T14:12:34.596434+00:00"
       },
       {
         "projectId": "444f9611-d2a2-40c4-8a1b-c4b740218433",
@@ -32067,22 +32003,6 @@
         "lastStateChanged": "2026-01-28T13:47:55.430163+00:00"
       },
       {
-        "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
-        "projectName": "Langeland Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.0033937409172566536,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 0.4106709833029556,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "63cf7675-5281-467e-a268-be05546bf9de",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:30:16.888481+00:00"
-      },
-      {
         "projectId": "31cb8c7e-d32a-43cc-ae5d-479b053ccb40",
         "projectName": "Knudsbølle vådområde",
         "projectStatus": 6,
@@ -32129,6 +32049,38 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:36:16.889591+00:00"
+      },
+      {
+        "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
+        "projectName": "Langeland Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0033944342445958084,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 0.3982855608366778,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "1bf8f18c-f496-4315-be2b-399fec04aa9c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:19:03.704486+00:00"
+      },
+      {
+        "projectId": "d9b71652-b65b-44d2-b351-04b86e6d1814",
+        "projectName": "Nyborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.053,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 13.036640338045542,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "20f56a62-7706-4d17-8803-957cd568d9ae",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:29:24.356565+00:00"
       }
     ],
     "sketchProjects": [
@@ -35268,7 +35220,7 @@
     "id": "7880a4dd-3964-438f-9ff2-d2dd73227a66",
     "name": "Lillebælt, Bredningen",
     "geoLocationId": "e2209dc0-2b65-4229-a872-5d6755f2a789",
-    "totalNitrogenReductionT": 94.22778573219874,
+    "totalNitrogenReductionT": 94.22790363726122,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 10873.590509967102,
@@ -35304,7 +35256,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.3907708549498359,
+        "nitrogenReductionT": 0.3908887600123213,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -36063,22 +36015,6 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
-        "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
-        "projectName": "Middelfart Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.0018580177824941996,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 0.3211253108192353,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "bc2acaa7-7736-46c0-b32f-d64c4d408d2f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:51:03.730883+00:00"
-      },
-      {
         "projectId": "24f983e3-28b8-4e4e-9407-7510e22159c4",
         "projectName": "Vindemosen",
         "projectStatus": 6,
@@ -36157,6 +36093,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:55:02.023586+00:00"
+      },
+      {
+        "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
+        "projectName": "Middelfart Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.001975922844979598,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 0.32112531081785983,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "44e142ac-7620-4fce-8d30-0aec43782bfb",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:24:55.011926+00:00"
       }
     ],
     "sketchProjects": [
@@ -41383,7 +41335,7 @@
     "id": "d9275db8-79a3-46e5-8cfe-73fbe258743b",
     "name": "Lillebælt, Snævringen",
     "geoLocationId": "eb64faad-8150-4f9d-877b-7c914955d366",
-    "totalNitrogenReductionT": 49.172613701448576,
+    "totalNitrogenReductionT": 49.091234470376754,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 4830.491765663935,
@@ -41412,14 +41364,14 @@
         "afforestationEffortHa": 0
       },
       {
-        "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
-        "nitrogenReductionT": 3.3560000000000003,
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 0.8775664217417037,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
       {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.9589456528135203,
+        "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
+        "nitrogenReductionT": 3.3560000000000003,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -41472,6 +41424,38 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-07-10T19:58:13.15079+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "3f4016e5-d475-455c-86ca-2b3bf1f72652",
+        "projectName": "Vejen Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.05127347283896963,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 4.356169808487409,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "78bf1fac-6954-427a-bb2f-8d17b74ed3cd",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:05.316816+00:00"
+      },
+      {
+        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
+        "projectName": "Vejle Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.06950645756118103,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 7.883457134022425,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:40.798993+00:00"
       },
       {
         "projectId": "b40784ab-9e99-446d-a6e6-92d2b3551645",
@@ -41906,54 +41890,6 @@
         "lastStateChanged": "2026-02-23T14:10:03.427278+00:00"
       },
       {
-        "projectId": "3f4016e5-d475-455c-86ca-2b3bf1f72652",
-        "projectName": "Vejen Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.1279311462710495,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 11.538826063590111,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "911c6a0f-eb91-43d8-9203-44faff71866d",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:43:18.66002+00:00"
-      },
-      {
-        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-        "projectName": "Vejle Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.0741940101843211,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 8.895650161059379,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "07fc2bcc-43b6-43ad-a6d8-a55025ab4108",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:50:09.099936+00:00"
-      },
-      {
-        "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
-        "projectName": "Middelfart Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.039356887319476855,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 6.802137628832989,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "bc2acaa7-7736-46c0-b32f-d64c4d408d2f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:51:03.730883+00:00"
-      },
-      {
         "projectId": "2bc3b1d3-c82f-4b74-be66-2838ae2fae07",
         "projectName": "Svanemosen",
         "projectStatus": 10,
@@ -41984,6 +41920,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:55:02.023586+00:00"
+      },
+      {
+        "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
+        "projectName": "Middelfart Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.03932288230288022,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 6.39072159818918,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "44e142ac-7620-4fce-8d30-0aec43782bfb",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:24:55.011926+00:00"
       }
     ],
     "sketchProjects": [
@@ -43263,7 +43215,7 @@
     "id": "5d33e0e4-3d43-440a-b180-6addc4697d65",
     "name": "Lillebælt, syd",
     "geoLocationId": "5c4fc9b5-c1f0-4bb4-9b11-333eb1621412",
-    "totalNitrogenReductionT": 23.026760864103835,
+    "totalNitrogenReductionT": 23.06157598334602,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 27541.710576783425,
@@ -43275,7 +43227,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.5020947836611549,
+        "nitrogenReductionT": 0.5369099029033404,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -43309,17 +43261,49 @@
         "projectId": "92e1aac7-317b-460f-a243-aed8892243c7",
         "projectName": "Sønderborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.07667008132502788,
+        "nitrogenReductionT": 0.07657753901116313,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 19.79844990886404,
+        "overlappingAreaHa": 17.172995579146452,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "aae37242-0d53-4623-90f7-635816e0778f",
+        "geoLocationId": "ef8f751b-ea20-47f5-92d6-635e11ce76e1",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:00:11.569985+00:00"
+        "lastStateChanged": "2026-03-11T14:18:20.350478+00:00"
+      },
+      {
+        "projectId": "eb861a70-bb1c-4061-9900-eabcfcd6f4d9",
+        "projectName": "Ærø Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.10582682988086081,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 34.164908929979575,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "2efda789-85c9-45d5-a650-f1906cb6f849",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:31:59.936365+00:00"
+      },
+      {
+        "projectId": "2998a506-8669-4490-bd15-a1a77f624d2a",
+        "projectName": "Aabenraa Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.12884317903239587,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 65.02130436086789,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "e472eb58-b37c-458c-9c5b-d1850a5f0743",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:33:30.210465+00:00"
       },
       {
         "projectId": "b2dc2884-68b2-4444-8515-4a454c89db87",
@@ -43834,54 +43818,6 @@
         "lastStateChanged": "2025-08-29T13:58:05.514012+00:00"
       },
       {
-        "projectId": "2998a506-8669-4490-bd15-a1a77f624d2a",
-        "projectName": "Aabenraa Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.08832681116315454,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 66.49559632939126,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "75a91bdb-6348-4c55-8270-b5d8d9baca19",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:22:40.582083+00:00"
-      },
-      {
-        "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
-        "projectName": "Langeland Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.0041263843307502756,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 0.4993269527377331,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "63cf7675-5281-467e-a268-be05546bf9de",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:30:16.888481+00:00"
-      },
-      {
-        "projectId": "eb861a70-bb1c-4061-9900-eabcfcd6f4d9",
-        "projectName": "Ærø Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.1085241540411119,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 35.05888974738814,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "040ff3db-b72b-42de-a2ca-b151ac22f0aa",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:48:30.895484+00:00"
-      },
-      {
         "projectId": "6e9c97ce-330c-44bf-9fbb-060ea05eec69",
         "projectName": "Kongsmade",
         "projectStatus": 10,
@@ -43960,6 +43896,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T11:48:27.0818+00:00"
+      },
+      {
+        "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
+        "projectName": "Langeland Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0012150021778103886,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 0.14256214406787482,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "1bf8f18c-f496-4315-be2b-399fec04aa9c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:19:03.704486+00:00"
       }
     ],
     "sketchProjects": [
@@ -49524,7 +49476,7 @@
     "id": "76293fee-a007-47ee-91ea-3f513aa20710",
     "name": "Nibe Bredning og Langerak",
     "geoLocationId": "c81cadfd-6a70-4374-91a1-89c4f54d7f38",
-    "totalNitrogenReductionT": 1123.4861070183204,
+    "totalNitrogenReductionT": 1121.797101107775,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 11700.129787372394,
@@ -49541,12 +49493,6 @@
         "afforestationEffortHa": 446.55382588736495
       },
       {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 9.767815262359871,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
-      },
-      {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "nitrogenReductionT": 631.6486382434517,
         "extractionEffortHa": 24405.95804911182,
@@ -49556,6 +49502,12 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "nitrogenReductionT": 474.60943701319167,
         "extractionEffortHa": 1868.38916259647,
+        "afforestationEffortHa": 0
+      },
+      {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 8.078809351815009,
+        "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
       {
@@ -49597,38 +49549,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
-      },
-      {
-        "projectId": "53464f50-26dd-400e-b72f-42611f9c3fe1",
-        "projectName": "Struer Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.22218406925037806,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 24.650446769367612,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "2e69e78d-6e97-4372-b686-594a01190504",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:55:08.973455+00:00"
-      },
-      {
-        "projectId": "fc42f31d-5ed8-4f5f-8deb-13c982016986",
-        "projectName": "Morsø Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.24020551685660238,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 25.858883110711016,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "f8350073-b1ad-4b6d-ab86-f2d3e881d244",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:55:34.58827+00:00"
       },
       {
         "projectId": "d49dced4-3e10-45f9-9d10-f8b02d3077c7",
@@ -49693,6 +49613,22 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-10-30T11:51:35.592583+00:00",
         "lastStateChanged": "2026-02-24T12:35:17.915295+00:00"
+      },
+      {
+        "projectId": "024e524c-39c2-45af-9a57-d74f77594f89",
+        "projectName": "Skive Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.7377607875279852,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 109.323581760365,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "8d22a351-86ee-4ad6-a258-f58379937b29",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:06:17.334049+00:00"
       },
       {
         "projectId": "5431609a-6555-4c32-8f37-26cc90160b2b",
@@ -49775,6 +49711,22 @@
         "lastStateChanged": "2025-08-29T13:51:48.064055+00:00"
       },
       {
+        "projectId": "53464f50-26dd-400e-b72f-42611f9c3fe1",
+        "projectName": "Struer Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.21442119845143412,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 24.239846394744976,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "99fe6306-7b4a-4fc9-a2f8-0e19b2c41022",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:10:38.595597+00:00"
+      },
+      {
         "projectId": "5419dfe9-b774-4f57-abda-7487b33ca1aa",
         "projectName": "Moselundvej 2",
         "projectStatus": 10,
@@ -49821,6 +49773,22 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
+      },
+      {
+        "projectId": "cf068207-8fba-4ab5-b396-4e8ef445f739",
+        "projectName": "Thisted Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 2.1687372473309847,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 237.2067840445944,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "eb007c89-7e36-45a0-9300-4202e7df1232",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:18:49.070892+00:00"
       },
       {
         "projectId": "3f35b218-1b1a-44c8-a34b-4a055d7a7605",
@@ -49919,6 +49887,22 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
+        "projectId": "bb22805f-991f-4c6c-83db-265e36b64afb",
+        "projectName": "Vesthimmerland Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.9304625889578552,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 73.42212472820441,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "40db5147-e338-4f78-a720-2c8f83d23b1c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:27:33.593999+00:00"
+      },
+      {
         "projectId": "6bade89b-3e23-406d-9285-7d4ac89a04bf",
         "projectName": "Trend Å, Øvre del - realisering af lavbundsprojekt",
         "projectStatus": 6,
@@ -49949,6 +49933,22 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "d764a461-9c98-4511-83d0-b0d4b9ea9c4d",
+        "projectName": "Aalborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.31022690311438184,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 116.69417233074894,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "587e649d-6009-48e4-807f-482d2e5c9cb7",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:29:31.196748+00:00"
       },
       {
         "projectId": "21c62972-37a2-4d22-ab73-2be5a185b745",
@@ -50143,22 +50143,6 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
-        "projectId": "d4f84af0-3de8-4b6f-8a85-3f3d7e5e02c5",
-        "projectName": "Rebild Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.45097795525984474,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 77.36491231913523,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "69645c3d-cbb8-46ad-8077-78e771f7cfe1",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:07:54.69495+00:00"
-      },
-      {
         "projectId": "d06588d2-6981-4b07-bb9c-7d3d28c9c903",
         "projectName": "Hverrestrup Bæk",
         "projectStatus": 6,
@@ -50207,6 +50191,22 @@
         "lastStateChanged": "2026-02-19T10:49:10.615444+00:00"
       },
       {
+        "projectId": "b9065a0b-4ae0-49a1-ab0c-ac4027b1cb98",
+        "projectName": "Viborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 1.136545746536093,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 195.1112620001101,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "28b6ef1c-e675-43ed-9acc-0939e3d481ab",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:35:42.055874+00:00"
+      },
+      {
         "projectId": "8282e53c-27c6-4805-8639-1d2537ddbd4b",
         "projectName": "Klejtrup Møllebæk",
         "projectStatus": 6,
@@ -50253,6 +50253,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-10-28T10:00:38.974383+00:00",
         "lastStateChanged": "2026-02-19T10:58:09.033426+00:00"
+      },
+      {
+        "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
+        "projectName": "Silkeborg Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.014323595234069298,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 7.530313216516988,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "fe06a6d4-554f-4a55-97da-3607085e1fd1",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:36:03.779944+00:00"
       },
       {
         "projectId": "54ea735e-d546-4d13-8d40-d7246120de63",
@@ -53135,54 +53151,6 @@
         "lastStateChanged": "2026-02-03T16:13:07.278472+00:00"
       },
       {
-        "projectId": "b9065a0b-4ae0-49a1-ab0c-ac4027b1cb98",
-        "projectName": "Viborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 2.1651469291845844,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 228.94931757150502,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e6f84cee-0fe4-402f-a927-4a7156e9939f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:11:03.570458+00:00"
-      },
-      {
-        "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
-        "projectName": "Randers Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.3561602768725446,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 83.10178132114208,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "1e5fb9d5-9042-456b-b730-604e524b42d5",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:13:22.801567+00:00"
-      },
-      {
-        "projectId": "024e524c-39c2-45af-9a57-d74f77594f89",
-        "projectName": "Skive Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.8569815074411743,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 131.3858944436775,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "2ed31f44-4500-471e-acf3-2f53b1a328f3",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:17:23.454894+00:00"
-      },
-      {
         "projectId": "bc6f497c-8c19-4647-8fb7-29c60b0c574c",
         "projectName": "Spøttrup Bæk",
         "projectStatus": 6,
@@ -53197,102 +53165,6 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-11-12T07:08:42.166072+00:00",
         "lastStateChanged": "2026-02-18T11:44:25.868046+00:00"
-      },
-      {
-        "projectId": "d764a461-9c98-4511-83d0-b0d4b9ea9c4d",
-        "projectName": "Aalborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.27102435621267434,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 125.05581881721541,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "60ad1a72-18aa-45f6-a02c-3e7ca9471c4a",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:19:02.831949+00:00"
-      },
-      {
-        "projectId": "cf068207-8fba-4ab5-b396-4e8ef445f739",
-        "projectName": "Thisted Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 2.4626623291117244,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 287.1930673110452,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "89cca38d-18ab-42d8-868d-c57f2cd1cbdf",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:23:18.596387+00:00"
-      },
-      {
-        "projectId": "152cf1ac-b0bc-4abc-82c7-6392bb3ab392",
-        "projectName": "Mariagerfjord Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.14363020749893599,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 14.213231952575766,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "3e4e5973-a652-4c7f-9739-3d9d21edb839",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:27:49.97729+00:00"
-      },
-      {
-        "projectId": "bb22805f-991f-4c6c-83db-265e36b64afb",
-        "projectName": "Vesthimmerland Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.9504502380878331,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 79.01059349966332,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "4e0dec36-8392-406e-9667-dfb6e29a7cec",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:29:46.267503+00:00"
-      },
-      {
-        "projectId": "d37f7dd4-536a-4b16-9c73-66945ff0fbbb",
-        "projectName": "Lemvig Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.12459836255941852,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 15.891944996486703,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "066a264d-bba7-471f-845d-fa800ef1ffab",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:36:31.480611+00:00"
-      },
-      {
-        "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
-        "projectName": "Silkeborg Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.013327865657600734,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 7.58536306491116,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "a22a5569-fdec-4353-836b-6a2a4aaf85e5",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:46:55.309347+00:00"
       },
       {
         "projectId": "d934add6-bc09-4de0-9e94-7ae18c5cdc97",
@@ -53869,6 +53741,86 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:31:27.141083+00:00"
+      },
+      {
+        "projectId": "d37f7dd4-536a-4b16-9c73-66945ff0fbbb",
+        "projectName": "Lemvig Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.08286513590731133,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 8.469180493000495,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6066a08d-cd50-4802-9015-4dccf125e006",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:20:06.722697+00:00"
+      },
+      {
+        "projectId": "152cf1ac-b0bc-4abc-82c7-6392bb3ab392",
+        "projectName": "Mariagerfjord Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.13388147949619306,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 14.024712960763093,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "f5b33ba6-f88b-469f-bcee-9ca34f31e76c",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:24:20.901305+00:00"
+      },
+      {
+        "projectId": "fc42f31d-5ed8-4f5f-8deb-13c982016986",
+        "projectName": "Morsø Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.2400498097698452,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 25.777139327641642,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "af1f0627-29e9-48b8-819a-302a82f8088b",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:25:19.66463+00:00"
+      },
+      {
+        "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
+        "projectName": "Randers Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.30239529537630566,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 48.3298636844865,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "04b5fbc8-0d9f-4bf2-bc7e-2395a6345557",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:38:12.045916+00:00"
+      },
+      {
+        "projectId": "d4f84af0-3de8-4b6f-8a85-3f3d7e5e02c5",
+        "projectName": "Rebild Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.29667391574599783,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 61.7282272385005,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "fedc27e4-9d6f-499b-925f-bbc57dc86036",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:43:33.655365+00:00"
       }
     ],
     "sketchProjects": [
@@ -62078,7 +62030,7 @@
     "id": "f041a782-df8d-4e1b-8326-becd5d7550e9",
     "name": "Nordlige Lillebælt",
     "geoLocationId": "f37728b1-aeea-43ad-9937-d806ade69004",
-    "totalNitrogenReductionT": 150.67010019180836,
+    "totalNitrogenReductionT": 150.45370112580855,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 905.059124083949,
@@ -62095,16 +62047,16 @@
         "afforestationEffortHa": 0
       },
       {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 1.5697383874143374,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
-      },
-      {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 0.9865650110500719,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 58.863804618531496
+      },
+      {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 1.353339321414512,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -62137,22 +62089,6 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
-        "projectId": "f40d36a7-f444-40e2-bca6-157ac2ed788d",
-        "projectName": "Nordfyns Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.38021061389785,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 54.043405719072794,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "e6a709ff-9f71-4dbb-b5bc-a4b91d641fe8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:57:39.121702+00:00"
-      },
-      {
         "projectId": "4d177815-4d6e-4b2d-860e-3639de880e3a",
         "projectName": "Kvælstofvådområde ved Egum Møllebæk og Stoustrup Rørledning",
         "projectStatus": 6,
@@ -62183,6 +62119,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.606702+00:00"
+      },
+      {
+        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
+        "projectName": "Vejle Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.894353572428312,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 101.43802890101736,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:40.798993+00:00"
       },
       {
         "projectId": "0c59071d-5b16-4385-bdb1-ee4d1637ca72",
@@ -62857,38 +62809,6 @@
         "lastStateChanged": "2026-02-03T08:46:19.439527+00:00"
       },
       {
-        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-        "projectName": "Vejle Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 1.084474750286538,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 130.02542877901922,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "07fc2bcc-43b6-43ad-a6d8-a55025ab4108",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:50:09.099936+00:00"
-      },
-      {
-        "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
-        "projectName": "Middelfart Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.0554196924707314,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 9.578307666291462,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "bc2acaa7-7736-46c0-b32f-d64c4d408d2f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:51:03.730883+00:00"
-      },
-      {
         "projectId": "1e5c4d39-8133-4433-9218-38094b5bf9b2",
         "projectName": "Assens Kommune Permanent ekstensivering",
         "projectStatus": 10,
@@ -62935,6 +62855,38 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:25:19.660417+00:00"
+      },
+      {
+        "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
+        "projectName": "Middelfart Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.04467070648440689,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 7.259845464465321,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "44e142ac-7620-4fce-8d30-0aec43782bfb",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:24:55.011926+00:00"
+      },
+      {
+        "projectId": "f40d36a7-f444-40e2-bca6-157ac2ed788d",
+        "projectName": "Nordfyns Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.3646817117425749,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 48.689575947750235,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "488ffee0-dba8-4404-ada1-a11d55e9a391",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:28:12.335106+00:00"
       }
     ],
     "sketchProjects": [
@@ -64719,17 +64671,11 @@
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 1283.190777378447,
     "countApprovedProjects": 0,
-    "countAssessedProjects": 6,
+    "countAssessedProjects": 5,
     "countEstablishedProjects": 2,
     "countSketchProjects": 60,
     "countNaturePotentials": 18,
     "mitigationMeasures": [
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.0034893807181261794,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
-      },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 0,
@@ -64741,25 +64687,15 @@
         "nitrogenReductionT": 0,
         "extractionEffortHa": 245.69947886153824,
         "afforestationEffortHa": 0
+      },
+      {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 0.0034893807181261794,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
       }
     ],
     "projects": [
-      {
-        "projectId": "eb8008c1-4283-4a23-8c54-f991635e3491",
-        "projectName": "Rudersdal Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 1.9659709330264081,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "fdbe639e-25f6-4188-b927-87c35af69adb",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
-      },
       {
         "projectId": "cc04d068-68b9-4eb0-b94c-c0ef565cc3d9",
         "projectName": "Privat Skovrejsning",
@@ -65851,7 +65787,7 @@
     "id": "5c6e872e-a2c0-45aa-88a1-b357d7894296",
     "name": "Sejerø Bugt",
     "geoLocationId": "ddc22d30-cbaf-4c5a-b8e3-fd98f0c84583",
-    "totalNitrogenReductionT": 0.7669597562623924,
+    "totalNitrogenReductionT": 0.6982545756246865,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 0,
@@ -65875,7 +65811,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.7368004642688756,
+        "nitrogenReductionT": 0.6680952836311695,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -65914,22 +65850,6 @@
         "lastStateChanged": "2026-02-25T11:48:58.442583+00:00"
       },
       {
-        "projectId": "9778f303-cfee-4213-a678-d69c661d9b46",
-        "projectName": "Odsherred Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.47029027751041885,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 65.58943852880284,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "9034d45c-48da-40f0-b3dd-3ce2e2eb813d",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:46:14.997831+00:00"
-      },
-      {
         "projectId": "51eb63be-2810-43bd-85af-5a2145bcb3f6",
         "projectName": "Tranemosen",
         "projectStatus": 6,
@@ -65960,6 +65880,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:34:57.016359+00:00"
+      },
+      {
+        "projectId": "9778f303-cfee-4213-a678-d69c661d9b46",
+        "projectName": "Odsherred Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.4015850968727129,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 53.26788323493303,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "51f37461-ff62-4d85-8038-eab569f032a2",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:35:13.559526+00:00"
       }
     ],
     "sketchProjects": [
@@ -66307,7 +66243,7 @@
     "id": "fb87bd8e-b69a-4457-8b3c-759540a94eb9",
     "name": "Skagerrak",
     "geoLocationId": "15fed4f9-03f8-4c27-8bcb-43d748719135",
-    "totalNitrogenReductionT": 5.068511600037426,
+    "totalNitrogenReductionT": 5.003385534554883,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 8329.931951281005,
@@ -66317,6 +66253,12 @@
     "countSketchProjects": 24,
     "countNaturePotentials": 3,
     "mitigationMeasures": [
+      {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 0.17844922418329984,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
+      },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 0,
@@ -66328,15 +66270,25 @@
         "nitrogenReductionT": 4.824936310371583,
         "extractionEffortHa": 893.669618185741,
         "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.24357528966584335,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0
       }
     ],
     "projects": [
+      {
+        "projectId": "cf068207-8fba-4ab5-b396-4e8ef445f739",
+        "projectName": "Thisted Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.14186379053598933,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 15.516427159090652,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "eb007c89-7e36-45a0-9300-4202e7df1232",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:18:49.070892+00:00"
+      },
       {
         "projectId": "fc221beb-dfa1-48ac-abba-dd3a3d6e58e1",
         "projectName": "Privat Skovrejsning",
@@ -66432,22 +66384,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-01-28T13:57:05.557816+00:00"
-      },
-      {
-        "projectId": "cf068207-8fba-4ab5-b396-4e8ef445f739",
-        "projectName": "Thisted Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.20698985601853284,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 24.138937340092454,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "89cca38d-18ab-42d8-868d-c57f2cd1cbdf",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:23:18.596387+00:00"
       },
       {
         "projectId": "0da504b5-b2d5-4ad8-be51-6a8b76d49274",
@@ -66837,7 +66773,7 @@
     "id": "2af23368-d559-4be4-a36e-1fdc59fd68e9",
     "name": "Smålandsfarvandet, åbne del",
     "geoLocationId": "39739612-2b17-435e-909a-df661235f636",
-    "totalNitrogenReductionT": 33.97190935145849,
+    "totalNitrogenReductionT": 33.360752450234834,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 4674.448352033299,
@@ -66849,7 +66785,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 1.3290067227081503,
+        "nitrogenReductionT": 0.717849821484486,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -66880,52 +66816,68 @@
     ],
     "projects": [
       {
-        "projectId": "3c405b64-d996-42b3-a270-b5d2f06194d4",
-        "projectName": "Næstved Kommune Permanent ekstensivering",
+        "projectId": "c16fdbcc-b4da-4ae4-a38f-4da8563ab003",
+        "projectName": "Ringsted Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.302549149278927,
+        "nitrogenReductionT": 0.07703107905509078,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 49.94053756437026,
+        "overlappingAreaHa": 10.756727750879051,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "b4537109-2e9b-425e-a82a-419569e43851",
+        "geoLocationId": "488b43ed-8462-48b0-a12c-c0a7434c7944",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:58:56.21804+00:00"
+        "lastStateChanged": "2026-03-11T13:48:40.172069+00:00"
+      },
+      {
+        "projectId": "509330f7-5149-4fba-911a-971049fa67aa",
+        "projectName": "Slagelse Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.07311247627618807,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 44.53034875338369,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "d3a73df2-29c2-48e5-b9a2-f29470200620",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:06:48.522496+00:00"
+      },
+      {
+        "projectId": "b10cede8-f935-4628-85de-112510e52f34",
+        "projectName": "Sorø Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.21855358738603656,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 55.532705827404406,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "9f7a7837-217a-4eb7-9cb7-935b9e7f211e",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:09:34.626441+00:00"
       },
       {
         "projectId": "3c02986f-688f-48f0-8f92-37d1908ee82a",
         "projectName": "Vordingborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.06276478237177947,
+        "nitrogenReductionT": 0.03409134869648689,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 12.373842090490525,
+        "overlappingAreaHa": 7.029591751113409,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "738ee25d-177e-42cf-b262-efad115e43ba",
+        "geoLocationId": "6bb88139-7270-49dc-a42f-5c792ada19d5",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:01:21.966843+00:00"
-      },
-      {
-        "projectId": "c16fdbcc-b4da-4ae4-a38f-4da8563ab003",
-        "projectName": "Ringsted Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.05457418817744111,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 14.2469850320852,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "909b267f-7c14-4226-a856-d27ac26edc20",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:03:41.405668+00:00"
+        "lastStateChanged": "2026-03-11T14:28:17.154728+00:00"
       },
       {
         "projectId": "516cee92-c5bc-440d-bd57-05b7bd5127d0",
@@ -67392,38 +67344,6 @@
         "lastStateChanged": "2026-02-04T13:54:15.326467+00:00"
       },
       {
-        "projectId": "b10cede8-f935-4628-85de-112510e52f34",
-        "projectName": "Sorø Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.7506602299826085,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 66.95693231960709,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "59457e2c-5c41-425b-a3b1-79717209fb9f",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:08:35.523286+00:00"
-      },
-      {
-        "projectId": "509330f7-5149-4fba-911a-971049fa67aa",
-        "projectName": "Slagelse Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.07120728731821618,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 46.36414819988166,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "6fc4e2c0-5c3c-44f0-8695-6f6ef5c65010",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:49:32.396373+00:00"
-      },
-      {
         "projectId": "ea0df4cc-6ba7-4fa4-ba9c-417046d55a3f",
         "projectName": "Faxe Kommune Permanent ekstensivering",
         "projectStatus": 10,
@@ -67454,6 +67374,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T11:48:02.063273+00:00"
+      },
+      {
+        "projectId": "3c405b64-d996-42b3-a270-b5d2f06194d4",
+        "projectName": "Næstved Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.22781024449150558,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 35.174568024653325,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "d812e245-379c-4303-b84a-cc3a0206c87f",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:32:42.647587+00:00"
       }
     ],
     "sketchProjects": [
@@ -69215,7 +69151,7 @@
     "id": "bab169fe-b3fd-4cea-b5eb-02515d8ae1cc",
     "name": "Smålandsfarvandet, syd",
     "geoLocationId": "721b810d-a1f1-47dc-a2d7-1ed7413a617a",
-    "totalNitrogenReductionT": 8.649348369316032,
+    "totalNitrogenReductionT": 8.620762148154022,
     "totalExtractionEffortHa": 1181.7853391575134,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 1945.7623834197634,
@@ -69233,7 +69169,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.8973439416033107,
+        "nitrogenReductionT": 0.8687577204412994,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -69352,22 +69288,6 @@
         "lastStateChanged": "2026-01-28T13:46:43.828518+00:00"
       },
       {
-        "projectId": "cda995d3-36e1-4ec9-b00c-aa663ca27989",
-        "projectName": "Lolland Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.7297747795327736,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 107.49035759468586,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "d2a0b405-bce1-4b47-b778-4eb10993a6a8",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:20:24.969955+00:00"
-      },
-      {
         "projectId": "ec1784ad-8d5d-490b-ac19-01eb4ed85dc9",
         "projectName": "Guldborgsund Kommune Permanent ekstensivering",
         "projectStatus": 10,
@@ -69382,6 +69302,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T11:48:02.063273+00:00"
+      },
+      {
+        "projectId": "cda995d3-36e1-4ec9-b00c-aa663ca27989",
+        "projectName": "Lolland Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.7011885583707623,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 98.32423393847218,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6db0b90f-22af-45cc-90e3-b2982febd4ac",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:20:47.435925+00:00"
       }
     ],
     "sketchProjects": [
@@ -69945,7 +69881,7 @@
     "id": "12130c6d-f503-499f-98dd-d78534f3d7b8",
     "name": "Stege Bugt",
     "geoLocationId": "d58dfb23-9326-4eec-9954-5898011a2e8b",
-    "totalNitrogenReductionT": 3.574009295482903,
+    "totalNitrogenReductionT": 3.474821451496359,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 155.61296084145272,
@@ -69957,7 +69893,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 0.3007706413255594,
+        "nitrogenReductionT": 0.20158279733901552,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -69985,17 +69921,17 @@
         "projectId": "3c02986f-688f-48f0-8f92-37d1908ee82a",
         "projectName": "Vordingborg Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.3007706413255594,
+        "nitrogenReductionT": 0.20158279733901552,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 59.29580698891095,
+        "overlappingAreaHa": 41.56611056830192,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "738ee25d-177e-42cf-b262-efad115e43ba",
+        "geoLocationId": "6bb88139-7270-49dc-a42f-5c792ada19d5",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:01:21.966843+00:00"
+        "lastStateChanged": "2026-03-11T14:28:17.154728+00:00"
       },
       {
         "projectId": "fb2ed7cc-9c6c-4204-b075-ca83949f0372",
@@ -71672,7 +71608,7 @@
     "id": "996da154-ca1a-40e2-880d-2f4ea342ad67",
     "name": "Storebælt, SV",
     "geoLocationId": "b868fbf3-a6a7-4cba-ae8f-121aac39e6fd",
-    "totalNitrogenReductionT": 7.228779211320056,
+    "totalNitrogenReductionT": 7.089790001654429,
     "totalExtractionEffortHa": 139.2785585546032,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 0,
@@ -71696,7 +71632,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 2.391596869135918,
+        "nitrogenReductionT": 2.252607659470291,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       }
@@ -71802,17 +71738,17 @@
         "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
         "projectName": "Langeland Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 2.391596869135918,
+        "nitrogenReductionT": 2.252607659470291,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 289.4031871785459,
+        "overlappingAreaHa": 264.3094667176128,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "63cf7675-5281-467e-a268-be05546bf9de",
+        "geoLocationId": "1bf8f18c-f496-4315-be2b-399fec04aa9c",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:30:16.888481+00:00"
+        "lastStateChanged": "2026-03-11T13:19:03.704486+00:00"
       }
     ],
     "sketchProjects": [
@@ -72633,7 +72569,7 @@
     "id": "db4a9a3e-0b52-48d1-8f56-b7264cff7ea8",
     "name": "Vesterhavet, nord",
     "geoLocationId": "c6b89ffb-75df-4d6f-b924-e8fae5f520ac",
-    "totalNitrogenReductionT": 645.324241532766,
+    "totalNitrogenReductionT": 645.1543825743072,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 479.0321797787159,
@@ -72644,6 +72580,12 @@
     "countNaturePotentials": 2,
     "mitigationMeasures": [
       {
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "nitrogenReductionT": 7.568731519902776,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0
+      },
+      {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 8.119271257362737,
         "extractionEffortHa": 0,
@@ -72653,12 +72595,6 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "nitrogenReductionT": 453.724963241427,
         "extractionEffortHa": 1216.1185727733598,
-        "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 7.738590478361487,
-        "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
       {
@@ -72675,6 +72611,22 @@
       }
     ],
     "projects": [
+      {
+        "projectId": "c9b7303c-b0a4-4ca2-9286-b075e23049fa",
+        "projectName": "Ringkøbing-Skjern Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 2.99557165730547,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 355.9826902623751,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "7fa2c2a1-9c43-438f-89cb-758a8bc70508",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:46:22.474339+00:00"
+      },
       {
         "projectId": "31d5a3a7-74b2-4f66-b966-8e4eaccca13b",
         "projectName": "Privat Skovrejsning",
@@ -72722,22 +72674,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-11-26T12:09:50.452494+00:00"
-      },
-      {
-        "projectId": "53464f50-26dd-400e-b72f-42611f9c3fe1",
-        "projectName": "Struer Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.009463616744510845,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 1.0499509780036296,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "2e69e78d-6e97-4372-b686-594a01190504",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:55:08.973455+00:00"
       },
       {
         "projectId": "6654c640-0549-4d4c-b753-8820e1448f6d",
@@ -72980,6 +72916,22 @@
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
       },
       {
+        "projectId": "53464f50-26dd-400e-b72f-42611f9c3fe1",
+        "projectName": "Struer Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.009287672180453602,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 1.0499509780043192,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "99fe6306-7b4a-4fc9-a2f8-0e19b2c41022",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:10:38.595597+00:00"
+      },
+      {
         "projectId": "5fa94411-7395-43e5-931e-c791aa02b680",
         "projectName": "Thyregodvej 58, 7323 Give - Skovrejsningsprojekt",
         "projectStatus": 10,
@@ -73092,6 +73044,22 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
+        "projectId": "8b094517-9013-427e-9927-36d800843129",
+        "projectName": "Varde Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.16009207658225244,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 37.47271309898125,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "4412225b-bcfc-431e-b74a-a798b7ccab4e",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:25:32.105472+00:00"
+      },
+      {
         "projectId": "67c4126e-8c02-43ad-b454-fafa90e6e82b",
         "projectName": "Ramme Å vådområdeprojekt",
         "projectStatus": 10,
@@ -73108,20 +73076,20 @@
         "lastStateChanged": "2026-01-20T07:54:48.224981+00:00"
       },
       {
-        "projectId": "c9b7303c-b0a4-4ca2-9286-b075e23049fa",
-        "projectName": "Ringkøbing-Skjern Kommune Permanent ekstensivering",
+        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
+        "projectName": "Vejle Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 3.1238074766841546,
+        "nitrogenReductionT": 0.19735465058388726,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 384.9469115913223,
+        "overlappingAreaHa": 22.38406304491304,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "52ae7822-65ec-4d2d-884f-6c5fde8ed32f",
+        "geoLocationId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:03:25.284565+00:00"
+        "lastStateChanged": "2026-03-11T14:26:40.798993+00:00"
       },
       {
         "projectId": "464af9f8-546f-4a62-8d22-ec53ecd82fca",
@@ -74692,54 +74660,6 @@
         "lastStateChanged": "2026-02-03T10:01:38.232786+00:00"
       },
       {
-        "projectId": "8b094517-9013-427e-9927-36d800843129",
-        "projectName": "Varde Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.19015987786819508,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 37.93910304796037,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "3f7e33a8-7ba6-4a41-af36-23d8f14dc763",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:19:38.340244+00:00"
-      },
-      {
-        "projectId": "d37f7dd4-536a-4b16-9c73-66945ff0fbbb",
-        "projectName": "Lemvig Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.48359571761267545,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 61.68039761495418,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "066a264d-bba7-471f-845d-fa800ef1ffab",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:36:31.480611+00:00"
-      },
-      {
-        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-        "projectName": "Vejle Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.29195327303870905,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 35.004364555528966,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "07fc2bcc-43b6-43ad-a6d8-a55025ab4108",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:50:09.099936+00:00"
-      },
-      {
         "projectId": "02462b9d-3460-438c-b801-e3efb4ea3881",
         "projectName": "Hestbæk-Riskær-Anglandsmosen",
         "projectStatus": 10,
@@ -75026,6 +74946,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:30:58.951465+00:00"
+      },
+      {
+        "projectId": "d37f7dd4-536a-4b16-9c73-66945ff0fbbb",
+        "projectName": "Lemvig Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.5668149468374694,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 57.930974689603524,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6066a08d-cd50-4802-9015-4dccf125e006",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T13:20:06.722697+00:00"
       }
     ],
     "sketchProjects": [
@@ -77611,7 +77547,7 @@
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "nitrogenReductionT": 5.714868455301441,
+        "nitrogenReductionT": 4.3532707756532965,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
       },
@@ -77880,6 +77816,22 @@
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
       },
       {
+        "projectId": "c7be7d5e-3cc5-4a0e-b76f-f09553584d62",
+        "projectName": "Tønder Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.10682932650256446,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 303.9544900894135,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "e8fdbf41-0812-4838-b6ad-980e88da414f",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:21:24.689382+00:00"
+      },
+      {
         "projectId": "3acbd14a-0f26-4f00-bfa2-ff78d3bb69bb",
         "projectName": "Rønnevej 6",
         "projectStatus": 10,
@@ -77912,20 +77864,52 @@
         "lastStateChanged": "2026-02-18T13:49:07.304854+00:00"
       },
       {
-        "projectId": "c7be7d5e-3cc5-4a0e-b76f-f09553584d62",
-        "projectName": "Tønder Kommune Permanent ekstensivering",
+        "projectId": "8b094517-9013-427e-9927-36d800843129",
+        "projectName": "Varde Kommune Permanent ekstensivering",
         "projectStatus": 10,
-        "nitrogenReductionT": 0.117,
+        "nitrogenReductionT": 1.619052724503911,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0,
-        "overlappingAreaHa": 492.2525647088531,
+        "overlappingAreaHa": 378.9712741110437,
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "f7d1dd73-bca0-4b04-b0cd-3582dbb8dea8",
+        "geoLocationId": "4412225b-bcfc-431e-b74a-a798b7ccab4e",
         "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T14:03:00.51931+00:00"
+        "lastStateChanged": "2026-03-11T14:25:32.105472+00:00"
+      },
+      {
+        "projectId": "3f4016e5-d475-455c-86ca-2b3bf1f72652",
+        "projectName": "Vejen Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.552814255960888,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 46.96683563996801,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "78bf1fac-6954-427a-bb2f-8d17b74ed3cd",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:05.316816+00:00"
+      },
+      {
+        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
+        "projectName": "Vejle Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.06057785058851454,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 6.870770071477297,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:26:40.798993+00:00"
       },
       {
         "projectId": "e106f2f5-d528-4d4c-ad58-7a371c8c92e3",
@@ -77942,6 +77926,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-11-28T12:00:00+00:00",
         "lastStateChanged": "2026-02-26T15:24:38.278387+00:00"
+      },
+      {
+        "projectId": "2998a506-8669-4490-bd15-a1a77f624d2a",
+        "projectName": "Aabenraa Kommune Permanent ekstensivering",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.14823307171073175,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 74.80650310270924,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "e472eb58-b37c-458c-9c5b-d1850a5f0743",
+        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
+        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
+        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
+        "lastStateChanged": "2026-03-11T14:33:30.210465+00:00"
       },
       {
         "projectId": "5849e06a-b54e-422d-bed4-6cadee28d031",
@@ -79878,70 +79878,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-10-28T11:15:12.133087+00:00",
         "lastStateChanged": "2026-02-11T08:56:23.092536+00:00"
-      },
-      {
-        "projectId": "8b094517-9013-427e-9927-36d800843129",
-        "projectName": "Varde Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 2.1965783780671626,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 438.2428847381481,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "3f7e33a8-7ba6-4a41-af36-23d8f14dc763",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:19:38.340244+00:00"
-      },
-      {
-        "projectId": "2998a506-8669-4490-bd15-a1a77f624d2a",
-        "projectName": "Aabenraa Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.19029868757518514,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 143.2636879377241,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "75a91bdb-6348-4c55-8270-b5d8d9baca19",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:22:40.582083+00:00"
-      },
-      {
-        "projectId": "3f4016e5-d475-455c-86ca-2b3bf1f72652",
-        "projectName": "Vejen Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 1.257447829966878,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 113.41625723641387,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "911c6a0f-eb91-43d8-9203-44faff71866d",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:43:18.66002+00:00"
-      },
-      {
-        "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-        "projectName": "Vejle Kommune Permanent ekstensivering",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0.08778001330552813,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 10.52457317725804,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "07fc2bcc-43b6-43ad-a6d8-a55025ab4108",
-        "subsidySchemeId": "06e8192e-7fcf-46c6-854c-7441e0adbe4b",
-        "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2026-02-05T13:50:09.099936+00:00"
       },
       {
         "projectId": "f5c5d65a-71bd-4301-aa25-aaac9bd00b6a",
