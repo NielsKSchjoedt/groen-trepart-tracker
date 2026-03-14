@@ -13,9 +13,10 @@ import { StubMapOverlay } from './StubMapOverlay';
 import { NatureWatermark } from './NatureWatermark';
 import { usePillar } from '@/lib/pillars';
 import type { Plan, Catchment, DashboardData, CoastalWaterStatusData, CoastalWaterEntry, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
-import { Map, AlertTriangle } from 'lucide-react';
+import { Map, AlertTriangle, MousePointerClick } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { InfoTooltip } from './InfoTooltip';
+import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
 import 'leaflet/dist/leaflet.css';
 
 interface DenmarkMapProps {
@@ -128,6 +129,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
 
+  const mapHint = useFirstVisitHint('map-click', 20_000);
+
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
@@ -181,6 +184,11 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   }, [searchParams, ksfProjects, nstProjects]);
 
   const panelOpen = !!(selectedPlan || selectedCatchment || selectedCoastalWater || selectedProject);
+
+  // Dismiss map hint as soon as the user clicks any map feature
+  useEffect(() => {
+    if (panelOpen) mapHint.dismiss();
+  }, [panelOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- URL-updating helpers ---
 
@@ -861,7 +869,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
             {pillarConfig.label}
           </span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {showLayerToggle && (
             <div className="flex items-center gap-1.5">
               <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
@@ -1042,11 +1050,27 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         <div className={`transition-all relative ${panelOpen ? 'w-full md:w-3/5' : 'w-full'}`}>
           <div
             ref={mapContainerRef}
-            className="rounded-2xl overflow-hidden border border-border shadow-md"
+            className="relative z-0 rounded-2xl overflow-hidden border border-border shadow-md"
             style={{ height: '580px' }}
           />
           {isStub && pillarConfig.stubMessage && (
             <StubMapOverlay message={pillarConfig.stubMessage} />
+          )}
+          {mapHint.visible && !isStub && (
+            <div
+              className="absolute inset-0 z-[1001] flex items-center justify-center pointer-events-none"
+            >
+              <button
+                type="button"
+                onClick={mapHint.dismiss}
+                className="pointer-events-auto flex items-center gap-2 rounded-full bg-background/80 backdrop-blur-sm border border-border px-4 py-2 shadow-lg transition-opacity hover:bg-background/95"
+              >
+                <MousePointerClick className="w-4 h-4 text-primary" strokeWidth={1.8} />
+                <span className="text-xs font-medium text-foreground/80">
+                  Klik på et område for at udforske detaljerne
+                </span>
+              </button>
+            </div>
           )}
         </div>
 

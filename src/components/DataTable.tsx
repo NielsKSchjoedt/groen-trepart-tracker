@@ -11,6 +11,7 @@ import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
 
 type AfforestationTab = 'mars' | 'klimaskovfonden' | 'naturstyrelsen';
+type ExtractionTab = 'mars' | 'klimaskovfonden';
 
 interface DataTableProps {
   plans: Plan[];
@@ -238,11 +239,12 @@ const PILLAR_TABLE_TITLES: Record<PillarId, { heading: string; subtitle: string;
   },
   extraction: {
     heading: 'Implementeringsplaner — Lavbundsudtag',
-    subtitle: 'vandoplande med potentiale for udtag af kulstofrige lavbundsjorde',
+    subtitle: 'to datakilder — skift fane for at se MARS-vandoplande eller Klimaskovfonden',
     tooltip: (
       <>
-        <p>Tabellen viser lavbundsudtag pr. vandopland — areal der er udtaget af landbrugsdrift.</p>
-        <p><strong>Anlagt</strong> viser kun fysisk gennemførte projekter. <strong>I pipeline</strong> inkluderer alle projektfaser.</p>
+        <p>Lavbundsudtag-data samles fra to kilder:</p>
+        <p><strong>MARS-vandoplande:</strong> Lavbundsudtag pr. vandopland — areal der er udtaget af landbrugsdrift. Projekter i alle faser fra skitse til anlagt.</p>
+        <p><strong>Klimaskovfonden:</strong> Frivillige lavbundsprojekter fra den uafhængige fond. Alle er anlagte. Data fra Klimaskovfondens WFS.</p>
       </>
     ),
   },
@@ -888,12 +890,18 @@ const AFFORESTATION_TABS: { id: AfforestationTab; label: string; icon: React.Rea
   { id: 'naturstyrelsen', label: 'Naturstyrelsen', icon: <Landmark className="w-3.5 h-3.5" /> },
 ];
 
+const EXTRACTION_TABS: { id: ExtractionTab; label: string; icon: React.ReactNode }[] = [
+  { id: 'mars', label: 'MARS-vandoplande', icon: <MapPin className="w-3.5 h-3.5" /> },
+  { id: 'klimaskovfonden', label: 'Klimaskovfonden', icon: <TreePine className="w-3.5 h-3.5" /> },
+];
+
 export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
   const { activePillar, config: pillarConfig } = usePillar();
   const [searchParams, setSearchParams] = useSearchParams();
   const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
   const [afforestationTab, setAfforestationTab] = useState<AfforestationTab>('mars');
+  const [extractionTab, setExtractionTab] = useState<ExtractionTab>('mars');
   const columns = useMemo(() => getColumnsForPillar(activePillar), [activePillar]);
   const titles = PILLAR_TABLE_TITLES[activePillar];
 
@@ -1046,28 +1054,46 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
         <NaturstyrelsenTable projects={nstProjects} />
       )}
 
-      {/* Tab content: MARS table (default for afforestation, always shown for other pillars) */}
-      {/* Extraction pillar: Klimaskovfonden lavbund projects supplementary section */}
+      {/* Extraction tab switcher */}
       {activePillar === 'extraction' && ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length > 0 && (
-        <div className="mb-8 p-4 rounded-xl border-2 border-orange-200 bg-orange-50/50 dark:bg-orange-950/20 dark:border-orange-800/40">
-          <div className="flex items-center gap-2 mb-3">
-            <TreePine className="w-4 h-4" style={{ color: '#c2410c' }} />
-            <span className="text-sm font-semibold text-foreground">Klimaskovfonden — Lavbundsprojekter</span>
-            <InfoTooltip
-              title="Klimaskovfondens lavbundsprojekter"
-              content={
-                <p>Klimaskovfonden har {ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length} frivillige lavbundsprojekter (~{Math.round(ksfProjects.filter((p) => p.projekttyp === 'Lavbund').reduce((s, p) => s + p.areaHa, 0))} ha) der bidrager til lavbundsudtag-målet på 140.000 ha. Disse er separate fra MARS-projekterne ovenfor. Alle er anlagte.</p>
-              }
-              source="Klimaskovfondens WFS"
-              size={13}
-              side="right"
-            />
+        <div className="flex items-center gap-3 mb-5">
+          <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
+            {EXTRACTION_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setExtractionTab(tab.id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all font-medium ${
+                  extractionTab === tab.id
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {tab.icon}
+                <span className="hidden sm:inline">{tab.label}</span>
+              </button>
+            ))}
           </div>
-          <KlimaskovfondenTable projects={ksfProjects.filter((p) => p.projekttyp === 'Lavbund')} />
+          <InfoTooltip
+            title="To datakilder for lavbundsudtag"
+            content={
+              <>
+                <p><strong>MARS-vandoplande:</strong> Lavbundsudtag pr. vandopland — projekter i alle faser fra skitse til anlagt.</p>
+                <p><strong>Klimaskovfonden:</strong> Frivillige lavbundsprojekter fra den uafhængige fond. Alle er anlagte. Data fra Klimaskovfondens WFS.</p>
+              </>
+            }
+            size={14}
+            side="right"
+          />
         </div>
       )}
 
-      {(activePillar !== 'afforestation' || afforestationTab === 'mars') && (
+      {/* Tab content: Klimaskovfonden lavbund (extraction pillar) */}
+      {activePillar === 'extraction' && extractionTab === 'klimaskovfonden' && ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length > 0 && (
+        <KlimaskovfondenTable projects={ksfProjects.filter((p) => p.projekttyp === 'Lavbund')} />
+      )}
+
+      {/* Tab content: MARS table (default for afforestation/extraction, always shown for other pillars) */}
+      {(activePillar !== 'afforestation' || afforestationTab === 'mars') && (activePillar !== 'extraction' || extractionTab === 'mars' || ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length === 0) && (
         <>
           {/* Search */}
           <div className="relative mb-4 max-w-sm">

@@ -5,9 +5,11 @@ import type { PillarId, PillarConfig } from '@/lib/pillars';
 import type { DashboardData, CO2EmissionsData } from '@/lib/types';
 import { loadCO2Emissions } from '@/lib/data';
 import { projectEndPct, assessGoalStatus, GOAL_STATUS_META } from '@/lib/projections';
-import { Droplets, Mountain, Trees, Factory, Leaf } from 'lucide-react';
+import { Droplets, Mountain, Trees, Factory, Leaf, Hand } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
+import { HintCallout } from './HintCallout';
+import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
 
 type BarHover = 'actual' | 'projected' | null;
 
@@ -188,10 +190,16 @@ function getPillarProgress(
 export function PillarCards({ data }: PillarCardsProps) {
   const { activePillar, setActivePillar } = usePillar();
   const [co2Data, setCo2Data] = useState<CO2EmissionsData | null>(null);
+  const pillarHint = useFirstVisitHint('pillar-click', 15_000);
 
   useEffect(() => {
     loadCO2Emissions().then(setCo2Data);
   }, []);
+
+  const handleSelect = useCallback((id: PillarId) => {
+    pillarHint.dismiss();
+    setActivePillar(id);
+  }, [pillarHint, setActivePillar]);
 
   return (
     <section className="w-full max-w-5xl mx-auto px-4 py-6">
@@ -212,7 +220,17 @@ export function PillarCards({ data }: PillarCardsProps) {
           side="bottom"
         />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div className="relative">
+        {pillarHint.visible && (
+          <HintCallout
+            icon={Hand}
+            text="Vælg et delmål for at dykke ned i detaljerne"
+            arrow="left"
+            onDismiss={pillarHint.dismiss}
+            className="absolute left-1/2 -translate-x-1/2 -top-2 sm:left-auto sm:translate-x-0 sm:right-3"
+          />
+        )}
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
         {PILLAR_CONFIGS.map((pillar) => (
           <PillarCard
             key={pillar.id}
@@ -220,9 +238,10 @@ export function PillarCards({ data }: PillarCardsProps) {
             data={data}
             co2Data={co2Data}
             isActive={activePillar === pillar.id}
-            onSelect={() => setActivePillar(pillar.id)}
+            onSelect={() => handleSelect(pillar.id)}
           />
         ))}
+        </div>
       </div>
     </section>
   );

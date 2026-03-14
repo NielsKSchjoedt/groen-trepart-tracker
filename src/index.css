@@ -101,3 +101,12 @@
 .leaflet-control-zoom a:hover {
   background: hsl(40 25% 93%) !important;
 }
+
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.hint-float-anim {
+  animation: hint-float 2s ease-in-out infinite;
+}

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { FlaskConical, Leaf, Shield } from 'lucide-react';
+import { FlaskConical, Leaf, Shield, SlidersHorizontal } from 'lucide-react';
+import { HintCallout } from './HintCallout';
 import { CountdownProjection } from './CountdownProjection';
 import { InfoTooltip } from './InfoTooltip';
 import { getPillarProjectionData } from '@/lib/projections';
 import { usePillar } from '@/lib/pillars';
 import { loadCO2Emissions } from '@/lib/data';
 import { formatDanishNumber } from '@/lib/format';
+import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
 import type { DashboardData, CO2EmissionsData } from '@/lib/types';
 
 interface ScenarioBuilderSectionProps {
@@ -157,6 +159,7 @@ function NatureStatusCard({ data }: { data: DashboardData }) {
  */
 export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
   const { activePillar, config } = usePillar();
+  const scenarioHint = useFirstVisitHint('scenario-builder', 15_000);
 
   const [co2Data, setCo2Data] = useState<CO2EmissionsData | null>(null);
   useEffect(() => {
@@ -228,7 +231,17 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
       <p className="text-sm text-muted-foreground mb-8">
         Hvad hvis alle planlagte projekter blev til virkelighed? Udforsk hvordan {config.label.toLowerCase()}-målet påvirkes
       </p>
-      <CountdownProjection
+      <div className="relative">
+        {scenarioHint.visible && (
+          <HintCallout
+            icon={SlidersHorizontal}
+            text="Prøv scenarievælgeren — skift fase og se prognosen ændre sig"
+            arrow="left"
+            onDismiss={scenarioHint.dismiss}
+            className="absolute left-1/2 -translate-x-1/2 -top-2 sm:left-auto sm:translate-x-0 sm:right-3"
+          />
+        )}
+        <CountdownProjection
         deadline={projectionData.deadline}
         achieved={projectionData.achieved}
         target={projectionData.target}
@@ -240,6 +253,7 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
         pillarLabel={config.label}
         pillarColor={config.accentColor}
       />
+      </div>
     </section>
   );
 }

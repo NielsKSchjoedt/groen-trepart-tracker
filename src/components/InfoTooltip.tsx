@@ -42,14 +42,15 @@ export function InfoTooltip({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button
-          type="button"
-          className={`inline-flex items-center justify-center rounded-full text-muted-foreground/50 hover:text-muted-foreground hover:bg-muted/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring p-0.5 ${className}`}
+        <span
+          role="button"
+          tabIndex={0}
+          className={`inline-flex items-center justify-center rounded-full text-muted-foreground/50 hover:text-muted-foreground hover:bg-muted/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring p-0.5 cursor-pointer ${className}`}
           aria-label="Vis information"
           onClick={(e) => e.stopPropagation()}
         >
           <Info style={{ width: size, height: size }} />
-        </button>
+        </span>
       </PopoverTrigger>
       <PopoverContent
         side={side}

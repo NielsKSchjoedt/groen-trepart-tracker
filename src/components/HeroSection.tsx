@@ -186,7 +186,7 @@ export function HeroSection({ data }: HeroSectionProps) {
       </div>
 
       {/* Status strip — 5 pillar indicators (clickable) */}
-      <div className="flex items-center justify-center gap-2 mb-3">
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
         {pillarStatuses.map(({ config: pc, status }) => {
           const isSelected = activePillar === pc.id;
           const meta = GOAL_STATUS_META[status];

@@ -16,6 +16,7 @@ import { DataTable } from '@/components/DataTable';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
+import { ScrollPrompt } from '@/components/ScrollPrompt';
 
 /** Per-pillar meta descriptions for Google and social sharing. */
 const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
@@ -90,6 +91,7 @@ const Index = () => {
       >
         <div className="max-w-6xl mx-auto">
           <HeroSection data={data} />
+          <ScrollPrompt />
           <RecentActivity />
           <PillarCards data={data} />
           <ScenarioBuilderSection data={data} />
