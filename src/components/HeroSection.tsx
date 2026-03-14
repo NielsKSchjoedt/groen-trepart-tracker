@@ -86,6 +86,11 @@ export function HeroSection({ data }: HeroSectionProps) {
     ? pillarEntries.reduce((a, e) => a + e.projectedPct, 0) / pillarEntries.length
     : 0;
 
+  const compositeStatus = pillarEntries.length > 0
+    ? assessGoalStatus(compositeProjectedPct, compositeProgressPct)
+    : 'unknown';
+  const compositeStatusMeta = GOAL_STATUS_META[compositeStatus];
+
   return (
     <section className="w-full py-14 md:py-20 text-center relative overflow-hidden">
       <div className="absolute top-6 left-8 opacity-[0.08] pointer-events-none">
@@ -168,6 +173,9 @@ export function HeroSection({ data }: HeroSectionProps) {
             : "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning og natur"
           }
           size={240}
+          statusLabel={compositeStatusMeta.label}
+          statusColor={compositeStatusMeta.color}
+          statusIcon={compositeStatusMeta.icon}
         />
         <div className="flex items-center justify-center mt-1">
           <InfoTooltip

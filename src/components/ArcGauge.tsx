@@ -15,6 +15,15 @@ interface ArcGaugeProps {
    * arc behind the actual progress arc showing where current pace leads.
    */
   projectedPct?: number;
+  /**
+   * Short status label shown as a pill just below the arc (e.g. "Når ikke målet").
+   * Pair with `statusColor` for a coloured accent.
+   */
+  statusLabel?: string;
+  /** Accent color for the status pill (hex or CSS color). */
+  statusColor?: string;
+  /** Icon character for the status pill (e.g. "✓", "!", "○"). */
+  statusIcon?: string;
 }
 
 /**
@@ -164,7 +173,7 @@ function buildSegments(
   return segs;
 }
 
-export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, projectedPct }: ArcGaugeProps) {
+export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, projectedPct, statusLabel, statusColor, statusIcon }: ArcGaugeProps) {
   const strokeWidth = 22;
   const radius = (size - strokeWidth) / 2;
   const center = size / 2;
@@ -295,7 +304,21 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
         </text>
       </svg>
 
-      <p className="text-sm text-muted-foreground text-center max-w-xs mt-2">{label}</p>
+      {statusLabel && (
+        <div
+          className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold mt-1 mb-1"
+          style={{
+            color: statusColor ?? '#6b7280',
+            backgroundColor: statusColor ? `${statusColor}18` : '#6b728018',
+            border: `1px solid ${statusColor ? `${statusColor}30` : '#6b728030'}`,
+          }}
+        >
+          {statusIcon && <span aria-hidden="true">{statusIcon}</span>}
+          {statusLabel}
+        </div>
+      )}
+
+      <p className="text-sm text-muted-foreground text-center max-w-xs mt-1">{label}</p>
     </div>
   );
 }
