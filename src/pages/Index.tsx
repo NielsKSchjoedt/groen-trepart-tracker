@@ -14,6 +14,7 @@ import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
 import { StickyNav } from '@/components/StickyNav';
+import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
 
 // Heavy components lazy-loaded so they split into separate JS chunks.
 // Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
@@ -90,10 +91,11 @@ const Index = () => {
   return (
     <PillarContext.Provider value={pillarContextValue}>
       <div
-        className="min-h-screen transition-colors duration-400"
+        className="relative min-h-screen transition-colors duration-400"
         style={{ backgroundColor: pillarContextValue.config.backgroundTint }}
       >
         <StickyNav sentinelRef={heroSentinelRef} />
+        <LastUpdatedBadge fetchedAt={data.fetchedAt} />
         <div className="max-w-6xl mx-auto">
           <HeroSection data={data} />
           {/* Sentinel: StickyNav watches this — slides in once hero scrolls out of view */}
