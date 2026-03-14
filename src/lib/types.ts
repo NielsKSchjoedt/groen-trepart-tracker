@@ -111,6 +111,9 @@ export interface Catchment {
   naturePotentialAreaHa: number;
   countNaturePotentials: number;
   projects: ProjectCounts;
+  projectDetails: ProjectDetail[];
+  sketchProjects: SketchProject[];
+  naturePotentials: NaturePotential[];
 }
 
 export interface ProjectCounts {

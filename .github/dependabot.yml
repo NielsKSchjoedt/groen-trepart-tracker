@@ -8,6 +8,9 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       # Bundle minor/patch updates to reduce PR noise
       production-deps:

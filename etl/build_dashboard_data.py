@@ -612,21 +612,10 @@ for p in plans:
 
 
 # Build slim catchment data (23 entries)
-# Group projects by catchment (vandopland)
-projects_by_vo = {}
 for v in vos:
-    geo_id = v.get("geoLocationId")
-    # Catchment projects need to be matched through plans
-    # Each plan has a parent VO (vandopland) — we use the plan's projects
-    vo_project_list = []
-    for pp in v.get("projects", []):
-        # Each VO has nested project data — but our flat projects list
-        # uses geoLocationId which maps to plans, not VOs.
-        # We'll use the VO's aggregate counts instead.
-        pass
-    projects_by_vo[v["id"]] = vo_project_list
+    vo_projects = v.get("projects", [])
+    vo_phases = compute_project_phase_breakdown(vo_projects)
 
-for v in vos:
     entry = {
         "id": v["id"],
         "name": v["name"],
@@ -645,6 +634,10 @@ for v in vos:
             "approved": v.get("countApprovedProjects") or 0,
             "established": v.get("countEstablishedProjects") or 0,
         },
+        # Detailed project arrays for drill-down (same format as plans)
+        "projectDetails": [enrich_project(proj) for proj in vo_projects],
+        "sketchProjects": [enrich_sketch(sp) for sp in v.get("sketchProjects", [])],
+        "naturePotentials": [slim_nature_potential(np_item) for np_item in v.get("naturePotentials", [])],
     }
     dashboard_data["catchments"].append(entry)
 

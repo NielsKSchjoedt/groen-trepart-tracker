@@ -67,7 +67,7 @@ function NatureStatusCard({ data }: { data: DashboardData }) {
   const gapKm2 = Math.round((gapPct / 100) * denmarkKm2);
 
   return (
-    <div className="rounded-xl border border-border bg-card p-6 shadow-sm max-w-lg">
+    <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <Shield className="w-4 h-4" style={{ color: NATURE_ACCENT }} />
         <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
@@ -171,7 +171,7 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
   if (!projectionData) {
     if (activePillar === 'nature') {
       return (
-        <section className="w-full max-w-4xl mx-auto px-4 py-10">
+        <section className="w-full max-w-5xl mx-auto px-4 py-10">
           <div className="flex items-center gap-2.5 mb-2">
             <Shield className="w-5 h-5 text-primary" />
             <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
@@ -210,7 +210,7 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
   }
 
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 py-10">
+    <section className="w-full max-w-5xl mx-auto px-4 py-10">
       <div className="flex items-center gap-2.5 mb-2">
         <FlaskConical className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

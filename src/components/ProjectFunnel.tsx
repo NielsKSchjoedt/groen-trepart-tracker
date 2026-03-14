@@ -130,7 +130,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const desc = PILLAR_FUNNEL_DESCRIPTIONS[activePillar] ?? PILLAR_FUNNEL_DESCRIPTIONS.nitrogen;
 
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 py-10 relative overflow-hidden">
+    <section className="w-full max-w-5xl mx-auto px-4 py-10 relative overflow-hidden">
       <div className="absolute -left-6 bottom-8 opacity-[0.10] hidden lg:block">
         <NatureWatermark animal="heron" size={140} />
       </div>

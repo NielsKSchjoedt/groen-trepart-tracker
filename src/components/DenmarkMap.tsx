@@ -273,29 +273,32 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   // every time URL params change (which would destroy and recreate the layer,
   // wiping out selection styling).
   const openCatchmentPanelRef = useRef(openCatchmentPanel);
-  openCatchmentPanelRef.current = openCatchmentPanel;
   const openPlanPanelRef = useRef(openPlanPanel);
-  openPlanPanelRef.current = openPlanPanel;
   const closePanelRef = useRef(closePanel);
-  closePanelRef.current = closePanel;
   const openProjectPanelRef = useRef(openProjectPanel);
-  openProjectPanelRef.current = openProjectPanel;
 
   // Stable refs for values that circle marker click handlers need.
   // Using refs avoids adding these to effect dependency arrays, which
   // would destroy and recreate all markers on every state change.
   const layerRef = useRef(layer);
-  layerRef.current = layer;
   const coastalGeoRef = useRef(coastalGeo);
-  coastalGeoRef.current = coastalGeo;
   const catchmentsGeoRef = useRef(catchmentsGeo);
-  catchmentsGeoRef.current = catchmentsGeo;
   const lookupRef = useRef(lookup);
-  lookupRef.current = lookup;
   const dataRef = useRef(data);
-  dataRef.current = data;
   const accentColorRef = useRef(pillarConfig.accentColor);
-  accentColorRef.current = pillarConfig.accentColor;
+
+  useEffect(() => {
+    openCatchmentPanelRef.current = openCatchmentPanel;
+    openPlanPanelRef.current = openPlanPanel;
+    closePanelRef.current = closePanel;
+    openProjectPanelRef.current = openProjectPanel;
+    layerRef.current = layer;
+    coastalGeoRef.current = coastalGeo;
+    catchmentsGeoRef.current = catchmentsGeo;
+    lookupRef.current = lookup;
+    dataRef.current = data;
+    accentColorRef.current = pillarConfig.accentColor;
+  });
 
   /**
    * Handle a circle marker click by finding the enclosing GeoJSON polygon
@@ -1075,17 +1078,17 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         </div>
 
         {panelOpen && (selectedPlan || selectedCatchment) && (
-          <div className="hidden md:block w-2/5 min-h-[520px]">
+          <div className="hidden md:block w-2/5 max-h-[580px] overflow-y-auto">
             <DetailPanel plan={selectedPlan} catchment={selectedCatchment} nationalData={data.national} onClose={closePanel} />
           </div>
         )}
         {panelOpen && selectedCoastalWater && (
-          <div className="hidden md:block w-2/5 min-h-[520px]">
+          <div className="hidden md:block w-2/5 max-h-[580px] overflow-y-auto">
             <CoastalWaterDetailPanel name={selectedCoastalWater.name} entry={selectedCoastalWater.entry} onClose={closePanel} />
           </div>
         )}
         {panelOpen && selectedProject && (
-          <div className="hidden md:block w-2/5 min-h-[520px]">
+          <div className="hidden md:block w-2/5 max-h-[580px] overflow-y-auto">
             <ProjectDetailPanel project={selectedProject} featureName={selectedProject.featureName} onClose={closePanel} />
           </div>
         )}

@@ -1,61 +1,146 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@layer base {
-  :root {
-    /* Warm cream/nature palette */
-    --background: 40 33% 97%;
-    --foreground: 150 20% 18%;
+@custom-variant dark (&:is(.dark *));
 
-    --card: 40 30% 95%;
-    --card-foreground: 150 20% 18%;
+:root {
+  /* Warm cream/nature palette */
+  --background: 40 33% 97%;
+  --foreground: 150 20% 18%;
 
-    --popover: 40 33% 97%;
-    --popover-foreground: 150 20% 18%;
+  --card: 40 30% 95%;
+  --card-foreground: 150 20% 18%;
 
-    --primary: 152 44% 38%;
-    --primary-foreground: 40 33% 97%;
+  --popover: 40 33% 97%;
+  --popover-foreground: 150 20% 18%;
 
-    --secondary: 40 25% 91%;
-    --secondary-foreground: 150 20% 18%;
+  --primary: 152 44% 38%;
+  --primary-foreground: 40 33% 97%;
 
-    --muted: 40 20% 91%;
-    --muted-foreground: 150 10% 45%;
+  --secondary: 40 25% 91%;
+  --secondary-foreground: 150 20% 18%;
 
-    --accent: 80 45% 55%;
-    --accent-foreground: 150 20% 18%;
+  --muted: 40 20% 91%;
+  --muted-foreground: 150 10% 45%;
 
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 40 33% 97%;
+  --accent: 80 45% 55%;
+  --accent-foreground: 150 20% 18%;
 
-    --border: 40 18% 85%;
-    --input: 40 18% 85%;
-    --ring: 152 44% 38%;
+  --destructive: 0 65% 55%;
+  --destructive-foreground: 40 33% 97%;
 
-    --radius: 0.75rem;
+  --border: 40 18% 85%;
+  --input: 40 18% 85%;
+  --ring: 152 44% 38%;
 
-    /* Nature-specific tokens */
-    --nature-forest: 152 44% 38%;
-    --nature-leaf: 95 55% 48%;
-    --nature-moss: 140 25% 52%;
-    --nature-earth: 30 35% 45%;
-    --nature-cream: 40 33% 97%;
-    --nature-sand: 38 30% 88%;
-    --nature-sky: 195 60% 62%;
-    --nature-water: 200 55% 50%;
+  --radius: 0.75rem;
 
-    --sidebar-background: 40 25% 95%;
-    --sidebar-foreground: 150 20% 18%;
-    --sidebar-primary: 152 44% 38%;
-    --sidebar-primary-foreground: 40 33% 97%;
-    --sidebar-accent: 40 20% 91%;
-    --sidebar-accent-foreground: 150 20% 18%;
-    --sidebar-border: 40 18% 85%;
-    --sidebar-ring: 152 44% 38%;
-  }
+  /* Nature-specific tokens */
+  --nature-forest: 152 44% 38%;
+  --nature-leaf: 95 55% 48%;
+  --nature-moss: 140 25% 52%;
+  --nature-earth: 30 35% 45%;
+  --nature-cream: 40 33% 97%;
+  --nature-sand: 38 30% 88%;
+  --nature-sky: 195 60% 62%;
+  --nature-water: 200 55% 50%;
+
+  --sidebar-background: 40 25% 95%;
+  --sidebar-foreground: 150 20% 18%;
+  --sidebar-primary: 152 44% 38%;
+  --sidebar-primary-foreground: 40 33% 97%;
+  --sidebar-accent: 40 20% 91%;
+  --sidebar-accent-foreground: 150 20% 18%;
+  --sidebar-border: 40 18% 85%;
+  --sidebar-ring: 152 44% 38%;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-nature-forest: hsl(var(--nature-forest));
+  --color-nature-leaf: hsl(var(--nature-leaf));
+  --color-nature-moss: hsl(var(--nature-moss));
+  --color-nature-earth: hsl(var(--nature-earth));
+  --color-nature-cream: hsl(var(--nature-cream));
+  --color-nature-sand: hsl(var(--nature-sand));
+  --color-nature-sky: hsl(var(--nature-sky));
+  --color-nature-water: hsl(var(--nature-water));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-gentle-sway: gentle-sway 6s ease-in-out infinite;
+  --animate-bounce-down: bounce-down 1.5s ease-in-out infinite;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes gentle-sway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+  50% { transform: translateY(30%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+}
+
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.hint-float-anim {
+  animation: hint-float 2s ease-in-out infinite;
 }
 
 @layer base {
@@ -100,13 +185,4 @@
 
 .leaflet-control-zoom a:hover {
   background: hsl(40 25% 93%) !important;
-}
-
-@keyframes hint-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.hint-float-anim {
-  animation: hint-float 2s ease-in-out infinite;
 }

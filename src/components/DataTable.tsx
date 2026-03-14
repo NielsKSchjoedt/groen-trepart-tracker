@@ -915,6 +915,15 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [search, setSearch] = useState('');
 
+  // Reset sort when pillar changes — React-recommended "derived state" pattern
+  const [prevPillar, setPrevPillar] = useState(activePillar);
+  if (prevPillar !== activePillar) {
+    setPrevPillar(activePillar);
+    const hasProgress = columns.some((c) => c.key === 'progress');
+    setSortKey(hasProgress ? 'progress' : 'name');
+    setSortDir('desc');
+  }
+
   // Expanded plan ID is URL-driven: ?vandplan=<id>
   // When the pillar changes (new path), search params are dropped automatically.
   const expandedPlanId = searchParams.get(VANDPLAN_PARAM);
@@ -930,13 +939,6 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       return next;
     });
   };
-
-  // Reset sort when pillar changes (expansion clears automatically via URL)
-  useEffect(() => {
-    const hasProgress = columns.some((c) => c.key === 'progress');
-    setSortKey(hasProgress ? 'progress' : 'name');
-    setSortDir('desc');
-  }, [activePillar, columns]);
 
   const toggleSort = (key: string) => {
     if (sortKey === key) {

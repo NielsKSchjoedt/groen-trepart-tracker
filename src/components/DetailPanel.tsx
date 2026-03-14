@@ -19,7 +19,10 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
   const name = plan?.name || catchment?.name || '';
   const projects: ProjectCounts = plan?.projects ?? catchment?.projects ?? { sketches: 0, assessed: 0, approved: 0, established: 0 };
   const totalProjects = projects.sketches + projects.assessed + projects.approved + projects.established;
-  const hasProjectDetails = plan && ((plan.projectDetails?.length ?? 0) + (plan.sketchProjects?.length ?? 0) + (plan.naturePotentials?.length ?? 0)) > 0;
+  const allProjectDetails = plan?.projectDetails ?? catchment?.projectDetails ?? [];
+  const allSketchProjects = plan?.sketchProjects ?? catchment?.sketchProjects ?? [];
+  const allNaturePotentials = plan?.naturePotentials ?? catchment?.naturePotentials ?? [];
+  const hasProjectDetails = (allProjectDetails.length + allSketchProjects.length + allNaturePotentials.length) > 0;
 
   const stages = [
     { label: 'Skitser', count: projects.sketches, color: 'hsl(35 50% 75%)' },
@@ -159,11 +162,11 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
       )}
 
       {/* Project drill-down — expandable list of individual projects */}
-      {plan && showProjects && (
+      {showProjects && hasProjectDetails && (
         <ProjectList
-          projectDetails={plan.projectDetails ?? []}
-          sketchProjects={plan.sketchProjects ?? []}
-          naturePotentials={plan.naturePotentials ?? []}
+          projectDetails={allProjectDetails}
+          sketchProjects={allSketchProjects}
+          naturePotentials={allNaturePotentials}
           activePillar={activePillar}
         />
       )}
