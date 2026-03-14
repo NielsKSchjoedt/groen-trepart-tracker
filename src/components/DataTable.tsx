@@ -5,7 +5,7 @@ import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import type { Plan, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
-import { ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Trees, TreePine, Landmark, Leaf, Shield, ExternalLink } from 'lucide-react';
+import { AlertTriangle, ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Trees, TreePine, Landmark, Leaf, Shield, ExternalLink } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
@@ -1010,6 +1010,18 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
 
       <RecentActivity />
 
+      {/* CO₂ disclaimer — no per-catchment project data available */}
+      {activePillar === 'co2' && (
+        <div className="flex items-start gap-2.5 rounded-lg border border-amber-200/70 bg-amber-50/50 dark:bg-amber-950/20 dark:border-amber-900/40 px-4 py-3.5 mb-6">
+          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="text-xs text-amber-800 dark:text-amber-200 space-y-1.5 leading-relaxed">
+            <p><span className="font-semibold">Ingen data på konkrete projekter for CO₂.</span> CO₂-udledningen spores ikke via individuelle MARS-projekter pr. vandopland. Det er derfor ikke muligt at vise en nedbrydning af CO₂-implementeringen på dette niveau.</p>
+            <p>Størstedelen af CO₂-reduktionen kommer fra sektorer som energi og industri — <span className="font-medium">ikke direkte fra Den Grønne Treparts initiativer</span>. Aftalen adresserer primært landbrug og LULUCF, som kun udgør en del af den samlede nationale udledning.</p>
+            <p>Tallene på dette dashboard er udelukkende baseret på <strong>KF25 — Klimastatus og -fremskrivning 2025</strong> (KEFM), som er en modelbaseret national fremskrivning. Se oversigten ovenfor for de nationale tal.</p>
+          </div>
+        </div>
+      )}
+
       {/* Nature protection summary — shows current national protection status */}
       {activePillar === 'nature' && data && (
         <NatureProtectionSummary progress={data.national.progress} />
@@ -1097,8 +1109,8 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
         <KlimaskovfondenTable projects={ksfProjects.filter((p) => p.projekttyp === 'Lavbund')} />
       )}
 
-      {/* Tab content: MARS table (default for afforestation/extraction, always shown for other pillars) */}
-      {(activePillar !== 'afforestation' || afforestationTab === 'mars') && (activePillar !== 'extraction' || extractionTab === 'mars' || ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length === 0) && (
+      {/* Tab content: MARS table (default for afforestation/extraction, always shown for other pillars except CO₂) */}
+      {activePillar !== 'co2' && (activePillar !== 'afforestation' || afforestationTab === 'mars') && (activePillar !== 'extraction' || extractionTab === 'mars' || ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length === 0) && (
         <>
           {/* Search */}
           <div className="relative mb-4 max-w-sm">

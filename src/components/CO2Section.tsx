@@ -3,7 +3,7 @@ import { Factory, TrendingDown, Leaf, ExternalLink } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ReferenceLine, Legend,
+  ResponsiveContainer, ReferenceLine, Legend, Line,
 } from 'recharts';
 import { loadCO2Emissions } from '@/lib/data';
 import { formatDanishNumber } from '@/lib/format';
@@ -110,7 +110,11 @@ export function CO2Section() {
           <InfoTooltip
             title="Udledningsgraf"
             content={
-              <p>Stablede arealer viser udledning pr. sektor (mio. ton CO₂-ækvivalenter, ekskl. LULUCF). Data til venstre for den stiplede linje er historisk; til højre er KF25-fremskrivning. Den røde stiplede linje viser 70%-reduktionsmålet.</p>
+              <>
+                <p>Stablede arealer viser udledning pr. sektor (mio. ton CO₂-ækvivalenter, ekskl. LULUCF). Data til venstre for den stiplede linje er historisk; til højre er KF25-fremskrivning.</p>
+                <p>Den mørke linje viser det <strong>faktiske nationale total</strong> (excl. LULUCF) inkl. CCS/kulstoffjernelse der ikke er synlig som separat sektor. Den røde stiplede linje viser 70%-reduktionsmålet.</p>
+                <p>Transport er inkluderet i <strong>energisektoren</strong> efter Danmarks UNFCCC-opgørelsesmetode og er ikke adskilt i KF25-kildetabellerne.</p>
+              </>
             }
             source="KF25 — Klimafremskrivning 2025 (KEFM)"
             size={11}
@@ -199,6 +203,16 @@ export function CO2Section() {
                 fill="url(#co2Waste)"
                 name="Affald"
               />
+              {/* Total line (excl. LULUCF) — includes CCS/negative components not visible in stacked sectors */}
+              <Line
+                type="monotone"
+                dataKey="total"
+                stroke="#1e293b"
+                strokeWidth={1.5}
+                dot={false}
+                name="Total ekskl. LULUCF"
+                legendType="line"
+              />
               <Legend
                 verticalAlign="bottom"
                 height={24}
@@ -209,7 +223,7 @@ export function CO2Section() {
           </ResponsiveContainer>
         </div>
         <p className="text-[10px] text-muted-foreground mt-1 italic">
-          Ekskl. LULUCF. Stiplet linje = 70%-reduktionsmål. Kilde: KF25 (KEFM).
+          Ekskl. LULUCF. Mørk linje = faktisk total (inkl. CCS). Rød stiplet = 70%-mål. Transport indgår i energisektoren. Kilde: KF25 (KEFM).
         </p>
       </div>
 

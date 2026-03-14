@@ -119,11 +119,9 @@ const Index = () => {
             </Suspense>
           </div>
           <div id="tabeller">
-            {activePillar !== 'co2' && (
-              <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
-                <DataTable plans={data.plans} data={data} />
-              </Suspense>
-            )}
+            <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
+              <DataTable plans={data.plans} data={data} />
+            </Suspense>
           </div>
           <DataSourceSection fetchedAt={data.fetchedAt} />
         </div>

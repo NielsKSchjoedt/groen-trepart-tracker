@@ -79,7 +79,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
   return (
     <div
       aria-hidden={!visible}
-      className={`fixed top-0 left-0 right-0 z-[200] transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 left-0 right-0 z-[1100] transition-transform duration-300 ease-in-out ${
         visible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FlaskConical, Leaf, Shield, SlidersHorizontal } from 'lucide-react';
+import { AlertTriangle, FlaskConical, Leaf, Shield, SlidersHorizontal } from 'lucide-react';
 import { HintCallout } from './HintCallout';
 import { CountdownProjection } from './CountdownProjection';
 import { InfoTooltip } from './InfoTooltip';
@@ -214,25 +214,44 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
       <div className="flex items-center gap-2.5 mb-2">
         <FlaskConical className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-          Scenariebygger: {config.label}
+          {activePillar === 'co2' ? 'CO₂: Klimafremskrivning' : `Scenariebygger: ${config.label}`}
         </h2>
         <InfoTooltip
-          title="Scenariebygger — hvad nu hvis?"
+          title={activePillar === 'co2' ? 'CO₂ — hvad vises her?' : 'Scenariebygger — hvad nu hvis?'}
           content={
-            <>
-              <p>Projekter gennemgår en lang pipeline (skitse → forundersøgelse → godkendelse → anlæg), og der forventes en <em>naturlig acceleration</em> efterhånden som flere projekter modnes.</p>
-              <p>Scenariebyggeren lader dig simulere: <strong>hvad hvis alle godkendte eller forundersøgte projekter var anlagt i dag?</strong> Vælg en fase i dropdown-menuen for at se, hvordan prognosen ændrer sig.</p>
-              <p>For CO₂ bruges KF25-klimafremskrivningen og har ingen pipeline-scenarier.</p>
-            </>
+            activePillar === 'co2' ? (
+              <>
+                <p>CO₂-tallene stammer fra <strong>KF25 — Klimastatus og -fremskrivning 2025</strong> (Klima-, Energi- og Forsyningsministeriet), ikke fra MARS-projektdata.</p>
+                <p>Den viste prognose er regeringens officielle fremskrivning af, at Danmark opnår ~{projectionData.projectedOverride ?? ''}% reduktion i 2030 ift. 1990-niveau. Klimaloven kræver 70%.</p>
+                <p>Der er ingen projektpipeline for CO₂ — implementeringen sker via afgifter, regulering og sektortiltag, ikke via individuelle MARS-projekter.</p>
+              </>
+            ) : (
+              <>
+                <p>Projekter gennemgår en lang pipeline (skitse → forundersøgelse → godkendelse → anlæg), og der forventes en <em>naturlig acceleration</em> efterhånden som flere projekter modnes.</p>
+                <p>Scenariebyggeren lader dig simulere: <strong>hvad hvis alle godkendte eller forundersøgte projekter var anlagt i dag?</strong> Vælg en fase i dropdown-menuen for at se, hvordan prognosen ændrer sig.</p>
+              </>
+            )
           }
           side="right"
         />
       </div>
-      <p className="text-sm text-muted-foreground mb-8">
-        Hvad hvis alle planlagte projekter blev til virkelighed? Udforsk hvordan {config.label.toLowerCase()}-målet påvirkes
+      <p className={`text-sm text-muted-foreground ${activePillar === 'co2' ? 'mb-4' : 'mb-8'}`}>
+        {activePillar === 'co2'
+          ? 'Fremskrivning baseret på KF25-rapporten — viser Danmarks samlede drivhusgasudledning mod 2030-målet'
+          : `Hvad hvis alle planlagte projekter blev til virkelighed? Udforsk hvordan ${config.label.toLowerCase()}-målet påvirkes`}
       </p>
+
+      {activePillar === 'co2' && (
+        <div className="flex items-start gap-2.5 rounded-lg border border-amber-200/70 bg-amber-50/50 dark:bg-amber-950/20 dark:border-amber-900/40 px-4 py-3 mb-8">
+          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="text-xs text-amber-800 dark:text-amber-200 space-y-1.5 leading-relaxed">
+            <p><span className="font-semibold">Ingen data på konkrete projekter.</span> CO₂-fremgangen er ikke sporet via individuelle MARS-projekter som de øvrige delmål. Informationen her er udelukkende baseret på <strong>KF25 — Klimastatus og -fremskrivning 2025</strong> (KEFM), der er en modelbaseret national fremskrivning.</p>
+            <p>Størstedelen af CO₂-reduktionen kommer desuden fra sektorer som energi og industri — <span className="font-medium">ikke direkte fra Den Grønne Treparts initiativer</span>. Aftalen adresserer primært landbrug og LULUCF (arealanvendelse og skov), som kun udgør en del af den samlede nationale udledning.</p>
+          </div>
+        </div>
+      )}
       <div className="relative">
-        {scenarioHint.visible && (
+        {scenarioHint.visible && activePillar !== 'co2' && (
           <HintCallout
             icon={SlidersHorizontal}
             text="Prøv scenarievælgeren — skift fase og se prognosen ændre sig"

@@ -63,7 +63,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'nitrogenAchievedT',
     planDataField: 'nitrogenProgressPct',
     watermarks: ['fish', 'flounder', 'seatrout', 'cod', 'eel', 'seal', 'crab', 'seaweed', 'shrimp'],
-    backgroundTint: 'hsl(192 30% 97%)',
+    backgroundTint: 'hsl(192 45% 94%)',
   },
   {
     id: 'extraction',
@@ -80,7 +80,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'extractionAchievedHa',
     planDataField: 'extractionAchievedHa',
     watermarks: ['heron', 'dragonfly', 'eel', 'crab', 'seaweed', 'flounder'],
-    backgroundTint: 'hsl(35 25% 97%)',
+    backgroundTint: 'hsl(35 50% 93%)',
   },
   {
     id: 'afforestation',
@@ -97,7 +97,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'afforestationAchievedHa',
     planDataField: 'afforestationAchievedHa',
     watermarks: ['deer', 'fox', 'rabbit', 'owl', 'hedgehog', 'bee'],
-    backgroundTint: 'hsl(140 25% 97%)',
+    backgroundTint: 'hsl(140 40% 93%)',
   },
   {
     id: 'co2',
@@ -114,7 +114,8 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: '',
     planDataField: '',
     watermarks: ['deer', 'butterfly', 'owl'],
-    backgroundTint: 'hsl(0 0% 97%)',
+    backgroundTint: 'hsl(0 0% 93%)',
+    stubMessage: 'Ingen geografisk data for CO₂. Udledningerne spores ikke pr. vandopland — se KF25-fremskrivningen ovenfor for den nationale oversigt.',
   },
   {
     id: 'nature',
@@ -131,7 +132,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'naturePotentialAreaHa',
     planDataField: 'naturePotentialAreaHa',
     watermarks: ['butterfly', 'bee', 'dragonfly', 'hedgehog', 'deer', 'heron'],
-    backgroundTint: 'hsl(120 20% 97%)',
+    backgroundTint: 'hsl(120 35% 93%)',
   },
 ];
 
