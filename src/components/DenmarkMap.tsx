@@ -890,7 +890,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                 title="Kortlag"
                 content={
                   <>
-                    <p><strong>Vandoplande</strong> = 23 hovedvandoplande (hvor vandet kommer fra). Farven viser kvælstofreduktion (anlagt og i pipeline) relativt til det mest aktive opland.</p>
+                    <p><strong>Vandoplande</strong> = 23 hovedvandoplande (hvor vandet kommer fra). Farven viser kvælstofreduktion (anlagt og i pipeline) — det grønneste opland har mest aktivitet.</p>
                     <p><strong>Kystvandsoplande</strong> = 37 kystvandoplande (hvor vandet løber hen). Her bor de lokale implementeringsplaner og projekter. Farven viser anlagt og i pipeline i % af det lokale reduktionsmål.</p>
                     <p className="text-[10px] opacity-70">De to geografiske inddelinger overlapper men følger ikke de samme grænser.</p>
                   </>
@@ -937,12 +937,12 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                 return goalLabels[activePillar] ?? `${pillarConfig.label} — fremskridt mod mål:`;
               }
               const metricLabels: Record<string, string> = {
-                nitrogen: 'Kvælstof — anlagt og i pipeline (ton) — relativ:',
-                extraction: 'Lavbundsudtag — anlagt og i pipeline (ha) — relativ:',
-                afforestation: 'Skovrejsning — anlagt og i pipeline (ha) — relativ:',
-                nature: 'Naturpotentiale (ha) — relativ:',
+                nitrogen: 'Kvælstof — anlagt og i pipeline (ton):',
+                extraction: 'Lavbundsudtag — anlagt og i pipeline (ha):',
+                afforestation: 'Skovrejsning — anlagt og i pipeline (ha):',
+                nature: 'Naturpotentiale (ha):',
               };
-              return metricLabels[activePillar] ?? `${pillarConfig.label} — relativ:`;
+              return metricLabels[activePillar] ?? `${pillarConfig.label}:`;
             })()}</span>
             {legendItems.map((item) => (
               <div key={item.label} className="flex items-center gap-1.5">
@@ -994,7 +994,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                   co2: 'CO₂-data',
                 };
                 return (
-                  <p>Områderne farves <strong>relativt</strong> — det grønneste område har den højeste sum af anlagt og i pipeline for {metricDesc[activePillar] ?? 'denne metrik'}, og alle andre skaleres i forhold. Det er ikke en målstreg — det viser hvilke områder der har mest aktivitet.</p>
+                  <p>Det grønneste område har den højeste sum af anlagt og i pipeline for {metricDesc[activePillar] ?? 'denne metrik'}, og alle andre skaleres i forhold. Det er ikke en målstreg — det viser hvilke områder der har mest aktivitet.</p>
                 );
               })()}
               size={12}

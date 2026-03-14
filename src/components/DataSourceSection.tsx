@@ -85,7 +85,7 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
     },
     {
       label: 'Projektpipeline',
-      explanation: 'Projekter gennemgår faser: Forundersøgelsestilsagn → Etableringstilsagn → Anlagt. Kun anlagte projekter har realiseret miljøeffekt — øvrige er planlagte eller under vurdering.',
+      explanation: 'Projekter gennemgår faser: Forundersøgelsestilsagn → Etableringstilsagn → Anlagt. Kun anlagte projekter har realiseret miljøeffekt — øvrige er planlagte eller under myndighedsbehandling.',
     },
     {
       label: 'Beskyttet natur',
@@ -93,7 +93,7 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
     },
     {
       label: 'Farveindeks (kort)',
-      explanation: 'Kystvande farves efter fremskridt mod lokalt mål. Vandoplande farves efter relativ kvælstofreduktion sammenlignet med det mest aktive opland.',
+      explanation: 'Kystvande farves efter fremskridt mod lokalt mål. Vandoplande farves efter kvælstofreduktion sammenlignet med det mest aktive opland.',
     },
   ];
 

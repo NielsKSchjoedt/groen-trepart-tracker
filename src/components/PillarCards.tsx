@@ -163,9 +163,9 @@ function getPillarProgress(
       return {
         actualPct: normalisedPct,
         projectedPct: normalisedPct,
-        headline: `~${formatDanishNumber(raw, 1)}%`,
+        headline: `${formatDanishNumber(normalisedPct, 0)}%`,
         projectedHeadline: null,
-        subtitle: `af ${pillar.target}% juridisk beskyttet`,
+        subtitle: `~${formatDanishNumber(raw, 1)} af ${pillar.target}% juridisk beskyttet`,
       };
     }
     case 'co2': {
@@ -177,9 +177,9 @@ function getPillarProgress(
       return {
         actualPct: normalisedPct,
         projectedPct: projectedNormalisedPct,
-        headline: `${formatDanishNumber(currentReduction, 1)}%`,
-        projectedHeadline: `~${formatDanishNumber(projectedReduction, 1)}%`,
-        subtitle: `af ${pillar.target}% reduktion`,
+        headline: `${formatDanishNumber(normalisedPct, 0)}%`,
+        projectedHeadline: `~${formatDanishNumber(projectedNormalisedPct, 0)}%`,
+        subtitle: `${formatDanishNumber(currentReduction, 0)} af ${pillar.target}% reduktion`,
       };
     }
   }
