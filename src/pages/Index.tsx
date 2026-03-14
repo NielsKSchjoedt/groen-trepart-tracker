@@ -7,7 +7,6 @@ import type { PillarId } from '@/lib/pillars';
 import { slugToPillar, pillarToSlug } from '@/lib/slugs';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
-import { RecentActivity } from '@/components/RecentActivity';
 import { PillarCards } from '@/components/PillarCards';
 import { ProjectFunnel } from '@/components/ProjectFunnel';
 import { CO2Section } from '@/components/CO2Section';
@@ -92,7 +91,6 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <HeroSection data={data} />
           <ScrollPrompt />
-          <RecentActivity />
           <PillarCards data={data} />
           {activePillar !== 'co2' && <ProjectFunnel data={data} />}
           <ScenarioBuilderSection data={data} />

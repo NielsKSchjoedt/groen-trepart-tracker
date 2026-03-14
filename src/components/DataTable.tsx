@@ -9,6 +9,7 @@ import { ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, 
 import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
+import { RecentActivity } from './RecentActivity';
 
 type AfforestationTab = 'mars' | 'klimaskovfonden' | 'naturstyrelsen';
 type ExtractionTab = 'mars' | 'klimaskovfonden';
@@ -1006,6 +1007,8 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       <p className="text-sm text-muted-foreground mb-5">
         {plans.length} {titles.subtitle} — klik en række for detaljer. Sortér ved at klikke på kolonneoverskrifter.
       </p>
+
+      <RecentActivity />
 
       {/* Nature protection summary — shows current national protection status */}
       {activePillar === 'nature' && data && (
