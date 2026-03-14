@@ -1,0 +1,33 @@
+version: 2
+
+updates:
+  # npm dependencies
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      # Bundle minor/patch updates to reduce PR noise
+      production-deps:
+        dependency-type: production
+        update-types: [minor, patch]
+      dev-deps:
+        dependency-type: development
+        update-types: [minor, patch]
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+
+  # Python (pip) — ETL scripts
+  - package-ecosystem: pip
+    directory: /etl
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
