@@ -210,6 +210,13 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
   const actualHovered = hoveredLayer === 'actual';
   const projectedSegs = projectionHovered ? projectedSegmentsFull : projectedSegmentsMuted;
 
+  // When a status pill is shown inside the gauge, shift the number + subtext block
+  // upward so the three-element group (number / subtext / pill) is visually centered.
+  const hasPill = !!statusLabel;
+  const numberY  = center + (hasPill ? -22 : -8);
+  const subTextY = center + (hasPill ? 12  : 26);
+  const pillTopY = center + 26;   // foreignObject top edge
+
   return (
     <div className="flex flex-col items-center">
       <svg
@@ -278,7 +285,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
         {/* Center text — switches between actual / projected on hover */}
         <text
           x={center}
-          y={center - 8}
+          y={numberY}
           textAnchor="middle"
           dominantBaseline="central"
           className="fill-foreground"
@@ -290,7 +297,7 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
         </text>
         <text
           x={center}
-          y={center + 26}
+          y={subTextY}
           textAnchor="middle"
           dominantBaseline="central"
           className="fill-muted-foreground"
@@ -302,23 +309,41 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
               ? 'faktisk fremskridt'
               : (subText ?? `${formatDanishNumber(value, 0)} af ${formatDanishNumber(max)} ${unit}`)}
         </text>
+
+        {/* Status pill — only when not in hover mode so it doesn't clash with hover labels */}
+        {hasPill && !projectionHovered && !actualHovered && (
+          <foreignObject x={0} y={pillTopY} width={size} height={26}>
+            <div
+              // @ts-expect-error — xmlns is required on the root element inside foreignObject
+              xmlns="http://www.w3.org/1999/xhtml"
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}
+            >
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  borderRadius: '9999px',
+                  padding: '2px 10px',
+                  fontSize: '0.65rem',
+                  fontWeight: 600,
+                  lineHeight: 1.4,
+                  color: statusColor ?? '#6b7280',
+                  backgroundColor: statusColor ? `${statusColor}18` : '#6b728018',
+                  border: `1px solid ${statusColor ? `${statusColor}30` : '#6b728030'}`,
+                  fontFamily: "'Manrope', sans-serif",
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {statusIcon && <span aria-hidden="true">{statusIcon}</span>}
+                {statusLabel}
+              </span>
+            </div>
+          </foreignObject>
+        )}
       </svg>
 
-      {statusLabel && (
-        <div
-          className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold mt-1 mb-1"
-          style={{
-            color: statusColor ?? '#6b7280',
-            backgroundColor: statusColor ? `${statusColor}18` : '#6b728018',
-            border: `1px solid ${statusColor ? `${statusColor}30` : '#6b728030'}`,
-          }}
-        >
-          {statusIcon && <span aria-hidden="true">{statusIcon}</span>}
-          {statusLabel}
-        </div>
-      )}
-
-      <p className="text-sm text-muted-foreground text-center max-w-xs mt-1">{label}</p>
+      <p className="text-sm text-muted-foreground text-center max-w-xs mt-2">{label}</p>
     </div>
   );
 }
