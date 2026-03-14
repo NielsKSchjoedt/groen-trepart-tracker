@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { pillarToSlug } from '@/lib/slugs';
 import { useNavigate } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 
 interface StickyNavProps {
   /**
@@ -32,9 +33,11 @@ const JUMP_LINKS = [
  * <StickyNav sentinelRef={sentinelRef} />
  */
 export function StickyNav({ sentinelRef }: StickyNavProps) {
-  const { activePillar, setActivePillar, config } = usePillar();
+  const { activePillar, config } = usePillar();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -46,7 +49,9 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
         // (boundingClientRect.top < 0). Without this check the nav
         // incorrectly appears on initial load when the sentinel sits
         // *below* the fold and isIntersecting is already false.
-        setVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+        const nowVisible = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        setVisible(nowVisible);
+        if (!nowVisible) setDropdownOpen(false);
       },
       { threshold: 0 },
     );
@@ -54,7 +59,20 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
     return () => observer.disconnect();
   }, [sentinelRef]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [dropdownOpen]);
+
   const handlePillarSwitch = (id: typeof activePillar) => {
+    setDropdownOpen(false);
     navigate(`/${pillarToSlug(id)}`);
   };
 
@@ -68,25 +86,72 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
       <div className="bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-11 flex items-center justify-between gap-4">
 
-          {/* Active pillar indicator — compact on mobile, with description on desktop */}
-          <div className="flex items-center gap-2 min-w-0">
-            <span
-              className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ backgroundColor: config.accentColor }}
-            />
-            <span
-              className="text-sm font-semibold flex-shrink-0"
-              style={{ color: config.accentColor }}
+          {/* Active pillar indicator — tappable on mobile to open pillar switcher dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setDropdownOpen((o) => !o)}
+              className="flex items-center gap-2 min-w-0 rounded-md px-1 -mx-1 py-1 sm:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-haspopup="listbox"
+              aria-expanded={dropdownOpen}
+              aria-label={`Aktiv søjle: ${config.label}. Tryk for at skifte.`}
             >
-              {config.label}
-            </span>
-            <span className="hidden md:inline text-xs text-muted-foreground truncate">
-              — {config.description}
-            </span>
+              <span
+                className="w-2 h-2 rounded-full flex-shrink-0"
+                style={{ backgroundColor: config.accentColor }}
+              />
+              <span
+                className="text-sm font-semibold flex-shrink-0"
+                style={{ color: config.accentColor }}
+              >
+                {config.label}
+              </span>
+              <span className="hidden md:inline text-xs text-muted-foreground truncate">
+                — {config.description}
+              </span>
+              {/* Chevron — only visible on mobile where the right-side switcher is hidden */}
+              <ChevronDown
+                className={`sm:hidden w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                style={{ color: config.accentColor }}
+                strokeWidth={2.5}
+              />
+            </button>
+
+            {/* Mobile pillar dropdown */}
+            {dropdownOpen && (
+              <div
+                role="listbox"
+                aria-label="Vælg søjle"
+                className="sm:hidden absolute top-full left-0 mt-1 w-44 rounded-xl border border-border bg-background/98 backdrop-blur-md shadow-lg py-1 z-10"
+              >
+                {PILLAR_CONFIGS.map((p) => {
+                  const isActive = p.id === activePillar;
+                  return (
+                    <button
+                      key={p.id}
+                      role="option"
+                      aria-selected={isActive}
+                      onClick={() => handlePillarSwitch(p.id)}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors ${
+                        isActive
+                          ? 'font-semibold'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                      }`}
+                      style={isActive ? { color: p.accentColor } : {}}
+                    >
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: p.accentColor, opacity: isActive ? 1 : 0.5 }}
+                      />
+                      {p.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-5">
-            {/* Pillar switcher — icon dots on mobile, labeled on md+ */}
+            {/* Pillar switcher — labeled buttons, desktop only */}
             <div className="flex items-center gap-1">
               {PILLAR_CONFIGS.map((p) => (
                 <button
