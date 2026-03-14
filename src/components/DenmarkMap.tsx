@@ -405,9 +405,15 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
     mapRef.current = map;
-    setMapReady(true);
+
+    // Delay the state update so it runs in a separate event-loop tick rather
+    // than synchronously inside the effect body (react-hooks/set-state-in-effect).
+    // This also guarantees Leaflet's DOM mutations are fully committed before
+    // the hint overlay renders, eliminating z-index races with Leaflet controls.
+    const readyTimer = setTimeout(() => setMapReady(true), 0);
 
     return () => {
+      clearTimeout(readyTimer);
       map.remove();
       mapRef.current = null;
       setMapReady(false);
