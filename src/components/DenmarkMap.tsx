@@ -13,9 +13,10 @@ import { StubMapOverlay } from './StubMapOverlay';
 import { NatureWatermark } from './NatureWatermark';
 import { usePillar } from '@/lib/pillars';
 import type { Plan, Catchment, DashboardData, CoastalWaterStatusData, CoastalWaterEntry, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
-import { Map, AlertTriangle, MousePointerClick } from 'lucide-react';
+import { Map, AlertTriangle, MousePointerClick, Waves } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { InfoTooltip } from './InfoTooltip';
+import { HintCallout } from './HintCallout';
 import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
 import 'leaflet/dist/leaflet.css';
 
@@ -130,6 +131,12 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
 
   const mapHint = useFirstVisitHint('map-click', 20_000);
+  const kystvandHint = useFirstVisitHint('kystvand-toggle', 30_000);
+  // Only show the hint after Leaflet has fully initialized to avoid z-index
+  // races during the map's async setup (Leaflet creates z-index:1000 control
+  // containers inside its own stacking context, which can bleed through before
+  // the host element's stacking context is committed by the browser).
+  const [mapReady, setMapReady] = useState(false);
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -398,10 +405,12 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
     mapRef.current = map;
+    setMapReady(true);
 
     return () => {
       map.remove();
       mapRef.current = null;
+      setMapReady(false);
     };
   }, []);
 
@@ -913,10 +922,20 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
             </div>
           )}
           {waterBodiesGeo && (
+            <div className="relative">
+              {kystvandHint.visible && (
+                <HintCallout
+                  icon={Waves}
+                  text="Se den faktiske økologiske tilstand i de danske kystvande"
+                  arrow="top"
+                  onDismiss={kystvandHint.dismiss}
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50"
+                />
+              )}
             <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-1 shadow-sm">
               <Switch
                 checked={showWaterBodies}
-                onCheckedChange={setShowWaterBodies}
+                onCheckedChange={(v) => { setShowWaterBodies(v); if (v) kystvandHint.dismiss(); }}
                 className="data-[state=checked]:bg-[#4a90b8] h-5 w-9"
               />
               <span className={`text-sm font-medium transition-colors select-none ${showWaterBodies ? 'text-foreground' : 'text-muted-foreground'}`}>
@@ -931,6 +950,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                 side="bottom"
                 size={13}
               />
+            </div>
             </div>
           )}
         </div>
@@ -1059,9 +1079,9 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
           {isStub && pillarConfig.stubMessage && (
             <StubMapOverlay message={pillarConfig.stubMessage} />
           )}
-          {mapHint.visible && !isStub && (
+          {mapHint.visible && !isStub && mapReady && (
             <div
-              className="absolute inset-0 z-[1001] flex items-center justify-center pointer-events-none"
+              className="absolute inset-0 z-[9999] flex items-center justify-center pointer-events-none"
             >
               <button
                 type="button"

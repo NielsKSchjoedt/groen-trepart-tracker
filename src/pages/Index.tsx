@@ -94,8 +94,8 @@ const Index = () => {
           <ScrollPrompt />
           <RecentActivity />
           <PillarCards data={data} />
-          <ScenarioBuilderSection data={data} />
           {activePillar !== 'co2' && <ProjectFunnel data={data} />}
+          <ScenarioBuilderSection data={data} />
           {activePillar === 'co2' && (
             <section className="w-full px-4 py-6">
               <CO2Section />
