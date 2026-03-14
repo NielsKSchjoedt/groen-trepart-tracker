@@ -90,7 +90,7 @@ export function MetricCards({ data }: MetricCardsProps) {
           <div className="flex gap-0.5 h-2.5 rounded-full overflow-hidden bg-muted">
             {[
               { count: projects.sketches, color: 'hsl(150 20% 78%)', label: 'Skitser' },
-              { count: projects.assessed, color: 'hsl(152 30% 60%)', label: 'Vurderet' },
+              { count: projects.assessed, color: 'hsl(152 30% 60%)', label: 'Forundersøgelse' },
               { count: projects.approved, color: 'hsl(152 44% 45%)', label: 'Godkendt' },
               { count: projects.established, color: 'hsl(95 55% 48%)', label: 'Anlagt' },
             ].map((stage) => {

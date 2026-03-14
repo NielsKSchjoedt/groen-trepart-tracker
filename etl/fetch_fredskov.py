@@ -11,8 +11,9 @@ Fetches two layers for the Afforestation pillar:
 2. `skovdrift:digitalt_skovkort_2022` (~61,588 features) — digital forest map
    showing current forest cover. Minimal properties but has polygon geometries.
 
-These complement MARS's 49 ha afforestation figure (which only tracks projects
-in MARS catchments) and Klimaskovfonden's 2,871 ha (voluntary projects).
+These complement MARS's afforestation projects (which only tracks projects
+in MARS catchments) and Klimaskovfonden's ~2,300 ha (voluntary projects,
+fetched live via fetch_klimaskovfonden.py).
 
 For the 250,000 ha afforestation target, the key metric is *new* forest since
 the tripartite baseline. The fredskov dataset provides the legal baseline;
@@ -36,7 +37,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 DATA_DIR = REPO_ROOT / "data" / "forest"
 
-USER_AGENT = "TrepartTracker/0.1 (https://github.com/trepart-tracker; open-source environmental monitor)"
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT_SECONDS = 180
 
 # Layers to fetch
@@ -264,7 +265,7 @@ def main():
         },
         "context": {
             "mars_afforestation_ha": 49,
-            "klimaskovfonden_ha": 2871,
+            "klimaskovfonden_ha": "see data/klimaskovfonden/summary.json (fetched live)",
             "national_target_ha": 250000,
             "note": "Fredskov represents the legally protected forest baseline. "
                     "The afforestation target (250,000 ha new forest by 2045) should be measured "
@@ -284,7 +285,7 @@ def main():
     print(f"  Fredskov:  {fs.get('total_count', '?'):,} parcels, {fs.get('total_area_ha', '?'):,} ha")
     sk = results.get("skovkort_2022", {})
     print(f"  Skovkort:  {sk.get('total_count', '?'):,} forest polygons")
-    print(f"  Context:   MARS tracks 49 ha, Klimaskovfonden tracks 2,871 ha")
+    print(f"  Context:   Klimaskovfonden data now fetched separately (fetch_klimaskovfonden.py)")
     print(f"  Target:    250,000 ha new forest by 2045")
     print()
 

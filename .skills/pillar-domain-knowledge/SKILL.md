@@ -79,8 +79,11 @@ Denmark is one of Europe's least forested countries.
 - **Baseline:** Fredskov (legally protected forest) — ~532,000 hectares of land designated as
   forest under Danish law. This is the legal baseline, not a measure of actual tree cover.
 - **New forest:** Measured as forest area above the fredskov baseline using the digital forest map.
-- **Voluntary efforts:** Klimaskovfonden tracks ~2,871 ha of voluntary afforestation.
-- MARS projects also track `afforestationEffortHa`.
+- **Klimaskovfonden (live WFS):** ~2,300 ha across 210 afforestation projects, fetched from
+  `test.admin.gc2.io` WFS endpoint. ETL: `etl/fetch_klimaskovfonden.py`.
+- MARS projects also track `afforestationEffortHa` (but only water-quality-related projects).
+- **Naturstyrelsen / SGAV:** State afforestation and the national subsidy scheme (~2,100 ha
+  approved Feb 2026) — not yet integrated. Subsidy applications go through MARS.
 
 **Important nuance:** The 250,000 ha target means 250,000 ha of *new* forest — on top of what
 already exists. The fredskov figure is the starting point, not progress toward the goal.

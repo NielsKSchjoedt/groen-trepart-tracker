@@ -56,7 +56,7 @@ Disse tre ting — kærligheden til dansk natur, troen på open source som demok
 ### Installation
 
 ```bash
-git clone https://github.com/your-org/trepart-tracker.git
+git clone https://github.com/NielsKSchjoedt/groen-trepart-tracker.git
 cd trepart-tracker
 mise install            # installerer Python 3.12 + Node 22
 mise run setup          # installerer topojson CLI-værktøjer globalt

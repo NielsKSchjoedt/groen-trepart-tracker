@@ -23,8 +23,16 @@ export interface PillarConfig {
   hasData: boolean;
   /** Whether per-catchment/plan geographic data exists for map coloring */
   hasGeoBreakdown: boolean;
-  /** Whether the catchment/coastal layer toggle applies (nitrogen only) */
+  /** Whether the catchment/coastal layer toggle is shown */
   hasMultipleLayers: boolean;
+  /**
+   * Which geographic layer to show by default.
+   * 'catchments' = 23 vandoplande (river basins)
+   * 'coastal' = 37 kystvandsoplande (coastal water plans where projects live)
+   * Only matters when hasMultipleLayers is false (fixed layer) or as
+   * the default when hasMultipleLayers is true.
+   */
+  defaultLayer: 'catchments' | 'coastal';
   /** Primary accent color for this pillar (hex) */
   accentColor: string;
   /** Field name on Catchment objects used for map choropleth coloring */
@@ -44,12 +52,13 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     id: 'nitrogen',
     label: 'Kvælstof',
     description: 'Kvælstofreduktion i vandmiljøet',
-    target: 13780,
+    target: 12776,
     unit: 'ton N/år',
     deadlineYear: 2027,
     hasData: true,
     hasGeoBreakdown: true,
     hasMultipleLayers: true,
+    defaultLayer: 'coastal',
     accentColor: '#0d9488',
     catchmentDataField: 'nitrogenAchievedT',
     planDataField: 'nitrogenProgressPct',
@@ -66,6 +75,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     hasData: true,
     hasGeoBreakdown: true,
     hasMultipleLayers: false,
+    defaultLayer: 'coastal',
     accentColor: '#a16207',
     catchmentDataField: 'extractionAchievedHa',
     planDataField: 'extractionAchievedHa',
@@ -82,6 +92,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     hasData: true,
     hasGeoBreakdown: true,
     hasMultipleLayers: false,
+    defaultLayer: 'coastal',
     accentColor: '#15803d',
     catchmentDataField: 'afforestationAchievedHa',
     planDataField: 'afforestationAchievedHa',
@@ -98,6 +109,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     hasData: true,
     hasGeoBreakdown: false,
     hasMultipleLayers: false,
+    defaultLayer: 'catchments',
     accentColor: '#737373',
     catchmentDataField: '',
     planDataField: '',
@@ -114,6 +126,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     hasData: true,
     hasGeoBreakdown: true,
     hasMultipleLayers: false,
+    defaultLayer: 'catchments',
     accentColor: '#166534',
     catchmentDataField: 'naturePotentialAreaHa',
     planDataField: 'naturePotentialAreaHa',

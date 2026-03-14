@@ -3,13 +3,18 @@ import { useSearchParams } from 'react-router-dom';
 import { formatDanishNumber, getProgressColor } from '@/lib/format';
 import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
-import type { Plan } from '@/lib/types';
-import { ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Trees, Leaf } from 'lucide-react';
+import type { Plan, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
+import { ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Trees, TreePine, Landmark, Leaf, Shield, ExternalLink } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
+import { InfoTooltip } from './InfoTooltip';
+
+type AfforestationTab = 'mars' | 'klimaskovfonden' | 'naturstyrelsen';
 
 interface DataTableProps {
   plans: Plan[];
+  data?: DashboardData;
   onSelectPlan?: (plan: Plan) => void;
 }
 
@@ -52,21 +57,34 @@ const projectsCol: ColumnDef = {
   },
 };
 
-function progressCell(pct: number) {
-  const clamped = Math.max(0, Math.min(pct, 100));
+/**
+ * Dual progress bar showing both the pipeline total (lighter shade) and
+ * the established/implemented portion (solid). The percentage label
+ * reflects the pipeline total with the established percentage shown
+ * in parentheses when > 0.
+ *
+ * @param pipelinePct - Progress % including all pipeline phases
+ * @param establishedPct - Progress % for established (implemented) projects only
+ */
+function dualProgressCell(pipelinePct: number, establishedPct: number) {
+  const pipelineClamped = Math.max(0, Math.min(pipelinePct, 100));
+  const establishedClamped = Math.max(0, Math.min(establishedPct, 100));
+  const color = getProgressColor(pipelinePct);
+
   return (
     <div className="flex items-center gap-2.5">
-      <div className="h-2 w-16 rounded-full bg-muted overflow-hidden flex-shrink-0">
+      <div className="relative h-2 w-16 rounded-full bg-muted overflow-hidden flex-shrink-0">
         <div
-          className="h-full rounded-full transition-all"
-          style={{
-            width: `${clamped}%`,
-            backgroundColor: getProgressColor(pct),
-          }}
+          className="absolute inset-y-0 left-0 rounded-full transition-all"
+          style={{ width: `${pipelineClamped}%`, backgroundColor: color, opacity: 0.3 }}
+        />
+        <div
+          className="absolute inset-y-0 left-0 rounded-full transition-all"
+          style={{ width: `${establishedClamped}%`, backgroundColor: color }}
         />
       </div>
-      <span className="tabular-nums font-semibold text-foreground" style={{ color: getProgressColor(pct) }}>
-        {Math.round(pct)}%
+      <span className="tabular-nums font-semibold whitespace-nowrap" style={{ color }}>
+        {Math.round(pipelinePct)}%
       </span>
     </div>
   );
@@ -101,24 +119,29 @@ function getColumnsForPillar(pillarId: PillarId): ColumnDef[] {
           render: (p) => <span className="tabular-nums">{formatDanishNumber(p.nitrogenGoalT, 1)}</span>,
         },
         {
-          key: 'achieved',
-          label: 'Opnået (ton)',
+          key: 'established',
+          label: 'Anlagt (ton)',
+          value: (p) => p.nitrogenByPhase.established,
+          render: (p) => <span className="tabular-nums font-semibold">{formatDanishNumber(p.nitrogenByPhase.established, 1)}</span>,
+        },
+        {
+          key: 'pipeline',
+          label: 'I pipeline (ton)',
           value: (p) => p.nitrogenAchievedT,
-          render: (p) => <span className="tabular-nums">{formatDanishNumber(p.nitrogenAchievedT, 1)}</span>,
+          render: (p) => <span className="tabular-nums text-muted-foreground">{formatDanishNumber(p.nitrogenAchievedT, 1)}</span>,
         },
         {
           key: 'progress',
           label: 'Fremskridt',
           value: (p) => p.nitrogenProgressPct,
-          render: (p) => progressCell(p.nitrogenProgressPct),
+          render: (p) => {
+            const estPct = p.nitrogenGoalT > 0
+              ? (p.nitrogenByPhase.established / p.nitrogenGoalT) * 100
+              : 0;
+            return dualProgressCell(p.nitrogenProgressPct, estPct);
+          },
         },
         projectsCol,
-        {
-          key: 'share',
-          label: 'Andel af mål',
-          value: (p) => p.nitrogenGoalT,
-          render: (p, plans) => shareCell(p.nitrogenGoalT, plans.reduce((s, x) => s + x.nitrogenGoalT, 0)),
-        },
       ];
 
     case 'extraction':
@@ -131,18 +154,25 @@ function getColumnsForPillar(pillarId: PillarId): ColumnDef[] {
           render: (p) => <span className="tabular-nums">{formatDanishNumber(Math.round(p.extractionPotentialHa))}</span>,
         },
         {
-          key: 'achieved',
-          label: 'Udtaget (ha)',
+          key: 'established',
+          label: 'Anlagt (ha)',
+          value: (p) => p.extractionByPhase.established,
+          render: (p) => <span className="tabular-nums font-semibold">{formatDanishNumber(Math.round(p.extractionByPhase.established))}</span>,
+        },
+        {
+          key: 'pipeline',
+          label: 'I pipeline (ha)',
           value: (p) => p.extractionAchievedHa,
-          render: (p) => <span className="tabular-nums">{formatDanishNumber(Math.round(p.extractionAchievedHa))}</span>,
+          render: (p) => <span className="tabular-nums text-muted-foreground">{formatDanishNumber(Math.round(p.extractionAchievedHa))}</span>,
         },
         {
           key: 'progress',
           label: 'Fremskridt',
           value: (p) => p.extractionPotentialHa > 0 ? (p.extractionAchievedHa / p.extractionPotentialHa) * 100 : 0,
           render: (p) => {
-            const pct = p.extractionPotentialHa > 0 ? (p.extractionAchievedHa / p.extractionPotentialHa) * 100 : 0;
-            return progressCell(pct);
+            const pipelinePct = p.extractionPotentialHa > 0 ? (p.extractionAchievedHa / p.extractionPotentialHa) * 100 : 0;
+            const estPct = p.extractionPotentialHa > 0 ? (p.extractionByPhase.established / p.extractionPotentialHa) * 100 : 0;
+            return dualProgressCell(pipelinePct, estPct);
           },
         },
         projectsCol,
@@ -152,10 +182,16 @@ function getColumnsForPillar(pillarId: PillarId): ColumnDef[] {
       return [
         nameCol,
         {
-          key: 'achieved',
-          label: 'Skov (ha)',
+          key: 'established',
+          label: 'Anlagt (ha)',
+          value: (p) => p.afforestationByPhase.established,
+          render: (p) => <span className="tabular-nums font-semibold">{formatDanishNumber(Math.round(p.afforestationByPhase.established))}</span>,
+        },
+        {
+          key: 'pipeline',
+          label: 'I pipeline (ha)',
           value: (p) => p.afforestationAchievedHa,
-          render: (p) => <span className="tabular-nums">{formatDanishNumber(Math.round(p.afforestationAchievedHa))}</span>,
+          render: (p) => <span className="tabular-nums text-muted-foreground">{formatDanishNumber(Math.round(p.afforestationAchievedHa))}</span>,
         },
         projectsCol,
       ];
@@ -186,26 +222,59 @@ function getColumnsForPillar(pillarId: PillarId): ColumnDef[] {
   }
 }
 
-const PILLAR_TABLE_TITLES: Record<PillarId, { heading: string; subtitle: string }> = {
+const PILLAR_TABLE_TITLES: Record<PillarId, { heading: string; subtitle: string; tooltip: React.ReactNode }> = {
   nitrogen: {
-    heading: 'Kystvandeplaner — Kvælstof',
-    subtitle: 'kystvandeplaner med kvælstofreduktionsmål',
+    heading: 'Implementeringsplaner — Kvælstof',
+    subtitle: 'kystvandeplaner med kvælstofreduktionsmål fra vandplanerne',
+    tooltip: (
+      <>
+        <p>Tabellen viser de 37 kystvandegruppers lokale implementeringsplaner for kvælstofreduktion.</p>
+        <p><strong>Mål:</strong> Det regulatoriske reduktionsmål fastsat i vandplanerne — ikke en sum af projekter, men et krav der skal nås.</p>
+        <p><strong>Anlagt:</strong> Kun fysisk gennemførte projekter (status 15). Denne kolonne er konsistent med resten af dashboardet.</p>
+        <p><strong>I pipeline:</strong> MARS-totalen på tværs af alle projektfaser (skitser, forundersøgelse, godkendt og anlagt). Viser hvor stor en del af målet der er <em>dækket af projekter</em> — men langt fra alle er realiseret endnu.</p>
+        <p><strong>Fremskridtlinjen</strong> viser begge: den solide del er anlagt, den lysere del er pipeline-totalen.</p>
+      </>
+    ),
   },
   extraction: {
-    heading: 'Lavbundsudtag pr. vandopland',
-    subtitle: 'vandoplande med potentiale for lavbundsudtag',
+    heading: 'Implementeringsplaner — Lavbundsudtag',
+    subtitle: 'vandoplande med potentiale for udtag af kulstofrige lavbundsjorde',
+    tooltip: (
+      <>
+        <p>Tabellen viser lavbundsudtag pr. vandopland — areal der er udtaget af landbrugsdrift.</p>
+        <p><strong>Anlagt</strong> viser kun fysisk gennemførte projekter. <strong>I pipeline</strong> inkluderer alle projektfaser.</p>
+      </>
+    ),
   },
   afforestation: {
-    heading: 'Skovrejsning pr. vandopland',
-    subtitle: 'vandoplande med skovrejsningsdata',
+    heading: 'Implementeringsplaner — Skovrejsning',
+    subtitle: 'tre datakilder — skift fane for at se MARS-vandoplande, Klimaskovfonden eller Naturstyrelsen',
+    tooltip: (
+      <>
+        <p>Skovrejsningsdata samles fra tre kilder:</p>
+        <p><strong>MARS-vandoplande:</strong> Vandmiljørelateret skovrejsning pr. vandopland — projekter i alle faser fra skitse til anlagt.</p>
+        <p><strong>Klimaskovfonden:</strong> {' '}Frivillige skovrejsningsprojekter fra den uafhængige fond. Alle er anlagte.</p>
+        <p><strong>Naturstyrelsen:</strong> Statslige skovrejsningsprojekter — igangværende og afsluttede.</p>
+      </>
+    ),
   },
   nature: {
-    heading: 'Naturpotentiale pr. vandopland',
-    subtitle: 'vandoplande med naturpotentialer',
+    heading: 'Naturpotentialer og projektpipeline',
+    subtitle: 'vandoplande med naturgenopretningspotentiale identificeret i MARS',
+    tooltip: (
+      <>
+        <p><strong>Naturpotentialer er ikke det samme som beskyttet areal.</strong> Tabellen viser arealer i MARS identificeret som mulige naturgenopretningssteder — de er endnu ikke juridisk beskyttede.</p>
+        <p>Målet på 20% beskyttet landareal nås via Natura 2000-udpegning, §3-registrering og naturnationalparker — ikke direkte via disse MARS-potentialer.</p>
+        <p>Se statusoversigten ovenfor for den aktuelle dækning af beskyttede arealer.</p>
+      </>
+    ),
   },
   co2: {
-    heading: 'CO₂-reduktion pr. vandopland',
+    heading: 'Implementeringsplaner — CO₂',
     subtitle: 'vandoplande (CO₂-data afventer)',
+    tooltip: (
+      <p>CO₂-data er endnu ikke tilgængeligt pr. vandopland.</p>
+    ),
   },
 };
 
@@ -220,7 +289,7 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
 
   const stages = [
     { label: 'Skitser', count: projects.sketches, color: 'hsl(35 50% 75%)' },
-    { label: 'Vurderet', count: projects.assessed, color: 'hsl(45 60% 60%)' },
+    { label: 'Forundersøgelse', count: projects.assessed, color: 'hsl(45 60% 60%)' },
     { label: 'Godkendt', count: projects.approved, color: 'hsl(80 40% 55%)' },
     { label: 'Anlagt', count: projects.established, color: 'hsl(95 55% 48%)' },
   ];
@@ -232,62 +301,110 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
           <div className="max-w-3xl space-y-4">
 
             {/* Pillar-specific metrics */}
-            {pillarId === 'nitrogen' && plan.nitrogenGoalT > 0 && (
-              <div className="flex items-center gap-3">
-                <Droplets className="w-4 h-4 text-nature-water flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-sm font-semibold" style={{ color: getProgressColor(plan.nitrogenProgressPct) }}>
-                      {Math.round(plan.nitrogenProgressPct)}%
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {formatDanishNumber(plan.nitrogenAchievedT, 1)} / {formatDanishNumber(plan.nitrogenGoalT, 1)} ton N
-                    </span>
-                  </div>
-                  <div className="h-2 w-full max-w-xs rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: `${Math.min(plan.nitrogenProgressPct, 100)}%`,
-                        background: 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))',
-                      }}
-                    />
+            {pillarId === 'nitrogen' && plan.nitrogenGoalT > 0 && (() => {
+              const estPct = (plan.nitrogenByPhase.established / plan.nitrogenGoalT) * 100;
+              const pipelinePct = plan.nitrogenProgressPct;
+              return (
+                <div className="flex items-center gap-3">
+                  <Droplets className="w-4 h-4 text-nature-water flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-sm font-semibold" style={{ color: getProgressColor(pipelinePct) }}>
+                        {Math.round(pipelinePct)}%
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {formatDanishNumber(plan.nitrogenAchievedT, 1)} / {formatDanishNumber(plan.nitrogenGoalT, 1)} ton N i pipeline
+                      </span>
+                    </div>
+                    <div className="relative h-2 w-full max-w-xs rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full"
+                        style={{
+                          width: `${Math.min(pipelinePct, 100)}%`,
+                          background: 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))',
+                          opacity: 0.3,
+                        }}
+                      />
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full"
+                        style={{
+                          width: `${Math.min(estPct, 100)}%`,
+                          background: 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))',
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(95 55% 48%)' }} />
+                        Anlagt: {formatDanishNumber(plan.nitrogenByPhase.established, 1)} ton
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(95 55% 48%)', opacity: 0.35 }} />
+                        I pipeline: {formatDanishNumber(plan.nitrogenAchievedT, 1)} ton
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
-            {pillarId === 'extraction' && plan.extractionPotentialHa > 0 && (
-              <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-nature-earth flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-sm font-semibold">
-                      {formatDanishNumber(plan.extractionAchievedHa, 1)} ha
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      af {formatDanishNumber(plan.extractionPotentialHa, 1)} ha potentiale
-                    </span>
-                  </div>
-                  <div className="h-2 w-full max-w-xs rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: `${Math.min((plan.extractionAchievedHa / plan.extractionPotentialHa) * 100, 100)}%`,
-                        background: 'linear-gradient(90deg, hsl(30 35% 45%), hsl(38 50% 55%))',
-                      }}
-                    />
+            {pillarId === 'extraction' && plan.extractionPotentialHa > 0 && (() => {
+              const pipelinePct = (plan.extractionAchievedHa / plan.extractionPotentialHa) * 100;
+              const estPct = (plan.extractionByPhase.established / plan.extractionPotentialHa) * 100;
+              return (
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-nature-earth flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-sm font-semibold">
+                        {formatDanishNumber(plan.extractionAchievedHa, 1)} ha
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        af {formatDanishNumber(plan.extractionPotentialHa, 1)} ha potentiale i pipeline
+                      </span>
+                    </div>
+                    <div className="relative h-2 w-full max-w-xs rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full"
+                        style={{
+                          width: `${Math.min(pipelinePct, 100)}%`,
+                          background: 'linear-gradient(90deg, hsl(30 35% 45%), hsl(38 50% 55%))',
+                          opacity: 0.3,
+                        }}
+                      />
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full"
+                        style={{
+                          width: `${Math.min(estPct, 100)}%`,
+                          background: 'linear-gradient(90deg, hsl(30 35% 45%), hsl(38 50% 55%))',
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(38 50% 55%)' }} />
+                        Anlagt: {formatDanishNumber(Math.round(plan.extractionByPhase.established))} ha
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(38 50% 55%)', opacity: 0.35 }} />
+                        I pipeline: {formatDanishNumber(Math.round(plan.extractionAchievedHa))} ha
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {pillarId === 'afforestation' && (
               <div className="flex items-center gap-3">
                 <Trees className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-sm">
-                  {formatDanishNumber(plan.afforestationAchievedHa, 1)} ha skovrejst
-                </span>
+                <div className="text-sm">
+                  <span className="font-semibold">{formatDanishNumber(plan.afforestationByPhase.established, 1)} ha</span>
+                  <span className="text-muted-foreground"> anlagt</span>
+                  {plan.afforestationAchievedHa > plan.afforestationByPhase.established && (
+                    <span className="text-muted-foreground"> — {formatDanishNumber(plan.afforestationAchievedHa, 1)} ha i pipeline</span>
+                  )}
+                </div>
               </div>
             )}
 
@@ -392,11 +509,398 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
  */
 const VANDPLAN_PARAM = 'vandplan';
 
-export function DataTable({ plans, onSelectPlan }: DataTableProps) {
+/**
+ * Compact summary card showing the national protection status breakdown
+ * for the nature pillar. Rendered above the nature data table to provide
+ * context that the table's "potentials" are not yet-protected areas.
+ *
+ * @param progress - National progress data with natura2000/section3/combined
+ */
+function NatureProtectionSummary({ progress }: {
+  progress: DashboardData['national']['progress'];
+}) {
+  const items = [
+    { label: 'Natura 2000 (terrestrisk)', pct: progress.natura2000TerrestrialPct, color: '#2563eb' },
+    { label: '§3-beskyttet natur', pct: progress.section3Pct, color: '#059669' },
+  ];
+  const combined = progress.natureProtectedPct;
+
+  return (
+    <div className="rounded-xl border border-border bg-card/60 p-4 mb-6">
+      <div className="flex items-center gap-2 mb-3">
+        <Shield className="w-4 h-4" style={{ color: '#166534' }} />
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Nuværende beskyttelsesniveau
+        </span>
+        <InfoTooltip
+          title="Hvad tæller som beskyttet?"
+          content={
+            <p>Målet er 20% af Danmarks landareal juridisk beskyttet inden 2030 — via Natura 2000, §3 under Naturbeskyttelsesloven og naturnationalparker. Tallene herunder overlapper ca. 30%.</p>
+          }
+          size={12}
+          side="right"
+        />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {items.map((item) => (
+          <div key={item.label} className="text-center">
+            <p className="text-lg font-bold tabular-nums" style={{ color: item.color, fontFamily: "'Fraunces', serif" }}>
+              {formatDanishNumber(item.pct, 1)}%
+            </p>
+            <p className="text-[10px] text-muted-foreground">{item.label}</p>
+          </div>
+        ))}
+        <div className="text-center">
+          <p className="text-lg font-bold tabular-nums" style={{ color: '#166534', fontFamily: "'Fraunces', serif" }}>
+            ~{formatDanishNumber(combined, 1)}%
+          </p>
+          <p className="text-[10px] text-muted-foreground">Kombineret (OECD 2024)</p>
+        </div>
+      </div>
+      <p className="text-[10px] text-muted-foreground mt-2 text-center">
+        Mål: 20% — naturpotentialerne herunder viser hvor yderligere genopretning kan ske
+      </p>
+    </div>
+  );
+}
+
+// ---------- Klimaskovfonden sortable project table ----------
+
+type KsfSortKey = 'sagsnummer' | 'type' | 'kommune' | 'area' | 'aargang';
+
+const KLIMASKOVFONDEN_REGISTRY_URL = 'https://klimaskovfonden.dk/vores-standard/register';
+
+/**
+ * Sortable table of individual Klimaskovfonden projects.
+ * Renders as a standalone table for the "Klimaskovfonden" tab
+ * within the afforestation pillar.
+ *
+ * @param projects - Array of KlimaskovfondenProject objects
+ */
+function KlimaskovfondenTable({ projects }: { projects: KlimaskovfondenProject[] }) {
+  const [sortKey, setSortKey] = useState<KsfSortKey>('area');
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
+  const [search, setSearch] = useState('');
+
+  const toggleSort = (key: KsfSortKey) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortDir(key === 'sagsnummer' || key === 'type' || key === 'kommune' ? 'asc' : 'desc');
+    }
+  };
+
+  const sorted = useMemo(() => {
+    let items = [...projects];
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      items = items.filter((p) =>
+        p.sagsnummer.toLowerCase().includes(q) ||
+        p.projekttyp.toLowerCase().includes(q) ||
+        p.aargang.toLowerCase().includes(q) ||
+        (p.kommune?.toLowerCase().includes(q) ?? false)
+      );
+    }
+    items.sort((a, b) => {
+      let cmp = 0;
+      switch (sortKey) {
+        case 'sagsnummer': cmp = a.sagsnummer.localeCompare(b.sagsnummer, 'da'); break;
+        case 'type': cmp = a.projekttyp.localeCompare(b.projekttyp, 'da'); break;
+        case 'kommune': cmp = (a.kommune ?? '').localeCompare(b.kommune ?? '', 'da'); break;
+        case 'area': cmp = a.areaHa - b.areaHa; break;
+        case 'aargang': cmp = a.aargang.localeCompare(b.aargang, 'da'); break;
+      }
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+    return items;
+  }, [projects, sortKey, sortDir, search]);
+
+  const skovCount = projects.filter((p) => p.projekttyp === 'Skovrejsning').length;
+  const totalHa = Math.round(projects.reduce((s, p) => s + p.areaHa, 0));
+  const kommuneCount = new Set(projects.map((p) => p.kommune).filter(Boolean)).size;
+
+  const KsfSortIcon = ({ col }: { col: KsfSortKey }) => {
+    if (sortKey !== col) return <ArrowUpDown className="w-3 h-3 opacity-40" />;
+    return sortDir === 'asc' ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />;
+  };
+
+  return (
+    <div>
+      <p className="text-sm text-muted-foreground mb-4">
+        {formatDanishNumber(projects.length)} projekter ({formatDanishNumber(skovCount)} skovrejsning, {formatDanishNumber(projects.length - skovCount)} lavbund) — i alt {formatDanishNumber(totalHa)} ha fordelt på {kommuneCount} kommuner. Alle projekter er anlagte (frivillige).
+      </p>
+
+      <div className="relative mb-4 max-w-sm">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <input
+          type="text"
+          placeholder="Søg sagsnummer, kommune, type..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/60"
+        />
+      </div>
+
+      <div className="rounded-xl border border-border overflow-hidden shadow-sm bg-card">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border bg-muted/50">
+                {([
+                  ['sagsnummer', 'Sagsnummer'],
+                  ['type', 'Type'],
+                  ['kommune', 'Kommune'],
+                  ['area', 'Areal (ha)'],
+                  ['aargang', 'Årgang'],
+                ] as [KsfSortKey, string][]).map(([key, label]) => (
+                  <th
+                    key={key}
+                    className="text-left px-4 py-3 font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
+                    onClick={() => toggleSort(key)}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span>{label}</span>
+                      <KsfSortIcon col={key} />
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {sorted.map((proj) => {
+                const isSkov = proj.projekttyp === 'Skovrejsning';
+                return (
+                  <tr key={proj.sagsnummer} className="border-b border-border/50 hover:bg-primary/[0.04] transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground tabular-nums">{proj.sagsnummer}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${
+                        isSkov
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
+                      }`}>
+                        {isSkov ? <TreePine className="w-3 h-3" /> : <MapPin className="w-3 h-3" />}
+                        {isSkov ? 'Skovrejsning' : 'Lavbund'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-foreground">
+                      {proj.kommune ? (
+                        <span className="inline-flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-muted-foreground/60 flex-shrink-0" />
+                          {proj.kommune}
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 tabular-nums font-semibold">{formatDanishNumber(proj.areaHa, 2)} ha</td>
+                    <td className="px-4 py-3 tabular-nums text-muted-foreground">{proj.aargang}</td>
+                  </tr>
+                );
+              })}
+              {sorted.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
+                    Ingen projekter matcher &quot;{search}&quot;
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-4 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
+          <span>Kilde: <a href={KLIMASKOVFONDEN_REGISTRY_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">Klimaskovfondens WFS</a></span>
+        </div>
+        <a
+          href={KLIMASKOVFONDEN_REGISTRY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors"
+        >
+          <ExternalLink className="w-3 h-3" />
+          Se officielt register
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// ---------- Naturstyrelsen sortable project table ----------
+
+type NstSortKey = 'name' | 'district' | 'area' | 'status';
+
+/**
+ * Sortable table of individual Naturstyrelsen state afforestation projects.
+ * Renders as a standalone table for the "Naturstyrelsen" tab
+ * within the afforestation pillar.
+ *
+ * @param projects - Array of NaturstyrelsenSkovProject objects
+ */
+function NaturstyrelsenTable({ projects }: { projects: NaturstyrelsenSkovProject[] }) {
+  const [sortKey, setSortKey] = useState<NstSortKey>('area');
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
+  const [search, setSearch] = useState('');
+
+  const toggleSort = (key: NstSortKey) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortDir(key === 'name' || key === 'district' ? 'asc' : 'desc');
+    }
+  };
+
+  const sorted = useMemo(() => {
+    let items = [...projects];
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      items = items.filter((p) =>
+        p.name.toLowerCase().includes(q) ||
+        (p.district?.toLowerCase().includes(q) ?? false)
+      );
+    }
+    items.sort((a, b) => {
+      let cmp = 0;
+      switch (sortKey) {
+        case 'name': cmp = a.name.localeCompare(b.name, 'da'); break;
+        case 'district': cmp = (a.district ?? '').localeCompare(b.district ?? '', 'da'); break;
+        case 'area': cmp = (a.areaHa ?? 0) - (b.areaHa ?? 0); break;
+        case 'status': cmp = a.status.localeCompare(b.status, 'da'); break;
+      }
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+    return items;
+  }, [projects, sortKey, sortDir, search]);
+
+  const ongoingCount = projects.filter((p) => p.status === 'ongoing').length;
+  const completedCount = projects.filter((p) => p.status === 'completed').length;
+  const matchedCount = projects.filter((p) => p.centroid).length;
+  const totalHa = Math.round(projects.filter((p) => p.areaHa).reduce((s, p) => s + (p.areaHa ?? 0), 0));
+
+  const NstSortIcon = ({ col }: { col: NstSortKey }) => {
+    if (sortKey !== col) return <ArrowUpDown className="w-3 h-3 opacity-40" />;
+    return sortDir === 'asc' ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />;
+  };
+
+  return (
+    <div>
+      <p className="text-sm text-muted-foreground mb-4">
+        {formatDanishNumber(projects.length)} projekter ({formatDanishNumber(ongoingCount)} igangværende, {formatDanishNumber(completedCount)} afsluttede) — {formatDanishNumber(matchedCount)} matchet med WFS-geodata ({formatDanishNumber(totalHa)} ha).
+      </p>
+
+      <div className="relative mb-4 max-w-sm">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <input
+          type="text"
+          placeholder="Søg skovnavn, distrikt..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/60"
+        />
+      </div>
+
+      <div className="rounded-xl border border-border overflow-hidden shadow-sm bg-card">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border bg-muted/50">
+                {([
+                  ['name', 'Skov'],
+                  ['district', 'Distrikt'],
+                  ['area', 'Areal (ha)'],
+                  ['status', 'Status'],
+                ] as [NstSortKey, string][]).map(([key, label]) => (
+                  <th
+                    key={key}
+                    className="text-left px-4 py-3 font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
+                    onClick={() => toggleSort(key)}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span>{label}</span>
+                      <NstSortIcon col={key} />
+                    </div>
+                  </th>
+                ))}
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sorted.map((proj) => {
+                const isOngoing = proj.status === 'ongoing';
+                return (
+                  <tr key={proj.name} className="border-b border-border/50 hover:bg-primary/[0.04] transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">{proj.name}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{proj.district ?? '—'}</td>
+                    <td className="px-4 py-3 tabular-nums font-semibold">
+                      {proj.areaHa != null ? `${formatDanishNumber(proj.areaHa, 1)} ha` : <span className="text-muted-foreground font-normal">Ukendt</span>}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-full ${
+                        isOngoing
+                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                          : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300'
+                      }`}>
+                        {isOngoing ? 'Igangværende' : 'Afsluttet'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <a
+                        href={proj.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        <span className="hidden sm:inline">naturstyrelsen.dk</span>
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+              {sorted.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
+                    Ingen projekter matcher &quot;{search}&quot;
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">
+        <div className="w-1.5 h-1.5 rounded-full bg-blue-500/60" />
+        <span>Kilde: <a href="https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">Naturstyrelsen</a> + <a href="https://wfs2-miljoegis.mim.dk/skovdrift/ows" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">MiljøGIS WFS</a></span>
+      </div>
+    </div>
+  );
+}
+
+const AFFORESTATION_TABS: { id: AfforestationTab; label: string; icon: React.ReactNode }[] = [
+  { id: 'mars', label: 'MARS-vandoplande', icon: <Trees className="w-3.5 h-3.5" /> },
+  { id: 'klimaskovfonden', label: 'Klimaskovfonden', icon: <TreePine className="w-3.5 h-3.5" /> },
+  { id: 'naturstyrelsen', label: 'Naturstyrelsen', icon: <Landmark className="w-3.5 h-3.5" /> },
+];
+
+export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
   const { activePillar, config: pillarConfig } = usePillar();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
+  const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
+  const [afforestationTab, setAfforestationTab] = useState<AfforestationTab>('mars');
   const columns = useMemo(() => getColumnsForPillar(activePillar), [activePillar]);
   const titles = PILLAR_TABLE_TITLES[activePillar];
+
+  useEffect(() => {
+    loadKlimaskovfondenProjects().then(setKsfProjects);
+    loadNaturstyrelsenSkovProjects().then(setNstProjects);
+  }, []);
 
   const defaultSortKey = columns.find((c) => c.key === 'progress') ? 'progress' : 'name';
   const [sortKey, setSortKey] = useState<string>(defaultSortKey);
@@ -482,96 +986,176 @@ export function DataTable({ plans, onSelectPlan }: DataTableProps) {
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
           {titles.heading}
         </h2>
+        <InfoTooltip
+          title={titles.heading}
+          content={titles.tooltip}
+          source="MARS API (Miljøstyrelsen) — vandplanernes reduktionsmål"
+          side="right"
+        />
       </div>
       <p className="text-sm text-muted-foreground mb-5">
         {plans.length} {titles.subtitle} — klik en række for detaljer. Sortér ved at klikke på kolonneoverskrifter.
       </p>
 
-      {/* Search */}
-      <div className="relative mb-4 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        <input
-          type="text"
-          placeholder="Søg vandplan..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/60"
-        />
-      </div>
+      {/* Nature protection summary — shows current national protection status */}
+      {activePillar === 'nature' && data && (
+        <NatureProtectionSummary progress={data.national.progress} />
+      )}
 
-      <div className="rounded-xl border border-border overflow-hidden shadow-sm bg-card">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/50">
-                {columns.map((col) => (
-                  <th
-                    key={col.key}
-                    className="text-left px-4 py-3 font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
-                    onClick={() => toggleSort(col.key)}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span>{col.label}</span>
-                      <SortIcon col={col.key} />
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((plan) => {
-                const isExpanded = expandedPlanId === plan.id;
-                return (
-                  <React.Fragment key={plan.id}>
-                    <tr
-                      onClick={() => {
-                        setExpandedPlanId(isExpanded ? null : plan.id);
-                        onSelectPlan?.(plan);
-                      }}
-                      className={`border-b border-border/50 hover:bg-primary/[0.04] cursor-pointer transition-colors group ${isExpanded ? 'bg-primary/[0.06]' : ''}`}
-                    >
-                      {columns.map((col, i) => (
-                        <td
-                          key={col.key}
-                          className={`px-4 py-3.5 ${i === 0 ? 'font-medium text-foreground group-hover:text-primary transition-colors max-w-[200px]' : 'text-foreground'}`}
-                        >
-                          {i === 0 ? (
-                            <div className="flex items-center gap-1.5">
-                              {isExpanded
-                                ? <ChevronDown className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                                : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-                              }
-                              {col.render(plan, plans)}
-                            </div>
-                          ) : (
-                            col.render(plan, plans)
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                    {isExpanded && (
-                      <ExpandedPlanRow plan={plan} colSpan={columns.length} pillarId={activePillar} />
-                    )}
-                  </React.Fragment>
-                );
-              })}
-              {filtered.length === 0 && (
-                <tr>
-                  <td colSpan={columns.length} className="px-4 py-8 text-center text-muted-foreground">
-                    Ingen vandplaner matcher &quot;{search}&quot;
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+      {/* Afforestation tab switcher */}
+      {activePillar === 'afforestation' && (ksfProjects.length > 0 || nstProjects.length > 0) && (
+        <div className="flex items-center gap-3 mb-5">
+          <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
+            {AFFORESTATION_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setAfforestationTab(tab.id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all font-medium ${
+                  afforestationTab === tab.id
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {tab.icon}
+                <span className="hidden sm:inline">{tab.label}</span>
+              </button>
+            ))}
+          </div>
+          <InfoTooltip
+            title="Tre datakilder for skovrejsning"
+            content={
+              <>
+                <p><strong>MARS-vandoplande:</strong> Vandmiljørelateret skovrejsning fra MARS pr. vandopland — projekter i alle faser fra skitse til anlagt.</p>
+                <p><strong>Klimaskovfonden:</strong> Frivillige skovrejsningsprojekter fra den uafhængige fond. Alle er anlagte. Data fra Klimaskovfondens WFS.</p>
+                <p><strong>Naturstyrelsen:</strong> Statslige skovrejsningsprojekter. Areal fra MiljøGIS WFS-polygoner. Igangværende og afsluttede.</p>
+              </>
+            }
+            size={14}
+            side="right"
+          />
         </div>
-      </div>
+      )}
 
-      {/* Source badge */}
-      <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">
-        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillarConfig.accentColor + '80' }} />
-        <span>Kilde: <a href="https://mars.mst.dk" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">MARS API</a> — Miljøstyrelsen</span>
-      </div>
+      {/* Tab content: Klimaskovfonden (skovrejsning only — lavbund projects belong to extraction pillar) */}
+      {activePillar === 'afforestation' && afforestationTab === 'klimaskovfonden' && ksfProjects.length > 0 && (
+        <KlimaskovfondenTable projects={ksfProjects.filter((p) => p.projekttyp === 'Skovrejsning')} />
+      )}
+
+      {/* Tab content: Naturstyrelsen */}
+      {activePillar === 'afforestation' && afforestationTab === 'naturstyrelsen' && nstProjects.length > 0 && (
+        <NaturstyrelsenTable projects={nstProjects} />
+      )}
+
+      {/* Tab content: MARS table (default for afforestation, always shown for other pillars) */}
+      {/* Extraction pillar: Klimaskovfonden lavbund projects supplementary section */}
+      {activePillar === 'extraction' && ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length > 0 && (
+        <div className="mb-8 p-4 rounded-xl border-2 border-orange-200 bg-orange-50/50 dark:bg-orange-950/20 dark:border-orange-800/40">
+          <div className="flex items-center gap-2 mb-3">
+            <TreePine className="w-4 h-4" style={{ color: '#c2410c' }} />
+            <span className="text-sm font-semibold text-foreground">Klimaskovfonden — Lavbundsprojekter</span>
+            <InfoTooltip
+              title="Klimaskovfondens lavbundsprojekter"
+              content={
+                <p>Klimaskovfonden har {ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length} frivillige lavbundsprojekter (~{Math.round(ksfProjects.filter((p) => p.projekttyp === 'Lavbund').reduce((s, p) => s + p.areaHa, 0))} ha) der bidrager til lavbundsudtag-målet på 140.000 ha. Disse er separate fra MARS-projekterne ovenfor. Alle er anlagte.</p>
+              }
+              source="Klimaskovfondens WFS"
+              size={13}
+              side="right"
+            />
+          </div>
+          <KlimaskovfondenTable projects={ksfProjects.filter((p) => p.projekttyp === 'Lavbund')} />
+        </div>
+      )}
+
+      {(activePillar !== 'afforestation' || afforestationTab === 'mars') && (
+        <>
+          {/* Search */}
+          <div className="relative mb-4 max-w-sm">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Søg vandplan..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/60"
+            />
+          </div>
+
+          <div className="rounded-xl border border-border overflow-hidden shadow-sm bg-card">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border bg-muted/50">
+                    {columns.map((col) => (
+                      <th
+                        key={col.key}
+                        className="text-left px-4 py-3 font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
+                        onClick={() => toggleSort(col.key)}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <span>{col.label}</span>
+                          <SortIcon col={col.key} />
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((plan) => {
+                    const isExpanded = expandedPlanId === plan.id;
+                    return (
+                      <React.Fragment key={plan.id}>
+                        <tr
+                          onClick={() => {
+                            setExpandedPlanId(isExpanded ? null : plan.id);
+                            onSelectPlan?.(plan);
+                          }}
+                          className={`border-b border-border/50 hover:bg-primary/[0.04] cursor-pointer transition-colors group ${isExpanded ? 'bg-primary/[0.06]' : ''}`}
+                        >
+                          {columns.map((col, i) => (
+                            <td
+                              key={col.key}
+                              className={`px-4 py-3.5 ${i === 0 ? 'font-medium text-foreground group-hover:text-primary transition-colors max-w-[200px]' : 'text-foreground'}`}
+                            >
+                              {i === 0 ? (
+                                <div className="flex items-center gap-1.5">
+                                  {isExpanded
+                                    ? <ChevronDown className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                                    : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                  }
+                                  {col.render(plan, plans)}
+                                </div>
+                              ) : (
+                                col.render(plan, plans)
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                        {isExpanded && (
+                          <ExpandedPlanRow plan={plan} colSpan={columns.length} pillarId={activePillar} />
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                  {filtered.length === 0 && (
+                    <tr>
+                      <td colSpan={columns.length} className="px-4 py-8 text-center text-muted-foreground">
+                        Ingen vandplaner matcher &quot;{search}&quot;
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Source badge */}
+          <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">
+            <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillarConfig.accentColor + '80' }} />
+            <span>Kilde: <a href="https://mars.sgav.dk" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">MARS API</a> — SGAV</span>
+          </div>
+        </>
+      )}
     </section>
   );
 }

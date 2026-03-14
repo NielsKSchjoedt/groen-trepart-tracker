@@ -1,6 +1,6 @@
 {
   "fetchedAt": "2026-03-14T06:12:04.324981+00:00",
-  "builtAt": "2026-03-14T06:13:56.072305+00:00",
+  "builtAt": "2026-03-14T12:11:58.500040+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -50,7 +50,7 @@
       "maintainer": "Miljøstyrelsen via MiljøGIS WFS",
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
-      "disclaimer": "MARS tracks only 49 ha of afforestation through its project system. The Klimaskovfonden figure (2,871 ha) is from their voluntary project registry and is not part of the MARS data. The true national afforestation rate requires comparison of forest maps over time.",
+      "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
       "fetchedAt": "2026-03-11T14:03:05.630793+00:00"
     },
     "dst": {
@@ -61,10 +61,26 @@
       "license": "Public data (Statistics Denmark open data)"
     },
     "klimaskovfonden": {
-      "name": "Klimaskovfonden",
+      "name": "Klimaskovfonden (Den Danske Klimaskovfond)",
       "url": "https://klimaskovfonden.dk",
-      "description": "Voluntary afforestation fund tracking private and municipal forest planting projects. Data is manually sourced from their project registry.",
-      "disclaimer": "The 2,871 ha figure is from research (not an API). Klimaskovfonden does not currently provide a public API. This number may be outdated."
+      "wfs_base": "https://test.admin.gc2.io/ows/klimaskovfonden/public/",
+      "layer": "klimaskovfonden:public.klimaskovfondens_projekter",
+      "registry_url": "https://klimaskovfonden.dk/vores-standard/register",
+      "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
+      "coordinateSystem": "EPSG:4326",
+      "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
+      "fetchedAt": "2026-03-14T11:57:14.248247+00:00"
+    },
+    "naturstyrelsenSkov": {
+      "name": "Naturstyrelsen statslig skovrejsning",
+      "url": "https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/",
+      "wfs_base": "https://wfs2-miljoegis.mim.dk/skovdrift/ows",
+      "layer": "skovdrift:Naturstyrelsens arealoversigt",
+      "description": "State afforestation projects managed by Naturstyrelsen. Project list from their website, cross-referenced against MiljøGIS WFS geodata for precise area measurements.",
+      "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
+      "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
+      "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
+      "fetchedAt": "2026-03-14T11:22:36.734543Z"
     }
   },
   "national": {
@@ -116,6 +132,12 @@
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
+        "supplementary": {
+          "klimaskovfondenLavbundHa": 30.4,
+          "klimaskovfondenLavbundCount": 3,
+          "klimaskovfondenSource": "klimaskovfonden",
+          "disclaimer": "Klimaskovfonden tracks 3 voluntary lowland projects (~30 ha) via WFS. These contribute to the 140,000 ha lowland extraction target, not the 250,000 ha afforestation target."
+        },
         "source": "mars",
         "disclaimer": "Extraction area includes all project phases. Only 'established' represents actual land-use change."
       },
@@ -141,9 +163,52 @@
           "disclaimer": "MARS only tracks afforestation within its project system. This represents a tiny fraction of national forest planting."
         },
         "supplementary": {
-          "klimaskovfondenHa": 2871,
+          "klimaskovfondenHa": 2283.5,
+          "klimaskovfondenProjectCount": 210,
           "klimaskovfondenSource": "klimaskovfonden",
-          "disclaimer": "Klimaskovfonden tracks voluntary private/municipal planting. Figure from research (2024), may be outdated."
+          "klimaskovfondenByYear": {
+            "2022-1": {
+              "count": 19,
+              "areaHa": 190.49
+            },
+            "2022-2": {
+              "count": 22,
+              "areaHa": 179.32
+            },
+            "2023-3": {
+              "count": 23,
+              "areaHa": 222.65
+            },
+            "2023-4": {
+              "count": 20,
+              "areaHa": 187.71
+            },
+            "2024-5": {
+              "count": 38,
+              "areaHa": 487.05
+            },
+            "2024-6": {
+              "count": 33,
+              "areaHa": 306.98
+            },
+            "2025-7": {
+              "count": 6,
+              "areaHa": 103.86
+            },
+            "2025-8": {
+              "count": 52,
+              "areaHa": 635.9
+            }
+          },
+          "nstSkovHa": 4094.3,
+          "nstSkovOngoingHa": 2408.2,
+          "nstSkovCompletedHa": 1686.1,
+          "nstSkovMatchedCount": 30,
+          "nstSkovTotalKnown": 46,
+          "nstSkovSource": "naturstyrelsenSkov",
+          "nstMarsSchemeEmpty": true,
+          "nstMarsProjectCount": 0,
+          "disclaimer": "Klimaskovfonden tracks voluntary planting (WFS). Naturstyrelsen tracks state afforestation (MiljøGIS WFS). MARS 'NST Skovrejsning' scheme exists but is empty — monitored by ETL."
         },
         "baseline": {
           "fredskovHa": 578949.8,
@@ -217,8 +282,10 @@
           "source": "mars",
           "disclaimer": "Nature potential areas identified in MARS project plans. These are potential restoration sites, not yet implemented."
         },
-        "combinedEstimatePct": 15.0,
-        "combinedEstimateDisclaimer": "Natura 2000 (~18%) and §3 (~9.5%) overlap significantly. Simple addition gives ~27.5% which overestimates. EEA reports ~15% of Danish land as protected. A proper spatial union (GIS overlay) is needed for the exact figure.",
+        "combinedEstimatePct": 15.3,
+        "combinedEstimateSource": "OECD Environmental Performance Reviews: Denmark 2024 (Table 1.1)",
+        "combinedEstimateSourceUrl": "https://doi.org/10.1787/1b480e3a-en",
+        "combinedEstimateDisclaimer": "Natura 2000 (~18%) and §3 (~9.5%) overlap significantly (~30%). The combined 15.3% is an OECD reference estimate. A spatial GIS overlay of actual designation boundaries is needed for the exact figure.",
         "denmarkLandAreaKm2": 42951
       }
     },

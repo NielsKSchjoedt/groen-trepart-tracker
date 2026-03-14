@@ -14,12 +14,13 @@ import { CO2Section } from '@/components/CO2Section';
 import { DenmarkMap } from '@/components/DenmarkMap';
 import { DataTable } from '@/components/DataTable';
 import { DataSourceSection } from '@/components/DataSourceSection';
+import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
 
 /** Per-pillar meta descriptions for Google and social sharing. */
 const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
   nitrogen:
-    'Følg Danmarks kvælstofreduktion i vandmiljøet. Se fremskridt mod 13.780 ton N/år-målet opdelt på kystvandoplande og vandoplande.',
+    'Følg Danmarks kvælstofreduktion i vandmiljøet. Se fremskridt mod 12.776 ton N/år-målet (kollektive virkemidler) opdelt på kystvandoplande og vandoplande.',
   extraction:
     'Følg udtaget af kulstofrige lavbundsjorde i Danmark. Se fremskridt mod 140.000 ha-målet opdelt på vandoplande.',
   afforestation:
@@ -91,6 +92,7 @@ const Index = () => {
           <HeroSection data={data} />
           <RecentActivity />
           <PillarCards data={data} />
+          <ScenarioBuilderSection data={data} />
           {activePillar !== 'co2' && <ProjectFunnel data={data} />}
           {activePillar === 'co2' && (
             <section className="w-full px-4 py-6">
@@ -98,7 +100,7 @@ const Index = () => {
             </section>
           )}
           <DenmarkMap data={data} />
-          <DataTable plans={data.plans} />
+          {activePillar !== 'co2' && <DataTable plans={data.plans} data={data} />}
           <DataSourceSection fetchedAt={data.fetchedAt} />
         </div>
         <Footer fetchedAt={data.fetchedAt} />

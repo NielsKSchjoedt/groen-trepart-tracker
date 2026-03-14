@@ -1,4 +1,4 @@
-import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf, TreePine, Shield, MapPin, AlertTriangle } from 'lucide-react';
+import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf, TreePine, Landmark, Shield, MapPin, AlertTriangle } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 
 interface DataSourceSectionProps {
@@ -19,9 +19,9 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
     {
       icon: Database,
       title: 'MARS API',
-      description: 'Miljøstyrelsens Arealregister — alle virkemiddelprojekter, vandplaner og kvælstofreduktionsmål inkl. projektstatus.',
-      url: 'https://mars.mst.dk',
-      urlLabel: 'mars.mst.dk',
+      description: 'Multifunktionel ArealRegistrering — alle virkemiddelprojekter, vandplaner og kvælstofreduktionsmål inkl. projektstatus. Drives af SGAV (Styrelsen for Grøn Arealomlægning og Vandmiljø).',
+      url: 'https://mars.sgav.dk',
+      urlLabel: 'mars.sgav.dk',
       disclaimer: 'Projektdata opdeles efter fase: forundersøgelse, godkendt og anlagt. Kun anlagte projekter har realiseret effekt.',
     },
     {
@@ -50,18 +50,26 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
     },
     {
       icon: TreePine,
-      title: 'Skovdata',
-      description: 'Fredskov (juridisk baseline, ~60.000 matrikler) og digitalt skovkort 2022 (aktuel skovdækning).',
-      url: 'https://miljoegis.mim.dk',
-      urlLabel: 'miljoegis.mim.dk',
-      disclaimer: 'Skovrejsningsmålet (250.000 ha) måles som nyt skovareal ud over fredskov-baseline.',
+      title: 'Skovdata & Klimaskovfonden',
+      description: 'Fredskov (juridisk baseline, ~60.000 matrikler), digitalt skovkort 2022, og Klimaskovfondens projekter (210 skovrejsningsprojekter, ~2.300 ha) hentet live via WFS.',
+      url: 'https://klimaskovfonden.dk/vores-standard/register',
+      urlLabel: 'klimaskovfonden.dk',
+      disclaimer: 'Klimaskovfonden-data hentes fra WFS (test.admin.gc2.io). Arealer beregnes fra polygongeometri.',
+    },
+    {
+      icon: Landmark,
+      title: 'Naturstyrelsen — statslig skovrejsning',
+      description: 'Statslige skovrejsningsprojekter matchet fra Naturstyrelsens hjemmeside mod MiljøGIS WFS-geodata (skovdrift-lag). ~30 projekter med polygongeometri, ~4.100 ha.',
+      url: 'https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/',
+      urlLabel: 'naturstyrelsen.dk',
+      disclaimer: 'MARS har en "NST Skovrejsning"-tilskudsordning (0 projekter pt.) — ETL overvåger for fremtidige data. Ikke alle projekter er matchet med WFS.',
     },
     {
       icon: Scale,
       title: 'Den Grønne Trepart',
-      description: 'Reduktionsmålene fra aftalen om Grøn Trepart (2023) — 12.776 ton N inden 2030, 250.000 ha ny skov.',
-      url: 'https://www.fm.dk/nyheder/nyhedsarkiv/2023/december/groen-trepart/',
-      urlLabel: 'Finansministeriet',
+      description: 'Reduktionsmålene fra aftalen om et Grønt Danmark (2024) — 12.776 ton N inden 2030, 250.000 ha ny skov inden 2045.',
+      url: 'https://regeringen.dk/aktuelt/publikationer-og-aftaletekster/aftale-om-et-groent-danmark/',
+      urlLabel: 'regeringen.dk',
       disclaimer: 'Politisk aftale — målene kan ændres ved ny lovgivning.',
     },
   ];
@@ -91,19 +99,19 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 py-10 relative overflow-hidden">
-      <div className="absolute right-0 bottom-4 opacity-[0.10] hidden lg:block">
+      <div className="absolute right-0 bottom-4 opacity-[0.10] hidden lg:block pointer-events-none">
         <NatureWatermark animal="deer" size={130} className="scale-x-[-1]" />
       </div>
-      <div className="absolute left-2 top-10 opacity-[0.10] hidden md:block animate-gentle-sway">
+      <div className="absolute left-2 top-10 opacity-[0.10] hidden md:block animate-gentle-sway pointer-events-none">
         <NatureWatermark animal="butterfly" size={55} className="rotate-12" />
       </div>
-      <div className="absolute right-1/4 top-6 opacity-[0.08] hidden lg:block">
+      <div className="absolute right-1/4 top-6 opacity-[0.08] hidden lg:block pointer-events-none">
         <NatureWatermark animal="eel" size={80} className="rotate-[25deg]" />
       </div>
-      <div className="absolute left-8 bottom-20 opacity-[0.09] hidden md:block">
+      <div className="absolute left-8 bottom-20 opacity-[0.09] hidden md:block pointer-events-none">
         <NatureWatermark animal="flounder" size={70} className="-rotate-6" />
       </div>
-      <div className="absolute right-8 top-1/2 opacity-[0.07] hidden xl:block">
+      <div className="absolute right-8 top-1/2 opacity-[0.07] hidden xl:block pointer-events-none">
         <NatureWatermark animal="hedgehog" size={65} />
       </div>
       <div className="flex items-center gap-2.5 mb-2">
@@ -196,7 +204,7 @@ export function DataSourceSection({ fetchedAt }: DataSourceSectionProps) {
             <p className="text-sm font-medium text-foreground">Open source</p>
             <p className="text-xs text-muted-foreground">
               Al kode og data er frit tilgængeligt på{' '}
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">GitHub</a>
+              <a href="https://github.com/NielsKSchjoedt/groen-trepart-tracker" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">GitHub</a>
             </p>
           </div>
         </div>

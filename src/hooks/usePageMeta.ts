@@ -29,7 +29,7 @@ const DEFAULT_DESCRIPTION =
  * ```tsx
  * usePageMeta({
  *   title: 'Kvælstof',
- *   description: 'Kvælstofreduktion i vandmiljøet — følg fremskridt mod 13.780 ton N/år',
+ *   description: 'Kvælstofreduktion i vandmiljøet — følg fremskridt mod 12.776 ton N/år',
  *   path: '/kvælstof',
  * });
  * ```

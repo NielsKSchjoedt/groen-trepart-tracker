@@ -23,7 +23,7 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
 
   const stages = [
     { label: 'Skitser', count: projects.sketches, color: 'hsl(35 50% 75%)' },
-    { label: 'Vurderet', count: projects.assessed, color: 'hsl(45 60% 60%)' },
+    { label: 'Forundersøgelse', count: projects.assessed, color: 'hsl(45 60% 60%)' },
     { label: 'Godkendt', count: projects.approved, color: 'hsl(80 40% 55%)' },
     { label: 'Anlagt', count: projects.established, color: 'hsl(95 55% 48%)' },
   ];
@@ -175,7 +175,7 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
           <span>
             Data fra{' '}
             <a
-              href="https://mars.mst.dk"
+              href="https://mars.sgav.dk"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-0.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
@@ -338,27 +338,47 @@ function AfforestationSection({ plan, catchment }: { plan?: Plan; catchment?: Ca
   );
 }
 
+/**
+ * Nature detail section for the map panel. Shows nature restoration
+ * potentials (MARS-identified candidate sites) and explains the
+ * distinction from legally protected area and the project pipeline.
+ *
+ * @param plan - Plan data (coastal water group), if available
+ * @param catchment - Catchment data, if available
+ */
 function NatureSection({ plan, catchment }: { plan?: Plan; catchment?: Catchment }) {
   const potentialHa = plan?.naturePotentialAreaHa ?? catchment?.naturePotentialAreaHa ?? 0;
   const count = plan?.countNaturePotentials ?? catchment?.countNaturePotentials ?? 0;
 
   return (
-    <div className="mb-5 mt-4">
-      <div className="flex items-center gap-2 mb-2">
+    <div className="mb-5 mt-4 space-y-3">
+      <div className="flex items-center gap-2">
         <Leaf className="w-4 h-4" style={{ color: '#166534' }} />
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Naturpotentiale</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Naturgenopretningspotentiale</h3>
       </div>
-      <p className="text-sm text-foreground">
-        {formatDanishNumber(potentialHa, 0)} ha naturpotentiale
-      </p>
-      {count > 0 && (
-        <p className="text-xs text-muted-foreground mt-1">
-          {formatDanishNumber(count)} naturprojekt-potentialer identificeret
+
+      <div>
+        <p className="text-sm text-foreground font-medium">
+          {formatDanishNumber(potentialHa, 0)} ha identificeret
         </p>
-      )}
-      <p className="text-xs text-muted-foreground mt-2 italic">
-        Mål: 20% beskyttet natur — data for Natura 2000 og §3-arealer er under udvikling
-      </p>
+        {count > 0 && (
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Fordelt på {formatDanishNumber(count)} potentielle genopretningssteder
+          </p>
+        )}
+      </div>
+
+      <div className="rounded-lg bg-muted/40 p-2.5 space-y-1.5">
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          <strong>Naturpotentialer</strong> er arealer i MARS identificeret som mulige genopretningssteder — de er ikke endnu juridisk beskyttede.
+        </p>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          <strong>Projekterne nedenfor</strong> dækker alle typer virkemidler (kvælstof, lavbund, skovrejsning m.fl.) i dette område — ikke kun naturprojekter. Nogle projekter kan adressere de identificerede naturpotentialer.
+        </p>
+        <p className="text-[11px] text-muted-foreground leading-relaxed italic">
+          Målet om 20% beskyttet natur nås via juridisk udpegning (Natura 2000, §3, naturnationalparker) — ikke direkte via disse potentialer.
+        </p>
+      </div>
     </div>
   );
 }

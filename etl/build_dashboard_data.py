@@ -66,6 +66,26 @@ try:
 except FileNotFoundError:
     print("⚠ Forest data not found — run fetch_fredskov.py first")
 
+klimaskovfonden_summary = None
+klimaskovfonden_projects = None
+try:
+    with open(f"{BASE}/data/klimaskovfonden/summary.json") as f:
+        klimaskovfonden_summary = json.load(f)
+    with open(f"{BASE}/data/klimaskovfonden/projects.json") as f:
+        klimaskovfonden_projects = json.load(f)
+except FileNotFoundError:
+    print("⚠ Klimaskovfonden data not found — run fetch_klimaskovfonden.py first")
+
+nst_skov_summary = None
+nst_skov_projects = None
+try:
+    with open(f"{BASE}/data/naturstyrelsen-skov/summary.json") as f:
+        nst_skov_summary = json.load(f)
+    with open(f"{BASE}/data/naturstyrelsen-skov/projects.json") as f:
+        nst_skov_projects = json.load(f)
+except FileNotFoundError:
+    print("⚠ Naturstyrelsen skov data not found — run fetch_naturstyrelsen_skov.py first")
+
 
 # ========================================
 # Build MARS state lookup
@@ -83,6 +103,30 @@ for s in master.get("states", []):
 # Build lookup dicts for enriching project details
 measure_lookup = {m["id"]: m for m in master.get("mitigationMeasures", [])}
 scheme_lookup = {s["id"]: s for s in master.get("subsidySchemes", [])}
+
+# ========================================
+# NST Skovrejsning MARS scheme monitoring
+# ========================================
+# The MARS database has an "NST Skovrejsning" subsidy scheme defined
+# (ID: 5551b8e5-cc17-4e86-89a0-6e763f5594f0) but it currently has 0 projects.
+# This monitoring block checks every ETL run whether data has appeared.
+NST_SKOV_SCHEME_ID = "5551b8e5-cc17-4e86-89a0-6e763f5594f0"
+nst_mars_project_count = 0
+nst_mars_scheme_exists = NST_SKOV_SCHEME_ID in scheme_lookup
+
+if nst_mars_scheme_exists:
+    # Count projects across all plans that reference this scheme
+    for p in projects:
+        if p.get("subsidySchemeId") == NST_SKOV_SCHEME_ID:
+            nst_mars_project_count += 1
+
+    if nst_mars_project_count > 0:
+        print(f"🎉 NST SKOVREJSNING DATA DETECTED IN MARS! {nst_mars_project_count} projects found under scheme '{scheme_lookup[NST_SKOV_SCHEME_ID].get('name', 'NST Skovrejsning')}'.")
+        print(f"   → This is new! The NST scheme was previously empty. Review and integrate this data.")
+    else:
+        print(f"ℹ NST Skovrejsning scheme exists in MARS but still has 0 projects (monitored)")
+else:
+    print("⚠ NST Skovrejsning scheme not found in MARS master data — ID may have changed")
 
 # Map MARS project status codes to dashboard phase categories
 # Status 6 = Forundersøgelsestilsagn (preliminary investigation granted)
@@ -247,7 +291,7 @@ dashboard_data = {
             "maintainer": "Miljøstyrelsen via MiljøGIS WFS",
             "license": "Public data (EU INSPIRE directive)",
             "coordinateSystem": "EPSG:25832",
-            "disclaimer": "MARS tracks only 49 ha of afforestation through its project system. The Klimaskovfonden figure (2,871 ha) is from their voluntary project registry and is not part of the MARS data. The true national afforestation rate requires comparison of forest maps over time.",
+            "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
             "fetchedAt": forest_summary.get("fetched_at") if forest_summary else None,
         },
         "dst": {
@@ -258,10 +302,26 @@ dashboard_data = {
             "license": "Public data (Statistics Denmark open data)",
         },
         "klimaskovfonden": {
-            "name": "Klimaskovfonden",
+            "name": "Klimaskovfonden (Den Danske Klimaskovfond)",
             "url": "https://klimaskovfonden.dk",
-            "description": "Voluntary afforestation fund tracking private and municipal forest planting projects. Data is manually sourced from their project registry.",
-            "disclaimer": "The 2,871 ha figure is from research (not an API). Klimaskovfonden does not currently provide a public API. This number may be outdated.",
+            "wfs_base": "https://test.admin.gc2.io/ows/klimaskovfonden/public/",
+            "layer": "klimaskovfonden:public.klimaskovfondens_projekter",
+            "registry_url": "https://klimaskovfonden.dk/vores-standard/register",
+            "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
+            "coordinateSystem": "EPSG:4326",
+            "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
+            "fetchedAt": klimaskovfonden_summary.get("fetched_at") if klimaskovfonden_summary else None,
+        },
+        "naturstyrelsenSkov": {
+            "name": "Naturstyrelsen statslig skovrejsning",
+            "url": "https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/",
+            "wfs_base": "https://wfs2-miljoegis.mim.dk/skovdrift/ows",
+            "layer": "skovdrift:Naturstyrelsens arealoversigt",
+            "description": "State afforestation projects managed by Naturstyrelsen. Project list from their website, cross-referenced against MiljøGIS WFS geodata for precise area measurements.",
+            "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
+            "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
+            "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
+            "fetchedAt": nst_skov_summary.get("fetchedAt") if nst_skov_summary else None,
         },
     },
 
@@ -324,6 +384,12 @@ dashboard_data = {
                         "description": "Forundersøgelsestilsagn — preliminary investigation granted",
                     },
                 },
+                "supplementary": {
+                    "klimaskovfondenLavbundHa": round(klimaskovfonden_summary["totals"]["lowland_ha"], 1) if klimaskovfonden_summary else 0,
+                    "klimaskovfondenLavbundCount": klimaskovfonden_summary["totals"]["lowland_count"] if klimaskovfonden_summary else 0,
+                    "klimaskovfondenSource": "klimaskovfonden",
+                    "disclaimer": "Klimaskovfonden tracks 3 voluntary lowland projects (~30 ha) via WFS. These contribute to the 140,000 ha lowland extraction target, not the 250,000 ha afforestation target.",
+                },
                 "source": "mars",
                 "disclaimer": "Extraction area includes all project phases. Only 'established' represents actual land-use change.",
             },
@@ -351,9 +417,19 @@ dashboard_data = {
                     "disclaimer": "MARS only tracks afforestation within its project system. This represents a tiny fraction of national forest planting.",
                 },
                 "supplementary": {
-                    "klimaskovfondenHa": 2871,
+                    "klimaskovfondenHa": round(klimaskovfonden_summary["totals"]["afforestation_ha"], 1) if klimaskovfonden_summary else 0,
+                    "klimaskovfondenProjectCount": klimaskovfonden_summary["totals"]["afforestation_count"] if klimaskovfonden_summary else 0,
                     "klimaskovfondenSource": "klimaskovfonden",
-                    "disclaimer": "Klimaskovfonden tracks voluntary private/municipal planting. Figure from research (2024), may be outdated.",
+                    "klimaskovfondenByYear": klimaskovfonden_summary.get("by_year") if klimaskovfonden_summary else None,
+                    "nstSkovHa": nst_skov_summary["totals"]["totalAreaHa"] if nst_skov_summary else 0,
+                    "nstSkovOngoingHa": nst_skov_summary["totals"]["ongoingAreaHa"] if nst_skov_summary else 0,
+                    "nstSkovCompletedHa": nst_skov_summary["totals"]["completedAreaHa"] if nst_skov_summary else 0,
+                    "nstSkovMatchedCount": nst_skov_summary["totals"]["matchedInWfs"] if nst_skov_summary else 0,
+                    "nstSkovTotalKnown": nst_skov_summary["totals"]["totalKnownProjects"] if nst_skov_summary else 0,
+                    "nstSkovSource": "naturstyrelsenSkov",
+                    "nstMarsSchemeEmpty": nst_mars_project_count == 0,  # NST Skovrejsning scheme monitored by ETL
+                    "nstMarsProjectCount": nst_mars_project_count,
+                    "disclaimer": "Klimaskovfonden tracks voluntary planting (WFS). Naturstyrelsen tracks state afforestation (MiljøGIS WFS). MARS 'NST Skovrejsning' scheme exists but is empty — monitored by ETL.",
                 },
                 "baseline": {
                     "fredskovHa": round(forest_summary["sources"]["fredskov"]["total_area_ha"], 1) if forest_summary and "total_area_ha" in forest_summary.get("sources", {}).get("fredskov", {}) else None,
@@ -386,9 +462,18 @@ dashboard_data = {
                     "source": "mars",
                     "disclaimer": "Nature potential areas identified in MARS project plans. These are potential restoration sites, not yet implemented.",
                 },
-                # Combined estimate
-                "combinedEstimatePct": 15.0,
-                "combinedEstimateDisclaimer": "Natura 2000 (~18%) and §3 (~9.5%) overlap significantly. Simple addition gives ~27.5% which overestimates. EEA reports ~15% of Danish land as protected. A proper spatial union (GIS overlay) is needed for the exact figure.",
+                # Combined protected nature estimate.
+                # Source: OECD Environmental Performance Reviews: Denmark 2024,
+                # Table 1.1 — "Protected areas as % of terrestrial area": 15.3%.
+                # https://doi.org/10.1787/1b480e3a-en
+                #
+                # Natura 2000 (~18%) and §3 (~9.5%) overlap substantially (~30%).
+                # A proper spatial GIS overlay (geopandas.unary_union) is needed
+                # for a precise combined figure — until then we use the OECD value.
+                "combinedEstimatePct": 15.3,
+                "combinedEstimateSource": "OECD Environmental Performance Reviews: Denmark 2024 (Table 1.1)",
+                "combinedEstimateSourceUrl": "https://doi.org/10.1787/1b480e3a-en",
+                "combinedEstimateDisclaimer": "Natura 2000 (~18%) and §3 (~9.5%) overlap significantly (~30%). The combined 15.3% is an OECD reference estimate. A spatial GIS overlay of actual designation boundaries is needed for the exact figure.",
                 "denmarkLandAreaKm2": 42951,
             },
         },

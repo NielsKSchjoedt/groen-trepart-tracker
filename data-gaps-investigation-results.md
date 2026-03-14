@@ -161,28 +161,29 @@ Klimaskovfonden maintains a comprehensive **Klimaregister** (Climate Registry) w
 
 ### Recommendation
 
-1. **Build a fetcher for Klimaskovfonden data via Arealdata WFS** — this gives geographic project boundaries, area, and type
+1. ~~**Build a fetcher for Klimaskovfonden data via Arealdata WFS**~~ ✅ **DONE** (14 March 2026) — `etl/fetch_klimaskovfonden.py` fetches 213 features (210 skovrejsning, 3 lavbund) totaling 2,314 ha from `test.admin.gc2.io` WFS. Integrated into `build_dashboard_data.py` and live in the dashboard.
 2. **Supplement with Klimaregister scraping or manual data entry** for the CO₂ and status fields not in the WFS layer
 3. **Keep MARS afforestation data** as a secondary signal but do not treat it as the primary source
-4. **Investigate Naturstyrelsen** further — their projects represent the state-funded afforestation pipeline and may surface via Arealdata or direct contact
+4. **Investigate Naturstyrelsen** further — their projects represent the state-funded afforestation pipeline and may surface via Arealdata or direct contact. As of Feb 2026, ~2,100 ha of new subsidy-funded forest planting has been approved by SGAV (the new agency). These subsidy applications go through MARS, so some may already appear in our data.
 
 ### Answer to Open Question
 
-*Is 49 ha genuinely all that's been afforested under the Trepart?* — **No.** Klimaskovfonden alone has 2,871 ha across 249 projects. The 49 ha in MARS likely represents only the projects that happen to intersect with MARS's nitrogen/extraction planning catchments. MARS is a water quality planning tool, not an afforestation tracker.
+*Is 49 ha genuinely all that's been afforested under the Trepart?* — **No.** Klimaskovfonden alone has 2,314 ha across 213 WFS features (210 afforestation projects). The MARS figure represents only projects that happen to intersect with MARS's nitrogen/extraction planning catchments. MARS is a water quality planning tool, not an afforestation tracker.
 
 ---
 
 ## Summary of Recommended Actions
 
-| Priority | Action | Effort | Impact |
-|----------|--------|--------|--------|
-| **High** | Build Natura 2000 + §3 fetchers for Nature pillar | 1–2 days | Enables the 20% target metric |
-| **High** | Build Klimaskovfonden/Arealdata fetcher for afforestation | 1 day | Jumps from 49 ha to 2,871+ ha tracked |
-| **Medium** | Download KF25 agricultural emission datasheets for CO₂ trajectory | 0.5 days | Adds government forecast to dashboard |
-| **Medium** | Add spatial overlap handling for Natura 2000 ∩ §3 | Included in fetcher build | Prevents double-counting |
-| **Low** | Investigate Naturstyrelsen for additional afforestation data | 0.5 days | May add state-funded projects |
-| **Low** | Monitor DCE annual inventory publication for actual emission data | Ongoing | Future-proofs CO₂ pillar |
+| Priority | Action | Effort | Impact | Status |
+|----------|--------|--------|--------|--------|
+| **High** | Build Natura 2000 + §3 fetchers for Nature pillar | 1–2 days | Enables the 20% target metric | ✅ Done |
+| **High** | Build Klimaskovfonden/Arealdata fetcher for afforestation | 1 day | Jumps from 49 ha to 2,300+ ha tracked | ✅ Done (14 Mar 2026) |
+| **Medium** | Download KF25 agricultural emission datasheets for CO₂ trajectory | 0.5 days | Adds government forecast to dashboard | ✅ Done |
+| **Medium** | Add spatial overlap handling for Natura 2000 ∩ §3 | Included in fetcher build | Prevents double-counting | ✅ Done |
+| **Low** | Investigate Naturstyrelsen for additional afforestation data | 0.5 days | May add state-funded projects | 🔍 Researched — SGAV subsidy scheme uses MARS; Naturstyrelsen has no structured API |
+| **Low** | Monitor DCE annual inventory publication for actual emission data | Ongoing | Future-proofs CO₂ pillar | ⏳ Ongoing |
 
 ---
 
 *Research conducted: 11 March 2026*
+*Klimaskovfonden integration: 14 March 2026*

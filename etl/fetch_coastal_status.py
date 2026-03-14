@@ -64,7 +64,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 OUTPUT_PATH = REPO_ROOT / "public" / "data" / "coastal-water-status.json"
 
-USER_AGENT = "TrepartTracker/0.1 (https://github.com/trepart-tracker; open-source environmental monitor)"
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT = 60
 
 # We only need properties, not geometries (we have those in the topo)

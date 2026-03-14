@@ -1,4 +1,4 @@
-import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog } from './types';
+import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog, KlimaskovfondenProject, NaturstyrelsenSkovProject, PipelineScenarioKey, PipelineScenarioValues } from './types';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -12,6 +12,8 @@ let cachedCO2Data: CO2EmissionsData | null = null;
 let cachedCoastalStatus: CoastalWaterStatusData | null = null;
 let cachedWaterBodiesGeo: FeatureCollection<Geometry> | null = null;
 let cachedChangelog: ProjectChangelog | null = null;
+let cachedKlimaskovfonden: KlimaskovfondenProject[] | null = null;
+let cachedNstSkov: NaturstyrelsenSkovProject[] | null = null;
 
 /**
  * Normalize the raw ETL JSON (which uses nested progress objects and
@@ -35,13 +37,93 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
   const afforestation = prog.afforestation ?? {};
   const nature = prog.nature ?? {};
 
-  const afforestationMarsHa =
-    afforestation.marsTotal?.ha ?? afforestation.totalHa ?? 0;
-  const afforestationSupplementaryHa =
-    afforestation.supplementary?.klimaskovfondenHa ?? 0;
-  const afforestationTotal = afforestationMarsHa + afforestationSupplementaryHa;
+  // Use only "established" (anlagt) values — projects physically built and operational.
+  // The ETL totals include all phases (sketches, preliminary, approved) which inflates
+  // progress. The byPhase breakdown gives us the honest numbers.
+  const nitrogenEstablishedT = nitrogen.byPhase?.established?.T ?? nitrogen.totalT ?? 0;
+  const nitrogenGoalT = nat.targets?.nitrogenReductionT ?? nitrogen.goalT ?? 0;
+
+  const extractionEstablishedHa = extraction.byPhase?.established?.ha ?? extraction.totalHa ?? 0;
+  const extractionGoalHa = nat.targets?.extractionHa ?? extraction.goalHa ?? 140_000;
+
+  const afforestationMarsEstablishedHa =
+    afforestation.marsTotal?.byPhase?.established?.ha ?? afforestation.marsTotal?.ha ?? afforestation.totalHa ?? 0;
+  const afforestationKsfHa = afforestation.supplementary?.klimaskovfondenHa ?? 0;
+  const afforestationNstHa = afforestation.supplementary?.nstSkovHa ?? 0;
+  const afforestationSupplementaryHa = afforestationKsfHa + afforestationNstHa;
+  const afforestationTotal = afforestationMarsEstablishedHa + afforestationSupplementaryHa;
   const afforestationGoal =
     afforestation.goalHa ?? nat.targets?.afforestationHa ?? 250_000;
+
+  // Build cumulative pipeline scenarios: each level includes everything below it.
+  const nitrogenApprovedT = nitrogen.byPhase?.approved?.T ?? 0;
+  const nitrogenPreliminaryT = nitrogen.byPhase?.preliminary?.T ?? 0;
+  const extractionApprovedHa = extraction.byPhase?.approved?.ha ?? 0;
+  const extractionPreliminaryHa = extraction.byPhase?.preliminary?.ha ?? 0;
+  const afforestationApprovedHa = afforestation.marsTotal?.byPhase?.approved?.ha ?? 0;
+  const afforestationPreliminaryHa = afforestation.marsTotal?.byPhase?.preliminary?.ha ?? 0;
+
+  // MARS aggregated totals across ALL phases (including sketches/assessed).
+  // Used for the "all" scenario. We take the max of the MARS total and the
+  // sum of explicit phases to guard against aggregation discrepancies.
+  const nitrogenAllT = Math.max(
+    nitrogen.totalT ?? 0,
+    nitrogenEstablishedT + nitrogenApprovedT + nitrogenPreliminaryT,
+  );
+  const extractionAllHa = Math.max(
+    extraction.totalHa ?? 0,
+    extractionEstablishedHa + extractionApprovedHa + extractionPreliminaryHa,
+  );
+  const afforestationAllMarsHa = Math.max(
+    afforestation.marsTotal?.ha ?? 0,
+    (afforestation.marsTotal?.byPhase?.established?.ha ?? 0) +
+      (afforestation.marsTotal?.byPhase?.approved?.ha ?? 0) +
+      (afforestation.marsTotal?.byPhase?.preliminary?.ha ?? 0),
+  );
+  const afforestationAllHa = afforestationAllMarsHa + afforestationSupplementaryHa;
+
+  function buildScenario(key: PipelineScenarioKey): PipelineScenarioValues {
+    let nT: number;
+    let eHa: number;
+    let aHa: number;
+
+    if (key === 'all') {
+      nT = nitrogenAllT;
+      eHa = extractionAllHa;
+      aHa = afforestationAllHa;
+    } else {
+      nT = nitrogenEstablishedT;
+      eHa = extractionEstablishedHa;
+      aHa = afforestationTotal;
+
+      if (key === 'approved' || key === 'preliminary') {
+        nT += nitrogenApprovedT;
+        eHa += extractionApprovedHa;
+        aHa += afforestationApprovedHa;
+      }
+      if (key === 'preliminary') {
+        nT += nitrogenPreliminaryT;
+        eHa += extractionPreliminaryHa;
+        aHa += afforestationPreliminaryHa;
+      }
+    }
+
+    return {
+      nitrogenAchievedT: nT,
+      nitrogenProgressPct: nitrogenGoalT > 0 ? Math.min((nT / nitrogenGoalT) * 100, 100) : 0,
+      extractionAchievedHa: eHa,
+      extractionProgressPct: extractionGoalHa > 0 ? Math.min((eHa / extractionGoalHa) * 100, 100) : 0,
+      afforestationAchievedHa: aHa,
+      afforestationProgressPct: afforestationGoal > 0 ? Math.min((aHa / afforestationGoal) * 100, 100) : 0,
+    };
+  }
+
+  const pipelineScenarios: Record<PipelineScenarioKey, PipelineScenarioValues> = {
+    established: buildScenario('established'),
+    approved: buildScenario('approved'),
+    preliminary: buildScenario('preliminary'),
+    all: buildScenario('all'),
+  };
 
   return {
     fetchedAt: r.fetchedAt ?? r.builtAt ?? '',
@@ -55,16 +137,20 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         forestDeadline: nat.targets?.forestDeadline ?? '2045-12-31',
       },
       progress: {
-        nitrogenAchievedT: nitrogen.totalT ?? 0,
-        nitrogenProgressPct: nitrogen.totalProgressPct ?? 0,
-        extractionAchievedHa: extraction.totalHa ?? 0,
-        extractionProgressPct: extraction.totalProgressPct ?? 0,
+        nitrogenAchievedT: nitrogenEstablishedT,
+        nitrogenProgressPct: nitrogenGoalT > 0
+          ? Math.min((nitrogenEstablishedT / nitrogenGoalT) * 100, 100)
+          : 0,
+        extractionAchievedHa: extractionEstablishedHa,
+        extractionProgressPct: extractionGoalHa > 0
+          ? Math.min((extractionEstablishedHa / extractionGoalHa) * 100, 100)
+          : 0,
         afforestationAchievedHa: afforestationTotal,
         afforestationProgressPct:
           afforestationGoal > 0
             ? (afforestationTotal / afforestationGoal) * 100
             : 0,
-        afforestationMarsHa: afforestationMarsHa,
+        afforestationMarsHa: afforestationMarsEstablishedHa,
         afforestationSupplementaryHa: afforestationSupplementaryHa,
         naturePotentialAreaHa:
           nature.marsNaturePotential?.areaHa ?? 0,
@@ -72,6 +158,7 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         natura2000TerrestrialPct: nature.natura2000?.terrestrialPct ?? 0,
         section3Pct: nature.section3?.pctOfLand ?? 0,
       },
+      pipelineScenarios,
       projects: {
         total: pipeline.total ?? 0,
         sketches: phases.sketches?.count ?? 0,
@@ -80,13 +167,18 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         established: phases.established?.count ?? 0,
       },
     },
-    plans: ((r.plans ?? []) as any[]).map((p: any) => ({
-      ...p,
-      // Clamp nonsensical percentages caused by near-zero goals in ETL
-      nitrogenProgressPct: p.nitrogenGoalT > 0
-        ? Math.min(p.nitrogenProgressPct ?? 0, 100)
-        : 0,
-    })),
+    plans: ((r.plans ?? []) as any[]).map((p: any) => {
+      const defaultPhase = { established: 0, approved: 0, preliminary: 0 };
+      return {
+        ...p,
+        nitrogenProgressPct: p.nitrogenGoalT > 0
+          ? Math.min(p.nitrogenProgressPct ?? 0, 100)
+          : 0,
+        nitrogenByPhase: { ...defaultPhase, ...p.nitrogenByPhase },
+        extractionByPhase: { ...defaultPhase, ...p.extractionByPhase },
+        afforestationByPhase: { ...defaultPhase, ...p.afforestationByPhase },
+      };
+    }),
     catchments: r.catchments ?? [],
     mitigationMeasures: r.mitigationMeasures ?? [],
     subsidySchemes: r.subsidySchemes ?? [],
@@ -177,6 +269,32 @@ export async function loadCoastalWaterStatus(): Promise<CoastalWaterStatusData |
     cachedCoastalStatus = null;
   }
   return cachedCoastalStatus;
+}
+
+/** Load Klimaskovfonden voluntary afforestation projects (centroids + areas) */
+export async function loadKlimaskovfondenProjects(): Promise<KlimaskovfondenProject[]> {
+  if (cachedKlimaskovfonden) return cachedKlimaskovfonden;
+  try {
+    const res = await fetch('/data/klimaskovfonden-projects.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKlimaskovfonden = await res.json();
+  } catch {
+    cachedKlimaskovfonden = [];
+  }
+  return cachedKlimaskovfonden!;
+}
+
+/** Load Naturstyrelsen state afforestation projects (WFS-matched) */
+export async function loadNaturstyrelsenSkovProjects(): Promise<NaturstyrelsenSkovProject[]> {
+  if (cachedNstSkov) return cachedNstSkov;
+  try {
+    const res = await fetch('/data/naturstyrelsen-skov-projects.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedNstSkov = await res.json();
+  } catch {
+    cachedNstSkov = [];
+  }
+  return cachedNstSkov!;
 }
 
 /** Load project changelog (recent status changes for the news ticker) */

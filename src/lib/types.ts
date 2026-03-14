@@ -1,3 +1,27 @@
+/**
+ * Pipeline scenarios represent cumulative progress if projects up to
+ * a given phase were all implemented. Each level includes everything
+ * below it:
+ *
+ * - `established`: Only physically built projects (default, most conservative)
+ * - `approved`: Established + approved for construction
+ * - `preliminary`: Established + approved + preliminary investigation granted
+ * - `all`: All phases including sketches — uses MARS aggregated totals
+ *
+ * Each scenario holds the achieved value and derived progress percentage
+ * for nitrogen, extraction, and afforestation.
+ */
+export type PipelineScenarioKey = 'established' | 'approved' | 'preliminary' | 'all';
+
+export interface PipelineScenarioValues {
+  nitrogenAchievedT: number;
+  nitrogenProgressPct: number;
+  extractionAchievedHa: number;
+  extractionProgressPct: number;
+  afforestationAchievedHa: number;
+  afforestationProgressPct: number;
+}
+
 export interface DashboardData {
   fetchedAt: string;
   national: {
@@ -28,6 +52,8 @@ export interface DashboardData {
       /** §3 protected nature as % of land */
       section3Pct: number;
     };
+    /** Cumulative pipeline scenarios (established-only, +approved, +preliminary) */
+    pipelineScenarios: Record<PipelineScenarioKey, PipelineScenarioValues>;
     projects: {
       total: number;
       sketches: number;
@@ -42,22 +68,33 @@ export interface DashboardData {
   subsidySchemes: SubsidyScheme[];
 }
 
+/** Per-phase metric breakdown (established / approved / preliminary). */
+export interface PhaseBreakdown {
+  established: number;
+  approved: number;
+  preliminary: number;
+}
+
 export interface Plan {
   id: string;
   name: string;
   geoLocationId: string;
   nameNormalized: string;
   nitrogenGoalT: number;
+  /** MARS aggregate across ALL project phases (not just established) */
   nitrogenAchievedT: number;
   nitrogenProgressPct: number;
+  nitrogenByPhase: PhaseBreakdown;
   extractionPotentialHa: number;
+  /** MARS aggregate across ALL project phases */
   extractionAchievedHa: number;
+  extractionByPhase: PhaseBreakdown;
   afforestationAchievedHa: number;
+  afforestationByPhase: PhaseBreakdown;
   naturePotentialAreaHa: number;
   countNaturePotentials: number;
   projects: ProjectCounts;
   status: string;
-  // Drill-down detail arrays
   projectDetails: ProjectDetail[];
   sketchProjects: SketchProject[];
   naturePotentials: NaturePotential[];
@@ -142,6 +179,50 @@ export interface SubsidyScheme {
   organization: string;
   url: string;
   active: boolean;
+}
+
+// ============================================================
+// Klimaskovfonden — voluntary afforestation projects (WFS)
+// ============================================================
+
+/** A single Klimaskovfonden project fetched from WFS. */
+export interface KlimaskovfondenProject {
+  /** Case number (e.g. "2024-99") */
+  sagsnummer: string;
+  /** Batch/year (e.g. "2024-5") */
+  aargang: string;
+  /** Extracted year (e.g. 2024) */
+  year: number | null;
+  /** "Skovrejsning" (afforestation) or "Lavbund" (lowland) */
+  projekttyp: string;
+  /** Computed area in hectares from polygon geometry */
+  areaHa: number;
+  /** Centroid [lon, lat] */
+  centroid: [number, number];
+  /** Municipality name from DAWA reverse geocoding (e.g. "Vejle") */
+  kommune: string | null;
+}
+
+/** Naturstyrelsen state afforestation project matched from MiljøGIS WFS. */
+export interface NaturstyrelsenSkovProject {
+  /** Display name from Naturstyrelsen website */
+  name: string;
+  /** Name as it appears in the WFS layer (null if not matched) */
+  wfsSkovnavn: string | null;
+  /** NST district (e.g. "Himmerland", "Fyn") */
+  district: string | null;
+  /** NST district code (e.g. "HIM") */
+  districtCode: string | null;
+  /** Precise area from WFS polygon geometry in hectares (null if not matched) */
+  areaHa: number | null;
+  /** "ongoing" or "completed" */
+  status: 'ongoing' | 'completed';
+  /** URL to project page on naturstyrelsen.dk */
+  url: string;
+  /** Centroid [lon, lat] in WGS84 (null if not matched) */
+  centroid: [number, number] | null;
+  /** WFS feature ID (null if not matched) */
+  wfsId: string | null;
 }
 
 // ============================================================

@@ -124,11 +124,23 @@ All fetchers use Python stdlib only (no pip dependencies). The pipeline runs via
 
 **Disclaimer**: CC BY 4.0 — attribution required. Source: Danmarks Statistik, [table name].
 
-### 8. Klimaskovfonden
+### 8. Klimaskovfonden (Den Danske Klimaskovfond)
 
-**Feeds**: Voluntary afforestation context (2,871 ha tracked)
+**Feeds**: Voluntary afforestation and lowland project polygons (213 features, ~2,314 ha total — 210 skovrejsning / 3 lavbund)
 
-**Source**: klimaskovfonden.dk — manually curated reference figure
+**Pillar assignment**: The two project types feed different pillars:
+- **Skovrejsning** (210 projects, ~2,284 ha) → **Afforestation pillar** — counts towards the 250,000 ha new forest target
+- **Lavbund** (3 projects, ~30 ha) → **Extraction pillar** — counts towards the 140,000 ha lowland extraction target
+
+**Source**: WFS endpoint at `test.admin.gc2.io/ows/klimaskovfonden/public/` — layer `klimaskovfonden:public.klimaskovfondens_projekter`
+
+**ETL**: `etl/fetch_klimaskovfonden.py` — fetches GML, computes area from polygon geometry (Shoelace formula on WGS84 coords), outputs `data/klimaskovfonden/summary.json` and `data/klimaskovfonden/projects.json`
+
+**Fields**: `sagsnummer` (case number), `aargang` (batch/year e.g. "2024-5"), `projekttyp` ("Skovrejsning" or "Lavbund"), polygon geometry (MultiPolygon, EPSG:4326)
+
+**Registry**: The full Klimaregister (with CO₂ estimates, status, validators) is at [klimaskovfonden.dk/vores-standard/register](https://klimaskovfonden.dk/vores-standard/register) — Power BI dashboard, not API-accessible. The WFS only provides geometry, case number, year, and type.
+
+**Note**: Historical snapshots exist as separate layers (`_marts_2025`, `_april_2025`). The main layer is the current/live dataset.
 
 ---
 

@@ -37,7 +37,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 DATA_DIR = REPO_ROOT / "data" / "section3"
 
-USER_AGENT = "TrepartTracker/0.1 (https://github.com/trepart-tracker; open-source environmental monitor)"
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT_SECONDS = 180  # Large layer, needs more time
 
 # How many features to fetch per page when aggregating

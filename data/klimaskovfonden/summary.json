@@ -1,0 +1,64 @@
+{
+  "fetched_at": "2026-03-14T11:57:14.248247+00:00",
+  "source": {
+    "name": "Klimaskovfonden (Den Danske Klimaskovfond)",
+    "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Project polygon geometries via WFS.",
+    "wfs_base": "https://test.admin.gc2.io/ows/klimaskovfonden/public/",
+    "layer": "klimaskovfonden:public.klimaskovfondens_projekter",
+    "registry_url": "https://klimaskovfonden.dk/vores-standard/register",
+    "coordinate_system": "EPSG:4326"
+  },
+  "totals": {
+    "feature_count": 213,
+    "total_area_ha": 2314.0,
+    "afforestation_ha": 2283.5,
+    "afforestation_count": 210,
+    "lowland_ha": 30.4,
+    "lowland_count": 3
+  },
+  "by_type": {
+    "Skovrejsning": {
+      "count": 210,
+      "areaHa": 2283.51
+    },
+    "Lavbund": {
+      "count": 3,
+      "areaHa": 30.45
+    }
+  },
+  "by_year": {
+    "2022-1": {
+      "count": 19,
+      "areaHa": 190.49
+    },
+    "2022-2": {
+      "count": 22,
+      "areaHa": 179.32
+    },
+    "2023-3": {
+      "count": 23,
+      "areaHa": 222.65
+    },
+    "2023-4": {
+      "count": 20,
+      "areaHa": 187.71
+    },
+    "2024-5": {
+      "count": 38,
+      "areaHa": 487.05
+    },
+    "2024-6": {
+      "count": 33,
+      "areaHa": 306.98
+    },
+    "2025-7": {
+      "count": 6,
+      "areaHa": 103.86
+    },
+    "2025-8": {
+      "count": 52,
+      "areaHa": 635.9
+    }
+  },
+  "note": "Area computed from WGS84 polygon geometry using Shoelace formula. May differ slightly from official registry figures. Klimaskovfonden's Power BI registry reports 249 projects / 2,871 ha — the WFS layer may lag behind the registry."
+}

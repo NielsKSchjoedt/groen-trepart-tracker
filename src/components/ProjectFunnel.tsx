@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { formatDanishNumber } from '@/lib/format';
-import type { DashboardData, ProjectCounts } from '@/lib/types';
+import type { DashboardData, ProjectCounts, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
 import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
-import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
+import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer, TreePine, Landmark, Droplets } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 import { InfoTooltip } from './InfoTooltip';
 
@@ -13,7 +14,7 @@ interface ProjectFunnelProps {
 
 const stages = [
   { key: 'sketches' as const, label: 'Skitser', sublabel: 'Indledende tegninger', icon: Pencil, color: 'hsl(150 20% 78%)' },
-  { key: 'assessed' as const, label: 'Vurderet', sublabel: 'Fagligt gennemgået', icon: ClipboardCheck, color: 'hsl(152 30% 60%)' },
+  { key: 'assessed' as const, label: 'Forundersøgelse', sublabel: 'Forundersøgelsestilsagn', icon: ClipboardCheck, color: 'hsl(152 30% 60%)' },
   { key: 'approved' as const, label: 'Godkendt', sublabel: 'Klar til anlæg', icon: ShieldCheck, color: 'hsl(152 44% 45%)' },
   { key: 'established' as const, label: 'Anlagt', sublabel: 'Færdige projekter', icon: Hammer, color: 'hsl(95 55% 48%)' },
 ];
@@ -80,8 +81,8 @@ const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (tot
   },
   afforestation: {
     title: 'Skovrejsnings-projekter',
-    subtitle: (total) => `${formatDanishNumber(total)} projekter med skovrejsningsareal`,
-    tooltip: 'Projekter der bidrager til skovrejsning (skovrejsningsareal > 0 ha). Inkluderer MARS-registrerede projekter; Klimaskovfonden-bidrag tælles separat.',
+    subtitle: (total) => `${formatDanishNumber(total)} MARS-projekter med skovrejsningsareal`,
+    tooltip: 'MARS-projekter der bidrager til skovrejsning (skovrejsningsareal > 0 ha). Klimaskovfondens frivillige og Naturstyrelsens statslige projekter vises separat nedenfor.',
   },
   nature: {
     title: 'Naturprojekter',
@@ -92,11 +93,29 @@ const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (tot
 
 export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const { activePillar } = usePillar();
+  const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
+  const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
+
+  useEffect(() => {
+    loadKlimaskovfondenProjects().then(setKsfProjects);
+    loadNaturstyrelsenSkovProjects().then(setNstProjects);
+  }, []);
 
   const pillarCounts = useMemo(
     () => computePillarCounts(data, activePillar),
     [data, activePillar],
   );
+
+  const ksfAfforestationCount = ksfProjects.filter((p) => p.projekttyp === 'Skovrejsning').length;
+  const ksfTotalHa = Math.round(ksfProjects.filter((p) => p.projekttyp === 'Skovrejsning').reduce((s, p) => s + p.areaHa, 0));
+
+  const ksfLowlandCount = ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length;
+  const ksfLowlandHa = Math.round(ksfProjects.filter((p) => p.projekttyp === 'Lavbund').reduce((s, p) => s + p.areaHa, 0));
+
+  const nstMatchedProjects = nstProjects.filter((p) => p.centroid);
+  const nstOngoing = nstMatchedProjects.filter((p) => p.status === 'ongoing');
+  const nstCompleted = nstMatchedProjects.filter((p) => p.status === 'completed');
+  const nstTotalHa = Math.round(nstMatchedProjects.reduce((s, p) => s + (p.areaHa ?? 0), 0));
 
   // For nature, show the full national pipeline (all projects contribute indirectly)
   // For nitrogen/extraction/afforestation, show pillar-specific counts
@@ -138,7 +157,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
             <>
               <p>{desc.tooltip}</p>
               <p><strong>Skitser:</strong> Indledende projektforslag.<br/>
-              <strong>Vurderet:</strong> Fagligt gennemgået af Miljøstyrelsen.<br/>
+              <strong>Forundersøgelse:</strong> Forundersøgelsestilsagn givet — fagligt gennemgået.<br/>
               <strong>Godkendt:</strong> Tilsagn givet, klar til anlæg.<br/>
               <strong>Anlagt:</strong> Fysisk gennemført — kun disse har realiseret miljøeffekt.</p>
             </>
@@ -217,6 +236,132 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
           </span>
         </div>
       </div>
+
+      {activePillar === 'extraction' && ksfLowlandCount > 0 && (
+        <div className="mt-6 p-4 rounded-xl border-2 border-orange-200 bg-orange-50/50 dark:bg-orange-950/20 dark:border-orange-800/40">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: '#f9731620' }}
+            >
+              <Droplets className="w-5 h-5" style={{ color: '#c2410c' }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline justify-between mb-1">
+                <div>
+                  <span className="text-sm font-semibold text-foreground">Klimaskovfonden</span>
+                  <span className="text-xs text-muted-foreground ml-2 hidden sm:inline">Lavbundsprojekter · {formatDanishNumber(ksfLowlandHa)} ha</span>
+                </div>
+                <span
+                  className="text-lg font-bold tabular-nums"
+                  style={{ color: '#c2410c', fontFamily: "'Fraunces', serif" }}
+                >
+                  {formatDanishNumber(ksfLowlandCount)}
+                </span>
+              </div>
+              <div className="h-3.5 w-full rounded-full bg-orange-100 dark:bg-orange-900/30 overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-700 ease-out"
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#f97316',
+                  }}
+                />
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-1.5">
+                Alle projekter er anlagte (frivillige lavbundsprojekter). Data fra Klimaskovfondens WFS.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activePillar === 'afforestation' && ksfAfforestationCount > 0 && (
+        <div className="mt-6 p-4 rounded-xl border-2 border-green-200 bg-green-50/50 dark:bg-green-950/20 dark:border-green-800/40">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: '#22c55e20' }}
+            >
+              <TreePine className="w-5 h-5" style={{ color: '#15803d' }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline justify-between mb-1">
+                <div>
+                  <span className="text-sm font-semibold text-foreground">Klimaskovfonden</span>
+                  <span className="text-xs text-muted-foreground ml-2 hidden sm:inline">Frivillig skovrejsning · {formatDanishNumber(ksfTotalHa)} ha</span>
+                </div>
+                <span
+                  className="text-lg font-bold tabular-nums"
+                  style={{ color: '#15803d', fontFamily: "'Fraunces', serif" }}
+                >
+                  {formatDanishNumber(ksfAfforestationCount)}
+                </span>
+              </div>
+              <div className="h-3.5 w-full rounded-full bg-green-100 dark:bg-green-900/30 overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-700 ease-out"
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#22c55e',
+                  }}
+                />
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-1.5">
+                Alle projekter er anlagte (frivillige skovrejsningsprojekter). Data fra Klimaskovfondens WFS.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activePillar === 'afforestation' && nstMatchedProjects.length > 0 && (
+        <div className="mt-4 p-4 rounded-xl border-2 border-blue-200 bg-blue-50/50 dark:bg-blue-950/20 dark:border-blue-800/40">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: '#3b82f620' }}
+            >
+              <Landmark className="w-5 h-5" style={{ color: '#1e40af' }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline justify-between mb-1">
+                <div>
+                  <span className="text-sm font-semibold text-foreground">Naturstyrelsen</span>
+                  <span className="text-xs text-muted-foreground ml-2 hidden sm:inline">Statslig skovrejsning · {formatDanishNumber(nstTotalHa)} ha</span>
+                </div>
+                <span
+                  className="text-lg font-bold tabular-nums"
+                  style={{ color: '#1e40af', fontFamily: "'Fraunces', serif" }}
+                >
+                  {formatDanishNumber(nstMatchedProjects.length)}
+                </span>
+              </div>
+              <div className="h-3.5 w-full rounded-full bg-blue-100 dark:bg-blue-900/30 overflow-hidden">
+                <div className="flex h-full">
+                  <div
+                    className="h-full rounded-l-full transition-all duration-700 ease-out"
+                    style={{
+                      width: `${nstMatchedProjects.length > 0 ? (nstOngoing.length / nstMatchedProjects.length) * 100 : 0}%`,
+                      backgroundColor: '#3b82f6',
+                    }}
+                  />
+                  <div
+                    className="h-full rounded-r-full transition-all duration-700 ease-out"
+                    style={{
+                      width: `${nstMatchedProjects.length > 0 ? (nstCompleted.length / nstMatchedProjects.length) * 100 : 0}%`,
+                      backgroundColor: '#818cf8',
+                    }}
+                  />
+                </div>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-1.5">
+                {formatDanishNumber(nstOngoing.length)} igangværende · {formatDanishNumber(nstCompleted.length)} afsluttede. Data fra MiljøGIS WFS (skovdrift).
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

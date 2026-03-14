@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { formatDanishNumber } from '@/lib/format';
 
 interface ArcGaugeProps {
@@ -10,18 +10,27 @@ interface ArcGaugeProps {
   size?: number;
   /** Override the sub-text below the percentage. If not set, shows "X af Y unit". */
   subText?: string;
+  /**
+   * Projected end-of-period percentage (0–100). When provided, renders a muted
+   * arc behind the actual progress arc showing where current pace leads.
+   */
+  projectedPct?: number;
 }
 
 /**
  * Interpolate between color stops along a 0–1 parameter.
  * Stops are [t, h, s, l] where h/s/l are HSL values.
+ *
+ * @param t - Position along the arc (0 = start, 1 = end)
+ * @param stops - Array of [position, hue, saturation, lightness] tuples
+ * @returns HSL color string
+ * @example interpolateColor(0.5, COLOR_STOPS) // => "hsl(45 90% 48%)"
  */
 function interpolateColor(
   t: number,
   stops: [number, number, number, number][],
 ): string {
   const clamped = Math.max(0, Math.min(1, t));
-  // Find the two surrounding stops
   let lo = stops[0];
   let hi = stops[stops.length - 1];
   for (let i = 0; i < stops.length - 1; i++) {
@@ -37,6 +46,38 @@ function interpolateColor(
   const s = lo[2] + (hi[2] - lo[2]) * f;
   const l = lo[3] + (hi[3] - lo[3]) * f;
   return `hsl(${Math.round(h)} ${Math.round(s)}% ${Math.round(l)}%)`;
+}
+
+/**
+ * Same as interpolateColor but returns a muted/desaturated version
+ * for the projection arc. Reduces saturation and pushes lightness
+ * toward a pale tone.
+ *
+ * @param t - Position along the arc (0 = start, 1 = end)
+ * @param stops - Color stop array
+ * @returns Muted HSL color string
+ * @example interpolateColorMuted(0.5, COLOR_STOPS) // => "hsl(45 35% 74%)"
+ */
+function interpolateColorMuted(
+  t: number,
+  stops: [number, number, number, number][],
+): string {
+  const clamped = Math.max(0, Math.min(1, t));
+  let lo = stops[0];
+  let hi = stops[stops.length - 1];
+  for (let i = 0; i < stops.length - 1; i++) {
+    if (clamped >= stops[i][0] && clamped <= stops[i + 1][0]) {
+      lo = stops[i];
+      hi = stops[i + 1];
+      break;
+    }
+  }
+  const range = hi[0] - lo[0];
+  const f = range > 0 ? (clamped - lo[0]) / range : 0;
+  const h = lo[1] + (hi[1] - lo[1]) * f;
+  const s = (lo[2] + (hi[2] - lo[2]) * f) * 0.4;
+  const l = (lo[3] + (hi[3] - lo[3]) * f) * 0.65 + 50;
+  return `hsl(${Math.round(h)} ${Math.round(s)}% ${Math.round(Math.min(l, 88))}%)`;
 }
 
 // Color stops: red → orange → yellow → yellow-green → green
@@ -81,85 +122,179 @@ function describeArc(center: number, radius: number, start: number, end: number)
   return `M ${s.x} ${s.y} A ${radius} ${radius} 0 ${largeArc} 1 ${e.x} ${e.y}`;
 }
 
-export function ArcGauge({ value, max, pct, unit, label, size = 300, subText }: ArcGaugeProps) {
+type ArcLayer = 'actual' | 'projected';
+
+const SEGMENT_COUNT = 60;
+
+const START_ANGLE = 135;
+const TOTAL_ANGLE = 270;
+
+/**
+ * Build colored arc segments for a given percentage of the gauge.
+ *
+ * @param pct - Percentage to fill (0–100)
+ * @param center - SVG center coordinate
+ * @param radius - Circle radius
+ * @param colorFn - Function that maps a 0–1 position to an HSL color string
+ * @returns Array of { d, color } objects for SVG path rendering
+ * @example buildSegments(48, 120, 109, interpolateColor)
+ */
+function buildSegments(
+  pct: number,
+  center: number,
+  radius: number,
+  colorFn: (t: number, stops: [number, number, number, number][]) => string,
+): { d: string; color: string }[] {
+  const clampedPct = Math.min(Math.max(pct, 0), 100);
+  if (clampedPct <= 0) return [];
+  const progressFraction = clampedPct / 100;
+  const count = Math.max(1, Math.round(SEGMENT_COUNT * progressFraction));
+  const segs: { d: string; color: string }[] = [];
+  for (let i = 0; i < count; i++) {
+    const t0 = i / count;
+    const t1 = (i + 1) / count;
+    const a0 = START_ANGLE + TOTAL_ANGLE * progressFraction * t0;
+    const a1 = START_ANGLE + TOTAL_ANGLE * progressFraction * t1;
+    const tColor = (progressFraction * (t0 + t1)) / 2;
+    segs.push({
+      d: describeArc(center, radius, a0, a1),
+      color: colorFn(tColor, COLOR_STOPS),
+    });
+  }
+  return segs;
+}
+
+export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, projectedPct }: ArcGaugeProps) {
   const strokeWidth = 22;
   const radius = (size - strokeWidth) / 2;
   const center = size / 2;
 
-  const startAngle = 135;
-  const totalAngle = 270;
-  const endAngle = startAngle + totalAngle;
+  const endAngle = START_ANGLE + TOTAL_ANGLE;
 
-  const progressAngle = startAngle + (totalAngle * Math.min(pct, 100)) / 100;
+  const [hoveredLayer, setHoveredLayer] = useState<ArcLayer | null>(null);
 
-  // Build small arc segments that each get a color based on their position
-  // along the arc (0 = start/red, 1 = end/green). This creates a true
-  // path-following gradient instead of a screen-space linear gradient.
-  const SEGMENT_COUNT = 60;
-  const segments = useMemo(() => {
-    const clampedPct = Math.min(pct, 100);
-    if (clampedPct <= 0) return [];
-    const progressFraction = clampedPct / 100;
-    const count = Math.max(1, Math.round(SEGMENT_COUNT * progressFraction));
-    const segs: { d: string; color: string }[] = [];
-    for (let i = 0; i < count; i++) {
-      const t0 = i / count;
-      const t1 = (i + 1) / count;
-      const a0 = startAngle + totalAngle * progressFraction * t0;
-      const a1 = startAngle + totalAngle * progressFraction * t1;
-      // Color is based on position within the FULL arc (not just filled portion)
-      const tColor = (progressFraction * (t0 + t1)) / 2;
-      segs.push({
-        d: describeArc(center, radius, a0, a1),
-        color: interpolateColor(tColor, COLOR_STOPS),
-      });
-    }
-    return segs;
-  }, [pct, center, radius]);
+  const handleLayerEnter = useCallback((layer: ArcLayer) => setHoveredLayer(layer), []);
+  const handleLayerLeave = useCallback(() => setHoveredLayer(null), []);
+
+  const actualSegments = useMemo(
+    () => buildSegments(pct, center, radius, interpolateColor),
+    [pct, center, radius],
+  );
+
+  const hasProjection = projectedPct !== undefined && projectedPct > pct;
+
+  const projectedSegmentsMuted = useMemo(
+    () => hasProjection
+      ? buildSegments(projectedPct!, center, radius, interpolateColorMuted)
+      : [],
+    [hasProjection, projectedPct, center, radius],
+  );
+
+  const projectedSegmentsFull = useMemo(
+    () => hasProjection
+      ? buildSegments(projectedPct!, center, radius, interpolateColor)
+      : [],
+    [hasProjection, projectedPct, center, radius],
+  );
+
+  const projectionHovered = hoveredLayer === 'projected';
+  const actualHovered = hoveredLayer === 'actual';
+  const projectedSegs = projectionHovered ? projectedSegmentsFull : projectedSegmentsMuted;
 
   return (
     <div className="flex flex-col items-center">
-      <svg width={size} height={size * 0.92} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-sm overflow-visible">
-        {/* Background arc */}
+      <svg
+        width={size}
+        height={size * 0.92}
+        viewBox={`0 0 ${size} ${size}`}
+        className="drop-shadow-sm overflow-visible"
+      >
+        {/* Background track */}
         <path
-          d={describeArc(center, radius, startAngle, endAngle)}
+          d={describeArc(center, radius, START_ANGLE, endAngle)}
           fill="none"
           stroke="hsl(var(--muted))"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
-        {/* Progress arc — rendered as many small colored segments */}
-        {segments.map((seg, i) => (
-          <path
-            key={i}
-            d={seg.d}
-            fill="none"
-            stroke={seg.color}
-            strokeWidth={strokeWidth}
-            strokeLinecap={i === 0 || i === segments.length - 1 ? 'round' : 'butt'}
-          />
-        ))}
-        {/* Center percentage */}
+
+        {/* Projected arc (behind actual) — lights up to full color on hover */}
+        {hasProjection && (
+          <g
+            className="cursor-pointer"
+            style={{
+              opacity: actualHovered ? 0.25 : 1,
+              transition: 'opacity 200ms ease',
+            }}
+            onMouseEnter={() => handleLayerEnter('projected')}
+            onMouseLeave={handleLayerLeave}
+            onClick={() => setHoveredLayer((prev) => prev === 'projected' ? null : 'projected')}
+          >
+            {projectedSegs.map((seg, i) => (
+              <path
+                key={`proj-${i}`}
+                d={seg.d}
+                fill="none"
+                stroke={seg.color}
+                strokeWidth={strokeWidth}
+                strokeLinecap={i === 0 || i === projectedSegs.length - 1 ? 'round' : 'butt'}
+              />
+            ))}
+          </g>
+        )}
+
+        {/* Actual progress arc (on top) — full color always, dims when projection is hovered */}
+        <g
+          className={hasProjection ? 'cursor-pointer' : undefined}
+          style={{
+            opacity: projectionHovered ? 0.35 : 1,
+            transition: 'opacity 200ms ease',
+          }}
+          onMouseEnter={hasProjection ? () => handleLayerEnter('actual') : undefined}
+          onMouseLeave={hasProjection ? handleLayerLeave : undefined}
+          onClick={hasProjection ? () => setHoveredLayer((prev) => prev === 'actual' ? null : 'actual') : undefined}
+        >
+          {actualSegments.map((seg, i) => (
+            <path
+              key={`act-${i}`}
+              d={seg.d}
+              fill="none"
+              stroke={seg.color}
+              strokeWidth={strokeWidth}
+              strokeLinecap={i === 0 || i === actualSegments.length - 1 ? 'round' : 'butt'}
+            />
+          ))}
+        </g>
+
+        {/* Center text — switches between actual / projected on hover */}
         <text
           x={center}
-          y={center - 18}
+          y={center - 8}
           textAnchor="middle"
+          dominantBaseline="central"
           className="fill-foreground"
           style={{ fontSize: '2.75rem', fontWeight: 700, fontFamily: "'Fraunces', serif" }}
         >
-          {Math.round(pct)}%
+          {projectionHovered
+            ? `~${projectedPct! > 0 && projectedPct! < 1 ? '< 1' : Math.round(projectedPct!)}%`
+            : `${pct > 0 && pct < 1 ? '< 1' : Math.round(pct)}%`}
         </text>
-        {/* Sub-text */}
         <text
           x={center}
-          y={center + 16}
+          y={center + 26}
           textAnchor="middle"
+          dominantBaseline="central"
           className="fill-muted-foreground"
           style={{ fontSize: '0.875rem', fontFamily: "'Manrope', sans-serif" }}
         >
-          {subText ?? `${formatDanishNumber(value, 0)} af ${formatDanishNumber(max)} ${unit}`}
+          {projectionHovered
+            ? 'forventet slutresultat'
+            : actualHovered
+              ? 'faktisk fremskridt'
+              : (subText ?? `${formatDanishNumber(value, 0)} af ${formatDanishNumber(max)} ${unit}`)}
         </text>
       </svg>
+
       <p className="text-sm text-muted-foreground text-center max-w-xs mt-2">{label}</p>
     </div>
   );

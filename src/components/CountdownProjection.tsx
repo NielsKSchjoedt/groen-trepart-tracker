@@ -1,7 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { formatDanishNumber } from '@/lib/format';
-import { TrendingUp, TrendingDown, Clock, Target } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, ChevronDown, FlaskConical } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
+import { assessGoalStatus, GOAL_STATUS_META } from '@/lib/projections';
+import type { PipelineScenarioKey } from '@/lib/types';
+
+/**
+ * Danish labels for each pipeline scenario, used in the scenario dropdown.
+ * Ordered from most conservative to most optimistic.
+ */
+const SCENARIO_OPTIONS: {
+  key: PipelineScenarioKey;
+  label: string;
+  shortLabel: string;
+  description: string;
+  disabled?: boolean;
+}[] = [
+  {
+    key: 'established',
+    label: 'Kun anlagte projekter',
+    shortLabel: 'Anlagte',
+    description: 'Kun fysisk gennemførte projekter tælles med',
+  },
+  {
+    key: 'approved',
+    label: '+ godkendte projekter',
+    shortLabel: '+ Godkendte',
+    description: 'Anlagte + godkendt til anlæg (etableringstilsagn)',
+  },
+  {
+    key: 'preliminary',
+    label: '+ under forundersøgelse',
+    shortLabel: '+ Forundersøgelse',
+    description: 'Anlagte + godkendte + forundersøgelsestilsagn',
+  },
+  {
+    key: 'all',
+    label: '+ skitser',
+    shortLabel: '+ Skitser',
+    description: 'Skitser har endnu ikke estimerede effekter — afventer forundersøgelse',
+    disabled: true,
+  },
+];
+
+interface ScenarioValues {
+  achieved: number;
+  projected?: number;
+}
 
 interface CountdownProjectionProps {
   deadline: string;
@@ -13,10 +58,23 @@ interface CountdownProjectionProps {
   accentColor?: string;
   /** Approximate start date of tracking / agreement */
   trackingStart?: string;
-}
-
-function pad(n: number) {
-  return String(n).padStart(2, '0');
+  /**
+   * Override the linear projection with an external model value (in the same
+   * unit as `achieved` and `target`). When provided, the component skips its
+   * own linear extrapolation and uses this value instead.
+   */
+  projectedOverride?: number;
+  /**
+   * Pipeline scenario values keyed by scenario. When provided, a dropdown
+   * appears allowing the user to switch between conservative (established-only)
+   * and optimistic (approved, preliminary) views. The `achieved` prop is used
+   * as the default "established" scenario.
+   */
+  scenarios?: Partial<Record<PipelineScenarioKey, ScenarioValues>>;
+  /** Active pillar label shown as a colored badge (e.g. "Kvælstof") */
+  pillarLabel?: string;
+  /** Pillar brand color used for the badge background */
+  pillarColor?: string;
 }
 
 export function CountdownProjection({
@@ -26,116 +84,183 @@ export function CountdownProjection({
   unit = 'ton',
   accentColor,
   trackingStart = '2024-01-01',
+  projectedOverride,
+  scenarios,
+  pillarLabel,
+  pillarColor,
 }: CountdownProjectionProps) {
   const [now, setNow] = useState(() => new Date());
+  const [selectedScenario, setSelectedScenario] = useState<PipelineScenarioKey>('established');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
+    const id = setInterval(() => setNow(new Date()), 60_000);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    function handlePointerDown(e: PointerEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('pointerdown', handlePointerDown, true);
+    return () => document.removeEventListener('pointerdown', handlePointerDown, true);
+  }, [dropdownOpen]);
+
+  const hasScenarios = scenarios && Object.keys(scenarios).length > 1;
+  const isOptimistic = selectedScenario !== 'established';
+  const scenarioValues = hasScenarios && isOptimistic
+    ? scenarios[selectedScenario]
+    : undefined;
+  const scenarioAchieved = scenarioValues?.achieved ?? achieved;
+  const selectedOption = SCENARIO_OPTIONS.find((o) => o.key === selectedScenario)!;
 
   const deadlineDate = new Date(deadline);
   const startDate = new Date(trackingStart);
 
-  // Countdown
   const diffMs = Math.max(0, deadlineDate.getTime() - now.getTime());
-  const totalSeconds = Math.floor(diffMs / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
 
-  // Projection: linear extrapolation
+  // Linear extrapolation: project current achieved value forward to deadline
   const elapsedMs = now.getTime() - startDate.getTime();
   const totalWindowMs = deadlineDate.getTime() - startDate.getTime();
   const elapsedFraction = Math.max(0.001, elapsedMs / totalWindowMs);
-  const projectedTotal = achieved / elapsedFraction;
-  const projectedPct = target > 0 ? (projectedTotal / target) * 100 : 0;
-  const onTrack = projectedTotal >= target;
-  const deficit = target - projectedTotal;
 
-  // How much per day we need vs how much per day we're doing
+  // Active values: use scenario achieved when an optimistic scenario is selected,
+  // otherwise fall back to the base established achieved.
+  const activeAchieved = isOptimistic ? scenarioAchieved : achieved;
+  const activeProjectedTotal = projectedOverride ?? (activeAchieved / elapsedFraction);
+  const activeProjectedPct = target > 0 ? (activeProjectedTotal / target) * 100 : 0;
+  const activeActualPct = target > 0 ? (activeAchieved / target) * 100 : 0;
+
+  const goalStatus = assessGoalStatus(activeProjectedPct, activeActualPct);
+  const goalMeta = GOAL_STATUS_META[goalStatus];
+  const isPositive = goalStatus === 'reached' || goalStatus === 'on-track';
+
+  // Rate calculations
   const daysElapsed = Math.max(1, elapsedMs / (1000 * 60 * 60 * 24));
-  const currentRate = achieved / daysElapsed; // ton/day
+  const activeRate = projectedOverride !== undefined ? null : activeAchieved / daysElapsed;
   const daysRemaining = Math.max(1, diffMs / (1000 * 60 * 60 * 24));
-  const remaining = target - achieved;
-  const requiredRate = remaining / daysRemaining; // ton/day needed
-  const rateRatio = currentRate > 0 ? requiredRate / currentRate : Infinity;
+  const remaining = target - activeAchieved;
+  const requiredRate = remaining / daysRemaining;
+  const rateRatio = activeRate !== null && activeRate > 0 ? requiredRate / activeRate : null;
 
-  const timeUnits = [
-    { value: days, label: 'dage' },
-    { value: hours, label: 'timer' },
-    { value: minutes, label: 'min' },
-    { value: seconds, label: 'sek' },
-  ];
+  const TrendIcon = isPositive || goalStatus === 'very-close' ? TrendingUp : TrendingDown;
 
   return (
     <div className="w-full max-w-lg mx-auto">
-      {/* Countdown clock */}
-      <div className="flex items-center justify-center gap-1.5 mb-2">
-        <Clock className="w-3.5 h-3.5 text-primary" />
-        <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-          Tid til deadline — {deadlineDate.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </span>
-        <InfoTooltip
-          title="Nedtælling og prognose"
-          content={
-            <>
-              <p>Nedtællingen viser tid til det valgte delmåls deadline.</p>
-              <p><strong>Prognosen</strong> bruger lineær ekstrapolation: nuværende fremskridt divideret med den forbrugte tidsandel giver et estimat for, hvor meget der nås inden deadline.</p>
-              <p>«Ikke på sporet» betyder at det nuværende tempo skal øges (vist som en x-faktor) for at nå målet.</p>
-            </>
-          }
-          size={12}
-          side="bottom"
-        />
-      </div>
-
-      <div className="flex items-center justify-center gap-2 mb-6">
-        {timeUnits.map((unit, i) => (
-          <div key={unit.label} className="flex items-center gap-2">
-            <div className="flex flex-col items-center">
-              <span
-                className="text-2xl md:text-3xl font-bold tabular-nums text-foreground leading-none"
-                style={{ fontFamily: "'Fraunces', serif" }}
-              >
-                {unit.label === 'dage' ? formatDanishNumber(unit.value) : pad(unit.value)}
-              </span>
-              <span className="text-[10px] text-muted-foreground mt-1">{unit.label}</span>
+      {/* Projection card — styled using the graduated goal status */}
+      <div
+        className="rounded-xl border p-4 transition-colors"
+        style={{
+          backgroundColor: goalMeta.bgColor,
+          borderColor: goalMeta.color + '30',
+        }}
+      >
+        {/* Scenario builder — branded header with pipeline selector */}
+        {hasScenarios && (
+          <div className="mb-3 pb-3 border-b" style={{ borderColor: goalMeta.color + '20' }}>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-1.5">
+                <FlaskConical className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Scenariebygger
+                </span>
+                <InfoTooltip
+                  title="Byg dit scenarie — hvad nu hvis?"
+                  content={
+                    <>
+                      <p>Projekter gennemgår en lang pipeline: <strong>skitse → forundersøgelse → godkendelse → anlæg</strong>. Kun anlagte (fysisk gennemførte) projekter tæller i standardvisningen.</p>
+                      <p>Men der ligger allerede mange projekter klar i pipelinen. Brug scenariebyggeren til at simulere: <em>hvad nu hvis</em> projekter i tidligere faser også blev realiseret?</p>
+                      <p>Prognosen opdateres automatisk — du kan se både det umiddelbare løft og den fremskrevne effekt ved deadline.</p>
+                      <p><strong>Vigtigt:</strong> Der forventes en <em>naturlig acceleration</em> efterhånden som de mange godkendte og forundersøgte projekter modnes. Det er ikke et spørgsmål om <em>om</em> projekterne kommer, men <em>hvornår</em>.</p>
+                    </>
+                  }
+                  size={11}
+                  side="bottom"
+                />
+              </div>
+              {pillarLabel && pillarColor ? (
+                <span
+                  className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                  style={{ backgroundColor: pillarColor + '18', color: pillarColor }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillarColor }} />
+                  {pillarLabel}
+                </span>
+              ) : (
+                <span className="text-[9px] italic text-muted-foreground/60">Hvad nu hvis?</span>
+              )}
             </div>
-            {i < timeUnits.length - 1 && (
-              <span className="text-lg text-muted-foreground/40 font-light -mt-3">:</span>
-            )}
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] text-muted-foreground">Medregn:</span>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  className="flex items-center gap-1 text-[11px] font-medium bg-background/60 hover:bg-background/90 border border-border/50 rounded-full px-2.5 py-1 transition-colors"
+                  title={selectedOption.description}
+                >
+                  {selectedOption.shortLabel}
+                  <ChevronDown className={`w-3 h-3 text-muted-foreground transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute top-full left-0 mt-1 bg-card border rounded-lg shadow-lg z-20 min-w-[220px] py-1">
+                    {SCENARIO_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.key}
+                        disabled={opt.disabled}
+                        onClick={() => {
+                          if (opt.disabled) return;
+                          setSelectedScenario(opt.key);
+                          setDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-1.5 text-[11px] transition-colors ${
+                          opt.disabled
+                            ? 'opacity-40 cursor-not-allowed'
+                            : selectedScenario === opt.key
+                              ? 'font-semibold text-foreground'
+                              : 'text-muted-foreground hover:bg-muted/50'
+                        }`}
+                      >
+                        <span className="block">{opt.label}</span>
+                        <span className="block text-[10px] text-muted-foreground/70">{opt.description}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
+        )}
 
-      {/* Projection card */}
-      <div className={`rounded-xl border p-4 transition-colors ${
-        onTrack
-          ? 'bg-green-50/50 border-green-200/60'
-          : 'bg-orange-50/50 border-orange-200/60'
-      }`}>
         <div className="flex items-start gap-3">
-          <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-            onTrack ? 'bg-green-100' : 'bg-orange-100'
-          }`}>
-            {onTrack ? (
-              <TrendingUp className="w-4.5 h-4.5 text-green-600" />
-            ) : (
-              <TrendingDown className="w-4.5 h-4.5 text-orange-600" />
-            )}
+          <div
+            className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+            style={{ backgroundColor: goalMeta.color + '20' }}
+          >
+            <TrendIcon className="w-4.5 h-4.5" style={{ color: goalMeta.color }} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className={`text-sm font-semibold mb-0.5 ${onTrack ? 'text-green-800' : 'text-orange-800'}`}>
-              {onTrack ? 'På sporet mod målet' : 'Ikke på sporet endnu'}
+            <p className="text-sm font-semibold mb-0.5" style={{ color: goalMeta.color }}>
+              {isOptimistic ? `Hvad nu hvis: ${goalMeta.label.toLowerCase()}` : goalMeta.label}
             </p>
-            <p className={`text-xs leading-relaxed ${onTrack ? 'text-green-700/80' : 'text-orange-700/80'}`}>
-              {onTrack ? (
-                <>Med nuværende tempo rammer vi {formatDanishNumber(Math.round(projectedTotal))} {unit} — {Math.round(projectedPct)}% af målet.</>
+            <p className="text-xs leading-relaxed text-foreground/70">
+              {isOptimistic ? (
+                <>
+                  Hvis alle {selectedOption.shortLabel.toLowerCase().replace('+ ', '')} projekter var anlagt i dag, ville vi stå ved <strong>{formatDanishNumber(activeAchieved, 1)} {unit}</strong> nu — og prognosen ville vise <strong>{formatDanishNumber(activeProjectedTotal, 1)} {unit}</strong> ved deadline ({Math.round(activeProjectedPct)}% af målet).
+                  {rateRatio !== null && !isPositive && (
+                    <> Det kræver stadig <strong>{rateRatio.toFixed(1)}x</strong> hurtigere tempo.</>
+                  )}
+                </>
               ) : (
-                <>Med nuværende tempo når vi kun <strong>{formatDanishNumber(Math.round(projectedTotal))} {unit}</strong> ({Math.round(projectedPct)}% af målet). 
-                  Vi skal <strong>{rateRatio.toFixed(1)}x</strong> hurtigere for at nå {formatDanishNumber(target)} {unit}.</>
+                <>
+                  Prognosen viser <strong>{formatDanishNumber(activeProjectedTotal, 1)} {unit}</strong> ved deadline ({Math.round(activeProjectedPct)}% af målet).
+                  {rateRatio !== null && !isPositive && (
+                    <> Vi skal <strong>{rateRatio.toFixed(1)}x</strong> hurtigere for at nå {formatDanishNumber(target)} {unit}.</>
+                  )}
+                </>
               )}
             </p>
           </div>
@@ -153,22 +278,18 @@ export function CountdownProjection({
           <div className="relative h-3 w-full rounded-full bg-muted overflow-hidden">
             {/* Projected (ghost bar) */}
             <div
-              className="absolute inset-y-0 left-0 rounded-full transition-all"
+              className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
               style={{
-                width: `${Math.min(projectedPct, 100)}%`,
-                backgroundColor: onTrack ? 'hsl(152 30% 75%)' : 'hsl(30 50% 80%)',
+                width: `${Math.min(activeProjectedPct, 100)}%`,
+                backgroundColor: goalMeta.color + '40',
               }}
             />
-            {/* Actual progress */}
+            {/* Actual / scenario achieved */}
             <div
-              className="absolute inset-y-0 left-0 rounded-full transition-all"
+              className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
               style={{
-                width: `${Math.min((achieved / target) * 100, 100)}%`,
-                background: accentColor
-                  ? accentColor
-                  : onTrack
-                    ? 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))'
-                    : 'linear-gradient(90deg, hsl(30 60% 50%), hsl(38 70% 55%))',
+                width: `${Math.min(activeActualPct, 100)}%`,
+                backgroundColor: accentColor ?? goalMeta.color,
               }}
             />
             {/* Goal marker */}
@@ -177,19 +298,30 @@ export function CountdownProjection({
           <div className="flex items-center justify-between mt-1.5">
             <div className="flex items-center gap-3 text-[10px]">
               <div className="flex items-center gap-1">
-                <div className="w-2 h-2 rounded-full" style={{ background: onTrack ? 'hsl(152 44% 38%)' : 'hsl(30 60% 50%)' }} />
-                <span className="text-muted-foreground">Nu</span>
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: accentColor ?? goalMeta.color }} />
+                <span className="text-muted-foreground">
+                  {isOptimistic ? `Scenarie — ${selectedOption.shortLabel.toLowerCase()}` : 'Nu'}
+                </span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-2 h-2 rounded-full" style={{ background: onTrack ? 'hsl(152 30% 75%)' : 'hsl(30 50% 80%)' }} />
-                <span className="text-muted-foreground">Prognose 2030</span>
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: goalMeta.color + '40' }} />
+                <span className="text-muted-foreground">Prognose {deadlineDate.getFullYear()}</span>
               </div>
             </div>
-            <span className="text-[10px] font-medium text-muted-foreground tabular-nums">
-              {formatDanishNumber(Math.round(currentRate), 1)} {unit}/dag
-            </span>
+            {activeRate !== null && (
+              <span className="text-[10px] font-medium text-muted-foreground tabular-nums">
+                {formatDanishNumber(activeRate, 1)} {unit}/dag
+              </span>
+            )}
           </div>
         </div>
+
+        {/* Pipeline context note */}
+        {isOptimistic && (
+          <p className="mt-3 text-[10px] text-muted-foreground/80 leading-relaxed italic">
+            Bemærk: Projekter gennemgår en pipeline fra skitse → forundersøgelse → godkendelse → anlæg. Der forventes en naturlig acceleration efterhånden som flere projekter modnes.
+          </p>
+        )}
       </div>
     </div>
   );
