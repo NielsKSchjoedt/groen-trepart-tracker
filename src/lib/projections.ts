@@ -45,7 +45,7 @@ export const GOAL_STATUS_META: Record<GoalStatus, GoalStatusMeta> = {
   'on-track':   { label: 'Når målet',           icon: '✓', color: '#22c55e', bgColor: '#22c55e18' },
   'very-close': { label: 'Tæt på målet',        icon: '○', color: '#65a30d', bgColor: '#65a30d18' },
   'close':      { label: 'Nærmer sig målet',    icon: '○', color: '#eab308', bgColor: '#eab30818' },
-  'behind':     { label: 'Når ikke målet',       icon: '!', color: '#dc2626', bgColor: '#dc262618' },
+  'behind':     { label: 'Langt fra målet',        icon: '!', color: '#dc2626', bgColor: '#dc262618' },
   'unknown':    { label: 'Afventer data',        icon: '?', color: '#d4d4d4', bgColor: '#d4d4d418' },
 };
 
