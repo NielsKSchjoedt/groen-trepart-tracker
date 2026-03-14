@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Rounded square background -->
   <rect x="4" y="4" width="56" height="56" rx="14" fill="#166534"/>
-  <!-- Simple sprout: two leaves from a stem - clean at any size -->
-  <path d="M 32 50 L 32 28" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <path d="M 32 32 Q 22 28 20 18 Q 30 18 32 28" fill="white"/>
-  <path d="M 32 24 Q 42 20 44 12 Q 34 12 32 22" fill="white"/>
+  <g transform="translate(14, 14) scale(1.5)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+  </g>
 </svg>
