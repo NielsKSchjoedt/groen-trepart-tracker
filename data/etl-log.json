@@ -410,6 +410,85 @@
         "stations": 2748
       },
       "notes": "2748 stations, 2748 with coordinates"
+    },
+    {
+      "timestamp": "2026-03-14T06:12:04.325601+00:00",
+      "source": "mars",
+      "status": "ok",
+      "endpoints": [
+        "https://mars.sgav.dk/api/master-data",
+        "https://mars.sgav.dk/api/status/plans",
+        "https://mars.sgav.dk/api/status/projects",
+        "https://mars.sgav.dk/api/status/vos",
+        "https://mars.sgav.dk/api/status/metadata"
+      ],
+      "records": {
+        "master-data": 1,
+        "plans": 37,
+        "projects": 1170,
+        "vos": 23,
+        "metadata": 1
+      },
+      "notes": "All endpoints OK",
+      "duration_seconds": 8.4
+    },
+    {
+      "timestamp": "2026-03-14T06:13:14.627737+00:00",
+      "source": "dawa",
+      "status": "ok",
+      "endpoints": [
+        "https://api.dataforsyningen.dk/kommuner",
+        "https://api.dataforsyningen.dk/kommuner?format=geojson"
+      ],
+      "records": {
+        "municipalities": 99,
+        "geojson_features": 99
+      },
+      "notes": "99 municipalities, 99 features"
+    },
+    {
+      "timestamp": "2026-03-14T06:13:34.145998+00:00",
+      "source": "miljoegis",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (vandprojekter)"
+      ],
+      "records": {
+        "kla_projektforslag": 96,
+        "kla_projektomraader": 3,
+        "helhedsprojekter_tilsagn2020": 2,
+        "kla_e23_bioprio": 100,
+        "kvaelstofretention": 100,
+        "vaadomraadepotentiale": 100
+      },
+      "notes": "6 layers fetched"
+    },
+    {
+      "timestamp": "2026-03-14T06:13:52.438898+00:00",
+      "source": "dst",
+      "status": "ok",
+      "endpoints": [
+        "https://api.statbank.dk/v1/data"
+      ],
+      "records": {
+        "ARE207": 2100,
+        "SKOV1": 9962,
+        "FOND19": 63,
+        "TILSKUD2": 92
+      },
+      "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+    },
+    {
+      "timestamp": "2026-03-14T06:13:55.931744+00:00",
+      "source": "vanda",
+      "status": "ok",
+      "endpoints": [
+        "https://vandah.miljoeportal.dk/api/stations"
+      ],
+      "records": {
+        "stations": 2749
+      },
+      "notes": "2749 stations, 2749 with coordinates"
     }
   ]
 }

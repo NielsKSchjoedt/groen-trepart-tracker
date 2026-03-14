@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-03-13T06:13:43.861663+00:00",
-  "builtAt": "2026-03-13T06:14:59.310893+00:00",
+  "fetchedAt": "2026-03-14T06:12:04.324981+00:00",
+  "builtAt": "2026-03-14T06:13:56.072305+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-03-13T06:13:43.861663+00:00"
+      "fetchedAt": "2026-03-14T06:12:04.324981+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -79,19 +79,19 @@
     "progress": {
       "nitrogen": {
         "goalT": 12769.5,
-        "totalT": 3439.0,
-        "totalProgressPct": 26.9,
+        "totalT": 3446.0,
+        "totalProgressPct": 27.0,
         "byPhase": {
           "established": {
             "T": 26.4,
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 572.8,
+            "T": 572.9,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 3238.2,
+            "T": 3245.1,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -100,8 +100,8 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 82610.1,
-        "totalProgressPct": 59.0,
+        "totalHa": 82784.1,
+        "totalProgressPct": 59.1,
         "byPhase": {
           "established": {
             "ha": 1003.6,
@@ -112,7 +112,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 60837.0,
+            "ha": 61011.0,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -129,7 +129,7 @@
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 1848.5,
+              "ha": 1866.0,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -223,7 +223,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1166,
+      "total": 1170,
       "phases": {
         "sketches": {
           "count": 5503,
@@ -231,12 +231,12 @@
           "implemented": false
         },
         "assessed": {
-          "count": 720,
+          "count": 723,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
         "approved": {
-          "count": 466,
+          "count": 467,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -14485,19 +14485,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 175.2,
-        "approved": 281.9,
+        "approved": 288.8,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 33084.4,
       "countNaturePotentials": 18,
       "projects": {
         "sketches": 457,
-        "assessed": 101,
+        "assessed": 102,
         "approved": 49,
         "established": 17,
         "byStatus": {
           "preliminary": 49,
-          "approved": 101,
+          "approved": 102,
           "established": 17
         }
       },
@@ -15780,6 +15780,24 @@
           "areaHa": 3.86,
           "appliedAt": "2025-10-02T04:38:33.164504+00:00",
           "lastChanged": "2026-01-09T12:37:19.013618+00:00"
+        },
+        {
+          "id": "276e27e7-0468-4866-9503-9b1222c8c1ae",
+          "name": "Johan Timmermann, Nørrehede 3, Løgumkloster",
+          "geoId": "a52c1168-841c-4ff3-98da-b420f1441d08",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 6.9,
+          "areaHa": 6.9,
+          "appliedAt": "2025-10-02T13:57:24.276222+00:00",
+          "lastChanged": "2026-03-13T12:07:45.127828+00:00"
         },
         {
           "id": "9b2e9f38-14dc-4d78-8ad9-e2992691b415",
@@ -44891,19 +44909,19 @@
       "geoLocationId": "e2209dc0-2b65-4229-a872-5d6755f2a789",
       "nameNormalized": "Lillebælt, Bredningen",
       "nitrogenGoalT": 426.2,
-      "nitrogenAchievedT": 94.2,
-      "nitrogenProgressPct": 22.1,
+      "nitrogenAchievedT": 101.1,
+      "nitrogenProgressPct": 23.7,
       "nitrogenByPhase": {
         "established": 0.0,
         "approved": 41.2,
-        "preliminary": 53.0
+        "preliminary": 59.9
       },
       "extractionPotentialHa": 1907.0,
       "extractionAchievedHa": 0,
       "extractionByPhase": {
         "established": 0,
         "approved": 280.0,
-        "preliminary": 311.2
+        "preliminary": 485.2
       },
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
@@ -44916,16 +44934,34 @@
       "projects": {
         "sketches": 462,
         "assessed": 34,
-        "approved": 18,
+        "approved": 19,
         "established": 1,
         "byStatus": {
-          "preliminary": 18,
+          "preliminary": 19,
           "approved": 34,
           "established": 1
         }
       },
       "status": "Published",
       "projectDetails": [
+        {
+          "id": "bb83c12b-46a0-46db-9cde-33bcd48f8d18",
+          "name": "Sillerup Bæk - Forundersøgelse",
+          "geoId": "b3103a26-ea1b-41aa-af62-562f73c2af69",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 6.919,
+          "extractionHa": 174.03,
+          "afforestationHa": 0,
+          "areaHa": 173.67,
+          "appliedAt": "2025-10-24T08:12:11.051715+00:00",
+          "lastChanged": "2026-03-13T09:05:00.891165+00:00"
+        },
         {
           "id": "c4cb4ce5-f76a-42f1-9000-a5d1ce382e0e",
           "name": "Lavbundsprojekt Bibæk",
@@ -59962,7 +59998,7 @@
       "nitrogenProgressPct": 55.5,
       "nitrogenByPhase": {
         "established": 0.1,
-        "approved": 14.6,
+        "approved": 14.7,
         "preliminary": 135.7
       },
       "extractionPotentialHa": 2077.7,
@@ -59975,19 +60011,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 8.0,
-        "approved": 50.9,
+        "approved": 54.7,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 905.1,
       "countNaturePotentials": 5,
       "projects": {
         "sketches": 156,
-        "assessed": 33,
+        "assessed": 34,
         "approved": 15,
         "established": 3,
         "byStatus": {
           "preliminary": 15,
-          "approved": 33,
+          "approved": 34,
           "established": 3
         }
       },
@@ -60172,6 +60208,24 @@
           "areaHa": 52.84,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2025-08-28T08:12:03.526261+00:00"
+        },
+        {
+          "id": "849d3a1c-7ebd-4989-992a-d452a85b4cf0",
+          "name": "Snoghave skov",
+          "geoId": "b60c0240-a00a-4e08-abe5-82658f3a6c89",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.074,
+          "extractionHa": 0,
+          "afforestationHa": 3.8,
+          "areaHa": 3.88,
+          "appliedAt": "2025-09-18T13:09:05.982759+00:00",
+          "lastChanged": "2026-03-13T14:20:15.109248+00:00"
         },
         {
           "id": "36b749b5-baa4-4e02-a7b5-dcd017e1ef1e",
@@ -70318,19 +70372,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 4.1,
-        "approved": 26.6,
+        "approved": 33.4,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 10517.1,
       "countNaturePotentials": 12,
       "projects": {
         "sketches": 176,
-        "assessed": 15,
+        "assessed": 16,
         "approved": 7,
         "established": 2,
         "byStatus": {
           "preliminary": 7,
-          "approved": 15,
+          "approved": 16,
           "established": 2
         }
       },
@@ -70425,6 +70479,24 @@
           "areaHa": 824.8,
           "appliedAt": "2025-08-20T07:16:41.120819+00:00",
           "lastChanged": "2025-08-28T08:12:03.526261+00:00"
+        },
+        {
+          "id": "1c210adb-e7b0-46ec-bf9f-94d932038d15",
+          "name": "Skovrejsning Dalbækvej 5, 9750 Østervrå",
+          "geoId": "00293dd4-ad70-44b0-9dd7-2da8b24ca92a",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 6.8,
+          "areaHa": 6.8,
+          "appliedAt": "2025-12-09T12:00:00+00:00",
+          "lastChanged": "2026-03-13T10:17:10.166897+00:00"
         },
         {
           "id": "61fe517f-362d-426a-bedb-2218b3650ed1",
@@ -99353,15 +99425,15 @@
       "name": "Lillebælt/Jylland",
       "geoLocationId": "206bbd6e-26f8-4036-b6f3-c7e524854a5d",
       "nameNormalized": "Lillebælt/Jylland",
-      "nitrogenAchievedT": 223.1,
+      "nitrogenAchievedT": 230.1,
       "extractionAchievedHa": 0,
       "afforestationAchievedHa": 0,
       "naturePotentialAreaHa": 38453.4,
       "countNaturePotentials": 33,
       "projects": {
         "sketches": 866,
-        "assessed": 90,
-        "approved": 23,
+        "assessed": 91,
+        "approved": 24,
         "established": 10
       }
     },
@@ -99428,7 +99500,7 @@
       "countNaturePotentials": 14,
       "projects": {
         "sketches": 78,
-        "assessed": 19,
+        "assessed": 20,
         "approved": 10,
         "established": 1
       }
@@ -99547,7 +99619,7 @@
       "countNaturePotentials": 6,
       "projects": {
         "sketches": 90,
-        "assessed": 20,
+        "assessed": 21,
         "approved": 6,
         "established": 4
       }
