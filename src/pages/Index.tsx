@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { loadDashboardData } from '@/lib/data';
 import type { DashboardData } from '@/lib/types';
@@ -9,13 +9,17 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
 import { PillarCards } from '@/components/PillarCards';
 import { ProjectFunnel } from '@/components/ProjectFunnel';
-import { CO2Section } from '@/components/CO2Section';
-import { DenmarkMap } from '@/components/DenmarkMap';
-import { DataTable } from '@/components/DataTable';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
+import { StickyNav } from '@/components/StickyNav';
+
+// Heavy components lazy-loaded so they split into separate JS chunks.
+// Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
+const CO2Section  = lazy(() => import('@/components/CO2Section').then((m) => ({ default: m.CO2Section })));
+const DenmarkMap  = lazy(() => import('@/components/DenmarkMap').then((m) => ({ default: m.DenmarkMap })));
+const DataTable   = lazy(() => import('@/components/DataTable').then((m) => ({ default: m.DataTable })));
 
 /** Per-pillar meta descriptions for Google and social sharing. */
 const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
@@ -34,6 +38,7 @@ const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
 const Index = () => {
   const { pillarSlug } = useParams<{ pillarSlug: string }>();
   const navigate = useNavigate();
+  const heroSentinelRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<DashboardData | null>(null);
 
   // Derive the active pillar from the URL slug. Default to nitrogen for
@@ -88,19 +93,36 @@ const Index = () => {
         className="min-h-screen transition-colors duration-400"
         style={{ backgroundColor: pillarContextValue.config.backgroundTint }}
       >
+        <StickyNav sentinelRef={heroSentinelRef} />
         <div className="max-w-6xl mx-auto">
           <HeroSection data={data} />
+          {/* Sentinel: StickyNav watches this — slides in once hero scrolls out of view */}
+          <div ref={heroSentinelRef} />
           <ScrollPrompt />
-          <PillarCards data={data} />
+          <div id="oversigt">
+            <PillarCards data={data} />
+          </div>
           {activePillar !== 'co2' && <ProjectFunnel data={data} />}
           <ScenarioBuilderSection data={data} />
           {activePillar === 'co2' && (
             <section className="w-full px-4 py-6">
-              <CO2Section />
+              <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4" />}>
+                <CO2Section />
+              </Suspense>
             </section>
           )}
-          <DenmarkMap data={data} />
-          {activePillar !== 'co2' && <DataTable plans={data.plans} data={data} />}
+          <div id="kort">
+            <Suspense fallback={<div className="h-[580px] animate-pulse bg-muted/30 rounded-2xl mx-4 my-10" />}>
+              <DenmarkMap data={data} />
+            </Suspense>
+          </div>
+          <div id="tabeller">
+            {activePillar !== 'co2' && (
+              <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
+                <DataTable plans={data.plans} data={data} />
+              </Suspense>
+            )}
+          </div>
           <DataSourceSection fetchedAt={data.fetchedAt} />
         </div>
         <Footer fetchedAt={data.fetchedAt} />
