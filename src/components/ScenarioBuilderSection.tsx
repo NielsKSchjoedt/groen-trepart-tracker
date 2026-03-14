@@ -226,7 +226,7 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
         />
       </div>
       <p className="text-sm text-muted-foreground mb-8">
-        Hvad nu hvis? — simulér {config.label.toLowerCase()}-fremskridtet med flere projektfaser
+        Hvad hvis alle planlagte projekter blev til virkelighed? Udforsk hvordan {config.label.toLowerCase()}-målet påvirkes
       </p>
       <CountdownProjection
         deadline={projectionData.deadline}
