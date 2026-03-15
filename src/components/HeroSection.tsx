@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArcGauge } from './ArcGauge';
 import { CountdownTimer } from './CountdownTimer';
 import { NatureWatermark } from './NatureWatermark';
+import type { Animal } from './NatureWatermark';
 import { ShareButton } from './ShareButton';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { loadCO2Emissions } from '@/lib/data';
@@ -103,7 +104,7 @@ export function HeroSection({ data }: HeroSectionProps) {
         <Leaf className="w-20 h-20 text-nature-leaf rotate-45" strokeWidth={1} />
       </div>
 
-      {config.watermarks.slice(0, 4).map((animal, i) => {
+      {(activePillar ? config.watermarks : ['deer', 'butterfly', 'heron', 'owl'] as Animal[]).slice(0, 4).map((animal, i) => {
         const positions = [
           'absolute bottom-16 left-4 opacity-[0.10] hidden lg:block',
           'absolute top-20 right-6 opacity-[0.12] hidden md:block animate-gentle-sway',
@@ -139,7 +140,7 @@ export function HeroSection({ data }: HeroSectionProps) {
         — til et grønt Danmark
       </p>
       <p className="text-muted-foreground text-base md:text-lg mb-4 max-w-lg mx-auto leading-relaxed flex items-center justify-center gap-1.5 flex-wrap">
-        <span>Følg Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, klima og natur</span>
+        <span>Følg Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, klima og beskyttet natur</span>
         <InfoTooltip
           title="Hvad ser du her?"
           content={
@@ -154,10 +155,12 @@ export function HeroSection({ data }: HeroSectionProps) {
         />
       </p>
 
-      {/* Share button — lets users copy a direct link to the active pillar view */}
-      <div className="flex justify-center mb-8">
-        <ShareButton pillarLabel={config.label} />
-      </div>
+      {/* Share button — only shown when a specific pillar is active */}
+      {activePillar && (
+        <div className="flex justify-center mb-8">
+          <ShareButton pillarLabel={config.label} />
+        </div>
+      )}
 
       {/* Overall composite progress gauge */}
       <div className="mb-6 relative">
@@ -169,8 +172,8 @@ export function HeroSection({ data }: HeroSectionProps) {
           unit="%"
           subText="mål nået"
           label={co2ActualPct !== null
-            ? "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning, CO₂ og natur"
-            : "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning og natur"
+            ? "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning, CO₂ og beskyttet natur"
+            : "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning og beskyttet natur"
           }
           size={240}
           statusLabel={compositeStatusMeta.label}
@@ -182,8 +185,8 @@ export function HeroSection({ data }: HeroSectionProps) {
             title="Hvad viser denne procent?"
             content={
               <>
-                <p><strong>Hvor langt er vi mod målstregen?</strong> Tallet viser hvor stor en andel af de samlede mål der allerede er nået — ikke om vi er foran eller bagud tidsplanen. Bemærk: delmålene har forskellige deadlines (kvælstof 2027, CO₂/natur 2030, skovrejsning 2045).</p>
-                <p>Hvert delmål normaliseres til 0–100% (f.eks. natur: 15% beskyttet af 20%-mål = 75% nået) og vægtes lige i gennemsnittet.</p>
+                <p><strong>Hvor langt er vi mod målstregen?</strong> Tallet viser hvor stor en andel af de samlede mål der allerede er nået — ikke om vi er foran eller bagud tidsplanen. Bemærk: delmålene har forskellige deadlines (kvælstof 2027, CO₂/beskyttet natur 2030, skovrejsning 2045).</p>
+                <p>Hvert delmål normaliseres til 0–100% (f.eks. beskyttet natur: 15% af 20%-mål = 75% nået) og vægtes lige i gennemsnittet.</p>
                 <p>Cirklerne nedenfor viser noget andet: om hvert delmål forventes at nå sit mål inden deadline (grøn ✓) eller ej (orange !).</p>
               </>
             }
@@ -240,7 +243,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             <>
               <p><strong>Baseret på faktisk implementering.</strong> Statusen måler udelukkende, hvad der er fysisk gennemført (anlagt) til dato — ikke hvad der er planlagt eller godkendt.</p>
               <p>Projekter gennemgår en lang pipeline (skitse → forundersøgelse → godkendelse → anlæg), og der forventes en <em>naturlig acceleration</em> efterhånden som flere projekter modnes. Brug <strong>scenarievælgeren</strong> i prognosekortet nedenfor for at se, hvordan billedet ændres hvis godkendte eller forundersøgte projekter også realiseres.</p>
-              <p>For CO₂ bruges KF25-klimafremskrivningen i stedet for lineær ekstrapolation. For <strong>natur</strong> vises den aktuelle andel af juridisk beskyttet areal (Natura 2000 + §3) mod 20%-målet — uden projektion, da fremskridt sker via politiske beslutninger om arealdesignering.</p>
+              <p>For CO₂ bruges KF25-klimafremskrivningen i stedet for lineær ekstrapolation. For <strong>beskyttet natur</strong> vises den aktuelle andel af juridisk beskyttet areal (Natura 2000 + §3) mod 20%-målet — uden projektion, da fremskridt sker via politiske beslutninger om arealdesignering.</p>
               <p>
                 <span style={{ color: GOAL_STATUS_META['reached'].color }}>✓ Mål nået</span> — allerede over 100%<br />
                 <span style={{ color: GOAL_STATUS_META['on-track'].color }}>✓ Når målet</span> — prognose ≥ 100%<br />
@@ -254,8 +257,8 @@ export function HeroSection({ data }: HeroSectionProps) {
         />
       </p>
 
-      {/* Countdown timer — always visible, tied to the active pillar's deadline */}
-      {(() => {
+      {/* Countdown timer — only when a specific pillar is active */}
+      {activePillar && (() => {
         const projData = getPillarProjectionData(activePillar, data, co2Data);
         const pillarCfg = PILLAR_CONFIGS.find((p) => p.id === activePillar);
         const deadline = projData?.deadline ?? (pillarCfg ? `${pillarCfg.deadlineYear}-12-31` : null);

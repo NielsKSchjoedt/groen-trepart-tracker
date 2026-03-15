@@ -13,10 +13,10 @@ interface StickyNavProps {
   sentinelRef: React.RefObject<HTMLDivElement>;
 }
 
-const JUMP_LINKS = [
-  { label: 'Oversigt', href: '#oversigt' },
-  { label: 'Kort',     href: '#kort'     },
-  { label: 'Projekter', href: '#tabeller' },
+const ALL_JUMP_LINKS = [
+  { label: 'Oversigt', href: '#oversigt', requiresPillar: false },
+  { label: 'Kort',     href: '#kort',     requiresPillar: true  },
+  { label: 'Projekter', href: '#tabeller', requiresPillar: true  },
 ] as const;
 
 /**
@@ -34,6 +34,7 @@ const JUMP_LINKS = [
  */
 export function StickyNav({ sentinelRef }: StickyNavProps) {
   const { activePillar, config } = usePillar();
+  const jumpLinks = ALL_JUMP_LINKS.filter((l) => !l.requiresPillar || activePillar !== null);
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -97,17 +98,19 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
             >
               <span
                 className="w-2 h-2 rounded-full flex-shrink-0"
-                style={{ backgroundColor: config.accentColor }}
+                style={{ backgroundColor: activePillar ? config.accentColor : 'hsl(120 30% 45%)' }}
               />
               <span
                 className="text-sm font-semibold flex-shrink-0"
-                style={{ color: config.accentColor }}
+                style={{ color: activePillar ? config.accentColor : 'hsl(120 30% 35%)' }}
               >
-                {config.label}
+                {activePillar ? config.label : 'Oversigt'}
               </span>
-              <span className="hidden md:inline text-xs text-muted-foreground truncate">
-                — {config.description}
-              </span>
+              {activePillar && (
+                <span className="hidden md:inline text-xs text-muted-foreground truncate">
+                  — {config.description}
+                </span>
+              )}
               {/* Chevron — only visible on mobile where the right-side switcher is hidden */}
               <ChevronDown
                 className={`sm:hidden w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
@@ -179,7 +182,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
 
             {/* Section jump links */}
             <nav className="flex items-center gap-3" aria-label="Spring til sektion">
-              {JUMP_LINKS.map(({ label, href }) => (
+              {jumpLinks.map(({ label, href }) => (
                 <a
                   key={href}
                   href={href}

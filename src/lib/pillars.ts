@@ -63,7 +63,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'nitrogenAchievedT',
     planDataField: 'nitrogenProgressPct',
     watermarks: ['fish', 'flounder', 'seatrout', 'cod', 'eel', 'seal', 'crab', 'seaweed', 'shrimp'],
-    backgroundTint: 'hsl(192 45% 94%)',
+    backgroundTint: 'hsl(192 35% 95.5%)',
   },
   {
     id: 'extraction',
@@ -80,7 +80,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'extractionAchievedHa',
     planDataField: 'extractionAchievedHa',
     watermarks: ['heron', 'dragonfly', 'eel', 'crab', 'seaweed', 'flounder'],
-    backgroundTint: 'hsl(35 50% 93%)',
+    backgroundTint: 'hsl(35 40% 95%)',
   },
   {
     id: 'afforestation',
@@ -97,7 +97,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: 'afforestationAchievedHa',
     planDataField: 'afforestationAchievedHa',
     watermarks: ['deer', 'fox', 'rabbit', 'owl', 'hedgehog', 'bee'],
-    backgroundTint: 'hsl(140 40% 93%)',
+    backgroundTint: 'hsl(140 30% 95%)',
   },
   {
     id: 'co2',
@@ -114,12 +114,12 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     catchmentDataField: '',
     planDataField: '',
     watermarks: ['deer', 'butterfly', 'owl'],
-    backgroundTint: 'hsl(0 0% 93%)',
+    backgroundTint: 'hsl(0 0% 95%)',
     stubMessage: 'Ingen geografisk data for CO₂. Udledningerne spores ikke pr. vandopland — se KF25-fremskrivningen ovenfor for den nationale oversigt.',
   },
   {
     id: 'nature',
-    label: 'Natur',
+    label: 'Beskyttet natur',
     description: 'Beskyttet natur (Natura 2000, §3 m.fl.)',
     target: 20,
     unit: '% beskyttet',
@@ -128,11 +128,11 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     hasGeoBreakdown: true,
     hasMultipleLayers: false,
     defaultLayer: 'catchments',
-    accentColor: '#166534',
+    accentColor: '#16a34a',
     catchmentDataField: 'naturePotentialAreaHa',
     planDataField: 'naturePotentialAreaHa',
     watermarks: ['butterfly', 'bee', 'dragonfly', 'hedgehog', 'deer', 'heron'],
-    backgroundTint: 'hsl(120 35% 93%)',
+    backgroundTint: 'hsl(145 28% 95.5%)',
   },
 ];
 
@@ -152,13 +152,18 @@ export function getPillarConfig(id: PillarId): PillarConfig {
 }
 
 export interface PillarContextValue {
-  activePillar: PillarId;
+  /** null when the user is on the `/` overview page with no pillar selected */
+  activePillar: PillarId | null;
   setActivePillar: (id: PillarId) => void;
+  /**
+   * Always a valid PillarConfig. When activePillar is null this is a neutral
+   * fallback config — check activePillar directly before using pillar-specific fields.
+   */
   config: PillarConfig;
 }
 
 export const PillarContext = createContext<PillarContextValue>({
-  activePillar: 'nitrogen',
+  activePillar: null,
   setActivePillar: () => {},
   config: PILLAR_CONFIGS[0],
 });

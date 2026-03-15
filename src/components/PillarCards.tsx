@@ -221,12 +221,13 @@ export function PillarCards({ data }: PillarCardsProps) {
         />
       </div>
       <div className="relative">
-        {pillarHint.visible && (
+        {/* Show hint persistently in overview mode; otherwise only on first visit */}
+        {(activePillar === null || pillarHint.visible) && (
           <HintCallout
             icon={Hand}
             text="Vælg et delmål for at dykke ned i detaljerne"
             arrow="left"
-            onDismiss={pillarHint.dismiss}
+            onDismiss={activePillar === null ? () => {} : pillarHint.dismiss}
             className="absolute left-1/2 -translate-x-1/2 -top-2 sm:left-auto sm:translate-x-0 sm:right-3"
           />
         )}

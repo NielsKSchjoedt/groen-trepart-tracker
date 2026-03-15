@@ -87,7 +87,7 @@ const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (tot
   nature: {
     title: 'Naturprojekter',
     subtitle: (_total) => 'Projekter fra alle typer virkemidler i MARS',
-    tooltip: 'For natur-delmålet vises den samlede projekt-pipeline — alle MARS-projekter uanset specifikt virkemiddel. Naturbeskyttelse afhænger af den samlede indsats.',
+    tooltip: 'For beskyttet natur-delmålet vises den samlede projekt-pipeline — alle MARS-projekter uanset specifikt virkemiddel. Naturbeskyttelse afhænger af den samlede indsats.',
   },
 };
 

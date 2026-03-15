@@ -14,7 +14,7 @@ interface PageMetaOptions {
 
 const DEFAULT_DESCRIPTION =
   'Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale. ' +
-  'Kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og natur.';
+  'Kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og beskyttet natur.';
 
 /**
  * Dynamically updates page-level meta tags in <head> for the active pillar view.
