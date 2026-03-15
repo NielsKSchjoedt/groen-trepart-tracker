@@ -4,17 +4,18 @@
   "layer": "skovdrift:Naturstyrelsens arealoversigt",
   "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
   "projectListSource": "https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/",
-  "fetchedAt": "2026-03-14T11:22:36.734543Z",
+  "fetchedAt": "2026-03-15T13:11:07.878235Z",
   "note": "MARS has an \"NST Skovrejsning\" subsidy scheme with 0 projects registered. This fetcher bridges the gap by matching known project names from Naturstyrelsen website against the MiljøGIS WFS geodata layer. Area figures are actual managed forest extent from WFS polygon geometry.",
   "totals": {
     "totalKnownProjects": 46,
-    "matchedInWfs": 30,
-    "unmatchedInWfs": 16,
-    "ongoingCount": 18,
+    "matchedInWfs": 31,
+    "unmatchedInWfs": 15,
+    "geocodedCount": 31,
+    "ongoingCount": 19,
     "completedCount": 12,
-    "ongoingAreaHa": 2408.2,
+    "ongoingAreaHa": 2409.1,
     "completedAreaHa": 1686.1,
-    "totalAreaHa": 4094.3
+    "totalAreaHa": 4095.2
   },
   "wfsLayerTotalFeatures": 996,
   "wfsLayerTotalAreaHa": 218358.0

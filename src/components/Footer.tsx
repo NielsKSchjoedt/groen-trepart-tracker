@@ -54,7 +54,6 @@ export function Footer({ fetchedAt }: FooterProps) {
                 GitHub
               </a>
             </p>
-            <p>Et open source projekt af Niels Kristian Schjødt</p>
           </div>
         </div>
 

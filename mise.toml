@@ -18,6 +18,10 @@ run = "cd etl && python3 build_dashboard_data.py"
 description = "Convert GeoJSON to TopoJSON for the frontend map"
 run = "bash etl/prepare_map_data.sh"
 
+[tasks.build-kommune-map]
+description = "Convert kommune GeoJSON to WGS84 TopoJSON for the choropleth map"
+run = "cd etl && python3 build_kommune_topojson.py"
+
 [tasks.all]
 description = "Full pipeline: fetch data → prepare map → build dashboard data"
 run = """

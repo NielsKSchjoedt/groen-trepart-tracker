@@ -91,6 +91,16 @@ GET https://api.statbank.dk/v1/tableinfo/{table_id}
 POST https://api.statbank.dk/v1/data/{table_id}/CSV
 ```
 
+## Kommunal klimamonitorering (Concito / Klimaalliancen)
+- Concito omstillingsindikatorer: https://concito.dk/omstillingsindikatorer-drivhusgasreduktion
+- Status på kommunernes klimahandling (rapport): https://concito.dk/files/media/document/Status%20på%20kommunernes%20klimahandling%20april%202025_ver1.2.pdf
+- Klimaalliancen om-side: https://concito.dk/om-status-paa-kommunernes-klimahandling
+- Kommunernes klimahandling (overblik): https://concito.dk/kommunernes-klimahandling
+- DK2020 projekt: https://concito.dk/en/projekter/dk2020-klimaplaner-hele-danmark
+- SparEnergi CO₂-regnskab: https://sparenergi.dk/forbruger/vaerktoejer/energi-og-co2-regnskabet
+- Energidataservice: https://www.energidataservice.dk/
+- Green Power Denmark Klimabarometer: https://www.greenpowerdenmark.dk/
+
 ## Political & Institutional
 - SGAV: https://sgav.dk/
 - Green Tripartite overview: https://sgav.dk/groen-trepart

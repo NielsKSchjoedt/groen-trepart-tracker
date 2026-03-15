@@ -10,6 +10,7 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
 import { PillarCards } from '@/components/PillarCards';
 import { ProjectFunnel } from '@/components/ProjectFunnel';
+import { InitiativeTypeGauge } from '@/components/InitiativeTypeGauge';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
@@ -153,6 +154,7 @@ const Index = () => {
           {pillarSelected && (
             <>
               {activePillar !== 'co2' && <ProjectFunnel data={data} />}
+              {activePillar !== 'co2' && <InitiativeTypeGauge data={data} />}
               <ScenarioBuilderSection data={data} />
               {activePillar === 'co2' && (
                 <section className="w-full px-4 py-6">

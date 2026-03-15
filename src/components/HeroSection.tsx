@@ -10,6 +10,7 @@ import { projectEndPct, assessGoalStatus, GOAL_STATUS_META, getPillarProjectionD
 import type { DashboardData, CO2EmissionsData } from '@/lib/types';
 import { Leaf, TreePine } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
+import { ViewSwitcher } from './ViewSwitcher';
 
 interface HeroSectionProps {
   data: DashboardData;
@@ -94,6 +95,8 @@ export function HeroSection({ data }: HeroSectionProps) {
 
   return (
     <section className="w-full py-14 md:py-20 text-center relative overflow-hidden">
+      <ViewSwitcher />
+
       <div className="absolute top-6 left-8 opacity-[0.08] pointer-events-none">
         <Leaf className="w-32 h-32 text-primary animate-gentle-sway" strokeWidth={1} />
       </div>

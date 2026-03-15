@@ -77,6 +77,32 @@ This tracker focuses on the **Green Tripartite targets** because:
 
 However, the tracker should provide context that even the Trepart's 13,780 T target falls short of the EU directive's estimated ~24,000 T requirement. As of early 2026, only **5 of 109** Danish coastal waters meet "good ecological status."
 
+## Kommunal klimaindsats og monitorering
+
+Parallelt med den grønne trepart har **Klimaalliancen** (KL + Realdania + CONCITO + C40) etableret et fælles monitoreringsystem for kommunernes klimahandling. 96 af 98 danske kommuner har vedtaget klimahandlingsplaner under DK2020-rammeværket.
+
+### Nøgletal (april 2025-statusrapport)
+
+- Kommunernes samlede udledning: 38 mio. ton CO₂e (2022), ned fra 47 mio. ton i basisåret (2018) — ca. 20% reduktion
+- Kommunernes mål: 18,8 mio. ton i 2030 (76% reduktion ift. 1990)
+- Lineær fremskrivning: 20,8 mio. ton — kommunerne når ikke samlet de opsatte mål uden acceleration
+- Kun 35 af 96 kommuner forventes at nå deres individuelle mål (lineært scenarie)
+
+### CONCITOs 16 omstillingsindikatorer
+
+CONCITO har defineret 16 sektorfordelte omstillingsindikatorer for drivhusgasreduktion på kommuneniveau:
+- **Energi (6)**: Bygningsareal, opvarmningskilder, vedvarende energi, biogas, brændsler, CCS/PtX
+- **Transport (4)**: Vejtrafikarbejde, modalsplit, køretøjer/drivmidler, infrastruktur
+- **Landbrug (3)**: Husdyrproduktion, organiske jorde (lavbund), skov — direkte overlap med vores udtagnings- og skovrejsningssøjler
+- **Affald/spildevand (2)**: Affaldsdeponi, spildevand
+- **Overordnet (1)**: Samlet drivhusgasudledning pr. kommune
+
+Detaljeret dokumentation: [docs/data-sources/concito-kommunemonitoring.md](data-sources/concito-kommunemonitoring.md)
+
+### Relevans for trackeren
+
+Concitos skov- og lavbundsindikatorer bruger de samme grunddata (MARS) som vores dashboard. Den primære yderligere datakilde er **Energi- og CO₂-regnskabet** (SparEnergi/Ea Energianalyse), som giver kommunefordelt drivhusgasudledning. Denne datakilde er planlagt til integration i forbindelse med kommune-viewet.
+
 ## Key documents
 
 - [Aftale om et Grønt Danmark (PDF)](https://oem.dk/media/ul2jcmou/aftale-om-et-groent-danmark-24-juni-2024-a.pdf)

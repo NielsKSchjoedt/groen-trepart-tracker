@@ -6,12 +6,17 @@ Fetches the `natur:natura_2000_omraader` layer (~250 features) which contains
 all Danish Natura 2000 site boundaries. Each feature has `shape_area` in m²
 which we use to compute total protected area and percentage of Danish land.
 
-This data feeds the Nature pillar — "20% protected land" target.
+Also builds ``by_kommune.json`` (terrestrial Natura 2000 ha per municipality)
+via centroid point-in-polygon assignment against DAWA municipality boundaries.
+
+This data feeds the Nature pillar — "20% protected land" target and the
+per-municipality naturePotentialHa figure.
 """
 
 import json
 import sys
 import time
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import urlopen, Request
@@ -19,6 +24,7 @@ from urllib.error import URLError, HTTPError
 from urllib.parse import urlencode
 
 from etl_log import log_etl_run
+from spatial_utils import MunicipalityIndex, geometry_centroid
 
 # Configuration
 WFS_BASE = "https://wfs2-miljoegis.mim.dk/natur/ows"
@@ -26,6 +32,7 @@ LAYER = "natur:natura_2000_omraader"
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 DATA_DIR = REPO_ROOT / "data" / "natura2000"
+KOMMUNER_GEOJSON = REPO_ROOT / "data" / "dawa" / "kommuner.geojson"
 
 USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT_SECONDS = 120
@@ -62,6 +69,72 @@ def wfs_get_feature(layer: str, max_features: int | None = None) -> bytes | None
     except URLError as e:
         print(f"    ✗ Connection error: {e.reason}")
         return None
+
+
+def build_by_kommune(features: list[dict], sites: list[dict]) -> dict[str, float]:
+    """
+    Assign each terrestrial Natura 2000 site to a municipality using centroid
+    point-in-polygon against DAWA boundary polygons, then sum area per kode.
+
+    Only non-marine sites are included (uses the same heuristic as the main
+    fetch: name-based marine keyword check + area threshold).
+
+    Results are saved to ``data/natura2000/by_kommune.json``.
+
+    @param features - Raw GeoJSON feature list with 'geometry' and 'properties'
+    @param sites    - Processed site dicts (includes 'likely_marine' and 'area_ha')
+    @returns Dict mapping kommunekode → Natura 2000 terrestrial ha
+    @example build_by_kommune(features, sites)  # → {'0101': 45.2, '0461': 320.1, ...}
+    """
+    if not KOMMUNER_GEOJSON.exists():
+        print(f"  ⚠ {KOMMUNER_GEOJSON} not found — skipping by_kommune for Natura 2000")
+        return {}
+
+    print(f"  Building municipality spatial index...")
+    idx = MunicipalityIndex.from_geojson(KOMMUNER_GEOJSON)
+    print(f"    ✓ {len(idx)} municipalities indexed")
+
+    # Build a lookup from n2000_nr → site info (area_ha, likely_marine)
+    site_lookup = {str(s["n2000_nr"]): s for s in sites}
+
+    kode_ha: dict[str, float] = defaultdict(float)
+    assigned = 0
+    skipped_marine = 0
+
+    for feat in features:
+        props = feat.get("properties", {})
+        n2000_nr = str(props.get("n2000_nr", ""))
+        area_m2 = props.get("shape_area", 0) or 0
+        area_ha = area_m2 / 10_000
+
+        site = site_lookup.get(n2000_nr, {})
+        if site.get("likely_marine", False):
+            skipped_marine += 1
+            continue
+
+        geo = feat.get("geometry")
+        if not geo:
+            continue
+        centroid = geometry_centroid(geo)
+        if centroid is None:
+            continue
+
+        x, y = centroid
+        result = idx.find_kommune(x, y)
+        if result:
+            kode, _ = result
+            kode_ha[kode] += area_ha
+            assigned += 1
+
+    result_dict = {kode: round(ha, 2) for kode, ha in sorted(kode_ha.items())}
+    by_kommune_path = DATA_DIR / "by_kommune.json"
+    with open(by_kommune_path, "w", encoding="utf-8") as f:
+        json.dump(result_dict, f, ensure_ascii=False, indent=2)
+
+    total_ha = sum(result_dict.values())
+    print(f"  ✓ Natura 2000 by_kommune: {len(result_dict)} municipalities, {total_ha:,.0f} ha terrestrial")
+    print(f"    ({assigned} sites assigned, {skipped_marine} marine sites skipped)")
+    return result_dict
 
 
 def main():
@@ -196,6 +269,10 @@ def main():
     for s in terr_sites[:5]:
         print(f"    {s['n2000_nr']} {s['n2000_navn']}: {s['area_ha']:,.0f} ha")
     print()
+
+    # Assign each terrestrial site to its municipality
+    print("Assigning Natura 2000 sites to municipalities...")
+    build_by_kommune(features, sites)
 
     duration = time.time() - start_time
     log_etl_run(

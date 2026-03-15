@@ -20,12 +20,18 @@ Run via: mise run build-dashboard
 
 import json
 import os
+import time
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.request import urlopen, Request
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE = str(SCRIPT_DIR.parent)
+
+DAWA_REVERSE_URL = "https://api.dataforsyningen.dk/kommuner/reverse"
+DAWA_TIMEOUT_SECONDS = 10
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 
 # Load core MARS/DAWA sources
 with open(f"{BASE}/data/mars/plans.json") as f:
@@ -60,6 +66,21 @@ try:
 except FileNotFoundError:
     print("⚠ §3 nature data not found — run fetch_section3.py first")
 
+# Per-municipality nature area breakdowns (kommunekode → ha)
+section3_by_kommune: dict[str, float] = {}
+try:
+    with open(f"{BASE}/data/section3/by_kommune.json") as f:
+        section3_by_kommune = json.load(f)
+except FileNotFoundError:
+    print("⚠ §3 by_kommune.json not found — run fetch_section3.py first")
+
+natura2000_by_kommune: dict[str, float] = {}
+try:
+    with open(f"{BASE}/data/natura2000/by_kommune.json") as f:
+        natura2000_by_kommune = json.load(f)
+except FileNotFoundError:
+    print("⚠ Natura 2000 by_kommune.json not found — run fetch_natura2000.py first")
+
 try:
     with open(f"{BASE}/data/forest/summary.json") as f:
         forest_summary = json.load(f)
@@ -85,6 +106,15 @@ try:
         nst_skov_projects = json.load(f)
 except FileNotFoundError:
     print("⚠ Naturstyrelsen skov data not found — run fetch_naturstyrelsen_skov.py first")
+
+# Project geometries: geoId → list of [lon, lat] polygon vertices (WGS84)
+project_geometries: dict[str, list[list[float]]] = {}
+try:
+    with open(f"{BASE}/public/data/project-geometries.json") as f:
+        project_geometries = json.load(f)
+    print(f"Loaded {len(project_geometries)} project geometries")
+except FileNotFoundError:
+    print("⚠ project-geometries.json not found — MARS projects will have no kommuneKode")
 
 
 # ========================================
@@ -139,6 +169,123 @@ PHASE_MAP = {
 }
 
 
+def _compute_polygon_centroid(coords: list[list[float]]) -> tuple[float, float] | None:
+    """
+    Compute the average centroid of a polygon ring (list of [lon, lat] points).
+
+    This is a simple mean-of-vertices centroid adequate for map display.
+    Returns (lon, lat) in WGS84, or None for empty/invalid inputs.
+
+    @param coords - List of [lon, lat] coordinate pairs
+    @returns (lon, lat) tuple or None
+
+    @example _compute_polygon_centroid([[10.0, 56.0], [11.0, 56.0], [11.0, 57.0]])
+    """
+    if not coords:
+        return None
+    lons = [c[0] for c in coords]
+    lats = [c[1] for c in coords]
+    return (sum(lons) / len(lons), sum(lats) / len(lats))
+
+
+def _reverse_geocode_kommune(lon: float, lat: float) -> dict[str, str] | None:
+    """
+    Resolve a WGS84 point to a Danish municipality via DAWA reverse geocoding.
+
+    Returns a dict with 'kode' and 'navn', or None on failure.
+
+    @param lon - Longitude in WGS84
+    @param lat - Latitude in WGS84
+    @returns {'kode': '0461', 'navn': 'Odense'} or None
+
+    @example _reverse_geocode_kommune(10.388, 55.396)  # → {'kode': '0461', 'navn': 'Odense'}
+    """
+    url = f"{DAWA_REVERSE_URL}?x={lon}&y={lat}&srid=4326"
+    req = Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urlopen(req, timeout=DAWA_TIMEOUT_SECONDS) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            if data and data.get("kode") and data.get("navn"):
+                return {"kode": data["kode"], "navn": data["navn"]}
+            return None
+    except Exception:
+        return None
+
+
+GEO_KOMMUNE_CACHE_PATH = f"{BASE}/data/geo-kommune-cache.json"
+
+
+def build_geo_id_kommune_lookup() -> dict[str, dict[str, str]]:
+    """
+    Build a mapping from MARS geoId to municipality (kode + navn) by computing
+    each polygon's centroid and reverse-geocoding via DAWA.
+
+    Results are persisted to ``data/geo-kommune-cache.json`` so that subsequent
+    runs only geocode geoIds that are new or missing from the cache.
+    Additionally deduplicates by rounded centroid coordinates to avoid calling
+    DAWA twice for nearly-identical points.
+
+    @returns Dict mapping geoId → {'kode': '0461', 'navn': 'Odense'}
+
+    @example
+        lookup = build_geo_id_kommune_lookup()
+        lookup.get('abc-123')  # → {'kode': '0461', 'navn': 'Odense'} or None
+    """
+    if not project_geometries:
+        return {}
+
+    # Load persistent cache from previous runs
+    disk_cache: dict[str, dict[str, str]] = {}
+    try:
+        with open(GEO_KOMMUNE_CACHE_PATH) as f:
+            disk_cache = json.load(f)
+        print(f"  Loaded {len(disk_cache)} cached geoId→kommune mappings from disk")
+    except FileNotFoundError:
+        pass
+
+    new_ids = [geo_id for geo_id in project_geometries if geo_id not in disk_cache]
+
+    if not new_ids:
+        print(f"  All {len(project_geometries)} geoIds already cached — skipping DAWA calls")
+        return {geo_id: disk_cache[geo_id] for geo_id in project_geometries if geo_id in disk_cache}
+
+    print(f"  Reverse-geocoding {len(new_ids)} new geoIds via DAWA (~{len(new_ids) // 20}s)...")
+    coord_cache: dict[str, dict[str, str] | None] = {}
+
+    for i, geo_id in enumerate(new_ids):
+        coords = project_geometries[geo_id]
+        centroid = _compute_polygon_centroid(coords)
+        if centroid is None:
+            continue
+
+        lon, lat = centroid
+        cache_key = f"{lon:.2f},{lat:.2f}"
+
+        if cache_key not in coord_cache:
+            coord_cache[cache_key] = _reverse_geocode_kommune(lon, lat)
+            time.sleep(0.05)
+
+        result = coord_cache[cache_key]
+        if result:
+            disk_cache[geo_id] = result
+
+        if (i + 1) % 100 == 0:
+            print(f"    geocoded {i + 1}/{len(new_ids)} new geoIds...")
+
+    # Persist updated cache to disk for next run
+    with open(GEO_KOMMUNE_CACHE_PATH, "w") as f:
+        json.dump(disk_cache, f, ensure_ascii=False)
+
+    geo_lookup = {geo_id: disk_cache[geo_id] for geo_id in project_geometries if geo_id in disk_cache}
+    hits = len(geo_lookup)
+    print(f"  Done: {hits}/{len(project_geometries)} geoIds resolved to a kommune")
+    return geo_lookup
+
+
+# Populated once before enriching projects — maps geoId → {kode, navn}
+GEO_ID_KOMMUNE: dict[str, dict[str, str]] = {}
+
+
 def compute_project_phase_breakdown(project_list):
     """Break down project metrics by phase (preliminary / approved / established)."""
     phases = {
@@ -175,10 +322,13 @@ def enrich_project(p):
     scheme_id = p.get("subsidySchemeId")
     scheme = scheme_lookup.get(scheme_id, {})
 
+    geo_id = p.get("geoLocationId", "")
+    kommune_data = GEO_ID_KOMMUNE.get(geo_id)
+
     return {
         "id": p.get("projectId", ""),
         "name": p.get("projectName", "Unavngivet projekt"),
-        "geoId": p.get("geoLocationId", ""),
+        "geoId": geo_id,
         "phase": phase,
         "statusName": state.get("name", ""),
         "statusNr": status,
@@ -192,6 +342,8 @@ def enrich_project(p):
         "areaHa": round(p.get("overlappingAreaHa", 0) or 0, 2),
         "appliedAt": p.get("applicationTimestamp", ""),
         "lastChanged": p.get("lastStateChanged", ""),
+        "kommuneKode": kommune_data["kode"] if kommune_data else None,
+        "kommuneNavn": kommune_data["navn"] if kommune_data else None,
     }
 
 
@@ -230,6 +382,13 @@ def slim_nature_potential(np_item):
         "natura2000Ha": round(np_item.get("natura2000OverlappingAreaHa", 0) or 0, 2),
     }
 
+
+# ========================================
+# Build geoId → kommune lookup (DAWA reverse geocoding)
+# ========================================
+# Populates the module-level GEO_ID_KOMMUNE dict used by enrich_project().
+# Only runs if project_geometries was loaded successfully.
+GEO_ID_KOMMUNE.update(build_geo_id_kommune_lookup())
 
 # ========================================
 # Compute national phase breakdown
@@ -645,13 +804,220 @@ for v in vos:
 dashboard_data["plans"].sort(key=lambda x: x["nitrogenGoalT"], reverse=True)
 dashboard_data["catchments"].sort(key=lambda x: x["name"])
 
-# Write it
+# ========================================
+# Build byKommune aggregation
+# ========================================
+# Groups all MARS ProjectDetails by kommuneKode, sums metrics, and merges
+# KSF + NST per-kommune totals. All 98 municipalities appear — zeroed if no projects.
+
+# --- Collect all MARS project details across plans ---
+by_kode: dict[str, dict] = {}
+
+_ZERO_PHASE_METRICS = lambda: {"nitrogenT": 0.0, "extractionHa": 0.0, "afforestationHa": 0.0, "count": 0}
+
+
+def _ensure_kode_entry(by_kode: dict, kode: str, navn: str) -> dict:
+    """Initialise a byKommune accumulator for kode if it does not yet exist."""
+    if kode not in by_kode:
+        by_kode[kode] = {
+            "nitrogenT": 0.0,
+            "extractionHa": 0.0,
+            "afforestationMarsHa": 0.0,
+            "projectCount": 0,
+            "phases": {"sketches": 0, "assessed": 0, "approved": 0, "established": 0},
+            "byPhase": {
+                "sketch":       _ZERO_PHASE_METRICS(),
+                "preliminary":  _ZERO_PHASE_METRICS(),
+                "approved":     _ZERO_PHASE_METRICS(),
+                "established":  _ZERO_PHASE_METRICS(),
+            },
+            "kommuneNavn": navn,
+        }
+    return by_kode[kode]
+
+
+for plan_entry in dashboard_data["plans"]:
+    # --- Formal project details (Forundersøgelse / Godkendt / Anlagt) ---
+    for proj in plan_entry.get("projectDetails", []):
+        kode = proj.get("kommuneKode")
+        if not kode:
+            continue
+        r = _ensure_kode_entry(by_kode, kode, proj.get("kommuneNavn", ""))
+        n = proj.get("nitrogenT", 0) or 0
+        e = proj.get("extractionHa", 0) or 0
+        a = proj.get("afforestationHa", 0) or 0
+        r["nitrogenT"] += n
+        r["extractionHa"] += e
+        r["afforestationMarsHa"] += a
+        r["projectCount"] += 1
+        phase = proj.get("phase", "")
+        if phase == "established":
+            r["phases"]["established"] += 1
+            bp = r["byPhase"]["established"]
+        elif phase == "approved":
+            r["phases"]["approved"] += 1
+            bp = r["byPhase"]["approved"]
+        else:
+            r["phases"]["assessed"] += 1  # preliminary maps to assessed in the counts
+            bp = r["byPhase"]["preliminary"]
+        bp["nitrogenT"] += n
+        bp["extractionHa"] += e
+        bp["afforestationHa"] += a
+        bp["count"] += 1
+
+    # --- Sketch projects (Skitse) — earliest funnel stage ---
+    # Sketches don't go through enrich_project so they lack kommuneKode.
+    # Look up the geoId in the same GEO_ID_KOMMUNE cache used for projectDetails.
+    for sketch in plan_entry.get("sketchProjects", []):
+        geo_id = sketch.get("geoId", "")
+        if not geo_id:
+            continue
+        kommune_data = GEO_ID_KOMMUNE.get(geo_id)
+        if not kommune_data:
+            continue
+        kode = kommune_data["kode"]
+        r = _ensure_kode_entry(by_kode, kode, kommune_data["navn"])
+        n = sketch.get("nitrogenT", 0) or 0
+        e = sketch.get("extractionHa", 0) or 0
+        a = sketch.get("afforestationHa", 0) or 0
+        r["phases"]["sketches"] += 1
+        bp = r["byPhase"]["sketch"]
+        bp["nitrogenT"] += n
+        bp["extractionHa"] += e
+        bp["afforestationHa"] += a
+        bp["count"] += 1
+
+# --- KSF per-kommune sums ---
+ksf_by_kommune: dict[str, dict[str, float]] = defaultdict(lambda: {"afforestationHa": 0.0, "lavbundHa": 0.0})
+if klimaskovfonden_projects:
+    for kp in klimaskovfonden_projects:
+        navn = kp.get("kommune")
+        if not navn:
+            continue
+        if kp.get("projekttyp") == "Skovrejsning":
+            ksf_by_kommune[navn]["afforestationHa"] += kp.get("areaHa", 0) or 0
+        elif kp.get("projekttyp") == "Lavbund":
+            ksf_by_kommune[navn]["lavbundHa"] += kp.get("areaHa", 0) or 0
+
+# --- NST per-kommune sums ---
+# The fetcher saves a `kommune` field via DAWA reverse geocoding.
+# If the saved file predates that feature, fall back to inline geocoding
+# using the centroid coordinates already stored in each project.
+def _dawa_reverse_kommune_navn(lon: float, lat: float) -> str | None:
+    """DAWA reverse geocode — returns municipality name or None."""
+    import urllib.request as _ureq
+    url = f"https://api.dataforsyningen.dk/kommuner/reverse?x={lon}&y={lat}&srid=4326"
+    try:
+        req = _ureq.Request(url, headers={"User-Agent": "TrepartTracker/0.1"})
+        with _ureq.urlopen(req, timeout=8) as resp:
+            return json.loads(resp.read()).get("navn")
+    except Exception:
+        return None
+
+nst_by_kommune: dict[str, float] = defaultdict(float)
+if nst_skov_projects:
+    needs_geocode = [p for p in nst_skov_projects if not p.get("kommune") and p.get("centroid") and p.get("areaHa")]
+    if needs_geocode:
+        print(f"  ℹ NST projects missing kommune field — inline geocoding {len(needs_geocode)} projects via DAWA...")
+        _cache: dict[str, str | None] = {}
+        for p in needs_geocode:
+            lon, lat = p["centroid"]
+            key = f"{lon:.2f},{lat:.2f}"
+            if key not in _cache:
+                _cache[key] = _dawa_reverse_kommune_navn(lon, lat)
+                import time as _time; _time.sleep(0.05)
+            p["kommune"] = _cache[key]
+
+    for np_proj in nst_skov_projects:
+        navn = np_proj.get("kommune")
+        area = np_proj.get("areaHa") or 0
+        if navn and area:
+            nst_by_kommune[navn] += area
+
+# Christiansø (kode 0411) is a tiny autonomous community (~100 residents) returned
+# by DAWA but is NOT one of Denmark's 98 municipalities. Exclude it.
+EXCLUDED_KODER = {"0411"}
+
+# --- Build final byKommune list using DAWA kommuner.json as the authoritative list ---
+by_kommune_list = []
+for km in kommuner:
+    if km.get("kode") in EXCLUDED_KODER:
+        continue
+    kode = km.get("kode", "")
+    navn = km.get("navn", "")
+    region_navn = km.get("region", {}).get("navn", "") if isinstance(km.get("region"), dict) else ""
+
+    mars_data = by_kode.get(kode, {})
+    ksf_navn_data = ksf_by_kommune.get(navn, {})
+    nst_ha = nst_by_kommune.get(navn, 0.0)
+
+    afforestation_mars = mars_data.get("afforestationMarsHa", 0.0)
+    afforestation_ksf = ksf_navn_data.get("afforestationHa", 0.0)
+    afforestation_nst = nst_ha
+
+    section3_ha = section3_by_kommune.get(kode, 0.0)
+    natura2000_ha = natura2000_by_kommune.get(kode, 0.0)
+    nature_total_ha = round(section3_ha + natura2000_ha, 1)
+
+    _empty_phase = {"nitrogenT": 0.0, "extractionHa": 0.0, "afforestationHa": 0.0, "count": 0}
+    by_phase = mars_data.get("byPhase", {
+        "sketch":       dict(_empty_phase),
+        "preliminary":  dict(_empty_phase),
+        "approved":     dict(_empty_phase),
+        "established":  dict(_empty_phase),
+    })
+    # Round phase metric values
+    for phase_key in ("sketch", "preliminary", "approved", "established"):
+        pm = by_phase.get(phase_key, _empty_phase)
+        by_phase[phase_key] = {
+            "nitrogenT":       round(pm.get("nitrogenT", 0.0), 1),
+            "extractionHa":    round(pm.get("extractionHa", 0.0), 1),
+            "afforestationHa": round(pm.get("afforestationHa", 0.0), 1),
+            "count":           pm.get("count", 0),
+        }
+
+    by_kommune_list.append({
+        "kode": kode,
+        "navn": navn,
+        "region": region_navn,
+        "nitrogenT": round(mars_data.get("nitrogenT", 0.0), 1),
+        "extractionHa": round(mars_data.get("extractionHa", 0.0), 1),
+        "afforestationMarsHa": round(afforestation_mars, 1),
+        "afforestationKsfHa": round(afforestation_ksf, 1),
+        "afforestationNstHa": round(afforestation_nst, 1),
+        "afforestationTotalHa": round(afforestation_mars + afforestation_ksf + afforestation_nst, 1),
+        "section3Ha": round(section3_ha, 1),
+        "natura2000Ha": round(natura2000_ha, 1),
+        "naturePotentialHa": nature_total_ha,
+        "projectCount": sum(by_phase.get(ph, {}).get("count", 0) for ph in ("sketch", "preliminary", "approved", "established")),
+        "projectsByPhase": mars_data.get("phases", {"sketches": 0, "assessed": 0, "approved": 0, "established": 0}),
+        "byPhase": by_phase,
+    })
+
+# Sort alphabetically by name
+by_kommune_list.sort(key=lambda x: x["navn"])
+dashboard_data["national"]["byKommune"] = by_kommune_list
+
+print(f"byKommune: {len(by_kommune_list)} kommuner built")
+print(f"  With MARS projects:       {sum(1 for k in by_kommune_list if k['projectCount'] > 0)}")
+print(f"  With KSF afforestation:   {sum(1 for k in by_kommune_list if k['afforestationKsfHa'] > 0)}")
+print(f"  With NST afforestation:   {sum(1 for k in by_kommune_list if k['afforestationNstHa'] > 0)}")
+print(f"  With §3 nature data:      {sum(1 for k in by_kommune_list if k['section3Ha'] > 0)}")
+print(f"  With Natura 2000 data:    {sum(1 for k in by_kommune_list if k['natura2000Ha'] > 0)}")
+print(f"  With naturePotentialHa:   {sum(1 for k in by_kommune_list if k['naturePotentialHa'] > 0)}")
+
+# Write to both data/ (ETL reference) and public/data/ (frontend serving path).
+# The Vite dev server serves static assets from public/ — if we only write to
+# data/, the frontend will read a stale copy.
 outpath = f"{BASE}/data/dashboard-data.json"
-with open(outpath, "w") as f:
-    json.dump(dashboard_data, f, ensure_ascii=False, indent=2)
+public_outpath = f"{BASE}/public/data/dashboard-data.json"
+for p in (outpath, public_outpath):
+    with open(p, "w") as f:
+        json.dump(dashboard_data, f, ensure_ascii=False, indent=2)
 
 size = os.path.getsize(outpath)
 print(f"Created {outpath}")
+print(f"  → also copied to {public_outpath}")
 print(f"Size: {size // 1024} KB")
 print(f"Plans: {len(dashboard_data['plans'])} entries")
 print(f"Catchments: {len(dashboard_data['catchments'])} entries")
@@ -688,8 +1054,10 @@ for v in vos:
 name_map["Lister Dyb"] = "Vidå-Kruså"
 
 lookup_path = f"{BASE}/data/name-lookup.json"
-with open(lookup_path, "w") as f:
-    json.dump(name_map, f, ensure_ascii=False, indent=2)
+public_lookup_path = f"{BASE}/public/data/name-lookup.json"
+for p in (lookup_path, public_lookup_path):
+    with open(p, "w") as f:
+        json.dump(name_map, f, ensure_ascii=False, indent=2)
 
 print(f"Created {lookup_path}")
 print(f"Entries: {len(name_map)} name mappings")
@@ -793,8 +1161,10 @@ changelog_data = {
 }
 
 changelog_path = f"{BASE}/data/project-changelog.json"
-with open(changelog_path, "w") as f:
-    json.dump(changelog_data, f, ensure_ascii=False, indent=2)
+public_changelog_path = f"{BASE}/public/data/project-changelog.json"
+for p in (changelog_path, public_changelog_path):
+    with open(p, "w") as f:
+        json.dump(changelog_data, f, ensure_ascii=False, indent=2)
 
 print()
 print(f"Created {changelog_path}")
