@@ -1,44 +1,64 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import type { ComponentType } from 'react';
 import { formatDanishNumber } from '@/lib/format';
-import { TrendingUp, TrendingDown, Target, ChevronDown, FlaskConical } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import { assessGoalStatus, GOAL_STATUS_META } from '@/lib/projections';
 import type { PipelineScenarioKey } from '@/lib/types';
 
 /**
- * Danish labels for each pipeline scenario, used in the scenario dropdown.
- * Ordered from most conservative to most optimistic.
+ * Pipeline scenario steps — ordered from most conservative to most optimistic.
+ * Cumulative selection: choosing `preliminary` implicitly includes `established`
+ * and `approved` as well (all steps with rank ≤ selected rank are highlighted).
  */
 const SCENARIO_OPTIONS: {
   key: PipelineScenarioKey;
   label: string;
+  /** Short label shown in step buttons */
   shortLabel: string;
+  /** Grammatical form used in body copy ("Hvis alle X projekter var anlagt") */
+  bodyLabel: string;
   description: string;
+  icon: ComponentType<{ className?: string }>;
+  /** Cumulative rank: a step is active when rank ≤ selectedRank */
+  rank: number;
   disabled?: boolean;
 }[] = [
   {
     key: 'established',
     label: 'Kun anlagte projekter',
     shortLabel: 'Anlagte',
+    bodyLabel: 'anlagte',
     description: 'Kun fysisk gennemførte projekter tælles med',
+    icon: Hammer,
+    rank: 0,
   },
   {
     key: 'approved',
     label: '+ godkendte projekter',
-    shortLabel: '+ Godkendte',
+    shortLabel: 'Godkendte',
+    bodyLabel: 'godkendte',
     description: 'Anlagte + godkendt til anlæg (etableringstilsagn)',
+    icon: ShieldCheck,
+    rank: 1,
   },
   {
     key: 'preliminary',
     label: '+ under forundersøgelse',
-    shortLabel: '+ Forundersøgelse',
+    shortLabel: 'Forundersøgelse',
+    bodyLabel: 'forundersøgte',
     description: 'Anlagte + godkendte + forundersøgelsestilsagn',
+    icon: ClipboardCheck,
+    rank: 2,
   },
   {
     key: 'all',
     label: '+ skitser',
-    shortLabel: '+ Skitser',
+    shortLabel: 'Skitser',
+    bodyLabel: 'skitserede',
     description: 'Skitser har endnu ikke estimerede effekter — afventer forundersøgelse',
+    icon: Pencil,
+    rank: 3,
     disabled: true,
   },
 ];
@@ -91,24 +111,11 @@ export function CountdownProjection({
 }: CountdownProjectionProps) {
   const [now, setNow] = useState(() => new Date());
   const [selectedScenario, setSelectedScenario] = useState<PipelineScenarioKey>('established');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 60_000);
     return () => clearInterval(id);
   }, []);
-
-  useEffect(() => {
-    if (!dropdownOpen) return;
-    function handlePointerDown(e: PointerEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-      }
-    }
-    document.addEventListener('pointerdown', handlePointerDown, true);
-    return () => document.removeEventListener('pointerdown', handlePointerDown, true);
-  }, [dropdownOpen]);
 
   const hasScenarios = scenarios && Object.keys(scenarios).length > 1;
   const isOptimistic = selectedScenario !== 'established';
@@ -117,6 +124,9 @@ export function CountdownProjection({
     : undefined;
   const scenarioAchieved = scenarioValues?.achieved ?? achieved;
   const selectedOption = SCENARIO_OPTIONS.find((o) => o.key === selectedScenario)!;
+  const scenarioDelta = isOptimistic
+    ? scenarioAchieved - (scenarios?.established?.achieved ?? achieved)
+    : 0;;
 
   const deadlineDate = new Date(deadline);
   const startDate = new Date(trackingStart);
@@ -159,12 +169,12 @@ export function CountdownProjection({
           borderColor: goalMeta.color + '30',
         }}
       >
-        {/* Scenario builder — branded header with pipeline selector */}
+        {/* Scenario builder — cumulative step-selector */}
         {hasScenarios && (
           <div className="mb-3 pb-3 border-b" style={{ borderColor: goalMeta.color + '20' }}>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5">
-                <FlaskConical className="w-3.5 h-3.5 text-muted-foreground" />
+                <GitPullRequestArrow className="w-3.5 h-3.5 text-muted-foreground" />
                 <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                   Scenariebygger
                 </span>
@@ -194,44 +204,50 @@ export function CountdownProjection({
                 <span className="text-[9px] italic text-muted-foreground/60">Hvad nu hvis?</span>
               )}
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] text-muted-foreground">Medregn:</span>
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="flex items-center gap-1 text-[11px] font-medium bg-background/60 hover:bg-background/90 border border-border/50 rounded-full px-2.5 py-1 transition-colors"
-                  title={selectedOption.description}
-                >
-                  {selectedOption.shortLabel}
-                  <ChevronDown className={`w-3 h-3 text-muted-foreground transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute top-full left-0 mt-1 bg-card border rounded-lg shadow-lg z-20 min-w-[220px] py-1">
-                    {SCENARIO_OPTIONS.map((opt) => (
-                      <button
-                        key={opt.key}
-                        disabled={opt.disabled}
-                        onClick={() => {
-                          if (opt.disabled) return;
-                          setSelectedScenario(opt.key);
-                          setDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-1.5 text-[11px] transition-colors ${
-                          opt.disabled
-                            ? 'opacity-40 cursor-not-allowed'
-                            : selectedScenario === opt.key
-                              ? 'font-semibold text-foreground'
-                              : 'text-muted-foreground hover:bg-muted/50'
-                        }`}
-                      >
-                        <span className="block">{opt.label}</span>
-                        <span className="block text-[10px] text-muted-foreground/70">{opt.description}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+            <p className="text-[10px] text-muted-foreground mb-2">
+              Vælg hvilke projektstadier der medregnes i prognosen:
+            </p>
+            <div className="grid grid-cols-4 gap-1">
+              {SCENARIO_OPTIONS.map((opt) => {
+                const isActive = !opt.disabled && opt.rank <= selectedOption.rank;
+                return (
+                  <button
+                    key={opt.key}
+                    disabled={opt.disabled}
+                    onClick={() => { if (!opt.disabled) setSelectedScenario(opt.key); }}
+                    title={opt.description}
+                    className={`flex flex-col items-center gap-0.5 px-1 py-2 rounded-lg border text-[10px] leading-tight transition-all ${
+                      opt.disabled
+                        ? 'opacity-30 cursor-not-allowed border-border/30 text-muted-foreground'
+                        : isActive
+                          ? 'font-medium cursor-pointer'
+                          : 'border-border/50 bg-background/40 text-muted-foreground hover:bg-background/60 cursor-pointer'
+                    }`}
+                    style={isActive && !opt.disabled ? {
+                      backgroundColor: (accentColor ?? goalMeta.color) + '18',
+                      borderColor: accentColor ?? goalMeta.color,
+                      color: accentColor ?? goalMeta.color,
+                    } : {}}
+                  >
+                    <opt.icon className="w-3.5 h-3.5 mb-0.5" />
+                    <span className="text-center">{opt.shortLabel}</span>
+                    {opt.disabled && (
+                      <span className="text-[9px] opacity-60 mt-0.5">ingen data</span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
+            {isOptimistic && scenarioDelta > 0 && (
+              <p className="mt-2 text-[10px]">
+                <span className="font-semibold" style={{ color: accentColor ?? goalMeta.color }}>
+                  +{formatDanishNumber(scenarioDelta, 1)} {unit}
+                </span>
+                <span className="text-muted-foreground">
+                  {' '}ekstra ved at medregne {selectedOption.bodyLabel} projekter
+                </span>
+              </p>
+            )}
           </div>
         )}
 
@@ -249,7 +265,7 @@ export function CountdownProjection({
             <p className="text-xs leading-relaxed text-foreground/70">
               {isOptimistic ? (
                 <>
-                  Hvis alle {selectedOption.shortLabel.toLowerCase().replace('+ ', '')} projekter var anlagt i dag, ville vi stå ved <strong>{formatDanishNumber(activeAchieved, 1)} {unit}</strong> nu — og prognosen ville vise <strong>{formatDanishNumber(activeProjectedTotal, 1)} {unit}</strong> ved deadline ({Math.round(activeProjectedPct)}% af målet).
+                  Hvis alle {selectedOption.bodyLabel} projekter var anlagt i dag, ville vi stå ved <strong>{formatDanishNumber(activeAchieved, 1)} {unit}</strong> nu — og prognosen ville vise <strong>{formatDanishNumber(activeProjectedTotal, 1)} {unit}</strong> ved deadline ({Math.round(activeProjectedPct)}% af målet).
                   {rateRatio !== null && !isPositive && (
                     <> Det kræver stadig <strong>{rateRatio.toFixed(1)}x</strong> hurtigere tempo.</>
                   )}
@@ -300,7 +316,7 @@ export function CountdownProjection({
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: accentColor ?? goalMeta.color }} />
                 <span className="text-muted-foreground">
-                  {isOptimistic ? `Scenarie — ${selectedOption.shortLabel.toLowerCase()}` : 'Nu'}
+                  {isOptimistic ? `Scenarie — ${selectedOption.bodyLabel}` : 'Nu'}
                 </span>
               </div>
               <div className="flex items-center gap-1">

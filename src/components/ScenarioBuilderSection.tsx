@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AlertTriangle, FlaskConical, Leaf, Shield, SlidersHorizontal } from 'lucide-react';
+import { AlertTriangle, GitPullRequestArrow, Leaf, Shield, TrendingUp } from 'lucide-react';
 import { HintCallout } from './HintCallout';
 import { CountdownProjection } from './CountdownProjection';
 import { InfoTooltip } from './InfoTooltip';
@@ -212,12 +212,12 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
   return (
     <section className="w-full max-w-5xl mx-auto px-4 py-10">
       <div className="flex items-center gap-2.5 mb-2">
-        <FlaskConical className="w-5 h-5 text-primary" />
+        <TrendingUp className="w-5 h-5 text-primary" />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-          {activePillar === 'co2' ? 'CO₂: Klimafremskrivning' : `Scenariebygger: ${config.label}`}
+          {activePillar === 'co2' ? 'CO₂: Klimafremskrivning' : `Fremskrivning: ${config.label}`}
         </h2>
         <InfoTooltip
-          title={activePillar === 'co2' ? 'CO₂ — hvad vises her?' : 'Scenariebygger — hvad nu hvis?'}
+          title={activePillar === 'co2' ? 'CO₂ — hvad vises her?' : 'Fremskrivning — hvad nu hvis?'}
           content={
             activePillar === 'co2' ? (
               <>
@@ -238,7 +238,7 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
       <p className={`text-sm text-muted-foreground ${activePillar === 'co2' ? 'mb-4' : 'mb-8'}`}>
         {activePillar === 'co2'
           ? 'Fremskrivning baseret på KF25-rapporten — viser Danmarks samlede drivhusgasudledning mod 2030-målet'
-          : `Hvad hvis alle planlagte projekter blev til virkelighed? Udforsk hvordan ${config.label.toLowerCase()}-målet påvirkes`}
+          : `Prognose baseret på faktiske MARS-projektdata. Vælg nedenfor hvilke projektstadier der medregnes, og se hvordan ${config.label.toLowerCase()}-målet påvirkes.`}
       </p>
 
       {activePillar === 'co2' && (
@@ -253,8 +253,8 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
       <div className="relative">
         {scenarioHint.visible && activePillar !== 'co2' && (
           <HintCallout
-            icon={SlidersHorizontal}
-            text="Prøv scenarievælgeren — skift fase og se prognosen ændre sig"
+            icon={GitPullRequestArrow}
+            text="Klik på et projektstadium nedenfor og se prognosen ændre sig"
             arrow="left"
             onDismiss={scenarioHint.dismiss}
             className="absolute left-1/2 -translate-x-1/2 -top-2 sm:left-auto sm:translate-x-0 sm:right-3"

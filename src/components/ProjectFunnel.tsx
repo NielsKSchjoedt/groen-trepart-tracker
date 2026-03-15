@@ -1,10 +1,28 @@
 import { useMemo, useState, useEffect } from 'react';
 import { formatDanishNumber } from '@/lib/format';
-import type { DashboardData, ProjectCounts, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import type {
+  DashboardData,
+  ProjectCounts,
+  ProjectDetail,
+  SketchProject,
+  KlimaskovfondenProject,
+  NaturstyrelsenSkovProject,
+} from '@/lib/types';
 import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
 import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
-import { GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer, TreePine, Landmark, Droplets } from 'lucide-react';
+import {
+  GitPullRequestArrow,
+  Pencil,
+  ClipboardCheck,
+  ShieldCheck,
+  Hammer,
+  TreePine,
+  Landmark,
+  Droplets,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 import { InfoTooltip } from './InfoTooltip';
 
@@ -26,45 +44,68 @@ const PHASE_TO_STAGE: Record<string, keyof ProjectCounts> = {
   established: 'established',
 };
 
+/** A project enriched with its parent plan name for display in the project list */
+type ProjectWithPlan = (ProjectDetail | SketchProject) & { planName: string };
+
+/** Grouped project lists per stage, filtered to the active pillar */
+interface PillarProjects {
+  sketches: ProjectWithPlan[];
+  assessed: ProjectWithPlan[];
+  approved: ProjectWithPlan[];
+  established: ProjectWithPlan[];
+}
+
 /**
- * Compute pillar-specific project counts by filtering individual projects
- * that have a non-zero effect for the given pillar.
+ * Compute pillar-specific project lists by collecting individual projects
+ * that have a non-zero effect for the given pillar, grouped by pipeline stage.
  *
  * Each MARS project can contribute to multiple pillars simultaneously
  * (e.g. a wetland project reduces nitrogen AND extracts lowland).
- * This function counts only those relevant to the selected pillar.
+ * This function collects only those relevant to the selected pillar.
+ *
+ * @param data - Full dashboard data
+ * @param pillarId - Active pillar ('nitrogen' | 'extraction' | 'afforestation' | 'nature')
+ * @returns Projects grouped by stage, each enriched with its parent plan name
+ *
+ * @example
+ * const { sketches, assessed, approved, established } = computePillarProjects(data, 'nitrogen');
  */
-function computePillarCounts(
-  data: DashboardData,
-  pillarId: PillarId,
-): ProjectCounts {
-  const counts: ProjectCounts = { sketches: 0, assessed: 0, approved: 0, established: 0 };
+function computePillarProjects(data: DashboardData, pillarId: PillarId): PillarProjects {
+  const result: PillarProjects = { sketches: [], assessed: [], approved: [], established: [] };
 
-  const effectField = {
+  const effectField = ({
     nitrogen: 'nitrogenT',
     extraction: 'extractionHa',
     afforestation: 'afforestationHa',
-  }[pillarId];
+  } as Record<string, string>)[pillarId];
 
-  if (!effectField) return counts;
+  if (!effectField) return result;
 
   for (const plan of data.plans) {
-    // Count sketch projects with effect > 0
     for (const sk of plan.sketchProjects) {
-      if ((sk as Record<string, unknown>)[effectField] as number > 0) {
-        counts.sketches++;
+      if ((sk as unknown as Record<string, unknown>)[effectField] as number > 0) {
+        result.sketches.push({ ...sk, planName: plan.name });
       }
     }
-    // Count detailed projects (assessed/approved/established) with effect > 0
     for (const proj of plan.projectDetails) {
-      const stage = PHASE_TO_STAGE[proj.phase];
-      if (stage && (proj as Record<string, unknown>)[effectField] as number > 0) {
-        counts[stage]++;
+      const stage = PHASE_TO_STAGE[proj.phase] as keyof PillarProjects | undefined;
+      if (stage && (proj as unknown as Record<string, unknown>)[effectField] as number > 0) {
+        result[stage].push({ ...proj, planName: plan.name });
       }
     }
   }
 
-  return counts;
+  return result;
+}
+
+/** Derive counts from collected project lists */
+function projectsToCount(projects: PillarProjects): ProjectCounts {
+  return {
+    sketches: projects.sketches.length,
+    assessed: projects.assessed.length,
+    approved: projects.approved.length,
+    established: projects.established.length,
+  };
 }
 
 /** Pillar-specific descriptions for the funnel header */
@@ -91,18 +132,122 @@ const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (tot
   },
 };
 
+/**
+ * Returns the primary metric value and formatted label for a project under the active pillar.
+ *
+ * @param project - The project to extract the metric from
+ * @param pillarId - Active pillar
+ * @returns Object with numeric value, formatted string, and unit label
+ *
+ * @example
+ * const { value, formatted, unit } = getPillarMetric(proj, 'nitrogen');
+ * // { value: 3.4, formatted: '3,4', unit: 'ton N' }
+ */
+function getPillarMetric(
+  project: ProjectWithPlan,
+  pillarId: PillarId,
+): { value: number; formatted: string; unit: string } {
+  const map: Record<string, { field: string; unit: string }> = {
+    nitrogen: { field: 'nitrogenT', unit: 'ton N' },
+    extraction: { field: 'extractionHa', unit: 'ha' },
+    afforestation: { field: 'afforestationHa', unit: 'ha' },
+    nature: { field: 'nitrogenT', unit: 'ton N' },
+  };
+  const { field, unit } = map[pillarId] ?? map.nitrogen;
+  const value = (project as unknown as Record<string, unknown>)[field] as number ?? 0;
+  return { value, formatted: formatDanishNumber(value, 1), unit };
+}
+
+const MAX_VISIBLE = 8;
+
+/**
+ * Inline accordion panel listing projects for a given funnel stage.
+ *
+ * @param projects - Sorted list of projects in this stage
+ * @param pillarId - Active pillar (determines which metric to display)
+ * @param stageColor - Accent colour for metric values
+ */
+function ProjectListPanel({
+  projects,
+  pillarId,
+  stageColor,
+}: {
+  projects: ProjectWithPlan[];
+  pillarId: PillarId;
+  stageColor: string;
+}) {
+  const [showAll, setShowAll] = useState(false);
+  const sorted = useMemo(
+    () => [...projects].sort((a, b) => {
+      const ma = getPillarMetric(a, pillarId);
+      const mb = getPillarMetric(b, pillarId);
+      return mb.value - ma.value;
+    }),
+    [projects, pillarId],
+  );
+
+  const visible = showAll ? sorted : sorted.slice(0, MAX_VISIBLE);
+  const remaining = sorted.length - MAX_VISIBLE;
+
+  return (
+    <div className="mt-2 rounded-xl border border-border bg-background/70 overflow-hidden text-[11px]">
+      <div className="divide-y divide-border/50">
+        {visible.map((proj) => {
+          const metric = getPillarMetric(proj, pillarId);
+          return (
+            <div key={proj.id} className="flex items-baseline gap-2 px-3 py-1.5">
+              <span className="flex-1 min-w-0 truncate font-medium text-foreground" title={proj.name}>
+                {proj.name}
+              </span>
+              <span
+                className="flex-shrink-0 tabular-nums font-semibold"
+                style={{ color: stageColor }}
+              >
+                {metric.formatted} {metric.unit}
+              </span>
+              <span className="flex-shrink-0 tabular-nums text-muted-foreground">
+                {formatDanishNumber(proj.areaHa, 0)} ha
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {remaining > 0 && !showAll && (
+        <button
+          onClick={() => setShowAll(true)}
+          className="w-full py-1.5 text-center text-[10px] text-muted-foreground hover:bg-muted/40 transition-colors border-t border-border/50"
+        >
+          Vis alle {formatDanishNumber(sorted.length)} projekter
+        </button>
+      )}
+      {showAll && remaining > 0 && (
+        <button
+          onClick={() => setShowAll(false)}
+          className="w-full py-1.5 text-center text-[10px] text-muted-foreground hover:bg-muted/40 transition-colors border-t border-border/50"
+        >
+          Vis færre
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const { activePillar } = usePillar();
   const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
+  // Track both pillar and stage so switching pillars automatically resets the panel
+  // without needing a separate effect.
+  const [expandedEntry, setExpandedEntry] = useState<{ pillar: PillarId; stage: keyof ProjectCounts } | null>(null);
 
   useEffect(() => {
     loadKlimaskovfondenProjects().then(setKsfProjects);
     loadNaturstyrelsenSkovProjects().then(setNstProjects);
   }, []);
 
-  const pillarCounts = useMemo(
-    () => computePillarCounts(data, activePillar),
+  // For pillar-specific views, collect full project lists (enables drill-down)
+  const pillarProjects = useMemo(
+    () => computePillarProjects(data, activePillar),
     [data, activePillar],
   );
 
@@ -117,17 +262,27 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const nstCompleted = nstMatchedProjects.filter((p) => p.status === 'completed');
   const nstTotalHa = Math.round(nstMatchedProjects.reduce((s, p) => s + (p.areaHa ?? 0), 0));
 
-  // For nature, show the full national pipeline (all projects contribute indirectly)
-  // For nitrogen/extraction/afforestation, show pillar-specific counts
+  // For nature, show the full national pipeline (all projects contribute indirectly);
+  // drill-down is only available for the three quantitative pillars.
   const isNature = activePillar === 'nature';
   const { projects } = data.national;
-  const displayCounts = isNature ? projects : pillarCounts;
+  const displayCounts = isNature ? projects : projectsToCount(pillarProjects);
 
   const counts = [displayCounts.sketches, displayCounts.assessed, displayCounts.approved, displayCounts.established];
   const totalProjects = counts.reduce((a, b) => a + b, 0);
   const maxCount = Math.max(...counts, 1);
 
   const desc = PILLAR_FUNNEL_DESCRIPTIONS[activePillar] ?? PILLAR_FUNNEL_DESCRIPTIONS.nitrogen;
+
+  /** Toggle a stage panel open/closed; only one stage can be open at a time */
+  function handleStageClick(stageKey: keyof ProjectCounts) {
+    if (isNature) return; // No drill-down for nature pillar
+    setExpandedEntry((prev) =>
+      prev?.pillar === activePillar && prev?.stage === stageKey
+        ? null
+        : { pillar: activePillar, stage: stageKey },
+    );
+  }
 
   return (
     <section className="w-full max-w-5xl mx-auto px-4 py-10 relative overflow-hidden">
@@ -160,6 +315,9 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
               <strong>Forundersøgelse:</strong> Forundersøgelsestilsagn givet — fagligt gennemgået.<br/>
               <strong>Godkendt:</strong> Tilsagn givet, klar til anlæg.<br/>
               <strong>Anlagt:</strong> Fysisk gennemført — kun disse har realiseret miljøeffekt.</p>
+              {!isNature && (
+                <p><em>Klik på et stadium for at se de enkelte projekter.</em></p>
+              )}
             </>
           }
           source="MARS API (Miljøstyrelsen)"
@@ -168,6 +326,9 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       </div>
       <p className="text-sm text-muted-foreground mb-8">
         {desc.subtitle(totalProjects)}
+        {!isNature && (
+          <span className="ml-2 text-xs text-muted-foreground/70">— klik på et stadium for at se projekterne</span>
+        )}
       </p>
 
       <div className="space-y-4">
@@ -177,6 +338,9 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
           const conversionRate = i > 0 && counts[i - 1] > 0
             ? ((count / counts[i - 1]) * 100).toFixed(0)
             : null;
+          const isExpanded = expandedEntry?.pillar === activePillar && expandedEntry?.stage === stage.key;
+          const canExpand = !isNature && count > 0;
+          const stageProjects = pillarProjects[stage.key];
 
           return (
             <div key={stage.key}>
@@ -189,7 +353,14 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 </div>
               )}
 
-              <div className="flex items-center gap-4">
+              <div
+                className={`flex items-center gap-4 rounded-xl px-2 py-1 -mx-2 transition-colors ${
+                  canExpand ? 'cursor-pointer hover:bg-muted/30' : ''
+                }`}
+                onClick={() => canExpand && handleStageClick(stage.key)}
+                role={canExpand ? 'button' : undefined}
+                aria-expanded={canExpand ? isExpanded : undefined}
+              >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: stage.color + '20' }}
@@ -199,16 +370,23 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline justify-between mb-1.5">
-                    <div>
+                    <div className="flex items-center gap-1.5">
                       <span className="text-sm font-semibold text-foreground">{stage.label}</span>
-                      <span className="text-xs text-muted-foreground ml-2 hidden sm:inline">{stage.sublabel}</span>
+                      <span className="text-xs text-muted-foreground hidden sm:inline">{stage.sublabel}</span>
                     </div>
-                    <span
-                      className="text-lg font-bold tabular-nums"
-                      style={{ color: stage.color, fontFamily: "'Fraunces', serif" }}
-                    >
-                      {formatDanishNumber(count)}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span
+                        className="text-lg font-bold tabular-nums"
+                        style={{ color: stage.color, fontFamily: "'Fraunces', serif" }}
+                      >
+                        {formatDanishNumber(count)}
+                      </span>
+                      {canExpand && (
+                        isExpanded
+                          ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                          : <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                      )}
+                    </div>
                   </div>
                   <div className="h-3.5 w-full rounded-full bg-muted overflow-hidden">
                     <div
@@ -221,6 +399,15 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                   </div>
                 </div>
               </div>
+
+              {/* Expandable project list panel */}
+              {canExpand && isExpanded && stageProjects.length > 0 && (
+                <ProjectListPanel
+                  projects={stageProjects}
+                  pillarId={activePillar}
+                  stageColor={stage.color}
+                />
+              )}
             </div>
           );
         })}
