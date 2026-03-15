@@ -20,6 +20,9 @@ This page documents all data sources, their licenses, and the attribution requir
 | MiljøGIS / Naturstyrelsen    | §3-beskyttet natur (heder, moser m.fl.)   | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
 | MiljøGIS / Naturstyrelsen    | Fredskov + digitalt skovkort 2022         | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
 | VanDa / Danmarks Miljøportal | Vandovervågningsstationer                 | Uafklaret — se note      | —                    |
+| Klimaskovfonden (WFS)        | Frivillige skovrejsnings- og lavbundsprojekter | CC0-lignende        | Ja (kildeangivelse)  |
+| Naturstyrelsen Skov (WFS)    | Statslige skovrejsningsprojekter          | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
+| SparEnergi / Ea Energianalyse| Kommunefordelt CO₂-regnskab (planlagt)    | CC0-lignende             | Ja (kildeangivelse)  |
 
 
 ---
@@ -141,6 +144,48 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 - **PSI-loven** (Lov om videreanvendelse af den offentlige sektors informationer) — tillader videreanvendelse af offentlige data til både kommercielle og ikke-kommercielle formål.
 - **Digitaliseringsstyrelsens anbefaling**: Offentlige data bør som udgangspunkt stilles til rådighed under CC0-licens.
 - Kilde: [digst.dk/data/videreanvendelse-af-offentlige-data](https://digst.dk/data/videreanvendelse-af-offentlige-data/licens-og-brugsvilkaar-for-offentlige-data/)
+
+---
+
+### 9. Klimaskovfonden (test.admin.gc2.io)
+
+**Hvad vi henter**: Frivillige skovrejsnings- og lavbundsprojekter (~213 features, ~2.314 ha) med polygon-geometrier.
+
+**Licens**: CC0-lignende — offentligt WFS-endpoint.
+
+**Attribution**: "Indeholder data fra Klimaskovfonden (klimaskovfonden.dk)"
+
+**Detaljer**: Se [docs/data-sources/data-provenance.md](docs/data-sources/data-provenance.md)
+
+---
+
+### 10. Naturstyrelsen — Statslig skovrejsning (wfs2-miljoegis.mim.dk/skovdrift)
+
+**Hvad vi henter**: Naturstyrelsens arealoversigt matchet mod kendte skovrejsningsprojekter (~30 projekter, ~4.100 ha).
+
+**Licens**: CC0-lignende vilkår under PSI-loven.
+
+**Attribution**: "Indeholder geodata fra Naturstyrelsen (miljoegis.mim.dk)"
+
+**Vilkår**: [naturstyrelsen.dk/om-naturstyrelsen/brugervilkaar-for-geodata](https://naturstyrelsen.dk/om-naturstyrelsen/brugervilkaar-for-geodata)
+
+---
+
+### 11. SparEnergi — Energi- og CO₂-regnskabet (planlagt datakilde)
+
+**Hvad vi planlægger at hente**: Kommunefordelt drivhusgasudledning, energiforbrug og VE-produktion — den primære datakilde for kommunevisningen.
+
+**Kilde**: Ea Energianalyse for Energistyrelsen.
+
+**URL**: https://sparenergi.dk/forbruger/vaerktoejer/energi-og-co2-regnskabet
+
+**Licens**: Forventet CC0-lignende under PSI-loven — skal bekræftes.
+
+**Status**: ⚠️ Endnu ikke integreret i ETL. Planlagt som del af kommune-feature (se [KOMMUNE-FEATURE-SPEC.md](KOMMUNE-FEATURE-SPEC.md)).
+
+**Begrænsning**: Data er ca. 2 år forsinket (seneste tilgængelige: 2022).
+
+**Kontekst**: Denne datakilde er den samme som bruges af CONCITO/Klimaalliancens monitoreringsystem for kommunernes klimahandling. Se [docs/data-sources/concito-kommunemonitoring.md](docs/data-sources/concito-kommunemonitoring.md) for detaljer om Concitos 16 omstillingsindikatorer og potentielle samarbejde.
 
 ---
 

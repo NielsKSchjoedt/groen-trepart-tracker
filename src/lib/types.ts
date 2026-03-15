@@ -22,6 +22,79 @@ export interface PipelineScenarioValues {
   afforestationProgressPct: number;
 }
 
+/**
+ * Aggregated metrics for a single Danish municipality, derived from MARS
+ * project data, Klimaskovfonden, and Naturstyrelsen sources.
+ *
+ * Produced by `etl/build_dashboard_data.py` and stored in
+ * `dashboard-data.json → national.byKommune`.
+ */
+/** Per-phase metric breakdown for a single municipality. */
+export interface KommunePhaseMetrics {
+  nitrogenT: number;
+  extractionHa: number;
+  afforestationHa: number;
+  count: number;
+}
+
+export interface KommuneMetrics {
+  /** 4-digit municipality code from DAWA (e.g. "0461") */
+  kode: string;
+  /** Municipality name (e.g. "Odense") */
+  navn: string;
+  /** Region name (e.g. "Region Syddanmark") */
+  region: string;
+  /** Total nitrogen reduction (ton N) from MARS projects (all phases) */
+  nitrogenT: number;
+  /** Total lowland extraction area (ha) from MARS projects (all phases) */
+  extractionHa: number;
+  /** Afforestation area (ha) from MARS projects */
+  afforestationMarsHa: number;
+  /** Afforestation area (ha) from Klimaskovfonden projects */
+  afforestationKsfHa: number;
+  /** Afforestation area (ha) from Naturstyrelsen projects */
+  afforestationNstHa: number;
+  /** Combined afforestation from all three sources */
+  afforestationTotalHa: number;
+  /**
+   * §3-protected nature area (ha) within this municipality.
+   * Source: MiljøGIS WFS ais_par3 layer, centroid point-in-polygon assignment.
+   */
+  section3Ha: number;
+  /**
+   * Terrestrial Natura 2000 area (ha) assigned to this municipality.
+   * Centroid-based assignment — sites spanning multiple municipalities are
+   * attributed to the one containing the site centroid.
+   */
+  natura2000Ha: number;
+  /**
+   * Combined protected nature area (ha) = §3 + Natura 2000 terrestrial.
+   * Note: the two sources overlap significantly; this is an additive estimate,
+   * not a deduplicated figure. Use for relative comparison between municipalities.
+   */
+  naturePotentialHa: number;
+  /**
+   * Estimated CO₂ reduction (ton CO₂/year) for this municipality.
+   * Currently 0 for all municipalities — CO₂ data from KF25 is only
+   * available at national level and is not disaggregated per kommune.
+   */
+  co2EstimatedT: number;
+  /** Total MARS project count (all phases) */
+  projectCount: number;
+  projectsByPhase: ProjectCounts;
+  /**
+   * MARS project metric breakdown by implementation phase.
+   * Allows the frontend to compute totals for any selection of phases
+   * without re-fetching data (e.g. show only established + approved).
+   */
+  byPhase: {
+    sketch:      KommunePhaseMetrics;
+    preliminary: KommunePhaseMetrics;
+    approved:    KommunePhaseMetrics;
+    established: KommunePhaseMetrics;
+  };
+}
+
 export interface DashboardData {
   fetchedAt: string;
   national: {
@@ -61,6 +134,8 @@ export interface DashboardData {
       approved: number;
       established: number;
     };
+    /** Per-kommune aggregated metrics — 98 entries, one per Danish municipality */
+    byKommune: KommuneMetrics[];
   };
   plans: Plan[];
   catchments: Catchment[];
@@ -141,6 +216,10 @@ export interface ProjectDetail {
   areaHa: number;
   appliedAt: string;
   lastChanged: string;
+  /** 4-digit municipality code resolved via DAWA reverse geocoding (null if not resolved) */
+  kommuneKode?: string | null;
+  /** Municipality name resolved via DAWA reverse geocoding (null if not resolved) */
+  kommuneNavn?: string | null;
 }
 
 // Early-stage sketch project (no formal MARS status yet)
@@ -226,6 +305,8 @@ export interface NaturstyrelsenSkovProject {
   centroid: [number, number] | null;
   /** WFS feature ID (null if not matched) */
   wfsId: string | null;
+  /** Municipality name resolved via DAWA reverse geocoding (null if not geocoded) */
+  kommune: string | null;
 }
 
 // ============================================================

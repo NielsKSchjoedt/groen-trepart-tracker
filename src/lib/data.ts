@@ -7,6 +7,7 @@ let cachedData: DashboardData | null = null;
 let cachedLookup: Record<string, string> | null = null;
 let cachedCatchmentsTopo: Topology | null = null;
 let cachedCoastalTopo: Topology | null = null;
+let cachedKommunerTopo: Topology | null = null;
 let cachedGeometries: Record<string, [number, number][]> | null = null;
 let cachedCO2Data: CO2EmissionsData | null = null;
 let cachedCoastalStatus: CoastalWaterStatusData | null = null;
@@ -166,6 +167,7 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         approved: phases.approved?.count ?? 0,
         established: phases.established?.count ?? 0,
       },
+      byKommune: (nat.byKommune ?? []) as any[],
     },
     plans: ((r.plans ?? []) as any[]).map((p: any) => {
       const defaultPhase = { established: 0, approved: 0, preliminary: 0 };
@@ -217,6 +219,25 @@ export async function loadCoastalWatersGeoJSON(): Promise<FeatureCollection<Geom
   }
   const objectKey = Object.keys(cachedCoastalTopo!.objects)[0];
   return feature(cachedCoastalTopo!, cachedCoastalTopo!.objects[objectKey]) as unknown as FeatureCollection<Geometry>;
+}
+
+/**
+ * Load the municipality polygon TopoJSON for the choropleth map.
+ *
+ * The file is produced by `etl/build_kommune_topojson.py` and stored at
+ * `public/data/kommuner.topo.json`. Returns a GeoJSON FeatureCollection
+ * converted from TopoJSON via topojson-client.
+ *
+ * @returns FeatureCollection with 98 kommuner polygons in WGS84
+ * @example const kommunerGeo = await loadKommunerGeoJSON();
+ */
+export async function loadKommunerGeoJSON(): Promise<FeatureCollection<Geometry>> {
+  if (!cachedKommunerTopo) {
+    const res = await fetch('/data/kommuner.topo.json');
+    cachedKommunerTopo = await res.json();
+  }
+  const objectKey = Object.keys(cachedKommunerTopo!.objects)[0];
+  return feature(cachedKommunerTopo!, cachedKommunerTopo!.objects[objectKey]) as unknown as FeatureCollection<Geometry>;
 }
 
 /** Load project polygon geometries (geoId → [[lng,lat], ...]) */

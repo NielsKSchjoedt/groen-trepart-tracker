@@ -21,10 +21,16 @@ import json
 import math
 import os
 import sys
+import time
 import urllib.request
 from datetime import datetime
+from urllib.request import urlopen, Request
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'data', 'naturstyrelsen-skov')
+
+DAWA_REVERSE_URL = "https://api.dataforsyningen.dk/kommuner/reverse"
+DAWA_TIMEOUT_SECONDS = 10
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 
 WFS_URL = (
     "https://wfs2-miljoegis.mim.dk/skovdrift/ows"
@@ -95,6 +101,70 @@ KNOWN_PROJECTS = [
     ("True Skov — skovrejsning", ["true skov"], "completed", "https://naturstyrelsen.dk/ny-natur/skovrejsning/true-skov-skovrejsning"),
     ("Aaby Skoven — ny skov ved Aabybro", ["aaby skov", "aaby_skov"], "completed", "https://naturstyrelsen.dk/ny-natur/skovrejsning/aaby-skoven"),
 ]
+
+
+# ---------------------------------------------------------------------------
+# DAWA reverse geocoding: WGS84 centroid → municipality name
+# ---------------------------------------------------------------------------
+
+def reverse_geocode_kommune(lon: float, lat: float) -> str | None:
+    """
+    Resolve a WGS84 point to a Danish municipality name via DAWA reverse geocoding.
+
+    Returns the municipality name (e.g. "Vejle") or None on failure.
+    Uses Dataforsyningen's free, unauthenticated API.
+
+    @param lon - Longitude in WGS84
+    @param lat - Latitude in WGS84
+    @returns Municipality name or None
+
+    @example reverse_geocode_kommune(9.358, 55.733)  # → "Kolding"
+    """
+    url = f"{DAWA_REVERSE_URL}?x={lon}&y={lat}&srid=4326"
+    req = Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urlopen(req, timeout=DAWA_TIMEOUT_SECONDS) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            return data.get("navn")
+    except Exception:
+        return None
+
+
+def geocode_projects(projects: list[dict]) -> list[dict]:
+    """
+    Add a `kommune` field to each project that has a centroid via DAWA reverse geocoding.
+
+    Projects without a centroid receive `kommune: null`. Results are cached by
+    rounded coordinates to avoid duplicate API calls for nearby projects.
+
+    @param projects - List of matched project dicts with optional 'centroid' [lon, lat]
+    @returns The same list with 'kommune' field added to each entry
+
+    @example geocode_projects([{"name": "Arden Skov", "centroid": [9.87, 56.78], ...}])
+    """
+    cache: dict[str, str | None] = {}
+    total = sum(1 for p in projects if p.get("centroid"))
+
+    geocoded = 0
+    for proj in projects:
+        centroid = proj.get("centroid")
+        if not centroid:
+            proj["kommune"] = None
+            continue
+
+        lon, lat = centroid
+        cache_key = f"{lon:.2f},{lat:.2f}"
+
+        if cache_key not in cache:
+            cache[cache_key] = reverse_geocode_kommune(lon, lat)
+            time.sleep(0.05)
+
+        proj["kommune"] = cache[cache_key]
+        geocoded += 1
+        if geocoded % 10 == 0:
+            print(f"    geocoded {geocoded}/{total}...")
+
+    return projects
 
 
 # ---------------------------------------------------------------------------
@@ -292,6 +362,7 @@ def match_features(features: list[dict]) -> list[dict]:
                 'url': url,
                 'centroid': None,
                 'wfsId': None,
+                'kommune': None,
             })
 
     return matched
@@ -306,6 +377,9 @@ def main():
 
     features = fetch_wfs()
     projects = match_features(features)
+
+    print(f"\nReverse-geocoding {sum(1 for p in projects if p.get('centroid'))} project centroids via DAWA...")
+    projects = geocode_projects(projects)
 
     matched_projects = [p for p in projects if p['areaHa'] is not None]
     unmatched = [p for p in projects if p['areaHa'] is None]
@@ -329,6 +403,7 @@ def main():
             'totalKnownProjects': len(projects),
             'matchedInWfs': len(matched_projects),
             'unmatchedInWfs': len(unmatched),
+            'geocodedCount': sum(1 for p in projects if p.get('kommune')),
             'ongoingCount': len(ongoing),
             'completedCount': len(completed),
             'ongoingAreaHa': round(sum(p['areaHa'] for p in ongoing), 1),

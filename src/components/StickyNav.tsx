@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { pillarToSlug } from '@/lib/slugs';
-import { useNavigate } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { ChevronDown, Globe, MapPin } from 'lucide-react';
 
 interface StickyNavProps {
   /**
@@ -36,6 +36,8 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
   const { activePillar, config } = usePillar();
   const jumpLinks = ALL_JUMP_LINKS.filter((l) => !l.requiresPillar || activePillar !== null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isKommunerRoute = location.pathname.startsWith('/kommuner');
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -153,15 +155,15 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
             )}
           </div>
 
-          <div className="flex items-center gap-5">
-            {/* Pillar switcher — labeled buttons, desktop only */}
-            <div className="flex items-center gap-1">
+          <div className="flex items-center gap-3">
+            {/* Pillar switcher — dot buttons, desktop only */}
+            <div className="hidden sm:flex items-center gap-1">
               {PILLAR_CONFIGS.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => handlePillarSwitch(p.id)}
                   title={p.label}
-                  className={`h-7 rounded-md transition-all text-xs font-medium px-2 hidden sm:flex items-center gap-1.5 ${
+                  className={`h-7 rounded-md transition-all text-xs font-medium px-2 flex items-center gap-1.5 ${
                     p.id === activePillar
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
@@ -178,20 +180,61 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
             </div>
 
             {/* Divider */}
-            <span className="hidden sm:block w-px h-4 bg-border" />
+            <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
 
-            {/* Section jump links */}
-            <nav className="flex items-center gap-3" aria-label="Spring til sektion">
-              {jumpLinks.map(({ label, href }) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
+            {/* Section jump links — only shown on the national view when a pillar is active */}
+            {!isKommunerRoute && jumpLinks.length > 0 && (
+              <nav className="hidden sm:flex items-center gap-3" aria-label="Spring til sektion">
+                {jumpLinks.map(({ label, href }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </nav>
+            )}
+
+            {/* Divider before toggle */}
+            {!isKommunerRoute && jumpLinks.length > 0 && (
+              <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
+            )}
+
+            {/* View toggle — National ↔ Kommuner */}
+            <div
+              className="flex items-center rounded-lg border border-border/60 bg-muted/40 p-0.5 gap-0.5 flex-shrink-0"
+              role="group"
+              aria-label="Skift visning"
+            >
+              <Link
+                to="/"
+                aria-current={!isKommunerRoute ? 'page' : undefined}
+                className={[
+                  'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
+                  !isKommunerRoute
+                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
+                    : 'text-muted-foreground hover:text-foreground',
+                ].join(' ')}
+              >
+                <Globe className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                <span className="hidden sm:inline">National</span>
+              </Link>
+              <Link
+                to="/kommuner"
+                aria-current={isKommunerRoute ? 'page' : undefined}
+                className={[
+                  'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
+                  isKommunerRoute
+                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
+                    : 'text-muted-foreground hover:text-foreground',
+                ].join(' ')}
+              >
+                <MapPin className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                <span className="hidden sm:inline">Kommuner</span>
+              </Link>
+            </div>
           </div>
 
         </div>

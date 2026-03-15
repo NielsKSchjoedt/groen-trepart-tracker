@@ -10,9 +10,12 @@ The layer is too large to fetch in one request, so we paginate through it
 and aggregate statistics without storing all geometries. We save:
   - A summary with total area by nature type
   - A sample GeoJSON for verification
+  - by_kommune.json: total §3 ha per municipality (centroid point-in-polygon
+    against DAWA municipality boundaries — no kommunekode on WFS features)
 
 This data feeds the Nature pillar — combined with Natura 2000 data to
-compute the "20% protected land" target metric.
+compute the "20% protected land" target metric and the per-municipality
+naturePotentialHa figure.
 
 NOTE: Natura 2000 and §3 areas overlap significantly. The overlap deduction
 is handled in build_dashboard_data.py, not here. This fetcher just reports
@@ -22,6 +25,7 @@ the raw §3 totals.
 import json
 import sys
 import time
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import urlopen, Request
@@ -29,6 +33,7 @@ from urllib.error import URLError, HTTPError
 from urllib.parse import urlencode
 
 from etl_log import log_etl_run
+from spatial_utils import MunicipalityIndex, geometry_centroid
 
 # Configuration
 WFS_BASE = "https://wfs2-miljoegis.mim.dk/natur/ows"
@@ -36,6 +41,7 @@ LAYER = "natur:ais_par3"
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 DATA_DIR = REPO_ROOT / "data" / "section3"
+KOMMUNER_GEOJSON = REPO_ROOT / "data" / "dawa" / "kommuner.geojson"
 
 USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT_SECONDS = 180  # Large layer, needs more time
@@ -106,6 +112,99 @@ def wfs_hit_count(layer: str) -> int | None:
             return None
     except (HTTPError, URLError):
         return None
+
+
+def aggregate_by_kommune(total_count: int) -> dict[str, float]:
+    """
+    Paginate through all §3 features WITH geometry, compute each feature's
+    centroid, and assign it to a municipality using a point-in-polygon index
+    built from the DAWA kommuner.geojson boundaries (EPSG:25832).
+
+    Results are saved to ``data/section3/by_kommune.json`` and returned as a
+    dict mapping kommunekode → total §3 ha.
+
+    The §3 WFS layer has no kommunekode attribute, so spatial assignment is the
+    only viable approach. Features that cannot be assigned (e.g. near borders,
+    missing geometry) are silently skipped — they represent a small fraction.
+
+    @param total_count - Expected total feature count from the WFS hits request
+    @returns Dict mapping 4-digit kode → ha, e.g. {'0461': 1823.4, ...}
+    @example aggregate_by_kommune(186628)  # → {'0101': 234.5, '0147': 12.3, ...}
+    """
+    by_kommune_path = DATA_DIR / "by_kommune.json"
+    if by_kommune_path.exists():
+        print(f"  §3 by_kommune.json already exists — skipping spatial aggregation (delete to re-run)")
+        with open(by_kommune_path) as f:
+            return json.load(f)
+
+    if not KOMMUNER_GEOJSON.exists():
+        print(f"  ⚠ {KOMMUNER_GEOJSON} not found — run fetch_dawa.py first, skipping by_kommune")
+        return {}
+
+    print(f"  Building municipality spatial index from {KOMMUNER_GEOJSON.name}...")
+    idx = MunicipalityIndex.from_geojson(KOMMUNER_GEOJSON)
+    print(f"    ✓ {len(idx)} municipalities indexed")
+
+    kode_ha: dict[str, float] = defaultdict(float)
+    total_features_fetched = 0
+    assigned = 0
+    page = 0
+
+    print(f"  Aggregating §3 ha by municipality (fetching geometry, {PAGE_SIZE:,}/page)...")
+    while page < MAX_PAGES:
+        start_idx = page * PAGE_SIZE
+        if total_count > 0 and start_idx >= total_count:
+            break
+
+        # Fetch WITH geometry (no property_names filter) — includes polygon coords
+        raw = wfs_get_feature(LAYER, max_features=PAGE_SIZE, start_index=start_idx)
+        if not raw:
+            break
+
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            break
+
+        features = data.get("features", [])
+        if not features:
+            break
+
+        for feat in features:
+            props = feat.get("properties", {})
+            hectares = props.get("hectares", 0) or 0
+            if hectares <= 0:
+                continue
+            geo = feat.get("geometry")
+            if not geo:
+                continue
+            centroid = geometry_centroid(geo)
+            if centroid is None:
+                continue
+            x, y = centroid
+            result = idx.find_kommune(x, y)
+            if result:
+                kode, _ = result
+                kode_ha[kode] += hectares
+                assigned += 1
+
+        total_features_fetched += len(features)
+        page += 1
+
+        pct = (total_features_fetched / total_count * 100) if total_count > 0 else 0
+        print(f"    Page {page}: {total_features_fetched:,}/{total_count:,} ({pct:.0f}%) — {assigned:,} assigned")
+
+        if len(features) < PAGE_SIZE:
+            break
+
+    result_dict = {kode: round(ha, 2) for kode, ha in sorted(kode_ha.items())}
+    with open(by_kommune_path, "w", encoding="utf-8") as f:
+        json.dump(result_dict, f, ensure_ascii=False, indent=2)
+
+    total_ha = sum(result_dict.values())
+    print(f"  ✓ §3 by_kommune: {len(result_dict)} municipalities, {total_ha:,.0f} ha total")
+    print(f"    ({assigned:,}/{total_features_fetched:,} features assigned)")
+    return result_dict
 
 
 def main():
@@ -274,11 +373,19 @@ def main():
         print(f"    {str(t['type']):12s} {t['count']:>7,} features  {t['area_ha']:>10,.0f} ha")
     print()
 
+    # Aggregate §3 ha per municipality via spatial join
+    print("Aggregating §3 area per municipality (spatial join)...")
+    by_kommune = aggregate_by_kommune(total_count)
+    if by_kommune:
+        top5 = sorted(by_kommune.items(), key=lambda x: x[1], reverse=True)[:5]
+        print(f"  Top 5 §3 municipalities: {', '.join(f'{k}={v:.0f}ha' for k, v in top5)}")
+
     duration = time.time() - start_time
     log_etl_run(
         source="section3",
         endpoints=[f"wfs2-miljoegis.mim.dk (natur)"],
-        records={"section3_areas": total_features_fetched, "nature_types": len(type_totals)},
+        records={"section3_areas": total_features_fetched, "nature_types": len(type_totals),
+                 "section3_municipalities": len(by_kommune)},
         status="ok" if not errors else "partial",
         notes=f"{total_features_fetched:,} §3 areas, {total_area_ha:,.0f} ha total ({pct_of_land:.1f}% of land)",
         duration_seconds=duration,

@@ -18,6 +18,10 @@ run = "cd etl && python3 build_dashboard_data.py"
 description = "Convert GeoJSON to TopoJSON for the frontend map"
 run = "bash etl/prepare_map_data.sh"
 
+[tasks.build-kommune-map]
+description = "Convert kommune GeoJSON to WGS84 TopoJSON for the choropleth map"
+run = "cd etl && python3 build_kommune_topojson.py"
+
 [tasks.all]
 description = "Full pipeline: fetch data → prepare map → build dashboard data"
 run = """
@@ -36,6 +40,24 @@ echo "=== All done ==="
 [tasks.fetch-geometries]
 description = "Fetch project geometries from MARS API (resumable — saves every 25 fetches)"
 run = "cd etl && python3 fetch_geometries.py"
+
+[tasks.check]
+description = "Run all checks: lint, typecheck, build, and tests"
+run = """
+echo "=== 1/4: Lint ==="
+npm run lint
+echo
+echo "=== 2/4: Typecheck ==="
+npm run typecheck
+echo
+echo "=== 3/4: Build ==="
+npm run build
+echo
+echo "=== 4/4: Tests ==="
+npm run test
+echo
+echo "=== All checks passed ==="
+"""
 
 [tasks.dev]
 description = "Start the Vite dev server"

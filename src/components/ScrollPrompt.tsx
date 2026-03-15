@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { ChevronDown, TreePine, Map, Droplets, Target, Waves, Layers, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const SCROLL_HIDE_THRESHOLD = 350;
 const APPEAR_DELAY_MS = 1500;
@@ -10,11 +11,13 @@ const FADE_DURATION_MS = 400;
 interface RotatingItem {
   icon: LucideIcon;
   text: string;
+  /** If set, clicking this message navigates to this path instead of scrolling down. */
+  navigateTo?: string;
 }
 
 const ROTATING_MESSAGES: readonly RotatingItem[] = [
   { icon: TreePine, text: 'Se hvilke skovrejsningsprojekter der er startet nær dig' },
-  { icon: Map, text: 'Sammenlign kommunernes fremskridt på Danmarkskortet' },
+  { icon: Map, text: 'Sammenlign kommunernes fremskridt på Danmarkskortet', navigateTo: '/kommuner' },
   { icon: Droplets, text: 'Udforsk konkrete vådområder og lavbundsprojekter' },
   { icon: Target, text: 'Find ud af om kvælstofreduktionen i dit vandopland er på sporet' },
   { icon: Waves, text: 'Se hvordan de 37 kystvandoplande klarer sig mod deres mål' },
@@ -85,6 +88,7 @@ export function ScrollPrompt() {
     FADE_DURATION_MS,
   );
   const Icon = current.icon;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setAppeared(true), APPEAR_DELAY_MS);
@@ -100,14 +104,21 @@ export function ScrollPrompt() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollDown = useCallback(() => {
-    window.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
-  }, []);
+  const handleAction = useCallback(() => {
+    if (current.navigateTo) {
+      navigate(current.navigateTo);
+    } else {
+      window.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
+    }
+  }, [current, navigate]);
 
   const dismiss = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setDismissed(true);
   }, []);
+
+  // Keep scrollDown as alias for legacy aria-label usage below
+  const scrollDown = handleAction;
 
   const desktopVisible = appeared && !scrolledPast && !dismissed;
 
@@ -152,13 +163,15 @@ export function ScrollPrompt() {
         role="button"
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') scrollDown(); }}
-        aria-label="Rul ned for at udforske siden"
+        aria-label={current.navigateTo ? current.text : 'Rul ned for at udforske siden'}
       >
         {box}
-        <ChevronDown
-          className="w-5 h-5 text-primary animate-bounce-down"
-          strokeWidth={2}
-        />
+        {!current.navigateTo && (
+          <ChevronDown
+            className="w-5 h-5 text-primary animate-bounce-down"
+            strokeWidth={2}
+          />
+        )}
       </div>
 
       {/* Mobile: fixed floating prompt at bottom of screen */}
