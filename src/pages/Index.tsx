@@ -1,8 +1,8 @@
 import { useEffect, useState, useMemo, useCallback, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
-import { loadDashboardData } from '@/lib/data';
-import type { DashboardData } from '@/lib/types';
+import { loadDashboardData, loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
+import type { DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { PillarContext, getPillarConfig, PILLAR_CONFIGS } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import { slugToPillar, pillarToSlug } from '@/lib/slugs';
@@ -17,6 +17,8 @@ import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
 import { StickyNav } from '@/components/StickyNav';
 import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
+import { ProjectActivityChart } from '@/components/ProjectActivityChart';
+import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR } from '@/lib/supplement-colors';
 
 // Heavy components lazy-loaded so they split into separate JS chunks.
 // Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
@@ -46,6 +48,8 @@ const Index = () => {
   const navigate = useNavigate();
   const heroSentinelRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<DashboardData | null>(null);
+  const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
+  const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
 
   // null when on the root "/" overview page; a resolved PillarId on slug routes.
   const activePillar: PillarId | null = pillarSlug ? (slugToPillar(pillarSlug) ?? null) : null;
@@ -88,7 +92,49 @@ const Index = () => {
 
   useEffect(() => {
     loadDashboardData().then(setData);
+    loadKlimaskovfondenProjects().then(setKsfProjects);
+    loadNaturstyrelsenSkovProjects().then(setNstProjects);
   }, []);
+
+  const allProjects = useMemo(
+    () => data?.plans.flatMap((p) => p.projectDetails) ?? [],
+    [data],
+  );
+
+  /**
+   * MARS projects filtered to those relevant for the active pillar.
+   * Mirrors the logic in ProjectFunnel's computePillarProjects: only
+   * projects with a positive effect in the pillar's key metric are included.
+   * For "nature" all projects are shown; for "co2" the chart is hidden.
+   */
+  const pillarProjects = useMemo(() => {
+    const effectField: Record<string, keyof typeof allProjects[0]> = {
+      nitrogen: 'nitrogenT',
+      extraction: 'extractionHa',
+      afforestation: 'afforestationHa',
+    };
+    const field = activePillar ? effectField[activePillar] : undefined;
+    if (!field) return allProjects;
+    return allProjects.filter((p) => ((p as Record<string, unknown>)[field as string] as number) > 0);
+  }, [allProjects, activePillar]);
+
+  /**
+   * KSF projects filtered by active pillar:
+   *   extraction    → only "Lavbund" type
+   *   afforestation → only "Skovrejsning" type
+   *   other         → empty (KSF not relevant)
+   */
+  const pillarKsfProjects = useMemo(() => {
+    if (activePillar === 'extraction') return ksfProjects.filter((p) => p.projekttyp === 'Lavbund');
+    if (activePillar === 'afforestation') return ksfProjects.filter((p) => p.projekttyp === 'Skovrejsning');
+    return [];
+  }, [ksfProjects, activePillar]);
+
+  /** NST projects are only relevant for the afforestation pillar. */
+  const pillarNstProjects = useMemo(
+    () => activePillar === 'afforestation' ? nstProjects : [],
+    [nstProjects, activePillar],
+  );
 
   if (!data) {
     return (
@@ -154,6 +200,19 @@ const Index = () => {
           {pillarSelected && (
             <>
               {activePillar !== 'co2' && <ProjectFunnel data={data} />}
+              {activePillar !== 'co2' && (
+                <section className="w-full max-w-4xl mx-auto px-4 pb-2">
+                  <ProjectActivityChart
+                    projectDetails={pillarProjects}
+                    ksfProjects={pillarKsfProjects}
+                    nstProjects={pillarNstProjects}
+                    ksfColor={activePillar === 'afforestation' ? KSF_COLOR_SKOV : KSF_COLOR_LAVBUND}
+                    nstColor={NST_COLOR}
+                    height={220}
+                    title="Kumulativ udvikling — alle projektkilder"
+                  />
+                </section>
+              )}
               {activePillar !== 'co2' && <InitiativeTypeGauge data={data} />}
               <ScenarioBuilderSection data={data} />
               {activePillar === 'co2' && (

@@ -265,10 +265,7 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
   const { actualPct, projectedPct, headline, projectedHeadline, subtitle } = getPillarProgress(pillar, data, co2Data);
   const [barHover, setBarHover] = useState<BarHover>(null);
 
-  // CO2 data comes from KF25 (a government forecast report), not project tracking,
-  // so the projected value is meaningful but shouldn't carry a traffic-light verdict
-  // that implies we're "on track" based on concrete implementation progress.
-  const goalStatus = pillar.id === 'co2' ? 'unknown' : assessGoalStatus(projectedPct, actualPct);
+  const goalStatus = assessGoalStatus(projectedPct, actualPct);
   const goalMeta = GOAL_STATUS_META[goalStatus];
 
   const displayHeadline = barHover === 'projected' && projectedHeadline

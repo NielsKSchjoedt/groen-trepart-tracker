@@ -2,6 +2,9 @@ import { X, Droplets, Trees, Mountain, Leaf, ExternalLink } from 'lucide-react';
 import type { KommuneMetrics, ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
 import { getPhaseConfig, STAGE_TO_PHASE } from '@/lib/phase-config';
+import { ProjectActivityChart } from './ProjectActivityChart';
+import type { KommuneMetric } from '@/lib/kommune-metrics';
+import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
 
 interface KommuneDetailPanelProps {
   kommune: KommuneMetrics;
@@ -11,6 +14,8 @@ interface KommuneDetailPanelProps {
   ksfProjects: KlimaskovfondenProject[];
   /** NST projects in this municipality */
   nstProjects: NaturstyrelsenSkovProject[];
+  /** Active metric — used to pick the correct KSF chart colour */
+  activeMetric?: KommuneMetric;
   onClose: () => void;
 }
 
@@ -47,8 +52,10 @@ export function KommuneDetailPanel({
   projectDetails,
   ksfProjects,
   nstProjects,
+  activeMetric,
   onClose,
 }: KommuneDetailPanelProps) {
+  const ksfColor = activeMetric === 'extraction' ? KSF_COLOR_LAVBUND : KSF_COLOR_SKOV;
   const totalAffTotal = kommune.afforestationTotalHa;
   const ksfTotal = ksfProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
   const nstTotal = nstProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
@@ -139,6 +146,14 @@ export function KommuneDetailPanel({
           </div>
         </div>
       )}
+
+      {/* Project activity timeline */}
+      <ProjectActivityChart
+        projectDetails={projectDetails}
+        ksfProjects={ksfProjects}
+        nstProjects={nstProjects}
+        ksfColor={ksfColor}
+      />
 
       {/* MARS project list */}
       {projectDetails.length > 0 && (

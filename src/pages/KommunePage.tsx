@@ -172,15 +172,23 @@ export default function KommunePage() {
     );
   }, [selectedKode, data]);
 
+  /**
+   * KSF projects for the selected municipality — only populated when the
+   * "ksf" supplement toggle is active, so the chart respects the toggle state.
+   */
   const selectedKsfProjects = useMemo(() => {
-    if (!selectedKommune) return [];
+    if (!selectedKommune || !activeSupplements.has('ksf')) return [];
     return ksfProjects.filter((p) => p.kommune === selectedKommune.navn);
-  }, [selectedKommune, ksfProjects]);
+  }, [selectedKommune, ksfProjects, activeSupplements]);
 
+  /**
+   * NST projects for the selected municipality — only populated when the
+   * "nst" supplement toggle is active.
+   */
   const selectedNstProjects = useMemo(() => {
-    if (!selectedKommune) return [];
+    if (!selectedKommune || !activeSupplements.has('nst')) return [];
     return nstProjects.filter((p) => p.kommune === selectedKommune.navn);
-  }, [selectedKommune, nstProjects]);
+  }, [selectedKommune, nstProjects, activeSupplements]);
 
   const panelOpen = !!selectedKommune;
 
@@ -363,6 +371,7 @@ export default function KommunePage() {
                     projectDetails={selectedProjectDetails}
                     ksfProjects={selectedKsfProjects}
                     nstProjects={selectedNstProjects}
+                    activeMetric={activeMetric ?? undefined}
                     onClose={handleClose}
                   />
                 </div>
@@ -391,6 +400,7 @@ export default function KommunePage() {
             projectDetails={selectedProjectDetails}
             ksfProjects={selectedKsfProjects}
             nstProjects={selectedNstProjects}
+            activeMetric={activeMetric ?? undefined}
             onClose={handleClose}
           />
         </MobileBottomSheet>
@@ -497,16 +507,12 @@ function SupplementToggles({
               className={[
                 'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
                 'transition-all duration-150 select-none cursor-pointer',
-                isActive
-                  ? 'border-amber-400 bg-amber-50 text-amber-800 dark:border-amber-500/50 dark:bg-amber-950/30 dark:text-amber-200'
-                  : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
+                isActive ? def.color.activeClass : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
               ].join(' ')}
             >
               <span
-                className={[
-                  'w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors',
-                  isActive ? 'bg-amber-500' : 'bg-muted-foreground/40',
-                ].join(' ')}
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors"
+                style={{ backgroundColor: isActive ? def.color.stroke : undefined }}
               />
               + {def.label}
             </button>

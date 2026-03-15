@@ -11,6 +11,7 @@ import type {
 import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
 import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
+import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND, NST_COLOR } from '@/lib/supplement-colors';
 import {
   GitPullRequestArrow,
   TreePine,
@@ -422,13 +423,16 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       </div>
 
       {activePillar === 'extraction' && ksfLowlandCount > 0 && (
-        <div className="mt-6 p-4 rounded-xl border-2 border-orange-200 bg-orange-50/50 dark:bg-orange-950/20 dark:border-orange-800/40">
+        <div
+          className="mt-6 p-4 rounded-xl border-2"
+          style={{ borderColor: `${KSF_COLOR_LAVBUND.stroke}40`, backgroundColor: `${KSF_COLOR_LAVBUND.stroke}08` }}
+        >
           <div className="flex items-center gap-3">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#f9731620' }}
+              style={{ backgroundColor: KSF_COLOR_LAVBUND.bg }}
             >
-              <Droplets className="w-5 h-5" style={{ color: '#c2410c' }} />
+              <Droplets className="w-5 h-5" style={{ color: KSF_COLOR_LAVBUND.text }} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline justify-between mb-1">
@@ -438,17 +442,20 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 </div>
                 <span
                   className="text-lg font-bold tabular-nums"
-                  style={{ color: '#c2410c', fontFamily: "'Fraunces', serif" }}
+                  style={{ color: KSF_COLOR_LAVBUND.text, fontFamily: "'Fraunces', serif" }}
                 >
                   {formatDanishNumber(ksfLowlandCount)}
                 </span>
               </div>
-              <div className="h-3.5 w-full rounded-full bg-orange-100 dark:bg-orange-900/30 overflow-hidden">
+              <div
+                className="h-3.5 w-full rounded-full overflow-hidden"
+                style={{ backgroundColor: `${KSF_COLOR_LAVBUND.stroke}20` }}
+              >
                 <div
                   className="h-full rounded-full transition-all duration-700 ease-out"
                   style={{
                     width: '100%',
-                    backgroundColor: '#f97316',
+                    backgroundColor: KSF_COLOR_LAVBUND.stroke,
                   }}
                 />
               </div>
@@ -461,13 +468,16 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       )}
 
       {activePillar === 'afforestation' && ksfAfforestationCount > 0 && (
-        <div className="mt-6 p-4 rounded-xl border-2 border-green-200 bg-green-50/50 dark:bg-green-950/20 dark:border-green-800/40">
+        <div
+          className="mt-6 p-4 rounded-xl border-2"
+          style={{ borderColor: `${KSF_COLOR_SKOV.stroke}40`, backgroundColor: `${KSF_COLOR_SKOV.stroke}08` }}
+        >
           <div className="flex items-center gap-3">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#22c55e20' }}
+              style={{ backgroundColor: KSF_COLOR_SKOV.bg }}
             >
-              <TreePine className="w-5 h-5" style={{ color: '#15803d' }} />
+              <TreePine className="w-5 h-5" style={{ color: KSF_COLOR_SKOV.text }} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline justify-between mb-1">
@@ -477,17 +487,20 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 </div>
                 <span
                   className="text-lg font-bold tabular-nums"
-                  style={{ color: '#15803d', fontFamily: "'Fraunces', serif" }}
+                  style={{ color: KSF_COLOR_SKOV.text, fontFamily: "'Fraunces', serif" }}
                 >
                   {formatDanishNumber(ksfAfforestationCount)}
                 </span>
               </div>
-              <div className="h-3.5 w-full rounded-full bg-green-100 dark:bg-green-900/30 overflow-hidden">
+              <div
+                className="h-3.5 w-full rounded-full overflow-hidden"
+                style={{ backgroundColor: `${KSF_COLOR_SKOV.stroke}20` }}
+              >
                 <div
                   className="h-full rounded-full transition-all duration-700 ease-out"
                   style={{
                     width: '100%',
-                    backgroundColor: '#22c55e',
+                    backgroundColor: KSF_COLOR_SKOV.stroke,
                   }}
                 />
               </div>
@@ -500,13 +513,16 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       )}
 
       {activePillar === 'afforestation' && nstMatchedProjects.length > 0 && (
-        <div className="mt-4 p-4 rounded-xl border-2 border-blue-200 bg-blue-50/50 dark:bg-blue-950/20 dark:border-blue-800/40">
+        <div
+          className="mt-4 p-4 rounded-xl border-2"
+          style={{ borderColor: `${NST_COLOR.stroke}40`, backgroundColor: `${NST_COLOR.stroke}08` }}
+        >
           <div className="flex items-center gap-3">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#3b82f620' }}
+              style={{ backgroundColor: NST_COLOR.bg }}
             >
-              <Landmark className="w-5 h-5" style={{ color: '#1e40af' }} />
+              <Landmark className="w-5 h-5" style={{ color: NST_COLOR.text }} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline justify-between mb-1">
@@ -516,25 +532,28 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 </div>
                 <span
                   className="text-lg font-bold tabular-nums"
-                  style={{ color: '#1e40af', fontFamily: "'Fraunces', serif" }}
+                  style={{ color: NST_COLOR.text, fontFamily: "'Fraunces', serif" }}
                 >
                   {formatDanishNumber(nstMatchedProjects.length)}
                 </span>
               </div>
-              <div className="h-3.5 w-full rounded-full bg-blue-100 dark:bg-blue-900/30 overflow-hidden">
+              <div
+                className="h-3.5 w-full rounded-full overflow-hidden"
+                style={{ backgroundColor: `${NST_COLOR.stroke}20` }}
+              >
                 <div className="flex h-full">
                   <div
                     className="h-full rounded-l-full transition-all duration-700 ease-out"
                     style={{
                       width: `${nstMatchedProjects.length > 0 ? (nstOngoing.length / nstMatchedProjects.length) * 100 : 0}%`,
-                      backgroundColor: '#3b82f6',
+                      backgroundColor: NST_COLOR.stroke,
                     }}
                   />
                   <div
                     className="h-full rounded-r-full transition-all duration-700 ease-out"
                     style={{
                       width: `${nstMatchedProjects.length > 0 ? (nstCompleted.length / nstMatchedProjects.length) * 100 : 0}%`,
-                      backgroundColor: '#818cf8',
+                      backgroundColor: `${NST_COLOR.stroke}80`,
                     }}
                   />
                 </div>

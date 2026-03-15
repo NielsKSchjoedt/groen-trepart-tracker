@@ -1,6 +1,7 @@
 import { X, Trees, ExternalLink, MapPin, Calendar, Ruler, Tag, Building2 } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 import type { SelectedProject } from '@/lib/project-selection';
+import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND, NST_COLOR } from '@/lib/supplement-colors';
 
 interface ProjectDetailPanelProps {
   project: SelectedProject;
@@ -37,10 +38,10 @@ function InfoRow({ icon: Icon, label, children }: { icon: typeof Trees; label: s
 }
 
 /** Source badge with color. */
-function SourceBadge({ source }: { source: 'klimaskovfonden' | 'naturstyrelsen' }) {
+function SourceBadge({ source, isSkov = true }: { source: 'klimaskovfonden' | 'naturstyrelsen'; isSkov?: boolean }) {
   const config = source === 'klimaskovfonden'
-    ? { label: 'Klimaskovfonden', color: '#15803d', bg: '#15803d15' }
-    : { label: 'Naturstyrelsen', color: '#1e40af', bg: '#1e40af15' };
+    ? { label: 'Klimaskovfonden', color: isSkov ? KSF_COLOR_SKOV.text : KSF_COLOR_LAVBUND.text, bg: isSkov ? KSF_COLOR_SKOV.bg : KSF_COLOR_LAVBUND.bg }
+    : { label: 'Naturstyrelsen', color: NST_COLOR.text, bg: NST_COLOR.bg };
   return (
     <span
       className="inline-flex items-center text-[11px] font-medium rounded-full px-2.5 py-0.5"
@@ -96,7 +97,7 @@ function KsfPanel({ project, featureName, onClose }: { project: KlimaskovfondenP
       </h2>
 
       <div className="flex flex-wrap gap-1.5 mb-5">
-        <SourceBadge source="klimaskovfonden" />
+        <SourceBadge source="klimaskovfonden" isSkov={isSkov} />
         <StatusBadge label={statusLabel} variant={isSkov ? 'green' : 'amber'} />
       </div>
 

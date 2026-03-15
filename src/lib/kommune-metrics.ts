@@ -1,3 +1,6 @@
+import type { SeriesColor } from './supplement-colors';
+import { KSF_COLOR_SKOV, NST_COLOR, SECTION3_COLOR, NATURA2000_COLOR } from './supplement-colors';
+
 /**
  * Metric identifiers for the municipality choropleth map and table.
  * Shared between KommuneMap, MetricPicker, and KommuneTable so that none of
@@ -63,6 +66,8 @@ export interface SupplementDef {
   shortLabel: string;
   description: string;
   field: string;
+  /** Canonical colour tokens — shared with charts, maps, and badges. */
+  color: SeriesColor;
 }
 
 export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
@@ -72,6 +77,7 @@ export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
     shortLabel: 'KSF',
     description: 'Frivillig privat skovrejsning administreret uden for MARS. Har ikke projektfasedata — inkluderes som samlet areal.',
     field: 'afforestationKsfHa',
+    color: KSF_COLOR_SKOV,
   },
   nst: {
     id: 'nst',
@@ -79,6 +85,7 @@ export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
     shortLabel: 'NST',
     description: 'Statslig skovrejsning administreret af Naturstyrelsen uden for MARS. Har ikke projektfasedata — inkluderes som samlet areal.',
     field: 'afforestationNstHa',
+    color: NST_COLOR,
   },
   section3: {
     id: 'section3',
@@ -86,6 +93,7 @@ export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
     shortLabel: '§3',
     description: 'Statsligt udpegede beskyttede naturtyper (hede, mose, eng, strandeng m.fl.). Faste lovmæssige udpegninger — ikke projekter med faser.',
     field: 'section3Ha',
+    color: SECTION3_COLOR,
   },
   natura2000: {
     id: 'natura2000',
@@ -93,6 +101,7 @@ export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
     shortLabel: 'N2000',
     description: 'EU-udpegede Habitat- og Fugledirektiv-beskyttede områder. Faste lovmæssige udpegninger — ikke projekter med faser.',
     field: 'natura2000Ha',
+    color: NATURA2000_COLOR,
   },
 };
 

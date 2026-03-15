@@ -18,6 +18,7 @@ import { Map, AlertTriangle, MousePointerClick, Waves } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { InfoTooltip } from './InfoTooltip';
 import { HintCallout } from './HintCallout';
+import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND, NST_COLOR } from '@/lib/supplement-colors';
 import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
 import 'leaflet/dist/leaflet.css';
 
@@ -734,8 +735,9 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
       const radius = Math.max(4, Math.min(14, 4 + 10 * Math.sqrt(proj.areaHa / maxArea)));
       const isSkov = proj.projekttyp === 'Skovrejsning';
-      const color = isSkov ? '#15803d' : '#92400e';
-      const fillColor = isSkov ? '#22c55e' : '#f59e0b';
+      const ksfColor = isSkov ? KSF_COLOR_SKOV : KSF_COLOR_LAVBUND;
+      const color = ksfColor.stroke;
+      const fillColor = ksfColor.stroke;
 
       const marker = L.circleMarker([lat, lon], {
         radius,
@@ -804,8 +806,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       const area = proj.areaHa ?? 0;
       const radius = Math.max(4, Math.min(14, 4 + 10 * Math.sqrt(area / maxArea)));
       const isOngoing = proj.status === 'ongoing';
-      const color = isOngoing ? '#1e40af' : '#4338ca';
-      const fillColor = isOngoing ? '#3b82f6' : '#818cf8';
+      const color = NST_COLOR.stroke;
+      const fillColor = NST_COLOR.stroke;
 
       const marker = L.circleMarker([lat, lon], {
         radius,
@@ -992,7 +994,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
               <>
                 <span className="ml-2 mr-1 text-muted-foreground/50">|</span>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-full border border-green-700" style={{ backgroundColor: '#22c55e' }} />
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: KSF_COLOR_SKOV.stroke }} />
                   <span>Klimaskovfonden (skov)</span>
                 </div>
               </>
@@ -1001,7 +1003,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
               <>
                 <span className="ml-2 mr-1 text-muted-foreground/50">|</span>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-full border border-blue-800" style={{ backgroundColor: '#3b82f6' }} />
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: NST_COLOR.stroke }} />
                   <span>Naturstyrelsen</span>
                 </div>
               </>
@@ -1010,7 +1012,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
               <>
                 <span className="ml-2 mr-1 text-muted-foreground/50">|</span>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-full border border-amber-800" style={{ backgroundColor: '#f59e0b' }} />
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: KSF_COLOR_LAVBUND.stroke }} />
                   <span>Klimaskovfonden (lavbund)</span>
                 </div>
               </>
@@ -1062,7 +1064,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         <div className="flex items-start gap-2.5 rounded-lg border border-amber-300/60 bg-amber-50/60 px-3.5 py-2.5 mb-4 text-xs text-amber-900/80 leading-relaxed">
           <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0 text-amber-500" />
           <div>
-            <strong>Tre datakilder.</strong> Vandoplande farves efter MARS-projekter (vandmiljørelateret skovrejsning). <span style={{ color: '#22c55e', fontWeight: 600 }}>Grønne cirkler</span> = Klimaskovfondens {ksfSkovProjects.length} skovrejsningsprojekter (~{Math.round(ksfSkovProjects.reduce((s, p) => s + p.areaHa, 0)).toLocaleString('da-DK')} ha). <span style={{ color: '#3b82f6', fontWeight: 600 }}>Blå cirkler</span> = Naturstyrelsens {nstProjects.filter(p => p.centroid).length} statslige skovrejsningsprojekter (~{Math.round(nstProjects.filter(p => p.centroid).reduce((s, p) => s + (p.areaHa ?? 0), 0)).toLocaleString('da-DK')} ha).
+            <strong>Tre datakilder.</strong> Vandoplande farves efter MARS-projekter (vandmiljørelateret skovrejsning). <span style={{ color: KSF_COLOR_SKOV.stroke, fontWeight: 600 }}>Grønne cirkler</span> = Klimaskovfondens {ksfSkovProjects.length} skovrejsningsprojekter (~{Math.round(ksfSkovProjects.reduce((s, p) => s + p.areaHa, 0)).toLocaleString('da-DK')} ha). <span style={{ color: NST_COLOR.stroke, fontWeight: 600 }}>Lilla cirkler</span> = Naturstyrelsens {nstProjects.filter(p => p.centroid).length} statslige skovrejsningsprojekter (~{Math.round(nstProjects.filter(p => p.centroid).reduce((s, p) => s + (p.areaHa ?? 0), 0)).toLocaleString('da-DK')} ha).
           </div>
         </div>
       )}
@@ -1071,7 +1073,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         <div className="flex items-start gap-2.5 rounded-lg border border-amber-300/60 bg-amber-50/60 px-3.5 py-2.5 mb-4 text-xs text-amber-900/80 leading-relaxed">
           <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0 text-amber-500" />
           <div>
-            <strong>Supplerende datakilde.</strong> Vandoplande farves efter MARS-projekter (lavbundsudtag). <span style={{ color: '#f59e0b', fontWeight: 600 }}>Orange cirkler</span> = Klimaskovfondens {ksfLavbundProjects.length} lavbundsprojekter (~{Math.round(ksfLavbundProjects.reduce((s, p) => s + p.areaHa, 0)).toLocaleString('da-DK')} ha).
+            <strong>Supplerende datakilde.</strong> Vandoplande farves efter MARS-projekter (lavbundsudtag). <span style={{ color: KSF_COLOR_LAVBUND.stroke, fontWeight: 600 }}>Orange cirkler</span> = Klimaskovfondens {ksfLavbundProjects.length} lavbundsprojekter (~{Math.round(ksfLavbundProjects.reduce((s, p) => s + p.areaHa, 0)).toLocaleString('da-DK')} ha).
           </div>
         </div>
       )}
