@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { X, Droplets, MapPin, Trees, Maximize2 } from 'lucide-react';
+import { X, Droplets, Mountain, Trees, Maximize2 } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 
 export interface ProjectMapInfo {
@@ -159,7 +159,7 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
             )}
             {(info.extractionHa ?? 0) > 0 && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-medium">
-                <MapPin className="w-3 h-3" />
+                <Mountain className="w-3 h-3" />
                 {formatDanishNumber(info.extractionHa!, 1)} ha
               </span>
             )}

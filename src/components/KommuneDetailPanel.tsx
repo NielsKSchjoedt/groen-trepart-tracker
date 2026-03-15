@@ -1,20 +1,7 @@
-import { X, Droplets, Trees, Sprout, Leaf, ExternalLink } from 'lucide-react';
+import { X, Droplets, Trees, Mountain, Leaf, ExternalLink } from 'lucide-react';
 import type { KommuneMetrics, ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
-
-const PHASE_LABELS: Record<string, string> = {
-  sketch:      'Skitse',
-  preliminary: 'Forundersøgelse',
-  approved:    'Godkendt',
-  established: 'Anlagt',
-};
-
-const PHASE_COLORS: Record<string, string> = {
-  sketch:      'bg-stone-100 text-stone-600',
-  preliminary: 'bg-amber-100 text-amber-700',
-  approved:    'bg-lime-100 text-lime-700',
-  established: 'bg-green-100 text-green-700',
-};
+import { getPhaseConfig, STAGE_TO_PHASE } from '@/lib/phase-config';
 
 interface KommuneDetailPanelProps {
   kommune: KommuneMetrics;
@@ -67,10 +54,10 @@ export function KommuneDetailPanel({
   const nstTotal = nstProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
 
   const phases = [
-    { key: 'established', label: PHASE_LABELS.established, count: kommune.projectsByPhase.established },
-    { key: 'approved',    label: PHASE_LABELS.approved,    count: kommune.projectsByPhase.approved    },
-    { key: 'assessed',    label: PHASE_LABELS.preliminary,  count: kommune.projectsByPhase.assessed    },
-    { key: 'sketches',    label: PHASE_LABELS.sketch,       count: kommune.projectsByPhase.sketches    },
+    { key: 'established', config: getPhaseConfig('established'), count: kommune.projectsByPhase.established },
+    { key: 'approved',    config: getPhaseConfig('approved'),    count: kommune.projectsByPhase.approved    },
+    { key: 'assessed',    config: getPhaseConfig('assessed'),    count: kommune.projectsByPhase.assessed    },
+    { key: 'sketches',    config: getPhaseConfig('sketches'),    count: kommune.projectsByPhase.sketches    },
   ];
   const hasPhases = phases.some((p) => p.count > 0);
 
@@ -106,7 +93,7 @@ export function KommuneDetailPanel({
           color="teal"
         />
         <MetricCard
-          icon={<Sprout className="w-4 h-4 text-amber-700" />}
+          icon={<Mountain className="w-4 h-4 text-amber-700" />}
           label="Udtagning"
           value={kommune.extractionHa}
           unit="ha"
@@ -141,12 +128,12 @@ export function KommuneDetailPanel({
             Projektfaser
           </p>
           <div className="flex flex-wrap gap-2">
-            {phases.filter((p) => p.count > 0).map(({ key, label, count }) => (
+            {phases.filter((p) => p.count > 0).map(({ key, config, count }) => (
               <span
                 key={key}
-                className={`inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-0.5 ${PHASE_COLORS[key] ?? 'bg-muted text-muted-foreground'}`}
+                className={`inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-0.5 ${config.badge}`}
               >
-                {label}: {count}
+                {config.label}: {count}
               </span>
             ))}
           </div>
@@ -268,9 +255,9 @@ function MetricCard({ icon, label, value, unit, sub, noDataText }: MetricCardPro
 }
 
 function ProjectRow({ project }: { project: ProjectDetail }) {
-  const phase = project.phase;
-  const phaseLabel = PHASE_LABELS[phase] ?? phase;
-  const phaseColor = PHASE_COLORS[phase] ?? 'bg-muted text-muted-foreground';
+  const pc = getPhaseConfig(project.phase);
+  const phaseLabel = pc.label;
+  const phaseColor = pc.badge;
 
   const metrics = [
     project.nitrogenT > 0 && `${formatDanishNumber(project.nitrogenT)} T N`,

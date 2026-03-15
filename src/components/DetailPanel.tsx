@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { X, Droplets, MapPin, Hammer, TrendingUp, PieChart, ExternalLink, Trees, Leaf, ChevronDown, ChevronRight } from 'lucide-react';
+import { X, Droplets, Mountain, Hammer, TrendingUp, PieChart, ExternalLink, Trees, Leaf, ChevronDown, ChevronRight } from 'lucide-react';
 import { formatDanishNumber, getProgressColor, getPillarProgressColor } from '@/lib/format';
 import { usePillar } from '@/lib/pillars';
+import { getPhaseConfig, PHASE_CONFIGS } from '@/lib/phase-config';
 import { ProjectList } from './ProjectList';
 import { CO2Section } from './CO2Section';
 import type { Plan, Catchment, ProjectCounts, DashboardData } from '@/lib/types';
@@ -25,10 +26,10 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
   const hasProjectDetails = (allProjectDetails.length + allSketchProjects.length + allNaturePotentials.length) > 0;
 
   const stages = [
-    { label: 'Skitser', count: projects.sketches, color: 'hsl(35 50% 75%)' },
-    { label: 'Forundersøgelse', count: projects.assessed, color: 'hsl(45 60% 60%)' },
-    { label: 'Godkendt', count: projects.approved, color: 'hsl(80 40% 55%)' },
-    { label: 'Anlagt', count: projects.established, color: 'hsl(95 55% 48%)' },
+    { label: getPhaseConfig('sketch').labelPlural,       count: projects.sketches,    color: getPhaseConfig('sketch').hex },
+    { label: getPhaseConfig('preliminary').label,         count: projects.assessed,    color: getPhaseConfig('preliminary').hex },
+    { label: getPhaseConfig('approved').label,            count: projects.approved,    color: getPhaseConfig('approved').hex },
+    { label: getPhaseConfig('established').label,         count: projects.established, color: getPhaseConfig('established').hex },
   ];
 
   return (
@@ -293,7 +294,7 @@ function ExtractionSection({ plan, catchment }: { plan?: Plan; catchment?: Catch
   return (
     <div className="mb-5 mt-4">
       <div className="flex items-center gap-2 mb-2">
-        <MapPin className="w-4 h-4 text-nature-earth" />
+        <Mountain className="w-4 h-4 text-nature-earth" />
         <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Udtagning af lavbundsarealer</h3>
       </div>
       {potential > 0 ? (

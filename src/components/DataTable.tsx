@@ -5,7 +5,8 @@ import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import type { Plan, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
-import { AlertTriangle, ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Trees, TreePine, Landmark, Leaf, Shield, ExternalLink } from 'lucide-react';
+import { AlertTriangle, ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Mountain, Trees, TreePine, Landmark, Leaf, Shield, ExternalLink } from 'lucide-react';
+import { getPhaseConfig } from '@/lib/phase-config';
 import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
@@ -291,10 +292,10 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
   const hasProjectDetails = ((plan.projectDetails?.length ?? 0) + (plan.sketchProjects?.length ?? 0) + (plan.naturePotentials?.length ?? 0)) > 0;
 
   const stages = [
-    { label: 'Skitser', count: projects.sketches, color: 'hsl(35 50% 75%)' },
-    { label: 'Forundersøgelse', count: projects.assessed, color: 'hsl(45 60% 60%)' },
-    { label: 'Godkendt', count: projects.approved, color: 'hsl(80 40% 55%)' },
-    { label: 'Anlagt', count: projects.established, color: 'hsl(95 55% 48%)' },
+    { label: getPhaseConfig('sketch').labelPlural, count: projects.sketches, color: getPhaseConfig('sketch').hex },
+    { label: getPhaseConfig('preliminary').label, count: projects.assessed, color: getPhaseConfig('preliminary').hex },
+    { label: getPhaseConfig('approved').label, count: projects.approved, color: getPhaseConfig('approved').hex },
+    { label: getPhaseConfig('established').label, count: projects.established, color: getPhaseConfig('established').hex },
   ];
 
   return (
@@ -324,7 +325,7 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
                         className="absolute inset-y-0 left-0 rounded-full"
                         style={{
                           width: `${Math.min(pipelinePct, 100)}%`,
-                          background: 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))',
+                          backgroundColor: getPhaseConfig('established').hex,
                           opacity: 0.3,
                         }}
                       />
@@ -332,17 +333,17 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
                         className="absolute inset-y-0 left-0 rounded-full"
                         style={{
                           width: `${Math.min(estPct, 100)}%`,
-                          background: 'linear-gradient(90deg, hsl(152 44% 38%), hsl(95 55% 48%))',
+                          backgroundColor: getPhaseConfig('established').hex,
                         }}
                       />
                     </div>
                     <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
                       <span className="flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(95 55% 48%)' }} />
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: getPhaseConfig('established').hex }} />
                         Anlagt: {formatDanishNumber(plan.nitrogenByPhase.established, 1)} ton
                       </span>
                       <span className="flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(95 55% 48%)', opacity: 0.35 }} />
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: getPhaseConfig('established').hex, opacity: 0.35 }} />
                         I pipeline: {formatDanishNumber(plan.nitrogenAchievedT, 1)} ton
                       </span>
                     </div>
@@ -356,7 +357,7 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
               const estPct = (plan.extractionByPhase.established / plan.extractionPotentialHa) * 100;
               return (
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-nature-earth flex-shrink-0" />
+                  <Mountain className="w-4 h-4 text-nature-earth flex-shrink-0" />
                   <div className="flex-1">
                     <div className="flex items-baseline gap-2 mb-1">
                       <span className="text-sm font-semibold">
@@ -371,7 +372,7 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
                         className="absolute inset-y-0 left-0 rounded-full"
                         style={{
                           width: `${Math.min(pipelinePct, 100)}%`,
-                          background: 'linear-gradient(90deg, hsl(30 35% 45%), hsl(38 50% 55%))',
+                          backgroundColor: getPhaseConfig('established').hex,
                           opacity: 0.3,
                         }}
                       />
@@ -379,17 +380,17 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
                         className="absolute inset-y-0 left-0 rounded-full"
                         style={{
                           width: `${Math.min(estPct, 100)}%`,
-                          background: 'linear-gradient(90deg, hsl(30 35% 45%), hsl(38 50% 55%))',
+                          backgroundColor: getPhaseConfig('established').hex,
                         }}
                       />
                     </div>
                     <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
                       <span className="flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(38 50% 55%)' }} />
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: getPhaseConfig('established').hex }} />
                         Anlagt: {formatDanishNumber(Math.round(plan.extractionByPhase.established))} ha
                       </span>
                       <span className="flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(38 50% 55%)', opacity: 0.35 }} />
+                        <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: getPhaseConfig('established').hex, opacity: 0.35 }} />
                         I pipeline: {formatDanishNumber(Math.round(plan.extractionAchievedHa))} ha
                       </span>
                     </div>
@@ -682,7 +683,7 @@ function KlimaskovfondenTable({ projects }: { projects: KlimaskovfondenProject[]
                           ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
                           : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
                       }`}>
-                        {isSkov ? <TreePine className="w-3 h-3" /> : <MapPin className="w-3 h-3" />}
+                        {isSkov ? <TreePine className="w-3 h-3" /> : <Mountain className="w-3 h-3" />}
                         {isSkov ? 'Skovrejsning' : 'Lavbund'}
                       </span>
                     </td>
@@ -892,7 +893,7 @@ const AFFORESTATION_TABS: { id: AfforestationTab; label: string; icon: React.Rea
 ];
 
 const EXTRACTION_TABS: { id: ExtractionTab; label: string; icon: React.ReactNode }[] = [
-  { id: 'mars', label: 'MARS-vandoplande', icon: <MapPin className="w-3.5 h-3.5" /> },
+  { id: 'mars', label: 'MARS-vandoplande', icon: <Mountain className="w-3.5 h-3.5" /> },
   { id: 'klimaskovfonden', label: 'Klimaskovfonden', icon: <TreePine className="w-3.5 h-3.5" /> },
 ];
 

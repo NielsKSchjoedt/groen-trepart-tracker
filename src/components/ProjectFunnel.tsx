@@ -13,16 +13,13 @@ import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import {
   GitPullRequestArrow,
-  Pencil,
-  ClipboardCheck,
-  ShieldCheck,
-  Hammer,
   TreePine,
   Landmark,
   Droplets,
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
+import { getPhaseConfig } from '@/lib/phase-config';
 import { NatureWatermark } from './NatureWatermark';
 import { InfoTooltip } from './InfoTooltip';
 
@@ -31,10 +28,10 @@ interface ProjectFunnelProps {
 }
 
 const stages = [
-  { key: 'sketches' as const, label: 'Skitser', sublabel: 'Indledende tegninger', icon: Pencil, color: 'hsl(150 20% 78%)' },
-  { key: 'assessed' as const, label: 'Forundersøgelse', sublabel: 'Forundersøgelsestilsagn', icon: ClipboardCheck, color: 'hsl(152 30% 60%)' },
-  { key: 'approved' as const, label: 'Godkendt', sublabel: 'Klar til anlæg', icon: ShieldCheck, color: 'hsl(152 44% 45%)' },
-  { key: 'established' as const, label: 'Anlagt', sublabel: 'Færdige projekter', icon: Hammer, color: 'hsl(95 55% 48%)' },
+  { key: 'sketches' as const, sublabel: 'Indledende tegninger', phase: getPhaseConfig('sketch') },
+  { key: 'assessed' as const, sublabel: 'Forundersøgelsestilsagn', phase: getPhaseConfig('preliminary') },
+  { key: 'approved' as const, sublabel: 'Klar til anlæg', phase: getPhaseConfig('approved') },
+  { key: 'established' as const, sublabel: 'Færdige projekter', phase: getPhaseConfig('established') },
 ];
 
 /** Phase mapping from projectDetail.phase to our stage keys */
@@ -347,7 +344,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
               {i > 0 && (
                 <div className="flex items-center gap-2 ml-6 mb-2 -mt-1">
                   <div className="w-px h-4 bg-border" />
-                  <span className="text-[11px] text-muted-foreground bg-muted/70 px-2 py-0.5 rounded-full">
+                  <span className="text-[11px] text-muted-foreground bg-muted/70 px-2 py-0.5 rounded-full" aria-hidden="true">
                     ↓ {conversionRate}% videre
                   </span>
                 </div>
@@ -363,21 +360,21 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: stage.color + '20' }}
+                  style={{ backgroundColor: stage.phase.hex + '20' }}
                 >
-                  <stage.icon className="w-5 h-5" style={{ color: stage.color }} />
+                  <stage.phase.icon className="w-5 h-5" style={{ color: stage.phase.hex }} />
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-semibold text-foreground">{stage.label}</span>
+                      <span className="text-sm font-semibold text-foreground">{stage.phase.label}</span>
                       <span className="text-xs text-muted-foreground hidden sm:inline">{stage.sublabel}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <span
                         className="text-lg font-bold tabular-nums"
-                        style={{ color: stage.color, fontFamily: "'Fraunces', serif" }}
+                        style={{ color: stage.phase.hex, fontFamily: "'Fraunces', serif" }}
                       >
                         {formatDanishNumber(count)}
                       </span>
@@ -393,7 +390,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                       className="h-full rounded-full transition-all duration-700 ease-out"
                       style={{
                         width: `${widthPct}%`,
-                        backgroundColor: stage.color,
+                        backgroundColor: stage.phase.hex,
                       }}
                     />
                   </div>
@@ -405,7 +402,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 <ProjectListPanel
                   projects={stageProjects}
                   pillarId={activePillar}
-                  stageColor={stage.color}
+                  stageColor={stage.phase.hex}
                 />
               )}
             </div>

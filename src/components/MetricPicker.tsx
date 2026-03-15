@@ -1,4 +1,4 @@
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Check } from 'lucide-react';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
 import { METRIC_NO_DATA } from '@/lib/kommune-metrics';
 
@@ -34,7 +34,8 @@ const NO_DATA_DISCLAIMERS: Partial<Record<KommuneMetric, React.ReactNode>> = {
 };
 
 interface MetricPickerProps {
-  activeMetric: KommuneMetric;
+  /** Currently selected metric, or null when none is selected */
+  activeMetric: KommuneMetric | null;
   onChange: (metric: KommuneMetric) => void;
 }
 
@@ -42,19 +43,20 @@ interface MetricPickerProps {
  * Segmented pill control for selecting which metric the KommuneMap and
  * KommuneTable display.
  *
- * Metrics in METRIC_NO_DATA are shown with a muted warning style and a
- * ⚠ indicator to communicate that municipal data is not yet available.
- * Selecting such a metric reveals a contextual disclaimer below the picker.
+ * Supports a `null` activeMetric state (no selection). Metrics in
+ * METRIC_NO_DATA are shown with a muted warning style and a ⚠ indicator.
+ * A checkmark icon reinforces which pill is currently selected.
  *
- * @param activeMetric - Currently selected metric
+ * @param activeMetric - Currently selected metric (null = none selected)
  * @param onChange     - Called when the user selects a different metric
  *
  * @example
  *   <MetricPicker activeMetric="nitrogen" onChange={(m) => setMetric(m)} />
+ *   <MetricPicker activeMetric={null} onChange={(m) => setMetric(m)} />
  */
 export function MetricPicker({ activeMetric, onChange }: MetricPickerProps) {
-  const activeHasNoData = METRIC_NO_DATA.has(activeMetric);
-  const disclaimer = activeHasNoData ? NO_DATA_DISCLAIMERS[activeMetric] : null;
+  const activeHasNoData = activeMetric !== null && METRIC_NO_DATA.has(activeMetric);
+  const disclaimer = activeHasNoData ? NO_DATA_DISCLAIMERS[activeMetric!] : null;
 
   return (
     <div className="flex flex-col gap-2">
@@ -86,7 +88,9 @@ export function MetricPicker({ activeMetric, onChange }: MetricPickerProps) {
               `}
               style={isActive && !isNoData ? { backgroundColor: color, borderColor: color } : {}}
             >
-              {isNoData ? (
+              {isActive && !isNoData ? (
+                <Check className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={3} />
+              ) : isNoData ? (
                 <AlertTriangle
                   className={`w-3 h-3 flex-shrink-0 ${isActive ? 'text-amber-500' : 'text-muted-foreground/50'}`}
                   strokeWidth={2.5}
@@ -94,7 +98,7 @@ export function MetricPicker({ activeMetric, onChange }: MetricPickerProps) {
               ) : (
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: isActive ? 'rgba(255,255,255,0.7)' : color, opacity: isActive ? 1 : 0.6 }}
+                  style={{ backgroundColor: color, opacity: 0.6 }}
                 />
               )}
               {label}

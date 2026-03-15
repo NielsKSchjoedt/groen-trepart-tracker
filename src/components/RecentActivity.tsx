@@ -3,19 +3,8 @@ import { loadProjectChangelog } from '@/lib/data';
 import type { ProjectChangelog, ChangelogEntry } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
 import { usePillar } from '@/lib/pillars';
-import { Activity, ChevronDown, ChevronUp, Hammer, ShieldCheck, ClipboardCheck, Droplets, MapPin, Trees } from 'lucide-react';
-
-const PHASE_ICONS: Record<string, typeof Hammer> = {
-  established: Hammer,
-  approved: ShieldCheck,
-  preliminary: ClipboardCheck,
-};
-
-const PHASE_COLORS: Record<string, string> = {
-  established: '#15803d',
-  approved: '#a16207',
-  preliminary: '#2563eb',
-};
+import { getPhaseConfig } from '@/lib/phase-config';
+import { Activity, ChevronDown, ChevronUp, Droplets, Mountain, Trees } from 'lucide-react';
 
 /** Format an ISO date string as a relative Danish label (e.g. "i dag", "i går", "3 dage siden") */
 function relativeDateDa(dateStr: string): string {
@@ -52,7 +41,7 @@ function EffectBadges({ entry }: { entry: ChangelogEntry }) {
   if (entry.extractionHa && entry.extractionHa > 0) {
     badges.push(
       <span key="e" className="inline-flex items-center gap-0.5 text-[10px] text-amber-700">
-        <MapPin className="w-2.5 h-2.5" />
+        <Mountain className="w-2.5 h-2.5" />
         {formatDanishNumber(entry.extractionHa, 1)}ha
       </span>
     );
@@ -138,19 +127,19 @@ export function RecentActivity() {
             <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
               {changelog.summary.established > 0 && (
                 <span className="inline-flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: PHASE_COLORS.established }} />
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: getPhaseConfig('established').hex }} />
                   {changelog.summary.established} anlagt
                 </span>
               )}
               {changelog.summary.approved > 0 && (
                 <span className="inline-flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: PHASE_COLORS.approved }} />
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: getPhaseConfig('approved').hex }} />
                   {changelog.summary.approved} godkendt
                 </span>
               )}
               {changelog.summary.preliminary > 0 && (
                 <span className="inline-flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: PHASE_COLORS.preliminary }} />
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: getPhaseConfig('preliminary').hex }} />
                   {changelog.summary.preliminary} forundersøgelse
                 </span>
               )}
@@ -170,12 +159,13 @@ export function RecentActivity() {
         {!expanded && headlineEntries.length > 0 && (
           <div className="px-4 pb-3 flex flex-col gap-1">
             {headlineEntries.map((entry, i) => {
-              const PhaseIcon = PHASE_ICONS[entry.phase] ?? ClipboardCheck;
+              const pc = getPhaseConfig(entry.phase);
+              const PhaseIcon = pc.icon;
               return (
                 <div key={`${entry.projectId}-${i}`} className="flex items-center gap-2 text-xs">
-                  <PhaseIcon className="w-3 h-3 flex-shrink-0" style={{ color: PHASE_COLORS[entry.phase] }} />
+                  <PhaseIcon className="w-3 h-3 flex-shrink-0" style={{ color: pc.hex }} />
                   <span className="font-medium text-foreground truncate">{entry.name}</span>
-                  <span className="text-muted-foreground flex-shrink-0">· {entry.phaseLabelDa}</span>
+                  <span className="text-muted-foreground flex-shrink-0">· {pc.label}</span>
                   <EffectBadges entry={entry} />
                   <span className="ml-auto text-muted-foreground/60 flex-shrink-0 text-[10px]">
                     {relativeDateDa(entry.date)}
@@ -203,24 +193,19 @@ export function RecentActivity() {
                   </div>
                   <div className="space-y-1.5 pl-2">
                     {entries.slice(0, 10).map((entry, i) => {
-                      const PhaseIcon = PHASE_ICONS[entry.phase] ?? ClipboardCheck;
+                      const pc = getPhaseConfig(entry.phase);
+                      const PhaseIcon = pc.icon;
                       return (
                         <div key={`${entry.projectId}-${i}`} className="flex items-start gap-2 text-xs">
                           <PhaseIcon
                             className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
-                            style={{ color: PHASE_COLORS[entry.phase] }}
+                            style={{ color: pc.hex }}
                           />
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-1.5 flex-wrap">
                               <span className="font-medium text-foreground">{entry.name}</span>
-                              <span
-                                className="px-1.5 py-0.5 rounded text-[10px] font-medium"
-                                style={{
-                                  backgroundColor: PHASE_COLORS[entry.phase] + '15',
-                                  color: PHASE_COLORS[entry.phase],
-                                }}
-                              >
-                                {entry.phaseLabelDa}
+                              <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${pc.badge}`}>
+                                {pc.label}
                               </span>
                               <EffectBadges entry={entry} />
                             </div>

@@ -1,4 +1,4 @@
-import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf, TreePine, Landmark, Shield, MapPin, AlertTriangle } from 'lucide-react';
+import { Database, ExternalLink, RefreshCw, FileCode2, Scale, Leaf, TreePine, Landmark, Shield, AlertTriangle } from 'lucide-react';
 import { NatureWatermark } from './NatureWatermark';
 
 interface DataSourceSectionProps {

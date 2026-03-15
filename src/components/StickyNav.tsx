@@ -13,10 +13,15 @@ interface StickyNavProps {
   sentinelRef: React.RefObject<HTMLDivElement>;
 }
 
-const ALL_JUMP_LINKS = [
-  { label: 'Oversigt', href: '#oversigt', requiresPillar: false },
-  { label: 'Kort',     href: '#kort',     requiresPillar: true  },
-  { label: 'Projekter', href: '#tabeller', requiresPillar: true  },
+const NATIONAL_JUMP_LINKS = [
+  { label: 'Oversigt',  href: '#oversigt' },
+  { label: 'Kort',      href: '#kort'     },
+  { label: 'Projekter', href: '#tabeller' },
+] as const;
+
+const KOMMUNE_JUMP_LINKS = [
+  { label: 'Kort',  href: '#kort'  },
+  { label: 'Tabel', href: '#tabel' },
 ] as const;
 
 /**
@@ -34,10 +39,10 @@ const ALL_JUMP_LINKS = [
  */
 export function StickyNav({ sentinelRef }: StickyNavProps) {
   const { activePillar, config } = usePillar();
-  const jumpLinks = ALL_JUMP_LINKS.filter((l) => !l.requiresPillar || activePillar !== null);
   const navigate = useNavigate();
   const location = useLocation();
   const isKommunerRoute = location.pathname.startsWith('/kommuner');
+  const jumpLinks = isKommunerRoute ? KOMMUNE_JUMP_LINKS : NATIONAL_JUMP_LINKS;
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -182,8 +187,8 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
             {/* Divider */}
             <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
 
-            {/* Section jump links — only shown on the national view when a pillar is active */}
-            {!isKommunerRoute && jumpLinks.length > 0 && (
+            {/* Section jump links — shown on both national and kommune views */}
+            {jumpLinks.length > 0 && (
               <nav className="hidden sm:flex items-center gap-3" aria-label="Spring til sektion">
                 {jumpLinks.map(({ label, href }) => (
                   <a
@@ -198,7 +203,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
             )}
 
             {/* Divider before toggle */}
-            {!isKommunerRoute && jumpLinks.length > 0 && (
+            {jumpLinks.length > 0 && (
               <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
             )}
 

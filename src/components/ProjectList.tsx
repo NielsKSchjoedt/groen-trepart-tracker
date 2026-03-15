@@ -1,21 +1,15 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { ChevronDown, ChevronRight, ExternalLink, Filter, Search, Droplets, MapPin, Trees, Leaf } from 'lucide-react';
+import { ChevronDown, ChevronRight, ExternalLink, Filter, Search, Droplets, Mountain, Trees, Leaf } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 import type { ProjectDetail, SketchProject, NaturePotential } from '@/lib/types';
 import { loadProjectGeometries } from '@/lib/data';
+import { getPhaseConfig } from '@/lib/phase-config';
 import { ProjectMiniMap } from './ProjectMiniMap';
 import { ProjectMapOverlay } from './ProjectMapOverlay';
 import type { ProjectMapInfo } from './ProjectMapOverlay';
 
 type Tab = 'projects' | 'sketches' | 'nature';
 type PhaseFilter = 'all' | 'established' | 'approved' | 'preliminary';
-
-const PHASE_LABELS: Record<string, { label: string; color: string; dot: string }> = {
-  established: { label: 'Anlagt', color: 'text-green-700 dark:text-green-400', dot: 'bg-green-500' },
-  approved: { label: 'Godkendt', color: 'text-amber-700 dark:text-amber-400', dot: 'bg-amber-500' },
-  preliminary: { label: 'Forundersøgelse', color: 'text-blue-700 dark:text-blue-400', dot: 'bg-blue-400' },
-  sketch: { label: 'Skitse', color: 'text-muted-foreground', dot: 'bg-muted-foreground' },
-};
 
 function formatDate(iso: string): string {
   if (!iso) return '';
@@ -193,7 +187,7 @@ function ProjectsTab({
   if (filtered.length === 0) {
     return (
       <p className="text-[11px] text-muted-foreground py-3 text-center">
-        Ingen projekter matcher{phaseFilter !== 'all' ? ` (${PHASE_LABELS[phaseFilter]?.label})` : ''}{searchQuery ? ` "${searchQuery}"` : ''}
+        Ingen projekter matcher{phaseFilter !== 'all' ? ` (${getPhaseConfig(phaseFilter).label})` : ''}{searchQuery ? ` "${searchQuery}"` : ''}
       </p>
     );
   }
@@ -202,7 +196,7 @@ function ProjectsTab({
     <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
       {filtered.map(p => {
         const expanded = expandedId === p.id;
-        const phase = PHASE_LABELS[p.phase] || PHASE_LABELS.preliminary;
+        const phase = getPhaseConfig(p.phase);
         const hasMetrics = p.nitrogenT > 0 || p.extractionHa > 0 || p.afforestationHa > 0;
 
         return (
@@ -222,7 +216,7 @@ function ProjectsTab({
                   <span className="text-[11px] font-medium text-foreground truncate">{p.name}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                  <span className={phase.color}>{phase.label}</span>
+                  <span className={phase.text}>{phase.label}</span>
                   {p.measureName && <span>· {p.measureName}</span>}
                   {hasMetrics && (
                     <span className="ml-auto flex items-center gap-1.5 flex-shrink-0">
@@ -234,7 +228,7 @@ function ProjectsTab({
                       )}
                       {p.extractionHa > 0 && (
                         <span className="flex items-center gap-0.5">
-                          <MapPin className="w-2.5 h-2.5" />
+                          <Mountain className="w-2.5 h-2.5" />
                           {formatDanishNumber(p.extractionHa, 1)} ha
                         </span>
                       )}
@@ -256,7 +250,7 @@ function ProjectsTab({
                 <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                   <div>
                     <span className="text-muted-foreground">Status:</span>{' '}
-                    <span className={`font-medium ${phase.color}`}>{p.statusName || phase.label}</span>
+                    <span className={`font-medium ${phase.text}`}>{p.statusName || phase.label}</span>
                   </div>
                   <div>
                     <span className="text-muted-foreground">Type:</span>{' '}
@@ -282,7 +276,7 @@ function ProjectsTab({
                     )}
                     {p.extractionHa > 0 && (
                       <div className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-nature-earth" />
+                        <Mountain className="w-3 h-3 text-nature-earth" />
                         <span className="text-muted-foreground">Udtaget:</span>
                         <span className="font-semibold text-foreground">{formatDanishNumber(p.extractionHa, 1)} ha</span>
                       </div>
@@ -330,7 +324,7 @@ function ProjectsTab({
                     onClick={() => onOpenMap(geometries[p.geoId], {
                       name: p.name,
                       phase: p.phase,
-                      phaseLabelDa: (PHASE_LABELS[p.phase] || PHASE_LABELS.preliminary).label,
+                      phaseLabelDa: getPhaseConfig(p.phase).label,
                       measureName: p.measureName,
                       schemeName: p.schemeName,
                       schemeOrg: p.schemeOrg,
@@ -411,11 +405,11 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
               )}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 mb-0.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground flex-shrink-0" />
+                  <div className={`w-1.5 h-1.5 rounded-full ${getPhaseConfig('sketch').dot} flex-shrink-0`} />
                   <span className="text-[11px] font-medium text-foreground truncate">{s.name}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                  <span className="text-muted-foreground">Skitse</span>
+                  <span className={getPhaseConfig('sketch').text}>{getPhaseConfig('sketch').label}</span>
                   {s.measureName && <span>· {s.measureName}</span>}
                   {hasMetrics && (
                     <span className="ml-auto flex items-center gap-1.5 flex-shrink-0">
@@ -427,7 +421,7 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
                       )}
                       {s.extractionHa > 0 && (
                         <span className="flex items-center gap-0.5">
-                          <MapPin className="w-2.5 h-2.5" />
+                          <Mountain className="w-2.5 h-2.5" />
                           {formatDanishNumber(s.extractionHa, 1)} ha
                         </span>
                       )}
@@ -449,7 +443,7 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
                 <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                   <div>
                     <span className="text-muted-foreground">Status:</span>{' '}
-                    <span className="font-medium text-muted-foreground">Skitse</span>
+                    <span className={`font-medium ${getPhaseConfig('sketch').text}`}>{getPhaseConfig('sketch').label}</span>
                   </div>
                   <div>
                     <span className="text-muted-foreground">Type:</span>{' '}
@@ -475,7 +469,7 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
                     )}
                     {s.extractionHa > 0 && (
                       <div className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-nature-earth" />
+                        <Mountain className="w-3 h-3 text-nature-earth" />
                         <span className="text-muted-foreground">Udtaget:</span>
                         <span className="font-semibold text-foreground">{formatDanishNumber(s.extractionHa, 1)} ha</span>
                       </div>

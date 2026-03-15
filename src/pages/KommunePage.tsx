@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { MapPin } from 'lucide-react';
+import { MapPin, Hand, Info } from 'lucide-react';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
 import { InfoTooltip } from '@/components/InfoTooltip';
+import { HintCallout } from '@/components/HintCallout';
 import { loadDashboardData, loadKommunerGeoJSON, loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
 import type { DashboardData, KommuneMetrics, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -40,14 +41,12 @@ const KommuneMap = lazy(() =>
  *   ─ Mobile bottom sheet (when selected)
  *   Footer
  */
-/** Default metric when the query param is absent or unrecognised. */
-const DEFAULT_METRIC: KommuneMetric = 'nitrogen';
-
 export default function KommunePage() {
   const { kommuneSlug } = useParams<{ kommuneSlug: string }>();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const heroSentinelRef = useRef<HTMLDivElement>(null);
+  const [hintDismissed, setHintDismissed] = useState(false);
 
   const [selectedPhases, setSelectedPhases] = useState<Set<KommunePhase>>(DEFAULT_PHASES);
   const [data, setData] = useState<DashboardData | null>(null);
@@ -56,13 +55,15 @@ export default function KommunePage() {
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Derive activeMetric from the URL query param (?metric=kvælstof etc.) so the
-  // URL is the single source of truth. Falls back to DEFAULT_METRIC for
-  // unknown/missing values. Uses the same Danish slugs as the national pillar routes.
-  const activeMetric: KommuneMetric = useMemo(() => {
+  /**
+   * Derive activeMetric from the URL query param (?metric=kvælstof etc.).
+   * When no ?metric= param is present, activeMetric is null (no selection)
+   * so the page shows an onboarding hint and the map displays a prompt overlay.
+   */
+  const activeMetric: KommuneMetric | null = useMemo(() => {
     const slug = searchParams.get('metric');
-    const pillar = slug ? (slugToPillar(slug) as KommuneMetric | null) : null;
-    return pillar ?? DEFAULT_METRIC;
+    if (!slug) return null;
+    return (slugToPillar(slug) as KommuneMetric | null) ?? null;
   }, [searchParams]);
 
   usePageMeta({
@@ -117,10 +118,10 @@ export default function KommunePage() {
   );
 
   /**
-   * Build the ?metric= search string using Danish slugs (e.g. "lavbund"),
-   * omitting it entirely for the default metric so URLs stay clean.
+   * Build the ?metric= search string using Danish slugs (e.g. "lavbund").
+   * Omitted when no metric is selected (null state).
    */
-  const metricSearch = activeMetric !== DEFAULT_METRIC ? `?metric=${PILLAR_SLUGS[activeMetric]}` : '';
+  const metricSearch = activeMetric ? `?metric=${PILLAR_SLUGS[activeMetric]}` : '';
 
   // When user clicks a kommune, push URL — preserving the active metric.
   const handleSelect = (kode: string) => {
@@ -138,12 +139,9 @@ export default function KommunePage() {
     navigate({ pathname: '/kommuner', search: metricSearch }, { replace: true });
   };
 
-  // When user changes the metric, update ?metric= while keeping the path intact.
   const handleMetricChange = (metric: KommuneMetric) => {
-    setSearchParams(
-      metric !== DEFAULT_METRIC ? { metric: PILLAR_SLUGS[metric] } : {},
-      { replace: true },
-    );
+    setHintDismissed(true);
+    setSearchParams({ metric: PILLAR_SLUGS[metric] }, { replace: true });
   };
 
   // Filter projects for the selected kommune
@@ -225,7 +223,7 @@ export default function KommunePage() {
 
         {/* Metric picker + phase filter */}
         <div className="space-y-2">
-          <div className="flex items-start gap-3 flex-wrap">
+          <div className="relative flex items-start gap-3 flex-wrap">
             <span className="flex items-center gap-1 text-sm font-medium text-muted-foreground pt-1.5">
               Vis:
               <InfoTooltip
@@ -245,6 +243,17 @@ export default function KommunePage() {
               />
             </span>
             <MetricPicker activeMetric={activeMetric} onChange={handleMetricChange} />
+
+            {/* Onboarding hint — shown until user selects a metric */}
+            {activeMetric === null && !hintDismissed && (
+              <HintCallout
+                icon={Hand}
+                text="Vælg et indsatsområde for at se data på kortet og i tabellen"
+                arrow="left"
+                onDismiss={() => setHintDismissed(true)}
+                className="absolute left-1/2 -translate-x-1/2 -bottom-12 sm:left-auto sm:translate-x-0 sm:right-0 sm:bottom-auto sm:-top-1"
+              />
+            )}
           </div>
 
           {/* Phase filter — only meaningful for nitrogen and extraction */}
@@ -254,12 +263,28 @@ export default function KommunePage() {
               <PhaseFilter selected={selectedPhases} onChange={setSelectedPhases} />
             </div>
           )}
+
+          {/* Disclaimer: afforestation includes non-MARS sources without phase data */}
+          {activeMetric === 'afforestation' && (
+            <MetricDisclaimer>
+              Skovrejsningstal inkluderer data fra <strong>Klimaskovfonden</strong> og <strong>Naturstyrelsen</strong> ud over MARS-projekter.
+              KSF- og NST-data har ikke faseoplysninger, så fasefilteret er deaktiveret for denne metrik.
+            </MetricDisclaimer>
+          )}
+
+          {/* Disclaimer: nature data is static designations, not phased projects */}
+          {activeMetric === 'nature' && (
+            <MetricDisclaimer>
+              Beskyttet natur vises som <strong>§3-arealer</strong> + <strong>Natura 2000</strong> i kommunen — faste beskyttelsesudpegninger, ikke projekter med faser.
+              MARS-naturprojekter (vist nationalt under &quot;Naturprojekter&quot;) er endnu ikke opgjort på kommuneniveau.
+            </MetricDisclaimer>
+          )}
         </div>
 
         {/* Map + optional desktop detail panel */}
         <section id="kort" aria-label="Danmarkskort med kommuner">
-          {/* Colour legend — shown above the map */}
-          <KommuneLegend activeMetric={activeMetric} />
+          {/* Colour legend — shown above the map when a metric is selected */}
+          {activeMetric && <KommuneLegend activeMetric={activeMetric} />}
 
           {loadError ? (
             <div className="rounded-2xl border border-border bg-muted/30 flex items-center justify-center text-sm text-muted-foreground p-10 text-center" style={{ height: '520px' }}>
@@ -275,7 +300,16 @@ export default function KommunePage() {
             </div>
           ) : (
             <div className={`flex gap-0 transition-all ${panelOpen ? '' : ''}`}>
-              <div className={`transition-all ${panelOpen ? 'w-full md:w-3/5' : 'w-full'}`}>
+              <div className={`transition-all relative ${panelOpen ? 'w-full md:w-3/5' : 'w-full'}`}>
+                {activeMetric === null && (
+                  <div className="absolute inset-0 z-20 rounded-2xl bg-background/80 backdrop-blur-[2px] flex items-center justify-center pointer-events-none">
+                    <div className="text-center space-y-2 px-4">
+                      <MapPin className="w-8 h-8 mx-auto text-muted-foreground/40" />
+                      <p className="text-sm font-medium text-muted-foreground">Vælg et indsatsområde ovenfor</p>
+                      <p className="text-xs text-muted-foreground/70">Kortet viser data, når du vælger kvælstof, udtagning, skovrejsning m.fl.</p>
+                    </div>
+                  </div>
+                )}
                 <Suspense fallback={
                   <div className="rounded-2xl border border-border bg-muted/10 flex items-center justify-center" style={{ height: '520px' }}>
                     <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
@@ -284,7 +318,7 @@ export default function KommunePage() {
                   <KommuneMap
                     kommunerGeo={kommunerGeo}
                     metrics={kommunerFiltered}
-                    activeMetric={activeMetric}
+                    activeMetric={activeMetric ?? 'nitrogen'}
                     selectedKode={selectedKode}
                     onSelect={handleSelect}
                   />
@@ -369,6 +403,20 @@ const LEGEND_STOPS: Record<KommuneMetric, { color: string; label: string }[]> = 
     { color: 'hsl(0 0% 92%)', label: 'Ingen kommunedata tilgængeligt' },
   ],
 };
+
+/**
+ * Inline yellow disclaimer banner explaining why certain metrics don't
+ * support phase filtering. Shown below the metric picker when the user
+ * selects afforestation or nature.
+ */
+function MetricDisclaimer({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-2 rounded-lg border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs text-amber-900 leading-relaxed dark:border-amber-500/30 dark:bg-amber-950/30 dark:text-amber-200">
+      <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-amber-500" strokeWidth={2} />
+      <span>{children}</span>
+    </div>
+  );
+}
 
 function KommuneLegend({ activeMetric }: { activeMetric: KommuneMetric }) {
   const stops = LEGEND_STOPS[activeMetric];

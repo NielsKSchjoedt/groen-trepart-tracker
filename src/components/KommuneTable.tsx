@@ -12,7 +12,7 @@ type SortDir = 'asc' | 'desc';
 
 interface KommuneTableProps {
   metrics: KommuneMetrics[];
-  activeMetric: KommuneMetric;
+  activeMetric: KommuneMetric | null;
   selectedKode: string | null;
   onSelect: (kode: string) => void;
 }
@@ -98,7 +98,7 @@ interface ColHeaderProps {
   tooltip?: React.ReactNode;
   tooltipSource?: string;
   /** Sort state passed down from the parent table */
-  activeCol: SortKey;
+  activeCol: SortKey | null;
   sortKey: SortKey;
   sortDir: SortDir;
   onToggle: (col: SortKey) => void;
@@ -156,7 +156,7 @@ export function KommuneTable({ metrics, activeMetric, selectedKode, onSelect }: 
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [search, setSearch] = useState('');
 
-  const activeCol = METRIC_TO_COL[activeMetric];
+  const activeCol = activeMetric ? METRIC_TO_COL[activeMetric] : null;
 
   const maxValues = useMemo(() => ({
     nitrogenT:           Math.max(...metrics.map((k) => k.nitrogenT), 1),
@@ -371,7 +371,7 @@ function MetricCell({
   value: number;
   maxVal: number;
   metric: KommuneMetric;
-  activeMetric: KommuneMetric;
+  activeMetric: KommuneMetric | null;
   suffix: string;
 }) {
   const isActive = metric === activeMetric;
