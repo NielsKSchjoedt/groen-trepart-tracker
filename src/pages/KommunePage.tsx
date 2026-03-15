@@ -20,6 +20,7 @@ import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommun
 import { DEFAULT_PHASES, filterByPhases, METRIC_SUPPLEMENTS, SUPPLEMENT_DEFS } from '@/lib/kommune-metrics';
 import { PhaseFilter } from '@/components/PhaseFilter';
 import { PILLAR_SLUGS, slugToPillar } from '@/lib/slugs';
+import { getPillarConfig } from '@/lib/pillars';
 
 // Lazy-load Leaflet-heavy choropleth map so it splits into a separate chunk
 const KommuneMap = lazy(() =>
@@ -205,8 +206,12 @@ export default function KommunePage() {
     );
   }
 
+  const backgroundTint = activeMetric
+    ? getPillarConfig(activeMetric).backgroundTint
+    : 'hsl(0 0% 96%)';
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen transition-colors duration-400" style={{ backgroundColor: backgroundTint }}>
       {/* StickyNav — shares the same component as the national view */}
       <StickyNav sentinelRef={heroSentinelRef} />
       <LastUpdatedBadge fetchedAt={data.fetchedAt} />
