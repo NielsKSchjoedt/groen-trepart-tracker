@@ -134,7 +134,7 @@ function getPillarProgress(
         projectedPct: proj,
         headline: formatPctHeadline(pct),
         projectedHeadline: `~${formatPctHeadline(proj)}`,
-        subtitle: `${formatDanishNumber(Math.round(progress.nitrogenAchievedT))} af ${formatDanishNumber(pillar.target!)} ${pillar.unit}`,
+        subtitle: `${formatDanishNumber(Math.round(progress.nitrogenAchievedT))} af målet på ${formatDanishNumber(pillar.target!)} ${pillar.unit} er ført ud i virkeligheden`,
       };
     }
     case 'extraction': {
@@ -145,7 +145,7 @@ function getPillarProgress(
         projectedPct: proj,
         headline: formatPctHeadline(pct),
         projectedHeadline: `~${formatPctHeadline(proj)}`,
-        subtitle: `${formatDanishNumber(Math.round(progress.extractionAchievedHa))} af ${formatDanishNumber(pillar.target!)} ${pillar.unit}`,
+        subtitle: `${formatDanishNumber(Math.round(progress.extractionAchievedHa))} af målet på ${formatDanishNumber(pillar.target!)} ${pillar.unit} er ført ud i virkeligheden`,
       };
     }
     case 'afforestation': {
@@ -156,7 +156,7 @@ function getPillarProgress(
         projectedPct: proj,
         headline: formatPctHeadline(pct),
         projectedHeadline: `~${formatPctHeadline(proj)}`,
-        subtitle: `${formatDanishNumber(Math.round(progress.afforestationAchievedHa))} af ${formatDanishNumber(pillar.target!)} ${pillar.unit}`,
+        subtitle: `${formatDanishNumber(Math.round(progress.afforestationAchievedHa))} af målet på ${formatDanishNumber(pillar.target!)} ${pillar.unit} er ført ud i virkeligheden`,
       };
     }
     case 'nature': {
@@ -167,7 +167,7 @@ function getPillarProgress(
         projectedPct: normalisedPct,
         headline: `${formatDanishNumber(normalisedPct, 0)}%`,
         projectedHeadline: null,
-        subtitle: `~${formatDanishNumber(raw, 1)} af ${pillar.target}% juridisk beskyttet`,
+        subtitle: `~${formatDanishNumber(raw, 1)}% af målet på ${pillar.target}% er ført ud i virkeligheden`,
       };
     }
     case 'co2': {
@@ -181,7 +181,7 @@ function getPillarProgress(
         projectedPct: projectedNormalisedPct,
         headline: `${formatDanishNumber(normalisedPct, 0)}%`,
         projectedHeadline: `~${formatDanishNumber(projectedNormalisedPct, 0)}%`,
-        subtitle: `${formatDanishNumber(currentReduction, 0)} af ${pillar.target}% reduktion`,
+        subtitle: `${formatDanishNumber(currentReduction, 0)}% af målet på ${pillar.target}% er ført ud i virkeligheden`,
       };
     }
   }
