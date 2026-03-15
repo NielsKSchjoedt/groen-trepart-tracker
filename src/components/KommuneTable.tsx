@@ -226,30 +226,30 @@ export function KommuneTable({ metrics, activeMetric, selectedKode, onSelect }: 
                   {...colSortProps}
                   col="nitrogenT"
                   label="Kvælstof"
-                  tooltip="Samlet kvælstofreduktion (ton N/år) fra MARS-projekter med adresse i kommunen. Dækker alle projektfaser (skitse → anlagt)."
+                  tooltip="Kvælstofreduktion (ton N/år) fra MARS-projekter i kommunen. Filtreres med fasevælgeren ovenfor."
                   tooltipSource="MARS API (Miljøstyrelsen)"
                 />
                 <ColHeader
                   {...colSortProps}
                   col="extractionHa"
                   label="Udtagning"
-                  tooltip="Samlet areal (ha) af kulstofrige lavbundsjorde udtaget fra omdrift — fra MARS-projekter. Lavbundsudtagning reducerer CO₂-udledning fra tørv."
+                  tooltip="Areal (ha) af kulstofrige lavbundsjorde udtaget fra omdrift — fra MARS-projekter. Filtreres med fasevælgeren ovenfor."
                   tooltipSource="MARS API (Miljøstyrelsen)"
                 />
                 <ColHeader
                   {...colSortProps}
                   col="afforestationTotalHa"
                   label="Skovrejsning"
-                  tooltip="Samlet skovrejsningsareal (ha) fra tre kilder: MARS-projekter, Klimaskovfonden (KSF) og Naturstyrelsen (NST)."
-                  tooltipSource="MARS API, Klimaskovfonden, Naturstyrelsen"
+                  tooltip="Skovrejsningsareal (ha) fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata."
+                  tooltipSource="MARS API (+ valgfrit: KSF, NST)"
                 />
                 <ColHeader
                   {...colSortProps}
                   col="naturePotentialHa"
                   label="Beskyttet natur"
                   noData={METRIC_NO_DATA.has('nature')}
-                  tooltip="Areal med naturpotentiale (ha) per kommune. Data er ikke tilgængeligt på kommuneniveau i MARS — opgøres kun på oplands- og regionsniveau."
-                  tooltipSource="MARS API (Miljøstyrelsen)"
+                  tooltip="Beskyttet naturareal (ha). §3-arealer og Natura 2000 kan tilvælges separat — disse er statslige/EU-udpegninger uden projektfaser. MARS-naturdata per kommune er endnu ikke tilgængeligt."
+                  tooltipSource="MiljøGIS WFS (§3, Natura 2000)"
                 />
                 <ColHeader
                   {...colSortProps}
@@ -263,7 +263,7 @@ export function KommuneTable({ metrics, activeMetric, selectedKode, onSelect }: 
                   {...colSortProps}
                   col="projectCount"
                   label="Projekter"
-                  tooltip="Antal MARS-projekter med centroid i kommunen på tværs af alle projektfaser."
+                  tooltip="Antal MARS-projekter med centroid i kommunen. Afspejler de valgte faser i fasefilteret."
                   tooltipSource="MARS API (Miljøstyrelsen)"
                 />
               </tr>

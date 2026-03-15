@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { MapPin, Hand, Info } from 'lucide-react';
+import { MapPin, Hand, Info, Leaf, TreePine } from 'lucide-react';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { HintCallout } from '@/components/HintCallout';
@@ -13,10 +13,11 @@ import { KommuneDetailPanel } from '@/components/KommuneDetailPanel';
 import { MobileBottomSheet } from '@/components/MobileBottomSheet';
 import { Footer } from '@/components/Footer';
 import { StickyNav } from '@/components/StickyNav';
+import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { findKommuneBySlug, kommuneToSlug } from '@/lib/kommune-slugs';
-import type { KommuneMetric, KommunePhase } from '@/lib/kommune-metrics';
-import { DEFAULT_PHASES, filterByPhases } from '@/lib/kommune-metrics';
+import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
+import { DEFAULT_PHASES, filterByPhases, METRIC_SUPPLEMENTS, SUPPLEMENT_DEFS } from '@/lib/kommune-metrics';
 import { PhaseFilter } from '@/components/PhaseFilter';
 import { PILLAR_SLUGS, slugToPillar } from '@/lib/slugs';
 
@@ -49,6 +50,7 @@ export default function KommunePage() {
   const [hintDismissed, setHintDismissed] = useState(false);
 
   const [selectedPhases, setSelectedPhases] = useState<Set<KommunePhase>>(DEFAULT_PHASES);
+  const [activeSupplements, setActiveSupplements] = useState<Set<SupplementSource>>(new Set());
   const [data, setData] = useState<DashboardData | null>(null);
   const [kommunerGeo, setKommunerGeo] = useState<FeatureCollection<Geometry> | null>(null);
   const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
@@ -94,17 +96,35 @@ export default function KommunePage() {
   );
 
   /**
-   * Phase-filtered view of kommuner. For nitrogen and extraction, always
-   * recomputes from byPhase so sketch data is consistently included/excluded.
-   * Afforestation, nature, and CO₂ are static (no phase breakdown) and
-   * pass through unchanged.
+   * Phase-filtered + supplement-adjusted view of kommuner.
+   *
+   * MARS metrics (nitrogen, extraction, afforestation) are recomputed from
+   * `byPhase` so the phase filter applies consistently. Non-MARS supplement
+   * sources (KSF, NST, §3, Natura 2000) are added on top only when toggled.
    */
   const kommunerFiltered: KommuneMetrics[] = useMemo(() => {
     return kommuner.map((km) => {
-      const { nitrogenT, extractionHa } = filterByPhases(km, selectedPhases);
-      return { ...km, nitrogenT, extractionHa };
+      const filtered = filterByPhases(km, selectedPhases);
+
+      const afforestationTotal =
+        filtered.afforestationMarsHa
+        + (activeSupplements.has('ksf') ? km.afforestationKsfHa : 0)
+        + (activeSupplements.has('nst') ? km.afforestationNstHa : 0);
+
+      const natureTotal =
+        (activeSupplements.has('section3') ? km.section3Ha : 0)
+        + (activeSupplements.has('natura2000') ? km.natura2000Ha : 0);
+
+      return {
+        ...km,
+        nitrogenT: filtered.nitrogenT,
+        extractionHa: filtered.extractionHa,
+        afforestationTotalHa: Math.round(afforestationTotal * 10) / 10,
+        naturePotentialHa: Math.round(natureTotal * 10) / 10,
+        projectCount: filtered.projectCount,
+      };
     });
-  }, [kommuner, selectedPhases]);
+  }, [kommuner, selectedPhases, activeSupplements]);
 
   // Derive selected kode from URL slug
   const selectedKode: string | null = useMemo(() => {
@@ -181,9 +201,18 @@ export default function KommunePage() {
     <div className="min-h-screen bg-background">
       {/* StickyNav — shares the same component as the national view */}
       <StickyNav sentinelRef={heroSentinelRef} />
+      <LastUpdatedBadge fetchedAt={data.fetchedAt} />
 
       {/* Hero */}
-      <div className="max-w-6xl mx-auto px-4 pt-10 pb-6">
+      <div className="max-w-6xl mx-auto px-4 pt-10 pb-6 relative overflow-hidden">
+        {/* Decorative background silhouettes */}
+        <div className="absolute top-4 left-6 opacity-[0.08] pointer-events-none">
+          <Leaf className="w-28 h-28 text-primary animate-gentle-sway" strokeWidth={1} />
+        </div>
+        <div className="absolute bottom-2 right-8 opacity-[0.06] pointer-events-none hidden md:block">
+          <TreePine className="w-24 h-24 text-nature-moss" strokeWidth={1} />
+        </div>
+
         <ViewSwitcher />
         <div className="flex items-center gap-2.5 mb-1">
           <MapPin className="w-5 h-5 text-primary" />
@@ -204,8 +233,9 @@ export default function KommunePage() {
             content={
               <>
                 <p>Kortvisningen farvelægger kommunerne efter den valgte metrik. Klik på en kommune for at se detaljer.</p>
-                <p><strong>Data:</strong> Projekter tilknyttes en kommune via DAWA-omvendt geokodning af projekternes centroider. Det betyder at et projekt med areal på tværs af kommunegrænser tilknyttes den kommune, hvor projektets centrum ligger.</p>
-                <p><strong>Beskyttet natur</strong> vises som §3 + Natura 2000 areal i kommunen. Centroid-baseret tildeling — sites der strækker sig over kommunegrænser tilknyttes den kommune, der indeholder centroiden. CO₂ er ikke tilgængeligt på kommuneniveau.</p>
+                <p><strong>MARS-data</strong> (kvælstof, udtagning, skovrejsning) viser projektdata med fasefilter. Projekter tilknyttes en kommune via DAWA-omvendt geokodning af centroider.</p>
+                <p><strong>Supplerende kilder</strong> (Klimaskovfonden, Naturstyrelsen, §3, Natura 2000) administreres uden for MARS og har ikke projektfasedata. De kan tilvælges separat via &quot;Tilføj kilder&quot;.</p>
+                <p>CO₂ er ikke tilgængeligt på kommuneniveau.</p>
               </>
             }
             source="MARS API, Klimaskovfonden, Naturstyrelsen via DAWA"
@@ -230,10 +260,10 @@ export default function KommunePage() {
                 title="Metrikker"
                 content={
                   <>
-                    <p><strong>Kvælstof</strong> — ton N reduceret/år (kollektive virkemidler). Mål: 12.776 T inden 2027.</p>
-                    <p><strong>Udtagning</strong> — ha kulstofrig lavbundsjord udtaget fra omdrift. Mål: 140.000 ha inden 2030.</p>
-                    <p><strong>Skovrejsning</strong> — ha ny skov (MARS + Klimaskovfonden + Naturstyrelsen). Mål: 250.000 ha inden 2045.</p>
-                    <p><strong>Beskyttet natur</strong> — §3 + Natura 2000 areal i kommunen (ha).</p>
+                    <p><strong>Kvælstof</strong> — ton N reduceret/år fra MARS-projekter. Understøtter fasefilter. Mål: 12.776 T inden 2027.</p>
+                    <p><strong>Udtagning</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Mål: 140.000 ha inden 2030.</p>
+                    <p><strong>Skovrejsning</strong> — ha ny skov fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata.</p>
+                    <p><strong>Beskyttet natur</strong> — §3-arealer og Natura 2000 kan tilvælges som separate datakilder. Disse er statslige/EU-udpegninger, ikke projekter med faser. MARS-naturdata per kommune er endnu ikke tilgængeligt.</p>
                     <p><strong>CO₂</strong> — CO₂-reduktion fra landbrug. Kun opgøres nationalt via KF25.</p>
                   </>
                 }
@@ -256,27 +286,27 @@ export default function KommunePage() {
             )}
           </div>
 
-          {/* Phase filter — only meaningful for nitrogen and extraction */}
-          {(activeMetric === 'nitrogen' || activeMetric === 'extraction') && (
+          {/* Phase filter — shown for metrics backed by MARS project data */}
+          {(activeMetric === 'nitrogen' || activeMetric === 'extraction' || activeMetric === 'afforestation') && (
             <div className="flex items-center gap-2.5 flex-wrap">
               <span className="text-xs font-medium text-muted-foreground">Faser:</span>
               <PhaseFilter selected={selectedPhases} onChange={setSelectedPhases} />
             </div>
           )}
 
-          {/* Disclaimer: afforestation includes non-MARS sources without phase data */}
-          {activeMetric === 'afforestation' && (
-            <MetricDisclaimer>
-              Skovrejsningstal inkluderer data fra <strong>Klimaskovfonden</strong> og <strong>Naturstyrelsen</strong> ud over MARS-projekter.
-              KSF- og NST-data har ikke faseoplysninger, så fasefilteret er deaktiveret for denne metrik.
-            </MetricDisclaimer>
+          {/* Supplement source toggles — shown for metrics with non-MARS data */}
+          {activeMetric && METRIC_SUPPLEMENTS[activeMetric] && (
+            <SupplementToggles
+              metric={activeMetric}
+              active={activeSupplements}
+              onChange={setActiveSupplements}
+            />
           )}
 
-          {/* Disclaimer: nature data is static designations, not phased projects */}
-          {activeMetric === 'nature' && (
+          {/* Nature has no MARS data per kommune yet — explain what's shown */}
+          {activeMetric === 'nature' && activeSupplements.size === 0 && (
             <MetricDisclaimer>
-              Beskyttet natur vises som <strong>§3-arealer</strong> + <strong>Natura 2000</strong> i kommunen — faste beskyttelsesudpegninger, ikke projekter med faser.
-              MARS-naturprojekter (vist nationalt under &quot;Naturprojekter&quot;) er endnu ikke opgjort på kommuneniveau.
+              MARS-naturprojekter er endnu ikke opgjort på kommuneniveau. Tilvælg §3 og/eller Natura 2000 ovenfor for at se beskyttede naturarealer.
             </MetricDisclaimer>
           )}
         </div>
@@ -405,15 +435,84 @@ const LEGEND_STOPS: Record<KommuneMetric, { color: string; label: string }[]> = 
 };
 
 /**
- * Inline yellow disclaimer banner explaining why certain metrics don't
- * support phase filtering. Shown below the metric picker when the user
- * selects afforestation or nature.
+ * Inline amber banner for contextual disclaimers (e.g. when no data
+ * sources are toggled on for nature).
  */
 function MetricDisclaimer({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-2 rounded-lg border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs text-amber-900 leading-relaxed dark:border-amber-500/30 dark:bg-amber-950/30 dark:text-amber-200">
       <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-amber-500" strokeWidth={2} />
       <span>{children}</span>
+    </div>
+  );
+}
+
+/**
+ * Toggle pills for supplementary (non-MARS) data sources.
+ *
+ * Each pill adds a non-phased data source on top of the MARS base.
+ * Toggling ON adds the source's hectares to the displayed totals;
+ * toggling OFF removes them. OFF by default so the base view is
+ * pure MARS project data (which supports phase filtering).
+ *
+ * For nature, there is currently no MARS base per kommune, so the
+ * supplements are the only data available — the user needs to toggle
+ * at least one on to see values.
+ */
+function SupplementToggles({
+  metric,
+  active,
+  onChange,
+}: {
+  metric: KommuneMetric;
+  active: Set<SupplementSource>;
+  onChange: (next: Set<SupplementSource>) => void;
+}) {
+  const sources = METRIC_SUPPLEMENTS[metric];
+  if (!sources) return null;
+
+  const toggle = (id: SupplementSource) => {
+    const next = new Set(active);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    onChange(next);
+  };
+
+  return (
+    <div className="flex items-start gap-2.5 flex-wrap">
+      <span className="text-xs font-medium text-muted-foreground pt-1" title="Disse kilder administreres uden for MARS og har ikke projektfasedata">
+        Tilføj kilder <span className="font-normal opacity-70">(uden fasedata)</span>:
+      </span>
+      <div className="flex items-center gap-2 flex-wrap">
+        {sources.map((srcId) => {
+          const def = SUPPLEMENT_DEFS[srcId];
+          const isActive = active.has(srcId);
+          return (
+            <button
+              key={srcId}
+              type="button"
+              onClick={() => toggle(srcId)}
+              aria-pressed={isActive}
+              title={def.description}
+              className={[
+                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
+                'transition-all duration-150 select-none cursor-pointer',
+                isActive
+                  ? 'border-amber-400 bg-amber-50 text-amber-800 dark:border-amber-500/50 dark:bg-amber-950/30 dark:text-amber-200'
+                  : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
+              ].join(' ')}
+            >
+              <span
+                className={[
+                  'w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors',
+                  isActive ? 'bg-amber-500' : 'bg-muted-foreground/40',
+                ].join(' ')}
+              />
+              + {def.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

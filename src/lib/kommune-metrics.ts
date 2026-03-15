@@ -30,8 +30,71 @@ export type KommunePhase = 'sketch' | 'preliminary' | 'approved' | 'established'
 /** All valid phase values in display order (earliest → latest). */
 export const KOMMUNE_PHASES: KommunePhase[] = ['sketch', 'preliminary', 'approved', 'established'];
 
-/** Default phase selection — all phases selected. */
-export const DEFAULT_PHASES = new Set<KommunePhase>(KOMMUNE_PHASES);
+/**
+ * Default phase selection — formal phases only (excludes sketch).
+ *
+ * Sketches are early-stage drafts without binding commitments from
+ * authorities. The formal phases (preliminary / approved / established)
+ * represent real government-backed investment and are more meaningful
+ * as a default view.
+ */
+export const DEFAULT_PHASES = new Set<KommunePhase>(['preliminary', 'approved', 'established']);
+
+// ---------------------------------------------------------------------------
+// Supplementary data source toggles
+// ---------------------------------------------------------------------------
+
+/**
+ * Identifier for a supplementary (non-MARS) data source that can be
+ * toggled on/off in the kommune view.
+ */
+export type SupplementSource = 'ksf' | 'nst' | 'section3' | 'natura2000';
+
+/** Which supplement sources are relevant for each metric. */
+export const METRIC_SUPPLEMENTS: Partial<Record<KommuneMetric, SupplementSource[]>> = {
+  afforestation: ['ksf', 'nst'],
+  nature: ['section3', 'natura2000'],
+};
+
+/** Display configuration for each supplement source. */
+export interface SupplementDef {
+  id: SupplementSource;
+  label: string;
+  shortLabel: string;
+  description: string;
+  field: string;
+}
+
+export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
+  ksf: {
+    id: 'ksf',
+    label: 'Klimaskovfonden',
+    shortLabel: 'KSF',
+    description: 'Frivillig privat skovrejsning administreret uden for MARS. Har ikke projektfasedata — inkluderes som samlet areal.',
+    field: 'afforestationKsfHa',
+  },
+  nst: {
+    id: 'nst',
+    label: 'Naturstyrelsen',
+    shortLabel: 'NST',
+    description: 'Statslig skovrejsning administreret af Naturstyrelsen uden for MARS. Har ikke projektfasedata — inkluderes som samlet areal.',
+    field: 'afforestationNstHa',
+  },
+  section3: {
+    id: 'section3',
+    label: '§3-arealer',
+    shortLabel: '§3',
+    description: 'Statsligt udpegede beskyttede naturtyper (hede, mose, eng, strandeng m.fl.). Faste lovmæssige udpegninger — ikke projekter med faser.',
+    field: 'section3Ha',
+  },
+  natura2000: {
+    id: 'natura2000',
+    label: 'Natura 2000',
+    shortLabel: 'N2000',
+    description: 'EU-udpegede Habitat- og Fugledirektiv-beskyttede områder. Faste lovmæssige udpegninger — ikke projekter med faser.',
+    field: 'natura2000Ha',
+  },
+};
 
 /**
  * Phase-metric shape for a single phase bucket.
@@ -40,24 +103,32 @@ export const DEFAULT_PHASES = new Set<KommunePhase>(KOMMUNE_PHASES);
 interface PhaseMetrics {
   nitrogenT: number;
   extractionHa: number;
+  afforestationHa: number;
+  count: number;
+}
+
+/** Return type for {@link filterByPhases}. */
+export interface FilteredPhaseMetrics {
+  nitrogenT: number;
+  extractionHa: number;
+  afforestationMarsHa: number;
+  projectCount: number;
 }
 
 /**
- * Compute nitrogen and extraction metric values for a municipality filtered
- * to only the selected project phases.
+ * Compute nitrogen, extraction, and MARS afforestation metric values for a
+ * municipality filtered to only the selected project phases.
  *
- * Sketch phase data is stored in `byPhase.sketch` and is NOT included in
- * the top-level `nitrogenT`/`extractionHa` totals (which only cover formal
- * projectDetails). This function always sums from `byPhase` so the result
- * is consistent regardless of which phases are selected.
+ * All three metrics are summed from the `byPhase` structure so the result
+ * is consistent regardless of which phases are selected — including sketch
+ * data that isn't in top-level totals.
  *
- * Afforestation is NOT phase-filtered because KSF and NST contributions
- * (which form most of `afforestationTotalHa`) don't have per-phase data.
- * Nature and CO₂ are static (no phase breakdown).
+ * Non-MARS sources (KSF, NST, §3, Natura 2000) are handled separately
+ * via supplement toggles and are NOT included here.
  *
  * @param km     - KommuneMetrics entry from dashboard data
  * @param phases - Set of phases to include in the sum
- * @returns Filtered `nitrogenT` and `extractionHa` totals
+ * @returns Filtered totals for nitrogen, extraction, and MARS afforestation
  *
  * @example
  * // Only show what's actually been built
@@ -65,28 +136,38 @@ interface PhaseMetrics {
  *
  * @example
  * // Include the full funnel including rough sketches
- * const { extractionHa } = filterByPhases(km, new Set(['sketch', 'preliminary', 'approved', 'established']));
+ * const vals = filterByPhases(km, new Set(['sketch', 'preliminary', 'approved', 'established']));
  */
 export function filterByPhases(
   km: {
     byPhase?: Partial<Record<KommunePhase, PhaseMetrics>>;
     nitrogenT: number;
     extractionHa: number;
+    afforestationMarsHa: number;
+    projectCount: number;
   },
   phases: Set<KommunePhase>,
-): { nitrogenT: number; extractionHa: number } {
+): FilteredPhaseMetrics {
   if (!km.byPhase) {
-    // No phase data — fall back to top-level totals (projectDetails only, no sketch)
-    return { nitrogenT: km.nitrogenT, extractionHa: km.extractionHa };
+    return {
+      nitrogenT: km.nitrogenT,
+      extractionHa: km.extractionHa,
+      afforestationMarsHa: km.afforestationMarsHa,
+      projectCount: km.projectCount,
+    };
   }
   let nitrogenT = 0;
   let extractionHa = 0;
+  let afforestationMarsHa = 0;
+  let projectCount = 0;
   for (const phase of phases) {
     const p = km.byPhase[phase];
     if (p) {
       nitrogenT += p.nitrogenT ?? 0;
       extractionHa += p.extractionHa ?? 0;
+      afforestationMarsHa += p.afforestationHa ?? 0;
+      projectCount += p.count ?? 0;
     }
   }
-  return { nitrogenT, extractionHa };
+  return { nitrogenT, extractionHa, afforestationMarsHa, projectCount };
 }

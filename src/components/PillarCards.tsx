@@ -35,8 +35,8 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
   afforestation: {
     description: (
       <>
-        <p>Viser skovrejsning fra tre kilder: MARS (vandmiljøprojekter), <strong>Klimaskovfondens ~210 frivillige projekter (~2.300 ha)</strong>, og <strong>Naturstyrelsens ~30 statslige skovrejsningsprojekter (~4.100 ha)</strong>.</p>
-        <p>Målet er 250.000 ha ny skov inden 2045. Den nationale tilskudsordning (SGAV) til private/kommunale skovrejsere er den største kilde og allerede dækket via MARS.</p>
+        <p>Viser skovrejsning fra tre kilder: <strong>MARS</strong> (vandmiljøprojekter med projektfasedata), <strong>Klimaskovfonden</strong> (~210 frivillige projekter, ~2.300 ha), og <strong>Naturstyrelsen</strong> (~30 statslige projekter, ~4.100 ha).</p>
+        <p>KSF og NST administreres uden for MARS og har ikke projektfasedata. Målet er 250.000 ha ny skov inden 2045.</p>
       </>
     ),
     source: 'MARS API + Klimaskovfonden WFS + MiljøGIS WFS (Naturstyrelsen)',
@@ -55,7 +55,7 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
       <>
         <p><strong>Målet er at 20% af Danmarks landareal er juridisk beskyttet natur inden 2030</strong> — via Natura 2000-udpegning, §3-registrering under Naturbeskyttelsesloven og nye naturnationalparker.</p>
         <p>De ~15% er et kombineret estimat (OECD 2024). Natura 2000 dækker ~18% og §3 ~9,5%, men de overlapper ~30%. En præcis beregning kræver et rumligt GIS-overlay.</p>
-        <p>I modsætning til de andre delmål sker fremskridt ikke via projektpipeline, men via politiske beslutninger om arealdesignering.</p>
+        <p>§3- og Natura 2000-arealer er statslige/EU-udpegninger — ikke projekter med faser. I modsætning til de andre delmål sker fremskridt primært via politiske beslutninger om arealdesignering.</p>
       </>
     ),
     source: 'OECD 2024 / Natura 2000-registret / §3-registret (Miljøstyrelsen)',

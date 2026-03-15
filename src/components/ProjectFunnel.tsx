@@ -453,7 +453,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 />
               </div>
               <p className="text-[11px] text-muted-foreground mt-1.5">
-                Alle projekter er anlagte (frivillige lavbundsprojekter). Data fra Klimaskovfondens WFS.
+                Administreres uden for MARS — har ikke projektfasedata. Alle projekter er anlagte (frivillige lavbundsprojekter). Data fra Klimaskovfondens WFS.
               </p>
             </div>
           </div>
@@ -492,7 +492,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 />
               </div>
               <p className="text-[11px] text-muted-foreground mt-1.5">
-                Alle projekter er anlagte (frivillige skovrejsningsprojekter). Data fra Klimaskovfondens WFS.
+                Administreres uden for MARS — har ikke projektfasedata. Alle projekter er anlagte (frivillige skovrejsningsprojekter). Data fra Klimaskovfondens WFS.
               </p>
             </div>
           </div>
@@ -540,7 +540,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 </div>
               </div>
               <p className="text-[11px] text-muted-foreground mt-1.5">
-                {formatDanishNumber(nstOngoing.length)} igangværende · {formatDanishNumber(nstCompleted.length)} afsluttede. Data fra MiljøGIS WFS (skovdrift).
+                Administreres uden for MARS — har ikke projektfasedata. {formatDanishNumber(nstOngoing.length)} igangværende · {formatDanishNumber(nstCompleted.length)} afsluttede. Data fra MiljøGIS WFS (skovdrift).
               </p>
             </div>
           </div>

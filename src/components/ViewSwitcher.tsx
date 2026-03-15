@@ -1,13 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Globe, MapPin } from 'lucide-react';
+import { Globe, MapPin, Leaf } from 'lucide-react';
 
 /**
  * Primary view-switcher for toggling between the national overview and the
  * municipality (Kommuner) breakdown. Always rendered at the top of both pages
  * so users can switch views without needing to scroll to the StickyNav.
  *
- * Visually looks like a segmented pill control; the active segment has a solid
- * card background while the inactive one is muted/ghost.
+ * Includes the "Track Den Grønne Trepart" branding line above the segmented
+ * pill control for consistent identity across both views.
  *
  * @example
  * // In HeroSection.tsx or KommunePage.tsx — place at the very top:
@@ -18,7 +18,14 @@ export function ViewSwitcher() {
   const isKommune = pathname.startsWith('/kommuner');
 
   return (
-    <div className="flex justify-center mb-6" role="navigation" aria-label="Skift visning">
+    <div className="flex flex-col items-center mb-6" role="navigation" aria-label="Skift visning">
+      <div className="flex items-center justify-center gap-2 mb-3">
+        <Leaf className="w-5 h-5 text-primary -scale-x-100" strokeWidth={1.5} />
+        <span className="text-xs font-medium uppercase tracking-widest text-primary">
+          Track Den Grønne Trepart
+        </span>
+        <Leaf className="w-5 h-5 text-primary" strokeWidth={1.5} />
+      </div>
       <div className="inline-flex items-center gap-0.5 rounded-xl border border-border/60 bg-muted/40 p-1 shadow-inner">
         <Link
           to="/"

@@ -94,7 +94,7 @@ export function HeroSection({ data }: HeroSectionProps) {
   const compositeStatusMeta = GOAL_STATUS_META[compositeStatus];
 
   return (
-    <section className="w-full py-14 md:py-20 text-center relative overflow-hidden">
+    <section className="w-full pt-10 pb-14 md:pb-20 text-center relative overflow-hidden">
       <ViewSwitcher />
 
       <div className="absolute top-6 left-8 opacity-[0.08] pointer-events-none">
@@ -121,14 +121,6 @@ export function HeroSection({ data }: HeroSectionProps) {
           </div>
         );
       })}
-
-      <div className="flex items-center justify-center gap-2 mb-4">
-        <Leaf className="w-5 h-5 text-primary -scale-x-100" strokeWidth={1.5} />
-        <span className="text-xs font-medium uppercase tracking-widest text-primary">
-          Track Den Grønne Trepart
-        </span>
-        <Leaf className="w-5 h-5 text-primary" strokeWidth={1.5} />
-      </div>
 
       <h1
         className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-3"
