@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { pillarToSlug } from '@/lib/slugs';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Globe, MapPin, BookOpen } from 'lucide-react';
+import { ChevronDown, Globe, MapPin } from 'lucide-react';
 
 interface StickyNavProps {
   /**
@@ -42,8 +42,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isKommunerRoute = location.pathname.startsWith('/kommuner');
-  const isMetodeRoute = location.pathname.startsWith('/data-og-metode');
-  const jumpLinks = isKommunerRoute ? KOMMUNE_JUMP_LINKS : isMetodeRoute ? [] : NATIONAL_JUMP_LINKS;
+  const jumpLinks = isKommunerRoute ? KOMMUNE_JUMP_LINKS : NATIONAL_JUMP_LINKS;
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -208,16 +207,15 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
               <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
             )}
 
-            {/* View toggle — National ↔ Kommuner ↔ Data & Metode */}
+            {/* View toggle — National ↔ Kommuner */}
             <div
               className="flex items-center rounded-lg border border-border/60 bg-muted/40 p-0.5 gap-0.5 flex-shrink-0"
               role="group"
               aria-label="Skift visning"
             >
               {([
-                { to: '/', active: !isKommunerRoute && !isMetodeRoute, icon: Globe, label: 'National' },
+                { to: '/', active: !isKommunerRoute, icon: Globe, label: 'National' },
                 { to: '/kommuner', active: isKommunerRoute, icon: MapPin, label: 'Kommuner' },
-                { to: '/data-og-metode', active: isMetodeRoute, icon: BookOpen, label: 'Data' },
               ] as const).map((v) => (
                 <Link
                   key={v.to}

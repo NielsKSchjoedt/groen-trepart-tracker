@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Globe, MapPin, BookOpen, Leaf } from 'lucide-react';
+import { Globe, MapPin, Leaf } from 'lucide-react';
 
-type ViewId = 'national' | 'kommuner' | 'metode';
+type ViewId = 'national' | 'kommuner';
 
 interface ViewDef {
   id: ViewId;
@@ -14,7 +14,6 @@ interface ViewDef {
 const VIEWS: ViewDef[] = [
   { id: 'national', to: '/', icon: Globe, label: 'National oversigt', shortLabel: 'National' },
   { id: 'kommuner', to: '/kommuner', icon: MapPin, label: 'Kommuner', shortLabel: 'Kommuner' },
-  { id: 'metode', to: '/data-og-metode', icon: BookOpen, label: 'Data & metode', shortLabel: 'Data' },
 ];
 
 /**
@@ -25,14 +24,13 @@ const VIEWS: ViewDef[] = [
  */
 function resolveActiveView(pathname: string): ViewId {
   if (pathname.startsWith('/kommuner')) return 'kommuner';
-  if (pathname.startsWith('/data-og-metode')) return 'metode';
   return 'national';
 }
 
 /**
- * Primary view-switcher for toggling between the national overview,
- * municipality breakdown, and data & methodology page. Always rendered
- * at the top of all three pages so users can switch without scrolling.
+ * Primary view-switcher for toggling between the national overview and
+ * municipality breakdown. Always rendered at the top of both pages so
+ * users can switch without scrolling.
  *
  * Includes the "Track Den Grønne Trepart" branding line above the
  * segmented pill control for consistent identity across all views.

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Database, ExternalLink, ChevronDown, ChevronRight, RefreshCw,
   Shield, Leaf, TreePine, Landmark, Scale, FileCode2, AlertTriangle,
@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
-import { StickyNav } from '@/components/StickyNav';
+
 import { Footer } from '@/components/Footer';
 import { useQuery } from '@tanstack/react-query';
 import { loadDashboardData } from '@/lib/data';
@@ -360,7 +360,7 @@ const METHOD_SECTIONS = [
  * IDs for deep-linking from InfoTooltips in the dashboard.
  */
 export default function DataMetodePage() {
-  const sentinelRef = useRef<HTMLDivElement>(null);
+
 
   const { data } = useQuery({
     queryKey: ['dashboard-data'],
@@ -402,9 +402,6 @@ export default function DataMetodePage() {
           og hvilke begrænsninger der er. Alt er open source — du kan selv verificere hvert tal.
         </p>
       </section>
-
-      <div ref={sentinelRef} />
-      <StickyNav sentinelRef={sentinelRef as React.RefObject<HTMLDivElement>} />
 
       <div className="max-w-4xl mx-auto px-4 pb-8 space-y-16">
 
