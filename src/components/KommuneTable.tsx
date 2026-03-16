@@ -130,6 +130,7 @@ function ColHeader({
           <InfoTooltip
             content={tooltip}
             source={tooltipSource}
+            methodLink="#kvalitet"
             size={11}
             side="top"
             align="start"

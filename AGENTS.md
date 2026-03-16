@@ -74,7 +74,7 @@ docs/
 - `.github/workflows/fetch-data.yml` — daily scheduled GitHub Actions at 06:00 UTC
 
 **Key real data extracted** (March 2026):
-- National nitrogen reduction: 3,433 T achieved of 12,769 T goal (~27%)
+- National nitrogen reduction: 3,433 T total pipeline (all phases incl. preliminary). Actually established (built): ~26 T. Goal: 12,769.5 T (sum of 37 plan targets; master-data reports rounded national figure of 12,776 T).
 - 1,164 projects: 80 established, 634 approved, 450 in preliminary study, 5,260+ sketches
 - 37 coastal water group plans with per-group progress breakdowns
 - 23 catchment areas with nitrogen, extraction, and afforestation metrics

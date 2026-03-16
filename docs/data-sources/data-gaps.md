@@ -1,22 +1,17 @@
 # Data Gaps & Access Barriers
 
-## Gap 1: No public API for MARS (CRITICAL)
+## Gap 1: MARS API — RESOLVED (March 2026)
 
-**Impact**: Blocks real-time automated tracking of the most important implementation data.
+**Status**: Resolved. An unauthenticated REST API was discovered via browser DevTools at `mars.sgav.dk/api` and is now the project's primary data source.
 
-MARS status module is public (no login), but:
-- No documented REST API for machine-to-machine access
-- No open JSON/CSV export from status views
-- Detailed project data (individual boundaries, status, effects, timelines) requires authorized login
-- CSV/Shapefile export only available in planning module (login required)
+**Implementation**: `etl/fetch_mars.py` polls 5 JSON endpoints daily via GitHub Actions:
+- `/api/master-data` — subsidy schemes, project states, national goals
+- `/api/status/plans` — 37 coastal water group plans with N-reduction targets
+- `/api/status/projects` — all ~6,000+ projects with status and metrics
+- `/api/status/vos` — 23 vandopland (main catchment) aggregations
+- `/api/status/metadata` — national goals and plan definitions
 
-**Workarounds**:
-- Web scraping of public status module (fragile — breaks on UI updates)
-- Manual periodic data collection
-- Request API access from SGAV/Danmarks Miljøportal
-- Monitor MARS release notes for new export capabilities
-
-**Potential lead**: `github.com/james-langridge/mars-vista-api` contains an OpenAPI spec that may reveal MARS API structure.
+**Remaining caveat**: The API is not officially documented by SGAV/Miljøstyrelsen. There is no guarantee of long-term stability or backward compatibility. The ETL pipeline handles errors gracefully and logs failures to `data/etl-log.json`.
 
 ## Gap 2: PDF-locked data ("PDF-fælden")
 
@@ -72,12 +67,12 @@ Projects without state subsidy/anchoring (foundations, LIFE, private) — SGAV h
 
 | Category | % of desired metrics | Approach |
 |----------|---------------------|----------|
-| **Fully automatable** (GIS/API sources) | ~40% | WFS polling, REST API calls (weekly-monthly) |
-| **Moderate effort** (structured processing) | ~20% | NOVANA data parsing, format-dependent maintenance |
-| **Manual processing** (PDF/web scraping) | ~30% | PDF extraction, web page transcription (quarterly-annually) |
-| **Currently inaccessible** (requires negotiation) | ~10% | MARS project-level data, internal municipal tracking |
+| **Fully automatable** (GIS/API sources) | ~70% | MARS REST API + WFS polling + REST APIs (daily via GitHub Actions) |
+| **Moderate effort** (structured processing) | ~15% | NOVANA data parsing, format-dependent maintenance |
+| **Manual processing** (PDF/web scraping) | ~10% | PDF extraction, web page transcription (quarterly-annually) |
+| **Currently inaccessible** (requires negotiation) | ~5% | MARS Planning Module (login-only), internal municipal tracking |
 
-**Key insight**: If MARS API access is secured, the tracker jumps from ~40% to potentially 90%+ automation.
+**Key insight**: With the MARS REST API discovery (March 2026), automation jumped from ~40% to ~70%. The remaining gaps are mainly PDF-locked data and sources requiring OAuth2 registration (VanDa).
 
 ## Legal framework for data access
 

@@ -925,6 +925,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                   </>
                 }
                 source="Geodata fra Miljøstyrelsens WFS (miljoegis.mim.dk)"
+                methodLink="#datakilder"
                 side="bottom"
                 size={13}
               />
@@ -956,6 +957,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                   <p>Viser de 109 danske kystvandområders økologiske tilstand ifølge EU's Vandrammedirektiv (WFD). Farverne angiver den samlede økologiske vurdering: God (grøn), Moderat (gul), Ringe (orange) og Dårlig (rød). Klik på et vandområde for at se detaljerede indikatorer.</p>
                 }
                 source="VP3 — Vandområdeplanerne 2021–2027 (Miljøstyrelsen)"
+                methodLink="#datakilder"
                 side="bottom"
                 size={13}
               />
@@ -1037,6 +1039,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                   <p>Det grønneste område har den højeste sum af anlagt og i pipeline for {metricDesc[activePillar] ?? 'denne metrik'}, og alle andre skaleres i forhold. Det er ikke en målstreg — det viser hvilke områder der har mest aktivitet.</p>
                 );
               })()}
+              methodLink="#metode"
               size={12}
               side="bottom"
             />

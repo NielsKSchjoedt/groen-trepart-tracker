@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { pillarToSlug } from '@/lib/slugs';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Globe, MapPin } from 'lucide-react';
+import { ChevronDown, Globe, MapPin, BookOpen } from 'lucide-react';
 
 interface StickyNavProps {
   /**
@@ -42,7 +42,8 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isKommunerRoute = location.pathname.startsWith('/kommuner');
-  const jumpLinks = isKommunerRoute ? KOMMUNE_JUMP_LINKS : NATIONAL_JUMP_LINKS;
+  const isMetodeRoute = location.pathname.startsWith('/data-og-metode');
+  const jumpLinks = isKommunerRoute ? KOMMUNE_JUMP_LINKS : isMetodeRoute ? [] : NATIONAL_JUMP_LINKS;
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -207,38 +208,32 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
               <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
             )}
 
-            {/* View toggle — National ↔ Kommuner */}
+            {/* View toggle — National ↔ Kommuner ↔ Data & Metode */}
             <div
               className="flex items-center rounded-lg border border-border/60 bg-muted/40 p-0.5 gap-0.5 flex-shrink-0"
               role="group"
               aria-label="Skift visning"
             >
-              <Link
-                to="/"
-                aria-current={!isKommunerRoute ? 'page' : undefined}
-                className={[
-                  'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
-                  !isKommunerRoute
-                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
-                    : 'text-muted-foreground hover:text-foreground',
-                ].join(' ')}
-              >
-                <Globe className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
-                <span className="hidden sm:inline">National</span>
-              </Link>
-              <Link
-                to="/kommuner"
-                aria-current={isKommunerRoute ? 'page' : undefined}
-                className={[
-                  'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
-                  isKommunerRoute
-                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
-                    : 'text-muted-foreground hover:text-foreground',
-                ].join(' ')}
-              >
-                <MapPin className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
-                <span className="hidden sm:inline">Kommuner</span>
-              </Link>
+              {([
+                { to: '/', active: !isKommunerRoute && !isMetodeRoute, icon: Globe, label: 'National' },
+                { to: '/kommuner', active: isKommunerRoute, icon: MapPin, label: 'Kommuner' },
+                { to: '/data-og-metode', active: isMetodeRoute, icon: BookOpen, label: 'Data' },
+              ] as const).map((v) => (
+                <Link
+                  key={v.to}
+                  to={v.to}
+                  aria-current={v.active ? 'page' : undefined}
+                  className={[
+                    'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
+                    v.active
+                      ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
+                      : 'text-muted-foreground hover:text-foreground',
+                  ].join(' ')}
+                >
+                  <v.icon className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                  <span className="hidden sm:inline">{v.label}</span>
+                </Link>
+              ))}
             </div>
           </div>
 

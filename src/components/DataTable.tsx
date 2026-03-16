@@ -541,6 +541,7 @@ function NatureProtectionSummary({ progress }: {
           content={
             <p>Målet er 20% af Danmarks landareal juridisk beskyttet inden 2030 — via Natura 2000, §3 under Naturbeskyttelsesloven og naturnationalparker. Tallene herunder overlapper ca. 30%.</p>
           }
+          methodLink="#kvalitet"
           size={12}
           side="right"
         />
@@ -1002,6 +1003,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
           title={titles.heading}
           content={titles.tooltip}
           source="MARS API (Miljøstyrelsen) — vandplanernes reduktionsmål"
+          methodLink="#soejler"
           side="right"
         />
       </div>
@@ -1056,6 +1058,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
                 <p><strong>Naturstyrelsen:</strong> Statslige skovrejsningsprojekter. Areal fra MiljøGIS WFS-polygoner. Igangværende og afsluttede.</p>
               </>
             }
+            methodLink="#kvalitet"
             size={14}
             side="right"
           />
@@ -1099,6 +1102,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
                 <p><strong>Klimaskovfonden:</strong> Frivillige lavbundsprojekter fra den uafhængige fond. Alle er anlagte. Data fra Klimaskovfondens WFS.</p>
               </>
             }
+            methodLink="#kvalitet"
             size={14}
             side="right"
           />

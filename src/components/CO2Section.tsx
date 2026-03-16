@@ -68,6 +68,7 @@ export function CO2Section() {
               </>
             }
             source="KF25 — Klimafremskrivning 2025 (KEFM)"
+            methodLink="#soejler"
             size={12}
             side="right"
           />
@@ -117,6 +118,7 @@ export function CO2Section() {
               </>
             }
             source="KF25 — Klimafremskrivning 2025 (KEFM)"
+            methodLink="#kvalitet"
             size={11}
             side="right"
           />
@@ -239,6 +241,7 @@ export function CO2Section() {
             content={
               <p>Landbrug og LULUCF (arealanvendelse, skov og jord) er de sektorer som den grønne trepart-aftale primært adresserer. CO₂-afgift på landbrug fra 2030 og udtagning af lavbundsarealer skal reducere udledningerne markant.</p>
             }
+            methodLink="#soejler"
             size={11}
             side="right"
           />
