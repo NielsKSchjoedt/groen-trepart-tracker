@@ -145,6 +145,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             </>
           }
           source="Den Grønne Trepart (Finansministeriet, dec. 2023)"
+          methodLink="#datakilder"
           size={15}
           side="bottom"
         />
@@ -186,6 +187,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               </>
             }
             source="Beregnet på baggrund af data fra MARS, KF25 og Miljøstyrelsen"
+            methodLink="#metode"
             size={13}
           />
         </div>
@@ -248,6 +250,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               </p>
             </>
           }
+          methodLink="#metode"
           size={12}
         />
       </p>

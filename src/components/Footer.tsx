@@ -1,4 +1,5 @@
-import { Leaf, Github, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Leaf, Github, Heart, BookOpen } from 'lucide-react';
 
 const REPO_URL = 'https://github.com/NielsKSchjoedt/groen-trepart-tracker';
 
@@ -43,7 +44,14 @@ export function Footer({ fetchedAt }: FooterProps) {
             <p>Sidst opdateret: {formatted}</p>
           </div>
           <div className="text-center md:text-right space-y-1">
-            <p>
+            <p className="flex items-center justify-center md:justify-end gap-4">
+              <Link
+                to="/data-og-metode"
+                className="inline-flex items-center gap-1.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                Data & metode
+              </Link>
               <a
                 href={REPO_URL}
                 target="_blank"

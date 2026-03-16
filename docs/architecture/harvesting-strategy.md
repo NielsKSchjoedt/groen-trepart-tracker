@@ -8,25 +8,17 @@
 **URL**: https://mars.sgav.dk/status/lavbundsindsatsen
 **Frequency**: Weekly check, meaningful changes probably monthly
 
-**Current approach** (no API available):
-1. **Web scraping** of public status views — fragile but feasible
-   - National aggregates (nitrogen, lowland, afforestation totals)
-   - Per-municipality breakdown (if navigable)
-   - Per-coastal-water-group breakdown
-   - Project count by type and status phase
-2. **Manual data collection** as fallback — periodic screenshots + manual transcription
-3. **Monitor MARS release notes** at sgav.dk for new export capabilities
+**Current approach** (REST API discovered March 2026):
 
-**Future approach** (if API access secured):
-- REST API polling with structured JSON response
-- Automated project-level data with geometries
-- Would jump automation from ~40% to ~90%
+An unauthenticated JSON API was discovered at `mars.sgav.dk/api` via browser DevTools. Implemented in `etl/fetch_mars.py`, polling 5 endpoints daily via GitHub Actions:
 
-**Investigation needed**:
-- What HTTP requests does the MARS status page make? (browser dev tools)
-- Is there a hidden JSON API behind the status views?
-- Can we identify the data endpoint structure?
-- GitHub lead: https://github.com/james-langridge/mars-vista-api/blob/main/openapi.json
+1. `/api/master-data` — subsidy schemes, project states, national goals
+2. `/api/status/plans` — 37 coastal water group plans with N-reduction targets + nested projects
+3. `/api/status/projects` — all ~6,000+ individual projects with status and metrics
+4. `/api/status/vos` — 23 vandopland (main catchment) aggregations
+5. `/api/status/metadata` — national goals and plan definitions
+
+**Caveat**: The API is not officially documented by SGAV. There is no guarantee of long-term stability. The ETL pipeline handles errors gracefully and logs failures to `data/etl-log.json`.
 
 ### Track 2: Context & Geography (GIS/API sources)
 
@@ -119,7 +111,7 @@ GET {endpoint}?service=WFS&version=2.0.0&request=GetFeature&typeName={layer}&out
 ┌─────────────┐     ┌──────────────┐     ┌──────────────┐     ┌─────────────┐
 │   Sources    │────▶│   Fetchers   │────▶│  Transform   │────▶│   Storage   │
 │              │     │              │     │              │     │             │
-│ MARS (scrape)│     │ Python/Node  │     │ Normalize    │     │ JSON/GeoJSON│
+│ MARS (REST)  │     │ Python/Node  │     │ Normalize    │     │ JSON/GeoJSON│
 │ WFS (OGC)   │     │ scripts per  │     │ Validate     │     │ in git repo │
 │ REST APIs   │     │ source       │     │ Deduplicate  │     │ (or PostGIS)│
 │ PDF reports │     │              │     │ Compute      │     │             │
@@ -135,7 +127,7 @@ GET {endpoint}?service=WFS&version=2.0.0&request=GetFeature&typeName={layer}&out
 
 ## Priority Order for Implementation
 
-1. **MARS status scraping** — unblocks the core value proposition
+1. **MARS REST API polling** — unblocks the core value proposition (resolved March 2026)
 2. **MiljøGIS WFS** — richest automated source, enables geographic context
 3. **DAWA boundaries** — enables geographic drill-down in dashboard
 4. **Vandplandata targets** — enables on-track/off-track calculations

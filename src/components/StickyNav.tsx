@@ -213,32 +213,25 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
               role="group"
               aria-label="Skift visning"
             >
-              <Link
-                to="/"
-                aria-current={!isKommunerRoute ? 'page' : undefined}
-                className={[
-                  'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
-                  !isKommunerRoute
-                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
-                    : 'text-muted-foreground hover:text-foreground',
-                ].join(' ')}
-              >
-                <Globe className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
-                <span className="hidden sm:inline">National</span>
-              </Link>
-              <Link
-                to="/kommuner"
-                aria-current={isKommunerRoute ? 'page' : undefined}
-                className={[
-                  'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
-                  isKommunerRoute
-                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
-                    : 'text-muted-foreground hover:text-foreground',
-                ].join(' ')}
-              >
-                <MapPin className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
-                <span className="hidden sm:inline">Kommuner</span>
-              </Link>
+              {([
+                { to: '/', active: !isKommunerRoute, icon: Globe, label: 'National' },
+                { to: '/kommuner', active: isKommunerRoute, icon: MapPin, label: 'Kommuner' },
+              ] as const).map((v) => (
+                <Link
+                  key={v.to}
+                  to={v.to}
+                  aria-current={v.active ? 'page' : undefined}
+                  className={[
+                    'inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-all duration-150',
+                    v.active
+                      ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
+                      : 'text-muted-foreground hover:text-foreground',
+                  ].join(' ')}
+                >
+                  <v.icon className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                  <span className="hidden sm:inline">{v.label}</span>
+                </Link>
+              ))}
             </div>
           </div>
 

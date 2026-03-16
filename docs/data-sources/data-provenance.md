@@ -22,7 +22,7 @@ dashboard-data.json (101 KB)
 Frontend (React/TypeScript)
 ```
 
-All fetchers use Python stdlib only (no pip dependencies). The pipeline runs via `etl/fetch_all.sh` which orchestrates all 8 fetchers + the dashboard build step.
+Most fetchers use Python stdlib only. Two exceptions: `build_co2_data.py` requires `openpyxl` (Excel parsing), and `fetch_water_body_geometries.py` uses `requests`. The pipeline runs via `etl/fetch_all.sh` which orchestrates all fetchers + the dashboard build step.
 
 ---
 
@@ -32,10 +32,12 @@ All fetchers use Python stdlib only (no pip dependencies). The pipeline runs via
 
 **Feeds**: Nitrogen pillar, Extraction pillar, Afforestation pillar, Project pipeline
 
-**Endpoints used**:
-- `/api/master/states` — project state definitions (18 states)
-- `/api/plans/all` — all 37 coastal water group plans with targets
-- `/api/projects/all` — all ~1,200 MARS projects with status, nitrogen, extraction, afforestation data
+**Endpoints used** (base URL: `https://mars.sgav.dk/api`):
+- `/api/master-data` — subsidy schemes, project states, national goals
+- `/api/status/plans` — all 37 coastal water group plans with N-reduction targets + nested projects
+- `/api/status/projects` — all ~6,000+ individual projects with status and metrics
+- `/api/status/vos` — 23 vandopland (main catchment) aggregations
+- `/api/status/metadata` — national goals and plan definitions
 
 **Phase classification**: MARS projects have a `projectStatus` integer that maps to lifecycle phases:
 - **6** → `preliminary` (Forundersøgelsestilsagn — preliminary investigation granted)
