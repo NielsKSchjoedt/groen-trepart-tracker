@@ -340,6 +340,32 @@ export default function KommunePage() {
               MARS-naturprojekter er endnu ikke opgjort på kommuneniveau. Tilvælg §3 og/eller Natura 2000 ovenfor for at se beskyttede naturarealer.
             </MetricDisclaimer>
           )}
+
+          {/* CO₂ data coverage disclaimer */}
+          {activeMetric === 'co2' && (
+            <MetricDisclaimer>
+              CO₂-tallene er fra{' '}
+              <a
+                href="https://klimaregnskabet.dk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-amber-700"
+              >
+                Energi- og CO₂-regnskabet (Energistyrelsen)
+              </a>{' '}
+              og dækker frem til <strong>2023</strong>. Med den typiske ~2 års forsinkelse kan 2024-tal
+              være tilgængelige nu — dashboardet opdaterer automatisk, når de hentes ind.{' '}
+              <a
+                href="https://concito.dk/omstillingsindikatorer-drivhusgasreduktion"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-amber-700"
+              >
+                Concito / Klimaalliancen
+              </a>{' '}
+              udgiver løbende en dybere kommunal klimamonitorering med 16 omstillingsindikatorer pr. kommune.
+            </MetricDisclaimer>
+          )}
         </div>
 
         {/* Map + optional desktop detail panel */}

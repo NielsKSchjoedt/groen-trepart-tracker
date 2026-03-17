@@ -1,5 +1,16 @@
 [
   {
+    "version": "v0.9.2",
+    "date": "2026-03-17",
+    "summary": "Forklaring tilføjet på kommunekortet: CO₂-data dækker kun frem til 2023",
+    "changes": [
+      {
+        "type": "improvement",
+        "description": "Når CO₂ er valgt på kommunekortet, vises nu en gul informationsboks over kortet. Den forklarer at tallene dækker frem til 2023, at nyere tal kan være undervejs, og linker til Concito / Klimaalliancens dybere kommunale klimamonitorering med 16 omstillingsindikatorer pr. kommune."
+      }
+    ]
+  },
+  {
     "version": "v0.9.1",
     "date": "2026-03-17",
     "summary": "CO₂-siden er ryddet op: kort og tabel skjult, link til kommunekort gjort tydeligt",
