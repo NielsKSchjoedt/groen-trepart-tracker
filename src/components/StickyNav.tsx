@@ -19,6 +19,11 @@ const NATIONAL_JUMP_LINKS = [
   { label: 'Projekter', href: '#tabeller' },
 ] as const;
 
+const CO2_JUMP_LINKS = [
+  { label: 'Oversigt',  href: '#oversigt' },
+  { label: 'CO₂-data', href: '#co2'      },
+] as const;
+
 const KOMMUNE_JUMP_LINKS = [
   { label: 'Kort',  href: '#kort'  },
   { label: 'Tabel', href: '#tabel' },
@@ -42,7 +47,11 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isKommunerRoute = location.pathname.startsWith('/kommuner');
-  const jumpLinks = isKommunerRoute ? KOMMUNE_JUMP_LINKS : NATIONAL_JUMP_LINKS;
+  const jumpLinks = isKommunerRoute
+    ? KOMMUNE_JUMP_LINKS
+    : activePillar === 'co2'
+      ? CO2_JUMP_LINKS
+      : NATIONAL_JUMP_LINKS;
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

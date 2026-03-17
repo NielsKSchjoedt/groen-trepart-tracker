@@ -17,6 +17,15 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.1 — 17. marts 2026
+
+**CO₂-siden er ryddet op: kort og tabel skjult, link til kommunekort gjort tydeligt**
+
+### Forbedring
+- Når CO₂-søjlen er valgt, vises kortet og vandoplande-tabellen ikke længere — de viste begge kun en besked om at data ikke er tilgængeligt på det niveau. Siden er nu renere og fokuseret på det der faktisk er relevant: de nationale KF25-tal.
+- Linket til kommunekortet med CO₂-data pr. kommune er nu en tydelig knap nederst i CO₂-sektionen i stedet for en lille tekst gemt væk i en overskrift.
+---
+
 ## v0.9.0 — 17. marts 2026
 
 **To fejl i automatisk dataopdatering rettet: §3-natur og CO₂ opdaterede aldrig**

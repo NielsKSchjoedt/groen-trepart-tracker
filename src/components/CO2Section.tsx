@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Factory, TrendingDown, Leaf, ExternalLink, BarChart2 } from 'lucide-react';
+import { Factory, TrendingDown, Leaf, ExternalLink, BarChart2, MapPin } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -321,12 +321,6 @@ function MunicipalCO2Summary({ data }: { data: KlimaregnskabData }) {
         <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
           CO₂ pr. kommune ({data.latestYear})
         </span>
-        <a
-          href="/kommuner?metric=co2"
-          className="ml-auto text-[10px] text-primary underline underline-offset-2 hover:text-primary/80"
-        >
-          Se kort →
-        </a>
       </div>
 
       {/* Mini bar chart — top 5 */}
@@ -390,6 +384,14 @@ function MunicipalCO2Summary({ data }: { data: KlimaregnskabData }) {
           Energi- og CO₂-regnskabet, Energistyrelsen
         </a>
       </p>
+
+      <a
+        href="/kommuner?metric=co2"
+        className="mt-3 flex items-center justify-center gap-2 w-full rounded-lg border border-primary/30 bg-primary/5 px-3 py-2.5 text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
+      >
+        <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+        Se CO₂-udledning for alle 98 kommuner på kortet
+      </a>
     </div>
   );
 }

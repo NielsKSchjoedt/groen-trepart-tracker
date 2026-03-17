@@ -216,22 +216,26 @@ const Index = () => {
               {activePillar !== 'co2' && <InitiativeTypeGauge data={data} />}
               <ScenarioBuilderSection data={data} />
               {activePillar === 'co2' && (
-                <section className="w-full px-4 py-6">
+                <section id="co2" className="w-full px-4 py-6">
                   <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4" />}>
                     <CO2Section />
                   </Suspense>
                 </section>
               )}
-              <div id="kort">
-                <Suspense fallback={<div className="h-[580px] animate-pulse bg-muted/30 rounded-2xl mx-4 my-10" />}>
-                  <DenmarkMap data={data} />
-                </Suspense>
-              </div>
-              <div id="tabeller">
-                <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
-                  <DataTable plans={data.plans} data={data} />
-                </Suspense>
-              </div>
+              {activePillar !== 'co2' && (
+                <div id="kort">
+                  <Suspense fallback={<div className="h-[580px] animate-pulse bg-muted/30 rounded-2xl mx-4 my-10" />}>
+                    <DenmarkMap data={data} />
+                  </Suspense>
+                </div>
+              )}
+              {activePillar !== 'co2' && (
+                <div id="tabeller">
+                  <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
+                    <DataTable plans={data.plans} data={data} />
+                  </Suspense>
+                </div>
+              )}
               <DataSourceSection fetchedAt={data.fetchedAt} />
             </>
           )}
