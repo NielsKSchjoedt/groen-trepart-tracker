@@ -22,7 +22,8 @@ This page documents all data sources, their licenses, and the attribution requir
 | VanDa / Danmarks Miljøportal | Vandovervågningsstationer                 | Uafklaret — se note      | —                    |
 | Klimaskovfonden (WFS)        | Frivillige skovrejsnings- og lavbundsprojekter | CC0-lignende        | Ja (kildeangivelse)  |
 | Naturstyrelsen Skov (WFS)    | Statslige skovrejsningsprojekter          | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
-| SparEnergi / Ea Energianalyse| Kommunefordelt CO₂-regnskab (planlagt)    | CC0-lignende             | Ja (kildeangivelse)  |
+| Klimaregnskabet / Energistyrelsen | Kommunefordelt CO₂-regnskab (API klar) | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
+| TRANSFORM / KU+AU+SEGES      | Potentialekort: kvælstof, CO₂, natur (planlagt) | CC0-lignende       | Ja (kildeangivelse)  |
 
 
 ---
@@ -171,21 +172,59 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 ---
 
-### 11. SparEnergi — Energi- og CO₂-regnskabet (planlagt datakilde)
+### 11. Klimaregnskabet / Energistyrelsen — Energi- og CO₂-regnskabet
 
-**Hvad vi planlægger at hente**: Kommunefordelt drivhusgasudledning, energiforbrug og VE-produktion — den primære datakilde for kommunevisningen.
+**Hvad vi henter**: Kommunefordelt drivhusgasudledning, energiforbrug og VE-produktion for alle 98 kommuner — den primære datakilde for CO₂-sporet og kommunevisningen.
 
-**Kilde**: Ea Energianalyse for Energistyrelsen.
+**Kilde**: Energistyrelsen via klimaregnskabet.dk (tidl. SparEnergi/Ea Energianalyse).
 
-**URL**: https://sparenergi.dk/forbruger/vaerktoejer/energi-og-co2-regnskabet
+**URL**: https://klimaregnskabet.dk
 
-**Licens**: Forventet CC0-lignende under PSI-loven — skal bekræftes.
+**API**: JSON API tilgængelig. Kræver gratis API-nøgle (registrering med navn og email, ingen login).
 
-**Status**: ⚠️ Endnu ikke integreret i ETL. Planlagt som del af kommune-feature (se [KOMMUNE-FEATURE-SPEC.md](KOMMUNE-FEATURE-SPEC.md)).
+**API-dokumentation**: https://klimaregnskabet.dk/klimaregnskabet-api
+- Datapunktsoversigt (Excel): API_datapunkt_oversigt_v4.1.3_0.xlsx (download fra API-siden)
+- Metodenotat: "Metodenotat - Energi- og CO2-regnskabet v.4.1" (PDF)
+- Kontakt for API-adgang: info@klimaregnskabet.dk
 
-**Begrænsning**: Data er ca. 2 år forsinket (seneste tilgængelige: 2022).
+**Data tilgængelig**:
+- **Nøgletal** pr. kommune (samlet CO₂-udledning, pr. capita, pr. areal)
+- **Energiresultater** (forbrug, produktion, VE-andel)
+- **Udledningsresultater** (CO₂e fordelt på sektorer)
+- **Sektorer**: El og fjernvarme, transport, affald, landbrug, industriprocesser
+- **Tidsperiode**: 2018–2023
+- **Geografi**: Alle 98 kommuner + 5 regioner
 
-**Kontekst**: Denne datakilde er den samme som bruges af CONCITO/Klimaalliancens monitoreringsystem for kommunernes klimahandling. Se [docs/data-sources/concito-kommunemonitoring.md](docs/data-sources/concito-kommunemonitoring.md) for detaljer om Concitos 16 omstillingsindikatorer og potentielle samarbejde.
+**Licens**: Forventet CC0-lignende under PSI-loven. Tjek sparenergi.dk/retningslinjer-for-brug-af-indhold for eksakte vilkår.
+
+**Attribution**: "Kilde: Energi- og CO₂-regnskabet, Energistyrelsen / klimaregnskabet.dk"
+
+**Begrænsning**: Data er ca. 2 år forsinket (seneste tilgængelige: 2023). Opdateres årligt. ~80% af energidata leveres centralt, kommuner udfylder resten. Bruger GPC-standarden (Global Protocol for Community-Scale GHG Inventories).
+
+**Status**: ✅ API klar til integration. Kræver registrering for API-nøgle.
+
+**Kontekst**: Denne datakilde er den samme som bruges af CONCITO/Klimaalliancens monitoreringsystem for kommunernes klimahandling. Se [docs/data-sources/concito-kommunemonitoring.md](docs/data-sources/concito-kommunemonitoring.md) for detaljer.
+
+---
+
+### 12. TRANSFORM — potentialekort for arealanvendelse
+
+**Hvad vi planlægger at hente**: Fem potentialekort der viser, hvor i Danmark der er størst potentiale for klima- og miljøindsatser:
+1. Kvælstofudvaskning fra marker (hvor lækker mest)
+2. CO₂-reduktion fra lavbundsjorder
+3. Drikkevandsbeskyttelse (kritiske områder)
+4. Naturetablering (potentiale for ny natur)
+5. Lav dyrkningsværdi (arealer egnet til omlægning)
+
+**Kilde**: TRANSFORM-projektet (Københavns Universitet, Aarhus Universitet, SEGES Innovation). Finansieret af Novo Nordisk Fonden (37,7 mio. DKK). Projektperiode 2025–2027.
+
+**URL**: Tilgængelig via Danmarks Miljøportals "Synergikort" og databutik.
+
+**Licens**: Forventet CC0-lignende — offentligt tilgængelig via Miljøportalen. Skal bekræftes.
+
+**Status**: ⚠️ Endnu ikke integreret. Kræver undersøgelse af adgangsmetode (WMS/WFS via Miljøportal?).
+
+**Relevans**: Direkte relevant for eksisterende dashboard — kan sammenholdes med MARS-projektdata: "her er potentialet for kvælstofreduktion — og her er hvad der faktisk er anlagt." Det er et stærkt analytisk narrativ.
 
 ---
 
