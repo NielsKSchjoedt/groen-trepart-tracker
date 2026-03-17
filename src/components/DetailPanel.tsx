@@ -36,7 +36,7 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
     <div className="bg-background border-l border-border h-full overflow-y-auto p-6 relative">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors"
+        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer"
         aria-label="Luk"
       >
         <X className="w-4 h-4 text-muted-foreground" />
@@ -144,7 +144,7 @@ export function DetailPanel({ plan, catchment, nationalData, onClose }: DetailPa
           {hasProjectDetails && (
             <button
               onClick={() => setShowProjects(!showProjects)}
-              className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-border hover:bg-muted/50 transition-colors text-[11px] font-medium text-primary"
+              className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-border hover:bg-muted/50 transition-colors text-[11px] font-medium text-primary cursor-pointer"
             >
               {showProjects ? (
                 <>

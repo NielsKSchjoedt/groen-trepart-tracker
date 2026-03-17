@@ -181,7 +181,7 @@ const Index = () => {
                     <button
                       key={p.id}
                       onClick={() => setActivePillar(p.id)}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 hover:shadow-sm"
+                      className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 hover:shadow-sm cursor-pointer"
                       style={{
                         borderColor: p.accentColor + '50',
                         color: p.accentColor,

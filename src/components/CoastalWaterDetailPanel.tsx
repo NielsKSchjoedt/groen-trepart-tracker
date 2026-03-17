@@ -43,7 +43,7 @@ export function CoastalWaterDetailPanel({ name, entry, onClose }: CoastalWaterDe
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors"
+        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer"
         aria-label="Luk"
       >
         <X className="w-4 h-4 text-muted-foreground" />

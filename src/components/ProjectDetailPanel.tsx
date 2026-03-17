@@ -83,7 +83,7 @@ function KsfPanel({ project, featureName, onClose }: { project: KlimaskovfondenP
     <div className="bg-background border-l border-border h-full overflow-y-auto p-6 relative">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors"
+        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer"
         aria-label="Luk"
       >
         <X className="w-4 h-4 text-muted-foreground" />
@@ -147,7 +147,7 @@ function NstPanel({ project, featureName, onClose }: { project: NaturstyrelsenSk
     <div className="bg-background border-l border-border h-full overflow-y-auto p-6 relative">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors"
+        className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer"
         aria-label="Luk"
       >
         <X className="w-4 h-4 text-muted-foreground" />

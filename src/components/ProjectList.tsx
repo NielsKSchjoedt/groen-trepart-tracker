@@ -77,7 +77,7 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
           <button
             key={tab.id}
             onClick={() => { setActiveTab(tab.id); setExpandedId(null); }}
-            className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+            className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors cursor-pointer ${
               activeTab === tab.id
                 ? 'bg-primary/10 text-primary'
                 : 'text-muted-foreground hover:bg-muted'
@@ -213,7 +213,7 @@ function ProjectsTab({
           <div key={p.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
             <button
               onClick={() => onToggle(p.id)}
-              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors"
+              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors cursor-pointer"
             >
               {expanded ? (
                 <ChevronDown className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />
@@ -407,7 +407,7 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
           <div key={s.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
             <button
               onClick={() => onToggle(s.id)}
-              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors"
+              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors cursor-pointer"
             >
               {expanded ? (
                 <ChevronDown className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />
@@ -552,7 +552,7 @@ function NaturePotentialsTab({ potentials, expandedId, onToggle }: {
           <div key={np.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
             <button
               onClick={() => onToggle(np.id)}
-              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors"
+              className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors cursor-pointer"
             >
               {expanded ? (
                 <ChevronDown className="w-3.5 h-3.5 mt-0.5 text-muted-foreground flex-shrink-0" />

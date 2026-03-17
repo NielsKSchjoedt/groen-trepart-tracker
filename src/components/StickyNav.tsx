@@ -107,7 +107,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen((o) => !o)}
-              className="flex items-center gap-2 min-w-0 rounded-md px-1 -mx-1 py-1 sm:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex items-center gap-2 min-w-0 rounded-md px-1 -mx-1 py-1 cursor-pointer sm:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-haspopup="listbox"
               aria-expanded={dropdownOpen}
               aria-label={`Aktiv søjle: ${config.label}. Tryk for at skifte.`}
@@ -150,7 +150,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
                       role="option"
                       aria-selected={isActive}
                       onClick={() => handlePillarSwitch(p.id)}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors ${
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors cursor-pointer ${
                         isActive
                           ? 'font-semibold'
                           : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -177,7 +177,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
                   key={p.id}
                   onClick={() => handlePillarSwitch(p.id)}
                   title={p.label}
-                  className={`h-7 rounded-md transition-all text-xs font-medium px-2 flex items-center gap-1.5 ${
+                  className={`h-7 rounded-md transition-all text-xs font-medium px-2 flex items-center gap-1.5 cursor-pointer ${
                     p.id === activePillar
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'

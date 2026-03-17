@@ -202,7 +202,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             <button
               key={pc.id}
               onClick={() => setActivePillar(pc.id)}
-              className="flex flex-col items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg p-1 transition-transform hover:scale-110"
+              className="flex flex-col items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg p-1 transition-transform hover:scale-110"
               aria-pressed={isSelected}
               title={`${pc.label}: ${meta.label}`}
             >

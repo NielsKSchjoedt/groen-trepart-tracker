@@ -281,7 +281,7 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
   return (
     <button
       onClick={onSelect}
-      className={`relative bg-card rounded-xl border-2 p-4 text-left transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+      className={`relative bg-card rounded-xl border-2 p-4 text-left transition-all hover:shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
         isActive
           ? 'shadow-md'
           : 'border-border hover:border-border/80'
