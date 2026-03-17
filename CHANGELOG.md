@@ -17,6 +17,18 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.0 — 17. marts 2026
+
+**To fejl i automatisk dataopdatering rettet: §3-natur og CO₂ opdaterede aldrig**
+
+### Fejlrettelse
+- Tallene for beskyttet natur pr. kommune (§3-arealer) opdaterede aldrig — de viste de tal der lå fra første kørsel og ændrede sig ikke. Fejlen skyldtes at beregningen af §3-arealer pr. kommune blev permanent sprunget over, hvis filen allerede fandtes. Rettet: den geografiske fordeling genberegnes nu ugentligt. (Teknisk: betingelse i fetch_section3.py ændret fra "spring over hvis fil eksisterer" til "spring over hvis fil er under 7 dage gammel".)
+- CO₂-fremskrivningen fra KF25 opdaterede aldrig automatisk, selv når Energistyrelsen udgiver nye tal. Scripterne til at hente KF25-kildefilerne og bygge CO₂-data manglede i den daglige workflow. Rettet. (Teknisk: fetch_kf25.py og build_co2_data.py tilføjet til GitHub Actions.)
+
+### Forbedring
+- Den daglige automatiske datahentning kørte kun en delmængde af alle datakilder — projektgeometrier (kortpolygoner), Natura 2000, §3-natur, Klimaskovfonden, fredskov og Naturstyrelsen-skov manglede alle. Nu kører alle 12 datakilder automatisk hver morgen. Projektgeometrier hentes kun for nye projekter, så kørslen forbliver hurtig. (Teknisk: fetch_geometries.py, fetch_natura2000.py, fetch_klimaskovfonden.py, fetch_naturstyrelsen_skov.py, fetch_section3.py og fetch_fredskov.py tilføjet til GitHub Actions workflow.)
+---
+
 ## v0.8.0 — 17. marts 2026
 
 **Ny ETL-sundhedsindikator: se om den daglige datahentning lykkedes**

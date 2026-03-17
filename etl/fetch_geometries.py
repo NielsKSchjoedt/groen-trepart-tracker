@@ -12,6 +12,14 @@ Two-stage pipeline:
   1. Fetch raw WKT from MARS → cache in data/mars/geometries-wkt.json
   2. Process cached WKT (simplify + reproject) → public/data/project-geometries.json
 
+Caching behaviour:
+  The WKT cache is delta-based: only geoLocationIds not already in the cache
+  are fetched from MARS. This means new projects are always picked up, but if
+  an existing project's geometry is revised in MARS, the stale cached version
+  persists. This is an acceptable trade-off — project boundaries are set early
+  in the pipeline and rarely change. Use --force to re-fetch all geometries
+  from scratch if a correction is needed.
+
 Use --reprocess to re-simplify from cached WKT without re-fetching.
 
 Output: public/data/project-geometries.json
