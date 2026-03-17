@@ -135,7 +135,7 @@ export function HeroSection({ data }: HeroSectionProps) {
         — til et grønt Danmark
       </p>
       <p className="text-muted-foreground text-base md:text-lg mb-4 max-w-lg mx-auto leading-relaxed flex items-center justify-center gap-1.5 flex-wrap">
-        <span>Følg Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, klima og beskyttet natur</span>
+        <span>Følg Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og beskyttet natur</span>
         <InfoTooltip
           title="Hvad ser du her?"
           content={
