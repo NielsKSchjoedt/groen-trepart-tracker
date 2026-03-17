@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install Python dependencies
+        run: pip install openpyxl
+
       # Persist the DAWA reverse-geocoding cache across runs.
       # Without this, build_dashboard_data.py re-geocodes all ~6500 project
       # geometries via DAWA on every run (~38 min). The cache is keyed by run
@@ -32,6 +35,18 @@ jobs:
           restore-keys: |
             geo-kommune-cache-v1-
 
+      # Persist the MARS WKT geometry cache across runs.
+      # Without this, fetch_geometries.py re-fetches all ~6500 individual
+      # geometry API calls on every run (~20-38 min). With the cache, only
+      # newly added MARS projects are fetched (typically 0-50 per day).
+      - name: Restore MARS geometry cache
+        uses: actions/cache@v4
+        with:
+          path: data/mars/geometries-wkt.json
+          key: geometries-wkt-v1-${{ github.run_id }}
+          restore-keys: |
+            geometries-wkt-v1-
+
       # ETL scripts must run from the etl/ directory so `from etl_log import ...` works
       - name: Fetch MARS data
         run: python3 fetch_mars.py
@@ -43,6 +58,36 @@ jobs:
 
       - name: Fetch MiljøGIS WFS data
         run: python3 fetch_miljoegis.py
+        working-directory: etl
+
+      # Fetch project map polygons from MARS API.
+      # Only newly added projects are fetched (delta vs WKT cache above).
+      - name: Fetch MARS project geometries
+        run: python3 fetch_geometries.py
+        working-directory: etl
+
+      - name: Fetch Natura 2000 protected areas
+        run: python3 fetch_natura2000.py
+        working-directory: etl
+
+      - name: Fetch Klimaskovfonden afforestation projects
+        run: python3 fetch_klimaskovfonden.py
+        working-directory: etl
+
+      - name: Fetch Naturstyrelsen state forest projects
+        run: python3 fetch_naturstyrelsen_skov.py
+        working-directory: etl
+
+      - name: Fetch §3 protected nature areas
+        run: python3 fetch_section3.py
+        working-directory: etl
+
+      - name: Fetch forest data (fredskov + skovkort)
+        run: python3 fetch_fredskov.py
+        working-directory: etl
+
+      - name: Fetch KF25 climate data (KEFM)
+        run: python3 fetch_kf25.py
         working-directory: etl
 
       - name: Fetch Danmarks Statistik data
@@ -61,6 +106,10 @@ jobs:
 
       - name: Build dashboard data
         run: python3 build_dashboard_data.py
+        working-directory: etl
+
+      - name: Build CO₂ emissions data
+        run: python3 build_co2_data.py
         working-directory: etl
 
       - name: Build Klimaregnskab per-kommune data

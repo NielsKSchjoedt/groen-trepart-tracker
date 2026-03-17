@@ -132,10 +132,16 @@ def aggregate_by_kommune(total_count: int) -> dict[str, float]:
     @example aggregate_by_kommune(186628)  # → {'0101': 234.5, '0147': 12.3, ...}
     """
     by_kommune_path = DATA_DIR / "by_kommune.json"
+
+    # Re-aggregate at most once per week — §3 boundaries rarely change and the
+    # spatial aggregation (186K features via WFS) takes several minutes.
     if by_kommune_path.exists():
-        print(f"  §3 by_kommune.json already exists — skipping spatial aggregation (delete to re-run)")
-        with open(by_kommune_path) as f:
-            return json.load(f)
+        age_days = (time.time() - by_kommune_path.stat().st_mtime) / 86_400
+        if age_days < 7:
+            print(f"  §3 by_kommune.json is {age_days:.1f} days old (< 7) — reusing cached aggregation")
+            with open(by_kommune_path) as f:
+                return json.load(f)
+        print(f"  §3 by_kommune.json is {age_days:.1f} days old (≥ 7) — re-aggregating")
 
     if not KOMMUNER_GEOJSON.exists():
         print(f"  ⚠ {KOMMUNER_GEOJSON} not found — run fetch_dawa.py first, skipping by_kommune")
