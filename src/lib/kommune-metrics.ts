@@ -14,9 +14,9 @@ export type KommuneMetric = 'nitrogen' | 'extraction' | 'afforestation' | 'natur
  * The map renders all polygons as no-data grey and the MetricPicker shows
  * a warning indicator for these.
  *
- * - `co2`: KF25 CO₂ data is national-level only.
+ * CO₂ data is now available at municipality level via Klimaregnskabet (Energistyrelsen).
  */
-export const METRIC_NO_DATA = new Set<KommuneMetric>(['co2']);
+export const METRIC_NO_DATA = new Set<KommuneMetric>();
 
 /**
  * MARS project implementation phase identifiers used for the phase filter.

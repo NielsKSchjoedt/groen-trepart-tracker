@@ -2,14 +2,16 @@ import { useState, useEffect } from 'react';
 import {
   Database, ExternalLink, ChevronDown, ChevronRight, RefreshCw,
   Shield, Leaf, TreePine, Landmark, Scale, FileCode2, AlertTriangle,
-  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin,
+  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History,
 } from 'lucide-react';
+import { changelog, CHANGE_TYPE_LABELS, type ChangeType } from '@/lib/changelog';
 import { Link } from 'react-router-dom';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
 
 import { Footer } from '@/components/Footer';
 import { useQuery } from '@tanstack/react-query';
-import { loadDashboardData } from '@/lib/data';
+import { loadDashboardData, loadEtlRunSummary } from '@/lib/data';
+import type { EtlDailyRun } from '@/lib/types';
 import { PipelineViz } from '@/components/PipelineViz';
 
 const REPO_URL = 'https://github.com/NielsKSchjoedt/groen-trepart-tracker';
@@ -359,6 +361,127 @@ const METHOD_SECTIONS = [
  * technical detail is in collapsible sections. All sections have anchor
  * IDs for deep-linking from InfoTooltips in the dashboard.
  */
+
+/* ------------------------------------------------------------------ */
+/*  ETL Run History                                                    */
+/* ------------------------------------------------------------------ */
+
+const STATUS_DOT: Record<string, string> = {
+  ok:      'bg-emerald-500',
+  partial: 'bg-amber-400',
+  error:   'bg-red-500',
+};
+const STATUS_LABEL: Record<string, string> = {
+  ok:      'OK',
+  partial: 'Delvis fejl',
+  error:   'Fejl',
+};
+const SOURCE_DISPLAY: Record<string, string> = {
+  mars:          'MARS',
+  dawa:          'DAWA',
+  miljoegis:     'MiljøGIS',
+  dst:           'DST',
+  vanda:         'VanDa',
+  klimaregnskab: 'Klimaregnskab',
+};
+
+/**
+ * Compact 30-day ETL run history grid — one square per calendar day.
+ * Shows source-level detail on hover. Replaces the raw etl-log.json link.
+ */
+function EtlRunHistory({ runs }: { runs: EtlDailyRun[] }) {
+  const latest = runs[0];
+  const latestMars = latest?.sources?.mars;
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const isToday = latest?.date === todayStr;
+
+  return (
+    <div className="mt-4 p-4 rounded-xl bg-card border border-border space-y-3">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <p className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <History className="w-4 h-4 text-muted-foreground" />
+          Seneste 30 kørsler
+        </p>
+        {latest && (
+          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full flex items-center gap-1 ${
+            latest.status === 'ok'
+              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+              : latest.status === 'partial'
+              ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
+              : 'bg-red-500/10 text-red-700 dark:text-red-400'
+          }`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT[latest.status]}`} />
+            {isToday ? 'I dag' : latest.date} — {STATUS_LABEL[latest.status]}
+          </span>
+        )}
+      </div>
+
+      {/* Day squares */}
+      <div className="flex flex-wrap gap-1">
+        {runs.map((run) => (
+          <div
+            key={run.date}
+            title={`${run.date}: ${STATUS_LABEL[run.status] ?? run.status}\n${
+              Object.entries(run.sources)
+                .filter(([s]) => s in SOURCE_DISPLAY)
+                .map(([s, v]) => `${SOURCE_DISPLAY[s]}: ${v.status}`)
+                .join('\n')
+            }`}
+            className={`w-4 h-4 rounded-sm cursor-default transition-opacity hover:opacity-70 ${STATUS_DOT[run.status] ?? 'bg-muted'}`}
+          />
+        ))}
+        {/* Gray placeholders to fill out to 30 */}
+        {Array.from({ length: Math.max(0, 30 - runs.length) }).map((_, i) => (
+          <div key={`empty-${i}`} className="w-4 h-4 rounded-sm bg-muted/40" />
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div className="flex items-center gap-4 text-[10px] text-muted-foreground">
+        {(['ok', 'partial', 'error'] as const).map((s) => (
+          <span key={s} className="flex items-center gap-1">
+            <span className={`w-2.5 h-2.5 rounded-sm ${STATUS_DOT[s]}`} />
+            {STATUS_LABEL[s]}
+          </span>
+        ))}
+      </div>
+
+      {/* Latest run detail */}
+      {latest && (
+        <div className="pt-2 border-t border-border/50">
+          <p className="text-[10px] text-muted-foreground mb-1.5 font-medium uppercase tracking-wide">
+            Seneste kørsel — {latest.date}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(latest.sources)
+              .filter(([s]) => s in SOURCE_DISPLAY)
+              .map(([source, run]) => (
+                <span
+                  key={source}
+                  className={`text-[10px] px-2 py-0.5 rounded-full font-medium flex items-center gap-1 ${
+                    run.status === 'ok'
+                      ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                      : run.status === 'partial'
+                      ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
+                      : 'bg-red-500/10 text-red-700 dark:text-red-400'
+                  }`}
+                >
+                  {SOURCE_DISPLAY[source]}
+                  {source === 'mars' && latestMars?.projects != null && (
+                    <span className="opacity-70">· {latestMars.projects.toLocaleString('da-DK')} proj.</span>
+                  )}
+                  {source === 'vanda' && run.stations != null && (
+                    <span className="opacity-70">· {run.stations.toLocaleString('da-DK')} st.</span>
+                  )}
+                </span>
+              ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function DataMetodePage() {
 
 
@@ -366,6 +489,12 @@ export default function DataMetodePage() {
     queryKey: ['dashboard-data'],
     queryFn: loadDashboardData,
     staleTime: 5 * 60_000,
+  });
+
+  const { data: etlSummary } = useQuery({
+    queryKey: ['etl-run-summary'],
+    queryFn: loadEtlRunSummary,
+    staleTime: 10 * 60_000,
   });
 
   const fetchedAt = data?.fetchedAt ?? new Date().toISOString();
@@ -416,6 +545,7 @@ export default function DataMetodePage() {
             { href: '#metode', label: 'Metode' },
             { href: '#fremtid', label: 'Fremtid' },
             { href: '#docs', label: 'Dokumentation' },
+            { href: '#aendringslog', label: 'Ændringslog' },
           ].map((item) => (
             <a
               key={item.href}
@@ -669,8 +799,13 @@ export default function DataMetodePage() {
             </div>
           </div>
 
+          {/* ETL run history — last 30 days */}
+          {etlSummary && etlSummary.recentRuns.length > 0 && (
+            <EtlRunHistory runs={etlSummary.recentRuns} />
+          )}
+
           <p className="text-xs text-muted-foreground mt-3">
-            Kørselsoversigt: <a href={ghLink('data/etl-log.json')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl-log.json</a> &middot;
+            Rå kørselsoversigt: <a href={ghLink('data/etl-log.json')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl-log.json</a> &middot;
             GitHub Actions workflow: <a href={ghLink('.github/workflows/fetch-data.yml')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">fetch-data.yml</a>
           </p>
         </section>
@@ -769,6 +904,73 @@ export default function DataMetodePage() {
           </div>
         </section>
 
+        {/* ========== Ændringslog ========== */}
+        <section id="aendringslog">
+          <SectionHeader icon={History} title="Ændringslog" />
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+            Alle væsentlige ændringer dokumenteres her — nye funktioner, forbedringer og, vigtigst,{' '}
+            <strong className="text-foreground">fejlrettelser og datakorrektioner</strong>. Gennemsigtighed
+            om fejl er en del af produktet.{' '}
+            <a
+              href={`${REPO_URL}/blob/main/CHANGELOG.md`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 underline decoration-primary/30 hover:text-foreground transition-colors"
+            >
+              Vis fuld ændringslog på GitHub <ExternalLink className="w-3 h-3" />
+            </a>
+          </p>
+
+          <div className="space-y-4">
+            {changelog.map((entry) => (
+              <div
+                key={entry.version}
+                className="rounded-xl border border-border/50 bg-card overflow-hidden"
+              >
+                {/* Entry header */}
+                <div className="flex items-center gap-3 px-5 py-3 border-b border-border/40 bg-muted/20">
+                  <span className="text-xs font-mono font-semibold text-foreground bg-muted px-2 py-0.5 rounded">
+                    {entry.version}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(entry.date).toLocaleDateString('da-DK', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </span>
+                  <span className="text-xs text-foreground font-medium flex-1 text-right truncate">
+                    {entry.summary}
+                  </span>
+                </div>
+
+                {/* Change list */}
+                <ul className="divide-y divide-border/30">
+                  {entry.changes.map((change, i) => (
+                    <li key={i} className="flex items-start gap-3 px-5 py-3">
+                      <ChangeTypeBadge type={change.type} />
+                      <span className="text-sm text-muted-foreground leading-relaxed flex-1">
+                        {change.description}
+                        {change.issueUrl && (
+                          <a
+                            href={change.issueUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ml-2 inline-flex items-center gap-1 text-xs text-primary/70 hover:text-primary transition-colors underline decoration-primary/30"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            Issue/PR
+                          </a>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ========== Open Source CTA ========== */}
         <section className="text-center p-8 rounded-2xl bg-primary/5 border border-primary/10">
           <h2 className="text-lg font-bold text-foreground mb-2" style={{ fontFamily: "'Fraunces', serif" }}>
@@ -807,6 +1009,29 @@ export default function DataMetodePage() {
 
       <Footer fetchedAt={fetchedAt} />
     </main>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Change Type Badge                                                   */
+/* ------------------------------------------------------------------ */
+
+const CHANGE_TYPE_COLORS: Record<ChangeType, string> = {
+  fix:         'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300',
+  method:      'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300',
+  feature:     'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300',
+  improvement: 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
+  data:        'bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-300',
+  removed:     'bg-muted text-muted-foreground',
+};
+
+function ChangeTypeBadge({ type }: { type: ChangeType }) {
+  return (
+    <span
+      className={`flex-shrink-0 mt-0.5 text-[10px] font-semibold px-2 py-0.5 rounded-full ${CHANGE_TYPE_COLORS[type]}`}
+    >
+      {CHANGE_TYPE_LABELS[type]}
+    </span>
   );
 }
 

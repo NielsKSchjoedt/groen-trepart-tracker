@@ -392,6 +392,90 @@ export interface CoastalWaterStatusData {
   waters: Record<string, CoastalWaterEntry>;
 }
 
+// ============================================================
+// Klimaregnskabet — per-municipality CO₂ emissions data
+// Source: Energistyrelsen / klimaregnskabet.dk
+// ============================================================
+
+/** CO₂ emissions time series for a single Danish municipality (2018–2023). */
+export interface KommuneCO2Data {
+  /** 4-digit DAWA municipality code, e.g. "0101" */
+  kommuneKode: string;
+  kommuneNavn: string;
+  /** Calendar years covered, e.g. [2018, 2019, 2020, 2021, 2022, 2023] */
+  years: number[];
+  /** Total CO₂e (ton) per year — Scope 1+2, all sectors */
+  samletUdledning: number[];
+  /** CO₂e per capita (ton/inhabitant) per year */
+  udledningPrCapita: number[];
+  /** Sector breakdown (ton CO₂e) per year */
+  sektorer: {
+    /** El og fjernvarme + brændsler (Energi) */
+    energi: number[];
+    transport: number[];
+    landbrug: number[];
+    /** Affaldsdeponi + spildevand combined */
+    affald: number[];
+    /** Kemiske processer / industriprocesser */
+    industri: number[];
+  };
+  /** Renewable electricity self-sufficiency ratio (0–1) per year */
+  veAndel: number[];
+}
+
+/** Top-level wrapper for the klimaregnskab-by-kommune.json data file. */
+export interface KlimaregnskabData {
+  source: string;
+  sourceUrl: string;
+  attribution: string;
+  fetchedAt: string;
+  latestYear: number;
+  years: number[];
+  nationalTotal: {
+    year: number;
+    samletUdledningTon: number;
+  };
+  kommuner: KommuneCO2Data[];
+}
+
+// -----------------------------------------------------------------------
+// ETL run summary — produced by etl/build_etl_summary.py
+// Served from public/data/etl-run-summary.json
+// -----------------------------------------------------------------------
+
+/** Status of a single source within one daily ETL run. */
+export interface EtlSourceRun {
+  status: 'ok' | 'partial' | 'error';
+  /** MARS project count (source: mars) */
+  projects?: number;
+  /** MARS plan count (source: mars) */
+  plans?: number;
+  /** Municipality count (source: dawa or klimaregnskab) */
+  municipalities?: number;
+  /** Monitoring station count (source: vanda) */
+  stations?: number;
+  notes?: string;
+}
+
+/** Aggregated result for a single calendar day's ETL run. */
+export interface EtlDailyRun {
+  /** ISO date string, e.g. "2026-03-17" */
+  date: string;
+  /** ISO timestamp of the latest source fetch recorded for this day */
+  runAt: string;
+  /** Overall status — ok if all daily CI sources succeeded */
+  status: 'ok' | 'partial' | 'error';
+  /** Per-source outcomes, keyed by source name (mars, dawa, miljoegis, …) */
+  sources: Record<string, EtlSourceRun>;
+}
+
+/** Top-level wrapper for public/data/etl-run-summary.json */
+export interface EtlRunSummary {
+  generatedAt: string;
+  /** Last 30 daily runs, newest first */
+  recentRuns: EtlDailyRun[];
+}
+
 // CO₂ emissions data from KF25 (Klimastatus og -fremskrivning 2025)
 export interface CO2EmissionsData {
   source: string;

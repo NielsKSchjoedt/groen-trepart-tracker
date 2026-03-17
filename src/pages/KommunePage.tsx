@@ -4,8 +4,8 @@ import { MapPin, Hand, Info, Leaf, TreePine } from 'lucide-react';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { HintCallout } from '@/components/HintCallout';
-import { loadDashboardData, loadKommunerGeoJSON, loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
-import type { DashboardData, KommuneMetrics, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import { loadDashboardData, loadKommunerGeoJSON, loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects, loadKlimaregnskabData } from '@/lib/data';
+import type { DashboardData, KommuneMetrics, KlimaskovfondenProject, NaturstyrelsenSkovProject, KlimaregnskabData, KommuneCO2Data } from '@/lib/types';
 import type { FeatureCollection, Geometry } from 'geojson';
 import { MetricPicker } from '@/components/MetricPicker';
 import { KommuneTable } from '@/components/KommuneTable';
@@ -56,6 +56,7 @@ export default function KommunePage() {
   const [kommunerGeo, setKommunerGeo] = useState<FeatureCollection<Geometry> | null>(null);
   const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
+  const [klimaregnskab, setKlimaregnskab] = useState<KlimaregnskabData | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   /**
@@ -82,12 +83,14 @@ export default function KommunePage() {
       loadKommunerGeoJSON().catch(() => null),
       loadKlimaskovfondenProjects(),
       loadNaturstyrelsenSkovProjects(),
-    ]).then(([d, geo, ksf, nst]) => {
+      loadKlimaregnskabData(),
+    ]).then(([d, geo, ksf, nst, kr]) => {
       setData(d);
       if (geo) setKommunerGeo(geo);
       else setLoadError('Kommune-polygoner ikke tilgængelige endnu — kør `mise run build-kommune-map`');
       setKsfProjects(ksf);
       setNstProjects(nst);
+      setKlimaregnskab(kr);
     });
   }, []);
 
@@ -165,12 +168,21 @@ export default function KommunePage() {
     setSearchParams({ metric: PILLAR_SLUGS[metric] }, { replace: true });
   };
 
-  // Filter projects for the selected kommune
+  // Filter MARS projects for the selected kommune
   const selectedProjectDetails = useMemo(() => {
     if (!selectedKode || !data) return [];
     return data.plans.flatMap((p) =>
       p.projectDetails.filter((pd) => pd.kommuneKode === selectedKode),
     );
+  }, [selectedKode, data]);
+
+  // Sketch projects from the same plans that have a project in this municipality.
+  // SketchProject has no kommuneKode, so we scope to plans that touch this municipality.
+  const selectedSketchProjects = useMemo(() => {
+    if (!selectedKode || !data) return [];
+    return data.plans
+      .filter((p) => p.projectDetails.some((pd) => pd.kommuneKode === selectedKode))
+      .flatMap((p) => p.sketchProjects);
   }, [selectedKode, data]);
 
   /**
@@ -190,6 +202,12 @@ export default function KommunePage() {
     if (!selectedKommune || !activeSupplements.has('nst')) return [];
     return nstProjects.filter((p) => p.kommune === selectedKommune.navn);
   }, [selectedKommune, nstProjects, activeSupplements]);
+
+  /** CO₂ time-series for the currently selected municipality */
+  const selectedKommuneCO2Data: KommuneCO2Data | null = useMemo(() => {
+    if (!selectedKommune || !klimaregnskab) return null;
+    return klimaregnskab.kommuner.find((k) => k.kommuneKode === selectedKommune.kode) ?? null;
+  }, [selectedKommune, klimaregnskab]);
 
   const panelOpen = !!selectedKommune;
 
@@ -248,7 +266,7 @@ export default function KommunePage() {
                 <p>Kortvisningen farvelægger kommunerne efter den valgte metrik. Klik på en kommune for at se detaljer.</p>
                 <p><strong>MARS-data</strong> (kvælstof, udtagning, skovrejsning) viser projektdata med fasefilter. Projekter tilknyttes en kommune via DAWA-omvendt geokodning af centroider.</p>
                 <p><strong>Supplerende kilder</strong> (Klimaskovfonden, Naturstyrelsen, §3, Natura 2000) administreres uden for MARS og har ikke projektfasedata. De kan tilvælges separat via &quot;Tilføj kilder&quot;.</p>
-                <p>CO₂ er ikke tilgængeligt på kommuneniveau.</p>
+                <p>CO₂-udledning pr. kommune er baseret på Energistyrelsens Klimaregnskab (2023-data).</p>
               </>
             }
             source="MARS API, Klimaskovfonden, Naturstyrelsen via DAWA"
@@ -277,7 +295,7 @@ export default function KommunePage() {
                     <p><strong>Udtagning</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Mål: 140.000 ha inden 2030.</p>
                     <p><strong>Skovrejsning</strong> — ha ny skov fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata.</p>
                     <p><strong>Beskyttet natur</strong> — §3-arealer og Natura 2000 kan tilvælges som separate datakilder. Disse er statslige/EU-udpegninger, ikke projekter med faser. MARS-naturdata per kommune er endnu ikke tilgængeligt.</p>
-                    <p><strong>CO₂</strong> — CO₂-reduktion fra landbrug. Kun opgøres nationalt via KF25.</p>
+                    <p><strong>CO₂</strong> — Samlet CO₂e-udledning per kommune (2023). Kilde: Energi- og CO₂-regnskabet, Energistyrelsen (klimaregnskabet.dk). Klik på en kommune for sektorfordeling og tidsudvikling.</p>
                   </>
                 }
                 source="Den Grønne Trepart (2024)"
@@ -374,9 +392,11 @@ export default function KommunePage() {
                   <KommuneDetailPanel
                     kommune={selectedKommune}
                     projectDetails={selectedProjectDetails}
+                    sketchProjects={selectedSketchProjects}
                     ksfProjects={selectedKsfProjects}
                     nstProjects={selectedNstProjects}
                     activeMetric={activeMetric ?? undefined}
+                    co2Data={selectedKommuneCO2Data}
                     onClose={handleClose}
                   />
                 </div>
@@ -403,9 +423,11 @@ export default function KommunePage() {
           <KommuneDetailPanel
             kommune={selectedKommune}
             projectDetails={selectedProjectDetails}
+            sketchProjects={selectedSketchProjects}
             ksfProjects={selectedKsfProjects}
             nstProjects={selectedNstProjects}
             activeMetric={activeMetric ?? undefined}
+            co2Data={selectedKommuneCO2Data}
             onClose={handleClose}
           />
         </MobileBottomSheet>
@@ -443,9 +465,11 @@ const LEGEND_STOPS: Record<KommuneMetric, { color: string; label: string }[]> = 
     { color: '#dcfce7', label: 'Lav' },
     { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
   ],
-  // CO₂ data is not disaggregated at municipality level — show only no-data entry.
   co2: [
-    { color: 'hsl(0 0% 92%)', label: 'Ingen kommunedata tilgængeligt' },
+    { color: '#b91c1c', label: 'Høj udledning (> 2M ton CO₂e)' },
+    { color: '#f97316', label: 'Middel' },
+    { color: '#fde68a', label: 'Lav' },
+    { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
   ],
 };
 

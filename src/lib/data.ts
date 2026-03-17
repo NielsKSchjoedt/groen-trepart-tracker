@@ -1,4 +1,4 @@
-import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog, KlimaskovfondenProject, NaturstyrelsenSkovProject, PipelineScenarioKey, PipelineScenarioValues } from './types';
+import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog, KlimaskovfondenProject, NaturstyrelsenSkovProject, PipelineScenarioKey, PipelineScenarioValues, KlimaregnskabData, EtlRunSummary } from './types';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -15,6 +15,8 @@ let cachedWaterBodiesGeo: FeatureCollection<Geometry> | null = null;
 let cachedChangelog: ProjectChangelog | null = null;
 let cachedKlimaskovfonden: KlimaskovfondenProject[] | null = null;
 let cachedNstSkov: NaturstyrelsenSkovProject[] | null = null;
+let cachedKlimaregnskab: KlimaregnskabData | null = null;
+let cachedEtlRunSummary: EtlRunSummary | null = null;
 
 /**
  * Normalize the raw ETL JSON (which uses nested progress objects and
@@ -316,6 +318,40 @@ export async function loadNaturstyrelsenSkovProjects(): Promise<NaturstyrelsenSk
     cachedNstSkov = [];
   }
   return cachedNstSkov!;
+}
+
+/**
+ * Load per-municipality CO₂ emissions data from Klimaregnskabet.
+ * Source: Energistyrelsen / klimaregnskabet.dk
+ * Coverage: 98 municipalities, years 2018–2023, sector breakdown.
+ */
+export async function loadKlimaregnskabData(): Promise<KlimaregnskabData | null> {
+  if (cachedKlimaregnskab) return cachedKlimaregnskab;
+  try {
+    const res = await fetch('/data/klimaregnskab-by-kommune.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKlimaregnskab = await res.json();
+  } catch {
+    cachedKlimaregnskab = null;
+  }
+  return cachedKlimaregnskab;
+}
+
+/**
+ * Load the compact ETL run summary (last 30 daily runs).
+ * Produced by etl/build_etl_summary.py on each CI run.
+ * Used by the ETL health widget on the "Data og metode" page.
+ */
+export async function loadEtlRunSummary(): Promise<EtlRunSummary | null> {
+  if (cachedEtlRunSummary) return cachedEtlRunSummary;
+  try {
+    const res = await fetch('/data/etl-run-summary.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedEtlRunSummary = await res.json();
+  } catch {
+    cachedEtlRunSummary = null;
+  }
+  return cachedEtlRunSummary;
 }
 
 /** Load project changelog (recent status changes for the news ticker) */

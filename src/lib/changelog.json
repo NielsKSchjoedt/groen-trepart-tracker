@@ -1,0 +1,176 @@
+[
+  {
+    "version": "v0.8.0",
+    "date": "2026-03-17",
+    "summary": "Ny ETL-sundhedsindikator: se om den daglige datahentning lykkedes",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "Siden \"Data og metode\" viser nu en 30-dages historik over den automatiske datahentning. En række farvede felter — grøn, gul eller rød — afslører med et blik om alle datakilder blev hentet korrekt den pågældende dag. Hold musen over et felt for at se, hvilke kilder der lykkedes og hvilke der evt. fejlede."
+      },
+      {
+        "type": "fix",
+        "description": "Den daglige automatiske datahentning (GitHub Actions) fejlede ved hvert kørsel med en push-fejl — data blev hentet korrekt, men ændringerne kunne ikke gemmes fordi branch protection-reglerne kræver pull requests. Rettet: botten opretter nu automatisk en pull request og merger den selv. (Teknisk: GH013-fejl ved direkte push til main.)"
+      },
+      {
+        "type": "improvement",
+        "description": "Den daglige kørsel tog op til 38 minutter på grund af gentagen geokodning af ~6.500 projekter via DAWA's API. Nu caches resultatet mellem kørsler, så kun nye projekter geokodes. Typisk kørselstid reduceret til få minutter."
+      }
+    ]
+  },
+  {
+    "version": "v0.7.0",
+    "date": "2026-03-17",
+    "summary": "CO₂-data pr. kommune: for første gang kan du se, hvor meget din kommune udleder",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "CO₂-udledning er nu tilgængelig for alle 98 kommuner med faktiske tal — ikke estimater. Kortet farvelægger nu kommunerne efter total CO₂e-udledning (2023), og klik på en kommune viser sektorfordeling (energi, transport, landbrug, affald, industri) samt udviklingen fra 2018 til 2023. (Kilde: Energi- og CO₂-regnskabet, Energistyrelsen / klimaregnskabet.dk)"
+      },
+      {
+        "type": "feature",
+        "description": "National CO₂-oversigt er udvidet med en liste over de kommuner, der udleder mest og mindst — med direkte link til kommunekortet."
+      },
+      {
+        "type": "data",
+        "description": "588 datakald til Klimaregnskabets API hentede data for alle 98 kommuner for årene 2018–2023. Alle kald gennemført uden fejl. Tallene er verificeret mod kildedata for Aalborg og Kalundborg: nøjagtig overensstemmelse (0 afvigelse)."
+      }
+    ]
+  },
+  {
+    "version": "v0.6.0",
+    "date": "2026-03-17",
+    "summary": "Ekspertfeedback indarbejdet — bedre beskrivelse af datakildernes begrænsninger",
+    "changes": [
+      {
+        "type": "improvement",
+        "description": "Vi har talt med fagfolk hos Miljøstyrelsen og Danmarks Miljøportal og opdateret vores dokumentation. Den beskriver nu mere præcist, hvad tallene dækker — og hvad de ikke dækker."
+      }
+    ]
+  },
+  {
+    "version": "v0.5.0",
+    "date": "2026-03-16",
+    "summary": "Ny \"Data og metode\"-side lanceret. Sitet er nu offentligt.",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "En ny side forklarer for hvert tal på dashboardet: præcist hvor data kommer fra, hvordan det behandles, og hvilke forbehold der gælder. Alt er open source — alle kan verificere hvert beregning.",
+        "issueUrl": "https://github.com/NielsKSchjoedt/groen-trepart-tracker/pull/29"
+      },
+      {
+        "type": "feature",
+        "description": "En ny illustration viser, hvordan data rejser fra officielle registre til det tal du ser på skærmen."
+      },
+      {
+        "type": "removed",
+        "description": "Sitet var beskyttet med et kodeord mens det blev bygget. Kodeordet er nu fjernet — alle kan tilgå sitet frit."
+      }
+    ]
+  },
+  {
+    "version": "v0.4.0",
+    "date": "2026-03-15",
+    "summary": "Nyt kommunekort: se fremgangen i din kommune",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "Interaktivt kort over alle 98 kommuner, farvekodet efter fremgang på de valgte mål. Klik på en kommune for at se detaljer.",
+        "issueUrl": "https://github.com/NielsKSchjoedt/groen-trepart-tracker/pull/28"
+      },
+      {
+        "type": "improvement",
+        "description": "Projektfasernes navne og farver var ikke konsistente på tværs af siden. Nu er \"godkendt\", \"forundersøgelse\" og de øvrige faser altid vist ens, uanset hvor man ser dem."
+      }
+    ]
+  },
+  {
+    "version": "v0.3.0",
+    "date": "2026-03-14",
+    "summary": "Bedre navigation og kortinteraktion. CO₂-data tilføjet.",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "Fast navigationsbar øverst på siden, som følger med når du scroller. Giver hurtig adgang til alle søjler."
+      },
+      {
+        "type": "feature",
+        "description": "Dato for seneste datahentning vises nu tydeligt — du kan altid se hvornår tallene sidst er opdateret."
+      },
+      {
+        "type": "feature",
+        "description": "Fremgangsmålerne har fået et farvesignal der viser om et mål er \"på sporet\", \"forsinket\" eller \"ukendt\"."
+      },
+      {
+        "type": "feature",
+        "description": "CO₂-data er nu tilgængeligt i datatabellen med forklaringstekst."
+      },
+      {
+        "type": "improvement",
+        "description": "Kortet på forsiden er nu nemmere at bruge på mobiltelefon: detaljer vises i et panel der glider op fra bunden af skærmen."
+      },
+      {
+        "type": "data",
+        "description": "Daglig automatisk datahentning er kørt."
+      }
+    ]
+  },
+  {
+    "version": "v0.2.0",
+    "date": "2026-03-12",
+    "summary": "Første rigtige data hentet. Automatisk daglig opdatering sat op.",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "Tallene opdateres nu automatisk hver morgen kl. 06:00 fra de officielle registre (MARS-systemet, MiljøGIS og kommunedata)."
+      },
+      {
+        "type": "feature",
+        "description": "Sitet publiceres automatisk til internettet ved hver opdatering via Cloudflare Pages."
+      },
+      {
+        "type": "data",
+        "description": "Første rigtige datahentning gennemført: 1.164 projekter, 37 kystvandsgruppe-planer, 23 vandoplande og data for alle 98 kommuner."
+      }
+    ]
+  },
+  {
+    "version": "v0.1.0",
+    "date": "2026-03-11",
+    "summary": "Første version af dashboardet lanceret",
+    "changes": [
+      {
+        "type": "feature",
+        "description": "Dashboard med 5 fremgangsmålere for de centrale mål i aftalen: kvælstof, skov, lavbundsjord, vandløb og beskyttet natur. Nedtælling til 2030-deadline."
+      },
+      {
+        "type": "feature",
+        "description": "Interaktivt kort over Danmark med kommunegrænser."
+      },
+      {
+        "type": "feature",
+        "description": "Visualisering af projektpipeline — fra skitse til gennemført projekt."
+      },
+      {
+        "type": "feature",
+        "description": "Fremskrivning mod 2030-målet baseret på det faktiske tempo, med interaktivt scenarieværktøj."
+      },
+      {
+        "type": "fix",
+        "description": "Tal og etiketter på fremgangsmålerne overlappede hinanden og var svære at læse. Rettet i flere omgange. (Teknisk: SVG viewBox og label-position justeret.)"
+      },
+      {
+        "type": "fix",
+        "description": "Fremgangsmålernes bue blev klippet af ved kanten og så ufuldstændig ud. Rettet ved at give buen mere plads. (Teknisk: viewBox padding øget.)"
+      },
+      {
+        "type": "fix",
+        "description": "Kortet kunne ikke vises pga. en inkompatibilitet med kortbiblioteket. Løst ved at skifte til en enklere kortintegration. (Teknisk: migreret fra react-leaflet til plain Leaflet.)"
+      },
+      {
+        "type": "fix",
+        "description": "Kortet crashede ved opstart pga. en intern kollision i sidens kode. Rettet."
+      }
+    ]
+  }
+]
