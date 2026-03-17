@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-echo "=== Den Grønne Trepart — Data Fetch ==="
+echo "=== Den Grønne Trepart — Data Fetch (13 sources) ==="
 echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC')"
 echo
 
@@ -62,12 +62,20 @@ echo "--- 12/12: Project geometries (MARS API) ---"
 python3 fetch_geometries.py || { echo "⚠ Geometry fetch failed"; FAILED=$((FAILED+1)); }
 
 echo
+echo "--- 13/13: Klimaregnskab CO₂ per kommune (requires KLIMAREGNSKAB_API_KEY) ---"
+python3 fetch_klimaregnskab.py || { echo "⚠ Klimaregnskab fetch failed (check KLIMAREGNSKAB_API_KEY)"; FAILED=$((FAILED+1)); }
+
+echo
 echo "--- Building dashboard data ---"
 python3 build_dashboard_data.py || { echo "⚠ Dashboard data build failed"; FAILED=$((FAILED+1)); }
 
 echo
 echo "--- Building CO₂ emissions data ---"
 python3 build_co2_data.py || { echo "⚠ CO₂ data build failed"; FAILED=$((FAILED+1)); }
+
+echo
+echo "--- Building Klimaregnskab per-kommune data ---"
+python3 build_klimaregnskab_data.py || { echo "⚠ Klimaregnskab build failed"; FAILED=$((FAILED+1)); }
 
 echo
 echo "=== Done — ${FAILED} failures ==="

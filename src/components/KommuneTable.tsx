@@ -256,9 +256,8 @@ export function KommuneTable({ metrics, activeMetric, selectedKode, onSelect }: 
                   {...colSortProps}
                   col="co2EstimatedT"
                   label="CO₂"
-                  noData={METRIC_NO_DATA.has('co2')}
-                  tooltip="CO₂-reduktion per kommune. Data ikke tilgængeligt — KF25-fremskrivningen opgøres kun nationalt."
-                  tooltipSource="KF25 (Energistyrelsen)"
+                  tooltip="Samlet CO₂e-udledning (ton) i kommunen, 2023. Kilde: Energi- og CO₂-regnskabet, Energistyrelsen."
+                  tooltipSource="Klimaregnskabet (Energistyrelsen)"
                 />
                 <ColHeader
                   {...colSortProps}
@@ -327,7 +326,7 @@ export function KommuneTable({ metrics, activeMetric, selectedKode, onSelect }: 
                       maxVal={maxValues.co2EstimatedT}
                       metric="co2"
                       activeMetric={activeMetric}
-                      suffix=" T"
+                      suffix=" t"
                     />
                     <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">
                       {km.projectCount > 0 ? km.projectCount : '—'}

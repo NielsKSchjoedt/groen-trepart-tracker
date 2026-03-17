@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Factory, TrendingDown, Leaf, ExternalLink } from 'lucide-react';
+import { Factory, TrendingDown, Leaf, ExternalLink, BarChart2 } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine, Legend, Line,
+  BarChart, Bar, Cell,
 } from 'recharts';
-import { loadCO2Emissions } from '@/lib/data';
+import { loadCO2Emissions, loadKlimaregnskabData } from '@/lib/data';
 import { formatDanishNumber } from '@/lib/format';
-import type { CO2EmissionsData } from '@/lib/types';
+import type { CO2EmissionsData, KlimaregnskabData, KommuneCO2Data } from '@/lib/types';
 
 /**
  * National CO₂ emissions section — shown in DetailPanel when
@@ -18,9 +19,11 @@ import type { CO2EmissionsData } from '@/lib/types';
  */
 export function CO2Section() {
   const [co2, setCo2] = useState<CO2EmissionsData | null>(null);
+  const [kr, setKr] = useState<KlimaregnskabData | null>(null);
 
   useEffect(() => {
     loadCO2Emissions().then(setCo2);
+    loadKlimaregnskabData().then(setKr);
   }, []);
 
   if (!co2) {
@@ -272,6 +275,9 @@ export function CO2Section() {
         </p>
       </div>
 
+      {/* Municipal CO₂ summary from Klimaregnskabet */}
+      {kr && <MunicipalCO2Summary data={kr} />}
+
       {/* Source link */}
       <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
         <TrendingDown className="w-3 h-3" />
@@ -287,6 +293,103 @@ export function CO2Section() {
           </a>
         </span>
       </div>
+    </div>
+  );
+}
+
+// ─── Municipal CO₂ from Klimaregnskabet ────────────────────────────────────
+
+function MunicipalCO2Summary({ data }: { data: KlimaregnskabData }) {
+  const latestIdx = data.years.indexOf(data.latestYear);
+  const sorted = [...data.kommuner].sort(
+    (a, b) => (b.samletUdledning[latestIdx] ?? 0) - (a.samletUdledning[latestIdx] ?? 0)
+  );
+  const top5 = sorted.slice(0, 5);
+  const bottom5 = sorted.slice(-5).reverse();
+  const maxVal = sorted[0]?.samletUdledning[latestIdx] ?? 1;
+
+  const barData = top5.map((k) => ({
+    name: k.kommuneNavn.length > 12 ? k.kommuneNavn.slice(0, 12) + '…' : k.kommuneNavn,
+    fullName: k.kommuneNavn,
+    value: Math.round((k.samletUdledning[latestIdx] ?? 0) / 1000),
+  }));
+
+  return (
+    <div className="p-3.5 rounded-lg bg-muted/40 border border-border/50">
+      <div className="flex items-center gap-1.5 mb-2.5">
+        <BarChart2 className="w-3.5 h-3.5 text-primary" />
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          CO₂ pr. kommune ({data.latestYear})
+        </span>
+        <a
+          href="/kommuner?metric=co2"
+          className="ml-auto text-[10px] text-primary underline underline-offset-2 hover:text-primary/80"
+        >
+          Se kort →
+        </a>
+      </div>
+
+      {/* Mini bar chart — top 5 */}
+      <p className="text-[10px] text-muted-foreground mb-1.5 font-medium">Højeste udledning (kt CO₂e)</p>
+      <div className="h-28 -ml-2 mb-2">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={barData} layout="vertical" margin={{ top: 0, right: 5, bottom: 0, left: 0 }}>
+            <XAxis type="number" tick={{ fontSize: 9, fill: '#a3a3a3' }} tickLine={false} axisLine={false} />
+            <YAxis type="category" dataKey="name" tick={{ fontSize: 9, fill: '#6b7280' }} tickLine={false} axisLine={false} width={64} />
+            <Tooltip
+              content={({ active, payload }) => {
+                if (!active || !payload?.length) return null;
+                return (
+                  <div className="rounded border border-border/50 bg-background px-2 py-1 text-xs shadow-lg">
+                    <p className="font-semibold">{(payload[0].payload as { fullName: string }).fullName}</p>
+                    <p>{formatDanishNumber(payload[0].value as number, 0)} kt CO₂e</p>
+                  </div>
+                );
+              }}
+            />
+            <Bar dataKey="value" radius={[0, 2, 2, 0]}>
+              {barData.map((_, i) => (
+                <Cell key={i} fill={i === 0 ? '#f97316' : '#64748b'} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Bottom 5 — lowest emitters */}
+      <p className="text-[10px] text-muted-foreground mb-1 font-medium">Laveste udledning</p>
+      <div className="space-y-0.5">
+        {bottom5.map((k, i) => {
+          const val = k.samletUdledning[latestIdx] ?? 0;
+          const pct = Math.max(0, (val / maxVal) * 100);
+          return (
+            <div key={k.kommuneKode} className="flex items-center gap-2 text-[10px]">
+              <span className="text-muted-foreground w-4 flex-shrink-0">{i + 1}.</span>
+              <span className="text-foreground w-24 flex-shrink-0 truncate">{k.kommuneNavn}</span>
+              <div className="flex-1 bg-muted rounded-full h-1.5 overflow-hidden">
+                <div className="h-1.5 rounded-full bg-emerald-500" style={{ width: `${pct}%` }} />
+              </div>
+              <span className="text-muted-foreground tabular-nums w-14 text-right flex-shrink-0">
+                {val < 0
+                  ? `−${formatDanishNumber(Math.round(Math.abs(val) / 1000), 0)} kt`
+                  : `${formatDanishNumber(Math.round(val / 1000), 0)} kt`}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="text-[10px] text-muted-foreground mt-2.5">
+        Kilde:{' '}
+        <a
+          href="https://klimaregnskabet.dk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-foreground"
+        >
+          Energi- og CO₂-regnskabet, Energistyrelsen
+        </a>
+      </p>
     </div>
   );
 }

@@ -1,21 +1,28 @@
-import { X, Droplets, Trees, Mountain, Leaf, ExternalLink } from 'lucide-react';
-import type { KommuneMetrics, ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import { X, Droplets, Trees, Mountain, Leaf, ExternalLink, Factory } from 'lucide-react';
+import type { KommuneMetrics, ProjectDetail, SketchProject, KlimaskovfondenProject, NaturstyrelsenSkovProject, KommuneCO2Data } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
-import { getPhaseConfig, STAGE_TO_PHASE } from '@/lib/phase-config';
+import { getPhaseConfig } from '@/lib/phase-config';
 import { ProjectActivityChart } from './ProjectActivityChart';
+import { ProjectList } from './ProjectList';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
+import { CO2SectorChart } from './CO2SectorChart';
+import { CO2TrendChart } from './CO2TrendChart';
 
 interface KommuneDetailPanelProps {
   kommune: KommuneMetrics;
   /** MARS projects in this municipality filtered from the plan data */
   projectDetails: ProjectDetail[];
+  /** MARS sketch projects in this municipality (from the same plans) */
+  sketchProjects?: SketchProject[];
   /** KSF projects in this municipality */
   ksfProjects: KlimaskovfondenProject[];
   /** NST projects in this municipality */
   nstProjects: NaturstyrelsenSkovProject[];
   /** Active metric — used to pick the correct KSF chart colour */
   activeMetric?: KommuneMetric;
+  /** Full CO₂ time-series from Klimaregnskabet (optional — shown when available) */
+  co2Data?: KommuneCO2Data | null;
   onClose: () => void;
 }
 
@@ -50,11 +57,14 @@ interface KommuneDetailPanelProps {
 export function KommuneDetailPanel({
   kommune,
   projectDetails,
+  sketchProjects = [],
   ksfProjects,
   nstProjects,
   activeMetric,
+  co2Data,
   onClose,
 }: KommuneDetailPanelProps) {
+
   const ksfColor = activeMetric === 'extraction' ? KSF_COLOR_LAVBUND : KSF_COLOR_SKOV;
   const totalAffTotal = kommune.afforestationTotalHa;
   const ksfTotal = ksfProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
@@ -67,6 +77,34 @@ export function KommuneDetailPanel({
     { key: 'sketches',    config: getPhaseConfig('sketches'),    count: kommune.projectsByPhase.sketches    },
   ];
   const hasPhases = phases.some((p) => p.count > 0);
+
+  const showCO2First = activeMetric === 'co2' && !!co2Data;
+
+  const co2Section = co2Data && (
+    <div className={showCO2First ? 'mb-5' : 'mt-5 pt-5 border-t border-border'}>
+      <div className="flex items-center gap-1.5 mb-3">
+        <Factory className="w-4 h-4 text-slate-500" />
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+          CO₂-udledning
+        </p>
+      </div>
+      <div className="space-y-4">
+        <CO2SectorChart data={co2Data} />
+        <CO2TrendChart data={co2Data} />
+      </div>
+      <p className="text-[10px] text-muted-foreground mt-2">
+        Kilde:{' '}
+        <a
+          href="https://klimaregnskabet.dk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-foreground"
+        >
+          Energi- og CO₂-regnskabet, Energistyrelsen
+        </a>
+      </p>
+    </div>
+  );
 
   return (
     <div className="bg-background border-l border-border h-full overflow-y-auto p-5 relative">
@@ -90,7 +128,13 @@ export function KommuneDetailPanel({
         {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
       </p>
 
+      {/* CO₂ section — shown first when CO₂ metric is active */}
+      {showCO2First && co2Section}
+
       {/* 2×2 metric grid */}
+      <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-2.5">
+        {showCO2First ? 'Øvrige indsatsområder' : 'Indsatsområder'}
+      </p>
       <div className="grid grid-cols-2 gap-2.5 mb-5">
         <MetricCard
           icon={<Droplets className="w-4 h-4 text-teal-600" />}
@@ -155,22 +199,17 @@ export function KommuneDetailPanel({
         ksfColor={ksfColor}
       />
 
-      {/* MARS project list */}
-      {projectDetails.length > 0 && (
+      {/* MARS project list — full accordion with mini-map and scheme details */}
+      {(projectDetails.length > 0 || sketchProjects.length > 0) && (
         <div className="mb-5">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-            MARS-projekter ({projectDetails.length})
-          </p>
-          <ul className="space-y-2">
-            {projectDetails.slice(0, 20).map((p) => (
-              <ProjectRow key={p.id} project={p} />
-            ))}
-            {projectDetails.length > 20 && (
-              <li className="text-xs text-muted-foreground pl-1">
-                + {projectDetails.length - 20} projekter mere…
-              </li>
-            )}
-          </ul>
+          <ProjectList
+            projectDetails={projectDetails}
+            sketchProjects={sketchProjects}
+            naturePotentials={[]}
+            activePillar={activeMetric ?? 'nitrogen'}
+            title="MARS-projekter"
+            flat
+          />
         </div>
       )}
 
@@ -227,6 +266,9 @@ export function KommuneDetailPanel({
           Ingen registrerede projekter i denne kommune endnu.
         </p>
       )}
+
+      {/* CO₂ section — shown at bottom when a non-CO₂ metric is active */}
+      {!showCO2First && co2Section}
     </div>
   );
 }
@@ -269,33 +311,3 @@ function MetricCard({ icon, label, value, unit, sub, noDataText }: MetricCardPro
   );
 }
 
-function ProjectRow({ project }: { project: ProjectDetail }) {
-  const pc = getPhaseConfig(project.phase);
-  const phaseLabel = pc.label;
-  const phaseColor = pc.badge;
-
-  const metrics = [
-    project.nitrogenT > 0 && `${formatDanishNumber(project.nitrogenT)} T N`,
-    project.extractionHa > 0 && `${formatDanishNumber(Math.round(project.extractionHa))} ha udtagning`,
-    project.afforestationHa > 0 && `${formatDanishNumber(Math.round(project.afforestationHa))} ha skov`,
-  ].filter(Boolean).join(' · ');
-
-  return (
-    <li className="rounded-lg border border-border/60 bg-card/60 p-2.5">
-      <div className="flex items-start justify-between gap-2 mb-1">
-        <span className="text-xs font-medium text-foreground leading-snug min-w-0 truncate">
-          {project.name}
-        </span>
-        <span className={`text-[10px] font-medium rounded-full px-2 py-0.5 flex-shrink-0 ${phaseColor}`}>
-          {phaseLabel}
-        </span>
-      </div>
-      {project.measureName && (
-        <p className="text-[10px] text-muted-foreground">{project.measureName}</p>
-      )}
-      {metrics && (
-        <p className="text-[10px] text-muted-foreground mt-0.5">{metrics}</p>
-      )}
-    </li>
-  );
-}

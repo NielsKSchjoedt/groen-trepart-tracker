@@ -81,6 +81,24 @@ try:
 except FileNotFoundError:
     print("⚠ Natura 2000 by_kommune.json not found — run fetch_natura2000.py first")
 
+# Per-municipality CO₂ data from Klimaregnskabet (latest year total per capita)
+# Key: kommuneKode ("0101") → total CO₂e in ton (latest year)
+co2_by_kommune: dict[str, float] = {}
+try:
+    with open(f"{BASE}/data/klimaregnskab/by_kommune.json") as f:
+        kr_data = json.load(f)
+    years = kr_data.get("years", [])
+    latest_idx = len(years) - 1 if years else -1
+    if latest_idx >= 0:
+        for km in kr_data.get("kommuner", []):
+            kode = km.get("kommuneKode")
+            series = km.get("samletUdledning", [])
+            if kode and latest_idx < len(series):
+                co2_by_kommune[kode] = series[latest_idx]
+    print(f"  Klimaregnskab CO₂ data loaded: {len(co2_by_kommune)} kommuner (year {years[latest_idx] if years else '?'})")
+except FileNotFoundError:
+    print("⚠ Klimaregnskab data not found — run fetch_klimaregnskab.py + build_klimaregnskab_data.py")
+
 try:
     with open(f"{BASE}/data/forest/summary.json") as f:
         forest_summary = json.load(f)
@@ -989,6 +1007,7 @@ for km in kommuner:
         "section3Ha": round(section3_ha, 1),
         "natura2000Ha": round(natura2000_ha, 1),
         "naturePotentialHa": nature_total_ha,
+        "co2EstimatedT": round(co2_by_kommune.get(kode, 0.0), 1),
         "projectCount": sum(by_phase.get(ph, {}).get("count", 0) for ph in ("sketch", "preliminary", "approved", "established")),
         "projectsByPhase": mars_data.get("phases", {"sketches": 0, "assessed": 0, "approved": 0, "established": 0}),
         "byPhase": by_phase,
@@ -1005,6 +1024,7 @@ print(f"  With NST afforestation:   {sum(1 for k in by_kommune_list if k['affore
 print(f"  With §3 nature data:      {sum(1 for k in by_kommune_list if k['section3Ha'] > 0)}")
 print(f"  With Natura 2000 data:    {sum(1 for k in by_kommune_list if k['natura2000Ha'] > 0)}")
 print(f"  With naturePotentialHa:   {sum(1 for k in by_kommune_list if k['naturePotentialHa'] > 0)}")
+print(f"  With co2EstimatedT:       {sum(1 for k in by_kommune_list if k.get('co2EstimatedT', 0) != 0)}")
 
 # Write to both data/ (ETL reference) and public/data/ (frontend serving path).
 # The Vite dev server serves static assets from public/ — if we only write to

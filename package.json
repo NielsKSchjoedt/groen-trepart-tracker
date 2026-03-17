@@ -1,7 +1,7 @@
 {
   "name": "vite_react_shadcn_ts",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.8.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "changelog": "node scripts/generate-changelog.mjs",
     "ci": "npm run lint && npm run typecheck && npm run build && npm run test"
   },
   "dependencies": {

@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Leaf, Github, Heart, BookOpen } from 'lucide-react';
+import { changelog } from '@/lib/changelog';
 
 const REPO_URL = 'https://github.com/NielsKSchjoedt/groen-trepart-tracker';
+
+const CURRENT_VERSION = changelog[0]?.version ?? 'v?';
 
 interface FooterProps {
   fetchedAt: string;
@@ -61,6 +64,15 @@ export function Footer({ fetchedAt }: FooterProps) {
                 <Github className="w-3.5 h-3.5" />
                 GitHub
               </a>
+            </p>
+            <p className="flex items-center justify-center md:justify-end">
+              <Link
+                to="/data-og-metode#aendringslog"
+                className="font-mono text-xs text-muted-foreground/60 hover:text-foreground transition-colors"
+                title="Se ændringslog"
+              >
+                {CURRENT_VERSION}
+              </Link>
             </p>
           </div>
         </div>

@@ -54,6 +54,72 @@ docs/
 - **Data format**: Prefer GeoJSON and JSON; CSV as fallback
 - **Spatial DB**: PostGIS on PostgreSQL (recommended by all research sources)
 
+## Changelog requirements
+
+**Every commit that changes user-facing data, UI, or methodology must update the changelog.**
+
+There is **one place to write**: `src/lib/changelog.json`. Everything else is generated or derived from it.
+
+| File | Role | Edit? |
+|---|---|---|
+| `src/lib/changelog.json` | **Single source of truth** — all entries live here | ✅ Yes |
+| `CHANGELOG.md` | Auto-generated Markdown for GitHub browsing | ❌ No — run `mise run changelog` to regenerate |
+| `src/lib/changelog.ts` | TypeScript types + JSON import for React rendering | ❌ No — only edit if types change |
+
+**Workflow:**
+1. Add your entry to `src/lib/changelog.json`
+2. Run `mise run changelog` to regenerate `CHANGELOG.md` and sync the version number
+3. Commit both files together
+
+### Writing standard: plain language first
+
+**The primary audience is ordinary people — journalists, citizens, and interested readers with no technical background.**
+
+Before writing a changelog entry, ask: *would a journalist understand what changed and why it matters without needing to know what a component, API, or database is?*
+
+Rules:
+- Write in plain Danish. Describe the user-visible effect, not the code change.
+- Technical references (component names, commit hashes, API endpoints, library names) go in parentheses at the end, or are omitted entirely.
+- Never start with a technical term. Start with what the user experienced.
+
+**Bad:** "Refactored ArcGauge SVG viewBox to fix label overflow in constrained bounding box."
+
+**Good:** "Tal og etiketter på fremgangsmålerne overlappede hinanden og var svære at læse. Rettet. *(Teknisk: SVG viewBox justeret.)*"
+
+### Change types
+
+| Type | Label (Danish) | When to use |
+|---|---|---|
+| `feature` | Ny funktion | New user-facing capability |
+| `improvement` | Forbedring | Enhancement to existing feature |
+| `fix` | Fejlrettelse | Bug fix or data/calculation correction |
+| `data` | Dataopdatering | New or refreshed data fetched from APIs |
+| `method` | Metodeændring | Change in how numbers are calculated or displayed |
+| `removed` | Fjernet | Removed feature or data source |
+
+### Corrections and fixes: full transparency required
+
+**Fejlrettelse** (`fix`) and **Metodeændring** (`method`) entries must document:
+
+1. **What users saw that was wrong** — in plain terms, not technical jargon
+2. **What has been corrected** — what users will now see instead
+3. **GitHub issue URL** — if an issue was filed, include it in the `issueUrl` field
+
+Example entry in `src/lib/changelog.json`:
+```json
+{
+  "type": "fix",
+  "description": "Fremgangen for kvælstofreduktion viste 3.433 tons som opnået, men det korrekte tal er 26 tons faktisk etableret. Fejlen skyldtes at projekter i planlægningsfasen fejlagtigt blev talt med som gennemført. Rettet. (Teknisk: summering i build_dashboard_data.py begrænsede til fasen \"anlagt\".)",
+  "issueUrl": "https://github.com/NielsKSchjoedt/groen-trepart-tracker/issues/42"
+}
+```
+
+Then run `mise run changelog` — CHANGELOG.md is generated automatically. No need to write Markdown manually.
+
+### Transparency principle
+
+Dokumentation af fejl er ikke pinligt — det er kernen i produktets troværdighed. Dette projekt eksisterer for at skabe gennemsigtighed om Den Grønne Treparts implementering. Den gennemsigtighed gælder også vores egne fejl. Korrektioner dokumenteres med **mindst samme prominens** som nye funktioner. Hvis en fejl opdages af en ekstern bruger, journalist eller forsker, skal det fremgå tydeligt af ændringsloggen.
+
 ## Current phase
 
 **Phase 0: Knowledge Foundation** ✅ Complete — 17 structured docs (1,637 lines) synthesized from 3 AI research sessions.
@@ -70,8 +136,26 @@ docs/
 **Phase 2: ETL Pipeline & Data Collection** ✅ Complete (March 2026). Built automated data fetchers:
 - `etl/fetch_mars.py` — fetches 5 MARS API endpoints (plans, projects, vos, metadata, master-data)
 - `etl/fetch_dawa.py` — fetches DAWA municipality data + GeoJSON boundaries
+- `etl/fetch_klimaregnskab.py` — fetches per-municipality CO₂ data from Klimaregnskabet API (requires API key)
+- `etl/build_klimaregnskab_data.py` — transforms raw CO₂ data to dashboard format
 - `etl/assemble_data.py` — fallback assembler for sandboxed environments
 - `.github/workflows/fetch-data.yml` — daily scheduled GitHub Actions at 06:00 UTC
+
+## API keys and secrets
+
+Some ETL fetchers require API keys. Keys are stored in `.env` locally (never committed — see `.gitignore`) and as GitHub repository secrets for CI.
+
+| Variable | Used by | How to obtain |
+|---|---|---|
+| `KLIMAREGNSKAB_API_KEY` | `etl/fetch_klimaregnskab.py` | Register at https://klimaregnskabet.dk/klimaregnskabet-api (free, name + email) |
+
+See `.env.example` for the template. To set up locally:
+```bash
+cp .env.example .env
+# Edit .env and fill in your key
+```
+
+To add to GitHub Actions: Settings → Secrets and variables → Actions → New repository secret → name `KLIMAREGNSKAB_API_KEY`.
 
 **Key real data extracted** (March 2026):
 - National nitrogen reduction: 3,433 T total pipeline (all phases incl. preliminary). Actually established (built): ~26 T. Goal: 12,769.5 T (sum of 37 plan targets; master-data reports rounded national figure of 12,776 T).

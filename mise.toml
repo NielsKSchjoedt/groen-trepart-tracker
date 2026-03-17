@@ -59,6 +59,10 @@ echo
 echo "=== All checks passed ==="
 """
 
+[tasks.changelog]
+description = "Regenerate CHANGELOG.md and sync package.json version from src/lib/changelog.json"
+run = "npm run changelog"
+
 [tasks.dev]
 description = "Start the Vite dev server"
 run = "npm run dev"

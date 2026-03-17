@@ -25,9 +25,16 @@ interface ProjectListProps {
   sketchProjects: SketchProject[];
   naturePotentials: NaturePotential[];
   activePillar: string;
+  /** Override the section heading (default: "Projektdetaljer") */
+  title?: string;
+  /**
+   * When true, removes the inner max-height + overflow-y-auto from the lists.
+   * Use when the ProjectList sits inside an already-scrollable container (e.g. KommuneDetailPanel).
+   */
+  flat?: boolean;
 }
 
-export function ProjectList({ projectDetails, sketchProjects, naturePotentials, activePillar }: ProjectListProps) {
+export function ProjectList({ projectDetails, sketchProjects, naturePotentials, activePillar, title, flat }: ProjectListProps) {
   const [activeTab, setActiveTab] = useState<Tab>('projects');
   const [phaseFilter, setPhaseFilter] = useState<PhaseFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -61,7 +68,7 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
     <div className="mt-4">
       <div className="flex items-center gap-2 mb-2">
         <Filter className="w-4 h-4 text-muted-foreground" />
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Projektdetaljer</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title ?? 'Projektdetaljer'}</h3>
       </div>
 
       {/* Tabs */}
@@ -119,6 +126,7 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
           onToggle={id => setExpandedId(expandedId === id ? null : id)}
           geometries={geometries}
           onOpenMap={openMapOverlay}
+          flat={flat}
         />
       )}
       {activeTab === 'sketches' && (
@@ -129,6 +137,7 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
           geometries={geometries}
           searchQuery={searchQuery}
           onOpenMap={openMapOverlay}
+          flat={flat}
         />
       )}
       {activeTab === 'nature' && (
@@ -152,7 +161,7 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
 }
 
 function ProjectsTab({
-  projects, phaseFilter, searchQuery, expandedId, onToggle, geometries, onOpenMap
+  projects, phaseFilter, searchQuery, expandedId, onToggle, geometries, onOpenMap, flat
 }: {
   projects: ProjectDetail[];
   phaseFilter: PhaseFilter;
@@ -161,6 +170,7 @@ function ProjectsTab({
   onToggle: (id: string) => void;
   geometries: Record<string, [number, number][]> | null;
   onOpenMap: (coords: [number, number][], info: ProjectMapInfo) => void;
+  flat?: boolean;
 }) {
   const filtered = useMemo(() => {
     let list = projects;
@@ -193,7 +203,7 @@ function ProjectsTab({
   }
 
   return (
-    <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
+    <div className={`space-y-1.5 pr-1 ${flat ? '' : 'max-h-[400px] overflow-y-auto'}`}>
       {filtered.map(p => {
         const expanded = expandedId === p.id;
         const phase = getPhaseConfig(p.phase);
@@ -357,13 +367,14 @@ function ProjectsTab({
   );
 }
 
-function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, onOpenMap }: {
+function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, onOpenMap, flat }: {
   sketches: SketchProject[];
   expandedId: string | null;
   onToggle: (id: string) => void;
   geometries: Record<string, [number, number][]> | null;
   searchQuery: string;
   onOpenMap: (coords: [number, number][], info: ProjectMapInfo) => void;
+  flat?: boolean;
 }) {
   const sorted = useMemo(() => {
     let list = sketches;
@@ -387,7 +398,7 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
   }
 
   return (
-    <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
+    <div className={`space-y-1.5 pr-1 ${flat ? '' : 'max-h-[400px] overflow-y-auto'}`}>
       {sorted.map(s => {
         const expanded = expandedId === s.id;
         const hasMetrics = s.nitrogenT > 0 || s.extractionHa > 0 || s.afforestationHa > 0;

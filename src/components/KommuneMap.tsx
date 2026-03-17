@@ -101,7 +101,7 @@ const METRIC_LABELS: Record<KommuneMetric, string> = {
   extraction:   'ha udtagning',
   afforestation:'ha skovrejsning',
   nature:       'ha beskyttet natur (§3 + Natura 2000)',
-  co2:          'ton CO₂ (ikke tilgængeligt)',
+  co2:          'ton CO₂e (samlet udledning 2023)',
 };
 
 /**

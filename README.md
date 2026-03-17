@@ -118,7 +118,10 @@ Alle opgaver er defineret i `mise.toml` og køres med `mise run <opgave>`:
 | `fetch-data`       | Hent seneste data fra alle API'er + byg dashboard-data.json  |
 | `build-dashboard`  | Byg dashboard-data.json fra rå MARS-data (uden fetch)        |
 | `prepare-map`      | Konvertér GeoJSON → TopoJSON til frontend-kort               |
+| `changelog`        | Regenerér CHANGELOG.md og synkronisér versionsnummer fra `src/lib/changelog.json` |
 | `dev`              | Start Vite dev-server på http://localhost:8080               |
+
+**Ændringslog:** Rediger kun `src/lib/changelog.json` og kør `mise run changelog` — `CHANGELOG.md` og versionsnummeret i footeren opdateres automatisk.
 
 
 ## Datapipeline
