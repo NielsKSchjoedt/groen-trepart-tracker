@@ -34,6 +34,10 @@ Det her projekt er der, hvor tre ting jeg brænder for mødes.
 
 Disse tre ting — kærligheden til dansk natur, troen på open source som demokratisk værktøj, og AI's nye muligheder — det er det, der driver dette projekt.
 
+## Non-profit og uafhængigt
+
+Grøn Trepart Tracker er et non-profit, filantropisk projekt. Det er ikke finansieret af nogen organisation, virksomhed eller myndighed, og der er ingen kommercielle interesser bag. Open source betyder, at al kode er åben — non-profit betyder, at der heller ikke er nogen, der tjener penge på det. Projektet eksisterer udelukkende for at skabe transparens om den grønne omstilling i Danmark.
+
 ## Centrale mål
 
 

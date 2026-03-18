@@ -228,6 +228,14 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 ---
 
+## Non-profit og uafhængigt / Non-Profit & Independent
+
+Grøn Trepart Tracker er et non-profit, filantropisk projekt. Det er ikke finansieret af nogen organisation, virksomhed eller myndighed, og der er ingen kommercielle interesser bag. Open source betyder, at al kode er åben — non-profit betyder, at der heller ikke er nogen, der tjener penge på det.
+
+This is a non-profit, philanthropic project. It is not funded by any organisation, company, or government agency, and there are no commercial interests involved.
+
+---
+
 ## Vores forpligtelse / Our Commitment
 
 - Vi genindsamler al data dagligt via ETL-pipeline (`etl/`) og gemmer rå JSON/GeoJSON i `data/`.

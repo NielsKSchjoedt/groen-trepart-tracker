@@ -974,9 +974,10 @@ export default function DataMetodePage() {
         {/* ========== Open Source CTA ========== */}
         <section className="text-center p-8 rounded-2xl bg-primary/5 border border-primary/10">
           <h2 className="text-lg font-bold text-foreground mb-2" style={{ fontFamily: "'Fraunces', serif" }}>
-            Alt er open source
+            Open source & non-profit
           </h2>
           <p className="text-sm text-muted-foreground mb-4 max-w-lg mx-auto leading-relaxed">
+            Grøn Trepart Tracker er et uafhængigt, non-profit projekt uden kommercielle interesser.
             Al kode, data og dokumentation er frit tilgængeligt. Du kan verificere hvert tal,
             foreslå forbedringer, eller bygge videre på projektet.
           </p>

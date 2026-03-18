@@ -103,6 +103,11 @@ export function Footer({ fetchedAt }: FooterProps) {
             </a>.
           </p>
 
+          <p>
+            Grøn Trepart Tracker er et uafhængigt, non-profit open source-projekt. Ingen kommercielle
+            interesser, ingen finansiering fra organisationer eller myndigheder.
+          </p>
+
           <p className="flex items-center justify-center gap-1.5">
             <Heart className="w-3.5 h-3.5 text-primary/60" strokeWidth={1.5} />
             <span>

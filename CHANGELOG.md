@@ -17,6 +17,16 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.3 — 18. marts 2026
+
+**UX-forbedringer: pegefinger-cursor på klikbare elementer og konsistent CO₂-navngivning**
+
+### Forbedring
+- Klikbare elementer viser nu pegefinger-cursor ved hover — delmålskortene, statuscirklerne, metrikpillerne, luk-knapper og andre interaktive elementer gav tidligere ingen visuel feedback. Rettet.
+- Underteksten under overskriften siger nu "CO₂" i stedet for "klima", så den matcher de fem delmål som brugeren ser i brugergrænsefladen.
+- Projektets non-profit og ikke-kommercielle karakter er nu tydeliggjort: i footeren og på siden Data og metode står det klart, at Grøn Trepart Tracker er uafhængigt, uden kommercielle interesser og uden finansiering fra organisationer eller myndigheder.
+---
+
 ## v0.9.2 — 17. marts 2026
 
 **Forklaring tilføjet på kommunekortet: CO₂-data dækker kun frem til 2023**
