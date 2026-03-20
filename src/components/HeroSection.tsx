@@ -8,6 +8,8 @@ import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { loadCO2Emissions } from '@/lib/data';
 import { projectEndPct, assessGoalStatus, GOAL_STATUS_META, getPillarProjectionData, type GoalStatus } from '@/lib/projections';
 import type { DashboardData, CO2EmissionsData } from '@/lib/types';
+import type { PillarConfig } from '@/lib/pillars';
+import { formatDanishNumber } from '@/lib/format';
 import { Leaf, TreePine } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import { ViewSwitcher } from './ViewSwitcher';
@@ -33,6 +35,35 @@ function assessPillarHeroStatus(
 ): GoalStatus {
   if (!hasData || projectedPct === null) return 'unknown';
   return assessGoalStatus(projectedPct, actualPct);
+}
+
+/**
+ * One-line “obtained vs target” caption for hero status circles — same
+ * basis as delmålskort (anlagt / faktisk fremdrift mod nationalt mål).
+ *
+ * @returns Danish string, or null when CO₂ data is not yet available
+ */
+function getHeroCompactProgressLine(
+  pc: PillarConfig,
+  data: DashboardData,
+  co2Data: CO2EmissionsData | null,
+): string | null {
+  const { progress } = data.national;
+  switch (pc.id) {
+    case 'nitrogen':
+      return `${formatDanishNumber(Math.round(progress.nitrogenAchievedT))} af ${formatDanishNumber(pc.target!)} ton N`;
+    case 'extraction':
+      return `${formatDanishNumber(Math.round(progress.extractionAchievedHa))} af ${formatDanishNumber(pc.target!)} ha`;
+    case 'afforestation':
+      return `${formatDanishNumber(Math.round(progress.afforestationAchievedHa))} af ${formatDanishNumber(pc.target!)} ha`;
+    case 'nature':
+      return `${formatDanishNumber(progress.natureProtectedPct, 1)} af ${formatDanishNumber(pc.target!, 0)} %`;
+    case 'co2':
+      if (!co2Data) return null;
+      return `${formatDanishNumber(co2Data.milestones.reduction2025Pct, 0)} af ${formatDanishNumber(co2Data.targets.reductionPct, 0)} %`;
+    default:
+      return null;
+  }
 }
 
 export function HeroSection({ data }: HeroSectionProps) {
@@ -183,7 +214,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               <>
                 <p><strong>Hvor langt er vi mod målstregen?</strong> Tallet viser hvor stor en andel af de samlede mål der allerede er nået — ikke om vi er foran eller bagud tidsplanen. Bemærk: delmålene har forskellige deadlines (kvælstof 2027, CO₂/beskyttet natur 2030, skovrejsning 2045).</p>
                 <p>Hvert delmål normaliseres til 0–100% (f.eks. beskyttet natur: 15% af 20%-mål = 75% nået) og vægtes lige i gennemsnittet.</p>
-                <p>Cirklerne nedenfor viser noget andet: om hvert delmål forventes at nå sit mål inden deadline (grøn ✓) eller ej (orange !).</p>
+                <p>Cirklerne nedenfor viser noget andet: om hvert delmål forventes at nå sit mål inden deadline (grøn ✓) eller ej (orange !). Tallet under hver cirkel er <strong>faktisk fremdrift mod målet</strong> (fx ton, ha eller procentpoint) — det samme grundlag som delmålskortene.</p>
               </>
             }
             source="Beregnet på baggrund af data fra MARS, KF25 og Miljøstyrelsen"
@@ -198,26 +229,33 @@ export function HeroSection({ data }: HeroSectionProps) {
         {pillarStatuses.map(({ config: pc, status }) => {
           const isSelected = activePillar === pc.id;
           const meta = GOAL_STATUS_META[status];
+          const compactLine = getHeroCompactProgressLine(pc, data, co2Data);
           return (
             <button
               key={pc.id}
               onClick={() => setActivePillar(pc.id)}
-              className="flex flex-col items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg p-1 transition-transform hover:scale-110"
+              className="flex flex-col items-center gap-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg p-1 transition-transform hover:scale-110 max-w-[6.75rem] sm:max-w-[7.25rem]"
               aria-pressed={isSelected}
-              title={`${pc.label}: ${meta.label}`}
+              title={`${pc.label}: ${meta.label}${compactLine ? ` — ${compactLine}` : ''}`}
             >
               <div
-                className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center transition-all"
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center transition-all shrink-0"
                 style={{
                   borderColor: meta.color,
                   backgroundColor: status === 'unknown' ? '#f5f5f5' : meta.color + '15',
-                  boxShadow: isSelected ? `0 0 0 2px white, 0 0 0 4px ${pc.accentColor}` : undefined,
+                    boxShadow: isSelected ? `0 0 0 2px white, 0 0 0 4px ${pc.accentColor}` : undefined,
                 }}
               >
                 <span className="text-[10px] md:text-xs font-bold" style={{ color: meta.color }}>
                   {meta.icon}
                 </span>
               </div>
+              <span
+                className="text-[8px] md:text-[9px] text-muted-foreground tabular-nums leading-snug text-center px-0.5"
+                title={compactLine ?? undefined}
+              >
+                {compactLine ?? (pc.id === 'co2' ? '…' : '—')}
+              </span>
               <span
                 className="text-[9px] md:text-[10px] font-semibold rounded-full px-2 py-0.5 transition-colors"
                 style={{

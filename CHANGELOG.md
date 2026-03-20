@@ -17,6 +17,14 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.4 — 20. marts 2026
+
+**Statuscirklerne på forsiden viser nu konkrete tal mod målet**
+
+### Forbedring
+- Under hver af de fem små statuscirkler ved forsiden står nu hvor langt Danmark er i fysiske tal — fx ton kvælstof, hektar lavbund eller skov, og procent ved CO₂ og beskyttet natur. Det matcher samme grundlag som delmålskortene (anlagt / faktisk fremdrift).
+---
+
 ## v0.9.3 — 18. marts 2026
 
 **UX-forbedringer: pegefinger-cursor på klikbare elementer og konsistent CO₂-navngivning**
