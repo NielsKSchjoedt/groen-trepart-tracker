@@ -17,6 +17,20 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.5 — 23. marts 2026
+
+**Delmålskort: tydeligere tal og farvekodet prognosetekst**
+
+### Fejlrettelse
+- På bred skærm blev delmålstitler og fodtekst ofte skåret af med prikker, fordi fem kolonner blev meget smalle. Sektionen må nu blive bredere på store skærme, titler brydes over flere linjer (uden ét-linjers afkortning), og tempo-prognosen vises fuldt fra tablet-størrelse og op. På Beskyttet natur forbliver den korte forklaring bevidst i højst to linjer med info-ikon til hele teksten.
+
+### Forbedring
+- De store procenttal på delmålskortene er gjort kraftigere (fed skrift). Tempo-linjen starter med "Ved dette tempo når vi:" (tydeliggør at det er et skøn ud fra nuværende hastighed), er sat med fed kursiv, og de projicerede tal og procenten er farvet med samme rød–gul–grøn som statusmærket på kortet.
+- På delmålet Beskyttet natur står nu en kort forklaring på, hvorfor der ikke vises samme tempo-fremskrivning som på de øvrige kort (politiske udpegninger frem for MARS-projektfaser).
+- De fem delmålskort har nu samme højde i hver række: fodlinjen (prognose eller natur-forklaring) har fast minimumshøjde, og natur-teksten vises i højst to linjer med fuld forklaring bag et lille info-ikon.
+- Fodteksten på delmålskortene (tempo-prognose og natur-forklaring) er sat med fed kursiv, så den skiller sig tydeligt ud fra brødteksten ovenfor.
+---
+
 ## v0.9.4 — 20. marts 2026
 
 **Statuscirklerne på forsiden viser nu konkrete tal mod målet**

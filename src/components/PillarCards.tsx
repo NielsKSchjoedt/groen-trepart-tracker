@@ -13,6 +13,10 @@ import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
 
 type BarHover = 'actual' | 'projected' | null;
 
+/** Vises i 2 linjer på kortet; fuld tekst i info-ikon ved siden af */
+const NATURE_NO_PROJECTION_DISCLAIMER =
+  'Ingen tempo-prognose: beskyttet natur ændres primært ved politiske udpegninger (Natura 2000, §3 m.m.), ikke via samme projekt-pipeline som de øvrige delmål — derfor vises ikke samme slags fremskrivning som på de andre kort.';
+
 const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: string }> = {
   nitrogen: {
     description: (
@@ -202,7 +206,7 @@ export function PillarCards({ data }: PillarCardsProps) {
   }, [pillarHint, setActivePillar]);
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-4 py-6">
+    <section lang="da" className="w-full max-w-5xl min-[1100px]:max-w-6xl min-[1280px]:max-w-7xl mx-auto px-4 py-6">
       <div className="flex items-center justify-center gap-1.5 mb-4">
         <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Status per delmål — baseret på faktisk implementering
@@ -231,7 +235,7 @@ export function PillarCards({ data }: PillarCardsProps) {
             className="absolute left-1/2 -translate-x-1/2 -top-2 sm:left-auto sm:translate-x-0 sm:right-3"
           />
         )}
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 items-stretch">
         {PILLAR_CONFIGS.map((pillar) => (
           <PillarCard
             key={pillar.id}
@@ -278,10 +282,15 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
       ? 'faktisk fremskridt'
       : subtitle;
 
+  const showProjection = projectedPct !== null && projectedPct < 100 && pillar.target !== null && pillar.id !== 'nature';
+  const projectedAbsolute = showProjection ? (projectedPct! / 100) * pillar.target! : null;
+  /** Same hex as status-badge (GOAL_STATUS_META) — rød → gul → grøn efter projiceret målnåelse */
+  const projectionReachColor = goalMeta.color;
+
   return (
     <button
       onClick={onSelect}
-      className={`relative bg-card rounded-xl border-2 p-4 text-left transition-all hover:shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+      className={`relative flex h-full w-full min-h-0 flex-col bg-card rounded-xl border-2 p-4 text-left transition-all hover:shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
         isActive
           ? 'shadow-md'
           : 'border-border hover:border-border/80'
@@ -289,14 +298,14 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
       style={isActive ? { borderColor: pillar.accentColor, backgroundColor: pillar.backgroundTint } : undefined}
       aria-pressed={isActive}
     >
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-start gap-2 mb-2">
         <div
-          className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+          className="mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{ backgroundColor: pillar.accentColor + '18' }}
         >
           <Icon className="w-3.5 h-3.5" style={{ color: pillar.accentColor }} />
         </div>
-        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide truncate">
+        <span className="min-w-0 flex-1 text-[10px] font-semibold text-muted-foreground uppercase leading-tight tracking-tight sm:text-xs sm:tracking-wide break-words hyphens-auto">
           {pillar.label}
         </span>
         <InfoTooltip
@@ -305,19 +314,19 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
           source={PILLAR_INFO[pillar.id].source}
           size={12}
           side="bottom"
-          className="ml-auto flex-shrink-0"
+          className="mt-0.5 ml-auto flex-shrink-0"
         />
       </div>
 
               {pillar.hasData && headline !== null && actualPct !== null ? (
                 <>
                   <p
-                    className="text-xl font-bold mb-0.5 transition-colors duration-150"
+                    className="text-2xl sm:text-3xl font-black mb-0.5 transition-colors duration-150"
                     style={{ fontFamily: "'Fraunces', serif", color: isActive ? pillar.accentColor : undefined }}
                   >
                     {displayHeadline}
                   </p>
-          <p className="text-[11px] text-muted-foreground leading-tight mb-2 transition-opacity duration-150" style={{ minHeight: '1rem' }}>
+          <p className="text-[11px] text-muted-foreground leading-tight mb-2 min-h-[2.25rem] transition-opacity duration-150">
             {displaySubtitle}
           </p>
           <DualProgressBar
@@ -326,13 +335,13 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
             accentColor={pillar.accentColor}
             onHoverChange={setBarHover}
           />
-          <div className="flex items-center justify-between mt-2">
-            <p className="text-[10px] text-muted-foreground">
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+            <p className="text-[10px] text-muted-foreground shrink-0">
               Mål: {pillar.deadlineYear}
             </p>
             {goalStatus !== 'unknown' && (
               <span
-                className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full"
+                className="max-w-full text-center text-[10px] font-semibold leading-snug whitespace-normal px-1.5 py-0.5 rounded-full sm:max-w-[10rem]"
                 style={{
                   backgroundColor: goalMeta.bgColor,
                   color: goalMeta.color,
@@ -341,6 +350,35 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
                 {goalMeta.icon} {goalMeta.label}
               </span>
             )}
+          </div>
+          {/* Prognose: max 2 linjer på smalle kort; fuld tekst fra md+. Natur: altid max 2 linjer + info-ikon */}
+          <div className="mt-1.5 flex min-h-[2.5rem] flex-col justify-start md:min-h-0">
+            {showProjection && projectedAbsolute !== null ? (
+              <p className="text-[10px] leading-snug font-bold italic line-clamp-2 md:line-clamp-none">
+                <span className="text-muted-foreground font-semibold italic">Ved dette tempo når vi: </span>
+                <span className="italic" style={{ color: projectionReachColor }}>
+                  ~{formatDanishNumber(Math.round(projectedAbsolute))} {pillar.unit}{' '}
+                  <span className="font-black italic">({formatPctHeadline(projectedPct!)})</span>
+                </span>
+                <span className="text-muted-foreground font-semibold italic">
+                  {' '}
+                  af målet i {pillar.deadlineYear}
+                </span>
+              </p>
+            ) : pillar.id === 'nature' ? (
+              <div className="flex items-start gap-1">
+                <p className="min-w-0 flex-1 text-[10px] leading-snug font-bold italic text-muted-foreground/85 line-clamp-2">
+                  {NATURE_NO_PROJECTION_DISCLAIMER}
+                </p>
+                <InfoTooltip
+                  title="Hvorfor ingen tempo-prognose?"
+                  content={<p>{NATURE_NO_PROJECTION_DISCLAIMER}</p>}
+                  size={12}
+                  side="top"
+                  className="mt-0.5 flex-shrink-0"
+                />
+              </div>
+            ) : null}
           </div>
         </>
       ) : (
