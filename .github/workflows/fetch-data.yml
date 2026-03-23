@@ -28,7 +28,7 @@ jobs:
       # geometries via DAWA on every run (~38 min). The cache is keyed by run
       # so the latest entry is always restored via the restore-keys fallback.
       - name: Restore geocoding cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: data/geo-kommune-cache.json
           key: geo-kommune-cache-v1-${{ github.run_id }}
@@ -40,7 +40,7 @@ jobs:
       # geometry API calls on every run (~20-38 min). With the cache, only
       # newly added MARS projects are fetched (typically 0-50 per day).
       - name: Restore MARS geometry cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: data/mars/geometries-wkt.json
           key: geometries-wkt-v1-${{ github.run_id }}
