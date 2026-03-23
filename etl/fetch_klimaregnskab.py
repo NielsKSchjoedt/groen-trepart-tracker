@@ -44,7 +44,7 @@ if env_file.exists():
                 k, _, v = line.partition("=")
                 os.environ.setdefault(k.strip(), v.strip())
 
-API_KEY = os.environ.get("KLIMAREGNSKAB_API_KEY", "")
+API_KEY = os.environ.get("KLIMAREGNSKAB_API_KEY", "").strip()
 BASE_URL = "https://klimaregnskabet.dk/api/municipality-data"
 YEARS = [2018, 2019, 2020, 2021, 2022, 2023]
 TYPE_NOEGLETAL = "Nøgletal"
