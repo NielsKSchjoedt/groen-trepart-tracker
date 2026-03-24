@@ -6,13 +6,19 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch: # Allow manual trigger
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
-  fetch:
+  # ETL runs in its own job so the workflow can finish successfully and **save
+  # Actions caches** even when the follow-up commit/merge job fails. GitHub only
+  # persists cache entries when the job that used `actions/cache` completes
+  # successfully; a failed `gh pr merge` in the same job used to prevent saves,
+  # so every run stayed cold (~38 min geocoding + ~20–38 min geometries).
+  etl:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
     steps:
       - uses: actions/checkout@v6
 
@@ -123,10 +129,34 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet data/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet data/ public/data/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Upload built data for commit job
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tracker-data
+          path: |
+            data
+            public/data
+
+  commit:
+    needs: etl
+    if: needs.etl.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: tracker-data
+          path: .
 
       - name: Commit updated data
-        if: steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -138,6 +168,10 @@ jobs:
 
           # Push to a short-lived branch and auto-merge so the direct-push
           # branch protection rule on main is not violated.
+          #
+          # Repo setting required: Settings → General → Pull Requests →
+          # "Allow auto-merge". Otherwise `gh pr merge --auto` fails with
+          # enablePullRequestAutoMerge / "Auto merge is not allowed".
           BRANCH="bot/data-update-$DATE-${{ github.run_number }}"
           git push origin HEAD:"$BRANCH"
           gh pr create \
