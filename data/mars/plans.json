@@ -553,11 +553,11 @@
     "id": "82c6b761-5683-4ab3-9aea-015353383665",
     "name": "Århus Bugt syd, Samsø og Nordlige Bælthav",
     "geoLocationId": "9e9cc438-62c2-4a2a-ad4b-940f43fd7c1d",
-    "totalNitrogenReductionT": 336.0586018377591,
+    "totalNitrogenReductionT": 341.01794272633566,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 27395.100158535894,
-    "countApprovedProjects": 42,
+    "countApprovedProjects": 43,
     "countAssessedProjects": 42,
     "countEstablishedProjects": 5,
     "countSketchProjects": 477,
@@ -565,8 +565,8 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 299.1523528924165,
-        "extractionEffortHa": 239.41877174449462,
+        "nitrogenReductionT": 304.1116937809931,
+        "extractionEffortHa": 239.69877174449462,
         "afforestationEffortHa": 0
       },
       {
@@ -1810,6 +1810,22 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-10-31T13:39:04.673104+00:00",
         "lastStateChanged": "2026-03-23T14:13:54.109793+00:00"
+      },
+      {
+        "projectId": "18f52d2f-660c-4299-bdd5-a25333431068",
+        "projectName": "Bregnemose-Langsted forundersøgelse 2025",
+        "projectStatus": 6,
+        "nitrogenReductionT": 4.959340888576574,
+        "extractionEffortHa": 0.28,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 55.10378765085001,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "6313574d-56f0-49ec-af5e-52242f18a3a2",
+        "subsidySchemeId": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-03-17T12:00:00+00:00",
+        "lastStateChanged": "2026-03-24T07:15:07.72247+00:00"
       },
       {
         "projectId": "e5536847-4393-463e-93f2-622004a2130c",
@@ -26081,12 +26097,12 @@
     "id": "2fe37485-e465-4df5-8f6c-c41f62e49806",
     "name": "Kattegat, Nordsjælland",
     "geoLocationId": "5864a35f-1a2d-47a0-8ed8-96014995d05b",
-    "totalNitrogenReductionT": 107.87490956841245,
+    "totalNitrogenReductionT": 107.91040540256363,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 6755.6347078122235,
     "countApprovedProjects": 13,
-    "countAssessedProjects": 31,
+    "countAssessedProjects": 32,
     "countEstablishedProjects": 6,
     "countSketchProjects": 340,
     "countNaturePotentials": 14,
@@ -26104,16 +26120,16 @@
         "afforestationEffortHa": 0
       },
       {
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "nitrogenReductionT": 0.551523290590799,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 66.043802717047
+      },
+      {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "nitrogenReductionT": 47.7811839935969,
         "extractionEffortHa": 3201.3304425768642,
         "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.5160274564396153,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 61.2893050963174
       },
       {
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
@@ -26166,6 +26182,22 @@
         "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
         "applicationTimestamp": "2025-11-14T10:33:02.787325+00:00",
         "lastStateChanged": "2026-03-18T08:51:14.109262+00:00"
+      },
+      {
+        "projectId": "c338ab88-4529-4335-ad23-5e7ecb615050",
+        "projectName": "Grandløse Skov - Holbæk Kommune",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.035495834151183646,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 4.754497620729594,
+        "overlappingAreaHa": 4.754497620729593,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "b4c37ced-15b1-40f4-8b3f-3fcc6a10463d",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-12-18T12:00:00+00:00",
+        "lastStateChanged": "2026-03-24T13:43:48.936923+00:00"
       },
       {
         "projectId": "726d2ee5-a581-4257-bf30-c932c27be140",
@@ -35610,12 +35642,12 @@
     "id": "7880a4dd-3964-438f-9ff2-d2dd73227a66",
     "name": "Lillebælt, Bredningen",
     "geoLocationId": "e2209dc0-2b65-4229-a872-5d6755f2a789",
-    "totalNitrogenReductionT": 100.75028044223932,
+    "totalNitrogenReductionT": 99.9767599580448,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 10873.590509967102,
-    "countApprovedProjects": 19,
-    "countAssessedProjects": 36,
+    "countApprovedProjects": 18,
+    "countAssessedProjects": 37,
     "countEstablishedProjects": 1,
     "countSketchProjects": 462,
     "countNaturePotentials": 14,
@@ -35628,8 +35660,8 @@
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 18.04476736890567,
-        "extractionEffortHa": 693.3813983265547,
+        "nitrogenReductionT": 17.27124688471114,
+        "extractionEffortHa": 689.1261577851794,
         "afforestationEffortHa": 0
       },
       {
@@ -35683,22 +35715,6 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-10-24T08:12:11.051715+00:00",
         "lastStateChanged": "2026-03-13T09:05:00.891165+00:00"
-      },
-      {
-        "projectId": "c4cb4ce5-f76a-42f1-9000-a5d1ce382e0e",
-        "projectName": "Lavbundsprojekt Bibæk",
-        "projectStatus": 6,
-        "nitrogenReductionT": 3.28052048419453,
-        "extractionEffortHa": 82.01301210488927,
-        "afforestationEffortHa": null,
-        "overlappingAreaHa": 82.01301210488926,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "031db36e-77e7-4fc0-9f0f-bac9693ec18d",
-        "subsidySchemeId": "9df33a22-2ec7-47fb-b5ad-5c45e2a06979",
-        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "applicationTimestamp": "2025-10-07T13:59:32.856956+00:00",
-        "lastStateChanged": "2025-10-07T14:00:26.730614+00:00"
       },
       {
         "projectId": "79ae1897-8648-4770-99fd-4a9e2bd031bb",
@@ -36435,6 +36451,22 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
+      },
+      {
+        "projectId": "c4cb4ce5-f76a-42f1-9000-a5d1ce382e0e",
+        "projectName": "Lavbundsprojekt Bibæk",
+        "projectStatus": 10,
+        "nitrogenReductionT": 2.507,
+        "extractionEffortHa": 77.75777156351401,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 77.75777156351411,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "78674a1d-dcfc-463a-bc94-c5c968ba602f",
+        "subsidySchemeId": "9df33a22-2ec7-47fb-b5ad-5c45e2a06979",
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "applicationTimestamp": "2025-10-07T13:59:32.856956+00:00",
+        "lastStateChanged": "2026-03-24T06:35:50.021224+00:00"
       },
       {
         "projectId": "e7d65af0-876e-457c-a538-3f45f755b5c5",
@@ -49946,21 +49978,21 @@
     "id": "76293fee-a007-47ee-91ea-3f513aa20710",
     "name": "Nibe Bredning og Langerak",
     "geoLocationId": "c81cadfd-6a70-4374-91a1-89c4f54d7f38",
-    "totalNitrogenReductionT": 1119.2411324229076,
+    "totalNitrogenReductionT": 1119.4231070973601,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 11700.129787372394,
     "countApprovedProjects": 121,
-    "countAssessedProjects": 148,
+    "countAssessedProjects": 149,
     "countEstablishedProjects": 7,
     "countSketchProjects": 701,
     "countNaturePotentials": 9,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 3.581747259071041,
+        "nitrogenReductionT": 3.7637219335235192,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 491.99744383614876
+        "afforestationEffortHa": 503.73272216677236
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -50057,6 +50089,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-12-29T12:00:00+00:00",
         "lastStateChanged": "2026-03-18T08:31:07.683798+00:00"
+      },
+      {
+        "projectId": "55f6c6f8-2dc7-422e-bc8b-830754557250",
+        "projectName": "Palledamvej 22",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.18197467445247809,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 11.73527833062349,
+        "overlappingAreaHa": 11.735278330623494,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "5fcaa74b-04ca-47b2-b585-fcb527d39462",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-09-29T13:59:31.612679+00:00",
+        "lastStateChanged": "2026-03-24T12:13:46.709776+00:00"
       },
       {
         "projectId": "d49dced4-3e10-45f9-9d10-f8b02d3077c7",
@@ -62618,12 +62666,12 @@
     "id": "f041a782-df8d-4e1b-8326-becd5d7550e9",
     "name": "Nordlige Lillebælt",
     "geoLocationId": "f37728b1-aeea-43ad-9937-d806ade69004",
-    "totalNitrogenReductionT": 144.82805983547172,
+    "totalNitrogenReductionT": 144.92949220593846,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 905.059124083949,
     "countApprovedProjects": 15,
-    "countAssessedProjects": 38,
+    "countAssessedProjects": 39,
     "countEstablishedProjects": 3,
     "countSketchProjects": 156,
     "countNaturePotentials": 5,
@@ -62636,9 +62684,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 1.3609237207132452,
+        "nitrogenReductionT": 1.4623560911799829,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 80.79645863786848
+        "afforestationEffortHa": 84.33790771378516
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -62691,6 +62739,22 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
+      },
+      {
+        "projectId": "32b4ab2a-e035-45a6-9dcd-a026fbf9d2fa",
+        "projectName": "Jens Møller Sørensen, Mølkærvej 15, Vejle",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.10143237046673745,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 3.5414490759166672,
+        "overlappingAreaHa": 3.5414490759166672,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "d7331c4a-b64b-4b73-8483-9b7480f57fd5",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-06T12:50:08.710589+00:00",
+        "lastStateChanged": "2026-03-24T14:04:02.539998+00:00"
       },
       {
         "projectId": "20a67ee9-8a49-4647-b088-ac7e5a0b8831",
@@ -66932,7 +66996,7 @@
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 8329.931951281005,
     "countApprovedProjects": 5,
-    "countAssessedProjects": 8,
+    "countAssessedProjects": 11,
     "countEstablishedProjects": 0,
     "countSketchProjects": 24,
     "countNaturePotentials": 3,
@@ -66947,7 +67011,7 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 0,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 17.35816997032017
+        "afforestationEffortHa": 22.153053628822157
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -67086,6 +67150,38 @@
         "lastStateChanged": "2026-01-28T13:57:05.557816+00:00"
       },
       {
+        "projectId": "d1880674-d799-48e1-b659-40ba42990dd1",
+        "projectName": "Langholmvej 16 Øst",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 1.0931510316028612,
+        "overlappingAreaHa": 1.0931510316028612,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "23b1a51c-1e50-45a4-b045-5ee2ccb106a4",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-01T11:14:44.411328+00:00",
+        "lastStateChanged": "2026-03-24T08:33:53.986285+00:00"
+      },
+      {
+        "projectId": "40d3aa1b-c769-4cf1-b4f7-526e656161a2",
+        "projectName": "NAJO - Guldagervej 276, 9800 Hjørring",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 1.5119152856065783,
+        "overlappingAreaHa": 1.511915285606578,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "49f1fa27-007c-47e3-a208-03a103f97e77",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-28T13:42:34.599843+00:00",
+        "lastStateChanged": "2026-03-24T08:54:36.434115+00:00"
+      },
+      {
         "projectId": "0da504b5-b2d5-4ad8-be51-6a8b76d49274",
         "projectName": "Skadekær",
         "projectStatus": 6,
@@ -67164,6 +67260,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T12:31:27.141083+00:00"
+      },
+      {
+        "projectId": "6b8c4ef4-5442-480f-9f96-ba4c5ec9175c",
+        "projectName": "Langholmvej 16",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 2.18981734129255,
+        "overlappingAreaHa": 2.189817341292549,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "98324e4c-70d3-4e01-862f-d97f463551c1",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-01T10:24:27.709628+00:00",
+        "lastStateChanged": "2026-03-24T10:27:55.775813+00:00"
       }
     ],
     "sketchProjects": [
@@ -72292,12 +72404,12 @@
     "id": "996da154-ca1a-40e2-880d-2f4ea342ad67",
     "name": "Storebælt, SV",
     "geoLocationId": "b868fbf3-a6a7-4cba-ae8f-121aac39e6fd",
-    "totalNitrogenReductionT": 7.31065162165448,
-    "totalExtractionEffortHa": 144.80009905460744,
+    "totalNitrogenReductionT": 7.347431394382593,
+    "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 0,
     "countApprovedProjects": 2,
-    "countAssessedProjects": 3,
+    "countAssessedProjects": 4,
     "countEstablishedProjects": 3,
     "countSketchProjects": 73,
     "countNaturePotentials": 0,
@@ -72310,9 +72422,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.295,
+        "nitrogenReductionT": 0.3317797727281125,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 16.311
+        "afforestationEffortHa": 20.792292420888035
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -72433,6 +72545,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-09-25T06:36:48.80923+00:00"
+      },
+      {
+        "projectId": "37e4527a-2216-4da6-8465-829b7b6a88eb",
+        "projectName": "Jens Oldenbjerg del 2",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.036779772728112496,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 4.4812924208880345,
+        "overlappingAreaHa": 4.481292420888035,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "98b0cb7d-5d5b-4487-9f7a-7274a6ce542f",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-24T10:02:05.692857+00:00",
+        "lastStateChanged": "2026-03-24T10:02:03.970441+00:00"
       },
       {
         "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
@@ -73269,12 +73397,12 @@
     "id": "db4a9a3e-0b52-48d1-8f56-b7264cff7ea8",
     "name": "Vesterhavet, nord",
     "geoLocationId": "c6b89ffb-75df-4d6f-b924-e8fae5f520ac",
-    "totalNitrogenReductionT": 681.2227935557356,
+    "totalNitrogenReductionT": 732.4871235093764,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 479.0321797787159,
-    "countApprovedProjects": 40,
-    "countAssessedProjects": 104,
+    "countApprovedProjects": 41,
+    "countAssessedProjects": 105,
     "countEstablishedProjects": 13,
     "countSketchProjects": 229,
     "countNaturePotentials": 2,
@@ -73287,9 +73415,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 8.431558595532037,
+        "nitrogenReductionT": 8.446888549172723,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 653.8455398567395
+        "afforestationEffortHa": 656.9036088729684
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -73305,8 +73433,8 @@
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 210.50254019887376,
-        "extractionEffortHa": 7863.693484172034,
+        "nitrogenReductionT": 261.7515401988738,
+        "extractionEffortHa": 8488.44582326818,
         "afforestationEffortHa": 0
       }
     ],
@@ -73342,6 +73470,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00"
+      },
+      {
+        "projectId": "ce22077a-715c-4eb2-8cbf-391a2b6229dd",
+        "projectName": "Engebækvej 43 - Hyvild Sande Plantage",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.015329953640685368,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 3.058069016228985,
+        "overlappingAreaHa": 3.058069016228985,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "bc5ef322-869e-4071-bf5d-1fcd2d3b8385",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-01-16T12:00:00+00:00",
+        "lastStateChanged": "2026-03-24T11:56:43.874059+00:00"
       },
       {
         "projectId": "13ff12fa-8ece-4f74-b343-c04a23a52e00",
@@ -75518,6 +75662,22 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-11-11T13:43:46.073736+00:00",
         "lastStateChanged": "2026-03-20T07:32:01.624283+00:00"
+      },
+      {
+        "projectId": "e0a1bb0a-50b5-4e76-b547-17773401c102",
+        "projectName": "Holmsland",
+        "projectStatus": 6,
+        "nitrogenReductionT": 51.249,
+        "extractionEffortHa": 624.7523390961458,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 624.7523390961456,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "429273c4-701f-4ac8-b52b-35e1472b7382",
+        "subsidySchemeId": "9df33a22-2ec7-47fb-b5ad-5c45e2a06979",
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "applicationTimestamp": "2025-11-11T13:31:12.31093+00:00",
+        "lastStateChanged": "2026-03-24T08:17:30.471788+00:00"
       },
       {
         "projectId": "02462b9d-3460-438c-b801-e3efb4ea3881",
