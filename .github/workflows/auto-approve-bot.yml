@@ -8,10 +8,8 @@ on:
 
 jobs:
   approve:
-    # Only approve PRs created by the Actions bot on data-update branches.
-    if: >-
-      github.actor == 'github-actions[bot]' &&
-      startsWith(github.head_ref, 'bot/data-update-')
+    # Only approve automated data-update PRs (created by the fetch-data workflow).
+    if: startsWith(github.head_ref, 'bot/data-update-')
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write

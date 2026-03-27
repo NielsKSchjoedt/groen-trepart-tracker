@@ -156,9 +156,7 @@ jobs:
           name: tracker-data
           path: .
 
-      - name: Commit updated data
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and push branch
         run: |
           git config user.name "Trepart Tracker Bot"
           git config user.email "bot@trepart-tracker.dk"
@@ -166,14 +164,18 @@ jobs:
           DATE=$(date -u '+%Y-%m-%d')
           git commit -m "data: update tracker data ($DATE)"
 
-          # Push to a short-lived branch and auto-merge so the direct-push
-          # branch protection rule on main is not violated.
-          #
-          # Repo setting required: Settings → General → Pull Requests →
-          # "Allow auto-merge". Otherwise `gh pr merge --auto` fails with
-          # enablePullRequestAutoMerge / "Auto merge is not allowed".
           BRANCH="bot/data-update-$DATE-${{ github.run_number }}"
           git push origin HEAD:"$BRANCH"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          echo "DATE=$DATE" >> $GITHUB_ENV
+
+      # PR creation uses a PAT so the pull_request event triggers CI and
+      # auto-approve workflows. Events from GITHUB_TOKEN intentionally
+      # don't trigger other workflows (GitHub's infinite-loop prevention).
+      - name: Create PR and enable auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+        run: |
           gh pr create \
             --title "data: update tracker data ($DATE)" \
             --body "Automated daily data refresh from GitHub Actions (run #${{ github.run_number }})." \
