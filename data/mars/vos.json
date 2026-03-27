@@ -8,22 +8,22 @@
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 16522.19765845054,
     "countApprovedProjects": 10,
-    "countAssessedProjects": 24,
+    "countAssessedProjects": 25,
     "countEstablishedProjects": 1,
     "countSketchProjects": 78,
     "countNaturePotentials": 14,
     "mitigationMeasures": [
       {
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "nitrogenReductionT": 0.08524739417423388,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 73.69635429860558
+      },
+      {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "nitrogenReductionT": 0.2661962514795551,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.08524739417423388,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 71.94937850724709
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -33,6 +33,22 @@
       }
     ],
     "projects": [
+      {
+        "projectId": "46747487-4bdc-4b49-a4e0-810cc245e832",
+        "projectName": "Egshvilevej",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 1.746975791358498,
+        "overlappingAreaHa": 1.7469757913584978,
+        "supplGeo1OverlappingAreaHa": 1.648620178059929,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "7caa28c6-64a3-4d0b-abc1-47445b26230f",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-12-11T12:00:00+00:00",
+        "lastStateChanged": "2026-03-25T08:37:32.227472+00:00"
+      },
       {
         "projectId": "cf068207-8fba-4ab5-b396-4e8ef445f739",
         "projectName": "Thisted Kommune Permanent ekstensivering",
@@ -56370,12 +56386,12 @@
     "id": "aa17c4e9-c8ab-4a12-b62e-1efa7c4faf78",
     "name": "Randers Fjord",
     "geoLocationId": "9a6214be-6950-4050-ac90-f9931e2c2559",
-    "totalNitrogenReductionT": 275.59800048952525,
+    "totalNitrogenReductionT": 275.78632508318736,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 50167.05280330108,
     "countApprovedProjects": 31,
-    "countAssessedProjects": 45,
+    "countAssessedProjects": 47,
     "countEstablishedProjects": 5,
     "countSketchProjects": 148,
     "countNaturePotentials": 20,
@@ -56388,9 +56404,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 1.9243504067637025,
+        "nitrogenReductionT": 2.112675000425796,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 271.3138678911015
+        "afforestationEffortHa": 283.1441858301443
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -56557,6 +56573,22 @@
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00"
       },
       {
+        "projectId": "fe542119-cc3f-460d-bf72-833d8fa55d7d",
+        "projectName": "Emborgvej 85",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.006439047683628897,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 4.78397256040377,
+        "overlappingAreaHa": 4.783972560403768,
+        "supplGeo1OverlappingAreaHa": 3.292177623366061,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "b1c7d27f-5241-43b5-9a5c-415ce3b3697d",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-29T06:53:40.148214+00:00",
+        "lastStateChanged": "2026-03-25T08:40:15.722458+00:00"
+      },
+      {
         "projectId": "8f2b5503-57f5-4f1a-bdc1-3e37a5c400ef",
         "projectName": "Anders Riberholt  - Lysemosen 35 - F26",
         "projectStatus": 10,
@@ -56603,6 +56635,22 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-03-11T14:30:11.164472+00:00"
+      },
+      {
+        "projectId": "de0a2e23-7a15-47e0-85a0-731d512595d4",
+        "projectName": "Uldum Hedevej 7",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.18188554597846404,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 7.046345378639022,
+        "overlappingAreaHa": 7.046345378639031,
+        "supplGeo1OverlappingAreaHa": 7.017407913353003,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "a7b9bfb9-9d42-486c-b190-5def01e6fb43",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-31T12:55:47.040162+00:00",
+        "lastStateChanged": "2026-03-25T09:06:57.37299+00:00"
       },
       {
         "projectId": "fc5c7b9d-0d61-476d-9f8b-8bea259e00e1",
