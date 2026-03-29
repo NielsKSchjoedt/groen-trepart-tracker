@@ -12925,16 +12925,22 @@
     "id": "ec62cad6-4669-4179-990c-2a72299efc23",
     "name": "Djursland Øst",
     "geoLocationId": "cea4e98e-95ab-473e-a273-cd019e54fe08",
-    "totalNitrogenReductionT": 89.12530518189568,
+    "totalNitrogenReductionT": 90.07820220309692,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 2090.9136131158093,
     "countApprovedProjects": 7,
-    "countAssessedProjects": 10,
+    "countAssessedProjects": 11,
     "countEstablishedProjects": 1,
     "countSketchProjects": 44,
     "countNaturePotentials": 3,
     "mitigationMeasures": [
+      {
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "nitrogenReductionT": 1.246273305050917,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 79.61460591971422
+      },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "nitrogenReductionT": 3.607016976189324,
@@ -12952,15 +12958,25 @@
         "nitrogenReductionT": 0.075,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.29337628384966735,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 21.347032857340533
       }
     ],
     "projects": [
+      {
+        "projectId": "aaabda71-4ab8-4d77-ad42-3ec50f34ba65",
+        "projectName": "Saksvad",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.9528970212012497,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 58.267573062373685,
+        "overlappingAreaHa": 58.2675730623737,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "693f574c-057c-4e7e-9580-e7f87d7203f9",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-28T11:44:56.147561+00:00",
+        "lastStateChanged": "2026-03-27T13:36:56.770347+00:00"
+      },
       {
         "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
         "projectName": "Syddjurs Kommune Permanent ekstensivering",
@@ -50266,21 +50282,21 @@
     "id": "76293fee-a007-47ee-91ea-3f513aa20710",
     "name": "Nibe Bredning og Langerak",
     "geoLocationId": "c81cadfd-6a70-4374-91a1-89c4f54d7f38",
-    "totalNitrogenReductionT": 1125.0655483274995,
+    "totalNitrogenReductionT": 1125.1701538375569,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 11700.129787372394,
     "countApprovedProjects": 122,
-    "countAssessedProjects": 152,
+    "countAssessedProjects": 154,
     "countEstablishedProjects": 7,
     "countSketchProjects": 701,
     "countNaturePotentials": 9,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 3.7696689360930433,
+        "nitrogenReductionT": 3.87427444615041,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 512.4588264727453
+        "afforestationEffortHa": 523.4096789491589
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -50409,6 +50425,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2026-02-18T12:00:00+00:00",
         "lastStateChanged": "2026-03-27T06:41:53.93111+00:00"
+      },
+      {
+        "projectId": "6b686a13-2837-4cbe-8625-052d1a7f1fcd",
+        "projectName": "Kirkbi Climate A/S Flarupvej 21 8830 Tjele",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0635020812851181,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 7.966384135637872,
+        "overlappingAreaHa": 7.96638413563787,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "f2dbce26-f349-44c3-aca2-9ac80589c96e",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-30T23:17:01.217632+00:00",
+        "lastStateChanged": "2026-03-27T13:02:03.700825+00:00"
       },
       {
         "projectId": "d49dced4-3e10-45f9-9d10-f8b02d3077c7",
@@ -54809,6 +54841,22 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-12-30T12:00:00+00:00",
         "lastStateChanged": "2026-03-26T13:53:56.347582+00:00"
+      },
+      {
+        "projectId": "e39678be-b929-4af5-b54a-ac14b912028e",
+        "projectName": "Skovrejsning Vandværksvej 39, 7673 Harboøre",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.041103428772249574,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 2.984468340775817,
+        "overlappingAreaHa": 2.9844683407758152,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "82c825af-259a-4d46-ba82-670eb90303af",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-02-20T12:00:00+00:00",
+        "lastStateChanged": "2026-03-27T12:17:14.014072+00:00"
       }
     ],
     "sketchProjects": [
@@ -67969,27 +68017,27 @@
     "id": "2af23368-d559-4be4-a36e-1fdc59fd68e9",
     "name": "Smålandsfarvandet, åbne del",
     "geoLocationId": "39739612-2b17-435e-909a-df661235f636",
-    "totalNitrogenReductionT": 31.15984961409097,
+    "totalNitrogenReductionT": 31.160539426280327,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 4674.448352033299,
     "countApprovedProjects": 15,
-    "countAssessedProjects": 18,
+    "countAssessedProjects": 19,
     "countEstablishedProjects": 1,
     "countSketchProjects": 129,
     "countNaturePotentials": 36,
     "mitigationMeasures": [
       {
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "nitrogenReductionT": 0.13240042937208116,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 18.698711148959983
+      },
+      {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "nitrogenReductionT": 0.717849821484486,
         "extractionEffortHa": 0,
         "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.13171061718272564,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 15.471616842252946
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -68011,6 +68059,22 @@
       }
     ],
     "projects": [
+      {
+        "projectId": "5b5b673b-9ee0-4e38-a8c1-07f8b6fa895e",
+        "projectName": "Erik Stigsgaard",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0006898121893555163,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 3.22709430670704,
+        "overlappingAreaHa": 3.2270943067070395,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "2d673fec-8377-48ab-b404-529c89c1e70e",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-02-26T12:00:00+00:00",
+        "lastStateChanged": "2026-03-27T12:38:14.402723+00:00"
+      },
       {
         "projectId": "c16fdbcc-b4da-4ae4-a38f-4da8563ab003",
         "projectName": "Ringsted Kommune Permanent ekstensivering",
