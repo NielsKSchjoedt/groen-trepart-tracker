@@ -18,7 +18,13 @@
       "applicantText": "Private og offentlige lodsejere kan ansøge",
       "minAreaHa": 0.3,
       "requiredCarbonOverlapPercentage": null,
-      "applicationPeriods": [],
+      "applicationPeriods": [
+        {
+          "startDate": "2026-02-01T23:00:00+00:00",
+          "endDate": "2026-04-22T07:32:00+00:00",
+          "extensionEndDate": null
+        }
+      ],
       "subsidySchemeOverlaps": [
         {
           "datasetId": "urn:dmp:ds:beskyttede-naturtyper",
@@ -129,6 +135,11 @@
         {
           "startDate": "2025-05-01T12:00:00+00:00",
           "endDate": "2025-09-30T12:00:00+00:00",
+          "extensionEndDate": null
+        },
+        {
+          "startDate": "2025-05-01T07:30:00+00:00",
+          "endDate": "2026-04-10T07:30:00+00:00",
           "extensionEndDate": null
         }
       ],
