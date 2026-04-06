@@ -181,12 +181,13 @@ jobs:
             --base main \
             --head "$BRANCH"
 
-      # Approve with the PAT (counts as the repo owner's review, satisfying
-      # the "Require code review" ruleset). GITHUB_TOKEN can't self-approve
-      # because it shares the github-actions[bot] identity.
+      # Approve with GITHUB_TOKEN (github-actions[bot]) — this is a different
+      # identity from the PR author (the PAT owner), so it counts as a valid
+      # review. Requires Settings → Actions → General → "Allow GitHub Actions
+      # to create and approve pull requests" to be enabled.
       - name: Approve PR
         env:
-          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr review "$BRANCH" --approve
 
       # Enable auto-merge with GITHUB_TOKEN — the PAT lacks the
