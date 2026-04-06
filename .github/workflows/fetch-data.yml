@@ -169,10 +169,9 @@ jobs:
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
 
-      # PR creation uses a PAT so the pull_request event triggers CI and
-      # auto-approve workflows. Events from GITHUB_TOKEN intentionally
-      # don't trigger other workflows (GitHub's infinite-loop prevention).
-      - name: Create PR and enable auto-merge
+      # PR creation uses a PAT so the pull_request event triggers CI.
+      # Events from GITHUB_TOKEN don't trigger other workflows.
+      - name: Create PR
         env:
           GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
         run: |
@@ -181,4 +180,20 @@ jobs:
             --body "Automated daily data refresh from GitHub Actions (run #${{ github.run_number }})." \
             --base main \
             --head "$BRANCH"
-          gh pr merge "$BRANCH" --squash --auto --delete-branch
+
+      # Approve with the PAT (counts as the repo owner's review, satisfying
+      # the "Require code review" ruleset). GITHUB_TOKEN can't self-approve
+      # because it shares the github-actions[bot] identity.
+      - name: Approve PR
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+        run: gh pr review "$BRANCH" --approve
+
+      # Enable auto-merge with GITHUB_TOKEN — the PAT lacks the
+      # enablePullRequestAutoMerge permission (requires Contents: Write,
+      # but we intentionally keep the PAT scoped to read-only).
+      # Auto-merge waits for CI to pass before merging.
+      - name: Enable auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge "$BRANCH" --squash --auto --delete-branch
