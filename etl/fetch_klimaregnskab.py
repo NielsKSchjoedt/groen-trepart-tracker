@@ -99,6 +99,38 @@ def load_municipality_codes() -> list[dict]:
     ]
 
 
+def probe_next_year(kommuner: list[dict]) -> int | None:
+    """
+    Check if data exists for the year after YEARS[-1] by probing a single
+    municipality. Returns the new year if data is available, None otherwise.
+
+    @param kommuner - List of municipality dicts with 'api_code'
+    @returns The new year (e.g. 2024) if data exists, None otherwise
+    """
+    next_year = YEARS[-1] + 1
+    test_code = kommuner[0]["api_code"]
+    rows = fetch_municipality_year(test_code, next_year)
+    if rows and len(rows) > 0:
+        return next_year
+    return None
+
+
+def cached_years(raw_path: Path) -> set[int]:
+    """Return the set of years present in the cached raw data file."""
+    if not raw_path.exists():
+        return set()
+    try:
+        with open(raw_path) as f:
+            data = json.load(f)
+        years = set()
+        for entry in data:
+            for yd in entry.get("years_data", []):
+                years.add(yd["year"])
+        return years
+    except (json.JSONDecodeError, KeyError):
+        return set()
+
+
 def main():
     t0 = time.monotonic()
     print(f"Klimaregnskab ETL — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
@@ -114,13 +146,27 @@ def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     kommuner = load_municipality_codes()
+    raw_path = DATA_DIR / "noegletal_raw.json"
+    existing_years = cached_years(raw_path)
+    force = os.environ.get("FORCE_KLIMAREGNSKAB", "").strip().lower() in ("1", "true", "yes")
+
+    if existing_years >= set(YEARS) and not force:
+        print(f"  Cache hit: {raw_path.name} has data for {sorted(existing_years)}")
+        print(f"  Probing for new year ({YEARS[-1] + 1})...")
+        new_year = probe_next_year(kommuner)
+        if new_year:
+            print(f"  ✓ New year {new_year} detected — adding to fetch list")
+            YEARS.append(new_year)
+        else:
+            print(f"  No new year available — skipping full fetch ({time.monotonic() - t0:.1f}s)")
+            return 0
+
     print(f"Municipalities to fetch: {len(kommuner)}")
     print(f"Years: {YEARS}")
     total_calls = len(kommuner) * len(YEARS)
     print(f"Total API calls: {total_calls}")
     print()
 
-    # Collect all results: list of {kommuneKode, kommuneNavn, year, data}
     all_results = []
     errors = []
     n = 0
@@ -156,13 +202,10 @@ def main():
     print()
     print(f"Fetch complete — {total_calls - len(errors)} OK, {len(errors)} errors")
 
-    # Write raw data
-    raw_path = DATA_DIR / "noegletal_raw.json"
     with open(raw_path, "w", encoding="utf-8") as f:
         json.dump(all_results, f, ensure_ascii=False, indent=2)
     print(f"  noegletal_raw.json: {raw_path.stat().st_size:,} bytes")
 
-    # Write summary
     summary = {
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "type": TYPE_NOEGLETAL,
@@ -170,7 +213,7 @@ def main():
         "municipalities_fetched": len(kommuner),
         "total_calls": total_calls,
         "errors": len(errors),
-        "error_list": errors[:20],  # cap to avoid huge summary
+        "error_list": errors[:20],
         "duration_seconds": round(time.monotonic() - t0, 1),
     }
     with open(DATA_DIR / "summary.json", "w", encoding="utf-8") as f:

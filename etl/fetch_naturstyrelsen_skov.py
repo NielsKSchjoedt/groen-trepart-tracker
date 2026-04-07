@@ -130,20 +130,42 @@ def reverse_geocode_kommune(lon: float, lat: float) -> str | None:
         return None
 
 
+GEOCODE_CACHE_PATH = os.path.join(OUT_DIR, "geocode-cache.json")
+
+
+def _load_geocode_cache() -> dict[str, str]:
+    """Load persisted coordinate→kommune cache from disk."""
+    if os.path.exists(GEOCODE_CACHE_PATH):
+        try:
+            with open(GEOCODE_CACHE_PATH) as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
+def _save_geocode_cache(cache: dict[str, str | None]) -> None:
+    """Persist coordinate→kommune cache to disk (only non-None values)."""
+    clean = {k: v for k, v in cache.items() if v is not None}
+    with open(GEOCODE_CACHE_PATH, "w", encoding="utf-8") as f:
+        json.dump(clean, f, ensure_ascii=False, indent=2)
+
+
 def geocode_projects(projects: list[dict]) -> list[dict]:
     """
     Add a `kommune` field to each project that has a centroid via DAWA reverse geocoding.
 
-    Projects without a centroid receive `kommune: null`. Results are cached by
-    rounded coordinates to avoid duplicate API calls for nearby projects.
+    Loads a persisted disk cache so only new/unseen coordinates hit the DAWA API.
+    Projects without a centroid receive `kommune: null`.
 
     @param projects - List of matched project dicts with optional 'centroid' [lon, lat]
     @returns The same list with 'kommune' field added to each entry
 
     @example geocode_projects([{"name": "Arden Skov", "centroid": [9.87, 56.78], ...}])
     """
-    cache: dict[str, str | None] = {}
+    cache: dict[str, str | None] = _load_geocode_cache()
     total = sum(1 for p in projects if p.get("centroid"))
+    api_calls = 0
 
     geocoded = 0
     for proj in projects:
@@ -157,6 +179,7 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
 
         if cache_key not in cache:
             cache[cache_key] = reverse_geocode_kommune(lon, lat)
+            api_calls += 1
             time.sleep(0.05)
 
         proj["kommune"] = cache[cache_key]
@@ -164,6 +187,8 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
         if geocoded % 10 == 0:
             print(f"    geocoded {geocoded}/{total}...")
 
+    _save_geocode_cache(cache)
+    print(f"    {api_calls} DAWA API calls ({total - api_calls} from cache)")
     return projects
 
 

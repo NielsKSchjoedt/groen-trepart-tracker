@@ -130,19 +130,41 @@ def reverse_geocode_kommune(lon: float, lat: float) -> str | None:
         return None
 
 
+GEOCODE_CACHE_PATH = DATA_DIR / "geocode-cache.json"
+
+
+def _load_geocode_cache() -> dict[str, str]:
+    """Load persisted coordinate→kommune cache from disk."""
+    if GEOCODE_CACHE_PATH.exists():
+        try:
+            with open(GEOCODE_CACHE_PATH) as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
+def _save_geocode_cache(cache: dict[str, str | None]) -> None:
+    """Persist coordinate→kommune cache to disk (only non-None values)."""
+    clean = {k: v for k, v in cache.items() if v is not None}
+    with open(GEOCODE_CACHE_PATH, "w", encoding="utf-8") as f:
+        json.dump(clean, f, ensure_ascii=False, indent=2)
+
+
 def reverse_geocode_batch(features: list[dict]) -> dict[str, str]:
     """
     Batch reverse-geocode all feature centroids to municipality names.
 
+    Loads a persisted disk cache so only new/unseen coordinates hit the DAWA API.
     Deduplicates nearby points (rounded to 2 decimal places) to minimize API calls.
-    Returns a mapping of sagsnummer → kommune name.
 
     @param features - List of parsed feature dicts with 'centroid' [lon, lat]
     @returns Dict mapping sagsnummer to municipality name
     """
-    cache: dict[str, str | None] = {}
+    cache: dict[str, str | None] = _load_geocode_cache()
     result: dict[str, str] = {}
     total = len(features)
+    api_calls = 0
 
     for i, feat in enumerate(features):
         lon, lat = feat["centroid"]
@@ -153,6 +175,7 @@ def reverse_geocode_batch(features: list[dict]) -> dict[str, str]:
         if cache_key not in cache:
             kommune = reverse_geocode_kommune(lon, lat)
             cache[cache_key] = kommune
+            api_calls += 1
             time.sleep(0.05)
 
         if cache[cache_key]:
@@ -161,6 +184,8 @@ def reverse_geocode_batch(features: list[dict]) -> dict[str, str]:
         if (i + 1) % 50 == 0:
             print(f"    geocoded {i + 1}/{total}...")
 
+    _save_geocode_cache(cache)
+    print(f"    {api_calls} DAWA API calls ({total - api_calls} from cache)")
     return result
 
 

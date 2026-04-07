@@ -53,6 +53,61 @@ jobs:
           restore-keys: |
             geometries-wkt-v1-
 
+      # Klimaregnskab: 588 serial API calls (~7 min). Cache the raw output
+      # and only re-fetch when a new data year becomes available (probed with
+      # a single API call).
+      - name: Restore Klimaregnskab raw data
+        uses: actions/cache@v5
+        with:
+          path: data/klimaregnskab/noegletal_raw.json
+          key: klimaregnskab-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            klimaregnskab-raw-v1-
+
+      # Klimaskovfonden + Naturstyrelsen: DAWA reverse-geocoding caches.
+      # Coordinates that have already been geocoded are reused — only new
+      # projects trigger API calls.
+      - name: Restore Klimaskovfonden geocode cache
+        uses: actions/cache@v5
+        with:
+          path: data/klimaskovfonden/geocode-cache.json
+          key: klimaskov-geocode-v1-${{ github.run_id }}
+          restore-keys: |
+            klimaskov-geocode-v1-
+
+      - name: Restore Naturstyrelsen geocode cache
+        uses: actions/cache@v5
+        with:
+          path: data/naturstyrelsen-skov/geocode-cache.json
+          key: naturstyrelsen-geocode-v1-${{ github.run_id }}
+          restore-keys: |
+            naturstyrelsen-geocode-v1-
+
+      # §3 protected areas: skip 186K-feature WFS pagination when the total
+      # feature count is unchanged since last run.
+      - name: Restore §3 summary (for count-based skip)
+        uses: actions/cache@v5
+        with:
+          path: |
+            data/section3/summary.json
+            data/section3/by_kommune.json
+          key: section3-summary-v1-${{ github.run_id }}
+          restore-keys: |
+            section3-summary-v1-
+
+      # DAWA municipality boundaries: essentially static data, re-fetched
+      # only when files are older than 30 days.
+      - name: Restore DAWA data
+        uses: actions/cache@v5
+        with:
+          path: |
+            data/dawa/kommuner.json
+            data/dawa/kommuner.geojson
+            data/dawa/regioner.json
+          key: dawa-data-v1-${{ github.run_id }}
+          restore-keys: |
+            dawa-data-v1-
+
       # ETL scripts must run from the etl/ directory so `from etl_log import ...` works
       - name: Fetch MARS data
         run: python3 fetch_mars.py

@@ -213,6 +213,18 @@ def aggregate_by_kommune(total_count: int) -> dict[str, float]:
     return result_dict
 
 
+def _cached_feature_count() -> int | None:
+    """Read the feature count stored in summary.json from a previous run."""
+    summary_path = DATA_DIR / "summary.json"
+    if not summary_path.exists():
+        return None
+    try:
+        with open(summary_path) as f:
+            return json.load(f).get("total_feature_count")
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def main():
     start_time = time.time()
     print(f"§3 Protected Nature ETL — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
@@ -222,7 +234,7 @@ def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     errors = []
 
-    # Get total count first
+    # Get total count first (cheap — single WFS hits request)
     print("  Counting §3 features...")
     total_count = wfs_hit_count(LAYER)
     if total_count is not None:
@@ -231,153 +243,159 @@ def main():
         print("    ⚠ Could not get count, proceeding with pagination anyway")
         total_count = 0
 
-    # Save a small sample with full geometry for verification
-    print("  Fetching sample (100 features with geometry)...")
-    raw_sample = wfs_get_feature(LAYER, max_features=100)
-    if raw_sample:
-        sample_geojson = json.loads(raw_sample)
-        sample_path = DATA_DIR / "ais_par3_sample.geojson"
-        with open(sample_path, "w", encoding="utf-8") as f:
-            json.dump(sample_geojson, f, ensure_ascii=False, indent=2)
-        print(f"    Wrote sample: {sample_path.stat().st_size:,} bytes")
-
-    # Paginate through all features to aggregate statistics
-    # We only need: a_type, hectares, area (no geometry needed for stats)
-    print()
-    print(f"  Aggregating §3 area statistics (pages of {PAGE_SIZE:,})...")
-
-    type_totals = {}  # a_type → {"count": N, "area_ha": X}
-    total_features_fetched = 0
-    page = 0
-
-    while page < MAX_PAGES:
-        start_idx = page * PAGE_SIZE
-        if total_count > 0 and start_idx >= total_count:
-            break
-
-        raw = wfs_get_feature(
-            LAYER,
-            max_features=PAGE_SIZE,
-            start_index=start_idx,
-            property_names=["a_type", "hectares", "area"],
-        )
-        if not raw:
-            errors.append(f"page_{page}")
-            break
-
-        try:
-            data = json.loads(raw)
-        except json.JSONDecodeError:
-            errors.append(f"parse_page_{page}")
-            break
-
-        features = data.get("features", [])
-        if not features:
-            break
-
-        for feat in features:
-            props = feat.get("properties", {})
-            a_type = str(props.get("a_type", "unknown") or "unknown")
-            hectares = props.get("hectares", 0) or 0
-
-            if a_type not in type_totals:
-                type_totals[a_type] = {"count": 0, "area_ha": 0}
-            type_totals[a_type]["count"] += 1
-            type_totals[a_type]["area_ha"] += hectares
-
-        total_features_fetched += len(features)
-        page += 1
-
-        # Progress
-        pct = (total_features_fetched / total_count * 100) if total_count > 0 else 0
-        print(f"    Page {page}: {total_features_fetched:,} / {total_count:,} features ({pct:.0f}%)")
-
-        if len(features) < PAGE_SIZE:
-            break  # Last page
-
-    # Compute totals
-    total_area_ha = sum(t["area_ha"] for t in type_totals.values())
-    total_area_km2 = total_area_ha / 100
-    pct_of_land = total_area_km2 / DENMARK_LAND_AREA_KM2 * 100
-
-    # Nature type mapping — §3 uses numeric codes
-    # These are Naturbeskyttelseslovens §3 type codes
-    type_names = {
-        # Freshwater
-        "3110": "Sø (lake) — oligotrophic",
-        "3130": "Sø (lake) — nutrient-poor",
-        "3140": "Sø (lake) — calcareous",
-        "3150": "Sø (lake) — eutrophic",
-        "3160": "Sø (lake) — dystrophic",
-        "3210": "Vandløb (stream/river)",
-        "3220": "Vandløb (stream) — alpine",
-        "3260": "Vandløb — lowland to montane",
-        # Heaths and scrub
-        "4010": "Hede (wet heath)",
-        "4030": "Hede (dry heath)",
-        "4110": "Hede (heath) — common",
-        "4120": "Mose (bog/fen)",
-        "4210": "Overdrev (dry grassland)",
-        # Grasslands
-        "5120": "Eng/Strandeng (meadow/salt marsh)",
-        "6230": "Overdrev — species-rich Nardus",
-        "6410": "Eng — Molinia meadow",
-        # Bogs
-        "7110": "Højmose (active raised bog)",
-        "7120": "Mose (degraded raised bog)",
-        "7140": "Mose (transition mire)",
-        "7150": "Mose — Rhynchosporion",
-        "7210": "Mose — calcareous fen",
-        "7220": "Mose — petrifying springs",
-        "7230": "Mose — alkaline fen",
-    }
-
-    # Build type breakdown sorted by area
-    type_breakdown = []
-    for a_type, stats in sorted(type_totals.items(), key=lambda x: x[1]["area_ha"], reverse=True):
-        type_breakdown.append({
-            "type": a_type,
-            "name": type_names.get(a_type, a_type),
-            "count": stats["count"],
-            "area_ha": round(stats["area_ha"], 1),
-            "area_km2": round(stats["area_ha"] / 100, 2),
-        })
-
-    # Build summary
-    summary = {
-        "fetched_at": datetime.now(timezone.utc).isoformat(),
-        "source": "MiljøGIS WFS — natur:ais_par3",
-        "wfs_base": WFS_BASE,
-        "layer": LAYER,
-        "coordinate_system": "EPSG:25832",
-        "total_feature_count": total_count,
-        "features_aggregated": total_features_fetched,
-        "totals": {
-            "total_area_ha": round(total_area_ha, 1),
-            "total_area_km2": round(total_area_km2, 1),
-            "denmark_land_area_km2": DENMARK_LAND_AREA_KM2,
-            "pct_of_land": round(pct_of_land, 2),
-            "note": "Raw §3 total — overlaps with Natura 2000 must be deducted for combined protected area calculation",
-        },
-        "by_type": type_breakdown,
-    }
-
+    # Skip the expensive stats pagination if the count hasn't changed and
+    # summary.json already exists (the data source updates infrequently).
+    prev_count = _cached_feature_count()
     summary_path = DATA_DIR / "summary.json"
-    with open(summary_path, "w", encoding="utf-8") as f:
-        json.dump(summary, f, ensure_ascii=False, indent=2)
+    skip_stats = (
+        prev_count is not None
+        and total_count > 0
+        and prev_count == total_count
+        and summary_path.exists()
+    )
 
-    # Print headline
-    print()
-    print("=" * 60)
-    print("§3 PROTECTED NATURE — HEADLINE")
-    print("=" * 60)
-    print(f"  Features:   {total_features_fetched:,}")
-    print(f"  Total area: {total_area_ha:,.0f} ha ({total_area_km2:,.0f} km²)")
-    print(f"  % of land:  {pct_of_land:.1f}% (raw, before Natura 2000 overlap deduction)")
-    print(f"  By type:")
-    for t in type_breakdown:
-        print(f"    {str(t['type']):12s} {t['count']:>7,} features  {t['area_ha']:>10,.0f} ha")
-    print()
+    if skip_stats:
+        print(f"  Feature count unchanged ({total_count:,}) — skipping stats pagination")
+    else:
+        # Save a small sample with full geometry for verification
+        print("  Fetching sample (100 features with geometry)...")
+        raw_sample = wfs_get_feature(LAYER, max_features=100)
+        if raw_sample:
+            sample_geojson = json.loads(raw_sample)
+            sample_path = DATA_DIR / "ais_par3_sample.geojson"
+            with open(sample_path, "w", encoding="utf-8") as f:
+                json.dump(sample_geojson, f, ensure_ascii=False, indent=2)
+            print(f"    Wrote sample: {sample_path.stat().st_size:,} bytes")
+
+    if not skip_stats:
+        # Paginate through all features to aggregate statistics
+        # We only need: a_type, hectares, area (no geometry needed for stats)
+        print()
+        print(f"  Aggregating §3 area statistics (pages of {PAGE_SIZE:,})...")
+
+    if not skip_stats:
+        type_totals = {}  # a_type → {"count": N, "area_ha": X}
+        total_features_fetched = 0
+        page = 0
+
+        while page < MAX_PAGES:
+            start_idx = page * PAGE_SIZE
+            if total_count > 0 and start_idx >= total_count:
+                break
+
+            raw = wfs_get_feature(
+                LAYER,
+                max_features=PAGE_SIZE,
+                start_index=start_idx,
+                property_names=["a_type", "hectares", "area"],
+            )
+            if not raw:
+                errors.append(f"page_{page}")
+                break
+
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                errors.append(f"parse_page_{page}")
+                break
+
+            features = data.get("features", [])
+            if not features:
+                break
+
+            for feat in features:
+                props = feat.get("properties", {})
+                a_type = str(props.get("a_type", "unknown") or "unknown")
+                hectares = props.get("hectares", 0) or 0
+
+                if a_type not in type_totals:
+                    type_totals[a_type] = {"count": 0, "area_ha": 0}
+                type_totals[a_type]["count"] += 1
+                type_totals[a_type]["area_ha"] += hectares
+
+            total_features_fetched += len(features)
+            page += 1
+
+            pct = (total_features_fetched / total_count * 100) if total_count > 0 else 0
+            print(f"    Page {page}: {total_features_fetched:,} / {total_count:,} features ({pct:.0f}%)")
+
+            if len(features) < PAGE_SIZE:
+                break
+
+        total_area_ha = sum(t["area_ha"] for t in type_totals.values())
+        total_area_km2 = total_area_ha / 100
+        pct_of_land = total_area_km2 / DENMARK_LAND_AREA_KM2 * 100
+
+        type_names = {
+            "3110": "Sø (lake) — oligotrophic",
+            "3130": "Sø (lake) — nutrient-poor",
+            "3140": "Sø (lake) — calcareous",
+            "3150": "Sø (lake) — eutrophic",
+            "3160": "Sø (lake) — dystrophic",
+            "3210": "Vandløb (stream/river)",
+            "3220": "Vandløb (stream) — alpine",
+            "3260": "Vandløb — lowland to montane",
+            "4010": "Hede (wet heath)",
+            "4030": "Hede (dry heath)",
+            "4110": "Hede (heath) — common",
+            "4120": "Mose (bog/fen)",
+            "4210": "Overdrev (dry grassland)",
+            "5120": "Eng/Strandeng (meadow/salt marsh)",
+            "6230": "Overdrev — species-rich Nardus",
+            "6410": "Eng — Molinia meadow",
+            "7110": "Højmose (active raised bog)",
+            "7120": "Mose (degraded raised bog)",
+            "7140": "Mose (transition mire)",
+            "7150": "Mose — Rhynchosporion",
+            "7210": "Mose — calcareous fen",
+            "7220": "Mose — petrifying springs",
+            "7230": "Mose — alkaline fen",
+        }
+
+        type_breakdown = []
+        for a_type, stats in sorted(type_totals.items(), key=lambda x: x[1]["area_ha"], reverse=True):
+            type_breakdown.append({
+                "type": a_type,
+                "name": type_names.get(a_type, a_type),
+                "count": stats["count"],
+                "area_ha": round(stats["area_ha"], 1),
+                "area_km2": round(stats["area_ha"] / 100, 2),
+            })
+
+        summary = {
+            "fetched_at": datetime.now(timezone.utc).isoformat(),
+            "source": "MiljøGIS WFS — natur:ais_par3",
+            "wfs_base": WFS_BASE,
+            "layer": LAYER,
+            "coordinate_system": "EPSG:25832",
+            "total_feature_count": total_count,
+            "features_aggregated": total_features_fetched,
+            "totals": {
+                "total_area_ha": round(total_area_ha, 1),
+                "total_area_km2": round(total_area_km2, 1),
+                "denmark_land_area_km2": DENMARK_LAND_AREA_KM2,
+                "pct_of_land": round(pct_of_land, 2),
+                "note": "Raw §3 total — overlaps with Natura 2000 must be deducted for combined protected area calculation",
+            },
+            "by_type": type_breakdown,
+        }
+
+        with open(summary_path, "w", encoding="utf-8") as f:
+            json.dump(summary, f, ensure_ascii=False, indent=2)
+
+        print()
+        print("=" * 60)
+        print("§3 PROTECTED NATURE — HEADLINE")
+        print("=" * 60)
+        print(f"  Features:   {total_features_fetched:,}")
+        print(f"  Total area: {total_area_ha:,.0f} ha ({total_area_km2:,.0f} km²)")
+        print(f"  % of land:  {pct_of_land:.1f}% (raw, before Natura 2000 overlap deduction)")
+        print(f"  By type:")
+        for t in type_breakdown:
+            print(f"    {str(t['type']):12s} {t['count']:>7,} features  {t['area_ha']:>10,.0f} ha")
+        print()
+    else:
+        total_features_fetched = total_count
 
     # Aggregate §3 ha per municipality via spatial join
     print("Aggregating §3 area per municipality (spatial join)...")
@@ -387,13 +405,21 @@ def main():
         print(f"  Top 5 §3 municipalities: {', '.join(f'{k}={v:.0f}ha' for k, v in top5)}")
 
     duration = time.time() - start_time
+
+    if skip_stats:
+        notes = f"{total_count:,} §3 areas (skipped — count unchanged)"
+        records = {"section3_areas": total_count, "section3_municipalities": len(by_kommune)}
+    else:
+        notes = f"{total_features_fetched:,} §3 areas, {total_area_ha:,.0f} ha total ({pct_of_land:.1f}% of land)"
+        records = {"section3_areas": total_features_fetched, "nature_types": len(type_totals),
+                   "section3_municipalities": len(by_kommune)}
+
     log_etl_run(
         source="section3",
-        endpoints=[f"wfs2-miljoegis.mim.dk (natur)"],
-        records={"section3_areas": total_features_fetched, "nature_types": len(type_totals),
-                 "section3_municipalities": len(by_kommune)},
+        endpoints=["wfs2-miljoegis.mim.dk (natur)"],
+        records=records,
         status="ok" if not errors else "partial",
-        notes=f"{total_features_fetched:,} §3 areas, {total_area_ha:,.0f} ha total ({pct_of_land:.1f}% of land)",
+        notes=notes,
         duration_seconds=duration,
     )
 

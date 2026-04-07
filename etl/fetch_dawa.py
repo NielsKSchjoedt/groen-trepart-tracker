@@ -43,18 +43,62 @@ def fetch_url(url: str, description: str) -> bytes | None:
         return None
 
 
+STALENESS_DAYS = 30
+
+
+def _files_are_fresh() -> bool:
+    """
+    Check whether all three DAWA output files exist and are less than
+    STALENESS_DAYS old. Municipality boundaries almost never change,
+    so 30 days is a safe refresh interval.
+
+    @returns True if all files exist and are fresh enough to skip re-fetching
+    """
+    expected = [DATA_DIR / "kommuner.json", DATA_DIR / "kommuner.geojson", DATA_DIR / "regioner.json"]
+    for p in expected:
+        if not p.exists():
+            return False
+        age_days = (time.time() - p.stat().st_mtime) / 86_400
+        if age_days >= STALENESS_DAYS:
+            return False
+    return True
+
+
 def main():
+    t0 = time.monotonic()
     print(f"DAWA ETL — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print(f"Output: {DATA_DIR}")
     print()
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
+    force = sys.argv[1:] == ["--force"]
+
+    if _files_are_fresh() and not force:
+        ages = {}
+        for p in [DATA_DIR / "kommuner.json", DATA_DIR / "kommuner.geojson", DATA_DIR / "regioner.json"]:
+            ages[p.name] = f"{(time.time() - p.stat().st_mtime) / 86_400:.1f}d"
+        print(f"  All files fresh (< {STALENESS_DAYS}d): {ages}")
+        print(f"  Skipping DAWA fetch ({time.monotonic() - t0:.1f}s). Use --force to re-fetch.")
+
+        meta_path = DATA_DIR / "kommuner.json"
+        with open(meta_path) as f:
+            municipalities = json.load(f)
+
+        log_etl_run(
+            source="dawa",
+            endpoints=[],
+            records={"municipalities": len(municipalities)},
+            status="ok",
+            notes=f"Skipped — files fresh (< {STALENESS_DAYS} days old)",
+            duration_seconds=time.monotonic() - t0,
+        )
+        return 0
+
     # 1. Fetch municipality metadata (lightweight JSON)
     raw_meta = fetch_url(f"{DAWA_BASE}/kommuner", "municipality metadata")
     if raw_meta:
         municipalities = json.loads(raw_meta)
-        # Write compact metadata (no geometry — just codes, names, regions)
         meta_path = DATA_DIR / "kommuner.json"
         with open(meta_path, "w", encoding="utf-8") as f:
             json.dump(municipalities, f, ensure_ascii=False, indent=2)
@@ -85,7 +129,6 @@ def main():
             json.dump(regions, f, ensure_ascii=False, indent=2)
         print(f"  regioner.json: {region_path.stat().st_size:,} bytes ({len(regions)} regions)")
 
-    # Summary
     summary = {
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "municipalities": len(municipalities),
@@ -107,6 +150,7 @@ def main():
         records={"municipalities": len(municipalities), "geojson_features": feature_count},
         status="ok" if municipalities and feature_count > 0 else "error",
         notes=f"{len(municipalities)} municipalities, {feature_count} features",
+        duration_seconds=time.monotonic() - t0,
     )
 
     return 0 if municipalities and feature_count > 0 else 1
