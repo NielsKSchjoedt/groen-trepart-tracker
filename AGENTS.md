@@ -198,3 +198,31 @@ Original research documents are in `transcripts_and_research/`:
 - `deep-research-report.md` — ChatGPT deep research (strongest on dataset inventory and automation assessment)
 - `ChatGPT-Idé og mailhjælp.md` — Original idea development conversation
 - `1000011611.jpg` — Original email to Danmarks Naturfredningsforening
+
+## Cursor Cloud specific instructions
+
+### Services
+
+| Service | Command | Port | Notes |
+|---|---|---|---|
+| Vite dev server | `npm run dev` | 8080 | Main frontend; serves React + TypeScript dashboard |
+
+The ETL pipeline (`etl/*.py`) is optional for frontend development — pre-built data files are committed under `data/` and `public/data/`.
+
+### Key commands
+
+All standard commands are in `package.json` scripts and `mise.toml` tasks. Quick reference:
+
+- **Dev server:** `npm run dev` (port 8080)
+- **Lint:** `npm run lint`
+- **Typecheck:** `npm run typecheck`
+- **Unit tests:** `npm run test` (Vitest)
+- **Build:** `npm run build`
+- **All checks:** `npm run ci` (lint → typecheck → build → test)
+
+### Gotchas
+
+- `.npmrc` sets `legacy-peer-deps=true` — this is intentional and required for the current dependency tree.
+- `mise.toml` defines Node 22 + Python 3.12 as project tools, but the VM already has Node 22 via nvm — no need to install mise separately.
+- Playwright tests (`playwright.config.ts`, `tests/` dir) exist but the test directory is currently empty. Playwright browsers are not pre-installed; run `npx playwright install chromium` if you need them.
+- The `KLIMAREGNSKAB_API_KEY` env var is only needed for `etl/fetch_klimaregnskab.py`; it is not required for frontend development or testing.
