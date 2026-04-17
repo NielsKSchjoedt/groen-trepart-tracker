@@ -532,18 +532,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          709842.2284,
-          6221597.007
+          541053.2748,
+          6317496.0215
         ]
       },
       "properties": {
-        "stationUid": "7a902ea0-16eb-40f1-be09-b9d4315c5a5a",
-        "stationId": "48000402",
-        "name": "Esrum Å, Ørnevej",
+        "stationUid": "d76dafb7-22af-4a41-9f98-71e9a4c663a4",
+        "stationId": "10000989",
+        "name": "Binderup Å, Binderup Mølle, Ns",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 128,1 km2",
+        "description": "Opland = 90,4 km2",
         "measurementPointCount": 1
       }
     },
@@ -832,6 +832,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          529665.0701,
+          6322608.0681
+        ]
+      },
+      "properties": {
+        "stationUid": "8efe71ae-9246-4982-8209-bc3fc2c4c1cc",
+        "stationId": "09001182",
+        "name": "Tranum Å, Oland-Tranum Pumpestation",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 123,2 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           484564.88,
           6193933.47
         ]
@@ -1044,26 +1064,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 3,4 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          551526.838,
-          6320682.5034
-        ]
-      },
-      "properties": {
-        "stationUid": "6e9685d5-d5c1-4f59-bdf6-6ee7deaebde8",
-        "stationId": "10000991",
-        "name": "Hasseris Å, Ns Hyllestrømmen, Sf V.Enggård",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 48,6 km2",
         "measurementPointCount": 1
       }
     },
@@ -1672,17 +1672,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          726158,
-          6175170
+          511392,
+          6201066
         ]
       },
       "properties": {
-        "stationUid": "2cda4b19-1051-4938-b149-d602be085fb9",
-        "stationId": "70000948",
-        "name": "Indre Stadsgrav, v. Torvegade",
-        "locationType": "Sø",
-        "stationOwnerName": "København kommune",
-        "operatorName": "WSP Danmark A/S",
+        "stationUid": "0ede774f-99ea-4931-8c3d-f469ccf5bafc",
+        "stationId": "70002640",
+        "name": "Skjern å, Ejstrupholmvej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Ikast-Brande kommune",
+        "operatorName": "WatsonC",
         "description": "",
         "measurementPointCount": 1
       }
@@ -6212,26 +6212,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          479969.6109,
-          6148687.8821
-        ]
-      },
-      "properties": {
-        "stationUid": "d7675471-83c3-4cec-8fb1-16753c3154ed",
-        "stationId": "35000725",
-        "name": "Bramming-Holsted Å, Golfbanebro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 210 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           709666.1057,
           6222152.3232
         ]
@@ -6244,6 +6224,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          479969.6109,
+          6148687.8821
+        ]
+      },
+      "properties": {
+        "stationUid": "d7675471-83c3-4cec-8fb1-16753c3154ed",
+        "stationId": "35000725",
+        "name": "Bramming-Holsted Å, Golfbanebro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 210 km2",
         "measurementPointCount": 1
       }
     },
@@ -6284,26 +6284,6 @@
         "stationOwnerName": "Esbjerg kommune",
         "operatorName": "WSP Danmark A/S",
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          480809.1073,
-          6150081.1652
-        ]
-      },
-      "properties": {
-        "stationUid": "dca242ae-70b9-42b6-bebd-33bb3d697ca6",
-        "stationId": "35000722",
-        "name": "Sneum Å, V. Nørå Bro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 224 km2",
         "measurementPointCount": 1
       }
     },
@@ -6804,6 +6784,26 @@
         "stationOwnerName": "Esbjerg kommune",
         "operatorName": "WSP Danmark A/S",
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          480809.1073,
+          6150081.1652
+        ]
+      },
+      "properties": {
+        "stationUid": "dca242ae-70b9-42b6-bebd-33bb3d697ca6",
+        "stationId": "35000722",
+        "name": "Sneum Å, V. Nørå Bro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 224 km2",
         "measurementPointCount": 1
       }
     },
@@ -9132,6 +9132,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          709842.2284,
+          6221597.007
+        ]
+      },
+      "properties": {
+        "stationUid": "7a902ea0-16eb-40f1-be09-b9d4315c5a5a",
+        "stationId": "48000402",
+        "name": "Esrum Å, Ørnevej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 128,1 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           581599.031,
           6374436.698
         ]
@@ -9732,18 +9752,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          538230.0076,
-          6195276.5817
+          571730,
+          6222231
         ]
       },
       "properties": {
-        "stationUid": "f78a0760-9500-4666-8bea-c61c8a584200",
-        "stationId": "21006846",
-        "name": "Gudenå, Åstedbro",
+        "stationUid": "458db9fb-5ac4-4326-bc6d-31061e48b88b",
+        "stationId": "70002639",
+        "name": "Århus Å, Viby ringvej",
         "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 189,47 km2",
+        "stationOwnerName": "Århus kommune",
+        "operatorName": "WatsonC",
+        "description": "Aarhus Kommune",
         "measurementPointCount": 1
       }
     },
@@ -10544,26 +10564,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 40,96 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          456950.4741704041,
-          6244954.857021712
-        ]
-      },
-      "properties": {
-        "stationUid": "4e0a50ab-2e9e-44ed-92a8-6355d65034b8",
-        "stationId": "22001657",
-        "name": "Damhus Å, Slyk Bro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 80,63 km2",
         "measurementPointCount": 1
       }
     },
@@ -11392,6 +11392,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          540202.2256,
+          6094943.4753
+        ]
+      },
+      "properties": {
+        "stationUid": "b85f5f31-f6d3-4ad0-9326-3c0f773a195b",
+        "stationId": "41000787",
+        "name": "Blå Å - Bovrup Bæk, Blansskov",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 31,91 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           529048,
           6226983
         ]
@@ -11532,6 +11552,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          551555,
+          6204053
+        ]
+      },
+      "properties": {
+        "stationUid": "34608433-e582-4fdd-a1fc-7236ce6fb7a9",
+        "stationId": "70002498",
+        "name": "LOOP3 Lingbjergvej, Ejer 3.01.02.10 (6m) P",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "LOOP3 Lingbjergvej, TD1, Ejer 3.01.02.10 (6m) P",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           474893,
           6329657
         ]
@@ -11564,26 +11604,6 @@
         "stationOwnerName": "Banedanmark",
         "operatorName": "Klimator DK Aps",
         "description": "Tryksensor 2 meter",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          540202.2256,
-          6094943.4753
-        ]
-      },
-      "properties": {
-        "stationUid": "b85f5f31-f6d3-4ad0-9326-3c0f773a195b",
-        "stationId": "41000787",
-        "name": "Blå Å - Bovrup Bæk, Blansskov",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 31,91 km2",
         "measurementPointCount": 1
       }
     },
@@ -11672,26 +11692,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          555078,
-          6212026
-        ]
-      },
-      "properties": {
-        "stationUid": "dc7ad51f-1218-42d9-adc5-156e366e5506",
-        "stationId": "70000710",
-        "name": "Illerup å, Møllevad",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Skanderborg kommune",
-        "operatorName": "WSP Danmark A/S",
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           670679.0366218932,
           6140563.639223356
         ]
@@ -11703,6 +11703,26 @@
         "locationType": "Grundvandsboring",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          555078,
+          6212026
+        ]
+      },
+      "properties": {
+        "stationUid": "dc7ad51f-1218-42d9-adc5-156e366e5506",
+        "stationId": "70000710",
+        "name": "Illerup å, Møllevad",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Skanderborg kommune",
+        "operatorName": "WSP Danmark A/S",
         "description": "",
         "measurementPointCount": 1
       }
@@ -11844,26 +11864,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "Kemi og pejlenet",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          551555,
-          6204053
-        ]
-      },
-      "properties": {
-        "stationUid": "34608433-e582-4fdd-a1fc-7236ce6fb7a9",
-        "stationId": "70002498",
-        "name": "LOOP3 Lingbjergvej, Ejer 3.01.02.10 (6m) P",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "LOOP3 Lingbjergvej, TD1, Ejer 3.01.02.10 (6m) P",
         "measurementPointCount": 1
       }
     },
@@ -12512,6 +12512,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          464298.9,
+          6296206.9
+        ]
+      },
+      "properties": {
+        "stationUid": "c67349b0-5666-4940-84e9-0d93ddd2d3a1",
+        "stationId": "70002666",
+        "name": "34_46,85 bhs tryksensor 1 m",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret i brønd",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           497053.4994,
           6294690.247899999
         ]
@@ -12524,26 +12544,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 28,85 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          475767.1552,
-          6150318.7945
-        ]
-      },
-      "properties": {
-        "stationUid": "06fc6f54-2253-4218-b614-eac754d24779",
-        "stationId": "35000723",
-        "name": "Smørpøt Bæk, V. A11",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 6,7 km2",
         "measurementPointCount": 1
       }
     },
@@ -12772,18 +12772,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          596598.973,
-          6143999.8811
+          475767.1552,
+          6150318.7945
         ]
       },
       "properties": {
-        "stationUid": "b52b3066-71e3-40c5-b619-e9c989617c72",
-        "stationId": "45001617",
-        "name": "Geels Å, 3.45",
+        "stationUid": "06fc6f54-2253-4218-b614-eac754d24779",
+        "stationId": "35000723",
+        "name": "Smørpøt Bæk, V. A11",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 26,68 km2",
+        "description": "Opland = 6,7 km2",
         "measurementPointCount": 1
       }
     },
@@ -13744,6 +13744,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 154,19 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          463067.9,
+          6282967.6
+        ]
+      },
+      "properties": {
+        "stationUid": "524cc00b-ab0c-4cf3-8e7f-6337fc4a54f2",
+        "stationId": "70002648",
+        "name": "34_32,07 Bhs tryksensor 2m",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -14872,6 +14892,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          583458.1489137014,
+          6388049.767746774
+        ]
+      },
+      "properties": {
+        "stationUid": "20d04d00-b1f7-4360-8850-74878242924d",
+        "stationId": "70000464",
+        "name": "GRUMO Bunken Klitplantage",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           650257,
           6131353
         ]
@@ -14932,46 +14972,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          583458.1489137014,
-          6388049.767746774
-        ]
-      },
-      "properties": {
-        "stationUid": "20d04d00-b1f7-4360-8850-74878242924d",
-        "stationId": "70000464",
-        "name": "GRUMO Bunken Klitplantage",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          575050.3187,
-          6295315.6992
-        ]
-      },
-      "properties": {
-        "stationUid": "a396437e-cca4-4ee1-92d4-7dd0d410efcc",
-        "stationId": "15001088",
-        "name": "Haslevgårds Å, Træpælebro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Træpælebro Nedstrøms Præstbro | Opland = 81,45 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           509565.5,
           6328856.9
         ]
@@ -14985,6 +14985,26 @@
         "operatorName": null,
         "description": "",
         "measurementPointCount": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          585913.8455,
+          6140510.2123
+        ]
+      },
+      "properties": {
+        "stationUid": "80cd94e6-643a-4731-8ba2-0643f1b68d55",
+        "stationId": "70001113",
+        "name": "Rugårdsvej 117",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
       }
     },
     {
@@ -15952,6 +15972,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          596598.973,
+          6143999.8811
+        ]
+      },
+      "properties": {
+        "stationUid": "b52b3066-71e3-40c5-b619-e9c989617c72",
+        "stationId": "45001617",
+        "name": "Geels Å, 3.45",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 26,68 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           701696,
           6154529
         ]
@@ -15964,6 +16004,26 @@
         "stationOwnerName": "Køge kommune",
         "operatorName": "WSP Danmark A/S",
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          691253.2289,
+          6115078.185
+        ]
+      },
+      "properties": {
+        "stationUid": "b3a1ca99-de7b-4a65-a161-0d3e4dbed657",
+        "stationId": "60000990",
+        "name": "Hulebæk, N.F. Broskov",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 7,84 km2",
         "measurementPointCount": 1
       }
     },
@@ -16352,6 +16412,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          722598.8908,
+          6194145.2827
+        ]
+      },
+      "properties": {
+        "stationUid": "12bf4ba9-ed84-41bd-83b7-bc322f81fc6b",
+        "stationId": "50000531",
+        "name": "Kighanerenden, Caroline Mathildevej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 5,15 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           510419,
           6261772
         ]
@@ -16492,26 +16572,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          722598.8908,
-          6194145.2827
-        ]
-      },
-      "properties": {
-        "stationUid": "12bf4ba9-ed84-41bd-83b7-bc322f81fc6b",
-        "stationId": "50000531",
-        "name": "Kighanerenden, Caroline Mathildevej",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 5,15 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           488089.70433522493,
           6161720.10773355
         ]
@@ -16524,26 +16584,6 @@
         "stationOwnerName": "Varde kommune",
         "operatorName": null,
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          531009.5619,
-          6122429.3661
-        ]
-      },
-      "properties": {
-        "stationUid": "eac2b49c-fe38-490a-b3b0-f5cacd589033",
-        "stationId": "37000855",
-        "name": "Haderslev Møllestrøm, Haderslev",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Ved Tilløb Til Haderslev Fjord | Opland = 106,3 km2",
         "measurementPointCount": 1
       }
     },
@@ -17152,18 +17192,38 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          454378.6809000001,
-          6228772.947000001
+          668958.232,
+          6136031.8947
         ]
       },
       "properties": {
-        "stationUid": "d4a872b8-8791-46ac-8fdf-0dc4f82000cc",
-        "stationId": "25003916",
-        "name": "Tim Å, V. Sønderby",
+        "stationUid": "d34eab17-04ae-4095-8dff-eb9b86019f96",
+        "stationId": "57001287",
+        "name": "Torpe Kanal, Storkebjerg",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 80,63 km2",
+        "description": "Opland = 43,92 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          469533.9,
+          6198323.4
+        ]
+      },
+      "properties": {
+        "stationUid": "94e7a1b7-1178-4cc7-99e7-99a4e039ec89",
+        "stationId": "70001067",
+        "name": "Skjern Å - Vardevej ",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Ringkøbing-Skjern kommune",
+        "operatorName": "Klimator DK Aps",
+        "description": "",
         "measurementPointCount": 1
       }
     },
@@ -17672,26 +17732,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          517445,
-          6231700
-        ]
-      },
-      "properties": {
-        "stationUid": "ff745ef6-c1e0-43de-8902-91a5f77c081b",
-        "stationId": "70000425",
-        "name": "GRUMO Kompedal ",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "Pejleboring",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           604874.3,
           6135626.7
         ]
@@ -17792,6 +17832,46 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          454378.6809000001,
+          6228772.947000001
+        ]
+      },
+      "properties": {
+        "stationUid": "d4a872b8-8791-46ac-8fdf-0dc4f82000cc",
+        "stationId": "25003916",
+        "name": "Tim Å, V. Sønderby",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 80,63 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          686706.95,
+          6077773.4812
+        ]
+      },
+      "properties": {
+        "stationUid": "a38f5b6b-0f9b-40bd-a38f-6aa6474710c5",
+        "stationId": "61000456",
+        "name": "Tingsted Å, Tingsted",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 35,97 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           540388.15,
           6196739.32
         ]
@@ -17804,26 +17884,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          463067.9,
-          6282967.6
-        ]
-      },
-      "properties": {
-        "stationUid": "524cc00b-ab0c-4cf3-8e7f-6337fc4a54f2",
-        "stationId": "70002648",
-        "name": "34_32,07 Bhs tryksensor 2m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -18052,18 +18112,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          541053.2748,
-          6317496.0215
+          531009.5619,
+          6122429.3661
         ]
       },
       "properties": {
-        "stationUid": "d76dafb7-22af-4a41-9f98-71e9a4c663a4",
-        "stationId": "10000989",
-        "name": "Binderup Å, Binderup Mølle, Ns",
+        "stationUid": "eac2b49c-fe38-490a-b3b0-f5cacd589033",
+        "stationId": "37000855",
+        "name": "Haderslev Møllestrøm, Haderslev",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 90,4 km2",
+        "description": "Ved Tilløb Til Haderslev Fjord | Opland = 106,3 km2",
         "measurementPointCount": 1
       }
     },
@@ -18512,26 +18572,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          529665.0701,
-          6322608.0681
-        ]
-      },
-      "properties": {
-        "stationUid": "8efe71ae-9246-4982-8209-bc3fc2c4c1cc",
-        "stationId": "09001182",
-        "name": "Tranum Å, Oland-Tranum Pumpestation",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 123,2 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           495369,
           6127807
         ]
@@ -18692,26 +18732,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          499274.767,
-          6325518.9272
-        ]
-      },
-      "properties": {
-        "stationUid": "7ed7813c-bde5-47e7-827a-3e2ccfcc1472",
-        "stationId": "09001183",
-        "name": "Tømmerby Å, Langvad Bro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 28,02 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           488166.8,
           6208551.7
         ]
@@ -18764,6 +18784,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "GRUMO Gislum 40.1371",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          575653,
+          6133700.7
+        ]
+      },
+      "properties": {
+        "stationUid": "d222c1c4-9edd-4134-8c11-1f119aea8594",
+        "stationId": "70002654",
+        "name": "34_3,145 Bvs Tryksensor 2m",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -19232,6 +19272,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          559623.0037,
+          6089411.9979
+        ]
+      },
+      "properties": {
+        "stationUid": "631a39d6-fb0f-4b35-99bf-e6b9dd017bc6",
+        "stationId": "41000786",
+        "name": "Pulverbæk, T.T.Mjang Dam, Als",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 12,23 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           572254.7118,
           6204795.786
         ]
@@ -19372,26 +19432,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          686706.95,
-          6077773.4812
-        ]
-      },
-      "properties": {
-        "stationUid": "a38f5b6b-0f9b-40bd-a38f-6aa6474710c5",
-        "stationId": "61000456",
-        "name": "Tingsted Å, Tingsted",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 35,97 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           646874.533,
           6132698.2673
         ]
@@ -19512,18 +19552,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          559623.0037,
-          6089411.9979
+          559025.5692,
+          6096500.433
         ]
       },
       "properties": {
-        "stationUid": "631a39d6-fb0f-4b35-99bf-e6b9dd017bc6",
-        "stationId": "41000786",
-        "name": "Pulverbæk, T.T.Mjang Dam, Als",
+        "stationUid": "ef4bb1ae-6b79-45e4-97ff-7fe3a8c081e3",
+        "stationId": "41000788",
+        "name": "Grønnebæk, Låddenbøg - Nørreskov",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 12,23 km2",
+        "description": "Opland = 6,44 km2",
         "measurementPointCount": 1
       }
     },
@@ -19752,26 +19792,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          559025.5692,
-          6096500.433
-        ]
-      },
-      "properties": {
-        "stationUid": "ef4bb1ae-6b79-45e4-97ff-7fe3a8c081e3",
-        "stationId": "41000788",
-        "name": "Grønnebæk, Låddenbøg - Nørreskov",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 6,44 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           485182.3904,
           6296715.4212
         ]
@@ -19804,26 +19824,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Tilgang gennem have øst vandløb. Opland = 28,02 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          472736.3,
-          6308895.4
-        ]
-      },
-      "properties": {
-        "stationUid": "f3186ff6-4982-4a31-ab8f-710cda504fa8",
-        "stationId": "70002675",
-        "name": "34_63,015 Bvs tryksensor 2m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -20572,26 +20572,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          675600.3,
-          6125010.7
-        ]
-      },
-      "properties": {
-        "stationUid": "ca2b4aa7-6869-48a9-84bc-b22507962823",
-        "stationId": "70001255",
-        "name": "4_91,59 Bvs Tryksensor 2m ",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           716722.3583,
           6190506.9971
         ]
@@ -20864,6 +20844,26 @@
         "stationOwnerName": "Vejle kommune",
         "operatorName": "WSP Danmark A/S",
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          571665.4766,
+          6125448.8947
+        ]
+      },
+      "properties": {
+        "stationUid": "f4c13265-fc81-447f-9515-716a66c9dd28",
+        "stationId": "46000720",
+        "name": "Søholm Sø, Afløb, Søholm Sø, Afløb",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 5,95 km2",
         "measurementPointCount": 1
       }
     },
@@ -21432,6 +21432,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          675600.3,
+          6125010.7
+        ]
+      },
+      "properties": {
+        "stationUid": "ca2b4aa7-6869-48a9-84bc-b22507962823",
+        "stationId": "70001255",
+        "name": "4_91,59 Bvs Tryksensor 2m ",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           651606.7,
           6143380.3
         ]
@@ -21932,26 +21952,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          585937.0598,
-          6141624.5148
-        ]
-      },
-      "properties": {
-        "stationUid": "b7107e4f-6772-4741-8ae2-46a801ecf515",
-        "stationId": "70001116",
-        "name": "Skolevej 52",
-        "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           542117.6,
           6181513.2
         ]
@@ -21962,6 +21962,26 @@
         "name": "GRUMO Årupvej 20",
         "locationType": "Grundvandsboring",
         "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          584148.3263,
+          6132419.7869
+        ]
+      },
+      "properties": {
+        "stationUid": "2dc0add0-8622-4e0f-b8f2-cc824e74c98e",
+        "stationId": "70001115",
+        "name": "Brogårdsvej 66",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
         "description": "",
         "measurementPointCount": 1
@@ -23072,26 +23092,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          564349.9499,
-          6326664.3422
-        ]
-      },
-      "properties": {
-        "stationUid": "179d12cf-8306-45fb-b636-6320ea8692be",
-        "stationId": "07000345",
-        "name": "Stae Bæk, Syd For Nefovej",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 27,15 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           541554,
           6162792
         ]
@@ -23223,26 +23223,6 @@
         "locationType": "Vandløb",
         "stationOwnerName": "Esbjerg kommune",
         "operatorName": "WSP Danmark A/S",
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          511392,
-          6201066
-        ]
-      },
-      "properties": {
-        "stationUid": "0ede774f-99ea-4931-8c3d-f469ccf5bafc",
-        "stationId": "70002640",
-        "name": "Skjern å, Ejstrupholmvej",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Ikast-Brande kommune",
-        "operatorName": "WatsonC",
         "description": "",
         "measurementPointCount": 1
       }
@@ -23524,26 +23504,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Hvor Damhusåen Skær Landlystvej | Opland = 63,85 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          469533.9,
-          6198323.4
-        ]
-      },
-      "properties": {
-        "stationUid": "94e7a1b7-1178-4cc7-99e7-99a4e039ec89",
-        "stationId": "70001067",
-        "name": "Skjern Å - Vardevej ",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Ringkøbing-Skjern kommune",
-        "operatorName": "Klimator DK Aps",
-        "description": "",
         "measurementPointCount": 1
       }
     },
@@ -24252,6 +24212,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          539603.9985,
+          6087890.9975
+        ]
+      },
+      "properties": {
+        "stationUid": "da460a8b-7b0e-4043-a830-38de6b655cdf",
+        "stationId": "41000785",
+        "name": "Fiskbæk, T.T.Flensborg Fjord",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Ved Adsbøl | Opland = 19,32 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           459643,
           6293959
         ]
@@ -24324,26 +24304,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          718279.2944,
-          6203555.8672
-        ]
-      },
-      "properties": {
-        "stationUid": "91325fe2-55ca-49e0-a199-538bbc27aa5c",
-        "stationId": "50000536",
-        "name": "Usserød Å, Nive Mølle",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 74,39 km2",
         "measurementPointCount": 1
       }
     },
@@ -24512,18 +24472,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          539603.9985,
-          6087890.9975
+          718279.2944,
+          6203555.8672
         ]
       },
       "properties": {
-        "stationUid": "da460a8b-7b0e-4043-a830-38de6b655cdf",
-        "stationId": "41000785",
-        "name": "Fiskbæk, T.T.Flensborg Fjord",
+        "stationUid": "91325fe2-55ca-49e0-a199-538bbc27aa5c",
+        "stationId": "50000536",
+        "name": "Usserød Å, Nive Mølle",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Ved Adsbøl | Opland = 19,32 km2",
+        "description": "Opland = 74,39 km2",
         "measurementPointCount": 1
       }
     },
@@ -24704,6 +24664,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          690484,
+          6080144
+        ]
+      },
+      "properties": {
+        "stationUid": "8017d037-28f2-4eb0-b840-f45a321cbc5a",
+        "stationId": "70000551",
+        "name": "GRUMO Virket Sø",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "\tVIRKET SØ",
         "measurementPointCount": 1
       }
     },
@@ -25112,6 +25092,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          658592,
+          6192259
+        ]
+      },
+      "properties": {
+        "stationUid": "1d5a07c4-b3f5-4355-b31a-c29bf3a5e0ee",
+        "stationId": "70001780",
+        "name": "GRUMO Jyderup Skov,  beliggende ved linie 3",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           717544,
           6197994
         ]
@@ -25152,78 +25152,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          547033.2252,
-          6357744.3064
+          585937.0598,
+          6141624.5148
         ]
       },
       "properties": {
-        "stationUid": "0283de43-1b0a-4a23-97b0-fbff22232579",
-        "stationId": "01000690",
-        "name": "Klostergrøften, Munkebro",
+        "stationUid": "b7107e4f-6772-4741-8ae2-46a801ecf515",
+        "stationId": "70001116",
+        "name": "Skolevej 52",
         "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 28,2 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          697068.2,
-          6158670.8
-        ]
-      },
-      "properties": {
-        "stationUid": "b0ff5ed3-3cc5-4d91-9fb0-874e062ab9a8",
-        "stationId": "70001247",
-        "name": "4_43,98 Bhs Tryksensor 2m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          690484,
-          6080144
-        ]
-      },
-      "properties": {
-        "stationUid": "8017d037-28f2-4eb0-b840-f45a321cbc5a",
-        "stationId": "70000551",
-        "name": "GRUMO Virket Sø",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
+        "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
-        "description": "\tVIRKET SØ",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          517103.8,
-          6146979.7
-        ]
-      },
-      "properties": {
-        "stationUid": "9e62cfbc-f390-495d-8bf1-a20d3a6d2316",
-        "stationId": "70001258",
-        "name": "29_2,84 Bvs 1 m Tryksensor ",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret i brønd",
+        "description": "",
         "measurementPointCount": 1
       }
     },
@@ -25264,26 +25204,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 0,32 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          549090.6,
-          6148593.1
-        ]
-      },
-      "properties": {
-        "stationUid": "feeee8ba-fdf6-475c-aee8-cd63610f2711",
-        "stationId": "70002646",
-        "name": "22_206,51 Bhs 2m Tryksensor",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -25752,6 +25672,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          726158,
+          6175170
+        ]
+      },
+      "properties": {
+        "stationUid": "2cda4b19-1051-4938-b149-d602be085fb9",
+        "stationId": "70000948",
+        "name": "Indre Stadsgrav, v. Torvegade",
+        "locationType": "Sø",
+        "stationOwnerName": "København kommune",
+        "operatorName": "WSP Danmark A/S",
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           705351.1,
           6138359.6
         ]
@@ -26112,6 +26052,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          590512.9162,
+          6133776.2699
+        ]
+      },
+      "properties": {
+        "stationUid": "9b806e95-3bf0-4e84-aadf-906271d04ca3",
+        "stationId": "70001119",
+        "name": "Svendborgvej/Lindved Å",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           660384,
           6072672
         ]
@@ -26392,6 +26352,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          526600.25,
+          6330553.61
+        ]
+      },
+      "properties": {
+        "stationUid": "5b4d492c-bb10-41e7-96df-6511bb922b4a",
+        "stationId": "70000473",
+        "name": "GRUMO Tranum",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           469374.7,
           6160398.3
         ]
@@ -26504,6 +26484,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          456950.4741704041,
+          6244954.857021712
+        ]
+      },
+      "properties": {
+        "stationUid": "4e0a50ab-2e9e-44ed-92a8-6355d65034b8",
+        "stationId": "22001657",
+        "name": "Damhus Å, Slyk Bro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 80,63 km2",
         "measurementPointCount": 1
       }
     },
@@ -26712,6 +26712,46 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          562885.8984,
+          6307797.5908
+        ]
+      },
+      "properties": {
+        "stationUid": "640c3941-4cae-45c9-8c03-8d6ee7b46492",
+        "stationId": "14000382",
+        "name": "Lindenborg Å, Lindenborg Bro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 213,84 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          540883.11,
+          6160560.4192
+        ]
+      },
+      "properties": {
+        "stationUid": "fccaf655-9645-4e38-86ec-4f21b5f1eba5",
+        "stationId": "33000334",
+        "name": "Spang Å (Bredstrup Å), Bredstrup",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 64,48 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           584719.8394,
           6142736.9102
         ]
@@ -26724,6 +26764,26 @@
         "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          549087.5981,
+          6319590.703
+        ]
+      },
+      "properties": {
+        "stationUid": "948c4b14-4267-4fe1-9b54-627c979a0ef9",
+        "stationId": "10000990",
+        "name": "Hasseris Å, Frejlev",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 41,67 km2",
         "measurementPointCount": 1
       }
     },
@@ -26972,18 +27032,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          584148.3263,
-          6132419.7869
+          575000,
+          6230775
         ]
       },
       "properties": {
-        "stationUid": "2dc0add0-8622-4e0f-b8f2-cc824e74c98e",
-        "stationId": "70001115",
-        "name": "Brogårdsvej 66",
+        "stationUid": "f6014b57-904a-4acf-804f-b435f54ee66c",
+        "stationId": "70000248",
+        "name": "23.01 Egå, Jernbanebroen",
         "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
-        "operatorName": null,
-        "description": "",
+        "stationOwnerName": "Århus kommune",
+        "operatorName": "WatsonC",
+        "description": "Aarhus Kommune",
         "measurementPointCount": 1
       }
     },
@@ -27172,6 +27232,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          498891.46349999995,
+          6215242.123000001
+        ]
+      },
+      "properties": {
+        "stationUid": "56a8bcd4-0857-4c28-a0a8-00bccf9992b7",
+        "stationId": "25003928",
+        "name": "Fjederholt Å, Donsig Bro I Skærbæk",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 117,96 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           550653.4,
           6148275.4
         ]
@@ -27244,26 +27324,6 @@
         "stationOwnerName": "Høje Taastrup kommune",
         "operatorName": "WSP Danmark A/S",
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          562885.8984,
-          6307797.5908
-        ]
-      },
-      "properties": {
-        "stationUid": "640c3941-4cae-45c9-8c03-8d6ee7b46492",
-        "stationId": "14000382",
-        "name": "Lindenborg Å, Lindenborg Bro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 213,84 km2",
         "measurementPointCount": 1
       }
     },
@@ -27852,6 +27912,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          549090.6,
+          6148593.1
+        ]
+      },
+      "properties": {
+        "stationUid": "feeee8ba-fdf6-475c-aee8-cd63610f2711",
+        "stationId": "70002646",
+        "name": "22_206,51 Bhs 2m Tryksensor",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           611107.6737266912,
           6255050.796423266
         ]
@@ -28212,6 +28292,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          575050.3187,
+          6295315.6992
+        ]
+      },
+      "properties": {
+        "stationUid": "a396437e-cca4-4ee1-92d4-7dd0d410efcc",
+        "stationId": "15001088",
+        "name": "Haslevgårds Å, Træpælebro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Træpælebro Nedstrøms Præstbro | Opland = 81,45 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           519406.9986,
           6283365.999
         ]
@@ -28232,38 +28332,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          459513.1092754516,
-          6243533.383697548
+          550832.6139,
+          6347708.744
         ]
       },
       "properties": {
-        "stationUid": "61bdb78e-ce53-4232-ba28-bc1909a70bd6",
-        "stationId": "22001654",
-        "name": "Storå, Skærum Bro",
+        "stationUid": "8bca19e5-cc3f-4a9d-b98c-a5e5181d38c7",
+        "stationId": "06000475",
+        "name": "Ry Å, Manna",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 1097,05 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          538452.901,
-          6146088.0198
-        ]
-      },
-      "properties": {
-        "stationUid": "77cf1147-9da5-4f82-9813-6d7ef8cfa3b8",
-        "stationId": "37000854",
-        "name": "Solkær Å, Møllebro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 29,47 km2",
+        "description": "Opland = 284,73 km2",
         "measurementPointCount": 1
       }
     },
@@ -28812,6 +28892,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          517930.7050000001,
+          6199194.746500001
+        ]
+      },
+      "properties": {
+        "stationUid": "b346a57a-b793-4f47-8aad-9b11bd2494ad",
+        "stationId": "25003929",
+        "name": "Skjern Å,  Ns Kulsø",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 64,65 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           468256.7,
           6160870.3
         ]
@@ -28824,6 +28924,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          567971.6819,
+          6368097.5356
+        ]
+      },
+      "properties": {
+        "stationUid": "bb8c0e9c-7aba-4c5c-87e7-2056729b858f",
+        "stationId": "03000501",
+        "name": "Uggerby Å, Astedbro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 152,98 km2",
         "measurementPointCount": 1
       }
     },
@@ -28872,26 +28992,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          715934.415,
-          6192550.2913
-        ]
-      },
-      "properties": {
-        "stationUid": "39bc4379-9f77-4a5a-9426-ef27f6c817cc",
-        "stationId": "50000530",
-        "name": "Dumpedalsrenden, Vasevej",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 7,1 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           536327,
           6164272
         ]
@@ -28924,26 +29024,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 11,85 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          567971.6819,
-          6368097.5356
-        ]
-      },
-      "properties": {
-        "stationUid": "bb8c0e9c-7aba-4c5c-87e7-2056729b858f",
-        "stationId": "03000501",
-        "name": "Uggerby Å, Astedbro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 152,98 km2",
         "measurementPointCount": 1
       }
     },
@@ -29092,18 +29172,38 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          543590.1,
-          6160471.7
+          538230.0076,
+          6195276.5817
         ]
       },
       "properties": {
-        "stationUid": "c8ded4fb-6cc1-4072-9a3b-9acfabaa8ea9",
-        "stationId": "70001265",
-        "name": "23_4,5 Bhs 2m tryksensor",
+        "stationUid": "f78a0760-9500-4666-8bea-c61c8a584200",
+        "stationId": "21006846",
+        "name": "Gudenå, Åstedbro",
         "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Gå over banen ved kilometer tavle 4,6",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 189,47 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          715934.415,
+          6192550.2913
+        ]
+      },
+      "properties": {
+        "stationUid": "39bc4379-9f77-4a5a-9426-ef27f6c817cc",
+        "stationId": "50000530",
+        "name": "Dumpedalsrenden, Vasevej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 7,1 km2",
         "measurementPointCount": 1
       }
     },
@@ -29124,6 +29224,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          543590.1,
+          6160471.7
+        ]
+      },
+      "properties": {
+        "stationUid": "c8ded4fb-6cc1-4072-9a3b-9acfabaa8ea9",
+        "stationId": "70001265",
+        "name": "23_4,5 Bhs 2m tryksensor",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Gå over banen ved kilometer tavle 4,6",
         "measurementPointCount": 1
       }
     },
@@ -29204,26 +29324,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          512928.1198,
-          6148657.9048
-        ]
-      },
-      "properties": {
-        "stationUid": "59812c38-a9d2-443c-a12d-ce72d5bca08c",
-        "stationId": "36000553",
-        "name": "Gamst Møllebæk, Ved Styrt",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "100 M Før Sammenløb Med Gamst Å | Opland = 9,6 km2",
         "measurementPointCount": 1
       }
     },
@@ -29792,18 +29892,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          558982.1877,
-          6287626.7223
+          474498.5,
+          6311295.1
         ]
       },
       "properties": {
-        "stationUid": "fb5d564f-187b-425a-ab55-3afa4d3a6ea5",
-        "stationId": "15001097",
-        "name": "Stubberup Bæk, Hedegårdsvej",
+        "stationUid": "7eabf159-0f4b-480d-8677-479369c518b2",
+        "stationId": "70002673",
+        "name": "34_66,18 Bhs tryksensor 2m",
         "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 14,51 km2",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -29812,18 +29912,38 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          589149.0797,
-          6370965.2691
+          561187.3825,
+          6283294.5559
         ]
       },
       "properties": {
-        "stationUid": "7bccbb7e-434d-4c9e-9731-2d397c79d777",
-        "stationId": "02001038",
-        "name": "Elling Å, Elling Kirke",
+        "stationUid": "0a278631-fc54-4dbb-9de3-12bff58d96b2",
+        "stationId": "15001098",
+        "name": "Villestrup Å, V. Ouegård Bro",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Syd For Elling Kirke | Opland = 123,36 km2",
+        "description": "Opland = 124,96 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          517103.8,
+          6146979.7
+        ]
+      },
+      "properties": {
+        "stationUid": "9e62cfbc-f390-495d-8bf1-a20d3a6d2316",
+        "stationId": "70001258",
+        "name": "29_2,84 Bvs 1 m Tryksensor ",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret i brønd",
         "measurementPointCount": 1
       }
     },
@@ -29852,18 +29972,38 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          581976.9566,
-          6111769.91
+          551526.838,
+          6320682.5034
         ]
       },
       "properties": {
-        "stationUid": "29ac9be1-36ab-4d55-9c11-ce6f73b8f288",
-        "stationId": "45001620",
-        "name": "Rislebæk, Sollerup",
+        "stationUid": "6e9685d5-d5c1-4f59-bdf6-6ee7deaebde8",
+        "stationId": "10000991",
+        "name": "Hasseris Å, Ns Hyllestrømmen, Sf V.Enggård",
         "locationType": "Vandløb",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 3,48 km2",
+        "description": "Opland = 48,6 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          586968.1101,
+          6138179.1
+        ]
+      },
+      "properties": {
+        "stationUid": "43c76f42-6643-4d90-aa04-110ffc49d4c0",
+        "stationId": "70001114",
+        "name": "Tietgens Alle",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
+        "operatorName": null,
+        "description": "",
         "measurementPointCount": 1
       }
     },
@@ -29984,26 +30124,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 150,94 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          575000,
-          6230775
-        ]
-      },
-      "properties": {
-        "stationUid": "f6014b57-904a-4acf-804f-b435f54ee66c",
-        "stationId": "70000248",
-        "name": "23.01 Egå, Jernbanebroen",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Århus kommune",
-        "operatorName": "WatsonC",
-        "description": "Aarhus Kommune",
         "measurementPointCount": 1
       }
     },
@@ -30192,6 +30312,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          584476.9888,
+          6383126.8494
+        ]
+      },
+      "properties": {
+        "stationUid": "0e878cc1-7c7c-44f1-a2b6-43125df9a758",
+        "stationId": "02001040",
+        "name": "Knasborg Å, V. Hovedvejen",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 66,4 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           723168,
           6180963
         ]
@@ -30212,39 +30352,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          586968.1101,
-          6138179.1
+          459513.1092754516,
+          6243533.383697548
         ]
       },
       "properties": {
-        "stationUid": "43c76f42-6643-4d90-aa04-110ffc49d4c0",
-        "stationId": "70001114",
-        "name": "Tietgens Alle",
+        "stationUid": "61bdb78e-ce53-4232-ba28-bc1909a70bd6",
+        "stationId": "22001654",
+        "name": "Storå, Skærum Bro",
         "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          659439,
-          6067454
-        ]
-      },
-      "properties": {
-        "stationUid": "112cc282-fcfa-4dff-9a2e-0af0dfecf3c3",
-        "stationId": "70002048",
-        "name": "GRUMO Holeby",
-        "locationType": "Grundvandsboring",
         "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 3
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 1097,05 km2",
+        "measurementPointCount": 1
       }
     },
     {
@@ -30285,6 +30405,26 @@
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 30,66 km2",
         "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          659439,
+          6067454
+        ]
+      },
+      "properties": {
+        "stationUid": "112cc282-fcfa-4dff-9a2e-0af0dfecf3c3",
+        "stationId": "70002048",
+        "name": "GRUMO Holeby",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 3
       }
     },
     {
@@ -30552,6 +30692,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          589149.0797,
+          6370965.2691
+        ]
+      },
+      "properties": {
+        "stationUid": "7bccbb7e-434d-4c9e-9731-2d397c79d777",
+        "stationId": "02001038",
+        "name": "Elling Å, Elling Kirke",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Syd For Elling Kirke | Opland = 123,36 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           615699.9975,
           6253412.9959
         ]
@@ -30792,26 +30952,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          549087.5981,
-          6319590.703
-        ]
-      },
-      "properties": {
-        "stationUid": "948c4b14-4267-4fe1-9b54-627c979a0ef9",
-        "stationId": "10000990",
-        "name": "Hasseris Å, Frejlev",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 41,67 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           476919.3384775098,
           6245536.541585774
         ]
@@ -30872,46 +31012,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          540883.11,
-          6160560.4192
-        ]
-      },
-      "properties": {
-        "stationUid": "fccaf655-9645-4e38-86ec-4f21b5f1eba5",
-        "stationId": "33000334",
-        "name": "Spang Å (Bredstrup Å), Bredstrup",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 64,48 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          575653,
-          6133700.7
-        ]
-      },
-      "properties": {
-        "stationUid": "d222c1c4-9edd-4134-8c11-1f119aea8594",
-        "stationId": "70002654",
-        "name": "34_3,145 Bvs Tryksensor 2m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           510854.6408,
           6127027.3538
         ]
@@ -30924,6 +31024,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 165,8 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          697068.2,
+          6158670.8
+        ]
+      },
+      "properties": {
+        "stationUid": "b0ff5ed3-3cc5-4d91-9fb0-874e062ab9a8",
+        "stationId": "70001247",
+        "name": "4_43,98 Bhs Tryksensor 2m",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -31472,26 +31592,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          561187.3825,
-          6283294.5559
-        ]
-      },
-      "properties": {
-        "stationUid": "0a278631-fc54-4dbb-9de3-12bff58d96b2",
-        "stationId": "15001098",
-        "name": "Villestrup Å, V. Ouegård Bro",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 124,96 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           581726.12,
           6242782.74
         ]
@@ -31504,6 +31604,26 @@
         "stationOwnerName": "Syddjurs kommune",
         "operatorName": "kollektio",
         "description": "Rosenholm Å",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          547033.2252,
+          6357744.3064
+        ]
+      },
+      "properties": {
+        "stationUid": "0283de43-1b0a-4a23-97b0-fbff22232579",
+        "stationId": "01000690",
+        "name": "Klostergrøften, Munkebro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 28,2 km2",
         "measurementPointCount": 1
       }
     },
@@ -31544,26 +31664,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 95,73 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          550832.6139,
-          6347708.744
-        ]
-      },
-      "properties": {
-        "stationUid": "8bca19e5-cc3f-4a9d-b98c-a5e5181d38c7",
-        "stationId": "06000475",
-        "name": "Ry Å, Manna",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 284,73 km2",
         "measurementPointCount": 1
       }
     },
@@ -31792,6 +31892,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          564349.9499,
+          6326664.3422
+        ]
+      },
+      "properties": {
+        "stationUid": "179d12cf-8306-45fb-b636-6320ea8692be",
+        "stationId": "07000345",
+        "name": "Stae Bæk, Syd For Nefovej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 27,15 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           693439.1815,
           6111247.8063
         ]
@@ -31864,26 +31984,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          584476.9888,
-          6383126.8494
-        ]
-      },
-      "properties": {
-        "stationUid": "0e878cc1-7c7c-44f1-a2b6-43125df9a758",
-        "stationId": "02001040",
-        "name": "Knasborg Å, V. Hovedvejen",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 66,4 km2",
         "measurementPointCount": 1
       }
     },
@@ -31992,6 +32092,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          499274.767,
+          6325518.9272
+        ]
+      },
+      "properties": {
+        "stationUid": "7ed7813c-bde5-47e7-827a-3e2ccfcc1472",
+        "stationId": "09001183",
+        "name": "Tømmerby Å, Langvad Bro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 28,02 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           558646.4662,
           6288723.1497
         ]
@@ -32004,6 +32124,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 49,97 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          463523,
+          6284269.6
+        ]
+      },
+      "properties": {
+        "stationUid": "46170675-f234-4121-839e-bf7bb0fcfa43",
+        "stationId": "70002649",
+        "name": "34_33,52 Bvs tryksensor 2m ",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -32072,6 +32212,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          558982.1877,
+          6287626.7223
+        ]
+      },
+      "properties": {
+        "stationUid": "fb5d564f-187b-425a-ab55-3afa4d3a6ea5",
+        "stationId": "15001097",
+        "name": "Stubberup Bæk, Hedegårdsvej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 14,51 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           486737,
           6133114
         ]
@@ -32084,6 +32244,26 @@
         "stationOwnerName": "Esbjerg kommune",
         "operatorName": "WSP Danmark A/S",
         "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          524442.1575,
+          6197618.604
+        ]
+      },
+      "properties": {
+        "stationUid": "ff9888c1-a9cd-4686-aabe-0c28307a9b32",
+        "stationId": "25003927",
+        "name": "Dybdal Bæk, Tilløb Rørbæk Sø",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 11,3 km2",
         "measurementPointCount": 1
       }
     },
@@ -32345,26 +32525,6 @@
         "operatorName": null,
         "description": "",
         "measurementPointCount": 3
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          463523,
-          6284269.6
-        ]
-      },
-      "properties": {
-        "stationUid": "46170675-f234-4121-839e-bf7bb0fcfa43",
-        "stationId": "70002649",
-        "name": "34_33,52 Bvs tryksensor 2m ",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
-        "measurementPointCount": 1
       }
     },
     {
@@ -32972,26 +33132,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          498891.46349999995,
-          6215242.123000001
-        ]
-      },
-      "properties": {
-        "stationUid": "56a8bcd4-0857-4c28-a0a8-00bccf9992b7",
-        "stationId": "25003928",
-        "name": "Fjederholt Å, Donsig Bro I Skærbæk",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 117,96 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           491675.3188072003,
           6201024.193094502
         ]
@@ -33024,6 +33164,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 29,56 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          463185.5,
+          6293394.8
+        ]
+      },
+      "properties": {
+        "stationUid": "cf899bce-c1de-486a-929e-d658319932ed",
+        "stationId": "70002676",
+        "name": "34_43,555 Bvs Tryksensor 2m",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -33124,26 +33284,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 131,47 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          517930.7050000001,
-          6199194.746500001
-        ]
-      },
-      "properties": {
-        "stationUid": "b346a57a-b793-4f47-8aad-9b11bd2494ad",
-        "stationId": "25003929",
-        "name": "Skjern Å,  Ns Kulsø",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 64,65 km2",
         "measurementPointCount": 1
       }
     },
@@ -33272,26 +33412,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          524442.1575,
-          6197618.604
-        ]
-      },
-      "properties": {
-        "stationUid": "ff9888c1-a9cd-4686-aabe-0c28307a9b32",
-        "stationId": "25003927",
-        "name": "Dybdal Bæk, Tilløb Rørbæk Sø",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 11,3 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           525591.2301,
           6149742.7708
         ]
@@ -33304,6 +33424,46 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 27,9 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          512928.1198,
+          6148657.9048
+        ]
+      },
+      "properties": {
+        "stationUid": "59812c38-a9d2-443c-a12d-ce72d5bca08c",
+        "stationId": "36000553",
+        "name": "Gamst Møllebæk, Ved Styrt",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "100 M Før Sammenløb Med Gamst Å | Opland = 9,6 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          538452.901,
+          6146088.0198
+        ]
+      },
+      "properties": {
+        "stationUid": "77cf1147-9da5-4f82-9813-6d7ef8cfa3b8",
+        "stationId": "37000854",
+        "name": "Solkær Å, Møllebro",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 29,47 km2",
         "measurementPointCount": 1
       }
     },
@@ -33492,6 +33652,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          517445,
+          6231700
+        ]
+      },
+      "properties": {
+        "stationUid": "ff745ef6-c1e0-43de-8902-91a5f77c081b",
+        "stationId": "70000425",
+        "name": "GRUMO Kompedal ",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "Pejleboring",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           592361.9763,
           6139228.4853
         ]
@@ -33504,26 +33684,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 64,74 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          571665.4766,
-          6125448.8947
-        ]
-      },
-      "properties": {
-        "stationUid": "f4c13265-fc81-447f-9515-716a66c9dd28",
-        "stationId": "46000720",
-        "name": "Søholm Sø, Afløb, Søholm Sø, Afløb",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 5,95 km2",
         "measurementPointCount": 1
       }
     },
@@ -33584,26 +33744,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 41,48 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          464298.9,
-          6296206.9
-        ]
-      },
-      "properties": {
-        "stationUid": "c67349b0-5666-4940-84e9-0d93ddd2d3a1",
-        "stationId": "70002666",
-        "name": "34_46,85 bhs tryksensor 1 m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret i brønd",
         "measurementPointCount": 1
       }
     },
@@ -33832,26 +33972,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          668958.232,
-          6136031.8947
-        ]
-      },
-      "properties": {
-        "stationUid": "d34eab17-04ae-4095-8dff-eb9b86019f96",
-        "stationId": "57001287",
-        "name": "Torpe Kanal, Storkebjerg",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 43,92 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           650245.087,
           6165618.7958
         ]
@@ -34024,26 +34144,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 147,97 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          691253.2289,
-          6115078.185
-        ]
-      },
-      "properties": {
-        "stationUid": "b3a1ca99-de7b-4a65-a161-0d3e4dbed657",
-        "stationId": "60000990",
-        "name": "Hulebæk, N.F. Broskov",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": "DCE, Aarhus Universitet",
-        "description": "Opland = 7,84 km2",
         "measurementPointCount": 1
       }
     },
@@ -34284,6 +34384,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "Opland = 24,58 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          581976.9566,
+          6111769.91
+        ]
+      },
+      "properties": {
+        "stationUid": "29ac9be1-36ab-4d55-9c11-ce6f73b8f288",
+        "stationId": "45001620",
+        "name": "Rislebæk, Sollerup",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": "DCE, Aarhus Universitet",
+        "description": "Opland = 3,48 km2",
         "measurementPointCount": 1
       }
     },
@@ -34652,6 +34772,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          678439.4,
+          6126088.9
+        ]
+      },
+      "properties": {
+        "stationUid": "b4e416ba-fca0-43ea-8d9d-95b504dc2edf",
+        "stationId": "70001248",
+        "name": "4_88,28 Bvs Tryksensor 2m ",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           498677,
           6128734
         ]
@@ -34663,26 +34803,6 @@
         "locationType": "Grundvandsboring",
         "stationOwnerName": "Esbjerg kommune",
         "operatorName": "WSP Danmark A/S",
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          585913.8455,
-          6140510.2123
-        ]
-      },
-      "properties": {
-        "stationUid": "80cd94e6-643a-4731-8ba2-0643f1b68d55",
-        "stationId": "70001113",
-        "name": "Rugårdsvej 117",
-        "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
-        "operatorName": null,
         "description": "",
         "measurementPointCount": 1
       }
@@ -34772,6 +34892,46 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          702451.7,
+          6171276.8
+        ]
+      },
+      "properties": {
+        "stationUid": "dedfed53-5dd5-47e4-99ad-37d9ff10eb29",
+        "stationId": "70001290",
+        "name": "1_22,84 Bvs 2m Tryksensor",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Installeret D 29.01.25",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          589016,
+          6139890
+        ]
+      },
+      "properties": {
+        "stationUid": "67d2eead-7aee-4e44-a982-e9ded1fbf5c6",
+        "stationId": "70001120",
+        "name": "Palnatokesvej",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           548795.3,
           6311853.1
         ]
@@ -34804,26 +34964,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 78,62 km2",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          474498.5,
-          6311295.1
-        ]
-      },
-      "properties": {
-        "stationUid": "7eabf159-0f4b-480d-8677-479369c518b2",
-        "stationId": "70002673",
-        "name": "34_66,18 Bhs tryksensor 2m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
         "measurementPointCount": 1
       }
     },
@@ -35892,6 +36032,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          472736.3,
+          6308895.4
+        ]
+      },
+      "properties": {
+        "stationUid": "f3186ff6-4982-4a31-ab8f-710cda504fa8",
+        "stationId": "70002675",
+        "name": "34_63,015 Bvs tryksensor 2m",
+        "locationType": "Vandløb",
+        "stationOwnerName": "Banedanmark",
+        "operatorName": "Klimator DK Aps",
+        "description": "Monteret på pæl",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           552097.8,
           6206755.7
         ]
@@ -36712,26 +36872,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          463185.5,
-          6293394.8
-        ]
-      },
-      "properties": {
-        "stationUid": "cf899bce-c1de-486a-929e-d658319932ed",
-        "stationId": "70002676",
-        "name": "34_43,555 Bvs Tryksensor 2m",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           605638,
           6107937.6
         ]
@@ -37452,26 +37592,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          571730,
-          6222231
-        ]
-      },
-      "properties": {
-        "stationUid": "458db9fb-5ac4-4326-bc6d-31061e48b88b",
-        "stationId": "70002639",
-        "name": "Århus Å, Viby ringvej",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Århus kommune",
-        "operatorName": "WatsonC",
-        "description": "Aarhus Kommune",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           463252.2,
           6294232.4
         ]
@@ -37645,6 +37765,26 @@
         "operatorName": null,
         "description": "",
         "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          566764.4,
+          6144360.1
+        ]
+      },
+      "properties": {
+        "stationUid": "5ff126b4-eebd-437e-8b26-e77e030c6608",
+        "stationId": "70001494",
+        "name": "GRUMO Sletterød, Rendebjergvej 1, boring 3",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 2
       }
     },
     {
@@ -37925,26 +38065,6 @@
         "operatorName": null,
         "description": "",
         "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          566764.4,
-          6144360.1
-        ]
-      },
-      "properties": {
-        "stationUid": "5ff126b4-eebd-437e-8b26-e77e030c6608",
-        "stationId": "70001494",
-        "name": "GRUMO Sletterød, Rendebjergvej 1, boring 3",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 2
       }
     },
     {
@@ -38952,26 +39072,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          507312.6,
-          6102487.8
-        ]
-      },
-      "properties": {
-        "stationUid": "a1ee66ed-f690-41a8-b3ab-13c7d534ef29",
-        "stationId": "70001635",
-        "name": "LOOP6 Bedsted Bjerg lok.04 6.04.02.10 (5m) P",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "LOOP6 Bedsted Bjerg lok.04 6.04.02.10 (5m) P",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           611225.4,
           6110869.6
         ]
@@ -39144,6 +39244,26 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": "DCE, Aarhus Universitet",
         "description": "Opland = 58,14 km2",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          507312.6,
+          6102487.8
+        ]
+      },
+      "properties": {
+        "stationUid": "a1ee66ed-f690-41a8-b3ab-13c7d534ef29",
+        "stationId": "70001635",
+        "name": "LOOP6 Bedsted Bjerg lok.04 6.04.02.10 (5m) P",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "LOOP6 Bedsted Bjerg lok.04 6.04.02.10 (5m) P",
         "measurementPointCount": 1
       }
     },
@@ -40612,6 +40732,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          587128.9901,
+          6141330.7
+        ]
+      },
+      "properties": {
+        "stationUid": "9017b8d0-131c-4688-879a-be126e77fa53",
+        "stationId": "70001122",
+        "name": "Gammelsø - Havn",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           551866,
           6205227
         ]
@@ -40864,26 +41004,6 @@
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
         "description": "LOOP3 Risvej, Ejer TN-3 - ALU-rør -  3.03.0x.xx (1,48m) P",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          587128.9901,
-          6141330.7
-        ]
-      },
-      "properties": {
-        "stationUid": "9017b8d0-131c-4688-879a-be126e77fa53",
-        "stationId": "70001122",
-        "name": "Gammelsø - Havn",
-        "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
-        "operatorName": null,
-        "description": "",
         "measurementPointCount": 1
       }
     },
@@ -41912,26 +42032,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          678439.4,
-          6126088.9
-        ]
-      },
-      "properties": {
-        "stationUid": "b4e416ba-fca0-43ea-8d9d-95b504dc2edf",
-        "stationId": "70001248",
-        "name": "4_88,28 Bvs Tryksensor 2m ",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Monteret på pæl",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           595671.344,
           6144715.336
         ]
@@ -42132,6 +42232,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          586937.564,
+          6138154.137
+        ]
+      },
+      "properties": {
+        "stationUid": "dfa52eb5-dea0-4e54-bc9f-8806b969ce46",
+        "stationId": "70001123",
+        "name": "Sdr Boulevard 232",
+        "locationType": "Vandløb",
+        "stationOwnerName": "VandCenter Syd A/S",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           518035.1,
           6204464.3
         ]
@@ -42252,26 +42372,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          702451.7,
-          6171276.8
-        ]
-      },
-      "properties": {
-        "stationUid": "dedfed53-5dd5-47e4-99ad-37d9ff10eb29",
-        "stationId": "70001290",
-        "name": "1_22,84 Bvs 2m Tryksensor",
-        "locationType": "Vandløb",
-        "stationOwnerName": "Banedanmark",
-        "operatorName": "Klimator DK Aps",
-        "description": "Installeret D 29.01.25",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           587966.2193,
           6139365.4056
         ]
@@ -42292,14 +42392,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          586937.564,
-          6138154.137
+          591635.4842,
+          6135611.4153
         ]
       },
       "properties": {
-        "stationUid": "dfa52eb5-dea0-4e54-bc9f-8806b969ce46",
-        "stationId": "70001123",
-        "name": "Sdr Boulevard 232",
+        "stationUid": "b9e1dabb-7ff6-42a2-bf8e-a2935989212c",
+        "stationId": "70001126",
+        "name": "Hollufgårdsvej 187",
         "locationType": "Vandløb",
         "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
@@ -42562,46 +42662,6 @@
         "name": "GRUMO Thorlundvej 25",
         "locationType": "Grundvandsboring",
         "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          590512.9162,
-          6133776.2699
-        ]
-      },
-      "properties": {
-        "stationUid": "9b806e95-3bf0-4e84-aadf-906271d04ca3",
-        "stationId": "70001119",
-        "name": "Svendborgvej/Lindved Å",
-        "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          591635.4842,
-          6135611.4153
-        ]
-      },
-      "properties": {
-        "stationUid": "b9e1dabb-7ff6-42a2-bf8e-a2935989212c",
-        "stationId": "70001126",
-        "name": "Hollufgårdsvej 187",
-        "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
         "description": "",
         "measurementPointCount": 1
@@ -43262,26 +43322,6 @@
         "name": "GRUMO Petersholm, Petersholmvej 165, Torrild",
         "locationType": "Grundvandsboring",
         "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          589016,
-          6139890
-        ]
-      },
-      "properties": {
-        "stationUid": "67d2eead-7aee-4e44-a982-e9ded1fbf5c6",
-        "stationId": "70001120",
-        "name": "Palnatokesvej",
-        "locationType": "Vandløb",
-        "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
         "description": "",
         "measurementPointCount": 1
@@ -44000,26 +44040,6 @@
         "stationUid": "fedea0cd-908e-4056-978e-07c7203db6f0",
         "stationId": "70002281",
         "name": "GRUMO Øster Solgård, Dalum, Fly",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          658592,
-          6192259
-        ]
-      },
-      "properties": {
-        "stationUid": "1d5a07c4-b3f5-4355-b31a-c29bf3a5e0ee",
-        "stationId": "70001780",
-        "name": "GRUMO Jyderup Skov,  beliggende ved linie 3",
         "locationType": "Grundvandsboring",
         "stationOwnerName": "Miljøstyrelsen",
         "operatorName": null,
@@ -46612,6 +46632,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          659769,
+          6067044
+        ]
+      },
+      "properties": {
+        "stationUid": "0cdfdaf3-d4f2-41c7-ab97-8589e624d51a",
+        "stationId": "70002047",
+        "name": "GRUMO Nøbbøllevej 6, Nord For Nybøllegård, Bursø",
+        "locationType": "Grundvandsboring",
+        "stationOwnerName": "Miljøstyrelsen",
+        "operatorName": null,
+        "description": "",
+        "measurementPointCount": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           499216.7,
           6249358
         ]
@@ -46805,26 +46845,6 @@
         "operatorName": null,
         "description": "",
         "measurementPointCount": 2
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          659769,
-          6067044
-        ]
-      },
-      "properties": {
-        "stationUid": "0cdfdaf3-d4f2-41c7-ab97-8589e624d51a",
-        "stationId": "70002047",
-        "name": "GRUMO Nøbbøllevej 6, Nord For Nybøllegård, Bursø",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 3
       }
     },
     {
@@ -53372,14 +53392,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          581581,
-          6140627.07
+          590137.7597,
+          6140222.0555
         ]
       },
       "properties": {
-        "stationUid": "c1ba02bc-c2ef-4d86-891f-bb6ba78b1080",
-        "stationId": "70001121",
-        "name": "Ryds å - Limrenden - Ejlstrup",
+        "stationUid": "fcde35f6-0eb9-4acb-94a4-246f2f01e9d5",
+        "stationId": "70001124",
+        "name": "Ejby Møllevej 22",
         "locationType": "Vandløb",
         "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
@@ -53392,14 +53412,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          590137.7597,
-          6140222.0555
+          581581,
+          6140627.07
         ]
       },
       "properties": {
-        "stationUid": "fcde35f6-0eb9-4acb-94a4-246f2f01e9d5",
-        "stationId": "70001124",
-        "name": "Ejby Møllevej 22",
+        "stationUid": "c1ba02bc-c2ef-4d86-891f-bb6ba78b1080",
+        "stationId": "70001121",
+        "name": "Ryds å - Limrenden - Ejlstrup",
         "locationType": "Vandløb",
         "stationOwnerName": "VandCenter Syd A/S",
         "operatorName": null,
@@ -55525,26 +55545,6 @@
         "operatorName": null,
         "description": "",
         "measurementPointCount": 2
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          526600.25,
-          6330553.61
-        ]
-      },
-      "properties": {
-        "stationUid": "5b4d492c-bb10-41e7-96df-6511bb922b4a",
-        "stationId": "70000473",
-        "name": "GRUMO Tranum",
-        "locationType": "Grundvandsboring",
-        "stationOwnerName": "Miljøstyrelsen",
-        "operatorName": null,
-        "description": "",
-        "measurementPointCount": 1
       }
     },
     {
