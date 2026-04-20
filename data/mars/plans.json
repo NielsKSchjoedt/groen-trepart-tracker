@@ -74382,11 +74382,11 @@
     "id": "ea4ae662-43e9-4be6-b367-3444edf1036e",
     "name": "Storebælt, NV",
     "geoLocationId": "0d03e1a9-7a56-4295-a8d9-ecbbe49cafa5",
-    "totalNitrogenReductionT": 17.333361255016648,
-    "totalExtractionEffortHa": 3.628859827697409,
+    "totalNitrogenReductionT": 22.1513743311517,
+    "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 633.2779204055087,
-    "countApprovedProjects": 4,
+    "countApprovedProjects": 5,
     "countAssessedProjects": 2,
     "countEstablishedProjects": 1,
     "countSketchProjects": 91,
@@ -74394,7 +74394,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 17.07787947416688,
+        "nitrogenReductionT": 21.895892550301937,
         "extractionEffortHa": 3.628859827697409,
         "afforestationEffortHa": 0
       },
@@ -74517,6 +74517,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "52241703-f46a-4827-9121-65823853f4c6",
+        "projectName": "Ladbyafløbet",
+        "projectStatus": 6,
+        "nitrogenReductionT": 4.818013076135056,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 53.53347862371332,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "9e407581-58f1-4973-8bcc-e815c99b0b44",
+        "subsidySchemeId": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2025-11-03T08:53:49.883322+00:00",
+        "lastStateChanged": "2026-04-20T03:42:16.100651+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
