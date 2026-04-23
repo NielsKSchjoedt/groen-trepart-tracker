@@ -8691,7 +8691,7 @@
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 38453.43715339679,
     "countApprovedProjects": 21,
-    "countAssessedProjects": 103,
+    "countAssessedProjects": 104,
     "countEstablishedProjects": 10,
     "countSketchProjects": 866,
     "countNaturePotentials": 33,
@@ -8712,7 +8712,7 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 2.3898210657876406,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 165.4760044904036
+        "afforestationEffortHa": 170.50521336054175
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -11137,6 +11137,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-10-31T12:45:04.569909+00:00",
         "lastStateChanged": "2026-03-17T14:41:33.661489+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "541c5af9-3871-4475-bba6-e180d012f8e9",
+        "projectName": "Lysholmvej 10",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 5.029208870138155,
+        "overlappingAreaHa": 5.029208870138155,
+        "supplGeo1OverlappingAreaHa": 3.5308289970023115,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "9d0f79c3-0c94-4a32-b3fd-28179c4661e8",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-02-23T12:00:00+00:00",
+        "lastStateChanged": "2026-04-23T06:13:07.087482+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
@@ -41938,12 +41956,12 @@
     "id": "e657bbe8-581e-4e5e-92bd-e39cc965c2f2",
     "name": "Limfjorden",
     "geoLocationId": "e7762bdb-1ef7-4fbe-a745-b21e7996f92e",
-    "totalNitrogenReductionT": 1119.4191859999623,
+    "totalNitrogenReductionT": 1119.4471741355464,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 11699.733039883875,
-    "countApprovedProjects": 120,
-    "countAssessedProjects": 159,
+    "countApprovedProjects": 119,
+    "countAssessedProjects": 161,
     "countEstablishedProjects": 7,
     "countSketchProjects": 701,
     "countNaturePotentials": 9,
@@ -41952,7 +41970,7 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 4.021302341831176,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 531.1499271077358
+        "afforestationEffortHa": 536.837268124523
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -41968,8 +41986,8 @@
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 474.61445589169864,
-        "extractionEffortHa": 1868.4045922659961,
+        "nitrogenReductionT": 474.6424440272827,
+        "extractionEffortHa": 1868.2053300340542,
         "afforestationEffortHa": 0
       },
       {
@@ -45821,24 +45839,6 @@
         "reducedAreaHa": null
       },
       {
-        "projectId": "298f52d0-44c8-428f-ac2b-85272145c25e",
-        "projectName": "Vilsund Forundersøgelse",
-        "projectStatus": 6,
-        "nitrogenReductionT": 0.7870118644159343,
-        "extractionEffortHa": 0.8686514130022506,
-        "afforestationEffortHa": null,
-        "overlappingAreaHa": 8.744576271289105,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "7e0d9023-a7f6-47b0-ba45-a206690d4168",
-        "subsidySchemeId": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
-        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "applicationTimestamp": "2025-07-09T11:57:46.661484+00:00",
-        "lastStateChanged": "2025-08-29T14:09:20.995392+00:00",
-        "originalEffects": null,
-        "reducedAreaHa": null
-      },
-      {
         "projectId": "b99cf2ec-17f1-4a90-b012-d2ead5307832",
         "projectName": "Sundby Å",
         "projectStatus": 6,
@@ -47131,6 +47131,42 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2026-02-20T12:00:00+00:00",
         "lastStateChanged": "2026-03-27T12:17:14.014072+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "1a62a85d-4446-4e99-bd44-78edfe34cff3",
+        "projectName": "Skovrejsning Hvilshøjvej 103",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 5.687341016787118,
+        "overlappingAreaHa": 5.687341016787117,
+        "supplGeo1OverlappingAreaHa": 5.3457481381972345,
+        "supplGeo2OverlappingAreaHa": 5.345748138187253,
+        "geoLocationId": "5f82257e-22cb-4680-8ae6-6609486835a4",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-12-30T12:00:00+00:00",
+        "lastStateChanged": "2026-04-22T11:00:35.401134+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "298f52d0-44c8-428f-ac2b-85272145c25e",
+        "projectName": "Vilsund Forundersøgelse",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.815,
+        "extractionEffortHa": 0.6693891810602487,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 7.473991951799758,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "df4b976c-aa60-4375-a8a0-b1ad444c03ad",
+        "subsidySchemeId": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2025-07-09T11:57:46.661484+00:00",
+        "lastStateChanged": "2026-04-23T05:18:32.200703+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
@@ -64470,12 +64506,12 @@
     "id": "2a6788a4-91d1-4a96-b0fa-9fbf0d4a4159",
     "name": "Ringkøbing Fjord",
     "geoLocationId": "ff855793-7ba1-499d-a048-85271927e92b",
-    "totalNitrogenReductionT": 366.09330364560714,
+    "totalNitrogenReductionT": 366.20303251133276,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 479.04919885390154,
     "countApprovedProjects": 29,
-    "countAssessedProjects": 83,
+    "countAssessedProjects": 84,
     "countEstablishedProjects": 11,
     "countSketchProjects": 145,
     "countNaturePotentials": 2,
@@ -64488,9 +64524,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 7.761483147101483,
+        "nitrogenReductionT": 7.871212012827121,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 655.8939435815923
+        "afforestationEffortHa": 659.7376640679411
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -66723,6 +66759,24 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-04-09T09:58:16.956251+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "94f83f0e-7e1d-42a1-97d3-42f7e5ff3829",
+        "projectName": "Jagtvej",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.10972886572563788,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 3.8437204863487584,
+        "overlappingAreaHa": 3.8437204863487584,
+        "supplGeo1OverlappingAreaHa": 3.7553018540706486,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "12a65246-9df1-4cbb-b73b-fd95b5843b13",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-12-29T12:00:00+00:00",
+        "lastStateChanged": "2026-04-22T07:15:27.260524+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
