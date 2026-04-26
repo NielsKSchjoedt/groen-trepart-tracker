@@ -78,5 +78,27 @@ class TestPaginateContract(unittest.TestCase):
         self.assertEqual([f["properties"]["id"] for f in all_feats], [1, 2, 3])
 
 
+class TestCommittedBiodiversitySummaries(unittest.TestCase):
+    def test_arealdata_summary_contains_ku_samples_and_dce_hits_only_decision(self) -> None:
+        summary_path = SCRIPT_DIR.parent / "data" / "arealdata-biodiversitet" / "summary.json"
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        layers = summary["layers"]
+
+        self.assertGreater(layers["ku_prio_1_fetched"], 0)
+        self.assertGreater(layers["ku_prio_2_fetched"], 0)
+        self.assertGreater(layers["d1_hits"]["numberMatched"], 0)
+        self.assertEqual(layers["d1_fetched"], 0)
+        self.assertFalse(summary["fullDce"])
+
+    def test_vns_summary_renames_cross_check_as_count_only(self) -> None:
+        summary_path = SCRIPT_DIR.parent / "public" / "data" / "vand-natur-skov-projekter-2026-summary.json"
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(summary["featureCount"], summary["hits"])
+        self.assertGreater(summary["featureCount"], 0)
+        self.assertIn("countCheck", summary)
+        self.assertNotIn("crossCheck", summary)
+
+
 if __name__ == "__main__":
     unittest.main()

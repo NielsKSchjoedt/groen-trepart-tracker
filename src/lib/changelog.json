@@ -10,7 +10,7 @@
       },
       {
         "type": "data",
-        "description": "Daglig datakørsel henter nu også Arealdata WFS (KU+ CMEC, med valgfri fuld DCE-fil) og FVMs Vand, natur & skov 2026 til visning. Se data og metode-siden for baggrund. *(ETL: `fetch_arealdata_biodiversitet.py`, `fetch_markkort_natur_projekter.py`.)*"
+        "description": "Daglig datakørsel henter nu også Arealdata WFS (KU+ CMEC; DCE D1 tælles dagligt og kan hentes fuldt manuelt) og FVMs Vand, natur & skov 2026 til visning. Se data og metode-siden for baggrund. *(ETL: `fetch_arealdata_biodiversitet.py`, `fetch_markkort_natur_projekter.py`.)*"
       }
     ]
   },

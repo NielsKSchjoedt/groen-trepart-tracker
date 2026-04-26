@@ -285,6 +285,19 @@ export interface CancelledMetrics {
   };
 }
 
+export interface VandNaturSkovProjekt {
+  id?: string | number;
+  type?: string;
+  navn?: string;
+  kommune?: string | null;
+  kommuneKode?: string | null;
+  arealHa?: number | null;
+  ordning?: string;
+  kilde?: string;
+  fetchedAt?: string;
+  [key: string]: unknown;
+}
+
 export type OwnerOrgKey = 'NST' | 'SGAV' | 'LBST' | 'unknown';
 
 export interface DriftFinansiering {

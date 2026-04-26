@@ -165,7 +165,8 @@ jobs:
         env:
           KLIMAREGNSKAB_API_KEY: ${{ secrets.KLIMAREGNSKAB_API_KEY }}
 
-      # Arealdata: KU-prio 1+2 hver dag; 83k DCE-polygoner kun når FULL_DCE=1 (tungt).
+      # Arealdata: KU-prio 1+2 hver dag; DCE D1 er hits-only i CI (FULL_DCE=0).
+      # Den fulde 83k-polygonfil materialiseres manuelt/periodisk med FULL_DCE=1.
       - name: Fetch Arealdata biodiversitet (WFS)
         run: python3 fetch_arealdata_biodiversitet.py
         working-directory: etl

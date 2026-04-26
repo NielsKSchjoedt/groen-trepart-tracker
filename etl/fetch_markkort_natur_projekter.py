@@ -2,7 +2,7 @@
 """
 FVM Markkort: Vand_Natur_og_Skovprojekter_2026 — WFS GeoJSON → public/data + summary.
 
-MARS cross-check: reports counts only (no spatial join in stdlib).
+MARS count check only: no spatial join in stdlib.
 """
 from __future__ import annotations
 
@@ -190,7 +190,7 @@ def main() -> int:
         "featureCount": len(feats),
         "hits": hits,
         "kommuneCounts": by_k,
-        "crossCheck": {
+        "countCheck": {
             "marsFormalProjects": mc,
             "vnsPolygons": len(feats),
             "note": "Ingen rumlig overlap beregnet i stdlib-ETL; refereres i Sprint 4 (geopandas).",

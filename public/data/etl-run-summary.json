@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-04-26T06:37:09.423355+00:00",
+  "generatedAt": "2026-04-26T22:04:20.055221+00:00",
   "recentRuns": [
     {
       "date": "2026-04-26",
-      "runAt": "2026-04-26T06:36:59.946656+00:00",
+      "runAt": "2026-04-26T21:12:39.291630+00:00",
       "status": "ok",
       "sources": {
         "mars": {
@@ -45,6 +45,20 @@
           "status": "ok",
           "stations": 2796,
           "notes": "2796 stations, 2796 with coordinates"
+        },
+        "arealdata-biodiversitet": {
+          "status": "ok",
+          "ku1": 239,
+          "ku2": 239,
+          "dce_hits": 83579,
+          "dce_fetched": 0,
+          "notes": "Arealdata WFS. FULL_DCE=False. KU+ audit."
+        },
+        "fvm-markkort-vns": {
+          "status": "ok",
+          "vns": 4213,
+          "municipalities_tagged": 83,
+          "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary"
         }
       }
     },

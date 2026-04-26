@@ -211,7 +211,7 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 ### 12. Arealdata (Miljøportal) — biodiversitets- og omlægningskort
 
-**Hvad vi henter**: WMS-fliser (målretning 30% og TRANSFORM: ny natur, CO₂, kvælstof) til hovedkortet; WFS-udtræk af DCE-forekomster og KU+ CMEC-polygoner (to prioritetsniveauer) til `data/arealdata-biodiversitet/`. Fuld DCE-udtræk (~83.000 flader) er valgfri (`FULL_DCE=1`) pga. størrelse.
+**Hvad vi henter**: WMS-fliser (målretning 30% og TRANSFORM: ny natur, CO₂, kvælstof) til hovedkortet; WFS-udtræk af DCE-forekomster og KU+ CMEC-polygoner (to prioritetsniveauer) til `data/arealdata-biodiversitet/`. Daglig kørsel bruger DCE som hits-only (`FULL_DCE=0`); fuldt DCE-udtræk (~83.000 flader) er en manuel/periodisk kørsel (`FULL_DCE=1`) indtil størrelse og køretid er dokumenteret stabile nok til CI.
 
 **Kilde / endpoint**: `https://arld-extgeo.miljoeportal.dk/geoserver/ows` (WFS) og WMS `…/wms` (se `src/lib/biodiv-map.ts`).
 
@@ -225,7 +225,7 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 ### 12b. FVM Markkort — Vand, natur & skov 2026
 
-**Hvad vi henter**: GeoJSON af projekter under Vand-, Natur- og skovrejsningsordningen, slimmet til `public/data/vand-natur-skov-projekter-2026.geojson` + resumé med kommune-fordeling (heuristik mod DAWA).
+**Hvad vi henter**: GeoJSON af projekter under Vand-, Natur- og skovrejsningsordningen, slimmet til `public/data/vand-natur-skov-projekter-2026.geojson` + resumé med kommune-fordeling (heuristik mod DAWA). Resuméets MARS-sammenligning er en `countCheck`, ikke en rumlig overlapvalidering.
 
 **Kilde / endpoint**: `https://geodata.fvm.dk/geoserver/ows` — lag `GB_og_bioordninger:Vand_Natur_og_Skovprojekter_2026`.
 

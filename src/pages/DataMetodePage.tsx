@@ -762,6 +762,24 @@ export default function DataMetodePage() {
             <strong> national prioritering</strong> (KU+ CMEC, to polygonlag), og <strong>omstillings- og udlægningskort</strong> (TRANSFORM + målretning 30% som WMS).
             Tallene i dashboardet ændrer sig ikke herfra — det er kort- og gennemsigtighedslag. Brug nedenstående offentlige kilder som baggrund læsning.
           </p>
+          <div className="mb-4 grid gap-2 text-xs sm:grid-cols-3">
+            {[
+              ['1', 'Rå naturforekomster', 'DCE-laget tælles i standardkørsel; fuld 83k-polygonfil er manuel (FULL_DCE=1).'],
+              ['2', 'National prioritering', 'KU+ CMEC-prioritet 1 og 2 hentes som revisionsdata hver dag.'],
+              ['3', 'Kortvisning', 'Arealdata WMS + FVM VNS-polygons vises på hovedkortet uden at ændre KPI-tal.'],
+            ].map(([step, title, desc]) => (
+              <div key={step} className="rounded-xl border border-border/60 bg-card p-3">
+                <div className="mb-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">
+                  {step}
+                </div>
+                <div className="font-semibold text-foreground">{title}</div>
+                <div className="mt-1 text-muted-foreground">{desc}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mb-4 rounded-lg border border-amber-200/60 bg-amber-50 px-3 py-2 text-xs text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-100">
+            Sprint 3-beslutning: DCE D1 kører som hits-only i daglig ETL (<code>FULL_DCE=0</code>). Den fulde fil materialiseres manuelt/periodisk, når filstørrelse og køretid er dokumenteret stabile nok til CI.
+          </p>
           <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground leading-relaxed">
             <li>
               <a href="https://biodiversitet.dk/" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitet.dk</a>

@@ -14,6 +14,7 @@ import type {
   ByInitiatorHa,
   BudgetData,
   KlimaraadetData,
+  VandNaturSkovProjekt,
 } from './types';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
@@ -33,7 +34,7 @@ let cachedKlimaskovfonden: KlimaskovfondenProject[] | null = null;
 let cachedNstSkov: NaturstyrelsenSkovProject[] | null = null;
 let cachedKlimaregnskab: KlimaregnskabData | null = null;
 let cachedEtlRunSummary: EtlRunSummary | null = null;
-let cachedVandNaturSkov: FeatureCollection<Geometry> | null = null;
+let cachedVandNaturSkov: FeatureCollection<Geometry, VandNaturSkovProjekt> | null = null;
 let cachedVandNaturSkovKey = '';
 
 /**
@@ -383,7 +384,7 @@ export async function loadEtlRunSummary(): Promise<EtlRunSummary | null> {
  * FVM / Markkort: Vand, natur & skov 2026 (slim GeoJSON for kort).
  * Query `v` matches ETL summary generation time to bust cache after refresh.
  */
-export async function loadVandNaturSkovProjekter(): Promise<FeatureCollection<Geometry> | null> {
+export async function loadVandNaturSkovProjekter(): Promise<FeatureCollection<Geometry, VandNaturSkovProjekt> | null> {
   const summary = await loadEtlRunSummary();
   const v = summary?.generatedAt ?? '';
   if (cachedVandNaturSkov && cachedVandNaturSkovKey === v) return cachedVandNaturSkov;
@@ -391,7 +392,7 @@ export async function loadVandNaturSkovProjekter(): Promise<FeatureCollection<Ge
     const q = v ? `?v=${encodeURIComponent(v)}` : '';
     const res = await fetch(`/data/vand-natur-skov-projekter-2026.geojson${q}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const fc = (await res.json()) as FeatureCollection<Geometry>;
+    const fc = (await res.json()) as FeatureCollection<Geometry, VandNaturSkovProjekt>;
     cachedVandNaturSkov = fc;
     cachedVandNaturSkovKey = v;
   } catch {

@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:python": "cd etl && python3 -m unittest test_mars_pipeline_s2 -v",
+    "test:python": "cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet -v",
     "test:watch": "vitest",
     "changelog": "node scripts/generate-changelog.mjs",
     "ci": "npm run lint && npm run typecheck && npm run build && npm run test && npm run test:python"
