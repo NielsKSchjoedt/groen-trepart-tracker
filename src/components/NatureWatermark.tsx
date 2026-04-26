@@ -4,7 +4,6 @@ import butterflySilhouette from '@/assets/butterfly-silhouette.png';
 import fishSilhouette from '@/assets/fish-silhouette.png';
 import heronSilhouette from '@/assets/heron-silhouette.png';
 import foxSilhouette from '@/assets/fox-silhouette.png';
-import rabbitSilhouette from '@/assets/rabbit-silhouette.png';
 import owlSilhouette from '@/assets/owl-silhouette.png';
 import dragonflySilhouette from '@/assets/dragonfly-silhouette.png';
 import hedgehogSilhouette from '@/assets/hedgehog-silhouette.png';
@@ -17,7 +16,7 @@ import crabSilhouette from '@/assets/crab-silhouette.png';
 import seaweedSilhouette from '@/assets/seaweed-silhouette.png';
 import shrimpSilhouette from '@/assets/shrimp-silhouette.png';
 
-export type Animal = 'deer' | 'bee' | 'butterfly' | 'fish' | 'heron' | 'fox' | 'rabbit' | 'owl' | 'dragonfly' | 'hedgehog' | 'flounder' | 'seatrout' | 'cod' | 'eel' | 'seal' | 'crab' | 'seaweed' | 'shrimp';
+export type Animal = 'deer' | 'bee' | 'butterfly' | 'fish' | 'heron' | 'fox' | 'owl' | 'dragonfly' | 'hedgehog' | 'flounder' | 'seatrout' | 'cod' | 'eel' | 'seal' | 'crab' | 'seaweed' | 'shrimp';
 
 interface NatureWatermarkProps {
   animal: Animal;
@@ -32,7 +31,6 @@ const animalMap: Record<Animal, string> = {
   fish: fishSilhouette,
   heron: heronSilhouette,
   fox: foxSilhouette,
-  rabbit: rabbitSilhouette,
   owl: owlSilhouette,
   dragonfly: dragonflySilhouette,
   hedgehog: hedgehogSilhouette,

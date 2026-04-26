@@ -96,7 +96,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     accentColor: '#15803d',
     catchmentDataField: 'afforestationAchievedHa',
     planDataField: 'afforestationAchievedHa',
-    watermarks: ['deer', 'fox', 'rabbit', 'owl', 'hedgehog', 'bee'],
+    watermarks: ['deer', 'fox', 'hedgehog', 'owl', 'bee', 'dragonfly'],
     backgroundTint: 'hsl(140 30% 95%)',
   },
   {

@@ -17,6 +17,14 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.6 — 26. april 2026
+
+**Baggrundens dyresilhuetter bruger nu mere danske naturmotiver**
+
+### Forbedring
+- Dyresilhuetterne i baggrunden bruger nu mere danske naturmotiver. Kanin/hare er fjernet, og den tidligere generiske sommerfugl er skiftet ud med en mørkegrøn, udfyldt citronsommerfugl-silhuet, som hører hjemme i Danmark.
+---
+
 ## v0.9.5 — 23. marts 2026
 
 **Delmålskort: tydeligere tal og farvekodet prognosetekst**
