@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Coins } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
-import { sumKilderMioKr } from '@/lib/budget';
+import { mioKrToMiaKr, sumKilderMioKr } from '@/lib/budget';
 import type { BudgetData, FinansieringKategori } from '@/lib/types';
 import { usePillar, getPillarConfig } from '@/lib/pillars';
 import { InfoTooltip } from './InfoTooltip';
@@ -43,7 +43,7 @@ function KategoriKort({
           {kategori.label}
         </h3>
         <span className="shrink-0 text-xs text-muted-foreground">
-          {formatDanishNumber(totalMio, 0)} mia. kr. (samlet tildelt)
+          {formatDanishNumber(mioKrToMiaKr(totalMio), 1)} mia. kr. (samlet tildelt)
         </span>
       </div>
 
@@ -89,7 +89,7 @@ function KategoriKort({
           </span>
         ) : (
           <span className="rounded-full border border-border bg-muted/50 px-2 py-0.5 text-[10px] text-muted-foreground">
-            Drift: {formatDanishNumber(drift, 1)} mia. kr.
+            Drift: {formatDanishNumber(mioKrToMiaKr(drift), 1)} mia. kr.
           </span>
         )}
       </div>

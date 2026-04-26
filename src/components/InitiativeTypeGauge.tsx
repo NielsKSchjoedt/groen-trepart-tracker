@@ -6,18 +6,12 @@ import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import { InfoTooltip } from './InfoTooltip';
 import { NatureWatermark } from './NatureWatermark';
-import { classifyInitiator } from '@/lib/initiator';
+import { computeInitiatorCounts } from '@/lib/initiator-metrics';
 import type { InitiatorType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 interface InitiativeTypeGaugeProps {
   data: DashboardData;
-}
-
-interface InitiatorCounts {
-  state: number;
-  municipal: number;
-  private: number;
 }
 
 const INITIATOR_CONFIG: Record<
@@ -48,36 +42,6 @@ const INITIATOR_CONFIG: Record<
 };
 
 const INITIATOR_ORDER: InitiatorType[] = ['state', 'municipal', 'private'];
-
-const EFFECT_FIELD: Partial<Record<PillarId, string>> = {
-  nitrogen: 'nitrogenT',
-  extraction: 'extractionHa',
-  afforestation: 'afforestationHa',
-};
-
-function computeInitiatorCounts(data: DashboardData, pillarId: PillarId): InitiatorCounts {
-  const counts: InitiatorCounts = { state: 0, municipal: 0, private: 0 };
-  const effectField = EFFECT_FIELD[pillarId];
-
-  for (const plan of data.plans) {
-    for (const proj of plan.projectDetails) {
-      const hasEffect =
-        !effectField || ((proj as Record<string, unknown>)[effectField] as number) > 0;
-      if (hasEffect) {
-        counts[classifyInitiator(proj.schemeOrg, proj.schemeName)]++;
-      }
-    }
-    for (const sketch of plan.sketchProjects) {
-      const hasEffect =
-        !effectField || ((sketch as Record<string, unknown>)[effectField] as number) > 0;
-      if (hasEffect) {
-        counts[classifyInitiator(sketch.schemeOrg, sketch.schemeName)]++;
-      }
-    }
-  }
-
-  return counts;
-}
 
 type MetricId = 'extraction' | 'afforestation' | 'nitrogen';
 
@@ -117,8 +81,10 @@ export function InitiativeTypeGauge({ data }: InitiativeTypeGaugeProps) {
           : null;
 
   const counts = useMemo(
-    () => (activePillar ? computeInitiatorCounts(data, activePillar) : { state: 0, municipal: 0, private: 0 }),
-    [data, activePillar],
+    () => (activePillar
+      ? computeInitiatorCounts(data, activePillar, includeSketches)
+      : { state: 0, municipal: 0, private: 0 }),
+    [data, activePillar, includeSketches],
   );
 
   const haOrTonByInitiator = useMemo(() => {

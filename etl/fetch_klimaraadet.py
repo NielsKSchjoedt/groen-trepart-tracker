@@ -35,6 +35,11 @@ def _http_ok(url: str) -> bool:
         return False
 
 
+def _looks_like_pdf_url(url: str) -> bool:
+    path = urllib.parse.urlparse(url).path.lower()
+    return path.endswith(".pdf")
+
+
 class _PdfLinkParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -74,6 +79,8 @@ def _resolve_pdf_url(page_url: str) -> str | None:
 
 def _download(pdf_url: str, out_path: str) -> None:
     data = _get(pdf_url)
+    if not data.startswith(b"%PDF"):
+        raise ValueError(f"URL did not return PDF bytes: {pdf_url}")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "wb") as f:
         f.write(data)
@@ -86,12 +93,16 @@ def main() -> None:
 
     with open(JSON_PATH, encoding="utf-8") as f:
         doc = json.load(f)
-    page_url = doc.get("url", "")
+    meta = doc.get("_meta") or {}
+    page_url = meta.get("sourcePageUrl") or doc.get("url", "")
     if not page_url or not _http_ok(page_url):
         print("⚠ Report page not reachable; skipping PDF step.")
     else:
         print(f"  ✓ Page OK: {page_url}")
-    source_pdf = (doc.get("_meta") or {}).get("sourcePdfUrl")
+    source_pdf = meta.get("sourcePdfUrl")
+    if source_pdf and not _looks_like_pdf_url(source_pdf):
+        print(f"  ⚠ Ignoring non-PDF sourcePdfUrl: {source_pdf}")
+        source_pdf = None
     if not source_pdf and page_url:
         source_pdf = _resolve_pdf_url(page_url)
     if not source_pdf:
@@ -103,8 +114,12 @@ def main() -> None:
             out_pdf = os.path.join(
                 os.path.dirname(JSON_PATH), "statusrapport-2026.pdf"
             )
-            _download(source_pdf, out_pdf)
-            print(f"  ✓ Downloaded: {out_pdf} ({os.path.getsize(out_pdf) // 1024} KB)")
+            try:
+                _download(source_pdf, out_pdf)
+                print(f"  ✓ Downloaded: {out_pdf} ({os.path.getsize(out_pdf) // 1024} KB)")
+            except ValueError as e:
+                print(f"  ⚠ {e}")
+                source_pdf = None
         else:
             print("  ⚠ PDF URL not HTTP 200")
     else:
@@ -112,8 +127,10 @@ def main() -> None:
 
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     m = doc.get("_meta") or {}
+    if page_url:
+        m["sourcePageUrl"] = page_url
     m["lastChecked"] = now
-    if source_pdf and "sourcePdfUrl" not in m:
+    if source_pdf:
         m["sourcePdfUrl"] = source_pdf
     doc["_meta"] = m
     with open(JSON_PATH, "w", encoding="utf-8") as f:

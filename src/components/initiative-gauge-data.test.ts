@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import type { ByInitiatorHa } from '@/lib/types';
+import type { ByInitiatorHa, DashboardData } from '@/lib/types';
+import { computeInitiatorCounts } from '@/lib/initiator-metrics';
 
 /**
  * Samme logik som i InitiativeTypeGauge: summer areal/ton for valgte faser.
@@ -73,5 +74,33 @@ describe('Initiative gauge phase merge', () => {
 
   it('med skitser: inkl. sketch (her state = 2 + 1)', () => {
     expect(mergeFromPhases(bih, 'extraction', true).state).toBe(3);
+  });
+
+  it('project-count mode excludes sketches unless explicitly included', () => {
+    const data = {
+      plans: [
+        {
+          projectDetails: [
+            { schemeOrg: 'SGAV', schemeName: 'Kvælstofvådområder', extractionHa: 10 },
+          ],
+          sketchProjects: [
+            { schemeOrg: 'NST', schemeName: 'Statsligt projekt', extractionHa: 20 },
+          ],
+        },
+      ],
+    };
+
+    const dashboardData = data as unknown as DashboardData;
+
+    expect(computeInitiatorCounts(dashboardData, 'extraction', false)).toEqual({
+      state: 0,
+      municipal: 1,
+      private: 0,
+    });
+    expect(computeInitiatorCounts(dashboardData, 'extraction', true)).toEqual({
+      state: 1,
+      municipal: 1,
+      private: 0,
+    });
   });
 });

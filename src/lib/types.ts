@@ -50,6 +50,8 @@ export interface FinansieringKilde {
   kildeNavn: string;
   kildeUrl?: string;
   beloebMioKr: number;
+  /** Defaults to true. Set false for sub-budgets already included in an umbrella line. */
+  includeInTotal?: boolean;
   arealMaalHa?: number;
   periode?: string;
   deadlineYear?: number;

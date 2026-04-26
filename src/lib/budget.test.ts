@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { sumKilderMioKr } from './budget';
+import { mioKrToMiaKr, sumKilderMioKr } from './budget';
 import type { FinansieringKategori } from './types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,8 +23,11 @@ describe('sumKilderMioKr (aftaler.json)', () => {
   it('natur total', () => {
     expect(sumKilderMioKr(cat('natur-sammenhaengende'))).toBe(8500);
   });
-  it('skov total (alle kilder i filen)', () => {
+  it('skov total excludes sub-budgets already covered by umbrella line', () => {
     const skov = sumKilderMioKr(cat('skov'));
-    expect(skov).toBe(20_000 + 7000 + 2400 + 5206);
+    expect(skov).toBe(20_000);
+  });
+  it('display converts mio. kr. to mia. kr.', () => {
+    expect(mioKrToMiaKr(sumKilderMioKr(cat('lavbund-udtagning')))).toBe(11.86);
   });
 });
