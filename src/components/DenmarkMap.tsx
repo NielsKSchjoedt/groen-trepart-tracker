@@ -12,6 +12,7 @@ import type { SelectedProject } from '@/lib/project-selection';
 import { StubMapOverlay } from './StubMapOverlay';
 import { MobileBottomSheet } from './MobileBottomSheet';
 import { NatureWatermark } from './NatureWatermark';
+import { DenmarkMapBiodiv } from './DenmarkMapBiodiv';
 import { usePillar } from '@/lib/pillars';
 import type { Plan, Catchment, DashboardData, CoastalWaterStatusData, CoastalWaterEntry, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { Map, AlertTriangle, MousePointerClick, Waves } from 'lucide-react';
@@ -139,6 +140,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   // containers inside its own stacking context, which can bleed through before
   // the host element's stacking context is committed by the browser).
   const [mapReady, setMapReady] = useState(false);
+  /** Set when Leaflet `map` is created; safe to pass to children (avoids ref access during render). */
+  const [leafletMap, setLeafletMap] = useState<L.Map | null>(null);
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -407,6 +410,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
     mapRef.current = map;
+    setLeafletMap(map);
 
     // Delay the state update so it runs in a separate event-loop tick rather
     // than synchronously inside the effect body (react-hooks/set-state-in-effect).
@@ -418,6 +422,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       clearTimeout(readyTimer);
       map.remove();
       mapRef.current = null;
+      setLeafletMap(null);
       setMapReady(false);
     };
   }, []);
@@ -963,6 +968,14 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
               />
             </div>
             </div>
+          )}
+          {!isStub && mapReady && leafletMap && (
+            <DenmarkMapBiodiv
+              map={leafletMap}
+              isStub={isStub}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
+            />
           )}
         </div>
       </div>

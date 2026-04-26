@@ -17,6 +17,17 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.9 — 26. april 2026
+
+**Biodiversitetslag på hovedkortet (WMS, valgfri VNS-vektor) og nye ETL-kilder**
+
+### Ny funktion
+- På kortet over Danmark kan du nu slå biodiversitets- og omlægningskort til: op til fire gennemsigtige lag fra Arealdata (WMS), og – hvis du vil – polygoner for Vand, natur & skov 2026 fra FVM. Indstillingerne kan deles i linket (søgeparametre). *(Teknisk: `DenmarkMapBiodiv`, WMS + GeoJSON.)*
+
+### Dataopdatering
+- Daglig datakørsel henter nu også Arealdata WFS (KU+ CMEC, med valgfri fuld DCE-fil) og FVMs Vand, natur & skov 2026 til visning. Se data og metode-siden for baggrund. *(ETL: `fetch_arealdata_biodiversitet.py`, `fetch_markkort_natur_projekter.py`.)*
+---
+
 ## v0.9.8 — 26. april 2026
 
 **DNs 5-fase MARS-pipeline, frafald og ejer-grupper (ved siden af den korte trakt)**

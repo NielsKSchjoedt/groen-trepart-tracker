@@ -24,6 +24,8 @@ This page documents all data sources, their licenses, and the attribution requir
 | Naturstyrelsen Skov (WFS)    | Statslige skovrejsningsprojekter          | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
 | Klimaregnskabet / Energistyrelsen | Kommunefordelt CO₂-regnskab (API klar) | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
 | TRANSFORM / KU+AU+SEGES      | Potentialekort: kvælstof, CO₂, natur (planlagt) | CC0-lignende       | Ja (kildeangivelse)  |
+| Arealdata (Miljøportal)     | Biodiversitets- og omlægningskort, DCE+KU+ WFS | CC0-lignende (PSI) | Ja (kildeangivelse)  |
+| FVM (geodata.fvm.dk)        | Markkort: Vand, natur & skov 2026 (WFS)      | CC0-lignende (PSI) | Ja (kildeangivelse)  |
 
 
 ---
@@ -207,7 +209,33 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 ---
 
-### 12. TRANSFORM — potentialekort for arealanvendelse
+### 12. Arealdata (Miljøportal) — biodiversitets- og omlægningskort
+
+**Hvad vi henter**: WMS-fliser (målretning 30% og TRANSFORM: ny natur, CO₂, kvælstof) til hovedkortet; WFS-udtræk af DCE-forekomster og KU+ CMEC-polygoner (to prioritetsniveauer) til `data/arealdata-biodiversitet/`. Fuld DCE-udtræk (~83.000 flader) er valgfri (`FULL_DCE=1`) pga. størrelse.
+
+**Kilde / endpoint**: `https://arld-extgeo.miljoeportal.dk/geoserver/ows` (WFS) og WMS `…/wms` (se `src/lib/biodiv-map.ts`).
+
+**Licens**: CC0-lignende (PSI-loven) over Miljøportalens vilkår.
+
+**Attribution**: "Indeholder data fra Danmarks Miljøportal (miljoeportal.dk)"
+
+**Fetch**: `etl/fetch_arealdata_biodiversitet.py`, log: `etl_log` med `source=arealdata-biodiversitet`.
+
+---
+
+### 12b. FVM Markkort — Vand, natur & skov 2026
+
+**Hvad vi henter**: GeoJSON af projekter under Vand-, Natur- og skovrejsningsordningen, slimmet til `public/data/vand-natur-skov-projekter-2026.geojson` + resumé med kommune-fordeling (heuristik mod DAWA).
+
+**Kilde / endpoint**: `https://geodata.fvm.dk/geoserver/ows` — lag `GB_og_bioordninger:Vand_Natur_og_Skovprojekter_2026`.
+
+**Licens**: Offentlige data under FVM; jf. datakatalogs vilkår.
+
+**Fetch**: `etl/fetch_markkort_natur_projekter.py`, log: `fvm-markkort-vns`.
+
+---
+
+### 13. TRANSFORM — potentialekort for arealanvendelse
 
 **Hvad vi planlægger at hente**: Fem potentialekort der viser, hvor i Danmark der er størst potentiale for klima- og miljøindsatser:
 1. Kvælstofudvaskning fra marker (hvor lækker mest)
@@ -222,7 +250,7 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 **Licens**: Forventet CC0-lignende — offentligt tilgængelig via Miljøportalen. Skal bekræftes.
 
-**Status**: ⚠️ Endnu ikke integreret. Kræver undersøgelse af adgangsmetode (WMS/WFS via Miljøportal?).
+**Status**: WMS-temaer for TRANSFORM (og målretning) er **integreret som valgfri lag** på hovedkortet (Biodiversitet). Fuld vektor-ETL/aggregering pr. kommune er stadig fremadrettet.
 
 **Relevans**: Direkte relevant for eksisterende dashboard — kan sammenholdes med MARS-projektdata: "her er potentialet for kvælstofreduktion — og her er hvad der faktisk er anlagt." Det er et stærkt analytisk narrativ.
 

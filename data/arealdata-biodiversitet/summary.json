@@ -1,0 +1,23 @@
+{
+  "fetchedAt": "2026-04-26T21:12:35.211926+00:00",
+  "wfsBase": "https://arld-extgeo.miljoeportal.dk/geoserver/ows",
+  "layers": {
+    "d1_hits": {
+      "typeName": "dn:arealreservation_20220928",
+      "numberMatched": 83579
+    },
+    "ku_prio_1_hits": {
+      "typeName": "ku:ku_239omr_cmec2024_2_1",
+      "numberMatched": 239
+    },
+    "ku_prio_2_hits": {
+      "typeName": "ku:ku_239omr_cmec2024_2_2",
+      "numberMatched": 239
+    },
+    "d1_fetched": 0,
+    "ku_prio_1_fetched": 239,
+    "ku_prio_2_fetched": 239
+  },
+  "fullDce": false,
+  "note_dce": "FULL_DCE=0: skipped file write; use hits count for audit. Set FULL_DCE=1 in scheduled job to materialise."
+}

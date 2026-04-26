@@ -10,6 +10,10 @@ run = "npm install -g topojson-server topojson-simplify topojson-client mapshape
 description = "Run all ETL fetchers (MARS, DAWA, MiljøGIS, DST, VanDa) + build dashboard data"
 run = "bash etl/fetch_all.sh"
 
+[tasks.fetch-biodiversitet]
+description = "Arealdata WFS (KU, optional DCE) + FVM VNS 2026 — kør fra etl/"
+run = "cd etl && python3 fetch_arealdata_biodiversitet.py && python3 fetch_markkort_natur_projekter.py"
+
 [tasks.build-dashboard]
 description = "Build the slim dashboard JSON from raw MARS data"
 run = "cd etl && python3 build_dashboard_data.py"
@@ -41,20 +45,27 @@ echo "=== All done ==="
 description = "Fetch project geometries from MARS API (resumable — saves every 25 fetches)"
 run = "cd etl && python3 fetch_geometries.py"
 
+[tasks.test-python]
+description = "Python stdlib ETL unit tests (WFS helpers m.m.)"
+run = "cd etl && python3 -m unittest test_fetch_biodiversitet -v"
+
 [tasks.check]
 description = "Run all checks: lint, typecheck, build, and tests"
 run = """
-echo "=== 1/4: Lint ==="
+echo "=== 1/5: Lint ==="
 npm run lint
 echo
-echo "=== 2/4: Typecheck ==="
+echo "=== 2/5: Typecheck ==="
 npm run typecheck
 echo
-echo "=== 3/4: Build ==="
+echo "=== 3/5: Build ==="
 npm run build
 echo
-echo "=== 4/4: Tests ==="
+echo "=== 4/5: Frontend tests ==="
 npm run test
+echo
+echo "=== 5/5: Python ETL tests ==="
+cd etl && python3 -m unittest test_fetch_biodiversitet -v
 echo
 echo "=== All checks passed ==="
 """

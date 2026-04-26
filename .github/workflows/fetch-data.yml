@@ -165,6 +165,18 @@ jobs:
         env:
           KLIMAREGNSKAB_API_KEY: ${{ secrets.KLIMAREGNSKAB_API_KEY }}
 
+      # Arealdata: KU-prio 1+2 hver dag; 83k DCE-polygoner kun når FULL_DCE=1 (tungt).
+      - name: Fetch Arealdata biodiversitet (WFS)
+        run: python3 fetch_arealdata_biodiversitet.py
+        working-directory: etl
+        env:
+          FULL_DCE: "0"
+          BIODIV_PAGE_SIZE: "2000"
+
+      - name: Fetch FVM Markkort (Vand, natur & skov 2026)
+        run: python3 fetch_markkort_natur_projekter.py
+        working-directory: etl
+
       - name: Build dashboard data
         run: python3 build_dashboard_data.py
         working-directory: etl

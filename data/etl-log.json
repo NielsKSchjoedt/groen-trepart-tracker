@@ -4329,6 +4329,36 @@
         "stations": 2796
       },
       "notes": "2796 stations, 2796 with coordinates"
+    },
+    {
+      "timestamp": "2026-04-26T21:12:37.364408+00:00",
+      "source": "arealdata-biodiversitet",
+      "status": "ok",
+      "endpoints": [
+        "https://arld-extgeo.miljoeportal.dk/geoserver/ows"
+      ],
+      "records": {
+        "dce_hits": 83579,
+        "dce_fetched": 0,
+        "ku1": 239,
+        "ku2": 239
+      },
+      "notes": "Arealdata WFS. FULL_DCE=False. KU+ audit.",
+      "duration_seconds": 2.2
+    },
+    {
+      "timestamp": "2026-04-26T21:12:39.291630+00:00",
+      "source": "fvm-markkort-vns",
+      "status": "ok",
+      "endpoints": [
+        "https://geodata.fvm.dk/geoserver/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=GB_og_bioordninger:Vand_Natur_og_Skovprojekter_2026&outputFormat=application%2Fjson&srsName=urn:ogc:def:crs:"
+      ],
+      "records": {
+        "vns": 4213,
+        "municipalities_tagged": 83
+      },
+      "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary",
+      "duration_seconds": 1.9
     }
   ]
 }

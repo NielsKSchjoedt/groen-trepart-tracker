@@ -33,6 +33,8 @@ let cachedKlimaskovfonden: KlimaskovfondenProject[] | null = null;
 let cachedNstSkov: NaturstyrelsenSkovProject[] | null = null;
 let cachedKlimaregnskab: KlimaregnskabData | null = null;
 let cachedEtlRunSummary: EtlRunSummary | null = null;
+let cachedVandNaturSkov: FeatureCollection<Geometry> | null = null;
+let cachedVandNaturSkovKey = '';
 
 /**
  * Normalize the raw ETL JSON (which uses nested progress objects and
@@ -375,6 +377,27 @@ export async function loadEtlRunSummary(): Promise<EtlRunSummary | null> {
     cachedEtlRunSummary = null;
   }
   return cachedEtlRunSummary;
+}
+
+/**
+ * FVM / Markkort: Vand, natur & skov 2026 (slim GeoJSON for kort).
+ * Query `v` matches ETL summary generation time to bust cache after refresh.
+ */
+export async function loadVandNaturSkovProjekter(): Promise<FeatureCollection<Geometry> | null> {
+  const summary = await loadEtlRunSummary();
+  const v = summary?.generatedAt ?? '';
+  if (cachedVandNaturSkov && cachedVandNaturSkovKey === v) return cachedVandNaturSkov;
+  try {
+    const q = v ? `?v=${encodeURIComponent(v)}` : '';
+    const res = await fetch(`/data/vand-natur-skov-projekter-2026.geojson${q}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const fc = (await res.json()) as FeatureCollection<Geometry>;
+    cachedVandNaturSkov = fc;
+    cachedVandNaturSkovKey = v;
+  } catch {
+    cachedVandNaturSkov = null;
+  }
+  return cachedVandNaturSkov;
 }
 
 /** Load project changelog (recent status changes for the news ticker) */

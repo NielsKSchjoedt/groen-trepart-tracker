@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Database, ExternalLink, ChevronDown, ChevronRight, RefreshCw,
   Shield, Leaf, TreePine, Landmark, Scale, FileCode2, AlertTriangle,
-  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History,
+  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History, Sprout, MapPinned,
 } from 'lucide-react';
 import { changelog, CHANGE_TYPE_LABELS, type ChangeType } from '@/lib/changelog';
 import { Link } from 'react-router-dom';
@@ -124,6 +124,30 @@ const DATA_SOURCES: DataSourceDef[] = [
     dataDir: 'data/section3/',
     fetchScript: 'etl/fetch_section3.py',
     pillars: ['Natur'],
+  },
+  {
+    icon: Sprout,
+    title: 'Arealdata — biodiversitet (WMS/WFS)',
+    description: 'Kort: WMS-lag for målretning 30% og TRANSFORM (ny natur, CO₂, kvælstof) fra Danmarks Miljøportal. Rå WFS-udtræk (bl.a. DCE-forekomster og KU+ CMEC-områder) gemmes under data/ som revisionsgrundlag; standardkørsel hopper over den fulde 83k-polygon-fil (FULL_DCE=0).',
+    url: 'https://miljoeportal.dk/da/Land/Areal-og-jord/Arealdata',
+    urlLabel: 'miljoeportal.dk (Arealdata)',
+    disclaimer: 'WMS er billedfliser med serverside-legend; de erstatter ikke juridisk matrikel- eller forvaltningsdata. Sammenlign med fagkyndig tolkning.',
+    frequency: 'Dagligt (GitHub Actions) for KU; fuld DCE efter behov',
+    dataDir: 'data/arealdata-biodiversitet/',
+    fetchScript: 'etl/fetch_arealdata_biodiversitet.py',
+    pillars: ['Natur', 'Kort'],
+  },
+  {
+    icon: MapPinned,
+    title: 'FVM — Vand, natur & skov 2026',
+    description: 'Landsdækkende kortlægning under Vand-, Natur- og skovrejsningsordningen (Markkort, GeoServer). Vises som valgfrit vektor-overlay på hovedkortet.',
+    url: 'https://fvm.dk/temaer/natur-og-miljoe',
+    urlLabel: 'fvm.dk',
+    disclaimer: 'Kommunetælling i resumé bruger DAWA-centroider; overlap med MARS er kun vejledende (ingen spatial join i stdlib-ETL).',
+    frequency: 'Dagligt sammen med pipelinen (GitHub Actions / fetch_all.sh)',
+    dataDir: 'data/markkort/',
+    fetchScript: 'etl/fetch_markkort_natur_projekter.py',
+    pillars: ['Natur', 'Kort'],
   },
   {
     icon: TreePine,
@@ -268,7 +292,7 @@ const PILLAR_MATRIX: PillarSourceRow[] = [
   { pillar: 'Lavbund', accentColor: '#a16207', sources: ['MARS API', 'Klimaskovfonden'], metric: 'Hektar udtaget (mål: 140.000 ha)' },
   { pillar: 'Skovrejsning', accentColor: '#15803d', sources: ['MARS API', 'Klimaskovfonden', 'Naturstyrelsen', 'Fredskov WFS'], metric: 'Hektar ny skov (mål: 250.000 ha)' },
   { pillar: 'CO₂', accentColor: '#737373', sources: ['KF25 (Energistyrelsen)'], metric: '% reduktion ift. 1990 (mål: 70%)' },
-  { pillar: 'Natur', accentColor: '#7c3aed', sources: ['Natura 2000 WFS', '§3 WFS'], metric: '% beskyttet landareal (mål: 20%)' },
+  { pillar: 'Natur', accentColor: '#7c3aed', sources: ['Natura 2000 WFS', '§3 WFS', 'Arealdata WMS', 'FVM VNS 2026'], metric: '% beskyttet landareal (mål: 20%)' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -337,6 +361,15 @@ const METHOD_SECTIONS = [
     ),
   },
   {
+    title: 'Biodiversitet på hovedkortet (WMS, valgfri vektor)',
+    content: (
+      <>
+        <p>Under <a href="#biodiversitet" className="underline decoration-primary/30">Biodiversitet</a> kan du tænde op til fire WMS-lag (målretning 30% og tre TRANSFORM-temaer) og et separat FVM-vektorlag. WMS lægger gennemsigtige fliser oven på landkortet; de er beregnet til overblik, ikke som juridisk dokumentation.</p>
+        <p>Tre rå dataspor i <code>data/arealdata-biodiversitet/</code> afspejler typisk: (1) DCE-forekomster, (2) KU+ CMEC-prioritering i to niveauer, (3) kobling til TRANSFORM- og biodiversitetskort, der igen hænger sammen med EU/ national planlægning. Se næste afsnit for nøglepublikationer.</p>
+      </>
+    ),
+  },
+  {
     title: 'Kommunefordeling (punkt-i-polygon)',
     content: (
       <>
@@ -377,12 +410,14 @@ const STATUS_LABEL: Record<string, string> = {
   error:   'Fejl',
 };
 const SOURCE_DISPLAY: Record<string, string> = {
-  mars:          'MARS',
-  dawa:          'DAWA',
-  miljoegis:     'MiljøGIS',
-  dst:           'DST',
-  vanda:         'VanDa',
-  klimaregnskab: 'Klimaregnskab',
+  mars:                      'MARS',
+  dawa:                      'DAWA',
+  miljoegis:                 'MiljøGIS',
+  dst:                       'DST',
+  vanda:                     'VanDa',
+  klimaregnskab:             'Klimaregnskab',
+  'arealdata-biodiversitet': 'Arealdata bio',
+  'fvm-markkort-vns':        'FVM VNS',
 };
 
 /**
@@ -540,6 +575,7 @@ export default function DataMetodePage() {
             { href: '#datakilder', label: 'Datakilder' },
             { href: '#pipeline', label: 'Pipeline' },
             { href: '#soejler', label: 'Søjler & dataflow' },
+            { href: '#biodiversitet', label: 'Biodiversitet' },
             { href: '#kvalitet', label: 'Kvalitet' },
             { href: '#opdatering', label: 'Opdatering' },
             { href: '#metode', label: 'Metode' },
@@ -716,6 +752,38 @@ export default function DataMetodePage() {
               </tbody>
             </table>
           </div>
+        </section>
+
+        {/* ========== 4b. Biodiversitet: spor og nøgledokumenter ========== */}
+        <section id="biodiversitet">
+          <SectionHeader icon={Sprout} title="Biodiversitet — spor og nøgledokumenter" />
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            Sammen med den beskyttede natur-måling bruger hovedkortet et <strong>tretrins læsebenchmark</strong>: <strong>EU/ danske råværdier</strong> (arternes og levestederne forekomst i DCE),
+            <strong> national prioritering</strong> (KU+ CMEC, to polygonlag), og <strong>omstillings- og udlægningskort</strong> (TRANSFORM + målretning 30% som WMS).
+            Tallene i dashboardet ændrer sig ikke herfra — det er kort- og gennemsigtighedslag. Brug nedenstående offentlige kilder som baggrund læsning.
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground leading-relaxed">
+            <li>
+              <a href="https://biodiversitet.dk/" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitet.dk</a>
+              {' — '}nationalt videncenter, samler myndigheder, rapporter og indikatorer.
+            </li>
+            <li>
+              <a href="https://environment.ec.europa.eu/topics/nature-and-biodiversity/habitats-directive_en" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">EUs habitatdirektiv (DCE)</a>
+              {' — '}grundlaget for vores reserverede arter og levesteder.
+            </li>
+            <li>
+              <a href="https://miljoeportal.dk/da/Land/Areal-og-jord/Arealdata" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Arealdata (Miljøportal)</a>
+              {' — '}WMS/WFS for biodiversitets- og omlægningskort, herunder TRANSFORM- og indsats-WMS.
+            </li>
+            <li>
+              <a href="https://regeringen.dk/aktuelt/nyheder/2019/12/regeringen-nu-kommer-der-klare-krav-om-mere-og-bedre-beskyttelse-af-naturen" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Regeringen — biodiversitets- og slettepakke (2019)</a>
+              {' — '}politisk forankring af højere standard for beskyttet natur.
+            </li>
+            <li>
+              <a href="https://fvm.dk/temaer/natur-og-miljoe" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">FVM — natur og landdistrikter</a>
+              {' — '}Vand, natur & skov-ordninger, herunder kortdækningen vi henter som GeoJSON.
+            </li>
+          </ul>
         </section>
 
         {/* ========== 5. Datakvalitet og begrænsninger ========== */}
