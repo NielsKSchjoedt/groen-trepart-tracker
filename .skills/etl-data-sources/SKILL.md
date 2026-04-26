@@ -99,7 +99,7 @@ The primary source for project data, targets, and plans.
 arrays. When computing per-plan phase breakdowns, iterate `plan.get("projects", [])` — do NOT try
 to match projects to plans via `geoLocationId` (these IDs don't align between the two endpoints).
 
-**User-Agent:** All requests must include `User-Agent: TrepartTracker/0.1 (open-source dashboard; contact nielskristian@autouncle.com)`.
+**User-Agent:** All requests must include `User-Agent: TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)`.
 
 **Timeout:** 30 seconds per request.
 
@@ -177,7 +177,7 @@ from etl import etl_log
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "data", "subfolder")
-USER_AGENT = "TrepartTracker/0.1 (open-source dashboard; contact nielskristian@autouncle.com)"
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT_SECONDS = 30
 
 def fetch_url(url, params=None):

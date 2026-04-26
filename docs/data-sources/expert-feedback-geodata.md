@@ -1,32 +1,29 @@
-# Ekspertfeedback: Ole Gregor — pensioneret landinspektør
+# Ekspertinput: geodata og miljødata
 
-> Modtaget 17. marts 2026. Ole Gregor er pensioneret landinspektør, tidligere i Viborg Amt, og var en af de første til at dele geodata gratis og sætte kort på internettet i Danmark. Kontakt anbefalet af Nils Mulvad. Gæsteunderviser på DMJX.
+> Sammenfatning af fagligt input om geodata, miljødata og metodiske begrænsninger. Personnavne, henvisningskæder og kontaktoplysninger er udeladt, fordi repository-dokumentation skal være personneutral.
 
 ---
 
-## Nye datakilder og kontakter
+## Nye datakilder og organisatoriske indgange
 
-### Danmarks Miljøportal — Nils Høgsted
-- **Kontakt**: Nils Høgsted, sekretariatschef i Danmarks Miljøportal
-- Ole beskriver ham som "interesseret i at data kommer ud og arbejde"
+### Danmarks Miljøportal
 - Miljøportalen samler data fra en lang række myndigheder
 - Der er API til de fleste data
-- **Det er her de afgørende data ligger** (Oles ord)
-- Historisk er der udfordringer: Miljøministeriet tildelte DMU databaseopgaver uden udbud, så det er svært at trække data ud (f.eks. arter), men der arbejdes på omstrukturering
+- Relevans: centrale miljødata for vand, arter, arealer og overvågning ligger ofte her
+- Historisk er der udfordringer med adgang til nogle datasæt, men der arbejdes på omstrukturering
 
 ### PULS — overløb fra offentlige forsyninger
 - Data om kloakoverløb til vandmiljøet
-- Ole bemærker: "for nogle kommuner er der en grim fornemmelse af at data ikke er de reelle"
-- Relevant transparensvinkel: kvaliteten af overløbsdata varierer
+- Relevant transparensvinkel: kvaliteten af overløbsdata kan variere mellem kommuner
 
 ### MiljøGIS fra Miljøministeriet og Ministeriet for Grøn Trepart
 - Indeholder centrale data om mål (vandområdeplanerne + Natura 2000-planerne) og tilhørende basisanalyser
 - Vurdering af tilstand og hvad der skal til for at nå målene
-- Adgangen er "mere kaotisk" end Miljøportalen — ministerierne "kan ikke finde ud af at udstille dem via Miljøportalen"
+- Adgangen er mindre samlet end Miljøportalen og kræver ofte konkret lag- og endpoint-afklaring
 
 ### Fugle og Natur / DOF-databasen
 - Relevant biodiversitetsdata
-- **Advarsel**: De vil ofte have penge for adgang til data
+- **Advarsel**: Adgang kan være betalingsbelagt
 
 ---
 
@@ -35,21 +32,17 @@
 ### Udvaskning og forsinkelse
 - Udvaskning hænger sammen med nedbør, afgrøder og *tidligere* udspredning af gødning og pesticider
 - Effektvurdering er komplekst
-- Der er en lang forsinkelse fra plan → realisering → målbar effekt ("mange, mange år")
+- Der er en lang forsinkelse fra plan → realisering → målbar effekt
 
 ### Referenceproblemet med Baltikum
 - Danmark anvender Baltikum som reference for vandkvalitetsmål
-- Ole mener det giver "kun begrænset mening" fordi:
-  - Der er "rigtig mange mennesker fjernet igennem de sidste 80 år" (historisk kontekst)
-  - Store landbrugsarealer er opgivet i Baltikum
-  - Danmark har ikke forårsafstrømningen til "gennemskylning" af vandløbene
+- Det kan være metodisk problematisk, fordi historisk arealanvendelse, befolkningstæthed og hydrologi adskiller sig markant
 - Danmark burde muligvis have udpeget flere "modificerede områder"
-- Vandløbsplanerne er "reelt præget af lystfiskerinteresser"
+- Vandløbsplanerne kan være præget af bestemte brugerinteresser, hvilket bør håndteres åbent i metodeformidlingen
 
 ### Manglende data — biodiversitet i det åbne land
 - **Ingen data for**: nedlæggelse af læhegn, færre markgrænser
 - Disse er afgørende for biodiversiteten i det åbne land
-- Viber, agerhøns er "stort set væk", det samme gælder smådyrene
 - Et datahul der bør dokumenteres i Data og metode-sektionen
 
 ### Grundvandsdata under omlægning
@@ -57,11 +50,11 @@
 - I dag er det svært at koble boringer med vandværker
 - Vand blandes fra flere boringer → svært at vurdere nitrat/pesticider direkte
 - Svært at trække aktuelle data ud
-- **Anbefaling**: Spørg Miljøportalen om fremdrift med omlægningen
+- **Anbefaling**: Afklar fremdrift med omlægningen via Miljøportalen
 
 ---
 
-## Satellit-data og NDVI (opfølgning 17. marts)
+## Satellit-data og NDVI
 
 ### NDVI til ændringsdetektion
 - Det er notorisk svært at lave klassifikation af naturtyper fra satellitdata
@@ -73,7 +66,7 @@
 **Konsekvens for projektet**: I stedet for at forsøge at klassificere naturtyper fra satellit (svært), kan vi bruge NDVI til at vise *ændringer over tid* — f.eks. "dette areal var landbrugsjord i 2020, nu er biomassen steget, hvilket indikerer skovrejsning/naturgenopretning." Det er en stærkere og mere ærlig brug af satellitdata.
 
 ### Biodiversitetsbegrebet — et formidlingsdilemma
-Ole påpeger en fundamental faglig uenighed om, hvad "biodiversitet" egentlig betyder som mål:
+Der er en fundamental faglig uenighed om, hvad "biodiversitet" egentlig betyder som mål:
 
 - **Mange arter lokalt** (DMU-tilgangen, Molslaboratoriet) — biodiversitet = artsdiversitet på et givent område
 - **Sjældne naturtyper globalt** — bevare variation på verdensplan, selvom det betyder færre arter lokalt. Eksempler:
@@ -84,14 +77,9 @@ Ole påpeger en fundamental faglig uenighed om, hvad "biodiversitet" egentlig be
 
 ---
 
-## Anbefalinger fra Ole
+## Anbefalinger
 
 ### Fokusområder for næste trin
 1. **Udledninger ved udløb af større vandløb** — kombination af Miljøportal og MiljøGIS
 2. **Fjorde og lukkede farvande** — specifikt det sydfynske og Smålandsfarvandet
-3. **Kontakt Nils Høgsted** (Miljøportalen) som indgang til data
-
-### Generel vurdering
-- "Et flot stykke formidlingsarbejde"
-- "Reelt noget ministeriet burde have gjort, hvis de for alvor ønsker fremdrift"
-- Åben for yderligere dialog — "du er velkommen til at ringe"
+3. **Danmarks Miljøportal** som organisatorisk indgang til dataafklaring

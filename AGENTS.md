@@ -54,6 +54,16 @@ docs/
 - **Data format**: Prefer GeoJSON and JSON; CSV as fallback
 - **Spatial DB**: PostGIS on PostgreSQL (recommended by all research sources)
 
+## Privacy and person-neutral repository policy
+
+This is a public, open-source repository. Committed files must be person-neutral and must not contain private stakeholder correspondence or personally identifying details from project communication.
+
+- Do **not** commit names, email addresses, phone numbers, personal roles, referrals, cc-lists, or "who said/answered/forwarded/confirmed what" from emails, calls, meetings, or informal feedback.
+- Keep stakeholder outreach notes, raw emails, implementation-only feedback, and named contact tracking in ignored local workspace files such as `.cursor/`, never in committed docs or data.
+- When feedback informs public documentation, rewrite it as organization-level or topic-level insight, e.g. "feedback from a public data catalogue context" rather than naming the person.
+- Public source data may include official names or labels when those fields are part of an open dataset. Do not add extra person attribution around that data.
+- Filenames, headings, changelog entries, and examples should also avoid personal names unless the name is an official public organization, legal source, software package, or cited publication where authorship is required.
+
 ## Changelog requirements
 
 **Every commit that changes user-facing data, UI, or methodology must update the changelog.**
@@ -196,5 +206,4 @@ Original research documents are in `transcripts_and_research/`:
 - `Open Source Miljø Tracker Research.md` — Gemini deep research (most comprehensive on data infrastructure)
 - `compass_artifact_wf-*.md` — Claude/Compass research (strongest on governance, metrics taxonomy, data schema)
 - `deep-research-report.md` — ChatGPT deep research (strongest on dataset inventory and automation assessment)
-- `ChatGPT-Idé og mailhjælp.md` — Original idea development conversation
-- `1000011611.jpg` — Original email to Danmarks Naturfredningsforening
+- Private ideation and outreach material — keep these local/ignored and do not quote personal correspondence in committed files

@@ -1,7 +1,6 @@
 # Project Drill-Down Feature — Handover Notes
 
 **Date:** 2026-03-11
-**Author:** Claude (via Cowork session with Niels Kristian)
 
 ## What was built
 

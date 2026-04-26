@@ -1,6 +1,6 @@
-# Feedback: Christian Larsen — Datavejviser / Digitaliseringsstyrelsen
+# Feedback: Datavejviser / Digitaliseringsstyrelsen
 
-> Modtaget 17. marts 2026. Christian Larsen arbejder med Datavejviser (et katalog over offentlige data) i Digitaliseringsstyrelsen. Mailen var videresendt af Laura Lund Rasmussen. Athena (kollega) og Thor (biolog, Open Source-ekspert i DIGST) er cc'd.
+> Sammenfatning af feedback om offentlige datakataloger, dataadgang og mulige samarbejdsflader. Personnavne, videresendelseskæder og cc-oplysninger er udeladt, fordi repository-dokumentation skal være personneutral.
 
 ---
 
@@ -39,56 +39,50 @@ https://dataforsyningen.dk/news/5117
 
 ---
 
-## Kontakter og muligheder
+## Muligheder
 
-### Christian Larsen — Datavejviser
-- Email: kontakt@datavejviser.dk
+### Datavejviser
 - Arbejder med katalog over offentlige data
-- Meget åben for dialog og samarbejde
-- Tilbyder: "Sig til hvis du har brug for konkrete kontakter"
+- Mulig indgang til konkrete datakontakter og katalogafklaring
 
-### Thor — Open Source-ekspert i DIGST
-- Cc'd på mailen, biolog
-- Kan muligvis kende til relevante OS-initiativer
+### Open source og offentlige data
+- Der kan være relevante open source-initiativer i Digitaliseringsstyrelsen
+- Projektet kan muligvis bruges som case for genbrug af offentlige data
 
 ### Klimadatastyrelsen
 - Driver et **casekatalog** — projektet kunne beskrives heri
 - Uddeler årligt **Grunddataprisen** til innovative løsninger med grunddata
-  - Normalt til private virksomheder, men Christian foreslår at høre om de vil udvide til civilsamfundsinitiativer
-  - Info: https://itb.dk/event/danmarks-data-2025/
+- Info: https://itb.dk/event/danmarks-data-2025/
 
 ### Forum for Datadistributører
-- Drevet af DIGST, pt. i dvale grundet valgkampen
-- Genoptages formentlig til efteråret
+- Drevet af DIGST, men kan være periodevist inaktivt
 - Medlemmer inkluderer DMP, GEUS, KDS
-- Christian: "Jeg tror det kunne være rigtig interessant for dem at høre om dit arbejde som inspirationscase"
+- Mulig kanal for at præsentere projektet som inspirationscase
 
 ### Open Data Maturity Assessment
 - Tværeuropæisk vurdering som DIGST svarer på årligt
-- Christian vil gerne referere til projektet som case for genbrug af offentlige data
+- Projektet kan muligvis indgå som case for genbrug af offentlige data
 
 ### Projekter i DIGST (endnu ikke startet)
 1. **API-forbedring/dokumentation** for offentlige data
 2. **CC-BY-licenser og krediteringspraksis**
-- Christian spørger om du vil være ekspertkilde/anvender til disse projekter
+- Projektet kan muligvis bidrage som anvendercase
 
 ---
 
 ## Advarsel om SGAV
 
-Christian har begrænset kontakt med SGAV og har indtryk af at de er "under ret stort pres for at etablere en organisation og skabe resultater på samme tid." Henvendelser som vores har nok ikke højeste prioritet lige nu.
+Feedbacken peger på, at SGAV kan være under betydeligt organisatorisk pres, mens organisationen etableres og skal skabe resultater samtidig. Henvendelser fra eksterne projekter har derfor sandsynligvis ikke højeste prioritet lige nu.
 
 ---
 
-## Christians spørgsmål til os
+## Åbne spørgsmål
 
-Han spørger: "Hvad mangler du primært for at komme videre?"
+"Hvad mangler projektet primært for at komme videre?"
 - Flere data?
 - Dialog med offentlige myndigheder?
-- En ølkasse til at gøre opmærksom på projektet?
-- Legekammerater?
+- Synlighed omkring projektet?
+- Samarbejdspartnere?
 - Andet?
 
-"Svarene peger nemlig på lidt forskelligt fra hver kategori."
-
-**Det er en åben invitation til at definere, hvad vi har brug for.**
+**Det er en åben invitation til at definere, hvad projektet har brug for.**

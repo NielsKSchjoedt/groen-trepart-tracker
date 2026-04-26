@@ -4,8 +4,6 @@
 
 Concito (Danmarks Grønne Tænketank) driver i regi af **Klimaalliancen** (KL + Realdania + Concito + C40) et monitoreringsystem for alle danske kommuners klimaindsats. Den første statusrapport udkom april 2025 (209 sider).
 
-**Kontaktperson**: Chefkonsulent Tue Damsø, CONCITO — ansvarlig for monitoreringsystemet og statusrapporten.
-
 ## Monitoreringsystemets fire hoveddele
 
 1. **Rammerne for den kommunale klimaindsats** — kortlægning af indholdet i de 96 vedtagne klimahandlingsplaner (mål, delmål, tiltag)
@@ -126,7 +124,6 @@ Concito har et interaktivt dashboard:
 ## Statusrapport
 - **Titel**: "Status på kommunernes klimahandling — Etablering af et monitoreringsystem"
 - **Udgivet**: April 2025
-- **Forfattere**: Tue Damsø, Mathilde Johanne Cordua, Mia Holmbo Lind, Niels Bethlowsky Kristensen, Signe Gramkow Sltarz, Katinka Pulvertaft, Nicolas Francart
 - **PDF**: https://concito.dk/files/media/document/Status%20på%20kommunernes%20klimahandling%20april%202025_ver1.2.pdf
 - **Sider**: 209
 
