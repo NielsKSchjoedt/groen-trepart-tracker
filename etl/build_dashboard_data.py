@@ -822,6 +822,149 @@ for v in vos:
 dashboard_data["plans"].sort(key=lambda x: x["nitrogenGoalT"], reverse=True)
 dashboard_data["catchments"].sort(key=lambda x: x["name"])
 
+
+# ========================================
+# Sprint 1 — by-initiator breakdown (MARS plans only)
+# ========================================
+
+def classify_initiator(scheme_org: str, scheme_name: str) -> str:
+    if scheme_org == "NST":
+        return "state"
+    if scheme_org == "LBST" or scheme_name == "Minivådområder":
+        return "private"
+    return "municipal"
+
+
+def _empty_ha_cell():
+    return {"ha": 0.0, "projectCount": 0}
+
+
+def _empty_nitro_cell():
+    # For nitrogen, `ha` key holds ton N (same keys as other pillars for a uniform JSON shape).
+    return {"ha": 0.0, "projectCount": 0}
+
+
+def _empty_ha_breakdown():
+    return {"state": _empty_ha_cell(), "municipal": _empty_ha_cell(), "private": _empty_ha_cell()}
+
+
+def _empty_nitro_breakdown():
+    return {"state": _empty_nitro_cell(), "municipal": _empty_nitro_cell(), "private": _empty_nitro_cell()}
+
+
+def _acc_ha(bd, init: str, ha: float):
+    c = bd[init]
+    c["ha"] = round(c["ha"] + ha, 2)
+    c["projectCount"] += 1
+
+
+def _acc_nitro(bd, init: str, t: float):
+    c = bd[init]
+    c["ha"] = round(c["ha"] + t, 3)
+    c["projectCount"] += 1
+
+
+def compute_by_initiator_ha(plan_entries: list) -> dict:
+    phases = ("sketch", "preliminary", "approved", "established")
+    by_phase: dict = {}
+    for ph in phases:
+        by_phase[ph] = {
+            "extraction": _empty_ha_breakdown(),
+            "afforestation": _empty_ha_breakdown(),
+            "nitrogen": _empty_nitro_breakdown(),
+        }
+
+    for plan in plan_entries:
+        for proj in plan.get("projectDetails", []):
+            phase = proj.get("phase", "")
+            if phase not in ("preliminary", "approved", "established"):
+                continue
+            init = classify_initiator(proj.get("schemeOrg", ""), proj.get("schemeName", ""))
+            n = proj.get("nitrogenT", 0) or 0
+            e = proj.get("extractionHa", 0) or 0
+            a = proj.get("afforestationHa", 0) or 0
+            if n > 0:
+                _acc_nitro(by_phase[phase]["nitrogen"], init, n)
+            if e > 0:
+                _acc_ha(by_phase[phase]["extraction"], init, e)
+            if a > 0:
+                _acc_ha(by_phase[phase]["afforestation"], init, a)
+        for sk in plan.get("sketchProjects", []):
+            init = classify_initiator(sk.get("schemeOrg", ""), sk.get("schemeName", ""))
+            n = sk.get("nitrogenT", 0) or 0
+            e = sk.get("extractionHa", 0) or 0
+            a = sk.get("afforestationHa", 0) or 0
+            if n > 0:
+                _acc_nitro(by_phase["sketch"]["nitrogen"], init, n)
+            if e > 0:
+                _acc_ha(by_phase["sketch"]["extraction"], init, e)
+            if a > 0:
+                _acc_ha(by_phase["sketch"]["afforestation"], init, a)
+
+    def _merge_ha_bds(*bds):
+        out = _empty_ha_breakdown()
+        for bd in bds:
+            for k in ("state", "municipal", "private"):
+                out[k]["ha"] = round(out[k]["ha"] + bd[k]["ha"], 2)
+                out[k]["projectCount"] += bd[k]["projectCount"]
+        return out
+
+    def _merge_nitro_bds(*bds):
+        out = _empty_nitro_breakdown()
+        for bd in bds:
+            for k in ("state", "municipal", "private"):
+                out[k]["ha"] = round(out[k]["ha"] + bd[k]["ha"], 3)
+                out[k]["projectCount"] += bd[k]["projectCount"]
+        return out
+
+    p_nop_sketch = ("preliminary", "approved", "established")
+    return {
+        "extraction": _merge_ha_bds(*(by_phase[p]["extraction"] for p in p_nop_sketch)),
+        "afforestation": _merge_ha_bds(*(by_phase[p]["afforestation"] for p in p_nop_sketch)),
+        "nitrogen": _merge_nitro_bds(*(by_phase[p]["nitrogen"] for p in p_nop_sketch)),
+        "byPhase": by_phase,
+    }
+
+
+dashboard_data["national"]["byInitiatorHa"] = compute_by_initiator_ha(dashboard_data["plans"])
+
+
+# Klimarådet + budget (Sprint 1) — pass-through with optional ETL fields
+try:
+    with open(f"{BASE}/data/klimaraadet/statusrapport-2026.json", encoding="utf-8") as f:
+        _klim = json.load(f)
+    # Expose a stable public shape (keep _meta for cache timestamps)
+    dashboard_data["national"]["klimaraadet"] = {
+        "rapportTitle": _klim.get("rapportTitle", ""),
+        "publiceret": _klim.get("publiceret", ""),
+        "url": _klim.get("url", ""),
+        "vurderinger": _klim.get("vurderinger", {}),
+        "_meta": _klim.get("_meta"),
+    }
+except FileNotFoundError:
+    print("⚠ data/klimaraadet/statusrapport-2026.json not found — skipping national.klimaraadet")
+
+try:
+    with open(f"{BASE}/data/finansiering/aftaler.json", encoding="utf-8") as f:
+        _bud = json.load(f)
+    _prog = dashboard_data["national"]["progress"]
+    _ext_e = _prog["extraction"]["byPhase"]["established"]["ha"]
+    _ksf_lb = _prog["extraction"].get("supplementary", {}).get("klimaskovfondenLavbundHa", 0) or 0
+    _aff_e = _prog["afforestation"]["marsTotal"]["byPhase"]["established"]["ha"]
+    _ksf_s = _prog["afforestation"].get("supplementary", {}).get("klimaskovfondenHa", 0) or 0
+    _nst_s = _prog["afforestation"].get("supplementary", {}).get("nstSkovHa", 0) or 0
+    _n_est = _prog["nitrogen"]["byPhase"]["established"]["T"]
+    for _cat in _bud.get("kategorier", []):
+        if _cat.get("id") == "lavbund-udtagning":
+            _cat["realiseringHa"] = round(float(_ext_e) + float(_ksf_lb), 1)
+        elif _cat.get("id") == "skov":
+            _cat["realiseringHa"] = round(float(_aff_e) + float(_ksf_s) + float(_nst_s), 1)
+        elif _cat.get("id") == "kvaelstof":
+            _cat["realiseringTonN"] = round(float(_n_est), 1)
+    dashboard_data["national"]["budgetData"] = _bud
+except FileNotFoundError:
+    print("⚠ data/finansiering/aftaler.json not found — skipping national.budgetData")
+
 # ========================================
 # Build byKommune aggregation
 # ========================================

@@ -1,4 +1,20 @@
-import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog, KlimaskovfondenProject, NaturstyrelsenSkovProject, PipelineScenarioKey, PipelineScenarioValues, KlimaregnskabData, EtlRunSummary } from './types';
+import type {
+  DashboardData,
+  Plan,
+  Catchment,
+  CO2EmissionsData,
+  CoastalWaterStatusData,
+  ProjectChangelog,
+  KlimaskovfondenProject,
+  NaturstyrelsenSkovProject,
+  PipelineScenarioKey,
+  PipelineScenarioValues,
+  KlimaregnskabData,
+  EtlRunSummary,
+  ByInitiatorHa,
+  BudgetData,
+  KlimaraadetData,
+} from './types';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -170,6 +186,9 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         established: phases.established?.count ?? 0,
       },
       byKommune: (nat.byKommune ?? []) as any[],
+      byInitiatorHa: nat.byInitiatorHa as ByInitiatorHa | undefined,
+      budgetData: nat.budgetData as BudgetData | undefined,
+      klimaraadet: nat.klimaraadet as KlimaraadetData | undefined,
     },
     plans: ((r.plans ?? []) as any[]).map((p: any) => {
       const defaultPhase = { established: 0, approved: 0, preliminary: 0 };

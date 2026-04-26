@@ -167,6 +167,11 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
   }, []);
 
   const projectionData = getPillarProjectionData(activePillar, data, co2Data);
+  const klim = data.national.klimaraadet;
+  const klimVurdering =
+    activePillar === 'extraction' || activePillar === 'afforestation'
+      ? klim?.vurderinger[activePillar]
+      : undefined;
 
   if (!projectionData) {
     if (activePillar === 'nature') {
@@ -271,6 +276,8 @@ export function ScenarioBuilderSection({ data }: ScenarioBuilderSectionProps) {
         scenarios={projectionData.scenarios}
         pillarLabel={config.label}
         pillarColor={config.accentColor}
+        klimaraadetVurdering={klimVurdering}
+        klimaraadetRapportUrl={klim?.url}
       />
       </div>
     </section>

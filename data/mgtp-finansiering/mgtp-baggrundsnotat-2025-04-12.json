@@ -1,0 +1,185 @@
+{
+  "_meta": {
+    "source": "Ministeriet for Grøn Trepart, Baggrundsnotat til pressen, 12. april 2025",
+    "sourceFile": "Baggrundsnotat MGTP 12042025.pdf",
+    "sourceUrl": "https://mgtp.dk/",
+    "extractedAt": "2026-04-26",
+    "extractedBy": "Sprint 0 audit — strukturel ekstraktion fra kildebilag",
+    "license": "Offentlig myndigheds-information (CC0-lignende)",
+    "notes": "Tabel 1 + alle satser udtrukket manuelt fra PDF. Bekræftet konsistent med eksterne kildereferencer."
+  },
+
+  "tilskudsrammer_2024_2027_mio_kr": {
+    "udspecificerede_tiltag_trepart_tilsagn": {
+      "totalAlt": 2745,
+      "byYear": {
+        "2024": 400,
+        "2025": 507,
+        "2026": 919,
+        "2027": 919
+      }
+    },
+    "tilskud_udtagning_kulstofrig_lavbund_soejle_II": {
+      "totalAlt": 2460,
+      "byYear": {
+        "2024": 400,
+        "2025": 500,
+        "2026": 780,
+        "2027": 780
+      }
+    },
+    "tilskud_permanent_ekstensivering_maalrettet_lavbund_soejle_II": {
+      "totalAlt": 178,
+      "byYear": {
+        "2026": 89,
+        "2027": 89
+      }
+    },
+    "etableringsstoetteordning_unge_landbrugere_soejle_II": {
+      "totalAlt": 107,
+      "byYear": {
+        "2025": 7,
+        "2026": 50,
+        "2027": 50
+      }
+    },
+    "bidrag_kvaelstofindsatsen_tilsagn": {
+      "totalAlt": 2595,
+      "byYear": {
+        "2025": 200,
+        "2026": 895,
+        "2027": 1500
+      }
+    },
+    "loeft_kvaelstofvaadomraader": {
+      "totalAlt": 1000,
+      "byYear": {
+        "2025": 200,
+        "2026": 400,
+        "2027": 400
+      }
+    },
+    "permanent_ekstensivering_soejle_II": {
+      "totalAlt": 645,
+      "byYear": {
+        "2026": 295,
+        "2027": 350
+      }
+    },
+    "midlertidig_ekstensivering_soejle_I": {
+      "totalAlt": 700,
+      "byYear": {
+        "2026": 200,
+        "2027": 500
+      }
+    },
+    "ny_reguleringsmodel_soejle_II": {
+      "totalAlt": 250,
+      "byYear": {
+        "2027": 250
+      }
+    }
+  },
+
+  "kompensationssatser_kr_per_ha": {
+    "permanent_ekstensivering": {
+      "lavbund_omdriftsjord": 82500,
+      "lavbund_graesarealer": 35500,
+      "ovrige_arealer_omdriftsjord": 59500,
+      "ovrige_arealer_graesarealer": 27000,
+      "noter": "Endelige satser konsolideres på baggrund af oplæg fra Institut for Fødevare- og Ressourceøkonomi på KU frem mod åbning af ordningerne. Skovrejsning er mere kvælstof- og klimaeffektivt end jordudtagning, og derfor er satserne på øvrige arealer lagt så det ikke er økonomisk attraktivt at ekstensivere arealer frem for at etablere skov."
+    },
+    "midlertidig_ekstensivering": {
+      "lavbund_eller_vaadomraadepotentiale_kr_per_ha_per_aar": 3300,
+      "ovrige_arealtyper_kr_per_ha_per_aar": 1350,
+      "noter": "Tilskudsniveauet differentieres efter om arealet har potentiale for vådlægning. Den højere sats på lavbund/vådområde-potentiale-arealer skal motivere til at områderne senere kan indgå i lavbunds- eller vådområde-projekter."
+    },
+    "skovrejsning": {
+      "fast_tilskudssats_kr_per_ha": 75500,
+      "tillaeg_privat_uroert_skov_kr_per_ha": 15000,
+      "uroert_skov_total_sats": 90500,
+      "noter": "Det er et vilkår for tilskud til både almindelig og urørt skovrejsning at der lyses fredskovspligt. Der indføres krav om minimum 20% naturlig tilgroning i projekter over 20 ha; projekter der sammenbinder værdifuld skovnatur prioriteres højt."
+    }
+  },
+
+  "skovrejsning_aarlige_tal": {
+    "_kilde": "Tabel sidste side i baggrundsnotatet — Skovrejsning (ha) og (mio. kr., 2025-pl)",
+    "ha_per_aar": {
+      "2025": {"privat_skovrejsning": 6160, "privat_uroert_skov": 3010, "statslig_skovrejsning": 400, "total": 9570},
+      "2026": {"privat_skovrejsning": 6093, "privat_uroert_skov": 2977, "statslig_skovrejsning": 500, "total": 9570},
+      "2027": {"privat_skovrejsning": 5891, "privat_uroert_skov": 2879, "statslig_skovrejsning": 800, "total": 9570},
+      "2028": {"privat_skovrejsning": 6429, "privat_uroert_skov": 3141, "statslig_skovrejsning": 1000, "total": 10570},
+      "2029": {"privat_skovrejsning": 7101, "privat_uroert_skov": 3469, "statslig_skovrejsning": 1000, "total": 11570},
+      "2030": {"privat_skovrejsning": 7309, "privat_uroert_skov": 3571, "statslig_skovrejsning": 1000, "total": 11880}
+    },
+    "ha_total_2025_2030": {
+      "privat_skovrejsning": 38983,
+      "privat_uroert_skov": 19047,
+      "statslig_skovrejsning": 4700,
+      "total": 62730
+    },
+    "klimaeffekt_co2e_mio_ton_skoennet": {
+      "2025": 0.0,
+      "2026": 0.0,
+      "2027": 0.01,
+      "2028": 0.01,
+      "2029": 0.02,
+      "2030": 0.08,
+      "total_2025_2030": 0.08
+    },
+    "mio_kr_per_aar_2025_pl": {
+      "2025": {"privat_skovrejsning": 465, "privat_uroert_skov": 272, "statslig_skovrejsning": 45, "total": 783},
+      "2026": {"privat_skovrejsning": 460, "privat_uroert_skov": 269, "statslig_skovrejsning": 57, "total": 786},
+      "2027": {"privat_skovrejsning": 445, "privat_uroert_skov": 261, "statslig_skovrejsning": 91, "total": 797},
+      "2028": {"privat_skovrejsning": 485, "privat_uroert_skov": 284, "statslig_skovrejsning": 114, "total": 884},
+      "2029": {"privat_skovrejsning": 536, "privat_uroert_skov": 314, "statslig_skovrejsning": 115, "total": 965},
+      "2030": {"privat_skovrejsning": 552, "privat_uroert_skov": 323, "statslig_skovrejsning": 116, "total": 991}
+    },
+    "mio_kr_total_2025_2030": {
+      "privat_skovrejsning": 2943,
+      "privat_uroert_skov": 1724,
+      "statslig_skovrejsning": 539,
+      "total": 5206
+    }
+  },
+
+  "samlede_aftalebudgetter_2024_2030": {
+    "_kilde": "Aftaleteksten 'Aftale om implementering af et grønt Danmark' + skovrejsning-detail-tabel",
+    "skovrejsning_total_2024_2045_mia_kr": 22,
+    "skovrejsning_total_uden_eksisterende_capforpligtelse_mia_kr": 21,
+    "tilskudsmodel_privat_skov_mia_kr": 18.6,
+    "uroert_privat_skov_mia_kr": 7,
+    "statslig_uroert_skov_mia_kr": 2.4,
+    "samlet_uroert_inkl_statsligt_mia_kr_til_2045": 10,
+    "uroert_konkret_afsat_til_2030_mia_kr": 2.25,
+    "permanent_ekstensivering_aarlig_mia_kr": 0.5,
+    "permanent_ekstensivering_gns_sats_kr_per_ha": 50000,
+    "noter_om_tabel": "Ekstern faglig feedback peger på at tabellen mangler: (a) 7,5 mia.kr fra Novo Fonden til etablering af større sammenhængende områder, (b) statslige 140 + 10 mio.kr til signaturprojekter."
+  },
+
+  "ekstensiveringsordning_oplysninger": {
+    "formaal": "Bygge bro mellem omlægningsindsatser og sikre mere permanent beskyttet natur",
+    "udtagningens_klimaeffekt_pct_af_landbrugsareal": null,
+    "estimeret_aarligt_afloeb_mio_kr": {
+      "2026": 490,
+      "2027": 528
+    }
+  },
+
+  "udestaaende_data_efter_ekstern_feedback_2026_04_24": {
+    "novo_fonden_2024_grant_mia_kr": 7.5,
+    "statslige_signaturprojekter_mio_kr": 140,
+    "statslige_signaturprojekter_yderligere_mio_kr": 10,
+    "noter": "Disse mangler i baggrundsnotatets oversigt. Skal verificeres med pressemeddelelser/databaser i separat audit-task (#15)."
+  },
+
+  "implementerings_modenhed": {
+    "ordninger_aabnet_for_ansoegninger": {
+      "skovrejsning_statsstottenotificeret_september_2025": "Forventet"
+    },
+    "satser_endelige": {
+      "permanent_ekstensivering": "Konsolideres frem mod ordningens åbning baseret på KU-oplæg",
+      "midlertidig_ekstensivering": "Konsolideres frem mod ordningens åbning baseret på KU-oplæg"
+    }
+  }
+}

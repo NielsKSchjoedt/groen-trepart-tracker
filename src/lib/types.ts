@@ -11,7 +11,88 @@
  * Each scenario holds the achieved value and derived progress percentage
  * for nitrogen, extraction, and afforestation.
  */
+import type { PillarId } from './pillars';
+
 export type PipelineScenarioKey = 'established' | 'approved' | 'preliminary' | 'all';
+
+// --- Sprint 1: initiator breakdown, budget, Klimarådet (ETL + UI) ---
+
+export type InitiatorType = 'state' | 'municipal' | 'private';
+
+export type InitiatorPhase = 'sketch' | 'preliminary' | 'approved' | 'established';
+
+export interface InitiatorMetrics {
+  /** For extraction/afforestation: ha. For nitrogen in ETL, ton N reuses the same field name for a uniform shape. */
+  ha: number;
+  projectCount: number;
+}
+
+export interface InitiatorBreakdown {
+  state: InitiatorMetrics;
+  municipal: InitiatorMetrics;
+  private: InitiatorMetrics;
+}
+
+export interface ByInitiatorByPhaseEntry {
+  extraction: InitiatorBreakdown;
+  afforestation: InitiatorBreakdown;
+  nitrogen: InitiatorBreakdown;
+}
+
+export interface ByInitiatorHa {
+  extraction: InitiatorBreakdown;
+  afforestation: InitiatorBreakdown;
+  nitrogen: InitiatorBreakdown;
+  byPhase: Record<InitiatorPhase, ByInitiatorByPhaseEntry>;
+}
+
+export interface FinansieringKilde {
+  kildeNavn: string;
+  kildeUrl?: string;
+  beloebMioKr: number;
+  arealMaalHa?: number;
+  periode?: string;
+  deadlineYear?: number;
+  noter?: string;
+}
+
+export interface FinansieringSatser {
+  [key: string]: number | string | undefined;
+  noter?: string;
+}
+
+export interface FinansieringKategori {
+  id: string;
+  kategori: 'lavbund' | 'kvaelstof' | 'skovrejsning' | 'natur' | 'co2';
+  label: string;
+  kilder: FinansieringKilde[];
+  satser?: FinansieringSatser;
+  driftFinansieringMioKr: number | null;
+  /** ETL: established ha (lavbund+KSF or skov total) / areal where applicable */
+  realiseringHa?: number;
+  realiseringTonN?: number;
+}
+
+export interface BudgetData {
+  _meta: { kilde: string; opdateret: string };
+  kategorier: FinansieringKategori[];
+}
+
+export type KlimaraadetRisiko = 'Lav' | 'Moderat' | 'Væsentlig' | 'Høj';
+
+export interface KlimaraadetVurdering {
+  risiko: KlimaraadetRisiko;
+  citat: string;
+  ekstraUdledningTons: number | null;
+}
+
+export interface KlimaraadetData {
+  rapportTitle: string;
+  publiceret: string;
+  url: string;
+  vurderinger: Partial<Record<PillarId, KlimaraadetVurdering>>;
+  _meta?: { sourcePdfUrl?: string; lastChecked?: string };
+}
 
 export interface PipelineScenarioValues {
   nitrogenAchievedT: number;
@@ -136,6 +217,9 @@ export interface DashboardData {
     };
     /** Per-kommune aggregated metrics — 98 entries, one per Danish municipality */
     byKommune: KommuneMetrics[];
+    byInitiatorHa?: ByInitiatorHa;
+    budgetData?: BudgetData;
+    klimaraadet?: KlimaraadetData;
   };
   plans: Plan[];
   catchments: Catchment[];

@@ -142,6 +142,11 @@ Most fetchers use Python stdlib only. Two exceptions: `build_co2_data.py` requir
 
 **Registry**: The full Klimaregister (with CO₂ estimates, status, validators) is at [klimaskovfonden.dk/vores-standard/register](https://klimaskovfonden.dk/vores-standard/register) — Power BI dashboard, not API-accessible. The WFS only provides geometry, case number, year, and type.
 
+**Data freshness** (confirmed via correspondence with Klimaskovfonden, 24. marts 2026):
+- WFS-data opdateres minimum ved hver ansøgningsrunde — i praksis ca. **4 gange om året**
+- Klimaregisteret (Power BI) opdateres oftere og viser projektfaser
+- Samlet areal fra WFS bekræftet: **2.918 ha** (pr. 24. marts 2026)
+
 **Note**: Historical snapshots exist as separate layers (`_marts_2025`, `_april_2025`). The main layer is the current/live dataset.
 
 ---

@@ -45,6 +45,11 @@ export interface PillarConfig {
   watermarks: Animal[];
   /** Subtle page background tint when this pillar is active */
   backgroundTint: string;
+  /**
+   * When set, `BudgetKapacitet` highlights the financing category for this pillar.
+   * Matches `FinansieringKategori.id` in `data/finansiering/aftaler.json` (via ETL).
+   */
+  budgetCategoryId?: string;
 }
 
 export const PILLAR_CONFIGS: PillarConfig[] = [
@@ -64,6 +69,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     planDataField: 'nitrogenProgressPct',
     watermarks: ['fish', 'flounder', 'seatrout', 'cod', 'eel', 'seal', 'crab', 'seaweed', 'shrimp'],
     backgroundTint: 'hsl(192 35% 95.5%)',
+    budgetCategoryId: 'kvaelstof',
   },
   {
     id: 'extraction',
@@ -81,6 +87,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     planDataField: 'extractionAchievedHa',
     watermarks: ['heron', 'dragonfly', 'eel', 'crab', 'seaweed', 'flounder'],
     backgroundTint: 'hsl(35 40% 95%)',
+    budgetCategoryId: 'lavbund-udtagning',
   },
   {
     id: 'afforestation',
@@ -98,6 +105,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     planDataField: 'afforestationAchievedHa',
     watermarks: ['deer', 'fox', 'hedgehog', 'owl', 'bee', 'dragonfly'],
     backgroundTint: 'hsl(140 30% 95%)',
+    budgetCategoryId: 'skov',
   },
   {
     id: 'co2',
@@ -133,6 +141,7 @@ export const PILLAR_CONFIGS: PillarConfig[] = [
     planDataField: 'naturePotentialAreaHa',
     watermarks: ['butterfly', 'bee', 'dragonfly', 'hedgehog', 'deer', 'heron'],
     backgroundTint: 'hsl(145 28% 95.5%)',
+    budgetCategoryId: 'natur-sammenhaengende',
   },
 ];
 

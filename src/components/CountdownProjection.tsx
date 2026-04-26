@@ -4,7 +4,8 @@ import { formatDanishNumber } from '@/lib/format';
 import { TrendingUp, TrendingDown, Target, GitPullRequestArrow, Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import { assessGoalStatus, GOAL_STATUS_META } from '@/lib/projections';
-import type { PipelineScenarioKey } from '@/lib/types';
+import type { KlimaraadetVurdering, PipelineScenarioKey } from '@/lib/types';
+import { ExternalLink } from 'lucide-react';
 
 /**
  * Pipeline scenario steps — ordered from most conservative to most optimistic.
@@ -95,6 +96,13 @@ interface CountdownProjectionProps {
   pillarLabel?: string;
   /** Pillar brand color used for the badge background */
   pillarColor?: string;
+  /**
+   * When set, shows a "phase-blind projection" note with the Klimaråd quote for
+   * the default (anlagt-only) view. Hidden when a broader pipeline scenarie is valgt.
+   */
+  klimaraadetVurdering?: KlimaraadetVurdering;
+  /** Public URL to the Klimaråd status report (for quote + "read more") */
+  klimaraadetRapportUrl?: string;
 }
 
 export function CountdownProjection({
@@ -108,6 +116,8 @@ export function CountdownProjection({
   scenarios,
   pillarLabel,
   pillarColor,
+  klimaraadetVurdering,
+  klimaraadetRapportUrl,
 }: CountdownProjectionProps) {
   const [now, setNow] = useState(() => new Date());
   const [selectedScenario, setSelectedScenario] = useState<PipelineScenarioKey>('established');
@@ -126,7 +136,7 @@ export function CountdownProjection({
   const selectedOption = SCENARIO_OPTIONS.find((o) => o.key === selectedScenario)!;
   const scenarioDelta = isOptimistic
     ? scenarioAchieved - (scenarios?.established?.achieved ?? achieved)
-    : 0;;
+    : 0;
 
   const deadlineDate = new Date(deadline);
   const startDate = new Date(trackingStart);
@@ -159,8 +169,43 @@ export function CountdownProjection({
 
   const TrendIcon = isPositive || goalStatus === 'very-close' ? TrendingUp : TrendingDown;
 
+  const showKlimaraadetNote = !isOptimistic && Boolean(klimaraadetVurdering);
+
   return (
     <div className="w-full max-w-lg mx-auto">
+      {showKlimaraadetNote && klimaraadetVurdering && (
+        <div className="mb-3 rounded-lg border border-amber-200/80 bg-amber-50/90 px-3 py-2.5 text-xs leading-snug text-amber-950 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/30 dark:text-amber-100">
+          <p className="font-semibold text-amber-900 dark:text-amber-200">
+            Lineær fremskrivning er fase-blind
+          </p>
+          <p className="mt-0.5 text-amber-900/90 dark:text-amber-200/90">
+            Den simple tempo-projektion fanger ikke pipeline-projekter.
+          </p>
+          <p className="mt-1.5 text-amber-900/85 dark:text-amber-200/85 line-clamp-4">
+            <span className="font-medium">Klimarådet 2026: </span>
+            {klimaraadetVurdering.citat}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium">
+            {klimaraadetRapportUrl && (
+              <a
+                href={klimaraadetRapportUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-0.5 text-amber-800 underline underline-offset-2 hover:text-amber-950 dark:text-amber-200"
+              >
+                Læs hele rapporten
+                <ExternalLink className="h-3 w-3" aria-hidden />
+              </a>
+            )}
+            <a
+              href="#pipeline-status"
+              className="text-amber-800 underline underline-offset-2 hover:text-amber-950 dark:text-amber-200"
+            >
+              Gå til pipeline
+            </a>
+          </div>
+        </div>
+      )}
       {/* Projection card — styled using the graduated goal status */}
       <div
         className="rounded-xl border p-4 transition-colors"

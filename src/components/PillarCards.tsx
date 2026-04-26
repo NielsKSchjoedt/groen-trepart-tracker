@@ -10,6 +10,7 @@ import type { LucideIcon } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import { HintCallout } from './HintCallout';
 import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
+import { KlimaraadetBadge } from './KlimaraadetBadge';
 
 type BarHover = 'actual' | 'projected' | null;
 
@@ -268,6 +269,8 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
   const Icon = PILLAR_ICONS[pillar.id];
   const { actualPct, projectedPct, headline, projectedHeadline, subtitle } = getPillarProgress(pillar, data, co2Data);
   const [barHover, setBarHover] = useState<BarHover>(null);
+  const klimVurdering = data.national.klimaraadet?.vurderinger[pillar.id];
+  const klimUrl = data.national.klimaraadet?.url;
 
   const goalStatus = assessGoalStatus(projectedPct, actualPct);
   const goalMeta = GOAL_STATUS_META[goalStatus];
@@ -288,8 +291,16 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
   const projectionReachColor = goalMeta.color;
 
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onSelect}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
       className={`relative flex h-full w-full min-h-0 flex-col bg-card rounded-xl border-2 p-4 text-left transition-all hover:shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
         isActive
           ? 'shadow-md'
@@ -351,6 +362,11 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
               </span>
             )}
           </div>
+          {klimVurdering && klimUrl && (
+            <div className="mt-1.5 w-full">
+              <KlimaraadetBadge vurdering={klimVurdering} rapportUrl={klimUrl} compact />
+            </div>
+          )}
           {/* Prognose: max 2 linjer på smalle kort; fuld tekst fra md+. Natur: altid max 2 linjer + info-ikon */}
           <div className="mt-1.5 flex min-h-[2.5rem] flex-col justify-start md:min-h-0">
             {showProjection && projectedAbsolute !== null ? (
@@ -393,7 +409,7 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
           </p>
         </>
       )}
-    </button>
+    </div>
   );
 }
 

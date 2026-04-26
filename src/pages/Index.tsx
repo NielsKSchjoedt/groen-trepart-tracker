@@ -9,6 +9,7 @@ import { slugToPillar, pillarToSlug } from '@/lib/slugs';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
 import { PillarCards } from '@/components/PillarCards';
+import { BudgetKapacitet } from '@/components/BudgetKapacitet';
 import { ProjectFunnel } from '@/components/ProjectFunnel';
 import { InitiativeTypeGauge } from '@/components/InitiativeTypeGauge';
 import { DataSourceSection } from '@/components/DataSourceSection';
@@ -161,6 +162,7 @@ const Index = () => {
           <ScrollPrompt />
           <div id="oversigt">
             <PillarCards data={data} />
+            <BudgetKapacitet data={data} />
           </div>
 
           {/* Overview prompt — only shown when no pillar is selected */}

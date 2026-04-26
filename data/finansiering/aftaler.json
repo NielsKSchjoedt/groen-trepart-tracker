@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "kilde": "Sprint 0 audit + MGTP-baggrundsnotat 12.4.2025 + offentlige kilder",
+    "opdateret": "2026-04-26"
+  },
+  "kategorier": [
+    {
+      "id": "lavbund-udtagning",
+      "kategori": "lavbund",
+      "label": "Udtagning af lavbundsjord",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "MGTP Baggrundsnotat (april 2025) — tilskud udtagning kulstofrig lavbundsjord, søjle II",
+          "kildeUrl": "https://mgtp.dk/",
+          "beloebMioKr": 2460,
+          "periode": "2024-2027",
+          "noter": "Tilskud, søjle II; jf. tabel 1 i baggrundsnotatet"
+        },
+        {
+          "kildeNavn": "Aftale om et grønt Danmark (juni 2024)",
+          "beloebMioKr": 9400,
+          "arealMaalHa": 140000,
+          "deadlineYear": 2030,
+          "noter": "Samlet ramme udtagning + randzoner, jf. trepartsaftalen"
+        }
+      ],
+      "satser": {
+        "permanentEkstensiveringLavbundOmdriftKrPerHa": 82500,
+        "permanentEkstensiveringLavbundGraesKrPerHa": 35500,
+        "midlertidigEkstensiveringKrPerHaPerAar": 3300,
+        "noter": "Satser fra Ministeriet for Grøn Trepart, baggrundsnotat 12.4.2025 (afventer endelig fastsættelse for visse ordninger)"
+      }
+    },
+    {
+      "id": "kvaelstof",
+      "kategori": "kvaelstof",
+      "label": "Kvælstofindsats og ekstensivering",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "Løft til kvælstof- og vådområdeindsatsen, søjle II (MGTP)",
+          "beloebMioKr": 1000,
+          "periode": "2025-2027"
+        },
+        {
+          "kildeNavn": "Permanent ekstensivering, søjle II (MGTP)",
+          "beloebMioKr": 645,
+          "periode": "2026-2027"
+        },
+        {
+          "kildeNavn": "Midlertidig ekstensivering, søjle I (MGTP)",
+          "beloebMioKr": 700,
+          "periode": "2026-2027"
+        },
+        {
+          "kildeNavn": "Ny reguleringsmodel, søjle II (MGTP)",
+          "beloebMioKr": 250,
+          "periode": "2027"
+        }
+      ]
+    },
+    {
+      "id": "skov",
+      "kategori": "skovrejsning",
+      "label": "Skovrejsning og urørt skov",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "Aftale om et grønt Danmark — skovrejsning (samlet)",
+          "beloebMioKr": 20000,
+          "arealMaalHa": 250000,
+          "deadlineYear": 2045
+        },
+        {
+          "kildeNavn": "Privat urørt skov (sub-budget)",
+          "beloebMioKr": 7000,
+          "arealMaalHa": 80000
+        },
+        {
+          "kildeNavn": "Statslig urørt skov (sub-budget)",
+          "beloebMioKr": 2400,
+          "arealMaalHa": 20000
+        },
+        {
+          "kildeNavn": "Skovrejsning — mio. kr. og ha i baggrundsnotat, 2025–2030 (planøkonomi)",
+          "kildeUrl": "https://mgtp.dk/",
+          "beloebMioKr": 5206,
+          "noter": "Jfr. tabel (privat/urørt/statslig); perioden 2025–2030 i notatet"
+        }
+      ],
+      "satser": {
+        "skovrejsningKrPerHa": 75500,
+        "uroertTillaegKrPerHa": 15000,
+        "noter": "Fra baggrundsnotatet; urørt skov har tillæg"
+      }
+    },
+    {
+      "id": "natur-sammenhaengende",
+      "kategori": "natur",
+      "label": "Større sammenhængende naturområder",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "Novo Nordisk Fonden — areal- og naturindsats (10-årig ramme)",
+          "kildeUrl": "https://novonordiskfonden.dk/en/news/the-government-of-denmark-and-the-novo-nordisk-foundation-enter-into-collaboration-on-historic-new-approach-to-land-use-in-denmark/",
+          "beloebMioKr": 7500,
+          "periode": "2024-2034",
+          "noter": "7,5 mia. DKK; projektbaseret tildeling (jf. offentlige kilder / Sprint 0 audit)"
+        },
+        {
+          "kildeNavn": "Statslige signaturprojekter — opkøb af mellemliggende arealer",
+          "kildeUrl": "https://www.lovguiden.dk/det-offentlige/ministeriet-groen-transition/2026-02-19-seks-nye-store-naturomraader-udpeget-til-genopretning-i-danmark",
+          "beloebMioKr": 140,
+          "noter": "'Lim' mellem eksisterende naturområder"
+        },
+        {
+          "kildeNavn": "Statslige signaturprojekter — analyse og kortlægning",
+          "beloebMioKr": 10,
+          "noter": "Analyse m.v. (jf. offentlig fremstilling, Sprint 0 audit)"
+        },
+        {
+          "kildeNavn": "Aftale — permanent ekstensivering, ny natur",
+          "beloebMioKr": 850,
+          "arealMaalHa": 10000,
+          "deadlineYear": 2024
+        }
+      ]
+    }
+  ]
+}

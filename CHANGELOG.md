@@ -17,6 +17,19 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.7 — 26. april 2026
+
+**Budget, Klimarådet, initiativtype (ha) og tydeligere prognose-forklaring**
+
+### Ny funktion
+- Under delmålskortene kan du nu se, hvor meget finansiering der er afsat pr. hovedtema, hvad der allerede er realiseret som anlagt areal eller reelt gennemført indsats (hvor vi har tal), og om der i kilderne står, at løbende drift efter 2030/2045 ikke er afsat — så fremgår det tydeligt. *(Teknisk: manuelt kurateret finansieringsarkiv + dashboardfeltet `national.budgetData`.)*
+- Hvor Klimarådets statusrapport fra 2026 siger noget væsentligt om delmålet, viser vi et lille mærke med deres vurdering. Klik for at læse hele citatet i en boks, og følg link til den officielle rapport. *(Kurateret indhold; PDF-URL tjekkes ved datakørsler.)*
+
+### Forbedring
+- Fordelingen efter stat, kommune/åben ordning og privat viser som standard nu hektar eller ton — ikke kun antal projekter. Du kan skifte tilbage til antal, og du kan tælle indledende skitser med, hvis du slår det til. *(Standard uden skitser, så tallene afspejler forundersøgelsestilsagn og frem — som på labels.)*
+- Ved tempo-fremskrivningen for lavbund og skov står der tydeligt, at en lige linje ikke fanger køen af pipeline-projekter — med et kort citat fra Klimarådet og et hop til sektionen om pipeline-stadier. Hvis du vælger et bredere scenarie med forundersøgte eller godkendte projekter, forsvinder boksen, fordi udsagnet ikke længere gælder. *(Visningen kobles til scenarievalget i fremskrivningskortet.)*
+---
+
 ## v0.9.6 — 26. april 2026
 
 **Baggrundens dyresilhuetter bruger nu mere danske naturmotiver**

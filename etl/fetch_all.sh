@@ -66,6 +66,10 @@ echo "--- 13/13: Klimaregnskab CO₂ per kommune (requires KLIMAREGNSKAB_API_KEY
 python3 fetch_klimaregnskab.py || { echo "⚠ Klimaregnskab fetch failed (check KLIMAREGNSKAB_API_KEY)"; FAILED=$((FAILED+1)); }
 
 echo
+echo "--- 14/15: Klimarådet (URL check + JSON timestamp) ---"
+python3 fetch_klimaraadet.py || { echo "⚠ Klimarådet fetch non-fatal"; }
+
+echo
 echo "--- Building dashboard data ---"
 python3 build_dashboard_data.py || { echo "⚠ Dashboard data build failed"; FAILED=$((FAILED+1)); }
 
