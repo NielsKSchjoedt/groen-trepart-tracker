@@ -180,6 +180,7 @@ export interface KommuneMetrics {
 
 export interface DashboardData {
   fetchedAt: string;
+  driftFinansiering?: DriftFinansiering;
   national: {
     targets: {
       nitrogenReductionT: number;
@@ -222,18 +223,75 @@ export interface DashboardData {
     byInitiatorHa?: ByInitiatorHa;
     budgetData?: BudgetData;
     klimaraadet?: KlimaraadetData;
+    byPipelinePhase?: ByPipelinePhaseRoot;
+    cancelled?: CancelledMetrics;
+    byOwnerOrg?: Record<string, { count: number; ha: number; byPipelinePhase: ByPipelinePhaseRoot }>;
   };
+  driftFinansiering?: DriftFinansiering;
   plans: Plan[];
   catchments: Catchment[];
   mitigationMeasures: MitigationMeasure[];
   subsidySchemes: SubsidyScheme[];
 }
 
-/** Per-phase metric breakdown (established / approved / preliminary). */
-export interface PhaseBreakdown {
+/** Per-phase metric totals (established / approved / preliminary) — plan-level byPhase keys. */
+export interface LegacyPhaseTotals {
   established: number;
   approved: number;
   preliminary: number;
+}
+
+// --- Sprint 2: DN 5-fase model (MARS stateNr) ---
+
+export type PipelinePhaseType =
+  | 'sketch'
+  | 'preliminary_grant'
+  | 'preliminary_done'
+  | 'establishment_grant'
+  | 'established'
+  | 'cancelled';
+
+export type PipelineMainPhase = Exclude<PipelinePhaseType, 'cancelled'>;
+
+export interface PipelinePhaseMetricsRow {
+  count: number;
+  nitrogenT: number;
+  extractionHa: number;
+  afforestationHa: number;
+  subStates?: {
+    kladde: Omit<PipelinePhaseMetricsRow, 'subStates'>;
+    ansoegt: Omit<PipelinePhaseMetricsRow, 'subStates'>;
+  };
+}
+
+export type PipelinePhaseBreakdown = Record<PipelineMainPhase, PipelinePhaseMetricsRow>;
+
+export type ByPipelinePhaseRoot = {
+  nitrogen: PipelinePhaseBreakdown;
+  extraction: PipelinePhaseBreakdown;
+  afforestation: PipelinePhaseBreakdown;
+};
+
+export interface CancelledMetrics {
+  totalCount: number;
+  totalHa: number;
+  byCancellationStage: {
+    preliminary: { count: number; ha: number };
+    establishment: { count: number; ha: number };
+  };
+  byReason: {
+    opgivet: { count: number; ha: number };
+    afslag: { count: number; ha: number };
+  };
+}
+
+export type OwnerOrgKey = 'NST' | 'SGAV' | 'LBST' | 'unknown';
+
+export interface DriftFinansiering {
+  afsat: boolean;
+  status: string;
+  label: string;
+  sources: string[];
 }
 
 export interface Plan {
@@ -245,13 +303,13 @@ export interface Plan {
   /** MARS aggregate across ALL project phases (not just established) */
   nitrogenAchievedT: number;
   nitrogenProgressPct: number;
-  nitrogenByPhase: PhaseBreakdown;
+  nitrogenByPhase: LegacyPhaseTotals;
   extractionPotentialHa: number;
   /** MARS aggregate across ALL project phases */
   extractionAchievedHa: number;
-  extractionByPhase: PhaseBreakdown;
+  extractionByPhase: LegacyPhaseTotals;
   afforestationAchievedHa: number;
-  afforestationByPhase: PhaseBreakdown;
+  afforestationByPhase: LegacyPhaseTotals;
   naturePotentialAreaHa: number;
   countNaturePotentials: number;
   projects: ProjectCounts;
@@ -290,6 +348,10 @@ export interface ProjectDetail {
   name: string;
   geoId: string;
   phase: 'preliminary' | 'approved' | 'established';
+  /** MARS 5-fase nøgle (Sprint 2) */
+  pipelinePhase?: PipelinePhaseType;
+  isCancelled?: boolean;
+  projectType?: string;
   statusName: string;
   statusNr: number;
   measureName: string;
@@ -314,6 +376,8 @@ export interface SketchProject {
   name: string;
   geoId: string;
   phase: 'sketch';
+  pipelinePhase?: 'sketch';
+  sketchSubState?: 'kladde' | 'ansoegt';
   measureName: string;
   schemeName: string;
   schemeOrg: string;

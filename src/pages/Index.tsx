@@ -11,6 +11,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { PillarCards } from '@/components/PillarCards';
 import { BudgetKapacitet } from '@/components/BudgetKapacitet';
 import { ProjectFunnel } from '@/components/ProjectFunnel';
+import { PhaseBreakdown } from '@/components/PhaseBreakdown';
 import { InitiativeTypeGauge } from '@/components/InitiativeTypeGauge';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
@@ -201,7 +202,27 @@ const Index = () => {
           {/* Detail sections — only rendered once a pillar is selected */}
           {pillarSelected && (
             <>
-              {activePillar !== 'co2' && <ProjectFunnel data={data} />}
+              {activePillar !== 'co2' && (
+                <div id="pipeline-dn-5fase">
+                  <ProjectFunnel data={data} />
+                  {activePillar &&
+                    ['nitrogen', 'extraction', 'afforestation'].includes(activePillar) && (
+                    <PhaseBreakdown
+                      pillar={activePillar as 'nitrogen' | 'extraction' | 'afforestation'}
+                      byPipelinePhase={data.national.byPipelinePhase}
+                      cancelled={data.national.cancelled}
+                      driftFinansiering={data.driftFinansiering}
+                      title={
+                        activePillar === 'nitrogen'
+                          ? 'Projektpipeline: kvælstof (5 faser)'
+                          : activePillar === 'extraction'
+                            ? 'Projektpipeline: lavbundsudtagning (5 faser)'
+                            : 'Projektpipeline: MARS-skov/tilplantning (5 faser)'
+                      }
+                    />
+                  )}
+                </div>
+              )}
               {activePillar !== 'co2' && (
                 <section className="w-full max-w-4xl mx-auto px-4 pb-2">
                   <ProjectActivityChart

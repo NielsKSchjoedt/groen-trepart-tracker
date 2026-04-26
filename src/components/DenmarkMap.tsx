@@ -450,7 +450,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
     }
 
     /**
-     * Sum a PhaseBreakdown to get the total pipeline hectares/tons.
+     * Sum a LegacyPhaseTotals to get the total pipeline hectares/tons.
      * The MARS `totalExtractionEffortHa` (etc.) is unreliable — often 0
      * even when per-phase data exists — so we compute from breakdowns.
      */

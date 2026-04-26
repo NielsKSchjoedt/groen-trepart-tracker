@@ -146,6 +146,7 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
 
   return {
     fetchedAt: r.fetchedAt ?? r.builtAt ?? '',
+    driftFinansiering: r.driftFinansiering as DashboardData['driftFinansiering'],
     national: {
       targets: {
         nitrogenReductionT: nat.targets?.nitrogenReductionT ?? 0,
@@ -189,6 +190,9 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
       byInitiatorHa: nat.byInitiatorHa as ByInitiatorHa | undefined,
       budgetData: nat.budgetData as BudgetData | undefined,
       klimaraadet: nat.klimaraadet as KlimaraadetData | undefined,
+      byPipelinePhase: nat.byPipelinePhase,
+      cancelled: nat.cancelled,
+      byOwnerOrg: nat.byOwnerOrg,
     },
     plans: ((r.plans ?? []) as any[]).map((p: any) => {
       const defaultPhase = { established: 0, approved: 0, preliminary: 0 };

@@ -26,6 +26,17 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.request import urlopen, Request
 
+from mars_pipeline_s2 import (
+    CANCELLED_STATES,
+    build_by_owner_org,
+    build_by_pipeline_phase,
+    dedupe_sketches_by_id,
+    legacy3_merged_from_by_pipeline,
+    legacy_enrich_phase,
+    pipeline_phase_name,
+    project_type_from_measure_name,
+)
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE = str(SCRIPT_DIR.parent)
 
@@ -36,6 +47,7 @@ USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepar
 # Load core MARS/DAWA sources
 with open(f"{BASE}/data/mars/plans.json") as f:
     plans = json.load(f)
+deduped_sketches = dedupe_sketches_by_id(plans)
 with open(f"{BASE}/data/mars/vos.json") as f:
     vos = json.load(f)
 with open(f"{BASE}/data/mars/projects.json") as f:
@@ -152,6 +164,22 @@ for s in master.get("states", []):
 measure_lookup = {m["id"]: m for m in master.get("mitigationMeasures", [])}
 scheme_lookup = {s["id"]: s for s in master.get("subsidySchemes", [])}
 
+
+def _owner_org_from_scheme_id(sid: str) -> str:
+    org = (scheme_lookup.get(sid) or {}).get("organization", "").strip().upper()
+    if org in ("NST", "SGAV", "LBST"):
+        return org
+    if "NST" in org or "NATURSTYRELSEN" in org:
+        return "NST"
+    if "SGAV" in org:
+        return "SGAV"
+    if "LBST" in org:
+        return "LBST"
+    return "unknown"
+
+
+scheme_id_to_owner: dict[str, str] = {s["id"]: _owner_org_from_scheme_id(s["id"]) for s in master.get("subsidySchemes", [])}
+
 # ========================================
 # NST Skovrejsning MARS scheme monitoring
 # ========================================
@@ -175,17 +203,6 @@ if nst_mars_scheme_exists:
         print(f"ℹ NST Skovrejsning scheme exists in MARS but still has 0 projects (monitored)")
 else:
     print("⚠ NST Skovrejsning scheme not found in MARS master data — ID may have changed")
-
-# Map MARS project status codes to dashboard phase categories
-# Status 6 = Forundersøgelsestilsagn (preliminary investigation granted)
-# Status 10 = Etableringstilsagn (establishment grant given — approved but not built)
-# Status 15 = Anlagt (constructed / established)
-PHASE_MAP = {
-    6: "preliminary",   # Investigation granted — not yet approved for construction
-    10: "approved",      # Approved for construction — not yet built
-    15: "established",   # Actually built and operational
-}
-
 
 def _compute_polygon_centroid(coords: list[list[float]]) -> tuple[float, float] | None:
     """
@@ -304,34 +321,18 @@ def build_geo_id_kommune_lookup() -> dict[str, dict[str, str]]:
 GEO_ID_KOMMUNE: dict[str, dict[str, str]] = {}
 
 
-def compute_project_phase_breakdown(project_list):
-    """Break down project metrics by phase (preliminary / approved / established)."""
-    phases = {
-        "preliminary": {"count": 0, "nitrogenT": 0, "extractionHa": 0, "afforestationHa": 0},
-        "approved": {"count": 0, "nitrogenT": 0, "extractionHa": 0, "afforestationHa": 0},
-        "established": {"count": 0, "nitrogenT": 0, "extractionHa": 0, "afforestationHa": 0},
-    }
-    for p in project_list:
-        status = p.get("projectStatus")
-        phase = PHASE_MAP.get(status, "preliminary")
-        phases[phase]["count"] += 1
-        phases[phase]["nitrogenT"] += p.get("nitrogenReductionT", 0) or 0
-        phases[phase]["extractionHa"] += p.get("extractionEffortHa", 0) or 0
-        phases[phase]["afforestationHa"] += p.get("afforestationEffortHa", 0) or 0
-
-    # Round all values
-    for phase in phases.values():
-        phase["nitrogenT"] = round(phase["nitrogenT"], 1)
-        phase["extractionHa"] = round(phase["extractionHa"], 1)
-        phase["afforestationHa"] = round(phase["afforestationHa"], 1)
-
-    return phases
+def compute_project_phase_breakdown(project_list, sketch_list=None):
+    """Break down project metrics by legacy 3 bucket (incl. skitser når givet)."""
+    return legacy3_merged_from_by_pipeline(
+        build_by_pipeline_phase(project_list, sketch_list or [])["byPipelinePhase"]
+    )
 
 
 def enrich_project(p):
     """Enrich a single MARS project with human-readable names from master data."""
     status = p.get("projectStatus")
-    phase = PHASE_MAP.get(status, "preliminary")
+    phase = legacy_enrich_phase(status)
+    p_pipe = pipeline_phase_name(status)
     state = state_lookup.get(status, {})
 
     measure_id = p.get("mitigationMeasureId")
@@ -348,6 +349,9 @@ def enrich_project(p):
         "name": p.get("projectName", "Unavngivet projekt"),
         "geoId": geo_id,
         "phase": phase,
+        "pipelinePhase": p_pipe,
+        "isCancelled": bool(status in CANCELLED_STATES),
+        "projectType": project_type_from_measure_name(measure.get("name", "")),
         "statusName": state.get("name", ""),
         "statusNr": status,
         "measureName": measure.get("name", ""),
@@ -378,6 +382,8 @@ def enrich_sketch(s):
         "name": s.get("sketchProjectName", "Unavngivet skitse"),
         "geoId": s.get("geoLocationId", ""),
         "phase": "sketch",
+        "pipelinePhase": "sketch",
+        "sketchSubState": "kladde",
         "measureName": measure.get("name", ""),
         "schemeName": scheme.get("name", ""),
         "schemeOrg": scheme.get("organization", ""),
@@ -409,9 +415,14 @@ def slim_nature_potential(np_item):
 GEO_ID_KOMMUNE.update(build_geo_id_kommune_lookup())
 
 # ========================================
-# Compute national phase breakdown
+# Compute national phase breakdown (5-fase bygning + 3-fase brød til UI)
 # ========================================
-national_phases = compute_project_phase_breakdown(projects)
+_mars_national = build_by_pipeline_phase(projects, deduped_sketches)
+national_phases = legacy3_merged_from_by_pipeline(_mars_national["byPipelinePhase"])
+national_by_pipeline_phase = _mars_national["byPipelinePhase"]
+national_cancelled = _mars_national["cancelled"]
+national_by_owner_org = build_by_owner_org(projects, deduped_sketches, scheme_id_to_owner)
+del _mars_national
 
 # ========================================
 # Build slim dashboard data
@@ -683,6 +694,9 @@ dashboard_data = {
             "source": "mars",
             "disclaimer": "Project counts from MARS plan-level aggregation. Only 'established' projects represent actual environmental impact. The pipeline shows progression from concept to implementation.",
         },
+        "byPipelinePhase": national_by_pipeline_phase,
+        "cancelled": national_cancelled,
+        "byOwnerOrg": national_by_owner_org,
     },
 
     # MARS project states reference — for the frontend to use
@@ -692,7 +706,8 @@ dashboard_data = {
             "name": s["name"],
             "type": s["type"],
             "description": s.get("description", ""),
-            "dashboardPhase": PHASE_MAP.get(s["stateNr"], "other"),
+            "dashboardPhase": legacy_enrich_phase(s["stateNr"]),
+            "pipelinePhase": pipeline_phase_name(s["stateNr"]),
         }
         for s in master.get("states", [])
     ],
@@ -714,6 +729,13 @@ dashboard_data = {
         {"id": s["id"], "name": s["name"], "organization": s.get("organization", ""), "url": s.get("url", ""), "active": s.get("active", True)}
         for s in master.get("subsidySchemes", [])
     ],
+
+    "driftFinansiering": {
+        "afsat": False,
+        "status": "ikke_afsat",
+        "label": "Drift-finansiering er ikke afsat",
+        "sources": ["MGTP-baggrundsnotat 2025", "DN feedback april 2026"],
+    },
 }
 
 # ========================================
@@ -732,7 +754,7 @@ for p in plans:
 
     # Compute per-plan phase breakdown from the plan's nested project list
     plan_projects = p.get("projects", [])
-    plan_phases = compute_project_phase_breakdown(plan_projects)
+    plan_phases = compute_project_phase_breakdown(plan_projects, p.get("sketchProjects", []))
 
     entry = {
         "id": p["id"],
@@ -791,7 +813,7 @@ for p in plans:
 # Build slim catchment data (23 entries)
 for v in vos:
     vo_projects = v.get("projects", [])
-    vo_phases = compute_project_phase_breakdown(vo_projects)
+    vo_phases = compute_project_phase_breakdown(vo_projects, [])
 
     entry = {
         "id": v["id"],
@@ -1267,7 +1289,9 @@ for p in plans:
             continue
 
         status = proj.get("projectStatus")
-        phase = PHASE_MAP.get(status)
+        if status in CANCELLED_STATES:
+            continue
+        phase = legacy_enrich_phase(status)
         if not phase:
             continue
 

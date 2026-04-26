@@ -39,11 +39,9 @@ Most fetchers use Python stdlib only. Two exceptions: `build_co2_data.py` requir
 - `/api/status/vos` — 23 vandopland (main catchment) aggregations
 - `/api/status/metadata` — national goals and plan definitions
 
-**Phase classification**: MARS projects have a `projectStatus` integer that maps to lifecycle phases:
-- **6** → `preliminary` (Forundersøgelsestilsagn — preliminary investigation granted)
-- **10** → `approved` (Etableringstilsagn — approved for construction)
-- **15** → `established` (Anlagt — actually built and operational)
-- All other statuses → `preliminary` (conservative default)
+**Phase classification (two layers)**:
+1. **Sprint 2 — full MARS / DN pipeline** (`etl/mars_pipeline_s2.py`, exposed as `national.byPipelinePhase` in `dashboard-data.json`): all official `stateNr` values in `master-data` map to five main stages (`sketch` with sub-states kladde/ansøgt, `preliminary_grant`, `preliminary_done`, `establishment_grant`, `established`) plus a **cancelled** sidecar. Sketch-only rows come from `plans[].sketchProjects` (deduplicated by `sketchProjectId` for national totals).
+2. **Legacy 3-bucket** (unchanged for charts that still use it): the same build rolls those five stages into `preliminary` (sketch + forundersøgelse before etableringstilsagn), `approved` (etableringstilsagn), and `established` (anlagt). Older copy may still list only 6/10/15; the ETL now uses the full map.
 
 **Key disclaimer**: The vast majority of reported nitrogen reduction is in the preliminary phase. As of the latest data:
 - Established (actually built): ~26 T (0.8% of pipeline)

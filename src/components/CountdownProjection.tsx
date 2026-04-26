@@ -198,10 +198,10 @@ export function CountdownProjection({
               </a>
             )}
             <a
-              href="#pipeline-status"
+              href="#pipeline-dn-5fase"
               className="text-amber-800 underline underline-offset-2 hover:text-amber-950 dark:text-amber-200"
             >
-              Gå til pipeline
+              Se MARS 5-fase pipeline
             </a>
           </div>
         </div>

@@ -17,6 +17,17 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v0.9.8 — 26. april 2026
+
+**DNs 5-fase MARS-pipeline, frafald og ejer-grupper (ved siden af den korte trakt)**
+
+### Ny funktion
+- Når du åbner kvælstof, lavbund eller MARS-skov, ser du en ny visning, der følger forvaltningens 5 hovedfaser (skitse → tilsagn → færdig forundersøgelse → etableringstilsagn → anlagt), med tydelig opdeling af skitse mellem kladde og ansøgt, små tal for frafaldt undervejs, og en note hvis løbende drift efter 2030/2045 ikke er afsat i kilderne. Den korte trakt (overblik) over forskellige faser, du allerede kender, ligger uændret lige over. *(Teknisk: nye felter i `dashboard-data.json` fra MARS, komponenten `PhaseBreakdown`.)*
+
+### Dataopdatering
+- Projekter i dashboarddata er mappet tættere på MARS' rigtige tilstande (flerfase end den gamle tre-deling), så tabel, kort og filtre stadig bruger de brede faser, men de nye tal stemmer overens med forvaltningens opdeling.
+---
+
 ## v0.9.7 — 26. april 2026
 
 **Budget, Klimarådet, initiativtype (ha) og tydeligere prognose-forklaring**

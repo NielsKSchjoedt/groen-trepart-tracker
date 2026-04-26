@@ -14,7 +14,7 @@
  * Note: the MARS data model uses "assessed" in ProjectCounts as a synonym for
  * "preliminary". Use STAGE_TO_PHASE to map legacy keys to canonical phase ids.
  */
-import { Pencil, ClipboardCheck, ShieldCheck, Hammer } from 'lucide-react';
+import { Pencil, ClipboardCheck, ShieldCheck, Hammer, FileCheck2, SearchCheck, CircleX } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export type ProjectPhase = 'sketch' | 'preliminary' | 'approved' | 'established';
@@ -145,3 +145,104 @@ export function getPhaseConfig(phase: string): PhaseConfig {
   const canonical = STAGE_TO_PHASE[phase] ?? phase;
   return PHASE_BY_ID[canonical as ProjectPhase] ?? PHASE_BY_ID.sketch;
 }
+
+// --- Sprint 2: DN 5 hovedfaser (parallelt API; ændrer ikke ProjectPhase) ---
+
+export const PIPELINE_PHASE_ORDER = [
+  'sketch',
+  'preliminary_grant',
+  'preliminary_done',
+  'establishment_grant',
+  'established',
+] as const;
+
+export type PipelinePhaseId = (typeof PIPELINE_PHASE_ORDER)[number];
+
+export interface PipelinePhaseConfig {
+  id: PipelinePhaseId;
+  label: string;
+  shortLabel: string;
+  description: string;
+  hex: string;
+  hexLight: string;
+  dot: string;
+  text: string;
+  icon: typeof Pencil;
+}
+
+export const PIPELINE_PHASE_CONFIGS: PipelinePhaseConfig[] = [
+  {
+    id: 'sketch',
+    label: 'Skitse',
+    shortLabel: 'Skitse',
+    description: 'Skitseprojekter — kladde og ansøgt',
+    hex: '#94a3b8',
+    hexLight: '#f1f5f9',
+    dot: 'bg-slate-400',
+    text: 'text-slate-600',
+    icon: Pencil,
+  },
+  {
+    id: 'preliminary_grant',
+    label: 'Tilsagn til forundersøgelse',
+    shortLabel: 'Tilsagn f.u.',
+    description: 'Tilsagn om forundersøgelse (forundersøgelsestilsagn)',
+    hex: '#f59e0b',
+    hexLight: '#fffbeb',
+    dot: 'bg-amber-500',
+    text: 'text-amber-700',
+    icon: ClipboardCheck,
+  },
+  {
+    id: 'preliminary_done',
+    label: 'Gennemført forundersøgelse',
+    shortLabel: 'F.u. færdig',
+    description: 'Gennemført forundersøgelse / klar til næste skridt',
+    hex: '#d97706',
+    hexLight: '#ffedd5',
+    dot: 'bg-orange-500',
+    text: 'text-orange-800',
+    icon: FileCheck2,
+  },
+  {
+    id: 'establishment_grant',
+    label: 'Tilsagn til udtagning',
+    shortLabel: 'Etab.tilsagn',
+    description: 'Etableringstilsagn (godkendt til anlæg)',
+    hex: '#3b82f6',
+    hexLight: '#eff6ff',
+    dot: 'bg-blue-500',
+    text: 'text-blue-700',
+    icon: SearchCheck,
+  },
+  {
+    id: 'established',
+    label: 'Gennemført / anlagt',
+    shortLabel: 'Anlagt',
+    description: 'Fysisk gennemført projekter',
+    hex: '#10b981',
+    hexLight: '#ecfdf5',
+    dot: 'bg-emerald-500',
+    text: 'text-emerald-700',
+    icon: Hammer,
+  },
+];
+
+export const PIPELINE_PHASE_BY_ID: Record<PipelinePhaseId, PipelinePhaseConfig> = Object.fromEntries(
+  PIPELINE_PHASE_CONFIGS.map((c) => [c.id, c]),
+) as Record<PipelinePhaseId, PipelinePhaseConfig>;
+
+export function getPipelinePhaseConfig(phase: string): PipelinePhaseConfig {
+  return PIPELINE_PHASE_BY_ID[phase as PipelinePhaseId] ?? PIPELINE_PHASE_BY_ID.sketch;
+}
+
+export const PIPELINE_CANCELLED_META = {
+  id: 'cancelled' as const,
+  label: 'Frafaldet',
+  shortLabel: 'Frafald',
+  hex: '#f43f5e',
+  hexLight: '#fff1f2',
+  dot: 'bg-rose-500',
+  text: 'text-rose-700',
+  icon: CircleX,
+};
