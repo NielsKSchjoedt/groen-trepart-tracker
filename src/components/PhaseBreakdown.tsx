@@ -36,6 +36,18 @@ function phaseMetric(
   return row[f];
 }
 
+function phaseCount(
+  root: ByPipelinePhaseRoot,
+  pillar: PillarKey,
+  phase: PipelineMainPhase,
+): number {
+  const row = root[pillar][phase];
+  if (phase === 'sketch' && row.subStates) {
+    return row.subStates.kladde.count + row.subStates.ansoegt.count;
+  }
+  return row.count;
+}
+
 export interface PhaseBreakdownProps {
   pillar: PillarKey;
   byPipelinePhase: ByPipelinePhaseRoot | undefined;
@@ -57,16 +69,17 @@ export function PhaseBreakdown({
 }: PhaseBreakdownProps) {
   const { segments, total, unitLabel, sketchDetail } = useMemo(() => {
     if (!byPipelinePhase) {
-      return { segments: [] as { key: string; value: number; pct: number; color: string; label: string }[], total: 0, unitLabel: '', sketchDetail: null as null | { k: number; a: number } };
+      return { segments: [] as { key: string; value: number; count: number; pct: number; color: string; label: string }[], total: 0, unitLabel: '', sketchDetail: null as null | { k: number; a: number; kc: number; ac: number } };
     }
     const f = FIELD[pillar];
     const unit =
       f === 'nitrogenT' ? 'ton N' : 'ha';
-    const vals: { key: string; value: number; color: string; label: string }[] = [];
+    const vals: { key: string; value: number; count: number; color: string; label: string }[] = [];
     for (const ph of PHASE_MAIN) {
       const v = phaseMetric(byPipelinePhase, pillar, ph);
+      const count = phaseCount(byPipelinePhase, pillar, ph);
       const conf = getPipelinePhaseConfig(ph);
-      vals.push({ key: ph, value: v, color: conf.hex, label: conf.shortLabel });
+      vals.push({ key: ph, value: v, count, color: conf.hex, label: conf.shortLabel });
     }
     const t = vals.reduce((s, x) => s + x.value, 0);
     const segs = vals.map((x) => ({
@@ -76,11 +89,13 @@ export function PhaseBreakdown({
     const sk = byPipelinePhase[pillar].sketch;
     const kd = sk.subStates?.kladde?.[f] ?? 0;
     const an = sk.subStates?.ansoegt?.[f] ?? 0;
+    const kc = sk.subStates?.kladde?.count ?? 0;
+    const ac = sk.subStates?.ansoegt?.count ?? 0;
     return {
       segments: segs,
       total: t,
       unitLabel: unit,
-      sketchDetail: t > 0 && (kd > 0 || an > 0) ? { k: kd, a: an } : null,
+      sketchDetail: t > 0 && (kd > 0 || an > 0 || kc > 0 || ac > 0) ? { k: kd, a: an, kc, ac } : null,
     };
   }, [byPipelinePhase, pillar]);
 
@@ -109,7 +124,7 @@ export function PhaseBreakdown({
         {segments.map((s) => (
           <div
             key={s.key}
-            title={`${s.label}: ${s.value.toLocaleString('da-DK', { maximumFractionDigits: 1 })} ${unitLabel}`}
+            title={`${s.label}: ${s.value.toLocaleString('da-DK', { maximumFractionDigits: 1 })} ${unitLabel}, ${s.count.toLocaleString('da-DK')} projekter`}
             className="min-w-0 h-full min-w-[2px] transition-all duration-300"
             style={{
               flexGrow: Math.max(s.pct, 0.1),
@@ -127,14 +142,17 @@ export function PhaseBreakdown({
             <span key={c.id} className="inline-flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: c.hex }} />
               {c.label}: {seg.value.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
+              {' '}({seg.count.toLocaleString('da-DK')} projekter)
             </span>
           );
         })}
       </div>
       {sketchDetail && (
         <p className="text-[10px] text-muted-foreground mt-1">
-          Skitse heraf: kladde {sketchDetail.k.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel} ·
-          {' '}ansøgt {sketchDetail.a.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
+          Skitse heraf: kladde {sketchDetail.k.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
+          {' '}({sketchDetail.kc.toLocaleString('da-DK')} projekter) · ansøgt{' '}
+          {sketchDetail.a.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
+          {' '}({sketchDetail.ac.toLocaleString('da-DK')} projekter)
         </p>
       )}
       {cancelled && cancelled.totalCount > 0 && (
@@ -145,7 +163,7 @@ export function PhaseBreakdown({
             aria-hidden
           />
           <span>
-            <span className="font-medium">Frafald (sidekap): </span>
+            <span className="font-medium">Frafald (side-metrik): </span>
             {cancelled.totalCount.toLocaleString('da-DK')} projekter, ca. {cancelled.totalHa.toLocaleString('da-DK', { maximumFractionDigits: 1 })} ha
             (MARS: opgivet/afslag efter fase)
           </span>
@@ -157,7 +175,7 @@ export function PhaseBreakdown({
           <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" aria-hidden />
           <p>
             <span className="font-semibold">Drift: </span>
-            {driftFinansiering.label} ({driftFinansiering.sources.join(', ')}). Virkemiddele efter 2030/2045
+            {driftFinansiering.label} ({driftFinansiering.sources.join(', ')}). Virkemidler efter 2030/2045
             følger ikke fuldt MARS’ projektdimension — vises ikke som pipeline-segmenter.
           </p>
         </div>
@@ -166,6 +184,11 @@ export function PhaseBreakdown({
       <p className="text-[10px] text-muted-foreground/80 mt-2">
         Total i pipelinet (5 faser): {total.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
       </p>
+      {pillar === 'afforestation' && (
+        <p className="text-[10px] text-muted-foreground/80 mt-1">
+          Forvaltningsplanstatus for natur-/skovprojekter: ukendt i MARS (datagap).
+        </p>
+      )}
     </section>
   );
 }

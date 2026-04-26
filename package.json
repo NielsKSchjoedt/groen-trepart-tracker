@@ -11,9 +11,10 @@
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:python": "cd etl && python3 -m unittest test_mars_pipeline_s2 -v",
     "test:watch": "vitest",
     "changelog": "node scripts/generate-changelog.mjs",
-    "ci": "npm run lint && npm run typecheck && npm run build && npm run test"
+    "ci": "npm run lint && npm run typecheck && npm run build && npm run test && npm run test:python"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

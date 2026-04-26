@@ -344,6 +344,7 @@ def enrich_project(p):
     geo_id = p.get("geoLocationId", "")
     kommune_data = GEO_ID_KOMMUNE.get(geo_id)
 
+    project_type = project_type_from_measure_name(measure.get("name", ""))
     return {
         "id": p.get("projectId", ""),
         "name": p.get("projectName", "Unavngivet projekt"),
@@ -351,7 +352,8 @@ def enrich_project(p):
         "phase": phase,
         "pipelinePhase": p_pipe,
         "isCancelled": bool(status in CANCELLED_STATES),
-        "projectType": project_type_from_measure_name(measure.get("name", "")),
+        "projectType": project_type,
+        "forvaltningsplanStatus": "unknown" if project_type == "natur" else None,
         "statusName": state.get("name", ""),
         "statusNr": status,
         "measureName": measure.get("name", ""),
@@ -377,6 +379,7 @@ def enrich_sketch(s):
     scheme_id = s.get("subsidySchemeId")
     scheme = scheme_lookup.get(scheme_id, {})
 
+    project_type = project_type_from_measure_name(measure.get("name", ""))
     return {
         "id": s.get("sketchProjectId", ""),
         "name": s.get("sketchProjectName", "Unavngivet skitse"),
@@ -385,6 +388,8 @@ def enrich_sketch(s):
         "pipelinePhase": "sketch",
         "sketchSubState": "kladde",
         "measureName": measure.get("name", ""),
+        "projectType": project_type,
+        "forvaltningsplanStatus": "unknown" if project_type == "natur" else None,
         "schemeName": scheme.get("name", ""),
         "schemeOrg": scheme.get("organization", ""),
         "nitrogenT": round(s.get("nitrogenReductionT", 0) or 0, 3),

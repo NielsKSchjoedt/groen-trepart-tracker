@@ -352,6 +352,7 @@ export interface ProjectDetail {
   pipelinePhase?: PipelinePhaseType;
   isCancelled?: boolean;
   projectType?: string;
+  forvaltningsplanStatus?: 'unknown' | string | null;
   statusName: string;
   statusNr: number;
   measureName: string;

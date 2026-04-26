@@ -5,6 +5,7 @@ from mars_pipeline_s2 import (
     CANCELLED_STATES,
     PIPELINE_STATE_MAP,
     build_by_pipeline_phase,
+    build_by_owner_org,
     legacy3_merged_from_by_pipeline,
     legacy_enrich_phase,
     pipeline_phase_name,
@@ -52,6 +53,34 @@ class MarsPipelineS2Test(unittest.TestCase):
         n = r["byPipelinePhase"]["nitrogen"]["preliminary_grant"]
         self.assertEqual(n["count"], 1)
         self.assertAlmostEqual(n["nitrogenT"], 1.0, places=1)
+
+    def test_state_2_is_sketch_ansoegt(self) -> None:
+        r = build_by_pipeline_phase(
+            [{"projectStatus": 2, "nitrogenReductionT": 2.0, "extractionEffortHa": 3.0}],
+            [],
+        )
+        sk = r["byPipelinePhase"]["nitrogen"]["sketch"]
+        self.assertEqual(sk["count"], 1)
+        self.assertEqual(sk["subStates"]["ansoegt"]["count"], 1)
+        self.assertEqual(sk["subStates"]["kladde"]["count"], 0)
+
+    def test_legacy_compat_excludes_sketches(self) -> None:
+        r = build_by_pipeline_phase(
+            [{"projectStatus": 6, "nitrogenReductionT": 1.0}],
+            [{"sketchProjectId": "s1", "nitrogenReductionT": 99.0}],
+        )
+        l3 = legacy3_merged_from_by_pipeline(r["byPipelinePhase"])
+        self.assertEqual(l3["preliminary"]["count"], 1)
+        self.assertAlmostEqual(l3["preliminary"]["nitrogenT"], 1.0, places=1)
+
+    def test_owner_org_counts_formal_projects_only(self) -> None:
+        owner = build_by_owner_org(
+            [{"projectStatus": 6, "subsidySchemeId": "sgav", "extractionEffortHa": 1.0}],
+            [{"sketchProjectId": "s1", "subsidySchemeId": "nst", "extractionEffortHa": 10.0}],
+            {"sgav": "SGAV", "nst": "NST"},
+        )
+        self.assertEqual(owner["SGAV"]["count"], 1)
+        self.assertNotIn("NST", owner)
 
 
 if __name__ == "__main__":

@@ -182,7 +182,10 @@ def build_by_pipeline_phase(
 
 def _legacy_3_for_pillar(five: dict) -> dict:
     pre_sum = {"count": 0, "nitrogenT": 0.0, "extractionHa": 0.0, "afforestationHa": 0.0}
-    for ph in ("sketch", "preliminary_grant", "preliminary_done"):
+    # Legacy Sprint 1 buckets intentionally exclude sketches. Sketch projects
+    # remain visible through ProjectFunnel's own countSketchProjects fields and
+    # the new Sprint 2 byPipelinePhase.sketch bucket.
+    for ph in ("preliminary_grant", "preliminary_done"):
         x = five[ph]
         pre_sum["count"] += x.get("count", 0)
         pre_sum["nitrogenT"] += x.get("nitrogenT", 0)
@@ -243,7 +246,9 @@ def compute_project_phase_breakdown_legacy3(
     project_list: list[dict],
     sketch_list: list[dict] | None = None,
 ) -> dict:
-    r = build_by_pipeline_phase(project_list, sketch_list or [])
+    # `sketch_list` is accepted for backwards call-site compatibility but must
+    # not affect legacy preliminary/approved/established totals.
+    r = build_by_pipeline_phase(project_list, [])
     return legacy3_merged_from_by_pipeline(r["byPipelinePhase"])
 
 
@@ -282,15 +287,6 @@ def build_by_owner_org(
             _bump_sketch(o["byPipelinePhase"], n, e, a, "ansoegt" if st == 2 else "kladde")
         else:
             _bump(o["byPipelinePhase"], pl, n, e, a)
-    for s in sketches:
-        n, e, a = s.get("nitrogenReductionT", 0) or 0, s.get("extractionEffortHa", 0) or 0, s.get("afforestationEffortHa", 0) or 0
-        org = org_from_scheme.get(s.get("subsidySchemeId", ""), "unknown")
-        if org not in by:
-            by[org] = {"count": 0, "ha": 0.0, "byPipelinePhase": _pillar()}
-        o = by[org]
-        o["count"] += 1
-        o["ha"] = round(o["ha"] + max(e, a), 1)
-        _bump_sketch(o["byPipelinePhase"], n, e, a, "kladde")
     for _org, o in by.items():
         _round_five(o["byPipelinePhase"])
     return by
@@ -321,7 +317,7 @@ def pipeline_phase_name(status: int | None) -> str:
 def project_type_from_measure_name(name: str) -> str:
     m = (name or "").lower()
     if "skov" in m or "skovrejsning" in m:
-        return "skovrejsning"
+        return "natur"
     if "lavbund" in m or "mose" in m:
         return "lavbund"
     if "natur" in m or "biodiv" in m:
