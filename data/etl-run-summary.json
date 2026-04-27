@@ -1,6 +1,53 @@
 {
-  "generatedAt": "2026-04-26T06:37:09.423355+00:00",
+  "generatedAt": "2026-04-27T06:51:15.117671+00:00",
   "recentRuns": [
+    {
+      "date": "2026-04-27",
+      "runAt": "2026-04-27T06:51:03.848480+00:00",
+      "status": "ok",
+      "sources": {
+        "mars": {
+          "status": "ok",
+          "projects": 1336,
+          "plans": 37,
+          "notes": "All endpoints OK"
+        },
+        "dawa": {
+          "status": "ok",
+          "municipalities": 99,
+          "notes": "Skipped — files fresh (< 30 days old)"
+        },
+        "miljoegis": {
+          "status": "ok",
+          "notes": "6 layers fetched"
+        },
+        "natura2000": {
+          "status": "ok",
+          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
+        },
+        "klimaskovfonden": {
+          "status": "ok",
+          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+        },
+        "section3": {
+          "status": "ok",
+          "notes": "186,628 §3 areas (skipped — count unchanged)"
+        },
+        "forest": {
+          "status": "ok",
+          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
+        },
+        "dst": {
+          "status": "ok",
+          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+        },
+        "vanda": {
+          "status": "ok",
+          "stations": 2796,
+          "notes": "2796 stations, 2796 with coordinates"
+        }
+      }
+    },
     {
       "date": "2026-04-26",
       "runAt": "2026-04-26T06:36:59.946656+00:00",
@@ -1358,17 +1405,6 @@
           "status": "ok",
           "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
         },
-        "klimaskovfonden": {
-          "status": "ok",
-          "notes": "213 projects, 2314.0 ha total (2283.5 ha afforestation)"
-        }
-      }
-    },
-    {
-      "date": "2026-03-14",
-      "runAt": "2026-03-14T11:57:14.250247+00:00",
-      "status": "error",
-      "sources": {
         "klimaskovfonden": {
           "status": "ok",
           "notes": "213 projects, 2314.0 ha total (2283.5 ha afforestation)"
