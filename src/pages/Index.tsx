@@ -214,10 +214,10 @@ const Index = () => {
                       driftFinansiering={data.driftFinansiering}
                       title={
                         activePillar === 'nitrogen'
-                          ? 'Projektpipeline: kvælstof (5 faser)'
+                          ? 'Kvælstofeffekt fordelt på 5 faser'
                           : activePillar === 'extraction'
-                            ? 'Projektpipeline: lavbundsudtagning (5 faser)'
-                            : 'Projektpipeline: MARS-skov/tilplantning (5 faser)'
+                            ? 'Lavbundsareal fordelt på 5 faser'
+                            : 'MARS-skov/tilplantning fordelt på 5 faser'
                       }
                     />
                   )}

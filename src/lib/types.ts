@@ -393,6 +393,8 @@ export interface SketchProject {
   pipelinePhase?: 'sketch';
   sketchSubState?: 'kladde' | 'ansoegt';
   measureName: string;
+  projectType?: string;
+  forvaltningsplanStatus?: 'unknown' | string | null;
   schemeName: string;
   schemeOrg: string;
   nitrogenT: number;

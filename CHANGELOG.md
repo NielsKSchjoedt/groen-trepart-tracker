@@ -24,6 +24,9 @@ Kommende ændringer noteres her løbende.
 ### Ny funktion
 - På kortet over Danmark kan du nu slå biodiversitets- og omlægningskort til: op til fire gennemsigtige lag fra Arealdata (WMS), og – hvis du vil – polygoner for Vand, natur & skov 2026 fra FVM. Indstillingerne kan deles i linket (søgeparametre). *(Teknisk: `DenmarkMapBiodiv`, WMS + GeoJSON.)*
 
+### Forbedring
+- Projektpipelinen viser nu den samme femfase-model overalt, så “gennemført forundersøgelse” ikke forsvinder i et grovere overblik. Data og metode-siden er samtidig rettet, så den forklarer den faktiske fase-mapping og forvaltningsplan-datagap.
+
 ### Dataopdatering
 - Daglig datakørsel henter nu også Arealdata WFS (KU+ CMEC; DCE D1 tælles dagligt og kan hentes fuldt manuelt) og FVMs Vand, natur & skov 2026 til visning. Se data og metode-siden for baggrund. *(ETL: `fetch_arealdata_biodiversitet.py`, `fetch_markkort_natur_projekter.py`.)*
 ---

@@ -57,15 +57,15 @@ export interface PhaseBreakdownProps {
 }
 
 /**
- * 5-fase DN/MARS-pipeline: stablet udsnit af et enkelt indsatsmål (N, udtagning eller skov)
- * + frafald som sidestatistik. Påvirker ikke ProjectFunnel (Sprint 1).
+ * Effekt/areal pr. DN/MARS-fase. ProjectFunnel is the canonical count-based
+ * pipeline; this component shows the same phases weighted by the active metric.
  */
 export function PhaseBreakdown({
   pillar,
   byPipelinePhase,
   cancelled,
   driftFinansiering,
-  title = 'Projektpipeline (DNs 5 faser)',
+  title = 'Effekt/areal fordelt på DNs 5 faser',
 }: PhaseBreakdownProps) {
   const { segments, total, unitLabel, sketchDetail } = useMemo(() => {
     if (!byPipelinePhase) {
@@ -116,8 +116,8 @@ export function PhaseBreakdown({
         {title}
       </h3>
       <p className="text-xs text-muted-foreground mb-3 max-w-2xl">
-        Fordelingen følger MARS {pillar === 'nitrogen' ? 'kvælstof' : pillar === 'extraction' ? 'udtagning' : 'tilplantning'}-tæller pr. hovedfase.
-        Sammenlign med den korte trakt over (fase i grovere kategorier).
+        Samme administrative faser som projektlisten ovenfor, men vægtet efter MARS'
+        {' '}{pillar === 'nitrogen' ? 'kvælstofeffekt' : pillar === 'extraction' ? 'udtagningsareal' : 'tilplantningsareal'}.
       </p>
 
       <div className="flex h-6 w-full max-w-3xl overflow-hidden rounded-md border border-border/40 shadow-sm">
@@ -182,7 +182,7 @@ export function PhaseBreakdown({
       )}
 
       <p className="text-[10px] text-muted-foreground/80 mt-2">
-        Total i pipelinet (5 faser): {total.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
+        Total i de 5 faser: {total.toLocaleString('da-DK', { maximumFractionDigits: 1 })} {unitLabel}
       </p>
       {pillar === 'afforestation' && (
         <p className="text-[10px] text-muted-foreground/80 mt-1">

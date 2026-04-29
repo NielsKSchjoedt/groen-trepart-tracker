@@ -5,7 +5,7 @@
  * across the entire application. Every component that displays phase badges,
  * dots, stacked bars, or filter pills must import from here.
  *
- * Phase order (earliest → latest):
+ * Legacy broad phase order (earliest → latest):
  *   sketch       → Skitse (rough outline, not yet in formal study)
  *   preliminary  → Forundersøgelse (feasibility study granted, not yet approved)
  *   approved     → Godkendt / Etableringstilsagn (approved for construction)
@@ -146,7 +146,7 @@ export function getPhaseConfig(phase: string): PhaseConfig {
   return PHASE_BY_ID[canonical as ProjectPhase] ?? PHASE_BY_ID.sketch;
 }
 
-// --- Sprint 2: DN 5 hovedfaser (parallelt API; ændrer ikke ProjectPhase) ---
+// --- DN 5 hovedfaser (canonical MARS pipeline shown in the main funnel) ---
 
 export const PIPELINE_PHASE_ORDER = [
   'sketch',

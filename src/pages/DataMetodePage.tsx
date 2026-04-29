@@ -304,14 +304,25 @@ const METHOD_SECTIONS = [
     title: 'Faseklassificering (MARS projectStatus)',
     content: (
       <>
-        <p>MARS-projekter har et numerisk <code>projectStatus</code>-felt der mappes til livscyklusfaser:</p>
+        <p>MARS-projekter har et numerisk <code>projectStatus</code>-felt der mappes til DN's fem administrative hovedfaser:</p>
         <ul className="list-disc pl-5 space-y-1">
-          <li><strong>6</strong> → <code>preliminary</code> (Forundersøgelsestilsagn — foreløbig undersøgelse)</li>
-          <li><strong>10</strong> → <code>approved</code> (Etableringstilsagn — godkendt til anlæg)</li>
-          <li><strong>15</strong> → <code>established</code> (Anlagt — fysisk gennemført)</li>
-          <li>Alle andre → <code>preliminary</code> (konservativ default)</li>
+          <li><strong>1-2</strong> → <code>sketch</code> (skitse: kladde/ansøgt)</li>
+          <li><strong>6, 20</strong> → <code>preliminary_grant</code> (tilsagn til forundersøgelse)</li>
+          <li><strong>32, 50, 51</strong> → <code>preliminary_done</code> (gennemført forundersøgelse)</li>
+          <li><strong>9, 10, 11, 21, 31, 52, 53, 54</strong> → <code>establishment_grant</code> (tilsagn til udtagning/anlæg)</li>
+          <li><strong>15, 18</strong> → <code>established</code> (gennemført/anlagt)</li>
+          <li><strong>3, 5, 16, 17</strong> → <code>cancelled</code> (frafald som side-metrik)</li>
         </ul>
-        <p>Denne klassificering er defineret i <a href={ghLink('etl/build_dashboard_data.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">build_dashboard_data.py</a> og bruges konsekvent i hele dashboardet.</p>
+        <p>Den fulde mapping er defineret i <a href={ghLink('etl/mars_pipeline_s2.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">mars_pipeline_s2.py</a>. Den øverste projektpipeline viser denne femfase-model; effekt/areal-bjælken nedenunder bruger de samme faser, men vægter dem i ton N eller hektar.</p>
+      </>
+    ),
+  },
+  {
+    title: 'Forvaltningsplanstatus for naturprojekter',
+    content: (
+      <>
+        <p>DN pegede på forvaltningsplanen som en vigtig ekstra dimension for naturprojekter. MARS har ikke et felt, der dokumenterer om en efterfølgende forvaltningsplan er på plads.</p>
+        <p>Derfor markerer dashboardet relevante natur-/skovprojekter med <code>forvaltningsplanStatus: "unknown"</code> og viser det som et datagap i projektpipelinen, ikke som manglende fremskridt.</p>
       </>
     ),
   },
@@ -330,12 +341,12 @@ const METHOD_SECTIONS = [
     title: 'Scenarievælger (pipeline-scenarier)',
     content: (
       <>
-        <p>Dashboardet tilbyder fire scenarier for hvad der tælles som "opnået":</p>
+        <p>Dashboardet tilbyder grove scenarier for hvad der tælles som "opnået" i prognosekortet. Scenarierne er et supplement til den femfase-pipeline ovenfor, ikke en alternativ faseklassificering:</p>
         <ul className="list-disc pl-5 space-y-1">
           <li><strong>Kun anlagte</strong> — konservativt; kun projekter der er fysisk gennemført</li>
           <li><strong>+ Godkendte</strong> — inkluderer projekter med etableringstilsagn</li>
           <li><strong>+ Forundersøgte</strong> — inkluderer alle med forundersøgelsestilsagn</li>
-          <li><strong>Hele pipeline</strong> — al registreret aktivitet</li>
+          <li><strong>Skitser</strong> — vises som pipeline-fase, men tælles ikke som realiseret effekt i prognosen</li>
         </ul>
         <p>Hvert scenarie genberegner fremskrivningen så brugeren kan se, hvordan billedet ændrer sig hvis flere projekter realiseres.</p>
       </>
@@ -780,26 +791,50 @@ export default function DataMetodePage() {
           <p className="mb-4 rounded-lg border border-amber-200/60 bg-amber-50 px-3 py-2 text-xs text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-100">
             Sprint 3-beslutning: DCE D1 kører som hits-only i daglig ETL (<code>FULL_DCE=0</code>). Den fulde fil materialiseres manuelt/periodisk, når filstørrelse og køretid er dokumenteret stabile nok til CI.
           </p>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Faglige rapporter og metodegrundlag
+          </p>
           <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground leading-relaxed">
             <li>
-              <a href="https://biodiversitet.dk/" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitet.dk</a>
-              {' — '}nationalt videncenter, samler myndigheder, rapporter og indikatorer.
+              <a href="https://dce2.au.dk/pub/SR507.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">DCE SR507 — Potentiale for 30 % beskyttet natur (PDF)</a>
+              {' — '}grundlag for DCE-sporet i tretrins-benchmarken.
             </li>
             <li>
-              <a href="https://environment.ec.europa.eu/topics/nature-and-biodiversity/habitats-directive_en" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">EUs habitatdirektiv (DCE)</a>
-              {' — '}grundlaget for vores reserverede arter og levesteder.
+              <a href="https://macroecology.ku.dk/pdf-files/reports-and-publications/Mere__bedre_og_st_rre_natur_i_Danmark_2024.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">CMEC/KU — Mere, bedre og større natur i Danmark 2024 (PDF)</a>
+              {' — '}grundlag for KU+ CMEC-prioritet 1 og 2.
             </li>
+            <li>
+              <a href="https://www.biodiversitetsraadet.dk/viden/notat-store-sammenhaengende-naturomraader-2" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitetsrådet — Store sammenhængende naturområder (2024)</a>
+              {' — '}DN pegede på dette som fagligt vigtigt for samlet naturprioritering.
+            </li>
+            <li>
+              <a href="https://dce2.au.dk/pub/SR544.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">DCE SR544 — Prioritering ved udtagning (PDF)</a>
+              {' — '}reference for natur- og lavbundsprioritering.
+            </li>
+            <li>
+              <a href="https://www.biodiversitetsraadet.dk/pdf/2023/12/Aarsrapport-Biodiversitetsraadet-2023.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitetsrådet — Årsrapport 2023 (PDF)</a>
+              {' — '}baggrund for diskussionen om hvor meget natur der reelt er beskyttet.
+            </li>
+          </ul>
+          <p className="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Operative data- og aftalekilder
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground leading-relaxed">
             <li>
               <a href="https://miljoeportal.dk/da/Land/Areal-og-jord/Arealdata" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Arealdata (Miljøportal)</a>
               {' — '}WMS/WFS for biodiversitets- og omlægningskort, herunder TRANSFORM- og indsats-WMS.
             </li>
             <li>
-              <a href="https://regeringen.dk/aktuelt/nyheder/2019/12/regeringen-nu-kommer-der-klare-krav-om-mere-og-bedre-beskyttelse-af-naturen" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Regeringen — biodiversitets- og slettepakke (2019)</a>
-              {' — '}politisk forankring af højere standard for beskyttet natur.
-            </li>
-            <li>
               <a href="https://fvm.dk/temaer/natur-og-miljoe" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">FVM — natur og landdistrikter</a>
               {' — '}Vand, natur & skov-ordninger, herunder kortdækningen vi henter som GeoJSON.
+            </li>
+            <li>
+              <a href="https://oem.dk/media/ul2jcmou/aftale-om-et-groent-danmark-24-juni-2024-a.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Aftale om et grønt Danmark (PDF)</a>
+              {' — '}politisk ramme for natur-, lavbunds- og skovmål.
+            </li>
+            <li>
+              <a href="https://regeringen.dk/media/raehl3jj/aftale-om-implementering-af-et-groent-danmark.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Aftale om implementering af et grønt Danmark (PDF)</a>
+              {' — '}implementeringsrammen for omlægningsindsatsen.
             </li>
           </ul>
         </section>

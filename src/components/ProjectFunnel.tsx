@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { formatDanishNumber } from '@/lib/format';
 import type {
   DashboardData,
-  ProjectCounts,
+  PipelineMainPhase,
   ProjectDetail,
   SketchProject,
   KlimaskovfondenProject,
@@ -20,7 +20,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
-import { getPhaseConfig } from '@/lib/phase-config';
+import { PIPELINE_PHASE_CONFIGS } from '@/lib/phase-config';
 import { NatureWatermark } from './NatureWatermark';
 import { InfoTooltip } from './InfoTooltip';
 
@@ -28,19 +28,15 @@ interface ProjectFunnelProps {
   data: DashboardData;
 }
 
-const stages = [
-  { key: 'sketches' as const, sublabel: 'Indledende tegninger', phase: getPhaseConfig('sketch') },
-  { key: 'assessed' as const, sublabel: 'Forundersøgelsestilsagn', phase: getPhaseConfig('preliminary') },
-  { key: 'approved' as const, sublabel: 'Klar til anlæg', phase: getPhaseConfig('approved') },
-  { key: 'established' as const, sublabel: 'Færdige projekter', phase: getPhaseConfig('established') },
-];
+const stages = PIPELINE_PHASE_CONFIGS.map((phase) => ({
+  key: phase.id,
+  sublabel: phase.description,
+  phase,
+}));
 
-/** Phase mapping from projectDetail.phase to our stage keys */
-const PHASE_TO_STAGE: Record<string, keyof ProjectCounts> = {
-  preliminary: 'assessed',
-  approved: 'approved',
-  established: 'established',
-};
+function stageToProjectKey(stage: PipelineMainPhase): keyof PillarProjects {
+  return stage === 'sketch' ? 'sketches' : stage;
+}
 
 /** A project enriched with its parent plan name for display in the project list */
 type ProjectWithPlan = (ProjectDetail | SketchProject) & { planName: string };
@@ -48,8 +44,9 @@ type ProjectWithPlan = (ProjectDetail | SketchProject) & { planName: string };
 /** Grouped project lists per stage, filtered to the active pillar */
 interface PillarProjects {
   sketches: ProjectWithPlan[];
-  assessed: ProjectWithPlan[];
-  approved: ProjectWithPlan[];
+  preliminary_grant: ProjectWithPlan[];
+  preliminary_done: ProjectWithPlan[];
+  establishment_grant: ProjectWithPlan[];
   established: ProjectWithPlan[];
 }
 
@@ -66,10 +63,16 @@ interface PillarProjects {
  * @returns Projects grouped by stage, each enriched with its parent plan name
  *
  * @example
- * const { sketches, assessed, approved, established } = computePillarProjects(data, 'nitrogen');
+ * const { sketches, preliminary_grant, establishment_grant, established } = computePillarProjects(data, 'nitrogen');
  */
 function computePillarProjects(data: DashboardData, pillarId: PillarId): PillarProjects {
-  const result: PillarProjects = { sketches: [], assessed: [], approved: [], established: [] };
+  const result: PillarProjects = {
+    sketches: [],
+    preliminary_grant: [],
+    preliminary_done: [],
+    establishment_grant: [],
+    established: [],
+  };
 
   const effectField = ({
     nitrogen: 'nitrogenT',
@@ -77,33 +80,30 @@ function computePillarProjects(data: DashboardData, pillarId: PillarId): PillarP
     afforestation: 'afforestationHa',
   } as Record<string, string>)[pillarId];
 
-  if (!effectField) return result;
+  const includeAllMarsProjects = pillarId === 'nature';
+  if (!effectField && !includeAllMarsProjects) return result;
 
   for (const plan of data.plans) {
     for (const sk of plan.sketchProjects) {
-      if ((sk as unknown as Record<string, unknown>)[effectField] as number > 0) {
+      if (includeAllMarsProjects || ((sk as unknown as Record<string, unknown>)[effectField] as number > 0)) {
         result.sketches.push({ ...sk, planName: plan.name });
       }
     }
     for (const proj of plan.projectDetails) {
-      const stage = PHASE_TO_STAGE[proj.phase] as keyof PillarProjects | undefined;
-      if (stage && (proj as unknown as Record<string, unknown>)[effectField] as number > 0) {
-        result[stage].push({ ...proj, planName: plan.name });
+      if (proj.pipelinePhase === 'cancelled' || proj.isCancelled) continue;
+      const stage = proj.pipelinePhase as PipelineMainPhase | undefined;
+      const stageKey = stage === 'sketch' ? 'sketches' : stage;
+      if (
+        stageKey &&
+        stageKey in result &&
+        (includeAllMarsProjects || ((proj as unknown as Record<string, unknown>)[effectField] as number > 0))
+      ) {
+        result[stageKey].push({ ...proj, planName: plan.name });
       }
     }
   }
 
   return result;
-}
-
-/** Derive counts from collected project lists */
-function projectsToCount(projects: PillarProjects): ProjectCounts {
-  return {
-    sketches: projects.sketches.length,
-    assessed: projects.assessed.length,
-    approved: projects.approved.length,
-    established: projects.established.length,
-  };
 }
 
 /** Pillar-specific descriptions for the funnel header */
@@ -149,7 +149,7 @@ function getPillarMetric(
     nitrogen: { field: 'nitrogenT', unit: 'ton N' },
     extraction: { field: 'extractionHa', unit: 'ha' },
     afforestation: { field: 'afforestationHa', unit: 'ha' },
-    nature: { field: 'nitrogenT', unit: 'ton N' },
+    nature: { field: 'areaHa', unit: 'ha' },
   };
   const { field, unit } = map[pillarId] ?? map.nitrogen;
   const value = (project as unknown as Record<string, unknown>)[field] as number ?? 0;
@@ -206,6 +206,11 @@ function ProjectListPanel({
               <span className="flex-shrink-0 tabular-nums text-muted-foreground">
                 {formatDanishNumber(proj.areaHa, 0)} ha
               </span>
+              {proj.forvaltningsplanStatus === 'unknown' && (
+                <span className="flex-shrink-0 rounded-full bg-amber-50 px-1.5 py-0.5 text-[9px] font-medium text-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
+                  Forvaltningsplan ukendt
+                </span>
+              )}
             </div>
           );
         })}
@@ -236,7 +241,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
   // Track both pillar and stage so switching pillars automatically resets the panel
   // without needing a separate effect.
-  const [expandedEntry, setExpandedEntry] = useState<{ pillar: PillarId; stage: keyof ProjectCounts } | null>(null);
+  const [expandedEntry, setExpandedEntry] = useState<{ pillar: PillarId; stage: keyof PillarProjects } | null>(null);
 
   useEffect(() => {
     loadKlimaskovfondenProjects().then(setKsfProjects);
@@ -260,21 +265,18 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
   const nstCompleted = nstMatchedProjects.filter((p) => p.status === 'completed');
   const nstTotalHa = Math.round(nstMatchedProjects.reduce((s, p) => s + (p.areaHa ?? 0), 0));
 
-  // For nature, show the full national pipeline (all projects contribute indirectly);
-  // drill-down is only available for the three quantitative pillars.
-  const isNature = activePillar === 'nature';
-  const { projects } = data.national;
-  const displayCounts = isNature ? projects : projectsToCount(pillarProjects);
-
-  const counts = [displayCounts.sketches, displayCounts.assessed, displayCounts.approved, displayCounts.established];
+  // For nature, show all MARS projects in the same administrative 5-phase model.
+  const counts = stages.map((stage) => pillarProjects[stageToProjectKey(stage.key)].length);
   const totalProjects = counts.reduce((a, b) => a + b, 0);
   const maxCount = Math.max(...counts, 1);
+  const unknownForvaltningsplanCount = Object.values(pillarProjects)
+    .flat()
+    .filter((project) => project.forvaltningsplanStatus === 'unknown').length;
 
   const desc = PILLAR_FUNNEL_DESCRIPTIONS[activePillar] ?? PILLAR_FUNNEL_DESCRIPTIONS.nitrogen;
 
   /** Toggle a stage panel open/closed; only one stage can be open at a time */
-  function handleStageClick(stageKey: keyof ProjectCounts) {
-    if (isNature) return; // No drill-down for nature pillar
+  function handleStageClick(stageKey: keyof PillarProjects) {
     setExpandedEntry((prev) =>
       prev?.pillar === activePillar && prev?.stage === stageKey
         ? null
@@ -309,13 +311,12 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
           content={
             <>
               <p>{desc.tooltip}</p>
-              <p><strong>Skitser:</strong> Indledende projektforslag.<br/>
-              <strong>Forundersøgelse:</strong> Forundersøgelsestilsagn givet — fagligt gennemgået.<br/>
-              <strong>Godkendt:</strong> Tilsagn givet, klar til anlæg.<br/>
-              <strong>Anlagt:</strong> Fysisk gennemført — kun disse har realiseret miljøeffekt.</p>
-              {!isNature && (
-                <p><em>Klik på et stadium for at se de enkelte projekter.</em></p>
-              )}
+              <p><strong>Skitse:</strong> Indledende projektforslag.<br/>
+              <strong>Tilsagn til forundersøgelse:</strong> projektet er optaget til forundersøgelse.<br/>
+              <strong>Gennemført forundersøgelse:</strong> forundersøgelsen er afsluttet, men anlæg er ikke besluttet.<br/>
+              <strong>Tilsagn til udtagning/anlæg:</strong> godkendt til etablering.<br/>
+              <strong>Gennemført/anlagt:</strong> fysisk gennemført — kun disse har realiseret miljøeffekt.</p>
+              <p><em>Klik på en fase for at se de enkelte projekter.</em></p>
             </>
           }
           source="MARS API (Miljøstyrelsen)"
@@ -324,9 +325,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       </div>
       <p className="text-sm text-muted-foreground mb-8">
         {desc.subtitle(totalProjects)}
-        {!isNature && (
-          <span className="ml-2 text-xs text-muted-foreground/70">— klik på et stadium for at se projekterne</span>
-        )}
+        <span className="ml-2 text-xs text-muted-foreground/70">— klik på en fase for at se projekterne</span>
       </p>
 
       <div className="space-y-4">
@@ -336,9 +335,10 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
           const conversionRate = i > 0 && counts[i - 1] > 0
             ? ((count / counts[i - 1]) * 100).toFixed(0)
             : null;
-          const isExpanded = expandedEntry?.pillar === activePillar && expandedEntry?.stage === stage.key;
-          const canExpand = !isNature && count > 0;
-          const stageProjects = pillarProjects[stage.key];
+          const projectKey = stageToProjectKey(stage.key);
+          const isExpanded = expandedEntry?.pillar === activePillar && expandedEntry?.stage === projectKey;
+          const canExpand = count > 0;
+          const stageProjects = pillarProjects[projectKey];
 
           return (
             <div key={stage.key}>
@@ -355,7 +355,7 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
                 className={`flex items-center gap-4 rounded-xl px-2 py-1 -mx-2 transition-colors ${
                   canExpand ? 'cursor-pointer hover:bg-muted/30' : ''
                 }`}
-                onClick={() => canExpand && handleStageClick(stage.key)}
+                onClick={() => canExpand && handleStageClick(projectKey)}
                 role={canExpand ? 'button' : undefined}
                 aria-expanded={canExpand ? isExpanded : undefined}
               >
@@ -414,13 +414,21 @@ export function ProjectFunnel({ data }: ProjectFunnelProps) {
       <div className="mt-8 p-4 rounded-xl bg-muted/50 border border-border">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">
-            Gennemførelsesrate (skitse → anlagt)
+            Gennemførelsesrate (skitse → gennemført/anlagt)
           </span>
           <span className="font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-            {displayCounts.sketches > 0 ? ((displayCounts.established / displayCounts.sketches) * 100).toFixed(1) : 0}%
+            {counts[0] > 0 ? ((counts[counts.length - 1] / counts[0]) * 100).toFixed(1) : 0}%
           </span>
         </div>
       </div>
+
+      {unknownForvaltningsplanCount > 0 && (
+        <div className="mt-4 rounded-xl border border-amber-200/70 bg-amber-50/80 px-4 py-3 text-xs text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-100">
+          <span className="font-semibold">Forvaltningsplanstatus mangler: </span>
+          {formatDanishNumber(unknownForvaltningsplanCount)} natur-/skovprojekter er markeret som ukendt i MARS.
+          Det vises som et datagap, fordi DN pegede på forvaltningsplanen som en vigtig ekstra dimension for naturprojekter.
+        </div>
+      )}
 
       {activePillar === 'extraction' && ksfLowlandCount > 0 && (
         <div
