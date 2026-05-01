@@ -18412,21 +18412,21 @@
     "id": "42b7dfee-e848-41fe-932f-40fa968c0f99",
     "name": "Hevring Bugt",
     "geoLocationId": "dcd18884-e2f6-41b9-bfb0-3a56911da16c",
-    "totalNitrogenReductionT": 285.74848981365216,
+    "totalNitrogenReductionT": 285.7937750469426,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 51663.94439268237,
     "countApprovedProjects": 34,
-    "countAssessedProjects": 62,
+    "countAssessedProjects": 63,
     "countEstablishedProjects": 5,
     "countSketchProjects": 153,
     "countNaturePotentials": 24,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 2.3049453009444165,
+        "nitrogenReductionT": 2.3502305342348597,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 376.3133360013583
+        "afforestationEffortHa": 380.4463815361371
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -20269,6 +20269,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-12-18T12:00:00+00:00",
         "lastStateChanged": "2026-04-13T06:20:22.928048+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "d4bd4811-9790-433b-bf5c-135dd4e3e11b",
+        "projectName": "Tangmosevej 6",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.04528523329044317,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 4.133045534778748,
+        "overlappingAreaHa": 4.133045534778746,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "13529265-686b-42da-8e20-6bfe7593a6b9",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-02-26T12:00:00+00:00",
+        "lastStateChanged": "2026-04-30T12:11:45.11856+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
@@ -52063,11 +52081,11 @@
     "id": "76293fee-a007-47ee-91ea-3f513aa20710",
     "name": "Nibe Bredning og Langerak",
     "geoLocationId": "c81cadfd-6a70-4374-91a1-89c4f54d7f38",
-    "totalNitrogenReductionT": 1117.6751176073872,
+    "totalNitrogenReductionT": 1116.0231176073871,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 11700.129787372394,
-    "countApprovedProjects": 119,
+    "countApprovedProjects": 118,
     "countAssessedProjects": 162,
     "countEstablishedProjects": 7,
     "countSketchProjects": 701,
@@ -52087,8 +52105,8 @@
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 474.6424251487757,
-        "extractionEffortHa": 1867.360768718957,
+        "nitrogenReductionT": 472.9904251487757,
+        "extractionEffortHa": 1865.044768718957,
         "afforestationEffortHa": 0
       },
       {
@@ -55742,24 +55760,6 @@
         "geoLocationId": "5e279139-29e3-445d-ad03-020435e9b7e1",
         "subsidySchemeId": "13ccc329-af28-4f1a-b389-930aa94bef26",
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
-        "originalEffects": null,
-        "reducedAreaHa": null
-      },
-      {
-        "projectId": "a1646597-46c8-4386-bbc9-629a841169c5",
-        "projectName": "SkindAppAns",
-        "projectStatus": 6,
-        "nitrogenReductionT": 1.652,
-        "extractionEffortHa": 2.316,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 18.35287488422116,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "69474209-1c7a-4328-920f-f1edf6279809",
-        "subsidySchemeId": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
-        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
         "originalEffects": null,
@@ -76870,12 +76870,12 @@
     "id": "db4a9a3e-0b52-48d1-8f56-b7264cff7ea8",
     "name": "Vesterhavet, nord",
     "geoLocationId": "c6b89ffb-75df-4d6f-b924-e8fae5f520ac",
-    "totalNitrogenReductionT": 771.4774369692228,
+    "totalNitrogenReductionT": 771.6582910014259,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 479.0321797787159,
     "countApprovedProjects": 43,
-    "countAssessedProjects": 123,
+    "countAssessedProjects": 124,
     "countEstablishedProjects": 13,
     "countSketchProjects": 229,
     "countNaturePotentials": 2,
@@ -76888,9 +76888,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 11.09887666237934,
+        "nitrogenReductionT": 11.279730694582442,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 851.1748639167773
+        "afforestationEffortHa": 857.3734591209178
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -80131,6 +80131,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2026-01-29T12:00:00+00:00",
         "lastStateChanged": "2026-04-29T06:54:19.00582+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "54521739-65ab-48f8-9343-13bb876e8d17",
+        "projectName": "Skærbækvej 8",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.1808540322031018,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 6.19859520414048,
+        "overlappingAreaHa": 6.1985952041404815,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "a3b1cea3-3b4a-49e0-af6a-9500d209fcb9",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-02-27T12:00:00+00:00",
+        "lastStateChanged": "2026-04-30T12:11:29.577834+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
