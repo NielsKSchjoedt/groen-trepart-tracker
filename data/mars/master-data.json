@@ -93,15 +93,6 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "2faf34b7-7031-4ace-973b-4f1927236f16",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
           "id": "aa8462b4-ace8-4bc8-9960-a6aa5137410d",
           "title": "Vandløbsopland",
           "type": "vandloebsopland",
@@ -114,6 +105,15 @@
           "id": "0f13bcc7-ec58-4259-b923-779337e62986",
           "title": "Drænopland",
           "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "2faf34b7-7031-4ace-973b-4f1927236f16",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -159,6 +159,15 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
+          "id": "70fd47eb-6eaa-46bb-8a13-c46eaf1bc7f4",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "26128134-9374-4690-833c-b8abce7ccc32",
           "title": "Direkte opland",
           "type": "direkte_opland",
@@ -171,15 +180,6 @@
           "id": "d4f52269-d962-4f1f-b267-eb4d4173e9af",
           "title": "Drænopland",
           "type": "draenopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "70fd47eb-6eaa-46bb-8a13-c46eaf1bc7f4",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -303,18 +303,18 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "7eb889d4-e427-41e5-9e1e-fc856b48866d",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "79c74143-68c7-4f93-89ba-099587a08c0a",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "79c74143-68c7-4f93-89ba-099587a08c0a",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "7eb889d4-e427-41e5-9e1e-fc856b48866d",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -531,9 +531,9 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "5e2f32f5-4e91-4e95-84c2-63dc115abb42",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "17f826dc-7aeb-4de0-ad2a-3693ef42ec4d",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -549,9 +549,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "17f826dc-7aeb-4de0-ad2a-3693ef42ec4d",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "5e2f32f5-4e91-4e95-84c2-63dc115abb42",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -598,9 +598,9 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "df572f77-9fb3-4f1a-bd92-6d7bb12f5335",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "4f4caae2-9d1f-46d8-b7c2-d3594b725dc7",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -616,9 +616,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "4f4caae2-9d1f-46d8-b7c2-d3594b725dc7",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "df572f77-9fb3-4f1a-bd92-6d7bb12f5335",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -735,9 +735,9 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "ff4f24dd-12dd-4d56-85b8-49c3071f8e39",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "20446b45-ebc2-4e93-8040-6010c523dfa9",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -753,9 +753,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "20446b45-ebc2-4e93-8040-6010c523dfa9",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "ff4f24dd-12dd-4d56-85b8-49c3071f8e39",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -787,6 +787,11 @@
       "minAreaHa": 1,
       "requiredCarbonOverlapPercentage": null,
       "applicationPeriods": [
+        {
+          "startDate": "2026-01-01T09:33:00+00:00",
+          "endDate": "2026-01-31T09:33:00+00:00",
+          "extensionEndDate": null
+        },
         {
           "startDate": "2025-09-07T22:00:00+00:00",
           "endDate": "2045-12-31T12:36:00+00:00",
@@ -844,6 +849,15 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
+          "id": "24118614-790a-47bf-9ee4-2cfbc369399f",
+          "title": "Ekstra tilskudsareal",
+          "type": "ekstra_tilskudsarealer",
+          "automatic": false,
+          "clipToProjectGeometry": true,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "e7efc037-cda0-4262-9c95-39dd234b77ef",
           "title": "Tilskudsberettiget areal for urørt skov",
           "type": null,
@@ -860,6 +874,15 @@
           "id": "34bb2b32-1f55-4fe7-9d61-f2abd8fc5e5b",
           "title": "Lysåbne arealer",
           "type": "lysaabne_arealer",
+          "automatic": false,
+          "clipToProjectGeometry": true,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "ca54c203-362b-49cc-8939-7a3237be6df5",
+          "title": "Naturlig tilgroning",
+          "type": "naturlig_tilgroning",
           "automatic": false,
           "clipToProjectGeometry": true,
           "mustOverlapWithDatasets": null,
@@ -886,24 +909,6 @@
           "mustNotOverlapWithDatasets": [
             "urn:dmp:ds:beskyttede-naturtyper"
           ]
-        },
-        {
-          "id": "24118614-790a-47bf-9ee4-2cfbc369399f",
-          "title": "Ekstra tilskudsareal",
-          "type": "ekstra_tilskudsarealer",
-          "automatic": false,
-          "clipToProjectGeometry": true,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "ca54c203-362b-49cc-8939-7a3237be6df5",
-          "title": "Naturlig tilgroning",
-          "type": "naturlig_tilgroning",
-          "automatic": false,
-          "clipToProjectGeometry": true,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
         }
       ]
     },
@@ -946,6 +951,15 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
+          "id": "5756d34f-bf97-4c43-80d5-256eef1554e1",
+          "title": "Drænopland",
+          "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "dcd72365-9bb5-494d-a6db-3df103c2bbfa",
           "title": "Direkte opland",
           "type": "direkte_opland",
@@ -958,15 +972,6 @@
           "id": "e07e1221-c2b3-43ef-bc34-3b8033f400c3",
           "title": "Vandløbsopland",
           "type": "vandloebsopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "5756d34f-bf97-4c43-80d5-256eef1554e1",
-          "title": "Drænopland",
-          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1024,6 +1029,15 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
+          "id": "9c8d69a5-4af2-4eed-9538-104500844d98",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "4bda0e54-f3ea-4ac3-a1c9-2cc15fea35eb",
           "title": "Direkte opland",
           "type": "direkte_opland",
@@ -1036,15 +1050,6 @@
           "id": "2d3ea0d2-1db5-491c-9a55-a714f154ef5e",
           "title": "Drænopland",
           "type": "draenopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "9c8d69a5-4af2-4eed-9538-104500844d98",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1115,15 +1120,6 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "9d6e91da-186a-4260-bf05-dd4cc5db8b71",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
           "id": "b2a0e4f0-df37-454d-bfad-bfaa82488574",
           "title": "Vandløbsopland",
           "type": "vandloebsopland",
@@ -1136,6 +1132,15 @@
           "id": "a5ac95b8-559a-4d1b-ae45-f816e20b4d6e",
           "title": "Drænopland",
           "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "9d6e91da-186a-4260-bf05-dd4cc5db8b71",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1285,18 +1290,18 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "eea3697d-6b9e-489a-b68c-0fdc0389e4d3",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "3fedb1f7-72b9-42f7-8403-726642960d86",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "3fedb1f7-72b9-42f7-8403-726642960d86",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "eea3697d-6b9e-489a-b68c-0fdc0389e4d3",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1442,9 +1447,9 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "3fd736ee-1950-42ab-bee9-d3dba70a018f",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "6b2ec3c6-086c-4363-b587-382839ad094f",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1460,9 +1465,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "6b2ec3c6-086c-4363-b587-382839ad094f",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "3fd736ee-1950-42ab-bee9-d3dba70a018f",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1514,18 +1519,18 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "32df46a9-862e-4bcf-81ee-6037556b7dd4",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "a55f8b0e-f840-4483-a68b-c3a4e76d22d3",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "a55f8b0e-f840-4483-a68b-c3a4e76d22d3",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "32df46a9-862e-4bcf-81ee-6037556b7dd4",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1761,18 +1766,18 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "25652272-cd80-49fa-88be-d192b9efe246",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "622471aa-0c4a-4e76-b288-9dc8078b993b",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "622471aa-0c4a-4e76-b288-9dc8078b993b",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "25652272-cd80-49fa-88be-d192b9efe246",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1824,15 +1829,6 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "d359f687-3f25-4d40-83c2-9b3ea8eb1835",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
           "id": "8fb707ae-6b78-416f-991e-d01b519ba9d9",
           "title": "Direkte opland",
           "type": "direkte_opland",
@@ -1845,6 +1841,15 @@
           "id": "520ce8c0-54b1-44bd-ae88-0edb5deb991e",
           "title": "Drænopland",
           "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "d359f687-3f25-4d40-83c2-9b3ea8eb1835",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -2029,18 +2034,18 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "2e16d2d9-a2bb-4d0a-9e8c-bb0179a36a87",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "d68b59f7-4d86-41d8-9c21-f9f892eceb32",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "d68b59f7-4d86-41d8-9c21-f9f892eceb32",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "2e16d2d9-a2bb-4d0a-9e8c-bb0179a36a87",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -2092,9 +2097,9 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "949944bc-8e17-4381-b522-2249024a72e2",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "b5428874-681c-49ba-ac93-c891ec42b494",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -2110,9 +2115,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "b5428874-681c-49ba-ac93-c891ec42b494",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "949944bc-8e17-4381-b522-2249024a72e2",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -2170,9 +2175,9 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "15cc885b-6446-44e7-8cea-8ac7a061ad34",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "21228aab-3c0f-40e2-953d-d23b6ba5ac4c",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -2188,9 +2193,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "21228aab-3c0f-40e2-953d-d23b6ba5ac4c",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "15cc885b-6446-44e7-8cea-8ac7a061ad34",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
