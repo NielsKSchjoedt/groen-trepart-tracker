@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-05-19T07:07:42.000727+00:00",
-  "builtAt": "2026-05-19T07:16:49.467969+00:00",
+  "fetchedAt": "2026-05-20T07:07:17.421027+00:00",
+  "builtAt": "2026-05-20T07:18:01.310665+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-05-19T07:07:42.000727+00:00"
+      "fetchedAt": "2026-05-20T07:07:17.421027+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-05-19T07:08:29.146736+00:00"
+      "fetchedAt": "2026-05-20T07:08:14.032684+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-05-19T07:09:30.720337+00:00"
+      "fetchedAt": "2026-05-20T07:09:27.785934+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-05-19T07:08:32.941205+00:00"
+      "fetchedAt": "2026-05-20T07:08:17.928195+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-05-19T07:09:09.399004Z"
+      "fetchedAt": "2026-05-20T07:09:01.073858Z"
     }
   },
   "national": {
@@ -95,7 +95,7 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 3784.1,
+        "totalT": 3784.6,
         "totalProgressPct": 29.6,
         "byPhase": {
           "established": {
@@ -107,7 +107,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 3591.9,
+            "T": 3592.4,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1375,
+      "total": 1376,
       "phases": {
         "sketches": {
           "count": 5294,
@@ -310,12 +310,12 @@
           "implemented": false
         },
         "assessed": {
-          "count": 878,
+          "count": 879,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
         "approved": {
-          "count": 525,
+          "count": 526,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -3357,7 +3357,7 @@
         "kode": "0450",
         "navn": "Nyborg",
         "region": "Region Syddanmark",
-        "nitrogenT": 10.2,
+        "nitrogenT": 10.7,
         "extractionHa": 63.0,
         "afforestationMarsHa": 0.0,
         "afforestationKsfHa": 15.8,
@@ -3367,10 +3367,10 @@
         "natura2000Ha": 351.7,
         "naturePotentialHa": 1675.3,
         "co2EstimatedT": 387382.1,
-        "projectCount": 153,
+        "projectCount": 154,
         "projectsByPhase": {
           "sketches": 141,
-          "assessed": 7,
+          "assessed": 8,
           "approved": 5,
           "established": 0
         },
@@ -3382,10 +3382,10 @@
             "count": 141
           },
           "preliminary": {
-            "nitrogenT": 10.1,
+            "nitrogenT": 10.6,
             "extractionHa": 33.9,
             "afforestationHa": 0.0,
-            "count": 7
+            "count": 8
           },
           "approved": {
             "nitrogenT": 0.1,
@@ -4511,19 +4511,19 @@
         "region": "Region Nordjylland",
         "nitrogenT": 117.4,
         "extractionHa": 2251.3,
-        "afforestationMarsHa": 80.3,
+        "afforestationMarsHa": 86.3,
         "afforestationKsfHa": 18.7,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 99.0,
+        "afforestationTotalHa": 105.0,
         "section3Ha": 26559.5,
         "natura2000Ha": 16938.8,
         "naturePotentialHa": 43498.3,
         "co2EstimatedT": 483577.2,
-        "projectCount": 164,
+        "projectCount": 165,
         "projectsByPhase": {
           "sketches": 126,
           "assessed": 12,
-          "approved": 26,
+          "approved": 27,
           "established": 0
         },
         "byPhase": {
@@ -4542,8 +4542,8 @@
           "approved": {
             "nitrogenT": 32.5,
             "extractionHa": 912.1,
-            "afforestationHa": 80.3,
-            "count": 26
+            "afforestationHa": 86.3,
+            "count": 27
           },
           "established": {
             "nitrogenT": 0.0,
@@ -91308,12 +91308,12 @@
       "geoLocationId": "d5fb3aad-0fa0-4e6f-8ced-15de12682099",
       "nameNormalized": "Langelandssund",
       "nitrogenGoalT": 115.0,
-      "nitrogenAchievedT": 16.3,
-      "nitrogenProgressPct": 14.2,
+      "nitrogenAchievedT": 16.8,
+      "nitrogenProgressPct": 14.6,
       "nitrogenByPhase": {
         "established": 0,
         "approved": 0.3,
-        "preliminary": 16.0
+        "preliminary": 16.5
       },
       "extractionPotentialHa": 1167.5,
       "extractionAchievedHa": 0,
@@ -91333,10 +91333,10 @@
       "projects": {
         "sketches": 270,
         "assessed": 12,
-        "approved": 12,
+        "approved": 13,
         "established": 1,
         "byStatus": {
-          "preliminary": 12,
+          "preliminary": 13,
           "approved": 12,
           "established": 1
         }
@@ -91840,6 +91840,26 @@
           "areaHa": 4.44,
           "appliedAt": "2026-01-22T12:00:00+00:00",
           "lastChanged": "2026-05-13T12:11:08.881359+00:00",
+          "kommuneKode": "0450",
+          "kommuneNavn": "Nyborg"
+        },
+        {
+          "id": "19beb28d-6c87-46e3-8b21-b583db3ceedf",
+          "name": "117. Fasttrack vådområde - Frørup Nord",
+          "geoId": "26c38d4b-a698-419e-bb29-e84df3edb177",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 0.515,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 5.73,
+          "appliedAt": "2026-01-22T12:00:00+00:00",
+          "lastChanged": "2026-05-19T10:24:55.338895+00:00",
           "kommuneKode": "0450",
           "kommuneNavn": "Nyborg"
         }
@@ -106647,19 +106667,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 0,
-        "approved": 29.3,
+        "approved": 35.4,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 8329.9,
       "countNaturePotentials": 3,
       "projects": {
         "sketches": 24,
-        "assessed": 14,
+        "assessed": 15,
         "approved": 5,
         "established": 0,
         "byStatus": {
           "preliminary": 5,
-          "approved": 14,
+          "approved": 15,
           "established": 0
         }
       },
@@ -107044,6 +107064,26 @@
           "lastChanged": "2026-03-24T10:27:55.775813+00:00",
           "kommuneKode": "0860",
           "kommuneNavn": "Hjørring"
+        },
+        {
+          "id": "90fc2fee-6c5f-48d2-9c10-b164a746794e",
+          "name": "Klatmøllevej",
+          "geoId": "5bee7961-55f1-4beb-83f6-adcde3505c88",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 6.01,
+          "areaHa": 6.01,
+          "appliedAt": "2025-12-11T12:00:00+00:00",
+          "lastChanged": "2026-05-20T07:05:08.545958+00:00",
+          "kommuneKode": "0787",
+          "kommuneNavn": "Thisted"
         }
       ],
       "sketchProjects": [
@@ -188933,7 +188973,7 @@
       "name": "Storebælt",
       "geoLocationId": "34fc8546-ef34-4153-be33-e880ed98c0a1",
       "nameNormalized": "Storebælt",
-      "nitrogenAchievedT": 45.9,
+      "nitrogenAchievedT": 46.4,
       "extractionAchievedHa": 0,
       "afforestationAchievedHa": 0,
       "naturePotentialAreaHa": 2707.9,
@@ -188941,7 +188981,7 @@
       "projects": {
         "sketches": 295,
         "assessed": 12,
-        "approved": 17,
+        "approved": 18,
         "established": 4
       },
       "projectDetails": [
@@ -189602,6 +189642,26 @@
           "areaHa": 4.44,
           "appliedAt": "2026-01-22T12:00:00+00:00",
           "lastChanged": "2026-05-13T12:11:08.881359+00:00",
+          "kommuneKode": "0450",
+          "kommuneNavn": "Nyborg"
+        },
+        {
+          "id": "19beb28d-6c87-46e3-8b21-b583db3ceedf",
+          "name": "117. Fasttrack vådområde - Frørup Nord",
+          "geoId": "26c38d4b-a698-419e-bb29-e84df3edb177",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 0.515,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 5.73,
+          "appliedAt": "2026-01-22T12:00:00+00:00",
+          "lastChanged": "2026-05-19T10:24:55.338895+00:00",
           "kommuneKode": "0450",
           "kommuneNavn": "Nyborg"
         }

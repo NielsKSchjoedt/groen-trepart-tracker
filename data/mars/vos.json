@@ -30696,11 +30696,11 @@
     "id": "3a11a113-0833-4f40-a498-9614c76a09f5",
     "name": "Storebælt",
     "geoLocationId": "34fc8546-ef34-4153-be33-e880ed98c0a1",
-    "totalNitrogenReductionT": 45.88740037420592,
+    "totalNitrogenReductionT": 46.40279419420719,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 2707.902663871827,
-    "countApprovedProjects": 17,
+    "countApprovedProjects": 18,
     "countAssessedProjects": 12,
     "countEstablishedProjects": 4,
     "countSketchProjects": 295,
@@ -30708,7 +30708,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 37.43041210501563,
+        "nitrogenReductionT": 37.9458059250169,
         "extractionEffortHa": 33.03530195232577,
         "afforestationEffortHa": 0
       },
@@ -31323,6 +31323,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2026-01-22T12:00:00+00:00",
         "lastStateChanged": "2026-05-13T12:11:08.881359+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "19beb28d-6c87-46e3-8b21-b583db3ceedf",
+        "projectName": "117. Fasttrack vådområde - Frørup Nord",
+        "projectStatus": 6,
+        "nitrogenReductionT": 0.5153938200012731,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 5.726598000014447,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "26c38d4b-a698-419e-bb29-e84df3edb177",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-01-22T12:00:00+00:00",
+        "lastStateChanged": "2026-05-19T10:24:55.338895+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
