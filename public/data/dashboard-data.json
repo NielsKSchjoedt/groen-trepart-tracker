@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-05-31T07:14:21.362687+00:00",
-  "builtAt": "2026-05-31T07:33:29.742688+00:00",
+  "fetchedAt": "2026-06-01T07:39:04.317072+00:00",
+  "builtAt": "2026-06-01T07:48:44.323225+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-05-31T07:14:21.362687+00:00"
+      "fetchedAt": "2026-06-01T07:39:04.317072+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-05-31T07:15:03.166895+00:00"
+      "fetchedAt": "2026-06-01T07:39:55.918536+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-05-31T07:26:48.723739+00:00"
+      "fetchedAt": "2026-06-01T07:40:59.598322+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-05-31T07:15:07.588837+00:00"
+      "fetchedAt": "2026-06-01T07:39:59.483380+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-05-31T07:15:35.045494Z"
+      "fetchedAt": "2026-06-01T07:40:36.647065Z"
     }
   },
   "national": {
@@ -310,7 +310,7 @@
           "implemented": false
         },
         "assessed": {
-          "count": 882,
+          "count": 883,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
@@ -4701,21 +4701,21 @@
         "kode": "0573",
         "navn": "Varde",
         "region": "Region Syddanmark",
-        "nitrogenT": 114.7,
+        "nitrogenT": 115.0,
         "extractionHa": 1959.3,
-        "afforestationMarsHa": 310.0,
+        "afforestationMarsHa": 333.6,
         "afforestationKsfHa": 18.8,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 328.8,
+        "afforestationTotalHa": 352.4,
         "section3Ha": 22395.6,
         "natura2000Ha": 14283.5,
         "naturePotentialHa": 36679.1,
         "co2EstimatedT": 753708.8,
-        "projectCount": 85,
+        "projectCount": 86,
         "projectsByPhase": {
           "sketches": 42,
           "assessed": 14,
-          "approved": 25,
+          "approved": 26,
           "established": 4
         },
         "byPhase": {
@@ -4732,10 +4732,10 @@
             "count": 14
           },
           "approved": {
-            "nitrogenT": 30.9,
+            "nitrogenT": 31.2,
             "extractionHa": 751.8,
-            "afforestationHa": 181.3,
-            "count": 25
+            "afforestationHa": 204.9,
+            "count": 26
           },
           "established": {
             "nitrogenT": 2.8,
@@ -19822,7 +19822,7 @@
       "nitrogenProgressPct": 0.0,
       "nitrogenByPhase": {
         "established": 3.1,
-        "approved": 68.2,
+        "approved": 68.5,
         "preliminary": 403.7
       },
       "extractionPotentialHa": 28437.1,
@@ -19835,19 +19835,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 175.2,
-        "approved": 338.2,
+        "approved": 361.8,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 33084.4,
       "countNaturePotentials": 18,
       "projects": {
         "sketches": 452,
-        "assessed": 113,
+        "assessed": 114,
         "approved": 57,
         "established": 17,
         "byStatus": {
           "preliminary": 57,
-          "approved": 113,
+          "approved": 114,
           "established": 17
         }
       },
@@ -23592,6 +23592,26 @@
           "lastChanged": "2026-05-28T13:13:58.353217+00:00",
           "kommuneKode": "0510",
           "kommuneNavn": "Haderslev"
+        },
+        {
+          "id": "5b3d0308-1661-4a5e-832b-388fea3490c6",
+          "name": "Alslev Mølleskov",
+          "geoId": "7de5a087-2343-4361-8d85-b586911f59a6",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.268,
+          "extractionHa": 0,
+          "afforestationHa": 23.63,
+          "areaHa": 23.63,
+          "appliedAt": "2025-10-31T17:52:01.440835+00:00",
+          "lastChanged": "2026-06-01T07:05:47.384007+00:00",
+          "kommuneKode": "0573",
+          "kommuneNavn": "Varde"
         }
       ],
       "sketchProjects": [
