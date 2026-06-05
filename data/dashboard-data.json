@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-06-04T07:32:55.394644+00:00",
-  "builtAt": "2026-06-04T07:51:44.213200+00:00",
+  "fetchedAt": "2026-06-05T07:24:23.183891+00:00",
+  "builtAt": "2026-06-05T07:35:01.784145+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-06-04T07:32:55.394644+00:00"
+      "fetchedAt": "2026-06-05T07:24:23.183891+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-06-04T07:36:23.631519+00:00"
+      "fetchedAt": "2026-06-05T07:25:53.798096+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-06-04T07:38:07.612530+00:00"
+      "fetchedAt": "2026-06-05T07:26:58.150449+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-06-04T07:36:27.622940+00:00"
+      "fetchedAt": "2026-06-05T07:25:57.296102+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-06-04T07:37:35.409735Z"
+      "fetchedAt": "2026-06-05T07:26:35.310896Z"
     }
   },
   "national": {
@@ -95,8 +95,8 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 4229.7,
-        "totalProgressPct": 33.1,
+        "totalT": 4236.9,
+        "totalProgressPct": 33.2,
         "byPhase": {
           "established": {
             "T": 26.7,
@@ -107,7 +107,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4058.6,
+            "T": 4065.8,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -116,7 +116,7 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 93177.8,
+        "totalHa": 93182.5,
         "totalProgressPct": 66.6,
         "byPhase": {
           "established": {
@@ -128,7 +128,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 70546.2,
+            "ha": 70550.9,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -302,10 +302,10 @@
       }
     },
     "projectPipeline": {
-      "total": 1499,
+      "total": 1501,
       "phases": {
         "sketches": {
-          "count": 5282,
+          "count": 5276,
           "description": "Skitse — early concept, not yet formally assessed",
           "implemented": false
         },
@@ -315,7 +315,7 @@
           "implemented": false
         },
         "approved": {
-          "count": 640,
+          "count": 642,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -535,19 +535,19 @@
         "natura2000Ha": 1443.2,
         "naturePotentialHa": 2284.2,
         "co2EstimatedT": 88130.0,
-        "projectCount": 23,
+        "projectCount": 28,
         "projectsByPhase": {
-          "sketches": 22,
+          "sketches": 27,
           "assessed": 1,
           "approved": 0,
           "established": 0
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 4.4,
-            "extractionHa": 51.4,
+            "nitrogenT": 4.5,
+            "extractionHa": 52.2,
             "afforestationHa": 1.4,
-            "count": 22
+            "count": 27
           },
           "preliminary": {
             "nitrogenT": 0.2,
@@ -823,19 +823,19 @@
         "natura2000Ha": 1865.3,
         "naturePotentialHa": 8330.8,
         "co2EstimatedT": 396766.9,
-        "projectCount": 53,
+        "projectCount": 51,
         "projectsByPhase": {
-          "sketches": 37,
+          "sketches": 35,
           "assessed": 3,
           "approved": 13,
           "established": 0
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 285.9,
-            "extractionHa": 7148.1,
+            "nitrogenT": 281.2,
+            "extractionHa": 7029.8,
             "afforestationHa": 0.0,
-            "count": 37
+            "count": 35
           },
           "preliminary": {
             "nitrogenT": 0.0,
@@ -919,9 +919,9 @@
         "natura2000Ha": 0.0,
         "naturePotentialHa": 1272.3,
         "co2EstimatedT": 108358.5,
-        "projectCount": 21,
+        "projectCount": 22,
         "projectsByPhase": {
-          "sketches": 15,
+          "sketches": 16,
           "assessed": 3,
           "approved": 3,
           "established": 0
@@ -929,9 +929,9 @@
         "byPhase": {
           "sketch": {
             "nitrogenT": 13.8,
-            "extractionHa": 298.3,
+            "extractionHa": 300.8,
             "afforestationHa": 25.7,
-            "count": 15
+            "count": 16
           },
           "preliminary": {
             "nitrogenT": 42.1,
@@ -2071,19 +2071,19 @@
         "natura2000Ha": 9024.9,
         "naturePotentialHa": 10105.5,
         "co2EstimatedT": 169513.9,
-        "projectCount": 33,
+        "projectCount": 34,
         "projectsByPhase": {
-          "sketches": 29,
+          "sketches": 30,
           "assessed": 3,
           "approved": 1,
           "established": 0
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 60.1,
-            "extractionHa": 763.4,
+            "nitrogenT": 62.0,
+            "extractionHa": 764.5,
             "afforestationHa": 0.0,
-            "count": 29
+            "count": 30
           },
           "preliminary": {
             "nitrogenT": 6.1,
@@ -2119,19 +2119,19 @@
         "natura2000Ha": 1820.1,
         "naturePotentialHa": 12326.3,
         "co2EstimatedT": 715272.6,
-        "projectCount": 30,
+        "projectCount": 25,
         "projectsByPhase": {
-          "sketches": 12,
+          "sketches": 7,
           "assessed": 6,
           "approved": 12,
           "established": 0
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 106.7,
-            "extractionHa": 2668.3,
+            "nitrogenT": 78.9,
+            "extractionHa": 1971.9,
             "afforestationHa": 0.0,
-            "count": 12
+            "count": 7
           },
           "preliminary": {
             "nitrogenT": 4.8,
@@ -2551,19 +2551,19 @@
         "natura2000Ha": 4354.0,
         "naturePotentialHa": 21148.8,
         "co2EstimatedT": 390543.5,
-        "projectCount": 37,
+        "projectCount": 36,
         "projectsByPhase": {
-          "sketches": 26,
+          "sketches": 25,
           "assessed": 3,
           "approved": 6,
           "established": 2
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 109.0,
-            "extractionHa": 1864.4,
+            "nitrogenT": 103.4,
+            "extractionHa": 1723.9,
             "afforestationHa": 93.8,
-            "count": 26
+            "count": 25
           },
           "preliminary": {
             "nitrogenT": 6.2,
@@ -2887,19 +2887,19 @@
         "natura2000Ha": 1582.7,
         "naturePotentialHa": 2896.7,
         "co2EstimatedT": 146999.9,
-        "projectCount": 49,
+        "projectCount": 51,
         "projectsByPhase": {
-          "sketches": 37,
+          "sketches": 39,
           "assessed": 8,
           "approved": 3,
           "established": 1
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 66.0,
-            "extractionHa": 363.3,
+            "nitrogenT": 68.3,
+            "extractionHa": 368.0,
             "afforestationHa": 72.6,
-            "count": 37
+            "count": 39
           },
           "preliminary": {
             "nitrogenT": 13.7,
@@ -3799,19 +3799,19 @@
         "natura2000Ha": 170.9,
         "naturePotentialHa": 1265.1,
         "co2EstimatedT": 233360.8,
-        "projectCount": 26,
+        "projectCount": 27,
         "projectsByPhase": {
-          "sketches": 21,
+          "sketches": 22,
           "assessed": 1,
           "approved": 4,
           "established": 0
         },
         "byPhase": {
           "sketch": {
-            "nitrogenT": 53.3,
-            "extractionHa": 386.8,
+            "nitrogenT": 54.1,
+            "extractionHa": 407.6,
             "afforestationHa": 1800.3,
-            "count": 21
+            "count": 22
           },
           "preliminary": {
             "nitrogenT": 2.7,
@@ -4365,8 +4365,8 @@
         "kode": "0479",
         "navn": "Svendborg",
         "region": "Region Syddanmark",
-        "nitrogenT": 57.4,
-        "extractionHa": 33.1,
+        "nitrogenT": 64.6,
+        "extractionHa": 37.8,
         "afforestationMarsHa": 5.4,
         "afforestationKsfHa": 18.5,
         "afforestationNstHa": 0.0,
@@ -4375,10 +4375,10 @@
         "natura2000Ha": 257.2,
         "naturePotentialHa": 1966.5,
         "co2EstimatedT": 229332.0,
-        "projectCount": 375,
+        "projectCount": 377,
         "projectsByPhase": {
           "sketches": 356,
-          "assessed": 12,
+          "assessed": 14,
           "approved": 6,
           "established": 1
         },
@@ -4390,10 +4390,10 @@
             "count": 356
           },
           "preliminary": {
-            "nitrogenT": 56.9,
-            "extractionHa": 33.1,
+            "nitrogenT": 64.1,
+            "extractionHa": 37.8,
             "afforestationHa": 0.0,
-            "count": 12
+            "count": 14
           },
           "approved": {
             "nitrogenT": 0.5,
@@ -4509,8 +4509,8 @@
         "kode": "0787",
         "navn": "Thisted",
         "region": "Region Nordjylland",
-        "nitrogenT": 142.9,
-        "extractionHa": 2882.7,
+        "nitrogenT": 155.0,
+        "extractionHa": 3185.9,
         "afforestationMarsHa": 86.3,
         "afforestationKsfHa": 18.7,
         "afforestationNstHa": 0.0,
@@ -4519,10 +4519,10 @@
         "natura2000Ha": 16938.8,
         "naturePotentialHa": 43498.3,
         "co2EstimatedT": 483577.2,
-        "projectCount": 167,
+        "projectCount": 168,
         "projectsByPhase": {
           "sketches": 126,
-          "assessed": 14,
+          "assessed": 15,
           "approved": 27,
           "established": 0
         },
@@ -4534,10 +4534,10 @@
             "count": 126
           },
           "preliminary": {
-            "nitrogenT": 110.4,
-            "extractionHa": 1970.6,
+            "nitrogenT": 122.5,
+            "extractionHa": 2273.8,
             "afforestationHa": 0.0,
-            "count": 14
+            "count": 15
           },
           "approved": {
             "nitrogenT": 32.5,
@@ -5249,7 +5249,7 @@
       "naturePotentialAreaHa": 10089.0,
       "countNaturePotentials": 8,
       "projects": {
-        "sketches": 641,
+        "sketches": 640,
         "assessed": 169,
         "approved": 138,
         "established": 7,
@@ -11498,8 +11498,8 @@
           "areaHa": 303.2,
           "appliedAt": "2026-02-25T12:00:00+00:00",
           "lastChanged": "2026-06-03T11:44:54.087125+00:00",
-          "kommuneKode": null,
-          "kommuneNavn": null
+          "kommuneKode": "0787",
+          "kommuneNavn": "Thisted"
         },
         {
           "id": "47acc604-3125-428e-a5f9-eb5a700e9115",
@@ -11543,19 +11543,6 @@
         }
       ],
       "sketchProjects": [
-        {
-          "id": "398fc4d3-6dff-4daf-9e2c-fa31cf193227",
-          "name": "17",
-          "geoId": "8f26ec36-487d-433c-8060-46682d1c8a74",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.045,
-          "extractionHa": 1.13,
-          "afforestationHa": 0,
-          "areaHa": 1.13
-        },
         {
           "id": "7c07906f-f547-42e3-9b9b-76e1fdbd3970",
           "name": "Ulsted Rimmer",
@@ -82979,19 +82966,19 @@
       "geoLocationId": "c6f12aab-47c3-49fd-aff9-7bbac5fc500c",
       "nameNormalized": "Det sydfynske Oehav",
       "nitrogenGoalT": 192.9,
-      "nitrogenAchievedT": 88.7,
-      "nitrogenProgressPct": 46.0,
+      "nitrogenAchievedT": 95.9,
+      "nitrogenProgressPct": 49.7,
       "nitrogenByPhase": {
         "established": 0,
         "approved": 1.6,
-        "preliminary": 87.1
+        "preliminary": 94.3
       },
       "extractionPotentialHa": 1202.6,
       "extractionAchievedHa": 0,
       "extractionByPhase": {
         "established": 0,
         "approved": 0.8,
-        "preliminary": 83.4
+        "preliminary": 88.1
       },
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
@@ -83004,10 +82991,10 @@
       "projects": {
         "sketches": 448,
         "assessed": 8,
-        "approved": 16,
+        "approved": 18,
         "established": 0,
         "byStatus": {
-          "preliminary": 16,
+          "preliminary": 18,
           "approved": 8,
           "established": 0
         }
@@ -83491,6 +83478,46 @@
           "areaHa": 185.22,
           "appliedAt": "2026-01-21T12:00:00+00:00",
           "lastChanged": "2026-06-03T13:32:54.381442+00:00",
+          "kommuneKode": "0479",
+          "kommuneNavn": "Svendborg"
+        },
+        {
+          "id": "1188c242-781a-4aee-8147-832444fb0e27",
+          "name": "9.77 småt vådområde Egebjerg Nord",
+          "geoId": "e36d5245-7fa0-4037-986c-d4566a78b9ef",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 1.309,
+          "extractionHa": 4.35,
+          "afforestationHa": 0,
+          "areaHa": 14.55,
+          "appliedAt": "2026-01-22T12:00:00+00:00",
+          "lastChanged": "2026-06-04T07:07:02.704418+00:00",
+          "kommuneKode": "0479",
+          "kommuneNavn": "Svendborg"
+        },
+        {
+          "id": "a27b7e65-90ce-42e1-bb7b-5f734cd83def",
+          "name": "1.9 Ollerup Egense",
+          "geoId": "8d94a9de-fac5-4c36-b611-3b94a56946c3",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 5.88,
+          "extractionHa": 0.38,
+          "afforestationHa": 0,
+          "areaHa": 65.34,
+          "appliedAt": "2026-01-13T12:00:00+00:00",
+          "lastChanged": "2026-06-04T07:16:12.122556+00:00",
           "kommuneKode": "0479",
           "kommuneNavn": "Svendborg"
         }
@@ -107381,15 +107408,6 @@
       ],
       "naturePotentials": [
         {
-          "id": "5b017b7d-9bf6-47b7-919a-9ffa07b181bd",
-          "name": "Område 6 Kjul-Tversted",
-          "areaHa": 536.88,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
-        },
-        {
           "id": "2aa1da39-60fb-45a3-be35-5f6e9f0cad0f",
           "name": "Understed bakker kode 108",
           "areaHa": 107.87,
@@ -107456,6 +107474,15 @@
           "id": "ae56d3a9-6ead-49f9-a94d-6e6c7ea52f5b",
           "name": "Understed bakker kode 13 og 43",
           "areaHa": 58.16,
+          "biodiversityHa": 0,
+          "protectedNatureHa": 0,
+          "section3Ha": 0,
+          "natura2000Ha": 0
+        },
+        {
+          "id": "57e0b8e4-af49-4c34-ba56-fbf09dd175b9",
+          "name": "Område 6 Kjul-Tversted",
+          "areaHa": 536.88,
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
           "section3Ha": 0,
@@ -108831,7 +108858,7 @@
     {
       "id": "fb87bd8e-b69a-4457-8b3c-759540a94eb9",
       "name": "Skagerrak",
-      "geoLocationId": "545bbf7c-a871-4c10-bb7e-b8ef34ee5d5e",
+      "geoLocationId": "a25b24a4-28be-4019-89d3-0fb1bf77f923",
       "nameNormalized": "Skagerrak",
       "nitrogenGoalT": 0,
       "nitrogenAchievedT": 5.0,
@@ -108857,7 +108884,7 @@
       "naturePotentialAreaHa": 8329.9,
       "countNaturePotentials": 3,
       "projects": {
-        "sketches": 24,
+        "sketches": 19,
         "assessed": 15,
         "approved": 7,
         "established": 0,
@@ -109312,35 +109339,9 @@
       ],
       "sketchProjects": [
         {
-          "id": "0755200f-6779-4918-bee9-65742f3bd333",
-          "name": "JK Sletteå",
-          "geoId": "1bb655ae-35e6-41a5-bac9-63d8271324bf",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 5.621,
-          "extractionHa": 140.52,
-          "afforestationHa": 0,
-          "areaHa": 140.52
-        },
-        {
-          "id": "500a1fdf-87f2-490f-b309-fbae88341661",
-          "name": "Trynmose",
-          "geoId": "9eef1f9f-edf1-4106-ae2e-95edd5b14f25",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "NST Klima-Lavbund",
-          "schemeOrg": "NST",
-          "nitrogenT": 3.519,
-          "extractionHa": 87.97,
-          "afforestationHa": 0,
-          "areaHa": 87.97
-        },
-        {
-          "id": "44710b2d-5575-41ac-876f-453947ecb0ac",
+          "id": "fc74e0f7-ecf6-4c49-824d-377c487de741",
           "name": "Ilbro Enge",
-          "geoId": "fd12288f-b6e9-4bf2-9d6c-82b71e49a979",
+          "geoId": "2bc79bb6-d898-4075-8bcd-32e8ca8d9e7c",
           "phase": "sketch",
           "measureName": "Lavbundsprojekter",
           "schemeName": "Lavbundsprojekter",
@@ -109351,35 +109352,9 @@
           "areaHa": 363.03
         },
         {
-          "id": "994d967c-4ca1-4e6e-8e68-2931291c0f95",
-          "name": "Ansøgt skov",
-          "geoId": "9f7c3e46-1c96-4a72-9105-375bd47115ab",
-          "phase": "sketch",
-          "measureName": "Skovrejsning",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.006,
-          "extractionHa": 0,
-          "afforestationHa": 2.15,
-          "areaHa": 2.15
-        },
-        {
-          "id": "8d4e8682-1ac8-4d1c-b45a-d8c6cf4d8116",
-          "name": "JK Kringelstederne",
-          "geoId": "48e1f6a8-3a5f-420a-a518-5f5c41de6cba",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 2.782,
-          "extractionHa": 69.56,
-          "afforestationHa": 0,
-          "areaHa": 69.56
-        },
-        {
-          "id": "c78ae3ba-7923-4795-a957-8b824ccdec40",
+          "id": "c5327663-b227-4556-8c5e-1a06e6fa9005",
           "name": "Skovrejsning, kommunalt areal - Ræhr vest",
-          "geoId": "2e15b283-31fe-4f1f-a414-8e2e951a3073",
+          "geoId": "e77a310b-5803-45bf-a300-fe57fa0586c0",
           "phase": "sketch",
           "measureName": "Skovrejsning",
           "schemeName": "",
@@ -109390,165 +109365,9 @@
           "areaHa": 5.3
         },
         {
-          "id": "0cc21761-5ed0-4e90-8b11-e0deedc2c787",
-          "name": "Nors Sø",
-          "geoId": "1066739e-55f6-4de6-acbe-6f4558c37403",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 2.591,
-          "extractionHa": 64.78,
-          "afforestationHa": 0,
-          "areaHa": 64.78
-        },
-        {
-          "id": "398fc4d3-6dff-4daf-9e2c-fa31cf193227",
-          "name": "17",
-          "geoId": "8f26ec36-487d-433c-8060-46682d1c8a74",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 4.685,
-          "extractionHa": 117.13,
-          "afforestationHa": 0,
-          "areaHa": 117.13
-        },
-        {
-          "id": "d357c0aa-250a-428b-9088-9e14d879639f",
-          "name": "Glimsholt og Stensbæk",
-          "geoId": "9a0fc9da-5dcc-45cd-b6e3-d7cda58d088f",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 4.351,
-          "extractionHa": 108.77,
-          "afforestationHa": 0,
-          "areaHa": 108.77
-        },
-        {
-          "id": "67c8c11c-b99a-4cc0-bfb3-d755d3d363a8",
-          "name": "14",
-          "geoId": "4dd38df1-e2a7-4e18-b329-63c4f9c697c6",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 1.293,
-          "extractionHa": 32.33,
-          "afforestationHa": 0,
-          "areaHa": 32.33
-        },
-        {
-          "id": "edfcba05-9927-4b88-915d-08cc37261cd6",
-          "name": "Ansøgt skov",
-          "geoId": "d8f66368-e4dc-4b63-9efd-75f2db8eb5de",
-          "phase": "sketch",
-          "measureName": "Skovrejsning",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.016,
-          "extractionHa": 0,
-          "afforestationHa": 5.44,
-          "areaHa": 5.44
-        },
-        {
-          "id": "b4a0b133-f21e-4ec7-bbd4-87eddd678d96",
-          "name": "16",
-          "geoId": "d2d7e7b0-809f-419e-9aa2-e46ed5d23d90",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 1.524,
-          "extractionHa": 38.1,
-          "afforestationHa": 0,
-          "areaHa": 38.1
-        },
-        {
-          "id": "a3aff881-1cd8-4358-896d-7e4e5d23a9fa",
-          "name": "Klosterskoven",
-          "geoId": "82800eb3-107f-41a8-baa8-fac43f880a7f",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 4.426,
-          "extractionHa": 110.66,
-          "afforestationHa": 0,
-          "areaHa": 110.66
-        },
-        {
-          "id": "ed1fe3b7-8d10-4e67-a5c4-a5d431183386",
-          "name": "Liver",
-          "geoId": "1b9200e1-53e5-4f7c-872c-c3515341a57a",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 4.104,
-          "extractionHa": 102.61,
-          "afforestationHa": 0,
-          "areaHa": 102.61
-        },
-        {
-          "id": "6de414bf-6d88-41c7-9541-3afe02250b8d",
-          "name": "Skovrejsning, kommunalt areal - Thisted vest 2",
-          "geoId": "8dedb820-7f20-49fe-9a76-4c8dadd720dc",
-          "phase": "sketch",
-          "measureName": "Ekstensivering",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.019,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 2.78
-        },
-        {
-          "id": "4abc96ee-bebe-4e97-a7dc-f8a2e726de6c",
-          "name": "35",
-          "geoId": "ff55876b-3d32-42e5-80e6-78cbf2417659",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 3.151,
-          "extractionHa": 78.77,
-          "afforestationHa": 0,
-          "areaHa": 78.77
-        },
-        {
-          "id": "b990ef71-1123-4577-886d-df77a8cb554c",
-          "name": "Kalum Mose og Ulvkær Bæk",
-          "geoId": "007938e1-9ce3-4805-94a3-4adb1429c499",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 11.457,
-          "extractionHa": 286.43,
-          "afforestationHa": 0,
-          "areaHa": 286.43
-        },
-        {
-          "id": "bc2c25e4-a00d-4e23-810a-62a63f8ad13c",
-          "name": "Ilbro Enge 3",
-          "geoId": "881c46b8-3fc6-4a4a-a611-6b07c913c30f",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 24.254,
-          "extractionHa": 606.34,
-          "afforestationHa": 0,
-          "areaHa": 606.34
-        },
-        {
-          "id": "5cf502ff-46bc-4df8-be20-c4a99bbbc6d1",
+          "id": "9b72e3b4-6ee4-45be-a2d4-27c9dc0bac5f",
           "name": "JK Henriks Sø",
-          "geoId": "5bbdec6b-678b-417c-bc8a-db39f18efbdf",
+          "geoId": "aec07f6b-1149-4ae0-b167-769e401045fd",
           "phase": "sketch",
           "measureName": "Lavbundsprojekter",
           "schemeName": "",
@@ -109559,9 +109378,74 @@
           "areaHa": 23.25
         },
         {
-          "id": "e2137fda-e9c6-4548-ba79-4c9803461f62",
+          "id": "f6b107e7-322f-4f15-87dd-2745cec0adbe",
+          "name": "Nors Sø",
+          "geoId": "f0005770-8089-4fa6-9300-5ef7f3d79e67",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 2.591,
+          "extractionHa": 64.78,
+          "afforestationHa": 0,
+          "areaHa": 64.78
+        },
+        {
+          "id": "31806a88-79d1-4af8-b825-7eff57b757c1",
+          "name": "35",
+          "geoId": "ac8f080b-3f1d-4cfd-987f-71bc688e6cea",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 3.151,
+          "extractionHa": 78.77,
+          "afforestationHa": 0,
+          "areaHa": 78.77
+        },
+        {
+          "id": "e9a61f01-fb2a-4486-b0a3-afdf9d1e5ba1",
+          "name": "Trynmose",
+          "geoId": "2fc223a2-249b-4535-b0ee-8f85ec0256c4",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "nitrogenT": 3.519,
+          "extractionHa": 87.97,
+          "afforestationHa": 0,
+          "areaHa": 87.97
+        },
+        {
+          "id": "e97ab7a9-7504-4f54-8e51-83e4e2220e19",
+          "name": "14",
+          "geoId": "0c0f63a2-3449-4702-a300-25893579103c",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 1.293,
+          "extractionHa": 32.33,
+          "afforestationHa": 0,
+          "areaHa": 32.33
+        },
+        {
+          "id": "9f422dd1-09db-4460-85d7-196c21b5c7aa",
+          "name": "Skovrejsning, kommunalt areal - Thisted vest 2",
+          "geoId": "8883593e-b84e-4cfe-b7b9-2b9e147f0c73",
+          "phase": "sketch",
+          "measureName": "Ekstensivering",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.019,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 2.78
+        },
+        {
+          "id": "2527ebfb-671d-4a37-85b3-6a080aa85ea1",
           "name": "Ilbro Enge 2",
-          "geoId": "f3175191-37ea-4811-94a6-dc9ca4f97f16",
+          "geoId": "5eca4542-38fc-424c-87f4-4350eb35fc20",
           "phase": "sketch",
           "measureName": "Lavbundsprojekter",
           "schemeName": "Lavbundsprojekter",
@@ -109570,6 +109454,84 @@
           "extractionHa": 166.08,
           "afforestationHa": 0,
           "areaHa": 166.08
+        },
+        {
+          "id": "c630d295-a166-4df8-aca8-a6f6dec272a8",
+          "name": "Ansøgt skov",
+          "geoId": "c7f96c84-989a-4dee-ba54-86417b61746c",
+          "phase": "sketch",
+          "measureName": "Skovrejsning",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.006,
+          "extractionHa": 0,
+          "afforestationHa": 2.15,
+          "areaHa": 2.15
+        },
+        {
+          "id": "4ec0319f-3518-472d-abac-e7cdb5fac7fb",
+          "name": "Ilbro Enge 3",
+          "geoId": "fdbc7025-be65-4f48-afc8-58d78c81fd79",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "nitrogenT": 24.254,
+          "extractionHa": 606.34,
+          "afforestationHa": 0,
+          "areaHa": 606.34
+        },
+        {
+          "id": "7a2f4554-6729-4280-81d1-a88aed10fde6",
+          "name": "16",
+          "geoId": "9e159099-50e9-4caa-bee0-0b093d1fce6b",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 1.524,
+          "extractionHa": 38.1,
+          "afforestationHa": 0,
+          "areaHa": 38.1
+        },
+        {
+          "id": "cce38679-7628-4057-abf5-2e7cf8b04c94",
+          "name": "Ansøgt skov",
+          "geoId": "812b9639-17c8-4a96-a89d-adb5ebd556a6",
+          "phase": "sketch",
+          "measureName": "Skovrejsning",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.016,
+          "extractionHa": 0,
+          "afforestationHa": 5.44,
+          "areaHa": 5.44
+        },
+        {
+          "id": "fc178d83-5328-4080-a8ce-d837bafb774f",
+          "name": "JK Sletteå",
+          "geoId": "6bccef70-3544-4163-8411-6b3056acb448",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 5.621,
+          "extractionHa": 140.52,
+          "afforestationHa": 0,
+          "areaHa": 140.52
+        },
+        {
+          "id": "1cb8ca27-9982-4add-9d76-2bcf838c4798",
+          "name": "JK Kringelstederne",
+          "geoId": "66a91a4f-3cf7-412f-b2f9-56e640557e7c",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 2.782,
+          "extractionHa": 69.56,
+          "afforestationHa": 0,
+          "areaHa": 69.56
         },
         {
           "id": "0dc866bc-f151-4afa-b7b2-1c6712c35767",
@@ -109626,7 +109588,16 @@
       ],
       "naturePotentials": [
         {
-          "id": "5b017b7d-9bf6-47b7-919a-9ffa07b181bd",
+          "id": "8a0dbb01-260b-4f48-8bbd-80f76a5a4fbd",
+          "name": "Område 1 Tuen Tolne",
+          "areaHa": 2025.07,
+          "biodiversityHa": 0,
+          "protectedNatureHa": 0,
+          "section3Ha": 0,
+          "natura2000Ha": 0
+        },
+        {
+          "id": "57e0b8e4-af49-4c34-ba56-fbf09dd175b9",
           "name": "Område 6 Kjul-Tversted",
           "areaHa": 3414.28,
           "biodiversityHa": 0,
@@ -109635,18 +109606,9 @@
           "natura2000Ha": 0
         },
         {
-          "id": "67ea915c-4302-4897-b3ae-43547723947d",
+          "id": "4f80f096-3de4-460b-ad9d-108400d9a85a",
           "name": "Område 5 Skallerup-Tornby",
           "areaHa": 2890.58,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
-        },
-        {
-          "id": "8a0dbb01-260b-4f48-8bbd-80f76a5a4fbd",
-          "name": "Område 1 Tuen Tolne",
-          "areaHa": 2025.07,
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
           "section3Ha": 0,
@@ -110676,7 +110638,7 @@
       "name": "Det Sydfynske Øhav",
       "geoLocationId": "58d9dc24-0196-41ca-af1b-a4fde6011205",
       "nameNormalized": "Det Sydfynske Oehav",
-      "nitrogenAchievedT": 89.3,
+      "nitrogenAchievedT": 96.5,
       "extractionAchievedHa": 0,
       "afforestationAchievedHa": 0,
       "naturePotentialAreaHa": 11222.5,
@@ -110684,7 +110646,7 @@
       "projects": {
         "sketches": 578,
         "assessed": 12,
-        "approved": 20,
+        "approved": 22,
         "established": 1
       },
       "projectDetails": [
@@ -111345,6 +111307,46 @@
           "areaHa": 185.22,
           "appliedAt": "2026-01-21T12:00:00+00:00",
           "lastChanged": "2026-06-03T13:32:54.381442+00:00",
+          "kommuneKode": "0479",
+          "kommuneNavn": "Svendborg"
+        },
+        {
+          "id": "1188c242-781a-4aee-8147-832444fb0e27",
+          "name": "9.77 småt vådområde Egebjerg Nord",
+          "geoId": "e36d5245-7fa0-4037-986c-d4566a78b9ef",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 1.309,
+          "extractionHa": 4.35,
+          "afforestationHa": 0,
+          "areaHa": 14.55,
+          "appliedAt": "2026-01-22T12:00:00+00:00",
+          "lastChanged": "2026-06-04T07:07:02.704418+00:00",
+          "kommuneKode": "0479",
+          "kommuneNavn": "Svendborg"
+        },
+        {
+          "id": "a27b7e65-90ce-42e1-bb7b-5f734cd83def",
+          "name": "1.9 Ollerup Egense",
+          "geoId": "8d94a9de-fac5-4c36-b611-3b94a56946c3",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 5.88,
+          "extractionHa": 0.38,
+          "afforestationHa": 0,
+          "areaHa": 65.34,
+          "appliedAt": "2026-01-13T12:00:00+00:00",
+          "lastChanged": "2026-06-04T07:16:12.122556+00:00",
           "kommuneKode": "0479",
           "kommuneNavn": "Svendborg"
         }
@@ -151340,7 +151342,7 @@
       "naturePotentialAreaHa": 10088.6,
       "countNaturePotentials": 8,
       "projects": {
-        "sketches": 641,
+        "sketches": 640,
         "assessed": 169,
         "approved": 138,
         "established": 7
@@ -157583,8 +157585,8 @@
           "areaHa": 303.2,
           "appliedAt": "2026-02-25T12:00:00+00:00",
           "lastChanged": "2026-06-03T11:44:54.087125+00:00",
-          "kommuneKode": null,
-          "kommuneNavn": null
+          "kommuneKode": "0787",
+          "kommuneNavn": "Thisted"
         },
         {
           "id": "47acc604-3125-428e-a5f9-eb5a700e9115",
@@ -157628,19 +157630,6 @@
         }
       ],
       "sketchProjects": [
-        {
-          "id": "398fc4d3-6dff-4daf-9e2c-fa31cf193227",
-          "name": "17",
-          "geoId": "8f26ec36-487d-433c-8060-46682d1c8a74",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.046,
-          "extractionHa": 1.14,
-          "afforestationHa": 0,
-          "areaHa": 1.14
-        },
         {
           "id": "de9689a3-de18-4058-b407-319f42b9483c",
           "name": "18",
@@ -170434,7 +170423,7 @@
       "naturePotentialAreaHa": 16522.2,
       "countNaturePotentials": 14,
       "projects": {
-        "sketches": 76,
+        "sketches": 71,
         "assessed": 28,
         "approved": 13,
         "established": 1
@@ -171283,9 +171272,9 @@
       ],
       "sketchProjects": [
         {
-          "id": "8d4e8682-1ac8-4d1c-b45a-d8c6cf4d8116",
+          "id": "1cb8ca27-9982-4add-9d76-2bcf838c4798",
           "name": "JK Kringelstederne",
-          "geoId": "48e1f6a8-3a5f-420a-a518-5f5c41de6cba",
+          "geoId": "66a91a4f-3cf7-412f-b2f9-56e640557e7c",
           "phase": "sketch",
           "measureName": "Lavbundsprojekter",
           "schemeName": "",
@@ -171296,35 +171285,9 @@
           "areaHa": 69.56
         },
         {
-          "id": "b4a0b133-f21e-4ec7-bbd4-87eddd678d96",
-          "name": "16",
-          "geoId": "d2d7e7b0-809f-419e-9aa2-e46ed5d23d90",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 1.524,
-          "extractionHa": 38.1,
-          "afforestationHa": 0,
-          "areaHa": 38.1
-        },
-        {
-          "id": "500a1fdf-87f2-490f-b309-fbae88341661",
-          "name": "Trynmose",
-          "geoId": "9eef1f9f-edf1-4106-ae2e-95edd5b14f25",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "NST Klima-Lavbund",
-          "schemeOrg": "NST",
-          "nitrogenT": 3.519,
-          "extractionHa": 87.97,
-          "afforestationHa": 0,
-          "areaHa": 87.97
-        },
-        {
-          "id": "edfcba05-9927-4b88-915d-08cc37261cd6",
+          "id": "cce38679-7628-4057-abf5-2e7cf8b04c94",
           "name": "Ansøgt skov",
-          "geoId": "d8f66368-e4dc-4b63-9efd-75f2db8eb5de",
+          "geoId": "812b9639-17c8-4a96-a89d-adb5ebd556a6",
           "phase": "sketch",
           "measureName": "Skovrejsning",
           "schemeName": "",
@@ -171335,178 +171298,9 @@
           "areaHa": 5.44
         },
         {
-          "id": "e2137fda-e9c6-4548-ba79-4c9803461f62",
-          "name": "Ilbro Enge 2",
-          "geoId": "f3175191-37ea-4811-94a6-dc9ca4f97f16",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 6.643,
-          "extractionHa": 166.08,
-          "afforestationHa": 0,
-          "areaHa": 166.08
-        },
-        {
-          "id": "0755200f-6779-4918-bee9-65742f3bd333",
-          "name": "JK Sletteå",
-          "geoId": "1bb655ae-35e6-41a5-bac9-63d8271324bf",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 5.621,
-          "extractionHa": 140.52,
-          "afforestationHa": 0,
-          "areaHa": 140.52
-        },
-        {
-          "id": "6de414bf-6d88-41c7-9541-3afe02250b8d",
-          "name": "Skovrejsning, kommunalt areal - Thisted vest 2",
-          "geoId": "8dedb820-7f20-49fe-9a76-4c8dadd720dc",
-          "phase": "sketch",
-          "measureName": "Ekstensivering",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.019,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 2.78
-        },
-        {
-          "id": "bc2c25e4-a00d-4e23-810a-62a63f8ad13c",
-          "name": "Ilbro Enge 3",
-          "geoId": "881c46b8-3fc6-4a4a-a611-6b07c913c30f",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 24.254,
-          "extractionHa": 606.34,
-          "afforestationHa": 0,
-          "areaHa": 606.34
-        },
-        {
-          "id": "5cf502ff-46bc-4df8-be20-c4a99bbbc6d1",
-          "name": "JK Henriks Sø",
-          "geoId": "5bbdec6b-678b-417c-bc8a-db39f18efbdf",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.93,
-          "extractionHa": 23.25,
-          "afforestationHa": 0,
-          "areaHa": 23.25
-        },
-        {
-          "id": "994d967c-4ca1-4e6e-8e68-2931291c0f95",
-          "name": "Ansøgt skov",
-          "geoId": "9f7c3e46-1c96-4a72-9105-375bd47115ab",
-          "phase": "sketch",
-          "measureName": "Skovrejsning",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.006,
-          "extractionHa": 0,
-          "afforestationHa": 2.15,
-          "areaHa": 2.15
-        },
-        {
-          "id": "d357c0aa-250a-428b-9088-9e14d879639f",
-          "name": "Glimsholt og Stensbæk",
-          "geoId": "9a0fc9da-5dcc-45cd-b6e3-d7cda58d088f",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 4.351,
-          "extractionHa": 108.77,
-          "afforestationHa": 0,
-          "areaHa": 108.77
-        },
-        {
-          "id": "44710b2d-5575-41ac-876f-453947ecb0ac",
-          "name": "Ilbro Enge",
-          "geoId": "fd12288f-b6e9-4bf2-9d6c-82b71e49a979",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 14.521,
-          "extractionHa": 363.03,
-          "afforestationHa": 0,
-          "areaHa": 363.03
-        },
-        {
-          "id": "0cc21761-5ed0-4e90-8b11-e0deedc2c787",
-          "name": "Nors Sø",
-          "geoId": "1066739e-55f6-4de6-acbe-6f4558c37403",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 2.591,
-          "extractionHa": 64.78,
-          "afforestationHa": 0,
-          "areaHa": 64.78
-        },
-        {
-          "id": "c78ae3ba-7923-4795-a957-8b824ccdec40",
-          "name": "Skovrejsning, kommunalt areal - Ræhr vest",
-          "geoId": "2e15b283-31fe-4f1f-a414-8e2e951a3073",
-          "phase": "sketch",
-          "measureName": "Skovrejsning",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 0.04,
-          "extractionHa": 0,
-          "afforestationHa": 5.3,
-          "areaHa": 5.3
-        },
-        {
-          "id": "67c8c11c-b99a-4cc0-bfb3-d755d3d363a8",
-          "name": "14",
-          "geoId": "4dd38df1-e2a7-4e18-b329-63c4f9c697c6",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "",
-          "schemeOrg": "",
-          "nitrogenT": 1.293,
-          "extractionHa": 32.33,
-          "afforestationHa": 0,
-          "areaHa": 32.33
-        },
-        {
-          "id": "ed1fe3b7-8d10-4e67-a5c4-a5d431183386",
-          "name": "Liver",
-          "geoId": "1b9200e1-53e5-4f7c-872c-c3515341a57a",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 4.104,
-          "extractionHa": 102.61,
-          "afforestationHa": 0,
-          "areaHa": 102.61
-        },
-        {
-          "id": "a3aff881-1cd8-4358-896d-7e4e5d23a9fa",
-          "name": "Klosterskoven",
-          "geoId": "82800eb3-107f-41a8-baa8-fac43f880a7f",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 4.426,
-          "extractionHa": 110.66,
-          "afforestationHa": 0,
-          "areaHa": 110.66
-        },
-        {
-          "id": "4abc96ee-bebe-4e97-a7dc-f8a2e726de6c",
+          "id": "31806a88-79d1-4af8-b825-7eff57b757c1",
           "name": "35",
-          "geoId": "ff55876b-3d32-42e5-80e6-78cbf2417659",
+          "geoId": "ac8f080b-3f1d-4cfd-987f-71bc688e6cea",
           "phase": "sketch",
           "measureName": "Lavbundsprojekter",
           "schemeName": "",
@@ -171517,30 +171311,160 @@
           "areaHa": 78.77
         },
         {
-          "id": "b990ef71-1123-4577-886d-df77a8cb554c",
-          "name": "Kalum Mose og Ulvkær Bæk",
-          "geoId": "007938e1-9ce3-4805-94a3-4adb1429c499",
-          "phase": "sketch",
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "nitrogenT": 11.457,
-          "extractionHa": 286.43,
-          "afforestationHa": 0,
-          "areaHa": 286.43
-        },
-        {
-          "id": "398fc4d3-6dff-4daf-9e2c-fa31cf193227",
-          "name": "17",
-          "geoId": "8f26ec36-487d-433c-8060-46682d1c8a74",
+          "id": "7a2f4554-6729-4280-81d1-a88aed10fde6",
+          "name": "16",
+          "geoId": "9e159099-50e9-4caa-bee0-0b093d1fce6b",
           "phase": "sketch",
           "measureName": "Lavbundsprojekter",
           "schemeName": "",
           "schemeOrg": "",
-          "nitrogenT": 4.685,
-          "extractionHa": 117.12,
+          "nitrogenT": 1.524,
+          "extractionHa": 38.1,
           "afforestationHa": 0,
-          "areaHa": 117.14
+          "areaHa": 38.1
+        },
+        {
+          "id": "c5327663-b227-4556-8c5e-1a06e6fa9005",
+          "name": "Skovrejsning, kommunalt areal - Ræhr vest",
+          "geoId": "e77a310b-5803-45bf-a300-fe57fa0586c0",
+          "phase": "sketch",
+          "measureName": "Skovrejsning",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.04,
+          "extractionHa": 0,
+          "afforestationHa": 5.3,
+          "areaHa": 5.3
+        },
+        {
+          "id": "4ec0319f-3518-472d-abac-e7cdb5fac7fb",
+          "name": "Ilbro Enge 3",
+          "geoId": "fdbc7025-be65-4f48-afc8-58d78c81fd79",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "nitrogenT": 24.254,
+          "extractionHa": 606.34,
+          "afforestationHa": 0,
+          "areaHa": 606.34
+        },
+        {
+          "id": "fc74e0f7-ecf6-4c49-824d-377c487de741",
+          "name": "Ilbro Enge",
+          "geoId": "2bc79bb6-d898-4075-8bcd-32e8ca8d9e7c",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "nitrogenT": 14.521,
+          "extractionHa": 363.03,
+          "afforestationHa": 0,
+          "areaHa": 363.03
+        },
+        {
+          "id": "9f422dd1-09db-4460-85d7-196c21b5c7aa",
+          "name": "Skovrejsning, kommunalt areal - Thisted vest 2",
+          "geoId": "8883593e-b84e-4cfe-b7b9-2b9e147f0c73",
+          "phase": "sketch",
+          "measureName": "Ekstensivering",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.019,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 2.78
+        },
+        {
+          "id": "e9a61f01-fb2a-4486-b0a3-afdf9d1e5ba1",
+          "name": "Trynmose",
+          "geoId": "2fc223a2-249b-4535-b0ee-8f85ec0256c4",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "nitrogenT": 3.519,
+          "extractionHa": 87.97,
+          "afforestationHa": 0,
+          "areaHa": 87.97
+        },
+        {
+          "id": "9b72e3b4-6ee4-45be-a2d4-27c9dc0bac5f",
+          "name": "JK Henriks Sø",
+          "geoId": "aec07f6b-1149-4ae0-b167-769e401045fd",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.93,
+          "extractionHa": 23.25,
+          "afforestationHa": 0,
+          "areaHa": 23.25
+        },
+        {
+          "id": "e97ab7a9-7504-4f54-8e51-83e4e2220e19",
+          "name": "14",
+          "geoId": "0c0f63a2-3449-4702-a300-25893579103c",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 1.293,
+          "extractionHa": 32.33,
+          "afforestationHa": 0,
+          "areaHa": 32.33
+        },
+        {
+          "id": "2527ebfb-671d-4a37-85b3-6a080aa85ea1",
+          "name": "Ilbro Enge 2",
+          "geoId": "5eca4542-38fc-424c-87f4-4350eb35fc20",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "nitrogenT": 6.643,
+          "extractionHa": 166.08,
+          "afforestationHa": 0,
+          "areaHa": 166.08
+        },
+        {
+          "id": "f6b107e7-322f-4f15-87dd-2745cec0adbe",
+          "name": "Nors Sø",
+          "geoId": "f0005770-8089-4fa6-9300-5ef7f3d79e67",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 2.591,
+          "extractionHa": 64.78,
+          "afforestationHa": 0,
+          "areaHa": 64.78
+        },
+        {
+          "id": "fc178d83-5328-4080-a8ce-d837bafb774f",
+          "name": "JK Sletteå",
+          "geoId": "6bccef70-3544-4163-8411-6b3056acb448",
+          "phase": "sketch",
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 5.621,
+          "extractionHa": 140.52,
+          "afforestationHa": 0,
+          "areaHa": 140.52
+        },
+        {
+          "id": "c630d295-a166-4df8-aca8-a6f6dec272a8",
+          "name": "Ansøgt skov",
+          "geoId": "c7f96c84-989a-4dee-ba54-86417b61746c",
+          "phase": "sketch",
+          "measureName": "Skovrejsning",
+          "schemeName": "",
+          "schemeOrg": "",
+          "nitrogenT": 0.006,
+          "extractionHa": 0,
+          "afforestationHa": 2.15,
+          "areaHa": 2.15
         },
         {
           "id": "61b3280a-6940-4474-82be-3c23a3c80da8",
@@ -172273,24 +172197,6 @@
       ],
       "naturePotentials": [
         {
-          "id": "5b017b7d-9bf6-47b7-919a-9ffa07b181bd",
-          "name": "Område 6 Kjul-Tversted",
-          "areaHa": 3951.15,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
-        },
-        {
-          "id": "67ea915c-4302-4897-b3ae-43547723947d",
-          "name": "Område 5 Skallerup-Tornby",
-          "areaHa": 2890.58,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
-        },
-        {
           "id": "398b8af0-8555-4f8b-9bff-0dc5d221d88a",
           "name": "Natura2000 øst",
           "areaHa": 600.95,
@@ -172393,6 +172299,24 @@
           "id": "af7ec24e-fe8e-4def-a7d3-4524ba643cec",
           "name": "Understed bakker kode 99",
           "areaHa": 98.99,
+          "biodiversityHa": 0,
+          "protectedNatureHa": 0,
+          "section3Ha": 0,
+          "natura2000Ha": 0
+        },
+        {
+          "id": "57e0b8e4-af49-4c34-ba56-fbf09dd175b9",
+          "name": "Område 6 Kjul-Tversted",
+          "areaHa": 3951.15,
+          "biodiversityHa": 0,
+          "protectedNatureHa": 0,
+          "section3Ha": 0,
+          "natura2000Ha": 0
+        },
+        {
+          "id": "4f80f096-3de4-460b-ad9d-108400d9a85a",
+          "name": "Område 5 Skallerup-Tornby",
+          "areaHa": 2890.58,
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
           "section3Ha": 0,
