@@ -548,6 +548,8 @@ export interface ProjectDetail {
   kommuneKode?: string | null;
   /** Municipality name resolved via DAWA reverse geocoding (null if not resolved) */
   kommuneNavn?: string | null;
+  /** All kommuner whose boundary intersects the project polygon (for map linking). */
+  overlappingKommuneKoder?: string[];
 }
 
 // Early-stage sketch project (no formal MARS status yet)
@@ -569,6 +571,10 @@ export interface SketchProject {
   extractionHa: number;
   afforestationHa: number;
   areaHa: number;
+  /** 4-digit municipality code for primary overlap (largest clipped share). */
+  kommuneKode?: string | null;
+  kommuneNavn?: string | null;
+  overlappingKommuneKoder?: string[];
 }
 
 // Nature restoration potential site

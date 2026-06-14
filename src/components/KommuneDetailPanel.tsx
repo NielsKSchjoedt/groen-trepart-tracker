@@ -1,10 +1,11 @@
 import { X, Droplets, Trees, Mountain, Leaf, ExternalLink, Factory } from 'lucide-react';
 import type { KommuneMetrics, ProjectDetail, SketchProject, KlimaskovfondenProject, NaturstyrelsenSkovProject, KommuneCO2Data } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
-import { getPhaseConfig } from '@/lib/phase-config';
+import { MarsProjectPhaseBadges } from '@/components/MarsProjectPhaseBadges';
 import { ProjectActivityChart } from './ProjectActivityChart';
 import { ProjectList } from './ProjectList';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
+import { PROJECT_COUNT_STAGES } from '@/lib/kommune-metrics';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
 import { CO2SectorChart } from './CO2SectorChart';
 import { CO2TrendChart } from './CO2TrendChart';
@@ -38,8 +39,6 @@ interface KommuneDetailPanelProps {
   /** Curated link to the kommune's own Grøn Trepart entry page (optional) */
   trepartLink?: KommuneTrepartLink | null;
   onClose?: () => void;
-  /** Full-page layout (no side panel chrome) */
-  variant?: 'panel' | 'page';
 }
 
 /**
@@ -84,7 +83,6 @@ export function KommuneDetailPanel({
   oplande,
   trepartLink,
   onClose,
-  variant = 'panel',
 }: KommuneDetailPanelProps) {
 
   const ksfColor = activeMetric === 'extraction' ? KSF_COLOR_LAVBUND : KSF_COLOR_SKOV;
@@ -92,29 +90,21 @@ export function KommuneDetailPanel({
   const ksfTotal = ksfProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
   const nstTotal = nstProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
 
-  const phases = [
-    { key: 'established', config: getPhaseConfig('established'), count: kommune.projectsByPhase.established },
-    { key: 'approved',    config: getPhaseConfig('approved'),    count: kommune.projectsByPhase.approved    },
-    { key: 'assessed',    config: getPhaseConfig('assessed'),    count: kommune.projectsByPhase.assessed    },
-    { key: 'sketches',    config: getPhaseConfig('sketches'),    count: kommune.projectsByPhase.sketches    },
-  ];
-  const hasPhases = phases.some((p) => p.count > 0);
+  const hasPhases = PROJECT_COUNT_STAGES.some(
+    ({ countField }) => kommune.projectsByPhase[countField] > 0,
+  );
 
   const showCO2First = activeMetric === 'co2' && !!co2Data;
+  const hasMarsProjects = projectDetails.length > 0 || sketchProjects.length > 0;
+  const hasSupplements = ksfProjects.length > 0 || nstProjects.length > 0;
+  const hasAnyProjects = hasMarsProjects || hasSupplements;
+  const activityCount = projectDetails.length + ksfProjects.length + nstProjects.length;
 
-  const co2Section = co2Data && (
-    <div className={showCO2First ? 'mb-5' : 'mt-5 pt-5 border-t border-border'}>
-      <div className="flex items-center gap-1.5 mb-3">
-        <Factory className="w-4 h-4 text-slate-500" />
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-          CO₂-udledning
-        </p>
-      </div>
-      <div className="space-y-4">
-        <CO2SectorChart data={co2Data} />
-        <CO2TrendChart data={co2Data} />
-      </div>
-      <p className="text-[10px] text-muted-foreground mt-2">
+  const co2Charts = co2Data && (
+    <div className="space-y-4">
+      <CO2SectorChart data={co2Data} />
+      <CO2TrendChart data={co2Data} />
+      <p className="text-xs text-muted-foreground">
         Kilde:{' '}
         <a
           href="https://klimaregnskabet.dk"
@@ -128,14 +118,20 @@ export function KommuneDetailPanel({
     </div>
   );
 
+  const co2Section = co2Data && (
+    <div className={showCO2First ? 'mb-5' : 'mt-5 pt-5 border-t border-border'}>
+      <div className="flex items-center gap-1.5 mb-3">
+        <Factory className="w-4 h-4 text-slate-500" />
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+          CO₂-udledning
+        </p>
+      </div>
+      {co2Charts}
+    </div>
+  );
+
   return (
-    <div
-      className={
-        variant === 'page'
-          ? 'bg-background'
-          : 'bg-background border-l border-border h-full overflow-y-auto p-5 relative'
-      }
-    >
+    <div className="bg-background border-l border-border h-full overflow-y-auto p-5 relative">
       {onClose && (
         <button
           onClick={onClose}
@@ -146,21 +142,17 @@ export function KommuneDetailPanel({
         </button>
       )}
 
-      {variant === 'panel' && (
-        <>
-          <h2
-            className="text-lg font-bold text-foreground pr-8 mb-0.5"
-            style={{ fontFamily: "'Fraunces', serif" }}
-          >
-            {kommune.navn}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3">
-            {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
-          </p>
-        </>
-      )}
+      <h2
+        className="text-lg font-bold text-foreground pr-8 mb-0.5"
+        style={{ fontFamily: "'Fraunces', serif" }}
+      >
+        {kommune.navn}
+      </h2>
+      <p className="text-xs text-muted-foreground mb-3">
+        {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
+      </p>
 
-      {variant === 'panel' && trepartLink?.url && (
+      {trepartLink?.url && (
         <a
           href={trepartLink.url}
           target="_blank"
@@ -173,7 +165,7 @@ export function KommuneDetailPanel({
         </a>
       )}
 
-      {ranking?.byKommune[kommune.kode] && variant === 'panel' && (
+      {ranking?.byKommune[kommune.kode] && (
         <KommuneStandingsDetailHeader row={ranking.byKommune[kommune.kode]} ranking={ranking} />
       )}
 
@@ -237,16 +229,7 @@ export function KommuneDetailPanel({
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
             Projektfaser
           </p>
-          <div className="flex flex-wrap gap-2">
-            {phases.filter((p) => p.count > 0).map(({ key, config, count }) => (
-              <span
-                key={key}
-                className={`inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-0.5 ${config.badge}`}
-              >
-                {config.label}: {count}
-              </span>
-            ))}
-          </div>
+          <MarsProjectPhaseBadges kommune={kommune} />
         </div>
       )}
 
@@ -346,7 +329,7 @@ interface MetricCardProps {
 
 function MetricCard({ icon, label, value, unit, sub, noDataText }: MetricCardProps) {
   return (
-    <div className="rounded-xl border border-border bg-card p-3">
+    <div className="rounded-xl border border-border/80 bg-muted/20 p-3">
       <div className="flex items-center gap-1.5 mb-1.5">
         {icon}
         <span className="text-xs font-medium text-muted-foreground">{label}</span>
@@ -366,6 +349,52 @@ function MetricCard({ icon, label, value, unit, sub, noDataText }: MetricCardPro
           {noDataText ?? '—'}
         </p>
       )}
+    </div>
+  );
+}
+
+interface SupplementItem {
+  key: string;
+  primary: string;
+  secondary: string;
+  href?: string;
+}
+
+function SupplementProjectGroup({
+  label,
+  count,
+  items,
+}: {
+  label: string;
+  count: number;
+  items: SupplementItem[];
+}) {
+  return (
+    <div>
+      <p className="text-sm font-medium text-foreground mb-2">
+        {label}
+        <span className="text-muted-foreground font-normal"> · {count} projekt{count !== 1 ? 'er' : ''}</span>
+      </p>
+      <ul className="divide-y divide-border/60 rounded-xl border border-border/80 overflow-hidden">
+        {items.map((item) => (
+          <li key={item.key} className="flex items-center justify-between gap-3 px-3 py-2.5 text-sm bg-muted/10">
+            {item.href ? (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/90 hover:text-primary flex items-center gap-1 min-w-0 truncate"
+              >
+                {item.primary}
+                <ExternalLink className="w-3 h-3 flex-shrink-0 opacity-60" />
+              </a>
+            ) : (
+              <span className="text-foreground/90 truncate">{item.primary}</span>
+            )}
+            <span className="text-muted-foreground tabular-nums flex-shrink-0 text-xs">{item.secondary}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

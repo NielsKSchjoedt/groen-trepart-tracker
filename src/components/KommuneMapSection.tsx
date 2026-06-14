@@ -1,21 +1,32 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type L from 'leaflet';
 import type { FeatureCollection, Geometry } from 'geojson';
 import { MapPin } from 'lucide-react';
 import { MapFullscreenShell } from '@/components/MapFullscreenShell';
+import { MapLayersPanel } from '@/components/MapLayersPanel';
+import { KommuneMapOverlayLayers } from '@/components/kommune-map/KommuneMapOverlayLayers';
 import { ProjectDetailPanel } from '@/components/ProjectDetailPanel';
 import { MobileBottomSheet } from '@/components/MobileBottomSheet';
 import { InfoTooltip } from '@/components/InfoTooltip';
+import { PhaseFilterPopover } from '@/components/PhaseFilterPopover';
+import { SupplementSourceToggles } from '@/components/SupplementSourceToggles';
 import {
   KommuneFordelingDisclaimer,
   KommuneNatureLayerDisclaimer,
 } from '@/components/KommuneMapControls';
-import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData } from '@/lib/types';
-import type { KommuneMetric, KommunePhase } from '@/lib/kommune-metrics';
+import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
 import { getPillarConfig } from '@/lib/pillars';
 import type { SelectedProject } from '@/lib/project-selection';
 import { findMarsProjectByGeoId } from '@/lib/map-projects';
-import { loadProjectGeometries, loadProjectNatureOverlap } from '@/lib/data';
+import {
+  buildMapLagLayerGroups,
+  patchKommuneMapOverlay,
+  kommuneMetricToLagPillar,
+  isKommuneMapStubMetric,
+  type KommuneMapOverlayToken,
+} from '@/lib/kommune-map-overlays';
+import { loadProjectGeometries, loadProjectNatureOverlap, loadWaterBodiesGeoJSON } from '@/lib/data';
 import { useMarsProjectUrl } from '@/lib/mars-project-url';
 import type { ProjectNatureOverlapData } from '@/lib/types';
 import type { ChoroplethScaleMode, FordelingViewMode, LegendStop, NatureLayerKey } from '@/lib/kommune-map-visualization';
@@ -52,14 +63,28 @@ interface KommuneMapSectionProps {
   /** Tier 1: MARS project overlay. */
   dashboard?: DashboardData | null;
   selectedPhases?: Set<KommunePhase>;
-  showProjectLayer?: boolean;
+  activeSupplements?: Set<SupplementSource>;
+  mapOverlays: Set<KommuneMapOverlayToken>;
+  onMapOverlaysChange: (overlays: Set<KommuneMapOverlayToken>) => void;
+  ksfProjects?: KlimaskovfondenProject[];
+  nstProjects?: NaturstyrelsenSkovProject[];
   /** Detail page: mirror list-page view without map toggles. */
   readOnly?: boolean;
   /** Short caption of active view (detail page). */
   contextCaption?: string;
   focusKode?: string | null;
   selectedKode?: string | null;
+  /** When set, deep-linked MARS projects outside this set are ignored. */
+  allowedMarsGeoIds?: ReadonlySet<string>;
   inlineMapHeight?: string;
+  /** Metric picker row — fasefilter and kilder live on the map-controls row below. */
+  filterControls?: ReactNode;
+  /** Show collapsed fasefilter on the map-controls row. */
+  showPhaseFilter?: boolean;
+  onPhasesChange?: (phases: Set<KommunePhase>) => void;
+  phaseFilterTooltip?: string;
+  supplementSources?: SupplementSource[];
+  onSupplementsChange?: (next: Set<SupplementSource>) => void;
 }
 
 /**
@@ -84,29 +109,81 @@ export function KommuneMapSection({
   onSelect,
   dashboard = null,
   selectedPhases = new Set(['established']),
-  showProjectLayer = true,
+  activeSupplements = new Set(),
+  mapOverlays,
+  onMapOverlaysChange,
+  ksfProjects = [],
+  nstProjects = [],
   readOnly = false,
   contextCaption,
   focusKode = null,
   selectedKode = null,
+  allowedMarsGeoIds,
   inlineMapHeight = '580px',
+  filterControls,
+  showPhaseFilter = false,
+  onPhasesChange,
+  phaseFilterTooltip,
+  supplementSources,
+  onSupplementsChange,
 }: KommuneMapSectionProps) {
   const mapRef = useRef<L.Map | null>(null);
+  const [leafletMap, setLeafletMap] = useState<L.Map | null>(null);
+  const [hasWaterBodiesGeo, setHasWaterBodiesGeo] = useState(false);
   const [selectedProject, setSelectedProject] = useState<SelectedProject | undefined>();
   const [projectCoordinates, setProjectCoordinates] = useState<[number, number][] | undefined>();
   const [natureOverlap, setNatureOverlap] = useState<ProjectNatureOverlapData | null>(null);
-  const { marsGeoId, openMarsProject, closeMarsProject } = useMarsProjectUrl();
+  const { projectOpen, openProject, closeMarsProject } = useMarsProjectUrl();
+
+  useEffect(() => {
+    let cancelled = false;
+    loadWaterBodiesGeoJSON().then((geo) => {
+      if (!cancelled) setHasWaterBodiesGeo(!!geo);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const handleOverlayToggle = useCallback(
+    (token: KommuneMapOverlayToken, on: boolean) => {
+      onMapOverlaysChange(patchKommuneMapOverlay(mapOverlays, token, on));
+    },
+    [mapOverlays, onMapOverlaysChange],
+  );
+
+  const layerGroups = useMemo(
+    () => buildMapLagLayerGroups({
+      pillarId: activeMetric ? kommuneMetricToLagPillar(activeMetric) : null,
+      isStub: isKommuneMapStubMetric(activeMetric),
+      hasWaterBodiesGeo,
+      overlays: mapOverlays,
+      onToggle: handleOverlayToggle,
+    }),
+    [activeMetric, hasWaterBodiesGeo, mapOverlays, handleOverlayToggle],
+  );
+
+  const mapOverlayControls = !readOnly && activeMetric && layerGroups.length > 0
+    ? <MapLayersPanel groups={layerGroups} />
+    : null;
 
   const handleProjectClick = useCallback((geoId: string) => {
     if (!dashboard) return;
     const found = findMarsProjectByGeoId(dashboard, geoId);
     if (!found) return;
     setSelectedProject({ source: 'mars', ...found });
-    openMarsProject(geoId);
+    openProject('mars', geoId);
     if (activeMetric === 'nature' && !natureOverlap) {
       loadProjectNatureOverlap().then(setNatureOverlap);
     }
-  }, [dashboard, openMarsProject, activeMetric, natureOverlap]);
+  }, [dashboard, openProject, activeMetric, natureOverlap]);
+
+  const handleSupplementClick = useCallback((selection: SelectedProject) => {
+    setSelectedProject(selection);
+    if (selection.source === 'klimaskovfonden') {
+      openProject('ksf', selection.project.sagsnummer);
+    } else if (selection.source === 'naturstyrelsen') {
+      openProject('nst', selection.project.name);
+    }
+  }, [openProject]);
 
   const closeProjectPanel = useCallback(() => {
     setSelectedProject(undefined);
@@ -114,13 +191,34 @@ export function KommuneMapSection({
   }, [closeMarsProject]);
 
   useEffect(() => {
-    if (!marsGeoId || !dashboard) {
-      if (!marsGeoId) setSelectedProject(undefined);
+    if (!projectOpen) {
+      setSelectedProject(undefined);
       return;
     }
-    const found = findMarsProjectByGeoId(dashboard, marsGeoId);
-    if (found) setSelectedProject({ source: 'mars', ...found });
-  }, [marsGeoId, dashboard]);
+    if (projectOpen.source === 'mars') {
+      if (!dashboard) return;
+      if (allowedMarsGeoIds && !allowedMarsGeoIds.has(projectOpen.id)) {
+        closeMarsProject();
+        setSelectedProject(undefined);
+        return;
+      }
+      const found = findMarsProjectByGeoId(dashboard, projectOpen.id);
+      if (found) setSelectedProject({ source: 'mars', ...found });
+      else closeMarsProject();
+      return;
+    }
+    if (projectOpen.source === 'ksf') {
+      const proj = ksfProjects.find((p) => p.sagsnummer === projectOpen.id);
+      if (proj) setSelectedProject({ source: 'klimaskovfonden', project: proj });
+      else closeMarsProject();
+      return;
+    }
+    if (projectOpen.source === 'nst') {
+      const proj = nstProjects.find((p) => p.name === projectOpen.id);
+      if (proj) setSelectedProject({ source: 'naturstyrelsen', project: proj });
+      else closeMarsProject();
+    }
+  }, [projectOpen, dashboard, allowedMarsGeoIds, closeMarsProject, ksfProjects, nstProjects]);
 
   useEffect(() => {
     if (!selectedProject || selectedProject.source !== 'mars') {
@@ -172,6 +270,7 @@ export function KommuneMapSection({
 
   const handleMapReady = useCallback((map: L.Map) => {
     mapRef.current = map;
+    setLeafletMap(map);
   }, []);
 
   const handleMapResize = useCallback(() => {
@@ -292,7 +391,42 @@ export function KommuneMapSection({
         </div>
       )}
 
+      {showPhaseFilter && onPhasesChange && (
+        <PhaseFilterPopover
+          selected={selectedPhases}
+          onChange={onPhasesChange}
+          align="start"
+          tooltipContent={
+            phaseFilterTooltip
+            ?? 'Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse.'
+          }
+        />
+      )}
+
+      {supplementSources?.length
+        && fordelingViewMode === 'actual'
+        && onSupplementsChange
+        && activeMetric && (
+        <SupplementSourceToggles
+          metric={activeMetric}
+          sources={supplementSources}
+          active={activeSupplements}
+          onChange={onSupplementsChange}
+        />
+      )}
+
     </>
+  ) : null;
+
+  const shellControls = (filterControls || mapControls) ? (
+    <div className="w-full space-y-3">
+      {filterControls && <div className="space-y-2">{filterControls}</div>}
+      {mapControls && (
+        <div className="flex flex-wrap items-center gap-3">
+          {mapControls}
+        </div>
+      )}
+    </div>
   ) : null;
 
   const mapBanners = !readOnly && activeMetric ? (
@@ -350,7 +484,7 @@ export function KommuneMapSection({
           </span>
         ) : undefined
       }
-      controls={mapControls}
+      controls={shellControls}
       hint={
         readOnly && contextCaption ? (
           <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
@@ -359,9 +493,9 @@ export function KommuneMapSection({
           </p>
         ) : activeMetric ? (
           <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-            Klik på en kommune for at åbne detaljesiden. Grundkortet skifter visning for natur-kortlag
-            og fordelings-simulering. Projektfaser og supplerende kilder styres ovenfor — de filtrerer
-            tallene, ikke kortlag.
+            {focusKode
+              ? 'Klik en anden kommune for at skifte. MARS-projekter følger fasefilteret; KSF/NST vises på kortet når du slår dem til under tilvalg. Brug Lag-knappen for baggrundskort som på det nationale kort (kystvande, markudledning, §3 m.fl.).'
+              : 'Klik på en kommune for at åbne detaljesiden. Projektfaser og tilvalg styrer både farvelægning og projekter på kortet. Lag-knappen tilføjer valgfrie baggrundskort — samme som på det nationale kort.'}
           </p>
         ) : undefined
       }
@@ -369,6 +503,7 @@ export function KommuneMapSection({
       onResize={handleMapResize}
       expandDisabled={activeMetric === null}
       inlineMapHeight={inlineMapHeight}
+      mapOverlayControls={mapOverlayControls}
       sidePanel={selectedProject ? (
         <div className="hidden md:block w-full max-h-[580px] overflow-y-auto md:max-h-full">
           <ProjectDetailPanel
@@ -423,11 +558,21 @@ export function KommuneMapSection({
               onSelect={readOnly ? () => {} : onSelect}
               dashboard={dashboard}
               selectedPhases={selectedPhases}
-              showProjectLayer={showProjectLayer}
               onProjectClick={handleProjectClick}
               fillContainer
               onMapReady={handleMapReady}
             />
+            {activeMetric && (
+              <KommuneMapOverlayLayers
+                map={leafletMap}
+                activeMetric={activeMetric}
+                mapOverlays={mapOverlays}
+                activeSupplements={activeSupplements}
+                ksfProjects={ksfProjects}
+                nstProjects={nstProjects}
+                onSupplementClick={handleSupplementClick}
+              />
+            )}
           </Suspense>
 
           {activeMetric && legendStops.length > 0 && (

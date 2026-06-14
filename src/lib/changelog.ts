@@ -51,3 +51,17 @@ export interface ChangelogEntry {
 }
 
 export const changelog = rawData as ChangelogEntry[];
+
+/** Latest site release (synced from changelog.json via `npm run changelog`). */
+export const CURRENT_VERSION = changelog[0]?.version ?? 'v?';
+
+/** In-app link to the public release notes section. */
+export const CHANGELOG_PATH = '/data-og-metode#aendringslog';
+
+export function formatChangelogDate(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString('da-DK', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}

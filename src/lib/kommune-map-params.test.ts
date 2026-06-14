@@ -14,15 +14,19 @@ describe('kommune-map-params', () => {
       natureLayer: 'b4-beskyttet',
       selectedPhases: new Set(['preliminary', 'approved', 'established']),
       activeSupplements: new Set(['ksf']),
+      mapOverlays: new Set(['kulstof', 'vandlegemer']),
     });
 
     expect(params.get('skala')).toBe('ansvar');
     expect(params.get('tilvalg')).toBe('ksf');
     expect(params.get('faser')).toBe('foru,godk,anlagt');
+    expect(params.get('overlag')).toBe('kulstof,vandlegemer');
 
     const parsed = parseKommuneMapViewState(params);
     expect(parsed.choroplethScale).toBe('ansvar');
     expect(parsed.activeSupplements.has('ksf')).toBe(true);
+    expect(parsed.mapOverlays.has('kulstof')).toBe(true);
+    expect(parsed.mapOverlays.has('vandlegemer')).toBe(true);
     expect(parsed.selectedPhases.has('preliminary')).toBe(true);
     expect(parsed.selectedPhases.has('approved')).toBe(true);
     expect(parsed.selectedPhases.has('established')).toBe(true);
@@ -35,6 +39,7 @@ describe('kommune-map-params', () => {
       natureLayer: 'b4-beskyttet',
       selectedPhases: new Set(['preliminary', 'approved', 'established']),
       activeSupplements: new Set(),
+      mapOverlays: new Set(),
     });
     expect(caption).toContain('Lavbund');
     expect(caption).toContain('ift. ansvar');

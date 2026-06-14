@@ -24,6 +24,8 @@ interface ProjectListProps {
   schemes?: SubsidyScheme[];
   /** Override the section heading (default: "Projektdetaljer") */
   title?: string;
+  /** Hide the built-in uppercase heading (when wrapped in KommuneDetailBlock). */
+  hideTitle?: boolean;
   /**
    * When true, removes the inner max-height + overflow-y-auto from the lists.
    * Use when the ProjectList sits inside an already-scrollable container (e.g. KommuneDetailPanel).
@@ -39,6 +41,7 @@ export function ProjectList({
   planName,
   schemes,
   title,
+  hideTitle = false,
   flat,
 }: ProjectListProps) {
   const [activeTab, setActiveTab] = useState<Tab>('projects');
@@ -114,10 +117,12 @@ export function ProjectList({
 
   return (
     <div className="mt-4">
-      <div className="flex items-center gap-2 mb-2">
-        <Filter className="w-4 h-4 text-muted-foreground" />
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title ?? 'Projektdetaljer'}</h3>
-      </div>
+      {!hideTitle && (
+        <div className="flex items-center gap-2 mb-2">
+          <Filter className="w-4 h-4 text-muted-foreground" />
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title ?? 'Projektdetaljer'}</h3>
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-1 mb-3">

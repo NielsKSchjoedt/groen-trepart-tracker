@@ -1,5 +1,5 @@
 /**
- * Headless tier-1 MARS project renderer for Leaflet maps (dots / polygons by zoom).
+ * Headless tier-1 MARS project renderer for Leaflet maps (dots / polygons by on-screen size).
  */
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
@@ -9,10 +9,10 @@ import type { ProjectPhase } from '@/lib/phase-config';
 import { getPhaseConfig } from '@/lib/phase-config';
 import { formatDanishNumber } from '@/lib/format';
 import {
-  MAP_PROJECT_POLYGON_ZOOM,
   type MapProjectItem,
   projectMarkerRadius,
   ringCentroid,
+  shouldRenderProjectPolygon,
 } from '@/lib/map-projects';
 
 interface MapProjectLayerProps {
@@ -66,7 +66,6 @@ export function MapProjectLayer({
     }
 
     const group = L.layerGroup();
-    const usePolygons = zoom >= MAP_PROJECT_POLYGON_ZOOM;
     const maxArea = Math.max(...withGeom.map((p) => p.areaHa), 1);
 
     for (const proj of withGeom) {
@@ -74,6 +73,8 @@ export function MapProjectLayer({
       const phaseCfg = getPhaseConfig(proj.phase);
       const color = phaseCfg.hex;
       const [lng, lat] = ringCentroid(ring);
+      const dotRadius = projectMarkerRadius(proj.areaHa, maxArea);
+      const usePolygon = shouldRenderProjectPolygon(map, ring, dotRadius);
 
       const tooltipLines = [`<strong>${proj.name}</strong>`, phaseCfg.label];
       if (proj.measureName) tooltipLines.push(proj.measureName);
@@ -104,7 +105,7 @@ export function MapProjectLayer({
         });
       };
 
-      if (usePolygons) {
+      if (usePolygon) {
         layer = L.geoJSON(
           {
             type: 'Feature',
@@ -127,7 +128,7 @@ export function MapProjectLayer({
         );
       } else {
         layer = L.circleMarker([lat, lng], {
-          radius: projectMarkerRadius(proj.areaHa, maxArea),
+          radius: dotRadius,
           weight: 1.5,
           color,
           fillColor: color,

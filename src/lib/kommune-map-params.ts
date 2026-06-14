@@ -8,6 +8,12 @@ import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/l
 import { NATURE_LAYER_OPTIONS } from '@/lib/kommune-map-visualization';
 import { PILLAR_SLUGS, slugToPillar } from '@/lib/slugs';
 import { getPillarConfig } from '@/lib/pillars';
+import type { KommuneMapOverlayToken } from '@/lib/kommune-map-overlays';
+import {
+  applyKommuneMapOverlays,
+  DEFAULT_KOMMUNE_MAP_OVERLAYS,
+  parseKommuneMapOverlays,
+} from '@/lib/kommune-map-overlays';
 
 export interface KommuneMapViewState {
   fordelingViewMode: FordelingViewMode;
@@ -15,6 +21,7 @@ export interface KommuneMapViewState {
   natureLayer: NatureLayerKey;
   selectedPhases: Set<KommunePhase>;
   activeSupplements: Set<SupplementSource>;
+  mapOverlays: Set<KommuneMapOverlayToken>;
 }
 
 const PHASE_SLUG: Record<KommunePhase, string> = {
@@ -123,6 +130,7 @@ export function parseKommuneMapViewState(params: URLSearchParams): KommuneMapVie
     natureLayer,
     selectedPhases,
     activeSupplements,
+    mapOverlays: parseKommuneMapOverlays(params),
   };
 }
 
@@ -162,6 +170,8 @@ export function applyKommuneMapViewState(
       [...state.activeSupplements].map((src) => SUPPLEMENT_SLUG[src]).join(','),
     );
   }
+
+  applyKommuneMapOverlays(params, state.mapOverlays);
 }
 
 export function parseKommuneMetricParam(params: URLSearchParams): KommuneMetric | null {
@@ -223,6 +233,7 @@ export function resetMapViewParamsForMetric(params: URLSearchParams, metric: Kom
     natureLayer: 'b4-beskyttet',
     selectedPhases: new Set(DEFAULT_PHASES),
     activeSupplements: new Set(),
+    mapOverlays: new Set(DEFAULT_KOMMUNE_MAP_OVERLAYS),
   });
   params.set('metric', PILLAR_SLUGS[metric]);
 }

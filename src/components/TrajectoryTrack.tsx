@@ -1,4 +1,4 @@
-import { Clock } from 'lucide-react';
+import { Clock, Shovel } from 'lucide-react';
 
 interface TrajectoryTrackProps {
   /** Andel af tiden gået fra aftalen (2024) til deadline, 0–100 */
@@ -45,9 +45,9 @@ export function TrajectoryTrack({
   return (
     <div className="text-[9px] text-muted-foreground">
       <div className="mb-1 flex items-center gap-1.5">
-        <span className="flex w-[38px] shrink-0 items-center gap-0.5">
-          <Clock className="h-2.5 w-2.5" strokeWidth={1.75} aria-hidden="true" />
-          tid
+        <span className="flex w-[50px] shrink-0 items-center gap-0.5 leading-tight">
+          <Clock className="h-2.5 w-2.5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+          tid gået
         </span>
         <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
           <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: visibleWidth(time), backgroundColor: NEUTRAL }} />
@@ -56,7 +56,10 @@ export function TrajectoryTrack({
       </div>
 
       <div className="flex items-center gap-1.5">
-        <span className="w-[38px] shrink-0">{progressLabel}</span>
+        <span className="flex w-[50px] shrink-0 items-center gap-0.5 leading-tight">
+          <Shovel className="h-2.5 w-2.5" strokeWidth={1.75} aria-hidden="true" />
+          {progressLabel}
+        </span>
         <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
           {projected !== null && projected > built && (
             <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: visibleWidth(projected), backgroundColor: accent, opacity: 0.28 }} />
@@ -68,7 +71,7 @@ export function TrajectoryTrack({
         </span>
       </div>
 
-      {ghostLabel && <p className="mt-1 pl-[44px]">{ghostLabel}</p>}
+      {ghostLabel && <p className="mt-1 pl-[56px]">{ghostLabel}</p>}
     </div>
   );
 }

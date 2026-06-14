@@ -1,7 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { FremskrivningCard } from './fremskrivning/FremskrivningCard';
 import type { DashboardData } from '@/lib/types';
+
+import type { ReactElement } from 'react';
+
+function renderCard(ui: ReactElement) {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
+}
 
 function minimalDashboard(): DashboardData {
   return {
@@ -129,30 +136,45 @@ function minimalDashboard(): DashboardData {
 
 describe('FremskrivningCard', () => {
   it('viser trin 1 og tempo-advarsel for kvælstof', () => {
-    render(<FremskrivningCard data={minimalDashboard()} pillar="nitrogen" />);
+    renderCard(<FremskrivningCard data={minimalDashboard()} pillar="nitrogen" />);
     expect(screen.getByText(/Vælg, hvad du tror bliver til virkelighed/)).toBeInTheDocument();
     expect(screen.getByText(/Hastigheden er problemet, ikke pipelinen/)).toBeInTheDocument();
     expect(screen.getAllByText('Gennemførte').length).toBeGreaterThan(0);
   });
 
   it('opdaterer scenarietal når godkendte toggles', () => {
-    render(<FremskrivningCard data={minimalDashboard()} pillar="nitrogen" />);
+    renderCard(<FremskrivningCard data={minimalDashboard()} pillar="nitrogen" />);
     fireEvent.click(screen.getByRole('button', { name: /Godkendte/i }));
     expect(screen.getByText(/alle realiseres/)).toBeInTheDocument();
   });
 
   it('viser Gennemførte som valgt under MARS-projekter', () => {
-    render(<FremskrivningCard data={minimalDashboard()} pillar="extraction" />);
+    renderCard(<FremskrivningCard data={minimalDashboard()} pillar="extraction" />);
     expect(screen.getByText('MARS-projekter')).toBeInTheDocument();
     const gennemfoerte = screen.getByText('tæller altid med').closest('[aria-pressed]');
     expect(gennemfoerte).toHaveAttribute('aria-pressed', 'true');
   });
   it('viser eksterne kilder for skov som standard tændt', () => {
-    render(<FremskrivningCard data={minimalDashboard()} pillar="afforestation" />);
+    renderCard(<FremskrivningCard data={minimalDashboard()} pillar="afforestation" />);
     expect(screen.getByText(/Eksterne kilder/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Klimaskovfonden/i })).toHaveAttribute(
       'aria-pressed',
       'true',
+    );
+  });
+
+  it('holder eksterne kilder slukket når brugeren slår dem fra', () => {
+    renderCard(<FremskrivningCard data={minimalDashboard()} pillar="afforestation" />);
+    fireEvent.click(screen.getByRole('button', { name: /Klimaskovfonden/i }));
+    expect(screen.getByRole('button', { name: /Klimaskovfonden/i })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    );
+    fireEvent.click(screen.getByRole('button', { name: /Naturstyrelsen \(gennemført\)/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Naturstyrelsen \(i gang\)/i }));
+    expect(screen.getByRole('button', { name: /Klimaskovfonden/i })).toHaveAttribute(
+      'aria-pressed',
+      'false',
     );
   });
 });

@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { BugReportFab } from "./components/BugReportFab";
+import { RouteParamSanitizer } from "./components/RouteParamSanitizer";
 
 // Heavy KommunePage (Leaflet choropleth) in its own chunk to keep the
 // main bundle lean. Leaflet is already a dependency but the choropleth
@@ -44,6 +45,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <RouteParamSanitizer />
         <BugReportFab />
         <Routes>
           {/* Root: overview landing — no pillar pre-selected */}

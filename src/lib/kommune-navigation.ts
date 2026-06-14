@@ -1,5 +1,6 @@
 import type { NavigateFunction } from 'react-router-dom';
 import { kommuneToSlug } from './kommune-slugs';
+import { extractKommuneDetailSearch } from '@/lib/permalink/route-params';
 
 const KOMMUNE_LIST_RETURN_KEY = 'gt-kommune-list-return';
 
@@ -98,7 +99,8 @@ export function navigateToKommuneDetail(
 ): void {
   saveKommuneListReturnState(search);
   scrollToPageTop();
-  navigate({ pathname: `/kommuner/${kommuneToSlug(navn)}`, search });
+  const detailSearch = extractKommuneDetailSearch(search);
+  navigate({ pathname: `/kommuner/${kommuneToSlug(navn)}`, search: detailSearch });
 }
 
 /** Resolve kommune kode → detail page navigation with scroll reset. */

@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import type { KommuneRankingData } from '@/lib/types';
 import {
   buildStandingsTable,
@@ -6,6 +7,8 @@ import {
   type StandingsMode,
   type StandingsRow,
 } from '@/lib/kommune-ranking';
+import { decodeStandings } from '@/lib/permalink/slices/standings';
+import { applyStandingsToParams } from '@/lib/permalink/slices/standings';
 
 export interface StandingsState {
   region: string;
@@ -22,15 +25,44 @@ export interface StandingsState {
 }
 
 /**
- * Shared standings state so the mini-board ranglister and the master table can
- * live in separate page chapters (rankings → map → long table) yet stay in sync
- * on region, mode and sort.
+ * Shared standings state synced to URL (`sort`, `visning`, `region`).
  */
 export function useStandings(ranking: KommuneRankingData | null): StandingsState {
-  const [region, setRegion] = useState('Alle regioner');
-  const [mode, setMode] = useState<StandingsMode>('relativ');
-  const [sortKey, setSortKey] = useState<StandingsLensKey | 'leveretHa'>('idxLavbund');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlStandings = useMemo(() => decodeStandings(searchParams), [searchParams]);
+
+  const { region, mode, sort: sortKey } = urlStandings;
+  const sortDir: 'asc' | 'desc' = 'desc';
+
+  const patchStandings = useCallback(
+    (partial: Partial<{ region: string; mode: StandingsMode; sort: StandingsLensKey }>) => {
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        const current = decodeStandings(next);
+        applyStandingsToParams(next, { ...current, ...partial });
+        return next;
+      }, { replace: true });
+    },
+    [setSearchParams],
+  );
+
+  const setRegion = useCallback(
+    (r: string) => patchStandings({ region: r }),
+    [patchStandings],
+  );
+
+  const setMode = useCallback(
+    (m: StandingsMode) => patchStandings({ mode: m }),
+    [patchStandings],
+  );
+
+  const toggleSort = useCallback(
+    (key: StandingsLensKey | 'leveretHa') => {
+      if (key === 'leveretHa') return;
+      patchStandings({ sort: key });
+    },
+    [patchStandings],
+  );
 
   const tableRows = useMemo(
     () =>
@@ -49,15 +81,6 @@ export function useStandings(ranking: KommuneRankingData | null): StandingsState
         : [],
     [ranking, region, sortKey],
   );
-
-  const toggleSort = (key: StandingsLensKey | 'leveretHa') => {
-    if (key === sortKey) {
-      setSortDir((d) => (d === 'desc' ? 'asc' : 'desc'));
-    } else {
-      setSortKey(key);
-      setSortDir('desc');
-    }
-  };
 
   return { region, setRegion, mode, setMode, sortKey, sortDir, toggleSort, boardRows, tableRows };
 }

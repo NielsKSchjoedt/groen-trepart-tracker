@@ -43,7 +43,7 @@ export const STANDINGS_LENSES: StandingsLens[] = [
     full: 'Kvælstofreduktion',
     tone: '#0d9488',
     kind: 'idx',
-    sub: 'Reduceret N ift. indsatsbehov',
+    sub: 'Reduceret N ift. potentiale',
   },
 ];
 

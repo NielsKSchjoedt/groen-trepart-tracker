@@ -14,6 +14,7 @@ import {
   KOMMUNE_LISTE_INTRO,
   KOMMUNE_RANGLISTE_CHAPTER,
   KOMMUNE_RANGLISTE_INTRO,
+  getKommuneChapters,
 } from '@/lib/kommune-chapters';
 import { KommuneMapSection } from '@/components/KommuneMapSection';
 import { KommuneStandingsSection } from '@/components/kommune-standings/KommuneStandingsSection';
@@ -21,16 +22,14 @@ import { KommuneMasterTable } from '@/components/kommune-standings/KommuneMaster
 import { useStandings } from '@/components/kommune-standings/useStandings';
 import { Footer } from '@/components/Footer';
 import { StickyNav } from '@/components/StickyNav';
-import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
+import { SiteTopBadges } from '@/components/SiteTopBadges';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useKommuneData } from '@/hooks/useKommuneData';
 import { consumeKommuneListReturnState, navigateToKommuneByKode, restoreKommuneListScroll } from '@/lib/kommune-navigation';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
-import { buildFilteredKommuner, DEFAULT_PHASES, getSupplementPresentation, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
+import { buildFilteredKommuner, DEFAULT_PHASES, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
 import { buildDynamicRanking } from '@/lib/kommune-ranking-dynamic';
 import { enrichKommunerWithKsfLavbund } from '@/lib/kommune-ksf-lavbund';
-import { PhaseFilter } from '@/components/PhaseFilter';
-import { getPillarConfig } from '@/lib/pillars';
 import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
 import { computeAnsvarIndices, usesSimulationChoropleth } from '@/lib/kommune-map-visualization';
 import {
@@ -39,6 +38,7 @@ import {
   parseKommuneMetricParam,
   resetMapViewParamsForMetric,
 } from '@/lib/kommune-map-params';
+import { useHashScroll } from '@/lib/permalink/useHashScroll';
 
 /**
  * National kommune overview at `/kommuner` — choropleth map + rangliste.
@@ -58,6 +58,7 @@ export default function KommunePage() {
     natureLayer,
     selectedPhases,
     activeSupplements,
+    mapOverlays,
   } = mapView;
 
   const patchMapView = (patch: Partial<typeof mapView>) => {
@@ -73,8 +74,9 @@ export default function KommunePage() {
   const setFordelingViewMode = (mode: FordelingViewMode) => patchMapView({ fordelingViewMode: mode });
   const setChoroplethScale = (mode: ChoroplethScaleMode) => patchMapView({ choroplethScale: mode });
   const setNatureLayer = (layer: NatureLayerKey) => patchMapView({ natureLayer: layer });
+  const setMapOverlays = (overlays: typeof mapOverlays) => patchMapView({ mapOverlays: overlays });
 
-  const { data, kommunerGeo, ksfProjects, kommuneRanking, kommuneBenchmark, klimaregnskab, fordelingSimulation, loadError, isLoading } = useKommuneData();
+  const { data, kommunerGeo, ksfProjects, nstProjects, kommuneRanking, kommuneBenchmark, klimaregnskab, fordelingSimulation, loadError, isLoading } = useKommuneData();
 
   const activeMetric: KommuneMetric | null = useMemo(
     () => parseKommuneMetricParam(searchParams),
@@ -99,6 +101,16 @@ export default function KommunePage() {
   );
 
   const standings = useStandings(effectiveRanking);
+
+  const kommuneChapterIds = useMemo(
+    () => getKommuneChapters().map((c) => c.id),
+    [],
+  );
+
+  useHashScroll({
+    chapterIds: kommuneChapterIds,
+    ready: !!data,
+  });
 
   const ansvarIndexByKode = useMemo(() => {
     if (choroplethScale !== 'ansvar' || !activeMetric) return {};
@@ -157,15 +169,11 @@ export default function KommunePage() {
     );
   }
 
-  const backgroundTint = activeMetric
-    ? getPillarConfig(activeMetric).backgroundTint
-    : 'hsl(0 0% 96%)';
-
   return (
-    <div className="relative min-h-screen transition-colors duration-400" style={{ backgroundColor: backgroundTint }}>
+    <div className="relative min-h-screen bg-[hsl(0_0%_96%)]">
       {/* StickyNav — shares the same component as the national view */}
       <StickyNav sentinelRef={heroSentinelRef} />
-      <LastUpdatedBadge fetchedAt={data.fetchedAt} />
+      <SiteTopBadges fetchedAt={data.fetchedAt} />
 
       {/* Hero — intentionally light: the rangliste chapter header below is the real lead */}
       <div className="max-w-6xl mx-auto px-4 pt-8 pb-1">
@@ -177,7 +185,7 @@ export default function KommunePage() {
 
       <div className="max-w-6xl mx-auto pb-16">
 
-        {/* Chapter: Ranglister (mini-boards) — først */}
+        {/* Chapter: Ranglister (mini-boards) — leder siden */}
         <ChapterSection
           id={KOMMUNE_RANGLISTE_CHAPTER.id}
           eyebrow={KOMMUNE_RANGLISTE_CHAPTER.eyebrow}
@@ -191,6 +199,8 @@ export default function KommunePage() {
                 standings={standings}
                 klimaregnskab={klimaregnskab}
                 benchmark={kommuneBenchmark}
+                selectedPhases={selectedPhases}
+                onPhasesChange={setSelectedPhases}
                 selectedKode={null}
                 onSelect={handleSelect}
               />
@@ -212,98 +222,6 @@ export default function KommunePage() {
         >
         <div className="max-w-6xl mx-auto px-4 space-y-6">
 
-        {/* Metric picker + phase filter */}
-        <div className="space-y-2">
-          <div className="relative flex items-start gap-3 flex-wrap">
-            <span className="flex items-center gap-1 text-sm font-medium text-muted-foreground pt-1.5">
-              Vis:
-              <InfoTooltip
-                title="Metrikker"
-                content={
-                  <>
-                    <p><strong>Kvælstof</strong> — ton N reduceret/år fra MARS-projekter. Understøtter fasefilter. Mål: 12.776 T inden 2027.</p>
-                    <p><strong>Lavbund</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Klimaskovfondens lavbundsprojekter kan tilvælges separat. Mål: 140.000 ha inden 2030.</p>
-                    <p><strong>Skovrejsning</strong> — ha ny skov fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata.</p>
-                    <p><strong>Beskyttet natur</strong> — benchmark-kortlag fra DCE 30 %, §3 og Natura 2000 (B1–B4). Vælg kortlag i stedet for MARS-projekter, som endnu ikke findes på kommuneniveau.</p>
-                    <p><strong>CO₂</strong> — Samlet CO₂e-udledning per kommune (2023). Kilde: Energi- og CO₂-regnskabet, Energistyrelsen (klimaregnskabet.dk). Klik på en kommune for sektorfordeling og tidsudvikling.</p>
-                  </>
-                }
-                source="Den Grønne Trepart (2024)"
-                size={12}
-                side="right"
-              />
-            </span>
-            <MetricPicker activeMetric={activeMetric} onChange={handleMetricChange} />
-
-            {/* Onboarding hint — shown until user selects a metric */}
-            {activeMetric === null && !hintDismissed && (
-              <HintCallout
-                icon={Hand}
-                text="Vælg et indsatsområde for at se data på kortet og i tabellen"
-                arrow="left"
-                onDismiss={() => setHintDismissed(true)}
-                className="absolute left-1/2 -translate-x-1/2 -bottom-12 sm:left-auto sm:translate-x-0 sm:right-0 sm:bottom-auto sm:-top-1"
-              />
-            )}
-          </div>
-
-          {/* Calculation scope — phases and supplements filter totals, not map layers */}
-          {activeMetric && (showPhaseFilter || (supplementSources?.length && fordelingViewMode === 'actual')) && (
-            <div className="space-y-2 rounded-lg border border-border/60 bg-muted/20 px-3 py-2.5">
-              {showPhaseFilter && (
-                <div className="flex items-start gap-2.5 flex-wrap">
-                  <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground pt-1">
-                    Med i beregning
-                    <InfoTooltip
-                      title="Projektfaser"
-                      content="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Ansvar-indekset (×) genberegnes efter valgte faser."
-                      source="MARS"
-                      size={11}
-                      side="right"
-                    />
-                  </span>
-                  <PhaseFilter selected={selectedPhases} onChange={setSelectedPhases} />
-                </div>
-              )}
-
-              {supplementSources && fordelingViewMode === 'actual' && (
-                <SupplementToggles
-                  metric={activeMetric}
-                  sources={supplementSources}
-                  active={activeSupplements}
-                  onChange={setActiveSupplements}
-                />
-              )}
-            </div>
-          )}
-
-          {/* CO₂ data coverage disclaimer */}
-          {activeMetric === 'co2' && (
-            <MetricDisclaimer>
-              CO₂-tallene er fra{' '}
-              <a
-                href="https://klimaregnskabet.dk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-amber-700"
-              >
-                Energi- og CO₂-regnskabet (Energistyrelsen)
-              </a>{' '}
-              og dækker frem til <strong>2023</strong>. Med den typiske ~2 års forsinkelse kan 2024-tal
-              være tilgængelige nu — dashboardet opdaterer automatisk, når de hentes ind.{' '}
-              <a
-                href="https://concito.dk/omstillingsindikatorer-drivhusgasreduktion"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-amber-700"
-              >
-                Concito / Klimaalliancen
-              </a>{' '}
-              udgiver løbende en dybere kommunal klimamonitorering med 16 omstillingsindikatorer pr. kommune.
-            </MetricDisclaimer>
-          )}
-        </div>
-
         {/* Map */}
         <section id="kort" aria-label="Danmarkskort med kommuner">
           <KommuneMapSection
@@ -324,6 +242,76 @@ export default function KommunePage() {
             onSelect={handleSelect}
             dashboard={data}
             selectedPhases={selectedPhases}
+            mapOverlays={mapOverlays}
+            onMapOverlaysChange={setMapOverlays}
+            activeSupplements={activeSupplements}
+            ksfProjects={ksfProjects}
+            nstProjects={nstProjects}
+            showPhaseFilter={showPhaseFilter}
+            onPhasesChange={setSelectedPhases}
+            phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Ansvar-indekset (×) genberegnes efter valgte faser."
+            supplementSources={supplementSources}
+            onSupplementsChange={setActiveSupplements}
+            filterControls={
+              <>
+                <div className="relative flex items-start gap-3 flex-wrap">
+                  <span className="flex items-center gap-1 text-sm font-medium text-muted-foreground pt-1.5">
+                    Vis:
+                    <InfoTooltip
+                      title="Metrikker"
+                      content={
+                        <>
+                          <p><strong>Kvælstof</strong> — ton N reduceret/år fra MARS-projekter. Understøtter fasefilter. Mål: 12.776 T inden 2027.</p>
+                          <p><strong>Lavbund</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Klimaskovfondens lavbundsprojekter kan tilvælges separat. Mål: 140.000 ha inden 2030.</p>
+                          <p><strong>Skovrejsning</strong> — ha ny skov fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata.</p>
+                          <p><strong>Beskyttet natur</strong> — benchmark-kortlag fra DCE 30 %, §3 og Natura 2000 (B1–B4). Vælg kortlag i stedet for MARS-projekter, som endnu ikke findes på kommuneniveau.</p>
+                          <p><strong>CO₂</strong> — Samlet CO₂e-udledning per kommune (2023). Kilde: Energi- og CO₂-regnskabet, Energistyrelsen (klimaregnskabet.dk). Klik på en kommune for sektorfordeling og tidsudvikling.</p>
+                        </>
+                      }
+                      source="Den Grønne Trepart (2024)"
+                      size={12}
+                      side="right"
+                    />
+                  </span>
+                  <MetricPicker activeMetric={activeMetric} onChange={handleMetricChange} />
+
+                  {activeMetric === null && !hintDismissed && (
+                    <HintCallout
+                      icon={Hand}
+                      text="Vælg et indsatsområde for at se data på kortet og i tabellen"
+                      arrow="left"
+                      onDismiss={() => setHintDismissed(true)}
+                      className="absolute left-1/2 -translate-x-1/2 -bottom-12 sm:left-auto sm:translate-x-0 sm:right-0 sm:bottom-auto sm:-top-1"
+                    />
+                  )}
+                </div>
+
+                {activeMetric === 'co2' && (
+                  <MetricDisclaimer>
+                    CO₂-tallene er fra{' '}
+                    <a
+                      href="https://klimaregnskabet.dk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-amber-700"
+                    >
+                      Energi- og CO₂-regnskabet (Energistyrelsen)
+                    </a>{' '}
+                    og dækker frem til <strong>2023</strong>. Med den typiske ~2 års forsinkelse kan 2024-tal
+                    være tilgængelige nu — dashboardet opdaterer automatisk, når de hentes ind.{' '}
+                    <a
+                      href="https://concito.dk/omstillingsindikatorer-drivhusgasreduktion"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-amber-700"
+                    >
+                      Concito / Klimaalliancen
+                    </a>{' '}
+                    udgiver løbende en dybere kommunal klimamonitorering med 16 omstillingsindikatorer pr. kommune.
+                  </MetricDisclaimer>
+                )}
+              </>
+            }
           />
         </section>
         </div>
@@ -362,65 +350,6 @@ export default function KommunePage() {
       </div>
 
       <Footer fetchedAt={data?.fetchedAt ?? ''} />
-    </div>
-  );
-}
-
-/**
- * Toggle pills for supplementary (non-MARS) data sources included in the calculation.
- */
-function SupplementToggles({
-  metric,
-  sources,
-  active,
-  onChange,
-}: {
-  metric: KommuneMetric;
-  sources: SupplementSource[];
-  active: Set<SupplementSource>;
-  onChange: (next: Set<SupplementSource>) => void;
-}) {
-  const toggle = (id: SupplementSource) => {
-    const next = new Set(active);
-    if (next.has(id)) next.delete(id);
-    else next.add(id);
-    onChange(next);
-  };
-
-  return (
-    <div className="flex items-start gap-2.5 flex-wrap">
-      <span
-        className="text-xs font-medium text-muted-foreground pt-1"
-        title="Disse kilder lægges oven i MARS-tallene — de er ikke kortlag"
-      >
-        + Supplerende kilder
-      </span>
-      <div className="flex items-center gap-2 flex-wrap">
-        {sources.map((srcId) => {
-          const def = getSupplementPresentation(srcId, metric);
-          const isActive = active.has(srcId);
-          return (
-            <button
-              key={srcId}
-              type="button"
-              onClick={() => toggle(srcId)}
-              aria-pressed={isActive}
-              title={def.description}
-              className={[
-                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
-                'transition-all duration-150 select-none cursor-pointer',
-                isActive ? def.color.activeClass : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
-              ].join(' ')}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors"
-                style={{ backgroundColor: isActive ? def.color.stroke : undefined }}
-              />
-              {def.label}
-            </button>
-          );
-        })}
-      </div>
     </div>
   );
 }

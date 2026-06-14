@@ -1082,7 +1082,12 @@ by_kode: dict[str, dict] = {}
 _kommune_clip_index = None
 _kommune_clip_enabled = False
 try:
-    from kommune_area_clip import geom_from_geo_id, load_kommune_index, split_metrics_by_kommune
+    from kommune_area_clip import (
+        geom_from_geo_id,
+        load_kommune_index,
+        overlapping_kommune_clips,
+        split_metrics_by_kommune,
+    )
 
     _kommune_geo_path = f"{BASE}/data/dawa/kommuner.geojson"
     if project_geometries and Path(_kommune_geo_path).exists():
@@ -1092,6 +1097,57 @@ try:
             print("✓ Kommune arealklipning enabled (MARS-style geometry split)")
 except ImportError:
     print("ℹ Spatial deps unavailable — kommune metrics use centroid tilskrivning")
+
+
+def build_geo_id_overlap_lookup() -> dict[str, dict]:
+    """
+    geoId → { primaryKode, primaryNavn, koder } for map linking and drill-down.
+
+    Uses polygon intersection (same basis as arealklipning). Falls back to centroid
+    lookup when spatial deps or geometry are unavailable.
+    """
+    lookup: dict[str, dict] = {}
+    if _kommune_clip_enabled and _kommune_clip_index is not None and project_geometries:
+        for geo_id in project_geometries:
+            geom = geom_from_geo_id(geo_id, project_geometries)
+            clips = overlapping_kommune_clips(geom, _kommune_clip_index)
+            if not clips:
+                continue
+            primary_kode, primary_navn, _ = clips[0]
+            lookup[geo_id] = {
+                "primaryKode": primary_kode,
+                "primaryNavn": primary_navn,
+                "koder": [kode for kode, _, _ in clips],
+            }
+    for geo_id, cent in GEO_ID_KOMMUNE.items():
+        if geo_id in lookup:
+            continue
+        lookup[geo_id] = {
+            "primaryKode": cent["kode"],
+            "primaryNavn": cent["navn"],
+            "koder": [cent["kode"]],
+        }
+    return lookup
+
+
+def apply_geo_overlap_to_mars_projects(data: dict, overlap_lookup: dict[str, dict]) -> None:
+    """Attach kommuneKode + overlappingKommuneKoder to every MARS project/sketch."""
+
+    def patch(entry: dict) -> None:
+        geo_id = entry.get("geoId") or ""
+        att = overlap_lookup.get(geo_id)
+        if not att:
+            return
+        entry["kommuneKode"] = att["primaryKode"]
+        entry["kommuneNavn"] = att["primaryNavn"]
+        entry["overlappingKommuneKoder"] = att["koder"]
+
+    for container_key in ("plans", "catchments"):
+        for container in data.get(container_key, []):
+            for proj in container.get("projectDetails", []):
+                patch(proj)
+            for sketch in container.get("sketchProjects", []):
+                patch(sketch)
 
 
 def _legacy_phase_bucket(pipeline_phase: str) -> str:
@@ -1352,6 +1408,11 @@ print(f"  With §3 nature data:      {sum(1 for k in by_kommune_list if k['secti
 print(f"  With Natura 2000 data:    {sum(1 for k in by_kommune_list if k['natura2000Ha'] > 0)}")
 print(f"  With naturePotentialHa:   {sum(1 for k in by_kommune_list if k['naturePotentialHa'] > 0)}")
 print(f"  With co2EstimatedT:       {sum(1 for k in by_kommune_list if k.get('co2EstimatedT', 0) != 0)}")
+
+# Polygon overlap → kommune lists (map + drill-down; metrics already clipped above).
+_geo_overlap_lookup = build_geo_id_overlap_lookup()
+apply_geo_overlap_to_mars_projects(dashboard_data, _geo_overlap_lookup)
+print(f"✓ Geo overlap lookup: {len(_geo_overlap_lookup)} geoIds with kommune attribution")
 
 # Split heavy drill-down arrays from summary for faster initial page load.
 DRILLDOWN_KEYS = ("projectDetails", "sketchProjects", "naturePotentials")

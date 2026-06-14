@@ -19,6 +19,7 @@ import { OekonomiFootnote } from '@/components/oekonomi/OekonomiFootnote';
 import { ChapterSection } from '@/components/ChapterSection';
 import {
   getGeografiIntro,
+  getChapters,
   OEKONOMI_CHAPTER,
   OEKONOMI_INTRO,
   PROJEKTER_CHAPTER,
@@ -26,13 +27,14 @@ import {
   GEOGRAFI_CHAPTER,
   CO2DATA_CHAPTER,
 } from '@/lib/chapters';
+import { useHashScroll } from '@/lib/permalink/useHashScroll';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
 import { StickyNav } from '@/components/StickyNav';
-import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
+import { SiteTopBadges } from '@/components/SiteTopBadges';
 
 // Heavy components lazy-loaded so they split into separate JS chunks.
 // Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
@@ -116,6 +118,16 @@ const Index = () => {
     [data],
   );
 
+  const chapterIds = useMemo(
+    () => getChapters(activePillar).map((c) => c.id),
+    [activePillar],
+  );
+
+  useHashScroll({
+    chapterIds,
+    ready: !!data,
+  });
+
   /**
    * MARS projects filtered to those relevant for the active pillar.
    * Mirrors the logic in ProjectFunnel's computePillarProjects: only
@@ -168,7 +180,7 @@ const Index = () => {
         style={{ backgroundColor: backgroundTint }}
       >
         <StickyNav sentinelRef={heroSentinelRef} />
-        <LastUpdatedBadge fetchedAt={data.fetchedAt} />
+        <SiteTopBadges fetchedAt={data.fetchedAt} />
         <div className="max-w-6xl mx-auto">
           <HeroSection data={data} heroSentinelRef={heroSentinelRef} />
           <ScrollPrompt />

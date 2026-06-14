@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import { Hash, Ruler } from 'lucide-react';
 import type { DashboardData, ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import type { PillarId } from '@/lib/pillars';
 import type { MetricMode } from '@/lib/metric-mode';
 import { getPillarMetricConfig } from '@/lib/metric-mode';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR } from '@/lib/supplement-colors';
+import { useParsedViewState, usePermalinkPatch } from '@/lib/permalink/useViewState';
+import { CopyLinkButton } from '@/lib/permalink/CopyLinkButton';
 import { ProjectFunnel } from './ProjectFunnel';
 import { ProjectActivityChart } from './ProjectActivityChart';
 import { InitiativeTypeGauge } from './InitiativeTypeGauge';
@@ -37,7 +38,10 @@ export function ProjectsSection({
   pillarKsfProjects,
   pillarNstProjects,
 }: ProjectsSectionProps) {
-  const [mode, setMode] = useState<MetricMode>('area');
+  const viewState = useParsedViewState();
+  const { patch } = usePermalinkPatch();
+  const mode: MetricMode = viewState.projectsMetric;
+  const setMode = (next: MetricMode) => patch({ projectsMetric: next });
   const cfg = getPillarMetricConfig(activePillar);
 
   const ksfColor = activePillar === 'afforestation' ? KSF_COLOR_SKOV : KSF_COLOR_LAVBUND;
@@ -46,6 +50,7 @@ export function ProjectsSection({
     <div>
       {/* Shared toggle: count ↔ area/effect drives every chart below */}
       <div className="mx-auto mb-2 flex max-w-5xl flex-col items-center gap-2 px-4">
+        <div className="flex w-full items-center justify-center gap-2">
         <div
           className="inline-flex rounded-lg border border-border bg-muted/40 p-0.5 text-xs font-medium"
           role="group"
@@ -75,6 +80,8 @@ export function ProjectsSection({
             <Hash className="h-3.5 w-3.5" />
             Antal projekter
           </button>
+        </div>
+        <CopyLinkButton />
         </div>
         <p className="text-[11px] text-muted-foreground">
           {mode === 'count'

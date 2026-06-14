@@ -230,6 +230,8 @@ interface ProjectActivityChartProps {
   height?: number;
   /** Section title (default: "Projektaktivitet over tid") */
   title?: string;
+  /** Hide built-in uppercase title (when wrapped in KommuneDetailBlock). */
+  showTitle?: boolean;
   /** Additional CSS classes on the outer wrapper */
   className?: string;
   /** Display by project count or accumulated area/effect (default 'area') */
@@ -277,6 +279,7 @@ export function ProjectActivityChart({
   nstColor,
   height = 170,
   title = 'Kumulativ udvikling i projekter over tid',
+  showTitle = true,
   className = 'mb-5',
   mode = 'area',
   marsField = 'areaHa',
@@ -309,9 +312,11 @@ export function ProjectActivityChart({
 
   return (
     <div className={className}>
-      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-        {title}
-      </p>
+      {showTitle && (
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+          {title}
+        </p>
+      )}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
         {legendItems.map((item) => (
           <span key={item.key} className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground">

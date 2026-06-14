@@ -15,9 +15,17 @@ import { StubMapOverlay } from './StubMapOverlay';
 import { MobileBottomSheet } from './MobileBottomSheet';
 import { NatureWatermark } from './NatureWatermark';
 import { BiodivLayers } from './DenmarkMapBiodiv';
-import { useBiodivSearch } from '@/hooks/useBiodivSearch';
+import { decodeNationalMap, applyNationalMapToParams } from '@/lib/permalink/slices/map-national';
+import {
+  basemapTokenToLayer,
+  layerToBasemapToken,
+  overlaysToBooleans,
+  booleansToOverlays,
+  useNationalMapPermalink,
+} from '@/lib/permalink/useNationalMapPermalink';
+import { clearGeoPanels, PROJECT_PARAM } from '@/lib/permalink/slices/panels';
 import { MapLayersPanel, type LayerGroup, type LayerRow } from './MapLayersPanel';
-import { PhaseFilter } from './PhaseFilter';
+import { PhaseFilterPopover } from './PhaseFilterPopover';
 import { BIODIV_WMS_LAYERS, type BiodivWmsId } from '@/lib/biodiv-map';
 import { usePillar } from '@/lib/pillars';
 import { getMapLayerHints } from '@/lib/chapters';
@@ -28,7 +36,9 @@ import {
   collectMapProjects,
   findMarsProjectByGeoId,
 } from '@/lib/map-projects';
-import { Map, MousePointerClick, Check } from 'lucide-react';
+import { Map, MousePointerClick } from 'lucide-react';
+import { BASEMAP_TILE_MAX_ZOOM, CHOROPLETH_MAP_MAX_ZOOM, CHOROPLETH_MAP_MIN_ZOOM } from '@/lib/map-zoom';
+import { MapSwitchToggle } from './MapSwitchToggle';
 import { InfoTooltip } from './InfoTooltip';
 import { MapFullscreenShell } from './MapFullscreenShell';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND, NST_COLOR, SECTION3_COLOR } from '@/lib/supplement-colors';
@@ -117,7 +127,7 @@ const PARAM = {
   opland:   'opland',
   plan:     'plan',
   kystvand: 'kystvand',
-  projekt:  'projekt',
+  projekt:  PROJECT_PARAM,
 } as const;
 
 /**
@@ -205,6 +215,15 @@ const KULSTOF_LAVBUND_WMS = {
 export function DenmarkMap({ data }: DenmarkMapProps) {
   const { activePillar, config: pillarConfig } = usePillar();
   const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    decoded: urlMap,
+    patchPhases,
+    patchOverlays,
+    patchFullscreen,
+    patchBasemap,
+  } = useNationalMapPermalink();
+  const explicitOverlag =
+    searchParams.has('overlag') || searchParams.has('bio') || searchParams.has('vns');
   const isStub = !pillarConfig.hasData || !pillarConfig.hasGeoBreakdown;
   const mapLayerHints =
     activePillar && activePillar !== 'co2' ? getMapLayerHints(activePillar) : null;
@@ -218,23 +237,97 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
    * When the toggle is shown, respect the user's URL param choice
    * or fall back to the pillar default.
    */
-  const lagParam = searchParams.get(PARAM.lag);
+  const basemapFromUrl = urlMap.basemap;
   const layer: MapLayer = (() => {
-    if (lagParam === 'kyst') return 'coastal';
-    if (lagParam === 'opland') return 'catchments';
-    if (lagParam === 'kommuner') return 'kommuner';
-    // Naturmålet har ingen vandgeografi — grundkortet er kommuner (B4), ikke de
-    // 23 vandoplande. Andre delmål bruger deres vand-defaultLayer.
+    const mapped = basemapFromUrl ? basemapTokenToLayer(basemapFromUrl) : null;
+    if (mapped === 'off') return activePillar === 'nature' ? 'kommuner' : pillarConfig.defaultLayer;
+    if (mapped === 'coastal') return 'coastal';
+    if (mapped === 'catchments') return 'catchments';
+    if (mapped === 'kommuner') return 'kommuner';
     if (activePillar === 'nature') return 'kommuner';
     return pillarConfig.defaultLayer;
   })();
   /**
-   * Whether the base choropleth (grundkort) is shown. Tier 2: explicit `?lag=fra`
+   * Whether the base choropleth (grundkort) is shown. Tier 2: explicit skjult/fra
    * hides it; on beskyttet natur the default is off (overlap story = tier 1 + lag).
    */
-  const baseVisible = !isStub && (
-    lagParam === 'kyst' || lagParam === 'opland' || lagParam === 'kommuner' ||
-    (lagParam === null && activePillar !== 'nature')
+  const baseVisible = !isStub && basemapFromUrl !== 'skjult' && (
+    basemapFromUrl === 'kystvande' ||
+    basemapFromUrl === 'hovedvandoplande' ||
+    basemapFromUrl === 'kommuner' ||
+    (basemapFromUrl === null && activePillar !== 'nature')
+  );
+
+  const overlayFlags = useMemo(() => overlaysToBooleans(urlMap.overlays), [urlMap.overlays]);
+  const activePhases = urlMap.phases;
+  const showWaterBodies = overlayFlags.showWaterBodies;
+  const showMarkudledning = overlayFlags.showMarkudledning;
+  const showDrikkevand = overlayFlags.showDrikkevand;
+  const showNaturpotentiale = overlayFlags.showNaturpotentiale;
+  const showNatura2000 = overlayFlags.showNatura2000;
+  const showSection3 = overlayFlags.showSection3;
+  const showKulstof = overlayFlags.showKulstof;
+  const showKsfLavbund =
+    activePillar === 'extraction' &&
+    (urlMap.overlays.has('ksf') || !explicitOverlag);
+  const showKsfSkov =
+    activePillar === 'afforestation' &&
+    (urlMap.overlays.has('ksf') || !explicitOverlag);
+  const showNst =
+    activePillar === 'afforestation' &&
+    (urlMap.overlays.has('nst') || !explicitOverlag);
+  const bioActive: BiodivWmsId[] = overlayFlags.bioActive ? ['maalretning-30'] : [];
+  const vnsOn = overlayFlags.vnsOn;
+  const mapFullscreen = urlMap.fullscreen;
+
+  const patchOverlayField = useCallback(
+    (field: keyof ReturnType<typeof overlaysToBooleans>, on: boolean) => {
+      const next = booleansToOverlays({
+        ...overlayFlags,
+        [field]: on,
+      });
+      patchOverlays(next);
+    },
+    [overlayFlags, patchOverlays],
+  );
+
+  const setActivePhases = useCallback(
+    (phases: Set<ProjectPhase>) => patchPhases(phases),
+    [patchPhases],
+  );
+
+  const setBio = useCallback(
+    (id: BiodivWmsId, on: boolean) => {
+      void id;
+      patchOverlayField('bioActive', on);
+    },
+    [patchOverlayField],
+  );
+
+  const setShowWaterBodies = useCallback((v: boolean) => patchOverlayField('showWaterBodies', v), [patchOverlayField]);
+  const setShowMarkudledning = useCallback((v: boolean) => patchOverlayField('showMarkudledning', v), [patchOverlayField]);
+  const setShowDrikkevand = useCallback((v: boolean) => patchOverlayField('showDrikkevand', v), [patchOverlayField]);
+  const setShowNaturpotentiale = useCallback((v: boolean) => patchOverlayField('showNaturpotentiale', v), [patchOverlayField]);
+  const setShowNatura2000 = useCallback((v: boolean) => patchOverlayField('showNatura2000', v), [patchOverlayField]);
+  const setShowSection3 = useCallback((v: boolean) => patchOverlayField('showSection3', v), [patchOverlayField]);
+  const setShowKulstof = useCallback((v: boolean) => patchOverlayField('showKulstof', v), [patchOverlayField]);
+
+  const setShowKsfLavbund = useCallback(
+    (v: boolean) => patchOverlayField('showKsfLavbund', v),
+    [patchOverlayField],
+  );
+  const setShowKsfSkov = useCallback(
+    (v: boolean) => patchOverlayField('showKsfSkov', v),
+    [patchOverlayField],
+  );
+  const setShowNst = useCallback(
+    (v: boolean) => patchOverlayField('showNst', v),
+    [patchOverlayField],
+  );
+
+  const setVns = useCallback(
+    (on: boolean) => patchOverlayField('vnsOn', on),
+    [patchOverlayField],
   );
 
   const [catchmentsGeo, setCatchmentsGeo] = useState<FeatureCollection<Geometry> | null>(null);
@@ -246,38 +339,10 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   const [natureOverlap, setNatureOverlap] = useState<ProjectNatureOverlapData | null>(null);
   const [lookup, setLookup] = useState<Record<string, string>>({});
   const [coastalStatus, setCoastalStatus] = useState<CoastalWaterStatusData | null>(null);
-  const [showWaterBodies, setShowWaterBodies] = useState(false);
-  const [showMarkudledning, setShowMarkudledning] = useState(false);
-  const [showDrikkevand, setShowDrikkevand] = useState(false);
-  const [showNaturpotentiale, setShowNaturpotentiale] = useState(false);
-  const [showNatura2000, setShowNatura2000] = useState(false);
-  const [showSection3, setShowSection3] = useState(false);
-  const [showKulstof, setShowKulstof] = useState(false);
   const [kommunerGeo, setKommunerGeo] = useState<FeatureCollection<Geometry> | null>(null);
   const [b4Data, setB4Data] = useState<KommuneBenchmarkB4Data | null>(null);
   const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
-  /** Tier 1: which MARS phases are drawn (default: anlagt only). */
-  const [activePhases, setActivePhases] = useState<Set<ProjectPhase>>(() => new Set(['established']));
-  /** Tier 1 supplement: Klimaskovfonden lavbundsprojekter (extraction pillar). */
-  const [showKsfLavbund, setShowKsfLavbund] = useState(true);
-  /** Tier 1 supplement: Klimaskovfonden skov (afforestation pillar). */
-  const [showKsfSkov, setShowKsfSkov] = useState(true);
-  /** Tier 1 supplement: Naturstyrelsen skov (afforestation pillar). */
-  const [showNst, setShowNst] = useState(true);
-
-  // Reset phase filter when switching delmål (matches URL reset behaviour).
-  const [prevActivePillar, setPrevActivePillar] = useState(activePillar);
-  if (prevActivePillar !== activePillar) {
-    setPrevActivePillar(activePillar);
-    setActivePhases(new Set(['established']));
-    setShowKsfLavbund(true);
-    setShowKsfSkov(true);
-    setShowNst(true);
-  }
-
-  // Tier-3 overlays default off; tier-1 MARS phases default to anlagt only.
-  const { bioActive, vnsOn, setBio, setVns } = useBiodivSearch({ searchParams, setSearchParams });
 
   const mapHint = useFirstVisitHint('map-click', 20_000);
   // Only show the hint after Leaflet has fully initialized to avoid z-index
@@ -385,17 +450,14 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
    * no longer be visible.
    */
   const setBaseLayer = (target: MapLayer | 'off') => {
+    const basemap = target === 'off'
+      ? 'skjult' as const
+      : layerToBasemapToken(target, true);
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      const lagValue =
-        target === 'off' ? 'fra'
-        : target === 'coastal' ? 'kyst'
-        : target === 'kommuner' ? 'kommuner'
-        : 'opland';
-      next.set(PARAM.lag, lagValue);
-      next.delete(PARAM.opland);
-      next.delete(PARAM.plan);
-      next.delete(PARAM.kystvand);
+      const current = decodeNationalMap(next);
+      applyNationalMapToParams(next, { ...current, basemap });
+      clearGeoPanels(next);
       next.delete(PARAM.projekt);
       return next;
     });
@@ -447,9 +509,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       const next = new URLSearchParams(prev);
       const key = getProjectKey(sp);
       next.set(PARAM.projekt, featureName ? `${key}|${featureName}` : key);
-      next.delete(PARAM.opland);
-      next.delete(PARAM.plan);
-      next.delete(PARAM.kystvand);
+      clearGeoPanels(next);
       return next;
     });
   }, [setSearchParams]);
@@ -674,8 +734,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
     const map = L.map(mapContainerRef.current, {
       center: [56.1, 11.0],
       zoom: 7,
-      minZoom: 6,
-      maxZoom: 12,
+      minZoom: CHOROPLETH_MAP_MIN_ZOOM,
+      maxZoom: CHOROPLETH_MAP_MAX_ZOOM,
       maxBounds: denmarkBounds.pad(0.15),
       maxBoundsViscosity: 1.0,
       scrollWheelZoom: true,
@@ -683,6 +743,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
     });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: BASEMAP_TILE_MAX_ZOOM,
     }).addTo(map);
     mapRef.current = map;
     setLeafletMap(map);
@@ -1638,7 +1699,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   const mapControls = (
     <>
       {!isStub && (
-        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-xs font-medium text-muted-foreground hidden sm:inline">Grundkort</span>
               <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm flex-wrap">
@@ -1685,85 +1746,48 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                 size={13}
               />
           </div>
-          <div className="flex items-center gap-2 flex-wrap min-w-0">
-            <span className="text-xs font-medium text-muted-foreground hidden sm:inline shrink-0">Projekter</span>
-            <PhaseFilter selected={activePhases} onChange={setActivePhases} />
-            {activePillar === 'extraction' && ksfLavbundProjects.length > 0 && (() => {
-              const ksfDef = getSupplementPresentation('ksf', 'extraction');
-              return (
-                <button
-                  type="button"
-                  onClick={() => setShowKsfLavbund((v) => !v)}
-                  aria-pressed={showKsfLavbund}
-                  title={ksfDef.description}
-                  className={[
-                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
-                    'transition-all duration-150 select-none cursor-pointer',
-                    showKsfLavbund
-                      ? ksfDef.color.activeClass
-                      : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
-                  ].join(' ')}
-                >
-                  {showKsfLavbund ? (
-                    <Check className="w-3 h-3 flex-shrink-0" strokeWidth={3} />
-                  ) : (
-                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-muted-foreground/40" />
-                  )}
-                  {ksfDef.label}
-                </button>
-              );
-            })()}
-            {activePillar === 'afforestation' && ksfSkovProjects.length > 0 && (() => {
-              const ksfDef = getSupplementPresentation('ksf', 'afforestation');
-              return (
-                <button
-                  type="button"
-                  onClick={() => setShowKsfSkov((v) => !v)}
-                  aria-pressed={showKsfSkov}
-                  title={ksfDef.description}
-                  className={[
-                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
-                    'transition-all duration-150 select-none cursor-pointer',
-                    showKsfSkov
-                      ? ksfDef.color.activeClass
-                      : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
-                  ].join(' ')}
-                >
-                  {showKsfSkov ? (
-                    <Check className="w-3 h-3 flex-shrink-0" strokeWidth={3} />
-                  ) : (
-                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-muted-foreground/40" />
-                  )}
-                  {ksfDef.label}
-                </button>
-              );
-            })()}
-            {activePillar === 'afforestation' && nstProjects.filter((p) => p.centroid).length > 0 && (() => {
-              const nstDef = getSupplementPresentation('nst', 'afforestation');
-              return (
-                <button
-                  type="button"
-                  onClick={() => setShowNst((v) => !v)}
-                  aria-pressed={showNst}
-                  title={nstDef.description}
-                  className={[
-                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
-                    'transition-all duration-150 select-none cursor-pointer',
-                    showNst
-                      ? nstDef.color.activeClass
-                      : 'border-border/50 bg-background text-muted-foreground hover:bg-muted/50',
-                  ].join(' ')}
-                >
-                  {showNst ? (
-                    <Check className="w-3 h-3 flex-shrink-0" strokeWidth={3} />
-                  ) : (
-                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-muted-foreground/40" />
-                  )}
-                  {nstDef.label}
-                </button>
-              );
-            })()}
-          </div>
+          <PhaseFilterPopover
+            selected={activePhases}
+            onChange={setActivePhases}
+            align="start"
+            tooltipContent="Vælg hvilke MARS-projektfaser der vises på kortet. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse."
+          />
+          {activePillar === 'extraction' && ksfLavbundProjects.length > 0 && (() => {
+            const ksfDef = getSupplementPresentation('ksf', 'extraction');
+            return (
+              <MapSwitchToggle
+                label={ksfDef.label}
+                description={ksfDef.description}
+                color={ksfDef.color.stroke}
+                checked={showKsfLavbund}
+                onChange={setShowKsfLavbund}
+              />
+            );
+          })()}
+          {activePillar === 'afforestation' && ksfSkovProjects.length > 0 && (() => {
+            const ksfDef = getSupplementPresentation('ksf', 'afforestation');
+            return (
+              <MapSwitchToggle
+                label={ksfDef.label}
+                description={ksfDef.description}
+                color={ksfDef.color.stroke}
+                checked={showKsfSkov}
+                onChange={setShowKsfSkov}
+              />
+            );
+          })()}
+          {activePillar === 'afforestation' && nstProjects.filter((p) => p.centroid).length > 0 && (() => {
+            const nstDef = getSupplementPresentation('nst', 'afforestation');
+            return (
+              <MapSwitchToggle
+                label={nstDef.label}
+                description={nstDef.description}
+                color={nstDef.color.stroke}
+                checked={showNst}
+                onChange={setShowNst}
+              />
+            );
+          })()}
         </div>
       )}
     </>
@@ -1849,6 +1873,8 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
       <MapFullscreenShell
         fullscreenTitle="Kort over Danmark"
+        isFullscreen={mapFullscreen}
+        onFullscreenChange={patchFullscreen}
         fullscreenTitleAddon={
           <span
             className="text-xs font-medium rounded-full px-2.5 py-0.5 border shrink-0"

@@ -46,6 +46,35 @@ def load_kommune_index(kommuner_geojson_path: str) -> SpatialIndex | None:
     return SpatialIndex(gdf, name="kommuner", source_crs=DEFAULT_SOURCE_CRS)
 
 
+def overlapping_kommune_clips(
+    project_geom_4326,
+    kommune_index: SpatialIndex,
+    min_ha: float = 0.001,
+) -> list[tuple[str, str, float]]:
+    """
+    Kommuner whose boundary intersects the project polygon.
+
+    @returns List of (kode, navn, intersection_ha) sorted by intersection area descending.
+    """
+    if project_geom_4326 is None or project_geom_4326.is_empty:
+        return []
+
+    clips: list[tuple[str, str, float]] = []
+    for idx, inter in kommune_index.intersect_features(project_geom_4326):
+        row = kommune_index.gdf.iloc[idx]
+        kode = str(row.get("kode", "")).zfill(4)
+        if not kode:
+            continue
+        ha = inter.area / 10_000
+        if ha < min_ha:
+            continue
+        navn = str(row.get("navn", "") or "")
+        clips.append((kode, navn, ha))
+
+    clips.sort(key=lambda item: item[2], reverse=True)
+    return clips
+
+
 def split_metrics_by_kommune(
     project_geom_4326,
     nitrogen_t: float,

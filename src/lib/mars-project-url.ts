@@ -1,57 +1,71 @@
+/** @deprecated Import from `@/lib/permalink` instead. */
+export {
+  PROJECT_PARAM as MARS_PROJECT_PARAM,
+  marsProjectUrlKey,
+  parseMarsGeoIdFromUrl,
+  buildProjectParam,
+  parseProjectParam,
+} from '@/lib/permalink/slices/project-open';
+
 import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-/** URL search-param key shared by map, funnel, and geography table. */
-export const MARS_PROJECT_PARAM = 'projekt';
-
-const MARS_PREFIX = 'mars:';
-
-/** Build the URL param value for a MARS project. */
-export function marsProjectUrlKey(geoId: string): string {
-  return `${MARS_PREFIX}${geoId}`;
-}
-
-/** Parse a MARS geoId from the `projekt` URL param, if present. */
-export function parseMarsGeoIdFromUrl(raw: string | null): string | null {
-  if (!raw) return null;
-  const pipeIdx = raw.indexOf('|');
-  const key = pipeIdx >= 0 ? raw.slice(0, pipeIdx) : raw;
-  if (!key.startsWith(MARS_PREFIX)) return null;
-  return key.slice(MARS_PREFIX.length) || null;
-}
+import {
+  parseMarsGeoIdFromUrl,
+  buildProjectParam,
+  parseProjectParam,
+  PROJECT_PARAM,
+} from '@/lib/permalink/slices/project-open';
+import { clearGeoPanels } from '@/lib/permalink/slices/panels';
 
 /**
- * Read/write `?projekt=mars:<geoId>` for deep-linking MARS project details
- * across map, funnel, and geography table entry points.
+ * Read/write `?projekt=` for deep-linking project details.
+ * Supports mars, ksf, and nst sources.
  */
 export function useMarsProjectUrl() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const marsGeoId = useMemo(
-    () => parseMarsGeoIdFromUrl(searchParams.get(MARS_PROJECT_PARAM)),
+  const projectOpen = useMemo(
+    () => parseProjectParam(searchParams.get(PROJECT_PARAM)),
     [searchParams],
   );
 
-  const openMarsProject = useCallback((geoId: string, featureName?: string) => {
-    if (!geoId) return;
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      const key = marsProjectUrlKey(geoId);
-      next.set(MARS_PROJECT_PARAM, featureName ? `${key}|${featureName}` : key);
-      return next;
-    });
-  }, [setSearchParams]);
+  const marsGeoId = projectOpen?.source === 'mars' ? projectOpen.id : null;
+
+  const openProject = useCallback(
+    (source: 'mars' | 'ksf' | 'nst', id: string, featureName?: string) => {
+      if (!id) return;
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.set(PROJECT_PARAM, buildProjectParam(source, id, featureName));
+        clearGeoPanels(next);
+        return next;
+      });
+    },
+    [setSearchParams],
+  );
+
+  const openMarsProject = useCallback(
+    (geoId: string, featureName?: string) => openProject('mars', geoId, featureName),
+    [openProject],
+  );
 
   const closeMarsProject = useCallback(() => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      const raw = next.get(MARS_PROJECT_PARAM);
-      if (raw && parseMarsGeoIdFromUrl(raw)) {
-        next.delete(MARS_PROJECT_PARAM);
-      }
+      if (next.has(PROJECT_PARAM)) next.delete(PROJECT_PARAM);
       return next;
     });
   }, [setSearchParams]);
 
-  return { marsGeoId, openMarsProject, closeMarsProject };
+  return {
+    marsGeoId,
+    projectOpen,
+    openMarsProject,
+    openProject,
+    closeMarsProject,
+  };
+}
+
+export function useProjectUrl() {
+  return useMarsProjectUrl();
 }

@@ -121,6 +121,8 @@ export interface EffectDomain {
   reframe: EffectReframe;
   /** False for effekt-kort uden eget delmål (fx vandmiljø = udfald af kvælstofindsatsen). */
   isDelmaal?: boolean;
+  /** Badge-tekst når isDelmaal er false (default: «Ikke målsat»). */
+  effectBadge?: string;
 }
 
 /**
@@ -414,7 +416,7 @@ export function buildEffectDomains(
       label: 'Vandmiljø',
       icon: Droplets,
       accent: nCfg.accentColor,
-      means: 'Det vi vil opnå: bedre økologisk balance i fjorde og kystvande.',
+      means: 'Hovedeffekt af kvælstof: bedre økologisk balance i fjorde og kystvande.',
       status:
         coastalGoodPct !== null ? assessGoalStatus(coastalGoodPct, coastalGoodPct) : 'unknown',
       valueText:
@@ -429,7 +431,7 @@ export function buildEffectDomains(
         kind: 'ecological-snapshot',
         how:
           coastalTotal > 0
-            ? `Samlet økologisk tilstand vurderes for ${formatDanishNumber(coastalTotal, 0)} kystvande (VP3) — ikke via kvælstof-ton alene. Vandmiljøet er effekt, ikke eget delmål.`
+            ? `Samlet økologisk tilstand vurderes for ${formatDanishNumber(coastalTotal, 0)} kystvande (VP3) — ikke via kvælstof-ton alene.`
             : 'Samlet økologisk tilstand vurderes for kystvandene (VP3) — ikke via kvælstof-ton alene.',
         valueLabel:
           coastalTotal > 0
@@ -447,6 +449,7 @@ export function buildEffectDomains(
         distributionLine: formatEcoDistributionLine(coastalEco),
       },
       isDelmaal: false,
+      effectBadge: 'IKKE MÅLSAT',
     },
     {
       id: 'natur',

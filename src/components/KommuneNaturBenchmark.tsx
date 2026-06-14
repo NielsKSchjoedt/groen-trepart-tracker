@@ -5,6 +5,8 @@ import { formatDanishNumber } from '@/lib/format';
 interface KommuneNaturBenchmarkProps {
   kommuneKode: string;
   benchmark: KommuneBenchmarkData | null;
+  /** Match standard detail cards instead of emerald hero styling. */
+  variant?: 'featured' | 'plain';
 }
 
 const DATA_ATTRIBUTION =
@@ -17,7 +19,11 @@ const DATA_ATTRIBUTION =
  * @param benchmark - Combined B1/B2/B3/B4 data loaded from public/data
  * @example <KommuneNaturBenchmark kommuneKode="0851" benchmark={benchmark} />
  */
-export function KommuneNaturBenchmark({ kommuneKode, benchmark }: KommuneNaturBenchmarkProps) {
+export function KommuneNaturBenchmark({
+  kommuneKode,
+  benchmark,
+  variant = 'featured',
+}: KommuneNaturBenchmarkProps) {
   if (!benchmark) return null;
 
   const b1 = benchmark.b1.byKommune[kommuneKode];
@@ -32,18 +38,40 @@ export function KommuneNaturBenchmark({ kommuneKode, benchmark }: KommuneNaturBe
     ? buildContext(benchmark.b4.byKommune, (row) => row.pctVaerdiBeskyttet)
     : null;
 
+  const plain = variant === 'plain';
+
   return (
-    <section className="mb-5 rounded-2xl border border-emerald-900/10 bg-gradient-to-br from-emerald-50 via-lime-50/70 to-stone-50 p-3.5 shadow-sm">
-      <div className="flex items-start justify-between gap-3 mb-3">
+    <section
+      className={
+        plain
+          ? 'rounded-2xl border border-border bg-card shadow-sm p-4 sm:p-5'
+          : 'mb-5 rounded-2xl border border-emerald-900/10 bg-gradient-to-br from-emerald-50 via-lime-50/70 to-stone-50 p-3.5 shadow-sm'
+      }
+    >
+      <div className={`flex items-start justify-between gap-3 ${plain ? 'mb-4' : 'mb-3'}`}>
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-800/70">
-            Naturtal for kommunen
-          </p>
-          <h3 className="text-sm font-bold text-emerald-950 mt-0.5" style={{ fontFamily: "'Fraunces', serif" }}>
-            Faglige pejlemærker
+          {!plain && (
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-800/70">
+              Naturtal for kommunen
+            </p>
+          )}
+          <h3
+            className={
+              plain
+                ? 'text-base font-bold text-foreground leading-snug'
+                : 'text-sm font-bold text-emerald-950 mt-0.5'
+            }
+            style={{ fontFamily: "'Fraunces', serif" }}
+          >
+            {plain ? 'Natur-pejlemærker' : 'Faglige pejlemærker'}
           </h3>
+          {plain && (
+            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+              B1–B4 benchmark fra Arealdata om biodiversitet — ansvar og naturpotentiale, ikke projektfremskridt.
+            </p>
+          )}
         </div>
-        <Leaf className="w-5 h-5 text-emerald-700 mt-0.5" />
+        <Leaf className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plain ? 'text-emerald-700' : 'text-emerald-700 mt-0.5'}`} />
       </div>
 
       <div className="space-y-3">

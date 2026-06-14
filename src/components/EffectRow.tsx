@@ -261,7 +261,7 @@ export function EffectRow({
                 </div>
                 {!isDelmaal ? (
                   <span className="ml-auto shrink-0 text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">
-                    Ikke målsat
+                    {d.effectBadge ?? 'Ikke målsat'}
                   </span>
                 ) : isSelected ? (
                   <span

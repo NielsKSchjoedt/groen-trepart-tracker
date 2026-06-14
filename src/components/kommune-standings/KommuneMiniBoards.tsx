@@ -13,6 +13,7 @@ import {
 } from '@/lib/kommune-boards';
 import type { StandingsLensKey } from '@/lib/kommune-ranking';
 import { InfoTooltip } from '@/components/InfoTooltip';
+import { BoardExplainerPanel } from '@/components/kommune-standings/BoardExplainerPanel';
 import { MEDAL_COLORS } from './heatmap';
 
 interface KommuneMiniBoardsProps {
@@ -23,6 +24,8 @@ interface KommuneMiniBoardsProps {
   /** Sort the master table by a levering-board axis (only fired by global boards). */
   onSortAxis: (key: StandingsLensKey) => void;
   activeSortKey: StandingsLensKey | 'leveretHa';
+  /** DN disclaimer — shown on the natur board explainer back. */
+  disclaimer?: string;
 }
 
 const BOARD_ICONS: Record<BoardKey, LucideIcon> = {
@@ -49,6 +52,7 @@ export function KommuneMiniBoards({
   onSelect,
   onSortAxis,
   activeSortKey,
+  disclaimer,
 }: KommuneMiniBoardsProps) {
   const virkemidler = BOARDS.filter((b) => b.kind === 'levering');
   const effekter = BOARDS.filter((b) => b.kind === 'status');
@@ -63,6 +67,7 @@ export function KommuneMiniBoards({
       onSelect={onSelect}
       onSortAxis={onSortAxis}
       isActiveSort={boardLensKey(def.key) != null && activeSortKey === boardLensKey(def.key)}
+      disclaimer={def.key === 'natur' ? disclaimer : undefined}
     />
   );
 
@@ -113,6 +118,7 @@ function MiniBoard({
   onSelect,
   onSortAxis,
   isActiveSort,
+  disclaimer,
 }: {
   def: BoardDef;
   ctx: BoardContext;
@@ -121,7 +127,9 @@ function MiniBoard({
   onSelect: (kode: string) => void;
   onSortAxis: (key: StandingsLensKey) => void;
   isActiveSort: boolean;
+  disclaimer?: string;
 }) {
+  const [flipped, setFlipped] = useState(false);
   const [localOption, setLocalOption] = useState(def.options[0].id);
   const optionId = activeOptionId(def, ctx.globalMode, localOption);
   const option = def.options.find((o) => o.id === optionId) ?? def.options[0];
@@ -167,16 +175,24 @@ function MiniBoard({
           {option.sub}
         </span>
       </span>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setFlipped(true);
+        }}
+        className="rounded-md border border-border/50 bg-background/70 px-2 py-1 text-[10px] font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors cursor-pointer flex-shrink-0 leading-tight"
+        aria-label={`Hvordan virker ${def.label.toLowerCase()}-ranglisten?`}
+      >
+        Hvordan virker det?
+      </button>
     </>
   );
 
-  return (
-    <div
-      className={[
-        'rounded-2xl border bg-card overflow-hidden flex flex-col',
-        isActiveSort ? 'border-primary/50 ring-1 ring-primary/20' : 'border-border',
-      ].join(' ')}
-    >
+  const cardBorder = isActiveSort ? 'border-primary/50 ring-1 ring-primary/20' : 'border-border';
+
+  const rankingFace = (
+    <div className="flex flex-col [backface-visibility:hidden]" aria-hidden={flipped}>
       {/* Branded header — delmål colour + icon. Levering-boards sort the master table on click. */}
       {def.global && lensKey ? (
         <button
@@ -257,7 +273,7 @@ function MiniBoard({
       {podiumOrder.length > 0 ? (
         <div className="flex items-end justify-center gap-1.5 px-3 pt-3.5 pb-1">
           {podiumOrder.map((km) => {
-            const place = podium.findIndex((p) => p.kode === km.kode) + 1; // 1/2/3 within visible podium
+            const place = podium.findIndex((p) => p.kode === km.kode) + 1;
             const heightIdx = Math.min(place - 1, 2);
             const selected = km.kode === selectedKode;
             const medal = MEDAL_COLORS[Math.min(place - 1, 2)];
@@ -329,6 +345,32 @@ function MiniBoard({
           })}
         </ul>
       )}
+    </div>
+  );
+
+  return (
+    <div
+      className={['rounded-2xl border bg-card overflow-hidden [perspective:1000px]', cardBorder].join(' ')}
+    >
+      <div
+        className={[
+          'relative w-full transition-transform duration-500 ease-in-out motion-reduce:transition-none',
+          flipped ? '[transform:rotateY(180deg)]' : '[transform:rotateY(0deg)]',
+        ].join(' ')}
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        {rankingFace}
+        <div
+          className="absolute inset-0 flex flex-col min-h-full [backface-visibility:hidden] [transform:rotateY(180deg)]"
+          aria-hidden={!flipped}
+        >
+          <BoardExplainerPanel
+            def={def}
+            disclaimer={disclaimer}
+            onClose={() => setFlipped(false)}
+          />
+        </div>
+      </div>
     </div>
   );
 }

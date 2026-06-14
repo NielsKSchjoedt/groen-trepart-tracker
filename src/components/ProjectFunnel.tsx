@@ -369,12 +369,6 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
     }
   }, [openMarsProject, activePillar, natureOverlap]);
 
-  const [prevMarsGeoId, setPrevMarsGeoId] = useState(marsGeoId);
-  if (prevMarsGeoId !== marsGeoId) {
-    setPrevMarsGeoId(marsGeoId);
-    if (!marsGeoId) setSelected(null);
-  }
-
   useEffect(() => {
     loadKlimaskovfondenProjects().then(setKsfProjects);
     loadNaturstyrelsenSkovProjects().then(setNstProjects);
@@ -385,6 +379,43 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
     () => computePillarProjects(data, activePillar),
     [data, activePillar],
   );
+
+  const [prevMarsGeoId, setPrevMarsGeoId] = useState(marsGeoId);
+  if (prevMarsGeoId !== marsGeoId) {
+    setPrevMarsGeoId(marsGeoId);
+    if (!marsGeoId) {
+      setSelected(null);
+    } else {
+      const allProjects = [
+        ...pillarProjects.sketches,
+        ...pillarProjects.preliminary_grant,
+        ...pillarProjects.establishment_grant,
+        ...pillarProjects.established,
+      ];
+      const match = allProjects.find((p) => p.geoId === marsGeoId);
+      if (match) {
+        setSelected({ proj: match, coordinates: null });
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (!selected?.proj.geoId || selected.coordinates) return;
+    void (async () => {
+      if (!geometriesRef.current) {
+        geometriesRef.current = await loadProjectGeometries();
+      }
+      const coords = geometriesRef.current[selected.proj.geoId!];
+      if (coords && coords.length >= 3) {
+        setSelected((cur) =>
+          cur && cur.proj.id === selected.proj.id ? { ...cur, coordinates: coords } : cur,
+        );
+      }
+      if (activePillar === 'nature' && !natureOverlap) {
+        loadProjectNatureOverlap().then(setNatureOverlap);
+      }
+    })();
+  }, [selected, activePillar, natureOverlap]);
 
   // Scheme id → scheme (from MARS master-data). The detail card joins a project
   // to its scheme by schemeId to show prose about what the scheme type entails

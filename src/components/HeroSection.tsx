@@ -44,8 +44,8 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
   const { activePillar, setActivePillar, config } = usePillar();
   const pillarHint = useFirstVisitHint('hero-delmål-hint', 15_000);
 
-  /** Always on overview; on pillar routes only until dismissed or a card is chosen. */
-  const showPillarHint = activePillar === null || pillarHint.visible;
+  /** First-visit hint until dismissed, a delmål is chosen, or auto-dismiss. */
+  const showPillarHint = pillarHint.visible;
 
   const handlePillarSelect = useCallback(
     (pillarId: PillarId) => {
@@ -281,7 +281,7 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
               icon={Hand}
               text="Vælg et delmål for at dykke ned i detaljerne"
               arrow="left"
-              onDismiss={activePillar === null ? () => {} : pillarHint.dismiss}
+              onDismiss={pillarHint.dismiss}
               className="absolute z-40 left-1/2 top-1/2 w-[calc(100%-0.5rem)] max-w-[15rem] -translate-x-1/2 -translate-y-1/2 sm:left-auto sm:right-1 sm:w-max sm:max-w-[14rem] sm:translate-x-0"
             />
           )}

@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { SectionLinkCopy } from '@/lib/permalink/SectionLinkCopy';
+import { replaceSectionHash } from '@/lib/permalink/slices/section';
 
 interface ChapterSectionProps {
   /** Anchor id (without '#') — scroll target + scrollspy observe target */
@@ -39,12 +41,21 @@ export function ChapterSection({
   return (
     <section id={id} lang="da" className={`scroll-mt-20 w-full ${className}`}>
       <div className="mx-auto max-w-5xl px-4 pt-10 pb-2 text-center">
-        <p
-          className="mb-1.5 text-xs font-semibold uppercase tracking-widest"
-          style={{ color: accentColor ?? 'hsl(120 12% 45%)' }}
-        >
-          {eyebrow}
-        </p>
+        <div className="group mx-auto inline-flex max-w-full items-center justify-center gap-1.5">
+          <a
+            href={`#${id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              replaceSectionHash(id);
+              document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="mb-1.5 text-xs font-semibold uppercase tracking-widest hover:underline underline-offset-2"
+            style={{ color: accentColor ?? 'hsl(120 12% 45%)' }}
+          >
+            {eyebrow}
+          </a>
+          <SectionLinkCopy sectionId={id} className="mb-1.5" />
+        </div>
         <h2
           className="text-2xl sm:text-3xl font-bold text-foreground"
           style={{ fontFamily: "'Fraunces', serif" }}

@@ -17,6 +17,51 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.0.2 — 14. juni 2026
+
+**Versionsnummer og «ny version»-meddelelse øverst på siden**
+
+### Fejlrettelse
+- Faseprofilen «Hvor langt er kommunen i faserne?» viste 0 % i alle bjælker for kommuner der kun har skitseprojekter (fx Vallensbæk). Nu står der i stedet tydeligt at al indsats endnu ligger i skitsefase — med hektar — indtil projekter kommer i de formelle faser.
+- Sektionsmenuen øverst på mobil (Målene, Projekter, Geografi …) gav vandret overflow på små skærme. Den kan nu scrolles inde i baren uden at siden bliver bredere.
+- Filtre-knappen på kommunelisten viste ingen tæller, når kun «anlagt» var valgt — selv om det er standard, er det stadig ét aktivt fasevalg. Knappen viser nu altid antallet af valgte faser (fx «1»).
+- I fremskrivningen sprang eksterne kilder (Klimaskovfonden, Naturstyrelsen m.fl.) tilbage til «tændt», når man slukkede dem alle — det var en fejl i link-kodningen. Slukket-tilstand holdes nu, og forskellen mellem tændt og slukket er tydeligere visuelt. Tomme fremskrivnings-links ser også pænere ud i adresselinjen (`?frem=ingen#fremskrivning` i stedet for `?frem=#fremskrivning`).
+- Hintet «Vælg et delmål for at dykke ned i detaljerne» kunne ikke lukkes med X-knappen på forsiden. Rettet — lukning gemmes som ved andre hints.
+- På kommunesider forsvandt metrik-, fase- og kildetoggles, når man åbnede kortet i fuld skærm. Filtrene følger nu med ind i fuldskærmsvisningen — samme adfærd som på det nationale kort.
+- På enkeltkommunesider forsvandt «Alle kommuner»-linket, når man scrollede ned ad siden. Det ligger nu også i den sticky navigationsbjælke, så du altid kan gå tilbage til kommunelisten.
+
+### Ny funktion
+- Når du scroller gennem siden, opdateres adresselinjen automatisk med sektionens anker (fx #oekonomi), så du kan dele præcis hvor du er. De grønne kapiteloverskrifter og sektionslinks i navigationsbjælken viser et lille link-ikon, når du holder musen over — klik for at kopiere linket til sektionen.
+- Øverst på siden vises nu et diskret versionsnummer (link til ændringsloggen) og — ved nye udgivelser — en lille «Ny version»-meddelelse med overskrift, dato og link til at læse mere. Meddelelsen kan lukkes og vises ikke igen, før næste version.
+- Enkeltkommunesider har nu samme kapitelnavigation som oversigten: Status, Kort og Projekter med ankerlinks, sticky sektionsbjælke og delbare #status / #kort / #projekter-URL'er.
+- Kommunekortenes Lag-knap viser nu de samme baggrundskort som på det nationale kort (kystvande, markudledning, biodiversitets-WMS, §3 m.fl.). MARS-projekter følger fasefilteret; Klimaskovfonden og Naturstyrelsen tændes via tilvalg-knapperne — ikke i Lag-panelet, så du ikke møder det samme valg to steder. Valget gemmes i linket (`overlag=`).
+
+### Forbedring
+- Kommunens navn, emblem og status-chips øverst på enkelt-kommunesiden er nu centreret — som overskriften i den sticky menu.
+- Kortene kan nu zoomes et niveau tættere ind — både det nationale kort, kommunekortet og projektkortene — så enkeltprojekter og små kommuner er nemmere at se i detaljer.
+- Vandmiljø-kortet under Effekt siger nu kort, at det er hovedeffekten af kvælstofindsatsen — og badge «Hovedeffekt af kvælstof» i stedet for «Ikke målsat».
+- Mål-kortene på forsiden viser nu «tid gået» (med ur) og «anlagt» (med spade) ved de to bjælker — tydeligere end bare «tid».
+- Ranglistekortene vender nu med en lille 3D-flip-animation, når du trykker «Hvordan virker det?» — og tilbage igen med «Rangliste».
+- På enkelt-kommunesiden er det tydeligere hvad der er mål (Lavbund, Skov, Kvælstof) og hvad der er status: målet står i gråt, status vises med pil op / midt / ned i stedet for farvet baggrund.
+- På kommunekort og nationalt kort ligger fasefilter nu på samme linje som grundkort og «Vis som». Supplerende kilder (Klimaskovfonden, Naturstyrelsen) er skiftet til enkle af/på-kontakter — samme type som kortlagene i Lag-panelet.
+- «Sådan virker tallene» er flyttet ud af fasefilteret. Hver ranglistekort (lavbund, skov, kvælstof, natur, CO₂) har nu et vend-knap i hjørnet — tryk for at se hvordan netop den liste beregnes, og «Rangliste» for at vende tilbage.
+- Fasefilteret på kort (nationalt kort, kommunekort og enkelt-kommune) er nu samlet i en kompakt «Fasefilter»-knap med tæller — samme mønster som på ranglisten. Supplerende kilder (Klimaskovfonden, Naturstyrelsen) står for sig i en egen boks.
+- MARS-projekter på kortet forbliver som prikker længere, når du zoomer ind. Hvert projekt skifter først til den rigtige form, når formen på skærmen er mindst lige så stor som prikken — så små projekter undgår at blive til næsten-usynlige firkanter for tidligt.
+- På en enkelt kommuneside kan du nu skifte kortvisning direkte på siden — samme metrik, faser, supplerende kilder og kortkontroller (grundkort, absolut/ift. ansvar) som på oversigten over alle kommuner. Du behøver ikke gå tilbage til listen for at ændre visningen.
+- Fasefilteret (anlagt, godkendt, forundersøgelse) findes nu også direkte i kontrolbjælken over ranglisterne — ikke kun ved kortet. Valget gælder rangliste, kort og den fulde kommuneliste på én gang.
+- På kommuneoversigten og enkeltkommunesider skifter siden ikke længere baggrundsfarve, når du vælger et kort-mål — det var kun kortet, der ændrede sig. Delmål-linkene (Kvælstof, Lavbund m.fl.) er fjernet fra den sticky topbjælke på kommunesider; brug National/Kommuner-skifteren for at gå tilbage til landsoversigten.
+- Filterbjælken over ranglisten (område, fase, levering) hænger kun fast under scroll på mobil — på desktop scroller den med siden som resten af indholdet.
+- Kommune-siderne har fået flere springpunkter i navigationsbjælken. Oversigten over alle kommuner starter med en kort «Oversigt»-sektion og har derefter Ranglister, Kort og Den fulde liste. På enkeltkommunesider er det lange «Projekter»-afsnit opdelt i Nøgletal, Faseprofil, Natur & opland, CO₂ og Projekter — så du kan hoppe direkte til det, du leder efter.
+---
+
+## v1.0.1 — 14. juni 2026
+
+**Delbare links genskaber hele visningen — sektion, kort, projekter og kommune-rangliste**
+
+### Ny funktion
+- Du kan nu kopiere et link, der genskaber præcis den visning du ser: hvilken sektion du er scrollet til, kortets lag og faser, fuld skærm, antal vs. areal, fremskrivningens stadievalg, kommune-ranglistens sortering — og åbne projekter (MARS, Klimaskovfonden, Naturstyrelsen). Brug «Kopiér link» i navigationsbjælken, på kortet, i fremskrivningen og på kommunesiderne. Eksisterende links med ?projekt=mars:… og ?lag=… virker stadig.
+---
+
 ## v1.0.0 — 14. juni 2026
 
 **Stor relancering (1.0): indsats adskilt fra effekt, ny vidensbank, kommune-rangliste med detaljesider og kort med projekterne i front**

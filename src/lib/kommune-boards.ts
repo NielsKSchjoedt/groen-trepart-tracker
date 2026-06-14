@@ -143,19 +143,19 @@ export const BOARDS: BoardDef[] = [
     full: 'Kvælstofreduktion',
     tone: '#0d9488',
     kind: 'levering',
-    source: 'MARS-projektdata + indsatsbehov pr. opland',
+    source: 'MARS-projektdata + naturpotentiale (DCE 30 %)',
     global: true,
     options: [
       {
         id: 'relativ',
         label: 'Ift. ansvar',
-        sub: 'Reduceret N ift. indsatsbehov',
-        desc: 'Hvor meget kvælstof kommunen har reduceret, sat i forhold til dens indsatsbehov.',
+        sub: 'Reduceret N ift. potentiale',
+        desc: 'Hvor meget kvælstof kommunen har reduceret, sat i forhold til hvad dens andel af landet tilsiger.',
         formula: {
           kind: 'ratio',
           top: 'Kommunens andel af al N-reduktion i DK',
-          bottom: 'Kommunens andel af det samlede indsatsbehov',
-          result: '1,0× = lige stor andel = som forventet. 2,0× = dobbelt så meget som behovet.',
+          bottom: 'Kommunens andel af DK’s samlede naturpotentiale',
+          result: '1,0× = lige stor andel = som forventet. 2,0× = dobbelt så meget som ansvaret.',
         },
       },
       {

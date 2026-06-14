@@ -23,7 +23,7 @@ export const KOMMUNE_LISTE_CHAPTER: Chapter = {
 };
 
 export const KOMMUNE_RANGLISTE_INTRO =
-  'Tre leveringsmål — lavbund, skov og kvælstof — målt ift. ansvar, ikke rå hektar. Standardvisning: kun anlagt; udvid fasefilteret på kortet for pipeline. Skov inkluderer MARS + KSF + NST.';
+  'Tre leveringsmål — lavbund, skov og kvælstof — målt ift. ansvar, ikke rå hektar. Standardvisning: kun anlagt; udvid fasefilteret for pipeline. Skov inkluderer MARS + KSF + NST.';
 
 export const KOMMUNE_GEOGRAFI_INTRO =
   'Vælg et indsatsområde og fasefilter (standard: kun anlagt). Klik en kommune på kortet for at dykke ned i den enkelte kommune.';
@@ -37,5 +37,9 @@ export const KOMMUNE_LISTE_INTRO =
  * @example getKommuneChapters().map((c) => c.id) // ['rangliste', 'geografi', 'kommuneliste']
  */
 export function getKommuneChapters(): Chapter[] {
-  return [KOMMUNE_RANGLISTE_CHAPTER, KOMMUNE_GEOGRAFI_CHAPTER, KOMMUNE_LISTE_CHAPTER];
+  return [
+    KOMMUNE_RANGLISTE_CHAPTER,
+    KOMMUNE_GEOGRAFI_CHAPTER,
+    KOMMUNE_LISTE_CHAPTER,
+  ];
 }

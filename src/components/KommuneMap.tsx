@@ -10,9 +10,15 @@ import {
   type KommuneMapVisualContext,
 } from '@/lib/kommune-map-visualization';
 import { loadProjectGeometries, loadProjectNatureOverlap } from '@/lib/data';
-import { collectMapProjects, kommuneMetricToPillar, filterMapProjectsByKommune } from '@/lib/map-projects';
+import { collectMapProjects, kommuneMetricToPillar, filterMapProjectsByKommune, buildMarsProjectOverlapByGeoId } from '@/lib/map-projects';
 import { MapProjectLayer } from '@/components/MapProjectLayer';
 import 'leaflet/dist/leaflet.css';
+import {
+  BASEMAP_TILE_MAX_ZOOM,
+  CHOROPLETH_MAP_MAX_ZOOM,
+  CHOROPLETH_MAP_MIN_ZOOM,
+  KOMMUNE_FOCUS_MAX_ZOOM,
+} from '@/lib/map-zoom';
 
 export type { KommuneMetric };
 
@@ -85,26 +91,17 @@ export function KommuneMap({
 
   const pillarId = kommuneMetricToPillar(activeMetric);
 
-  const projectKommuneByGeoId = useMemo(() => {
-    const m: Record<string, string | null | undefined> = {};
-    if (!dashboard) return m;
-    for (const plan of dashboard.plans) {
-      for (const p of plan.projectDetails) {
-        if (p.geoId) m[p.geoId] = p.kommuneKode;
-      }
-      for (const s of plan.sketchProjects) {
-        if (s.geoId) m[s.geoId] = (s as { kommuneKode?: string | null }).kommuneKode;
-      }
-    }
-    return m;
-  }, [dashboard]);
+  const overlapByGeoId = useMemo(
+    () => (dashboard ? buildMarsProjectOverlapByGeoId(dashboard) : {}),
+    [dashboard],
+  );
 
   const mapProjects = useMemo(() => {
     if (!dashboard || !pillarId || !showProjectLayer) return [];
     const all = collectMapProjects(dashboard, pillarId, selectedPhases);
     if (!focusKode) return all;
-    return filterMapProjectsByKommune(all, focusKode, projectKommuneByGeoId);
-  }, [dashboard, pillarId, selectedPhases, showProjectLayer, focusKode, projectKommuneByGeoId]);
+    return filterMapProjectsByKommune(all, focusKode, overlapByGeoId);
+  }, [dashboard, pillarId, selectedPhases, showProjectLayer, focusKode, overlapByGeoId]);
 
   const metricsById = useMemo(
     () => Object.fromEntries(metrics.map((k) => [k.kode, k])),
@@ -175,8 +172,8 @@ export function KommuneMap({
     const map = L.map(containerRef.current, {
       center: [56.1, 11.0],
       zoom: 7,
-      minZoom: 6,
-      maxZoom: 12,
+      minZoom: CHOROPLETH_MAP_MIN_ZOOM,
+      maxZoom: CHOROPLETH_MAP_MAX_ZOOM,
       maxBounds: denmarkBounds.pad(0.2),
       maxBoundsViscosity: 0.8,
       scrollWheelZoom: true,
@@ -185,6 +182,7 @@ export function KommuneMap({
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: BASEMAP_TILE_MAX_ZOOM,
     }).addTo(map);
 
     mapRef.current = map;
@@ -348,7 +346,7 @@ export function KommuneMap({
     });
 
     if (bounds) {
-      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10 });
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: KOMMUNE_FOCUS_MAX_ZOOM });
     }
   }, [focusKode, mapReady, kommunerGeo]);
 

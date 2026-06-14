@@ -23,6 +23,9 @@ export interface MapFullscreenShellProps {
   expandDisabled?: boolean;
   /** Inline map height when not fullscreen */
   inlineMapHeight?: string;
+  /** Controlled fullscreen (optional — for permalink restore). */
+  isFullscreen?: boolean;
+  onFullscreenChange?: (open: boolean) => void;
   children: (isFullscreen: boolean) => ReactNode;
 }
 
@@ -41,12 +44,24 @@ export function MapFullscreenShell({
   onResize,
   expandDisabled = false,
   inlineMapHeight = '580px',
+  isFullscreen: controlledFullscreen,
+  onFullscreenChange,
   children,
 }: MapFullscreenShellProps) {
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [internalFullscreen, setInternalFullscreen] = useState(false);
+  const isControlled = controlledFullscreen !== undefined;
+  const isFullscreen = isControlled ? controlledFullscreen : internalFullscreen;
 
-  const exitFullscreen = useCallback(() => setIsFullscreen(false), []);
-  const enterFullscreen = useCallback(() => setIsFullscreen(true), []);
+  const setFullscreen = useCallback(
+    (open: boolean) => {
+      if (!isControlled) setInternalFullscreen(open);
+      onFullscreenChange?.(open);
+    },
+    [isControlled, onFullscreenChange],
+  );
+
+  const exitFullscreen = useCallback(() => setFullscreen(false), [setFullscreen]);
+  const enterFullscreen = useCallback(() => setFullscreen(true), [setFullscreen]);
 
   useEffect(() => {
     if (!isFullscreen) return;
@@ -75,7 +90,7 @@ export function MapFullscreenShell({
     <div
       className={cn(
         'space-y-2',
-        isFullscreen && 'border-b border-border bg-card/80 px-4 py-3',
+        isFullscreen && 'max-h-[45vh] overflow-y-auto border-b border-border bg-card/80 px-4 py-3',
         !isFullscreen && 'mb-0',
       )}
     >

@@ -1,13 +1,60 @@
 /**
  * Shared helpers for tier-1 MARS project rendering on Leaflet maps.
  */
+import type { LatLngExpression } from 'leaflet';
 import type { DashboardData, ProjectDetail, SketchProject } from './types';
 import type { PillarId } from './pillars';
 import type { KommuneMetric } from './kommune-metrics';
 import type { ProjectPhase } from './phase-config';
+import { buildMarsProjectOverlapByGeoId } from './mars-kommune-overlap';
 
-/** Zoom at or above this level renders full polygons; below uses centroid dots. */
-export const MAP_PROJECT_POLYGON_ZOOM = 9;
+/** Screen bbox must reach this multiple of dot diameter before switching from dot to polygon. */
+export const MAP_PROJECT_POLYGON_MIN_DOT_FACTOR = 1;
+
+export interface LatLngProjector {
+  latLngToContainerPoint(latlng: LatLngExpression): { x: number; y: number };
+}
+
+/** Bounding box of a ring in map container pixels (Leaflet [lat, lng] order). */
+export function ringBoundingBoxScreenPx(
+  map: LatLngProjector,
+  ring: [number, number][],
+): { width: number; height: number } {
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  for (const [lng, lat] of ring) {
+    const pt = map.latLngToContainerPoint([lat, lng]);
+    minX = Math.min(minX, pt.x);
+    maxX = Math.max(maxX, pt.x);
+    minY = Math.min(minY, pt.y);
+    maxY = Math.max(maxY, pt.y);
+  }
+
+  return { width: maxX - minX, height: maxY - minY };
+}
+
+/** True when the on-screen shape is at least as large as the dot marker would be. */
+export function shouldRenderProjectPolygonByScreenSize(
+  bboxWidthPx: number,
+  bboxHeightPx: number,
+  dotRadiusPx: number,
+  minDotFactor = MAP_PROJECT_POLYGON_MIN_DOT_FACTOR,
+): boolean {
+  const dotDiameter = dotRadiusPx * 2 * minDotFactor;
+  return Math.max(bboxWidthPx, bboxHeightPx) >= dotDiameter;
+}
+
+export function shouldRenderProjectPolygon(
+  map: LatLngProjector,
+  ring: [number, number][],
+  dotRadiusPx: number,
+): boolean {
+  const { width, height } = ringBoundingBoxScreenPx(map, ring);
+  return shouldRenderProjectPolygonByScreenSize(width, height, dotRadiusPx);
+}
 
 export interface MapProjectItem {
   geoId: string;
@@ -146,11 +193,14 @@ export function kommuneMetricToPillar(metric: KommuneMetric): PillarId | null {
   return METRIC_TO_PILLAR[metric] ?? null;
 }
 
-/** Filter map projects to a single municipality (by DAWA kode). */
+/** Filter map projects to those whose polygon overlaps a municipality. */
 export function filterMapProjectsByKommune(
   projects: MapProjectItem[],
   kommuneKode: string,
-  projectKommuneByGeoId: Record<string, string | null | undefined>,
+  overlapByGeoId: Record<string, string[] | undefined>,
 ): MapProjectItem[] {
-  return projects.filter((p) => projectKommuneByGeoId[p.geoId] === kommuneKode);
+  return projects.filter((p) => overlapByGeoId[p.geoId]?.includes(kommuneKode));
 }
+
+/** Build geoId → overlapping kommune koder from enriched dashboard plans. */
+export { buildMarsProjectOverlapByGeoId };

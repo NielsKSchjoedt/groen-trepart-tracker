@@ -49,14 +49,20 @@ export function StageRow({
         }
       }}
       aria-pressed={isActive}
-      className={`flex items-center gap-3 rounded-lg border px-3 py-2 transition-colors duration-150 ${
+      className={`flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-150 ${
         isLocked ? 'cursor-default' : 'cursor-pointer'
       } ${stage.dashed && !isActive ? 'border-dashed' : 'border-solid'} ${
-        isActive ? '' : 'border-border bg-transparent hover:bg-muted/40'
+        isActive
+          ? 'shadow-sm'
+          : 'border-border/70 bg-muted/35 opacity-75 hover:opacity-90 hover:bg-muted/45'
       }`}
       style={
         isActive
-          ? { backgroundColor: accent + '12', borderColor: accent + '55' }
+          ? {
+              backgroundColor: accent + '18',
+              borderColor: accent,
+              boxShadow: `0 0 0 1px ${accent}22`,
+            }
           : undefined
       }
     >
@@ -71,12 +77,19 @@ export function StageRow({
         </span>
       ) : (
         <span
-          className="flex-shrink-0 relative w-9 h-[18px] rounded-full transition-colors"
-          style={{ backgroundColor: isActive ? accent : 'hsl(40 14% 78%)' }}
+          className={`flex-shrink-0 relative w-9 h-[18px] rounded-full transition-all duration-150 ${
+            isActive ? 'ring-2 ring-offset-1 ring-offset-background' : 'ring-1 ring-border/80'
+          }`}
+          style={{
+            backgroundColor: isActive ? accent : 'hsl(var(--muted-foreground) / 0.35)',
+            ...(isActive ? { boxShadow: `0 0 0 2px ${accent}40` } : {}),
+          }}
           aria-hidden
         >
           <span
-            className="absolute top-0.5 h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-all"
+            className={`absolute top-0.5 h-3.5 w-3.5 rounded-full transition-all duration-150 ${
+              isActive ? 'bg-white shadow-md' : 'bg-background shadow-sm'
+            }`}
             style={{ left: isActive ? 'calc(100% - 1rem)' : '0.125rem' }}
           />
         </span>
@@ -85,15 +98,16 @@ export function StageRow({
       {/* Label + certainty badge */}
       <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1">
         <span
-          className={`text-sm font-semibold ${isActive ? 'text-foreground' : 'text-muted-foreground'}`}
+          className={`text-sm font-semibold ${isActive ? 'text-foreground' : 'text-muted-foreground/80'}`}
         >
           {stage.label}
         </span>
         <span
           className="rounded-full px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap"
           style={{
-            backgroundColor: stage.certColor + (isActive ? '28' : '14'),
-            color: stage.certColor,
+            backgroundColor: stage.certColor + (isActive ? '30' : '10'),
+            color: isActive ? stage.certColor : 'hsl(var(--muted-foreground))',
+            opacity: isActive ? 1 : 0.85,
           }}
         >
           {stage.certainty}
@@ -111,7 +125,8 @@ export function StageRow({
           className="block font-bold text-[15px] tabular-nums leading-none"
           style={{
             fontFamily: "'Fraunces', serif",
-            color: isActive ? accent : 'hsl(40 8% 55%)',
+            color: isActive ? accent : 'hsl(var(--muted-foreground) / 0.55)',
+            opacity: isActive ? 1 : 0.65,
           }}
         >
           {valueLabel}

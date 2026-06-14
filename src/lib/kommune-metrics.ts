@@ -1,5 +1,6 @@
 import type { SeriesColor } from './supplement-colors';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR, SECTION3_COLOR, NATURA2000_COLOR } from './supplement-colors';
+import { formatDanishNumber } from './format';
 import type { KommuneMetrics } from './types';
 
 /**
@@ -31,6 +32,50 @@ export const METRIC_NO_DATA = new Set<KommuneMetric>();
  */
 export type KommunePhase = 'sketch' | 'preliminary' | 'approved' | 'established';
 
+/** Legacy `projectsByPhase` keys mapped to canonical `byPhase` buckets. */
+export const PROJECT_COUNT_STAGES = [
+  { stage: 'established', countField: 'established' },
+  { stage: 'approved', countField: 'approved' },
+  { stage: 'assessed', countField: 'assessed' },
+  { stage: 'sketches', countField: 'sketches' },
+] as const;
+
+export type ProjectCountStage = (typeof PROJECT_COUNT_STAGES)[number]['stage'];
+
+const COUNT_STAGE_TO_KOMMUNE_PHASE: Record<ProjectCountStage, KommunePhase> = {
+  established: 'established',
+  approved: 'approved',
+  assessed: 'preliminary',
+  sketches: 'sketch',
+};
+
+/** Look up per-phase metrics for a legacy projectsByPhase stage key. */
+export function getPhaseMetricsForCountStage(
+  km: Pick<KommuneMetrics, 'byPhase'>,
+  stage: ProjectCountStage,
+): PhaseMetrics | undefined {
+  return km.byPhase?.[COUNT_STAGE_TO_KOMMUNE_PHASE[stage]];
+}
+
+/**
+ * Human-readable summary of MARS hectares / nitrogen for one phase bucket.
+ * Returns empty string when all metric fields are zero.
+ */
+export function formatPhaseMetricsSummary(metrics: PhaseMetrics | undefined): string {
+  if (!metrics) return '';
+  const parts: string[] = [];
+  if (metrics.extractionHa > 0) {
+    parts.push(`${formatDanishNumber(Math.round(metrics.extractionHa))} ha lavbund`);
+  }
+  if (metrics.afforestationHa > 0) {
+    parts.push(`${formatDanishNumber(Math.round(metrics.afforestationHa))} ha skov`);
+  }
+  if (metrics.nitrogenT > 0) {
+    parts.push(`${formatDanishNumber(Math.round(metrics.nitrogenT))} ton N`);
+  }
+  return parts.join(' · ');
+}
+
 /** All valid phase values in display order (earliest → latest). */
 export const KOMMUNE_PHASES: KommunePhase[] = ['sketch', 'preliminary', 'approved', 'established'];
 
@@ -41,6 +86,13 @@ export const KOMMUNE_PHASES: KommunePhase[] = ['sketch', 'preliminary', 'approve
  * (pipeline view). Sketches remain opt-in.
  */
 export const DEFAULT_PHASES = new Set<KommunePhase>(['established']);
+
+/** True when the phase selection differs from the default (only «anlagt»). */
+export function phasesDifferFromDefault(selected: Set<KommunePhase>): boolean {
+  if (selected.size !== DEFAULT_PHASES.size) return true;
+  for (const p of DEFAULT_PHASES) if (!selected.has(p)) return true;
+  return false;
+}
 
 // ---------------------------------------------------------------------------
 // Supplementary data source toggles
@@ -56,7 +108,6 @@ export type SupplementSource = 'ksf' | 'nst' | 'section3' | 'natura2000';
 export const METRIC_SUPPLEMENTS: Partial<Record<KommuneMetric, SupplementSource[]>> = {
   extraction: ['ksf'],
   afforestation: ['ksf', 'nst'],
-  nature: ['section3', 'natura2000'],
 };
 
 /** Display configuration for each supplement source. */

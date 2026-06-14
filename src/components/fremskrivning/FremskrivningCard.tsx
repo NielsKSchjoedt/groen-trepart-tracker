@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Info, TrendingUp } from 'lucide-react';
 import type { DashboardData } from '@/lib/types';
 import type { FremskrivningPillarId, FremskrivningStageId, StageSelection } from '@/lib/fremskrivning';
@@ -13,6 +13,12 @@ import {
 } from '@/lib/fremskrivning';
 import { formatDanishNumber } from '@/lib/format';
 import { PILLAR_CONFIGS } from '@/lib/pillars';
+import { useParsedViewState, usePermalinkPatch } from '@/lib/permalink/useViewState';
+import {
+  fremskrivningToSelectionOverrides,
+  activeStagesToFremskrivning,
+} from '@/lib/permalink/slices/fremskrivning';
+import { CopyLinkButton } from '@/lib/permalink/CopyLinkButton';
 import { StageRow } from './StageRow';
 import { StackedAreaChart } from './StackedAreaChart';
 import { PaceWarning } from './PaceWarning';
@@ -24,9 +30,24 @@ interface FremskrivningCardProps {
 }
 
 export function FremskrivningCard({ data, pillar }: FremskrivningCardProps) {
-  const [selectionOverrides, setSelectionOverrides] = useState<StageSelection>({});
+  const viewState = useParsedViewState();
+  const { patch } = usePermalinkPatch();
 
   const model = useMemo(() => buildFremskrivningModel(data, pillar), [data, pillar]);
+
+  const optionalStageIds = useMemo(
+    () =>
+      model
+        ? model.stages.filter((s) => s.id !== 'anlagt').map((s) => s.id as Exclude<FremskrivningStageId, 'anlagt'>)
+        : [],
+    [model],
+  );
+
+  const selectionOverrides: StageSelection = useMemo(
+    () => fremskrivningToSelectionOverrides(viewState.fremskrivning, optionalStageIds),
+    [viewState.fremskrivning, optionalStageIds],
+  );
+
   const projection = useMemo(
     () => (model ? buildProjection(model, selectionOverrides) : null),
     [model, selectionOverrides],
@@ -54,11 +75,15 @@ export function FremskrivningCard({ data, pillar }: FremskrivningCardProps) {
   const scenarioNames = activeStages.map((s) => s.label).join(' + ');
 
   const toggle = (id: Exclude<FremskrivningStageId, 'anlagt'>) => {
-    setSelectionOverrides((prev) => {
-      const stage = model.stages.find((s) => s.id === id);
-      if (!stage) return prev;
-      return { ...prev, [id]: !isStageActive(stage, prev) };
-    });
+    const stage = model.stages.find((s) => s.id === id);
+    if (!stage) return;
+    const nextOverrides = { ...selectionOverrides, [id]: !isStageActive(stage, selectionOverrides) };
+    const active = new Set<Exclude<FremskrivningStageId, 'anlagt'>>();
+    for (const sid of optionalStageIds) {
+      const s = model.stages.find((st) => st.id === sid);
+      if (s && isStageActive(s, nextOverrides)) active.add(sid);
+    }
+    patch({ fremskrivning: activeStagesToFremskrivning(active) }, { immediate: true });
   };
 
   const targetIntro =
@@ -86,6 +111,8 @@ export function FremskrivningCard({ data, pillar }: FremskrivningCardProps) {
           </h3>
           <p className="text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">{introCopy}</p>
         </div>
+        <div className="flex items-center gap-2 flex-wrap">
+        <CopyLinkButton />
         <span
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[13px] font-bold whitespace-nowrap"
           style={{ backgroundColor: model.accentColor + '16', color: model.accentColor }}
@@ -93,6 +120,7 @@ export function FremskrivningCard({ data, pillar }: FremskrivningCardProps) {
           <span className="w-2 h-2 rounded-full" style={{ backgroundColor: model.accentColor }} />
           {config.label}
         </span>
+        </div>
       </div>
 
       {/* Step 1 */}
