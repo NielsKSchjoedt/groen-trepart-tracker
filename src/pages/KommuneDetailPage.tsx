@@ -457,6 +457,8 @@ export default function KommuneDetailPage() {
               kommune={kommune}
               ksfProjects={ksfForKommune}
               nstProjects={nstForKommune}
+              ranking={effectiveRanking}
+              natureBenchmark={kommuneBenchmark}
             />
           </div>
         </ChapterSection>

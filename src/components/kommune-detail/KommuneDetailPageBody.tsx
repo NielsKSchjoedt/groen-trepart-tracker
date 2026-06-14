@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Droplets, Trees, Mountain, Leaf, ExternalLink } from 'lucide-react';
+import { Droplets, Trees, Mountain, ExternalLink } from 'lucide-react';
 import type {
   KommuneMetrics,
   ProjectDetail,
@@ -12,11 +12,11 @@ import type {
   KommuneOplandeData,
 } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
-import { MarsProjectPhaseBadges } from '@/components/MarsProjectPhaseBadges';
+import { KommuneMetricCard } from '@/components/kommune-detail/KommuneMetricCard';
+import { KommuneNatureMetricCard } from '@/components/kommune-detail/KommuneNatureMetricCard';
 import { ProjectActivityChart } from '@/components/ProjectActivityChart';
 import { ProjectList } from '@/components/ProjectList';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
-import { PROJECT_COUNT_STAGES } from '@/lib/kommune-metrics';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
 import { CO2SectorChart } from '@/components/CO2SectorChart';
 import { CO2TrendChart } from '@/components/CO2TrendChart';
@@ -43,62 +43,58 @@ export function KommuneDetailKeyFigures({
   kommune,
   ksfProjects,
   nstProjects,
-}: Pick<KommuneDetailPageBodyProps, 'kommune' | 'ksfProjects' | 'nstProjects'>) {
+  ranking,
+  natureBenchmark,
+}: Pick<
+  KommuneDetailPageBodyProps,
+  'kommune' | 'ksfProjects' | 'nstProjects' | 'ranking' | 'natureBenchmark'
+>) {
   const totalAffTotal = kommune.afforestationTotalHa;
   const ksfTotal = ksfProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
   const nstTotal = nstProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
-  const hasPhases = PROJECT_COUNT_STAGES.some(
-    ({ countField }) => kommune.projectsByPhase[countField] > 0,
-  );
+  const rankingRow = ranking?.byKommune[kommune.kode] ?? null;
+  const dce30Ha = natureBenchmark?.b1.byKommune[kommune.kode]?.dce30Ha ?? null;
 
   return (
     <div className="rounded-2xl border border-border bg-card shadow-sm p-4 sm:p-5">
       <div className="grid grid-cols-2 gap-3">
-        <MetricCard
+        <KommuneMetricCard
           icon={<Droplets className="w-4 h-4 text-teal-600" />}
           label="Kvælstof"
           value={kommune.nitrogenT}
           unit="ton N"
-          color="teal"
+          kommune={kommune}
+          marsPhaseMetric="nitrogenT"
         />
-        <MetricCard
+        <KommuneMetricCard
           icon={<Mountain className="w-4 h-4 text-amber-700" />}
           label="Lavbund"
           value={kommune.extractionHa}
           unit="ha"
-          color="amber"
+          kommune={kommune}
+          marsPhaseMetric="extractionHa"
         />
-        <MetricCard
+        <KommuneMetricCard
           icon={<Trees className="w-4 h-4 text-green-700" />}
           label="Skovrejsning"
           value={totalAffTotal}
           unit="ha"
-          color="green"
           sub={totalAffTotal > 0 ? [
             kommune.afforestationMarsHa > 0 && `MARS ${formatDanishNumber(Math.round(kommune.afforestationMarsHa))} ha`,
             ksfTotal > 0 && `KSF ${formatDanishNumber(Math.round(ksfTotal))} ha`,
             nstTotal > 0 && `NST ${formatDanishNumber(Math.round(nstTotal))} ha`,
           ].filter(Boolean).join(' · ') : undefined}
+          kommune={kommune}
+          marsPhaseMetric="afforestationHa"
+          extraAnlagt={ksfTotal + nstTotal}
         />
-        <MetricCard
-          icon={<Leaf className="w-4 h-4 text-emerald-600" />}
-          label="Beskyttet natur (§3+N2000)"
-          value={kommune.naturePotentialHa}
-          unit="ha"
-          color="emerald"
+        <KommuneNatureMetricCard
+          kommune={kommune}
+          rankingRow={rankingRow}
+          dce30Ha={dce30Ha}
           noDataText="Ikke opdelt per kommune"
         />
       </div>
-
-      {hasPhases && (
-        <div className="mt-4 pt-4 border-t border-border/60">
-          <p className="text-sm font-medium text-foreground mb-1">MARS-projekter efter fase</p>
-          <p className="text-xs text-muted-foreground mb-2">
-            Registrerede hektar og projektantal pr. fase (lavbund, skov og kvælstof).
-          </p>
-          <MarsProjectPhaseBadges kommune={kommune} />
-        </div>
-      )}
     </div>
   );
 }
@@ -251,47 +247,6 @@ export function KommuneDetailProjectsSection({
             )}
           </div>
         </KommuneDetailBlock>
-      )}
-    </div>
-  );
-}
-
-function MetricCard({
-  icon,
-  label,
-  value,
-  unit,
-  sub,
-  noDataText,
-}: {
-  icon: ReactNode;
-  label: string;
-  value: number;
-  unit: string;
-  color?: string;
-  sub?: string;
-  noDataText?: string;
-}) {
-  return (
-    <div className="rounded-xl border border-border/80 bg-muted/20 p-3">
-      <div className="flex items-center gap-1.5 mb-1.5">
-        {icon}
-        <span className="text-xs font-medium text-muted-foreground">{label}</span>
-      </div>
-      {value > 0 ? (
-        <>
-          <p className="text-lg font-bold text-foreground tabular-nums leading-tight">
-            {formatDanishNumber(Math.round(value * 10) / 10)}
-            <span className="text-xs font-normal text-muted-foreground ml-1">{unit}</span>
-          </p>
-          {sub && (
-            <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">{sub}</p>
-          )}
-        </>
-      ) : (
-        <p className="text-sm text-muted-foreground italic">
-          {noDataText ?? '—'}
-        </p>
       )}
     </div>
   );

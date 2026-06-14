@@ -1,7 +1,8 @@
 import type { SeriesColor } from './supplement-colors';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR, SECTION3_COLOR, NATURA2000_COLOR } from './supplement-colors';
 import { formatDanishNumber } from './format';
-import type { KommuneMetrics } from './types';
+import { getPhaseConfig } from './phase-config';
+import type { KommuneMetrics, KommuneRankingRow } from './types';
 
 /**
  * Metric identifiers for the municipality choropleth map and table.
@@ -74,6 +75,203 @@ export function formatPhaseMetricsSummary(metrics: PhaseMetrics | undefined): st
     parts.push(`${formatDanishNumber(Math.round(metrics.nitrogenT))} ton N`);
   }
   return parts.join(' · ');
+}
+
+/** Single MARS metric column inside a phase bucket. */
+export type MarsPhaseMetricField = 'nitrogenT' | 'extractionHa' | 'afforestationHa';
+
+export interface MarsMetricPhaseRow {
+  stage: ProjectCountStage;
+  label: string;
+  textClass: string;
+  dotClass: string;
+  value: number;
+  projectCount: number;
+}
+
+/** Per-phase values for one indsats metric (kvælstof, lavbund or MARS-skov). */
+export function getMarsMetricPhaseRows(
+  km: Pick<KommuneMetrics, 'byPhase' | 'projectsByPhase'>,
+  field: MarsPhaseMetricField,
+): MarsMetricPhaseRow[] {
+  return PROJECT_COUNT_STAGES.flatMap(({ stage, countField }) => {
+    const metrics = getPhaseMetricsForCountStage(km, stage);
+    const value = metrics?.[field] ?? 0;
+    if (value <= 0) return [];
+    const config = getPhaseConfig(stage);
+    return [{
+      stage,
+      label: config.label,
+      textClass: config.text,
+      dotClass: config.dot,
+      value,
+      projectCount: km.projectsByPhase[countField],
+    }];
+  });
+}
+
+/** Format one metric value for a phase row inside a goal card. */
+export function formatMarsPhaseMetricValue(field: MarsPhaseMetricField, value: number): string {
+  if (value <= 0) return '';
+  return field === 'nitrogenT'
+    ? `${formatDanishNumber(Math.round(value))} ton N`
+    : `${formatDanishNumber(Math.round(value))} ha`;
+}
+
+const PIPELINE_COUNT_STAGES: ProjectCountStage[] = ['approved', 'assessed', 'sketches'];
+
+/** MARS metric in «anlagt» phase (physically established). */
+export function getMarsMetricAnlagtValue(
+  km: Pick<KommuneMetrics, 'byPhase'>,
+  field: MarsPhaseMetricField,
+): number {
+  return getPhaseMetricsForCountStage(km, 'established')?.[field] ?? 0;
+}
+
+/** MARS metric in pipeline phases (godkendt, forundersøgelse, skitse). */
+export function getMarsMetricPipelineValue(
+  km: Pick<KommuneMetrics, 'byPhase'>,
+  field: MarsPhaseMetricField,
+): number {
+  return PIPELINE_COUNT_STAGES.reduce(
+    (sum, stage) => sum + (getPhaseMetricsForCountStage(km, stage)?.[field] ?? 0),
+    0,
+  );
+}
+
+function marsMetricUnit(field: MarsPhaseMetricField): string {
+  return field === 'nitrogenT' ? 'ton N' : 'ha';
+}
+
+function formatMarsMetricAmount(field: MarsPhaseMetricField, value: number): string {
+  return `${formatDanishNumber(Math.round(value * 10) / 10)} ${marsMetricUnit(field)}`;
+}
+
+/**
+ * Headline for goal cards: «0 ton N anlagt (318 ton N i proces)».
+ * Optional extra ha/ton counts as anlagt (e.g. KSF/NST skov without MARS-faser).
+ */
+export function formatMarsMetricHeadline(
+  km: Pick<KommuneMetrics, 'byPhase'>,
+  field: MarsPhaseMetricField,
+  extraAnlagt = 0,
+): string | null {
+  const anlagt = getMarsMetricAnlagtValue(km, field) + extraAnlagt;
+  const pipeline = getMarsMetricPipelineValue(km, field);
+  if (anlagt <= 0 && pipeline <= 0) return null;
+  const anlagtStr = formatMarsMetricAmount(field, anlagt);
+  if (pipeline <= 0) return `${anlagtStr} anlagt`;
+  return `${anlagtStr} anlagt (${formatMarsMetricAmount(field, pipeline)} i proces)`;
+}
+
+/** Format a nature metric value in hectares. */
+export function formatNatureHa(value: number): string {
+  return `${formatDanishNumber(Math.round(value * 10) / 10)} ha`;
+}
+
+export interface NatureMetricRow {
+  id: string;
+  label: string;
+  dotColor: string;
+  value: number;
+  indent?: boolean;
+}
+
+/** Breakdown rows for the Beskyttet natur goal card. */
+export function getNatureMetricRows(
+  km: Pick<KommuneMetrics, 'section3Ha' | 'natura2000Ha'>,
+  rankingRow?: Pick<
+    KommuneRankingRow,
+    'projektNaturBiodiversitetHa' | 'projektNaturSection3Ha' | 'projektNaturNatura2000Ha'
+  > | null,
+  dce30Ha?: number | null,
+): NatureMetricRow[] {
+  const rows: NatureMetricRow[] = [];
+
+  if (km.section3Ha > 0) {
+    rows.push({
+      id: 'section3',
+      label: '§3-arealer',
+      dotColor: SECTION3_COLOR.text,
+      value: km.section3Ha,
+    });
+  }
+  if (km.natura2000Ha > 0) {
+    rows.push({
+      id: 'natura2000',
+      label: 'Natura 2000',
+      dotColor: NATURA2000_COLOR.text,
+      value: km.natura2000Ha,
+    });
+  }
+
+  const dce30 = dce30Ha ?? 0;
+  if (dce30 > 0) {
+    rows.push({
+      id: 'dce30',
+      label: 'DCE 30 %-potentiale',
+      dotColor: '#059669',
+      value: dce30,
+    });
+  }
+
+  const projekt = rankingRow?.projektNaturBiodiversitetHa ?? 0;
+  if (projekt > 0) {
+    rows.push({
+      id: 'projekt-natur',
+      label: 'Naturpotentiale (projekter)',
+      dotColor: '#16a34a',
+      value: projekt,
+    });
+  }
+
+  const projektSection3 = rankingRow?.projektNaturSection3Ha ?? 0;
+  if (projektSection3 > 0) {
+    rows.push({
+      id: 'projekt-section3',
+      label: 'heraf på §3',
+      dotColor: SECTION3_COLOR.text,
+      value: projektSection3,
+      indent: true,
+    });
+  }
+
+  const projektNatura2000 = rankingRow?.projektNaturNatura2000Ha ?? 0;
+  if (projektNatura2000 > 0) {
+    rows.push({
+      id: 'projekt-natura2000',
+      label: 'heraf i N2000',
+      dotColor: NATURA2000_COLOR.text,
+      value: projektNatura2000,
+      indent: true,
+    });
+  }
+
+  return rows;
+}
+
+/**
+ * Headline for the nature goal card: «1.499 ha beskyttet (65 ha naturpotentiale)».
+ */
+export function formatNatureMetricHeadline(
+  km: Pick<KommuneMetrics, 'naturePotentialHa'>,
+  rankingRow?: Pick<KommuneRankingRow, 'projektNaturBiodiversitetHa'> | null,
+  dce30Ha?: number | null,
+): string | null {
+  const beskyttet = km.naturePotentialHa;
+  const projekt = rankingRow?.projektNaturBiodiversitetHa ?? 0;
+  const dce30 = dce30Ha ?? 0;
+
+  if (beskyttet <= 0 && projekt <= 0) {
+    if (dce30 > 0) return `${formatNatureHa(dce30)} naturpotentiale (DCE 30 %)`;
+    return null;
+  }
+
+  if (beskyttet > 0 && projekt > 0) {
+    return `${formatNatureHa(beskyttet)} beskyttet (${formatNatureHa(projekt)} naturpotentiale)`;
+  }
+  if (beskyttet > 0) return `${formatNatureHa(beskyttet)} beskyttet`;
+  return `${formatNatureHa(projekt)} naturpotentiale`;
 }
 
 /** All valid phase values in display order (earliest → latest). */

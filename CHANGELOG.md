@@ -37,6 +37,11 @@ Kommende ændringer noteres her løbende.
 - Kommunekortenes Lag-knap viser nu de samme baggrundskort som på det nationale kort (kystvande, markudledning, biodiversitets-WMS, §3 m.fl.). MARS-projekter følger fasefilteret; Klimaskovfonden og Naturstyrelsen tændes via tilvalg-knapperne — ikke i Lag-panelet, så du ikke møder det samme valg to steder. Valget gemmes i linket (`overlag=`).
 
 ### Forbedring
+- Sitemap (sitemap.xml) dækker nu alle offentlige sider automatisk — inkl. forsiden, alle 98 kommuner og videnscenter-artikler — med seneste opdateringsdato. Tidligere manglede forsiden, og kommune-URL'er skulle vedligeholdes manuelt.
+- Feedback-knappen nederst til venstre har fået tydeligere tekst: «Fejl, feedback eller ønsker» — ikke kun fejlrapportering.
+- Nøgletal-kortet for beskyttet natur viser nu opdeling som de øvrige mål: §3, Natura 2000, DCE 30 %-potentiale og MARS-projekters overlap med naturpotentiale — med overskrift som «1.499 ha beskyttet (65 ha naturpotentiale)» når begge dele findes.
+- Nøgletal-kort for kvælstof, lavbund og skov viser nu «0 ton N anlagt (318 ton N i proces)» — tydelig skelnen mellem det der er fysisk anlagt og det der stadig er i pipeline. Skov tæller KSF/NST med under anlagt.
+- MARS-fasefordelingen under nøgletal vises nu inde i hvert mål-kort (kvælstof, lavbund, skov) — i stedet for én fælles liste nederst.
 - Kommunens navn, emblem og status-chips øverst på enkelt-kommunesiden er nu centreret — som overskriften i den sticky menu.
 - Kortene kan nu zoomes et niveau tættere ind — både det nationale kort, kommunekortet og projektkortene — så enkeltprojekter og små kommuner er nemmere at se i detaljer.
 - Vandmiljø-kortet under Effekt siger nu kort, at det er hovedeffekten af kvælstofindsatsen — og badge «Hovedeffekt af kvælstof» i stedet for «Ikke målsat».

@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build-content": "node scripts/build-videnscenter.mjs",
+    "build-sitemap": "node scripts/build-sitemap.mjs",
     "build-trepart-links": "node scripts/build-trepart-links.mjs",
-    "build": "npm run build-content && npm run build-trepart-links && vite build",
+    "build": "npm run build-content && npm run build-sitemap && npm run build-trepart-links && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

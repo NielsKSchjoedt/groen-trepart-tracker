@@ -6,6 +6,26 @@
     "changes": [
       {
         "type": "improvement",
+        "description": "Sitemap (sitemap.xml) dækker nu alle offentlige sider automatisk — inkl. forsiden, alle 98 kommuner og videnscenter-artikler — med seneste opdateringsdato. Tidligere manglede forsiden, og kommune-URL'er skulle vedligeholdes manuelt."
+      },
+      {
+        "type": "improvement",
+        "description": "Feedback-knappen nederst til venstre har fået tydeligere tekst: «Fejl, feedback eller ønsker» — ikke kun fejlrapportering."
+      },
+      {
+        "type": "improvement",
+        "description": "Nøgletal-kortet for beskyttet natur viser nu opdeling som de øvrige mål: §3, Natura 2000, DCE 30 %-potentiale og MARS-projekters overlap med naturpotentiale — med overskrift som «1.499 ha beskyttet (65 ha naturpotentiale)» når begge dele findes."
+      },
+      {
+        "type": "improvement",
+        "description": "Nøgletal-kort for kvælstof, lavbund og skov viser nu «0 ton N anlagt (318 ton N i proces)» — tydelig skelnen mellem det der er fysisk anlagt og det der stadig er i pipeline. Skov tæller KSF/NST med under anlagt."
+      },
+      {
+        "type": "improvement",
+        "description": "MARS-fasefordelingen under nøgletal vises nu inde i hvert mål-kort (kvælstof, lavbund, skov) — i stedet for én fælles liste nederst."
+      },
+      {
+        "type": "improvement",
         "description": "Kommunens navn, emblem og status-chips øverst på enkelt-kommunesiden er nu centreret — som overskriften i den sticky menu."
       },
       {

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * Bundle curated Videnscenter markdown (content/videnscenter/*.md) into
- * public/data/videnscenter/articles.json and refresh sitemap entries.
+ * public/data/videnscenter/articles.json.
+ *
+ * Sitemap URLs are generated separately by scripts/build-sitemap.mjs.
  *
  * These are ORIGINAL, neutral articles written for the tracker — not crawled
  * content. Raw crawls live in .cursor/memory-bank/ and must never be rendered.
@@ -18,7 +20,6 @@ const REPO = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(REPO, 'content', 'videnscenter');
 const OUT_DIR = path.join(REPO, 'public', 'data', 'videnscenter');
 const OUT_PATH = path.join(OUT_DIR, 'articles.json');
-const SITEMAP_PATH = path.join(REPO, 'public', 'sitemap.xml');
 
 // Display order of sections in the index.
 const SECTION_ORDER = ['Om aftalen', 'De fem mål', 'Sådan hænger det sammen', 'Geografi og organisering', 'Data og metode'];
@@ -90,45 +91,6 @@ function main() {
   };
   fs.writeFileSync(OUT_PATH, JSON.stringify(payload, null, 2), 'utf8');
   console.log(`Wrote ${OUT_PATH} (${articles.length} articles)`);
-
-  updateSitemap(articles);
-}
-
-function updateSitemap(articles) {
-  if (!fs.existsSync(SITEMAP_PATH)) {
-    console.warn('No sitemap.xml — skipping sitemap update');
-    return;
-  }
-  let xml = fs.readFileSync(SITEMAP_PATH, 'utf8');
-
-  // Remove any existing <url> blocks that point at /videnscenter (old or stale).
-  xml = xml.replace(/\s*<url>\s*<loc>https:\/\/treparttracker\.dk\/videnscenter[^<]*<\/loc>[\s\S]*?<\/url>/g, '');
-
-  const entries = [
-    `  <url>
-    <loc>https://treparttracker.dk/videnscenter</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>`,
-    ...articles.map(
-      (a) => `  <url>
-    <loc>https://treparttracker.dk/videnscenter/${a.slug}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`,
-    ),
-  ].join('\n');
-
-  const marker = '  <!-- Individuelle kommuner';
-  if (xml.includes(marker)) {
-    xml = xml.replace(marker, `${entries}\n\n${marker}`);
-  } else {
-    xml = xml.replace('</urlset>', `${entries}\n</urlset>`);
-  }
-  // Tidy up any doubled blank lines created by the removal step.
-  xml = xml.replace(/\n{3,}/g, '\n\n');
-  fs.writeFileSync(SITEMAP_PATH, xml, 'utf8');
-  console.log(`Updated sitemap (${articles.length + 1} videnscenter URLs)`);
 }
 
 main();

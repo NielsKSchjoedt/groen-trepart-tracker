@@ -42,7 +42,7 @@ export function BugReportFab() {
       {/* Trigger tab */}
       <button
         onClick={() => setOpen((o) => !o)}
-        aria-label="Rapportér fejl eller forslag"
+        aria-label="Fejl, feedback eller ønsker"
         aria-expanded={open}
         className={[
           'flex items-center gap-1.5 rounded-full px-2.5 py-2 text-xs font-medium shadow-lg transition-all duration-200 cursor-pointer',
@@ -67,7 +67,7 @@ export function BugReportFab() {
           />
           <div className="absolute left-0 bottom-full mb-2 w-72 rounded-xl border border-border bg-background shadow-xl p-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <div className="flex items-start justify-between mb-3">
-              <p className="text-sm font-semibold text-foreground">Fandt du en fejl?</p>
+              <p className="text-sm font-semibold text-foreground">Fejl, feedback eller ønsker</p>
               <button
                 onClick={() => setOpen(false)}
                 className="text-muted-foreground hover:text-foreground transition-colors p-0.5"
@@ -77,9 +77,9 @@ export function BugReportFab() {
               </button>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-              Hvis du har fundet en fejl, unøjagtighed eller har et forslag til
-              forbedring, kan du oprette et issue på GitHub. Den aktuelle side-URL
-              bliver automatisk inkluderet.
+              Har du fundet en fejl, set noget der kan forbedres, eller har du et ønske
+              til siden? Opret et issue på GitHub — den aktuelle side-URL bliver automatisk
+              inkluderet.
             </p>
             <a
               href={buildIssueUrl()}
