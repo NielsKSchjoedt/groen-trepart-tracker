@@ -34,6 +34,34 @@ Grøn Trepart Tracker. The project tracks Denmark's progress on the Green Tripar
    codes map to "preliminary". Overlap between Natura 2000 and §3 areas uses a conservative 30%
    estimate. Marine/terrestrial classification is heuristic and documented as such.
 
+5. **Never republish crawled prose** — Raw text crawled from external pages (SGAV, MARS status
+   prose, ministry sites, news) is background material for *us and AI agents during development*.
+   It must never be rendered on the public site, bundled into the build, or committed to source
+   control. See Content Placement Policy below.
+
+---
+
+## Content Placement Policy (where things live)
+
+Three buckets. Put new material in the right one — this is how we avoid accidentally republishing
+someone else's content (a copyright + duplicate-content/SEO problem).
+
+| Bucket | Location | In git? | Shipped to site? | What goes here |
+|--------|----------|:---:|:---:|----------------|
+| **Raw crawls / copies** | `.cursor/memory-bank/crawled-content/` | No (`.cursor/` is gitignored) | Never | Verbatim text crawled from external pages — SGAV editorial pages, MARS status prose, ministry/news articles. Agent background only. |
+| **Unique / aggregated** | `/docs` | Yes | No (dev-facing) | Our *own* analysis, syntheses, audits, design briefs, domain models (e.g. `theory-of-change.md`). Original work, not copies. |
+| **Structured API data** | `data/` → `public/data/` | Per `.gitignore` | Yes (as JSON) | Numeric/structured data fetched from APIs (MARS, WFS, DST). This is fine to ship — it's facts/figures, processed with provenance, not copied prose. |
+| **Curated public articles** | `content/videnscenter/` | Yes | Yes (Videnscenter) | Original, neutral background articles we wrote ourselves (markdown). Bundled by `scripts/build-videnscenter.mjs` (npm run build-content) into `public/data/videnscenter/articles.json` + sitemap, rendered at `/videnscenter`. Cite + link sources; no copied prose; no opinion. |
+| **Temporary dev files** | `tmp/` | No (gitignored except README) | No | Short-lived working resources: assets, screenshots, scratch/sample data, debug dumps, working walkthroughs and audit notes (e.g. `AUDIT-WALKTHROUGH.md`). Use this instead of cluttering the repo root. Don't put anything here you need to keep or ship. |
+
+**Rules:**
+
+- A crawl of a human-readable *page* (article, FAQ, guide) → `.cursor/memory-bank/crawled-content/`. Always.
+- Structured *data* from an API (JSON, GeoJSON, numbers) → `data/`. This is the normal ETL path and is unaffected.
+- Anything rendered on the public website must be **original content we wrote**, even if it summarizes a source. Cite and link the source (e.g. sgav.dk, mgtp.dk); never paste their text verbatim.
+- A public "knowledge center" / articles feature is welcome — but only with curated, original articles. The Videnscenter (`/videnscenter`) is exactly this: write articles in `content/videnscenter/*.md` (flat frontmatter: `title`, `slug`, `section`, `order`, `summary`), keep tone neutral and factual (no opinion/blog voice), and end each with a `## Kilder` list linking official sources. If you're tempted to render `.cursor/memory-bank/crawled-content/*` directly, stop: that's the exact thing this policy forbids.
+- `/docs` is for things humans/agents read while building, not for the site. Don't wire `/docs` or `memory-bank` into the build.
+
 ---
 
 ## Phase Classification (Critical)

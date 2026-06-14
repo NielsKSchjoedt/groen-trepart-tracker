@@ -5,6 +5,8 @@ import { InfoTooltip } from './InfoTooltip';
 
 interface CountdownTimerProps {
   deadline: string;
+  /** Label-linje før datoen, fx "Tid til frist for Skovrejsning" eller "Næste frist — Kvælstof" */
+  title?: string;
 }
 
 function pad(n: number) {
@@ -18,7 +20,7 @@ function pad(n: number) {
  *
  * @param deadline - ISO date string for the target deadline (e.g. "2030-12-31")
  */
-export function CountdownTimer({ deadline }: CountdownTimerProps) {
+export function CountdownTimer({ deadline, title = 'Tid til deadline' }: CountdownTimerProps) {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -46,12 +48,12 @@ export function CountdownTimer({ deadline }: CountdownTimerProps) {
       <div className="flex items-center justify-center gap-1.5 mb-2">
         <Clock className="w-3.5 h-3.5 text-primary" />
         <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-          Tid til deadline — {deadlineDate.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })}
+          {title} — {deadlineDate.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' })}
         </span>
         <InfoTooltip
           title="Nedtælling"
           content={
-            <p>Nedtællingen viser tid til det valgte delmåls deadline. Brug scenariebyggeren nedenfor for at se prognosen.</p>
+            <p>Hvert delmål har sin egen frist: kvælstof 2027, lavbund og CO₂ 2030, skov 2045. Beskyttet natur har ingen fast årsfrist. På forsiden vises den nærmeste frist.</p>
           }
           size={12}
           side="bottom"

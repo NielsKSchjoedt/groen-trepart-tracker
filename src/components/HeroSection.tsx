@@ -1,306 +1,383 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ArcGauge } from './ArcGauge';
 import { CountdownTimer } from './CountdownTimer';
 import { NatureWatermark } from './NatureWatermark';
 import type { Animal } from './NatureWatermark';
 import { ShareButton } from './ShareButton';
-import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
-import { loadCO2Emissions } from '@/lib/data';
-import { projectEndPct, assessGoalStatus, GOAL_STATUS_META, getPillarProjectionData, type GoalStatus } from '@/lib/projections';
-import type { DashboardData, CO2EmissionsData } from '@/lib/types';
-import type { PillarConfig } from '@/lib/pillars';
-import { formatDanishNumber } from '@/lib/format';
-import { Leaf, TreePine } from 'lucide-react';
+import { usePillar, PILLAR_CONFIGS, type PillarId } from '@/lib/pillars';
+import { loadCO2Emissions, loadCoastalWaterStatus } from '@/lib/data';
+import { GOAL_STATUS_META } from '@/lib/projections';
+import {
+  buildMeasures,
+  buildEffectDomains,
+  buildIndsatsComposite,
+  domainsForMeasure,
+  measuresForDomain,
+  type MeasureId,
+  type EffectDomainId,
+} from '@/lib/model';
+import { buildHeroConclusion } from '@/lib/hero-conclusion';
+import { DELMAAL_CHAPTER } from '@/lib/chapters';
+import type { DashboardData, CO2EmissionsData, CoastalWaterStatusData } from '@/lib/types';
+import { Leaf, TreePine, Hand } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import { ViewSwitcher } from './ViewSwitcher';
+import { HintCallout } from './HintCallout';
+import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
+import { IndsatsRow } from './IndsatsRow';
+import { FlowConnectors } from './FlowConnectors';
+import { EffectRow } from './EffectRow';
 
 interface HeroSectionProps {
   data: DashboardData;
+  /** Sentinel placed just below the title; StickyNav slides in once it scrolls past the top. */
+  heroSentinelRef?: React.RefObject<HTMLDivElement>;
 }
 
-/**
- * Assess a pillar's goal status for the hero circle indicators, delegating
- * to the shared graduated assessGoalStatus function.
- *
- * @param projectedPct - Projected progress at deadline (0–100+)
- * @param actualPct    - Current actual progress (0–100)
- * @param hasData      - Whether the pillar has numeric data
- * @returns A graduated GoalStatus tier
- * @example assessPillarHeroStatus(93, 60, true) // => 'very-close'
- */
-function assessPillarHeroStatus(
-  projectedPct: number | null,
-  actualPct: number | null,
-  hasData: boolean,
-): GoalStatus {
-  if (!hasData || projectedPct === null) return 'unknown';
-  return assessGoalStatus(projectedPct, actualPct);
-}
+/** Active flow selection (hover only) — either a virkemiddel, an effekt, or nothing. */
+type FlowSelection =
+  | { kind: 'measure'; id: MeasureId }
+  | { kind: 'domain'; id: EffectDomainId }
+  | null;
 
-/**
- * One-line “obtained vs target” caption for hero status circles — same
- * basis as delmålskort (anlagt / faktisk fremdrift mod nationalt mål).
- *
- * @returns Danish string, or null when CO₂ data is not yet available
- */
-function getHeroCompactProgressLine(
-  pc: PillarConfig,
-  data: DashboardData,
-  co2Data: CO2EmissionsData | null,
-): string | null {
-  const { progress } = data.national;
-  switch (pc.id) {
-    case 'nitrogen':
-      return `${formatDanishNumber(Math.round(progress.nitrogenAchievedT))} af ${formatDanishNumber(pc.target!)} ton N`;
-    case 'extraction':
-      return `${formatDanishNumber(Math.round(progress.extractionAchievedHa))} af ${formatDanishNumber(pc.target!)} ha`;
-    case 'afforestation':
-      return `${formatDanishNumber(Math.round(progress.afforestationAchievedHa))} af ${formatDanishNumber(pc.target!)} ha`;
-    case 'nature':
-      return `${formatDanishNumber(progress.natureProtectedPct, 1)} af ${formatDanishNumber(pc.target!, 0)} %`;
-    case 'co2':
-      if (!co2Data) return null;
-      return `${formatDanishNumber(co2Data.milestones.reduction2025Pct, 0)} af ${formatDanishNumber(co2Data.targets.reductionPct, 0)} %`;
-    default:
-      return null;
-  }
-}
-
-export function HeroSection({ data }: HeroSectionProps) {
+export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
   const { activePillar, setActivePillar, config } = usePillar();
-  const { progress } = data.national;
+  const pillarHint = useFirstVisitHint('hero-delmål-hint', 15_000);
 
-  // Load CO₂ emissions data for the CO₂ pillar
+  /** Always on overview; on pillar routes only until dismissed or a card is chosen. */
+  const showPillarHint = activePillar === null || pillarHint.visible;
+
+  const handlePillarSelect = useCallback(
+    (pillarId: PillarId) => {
+      pillarHint.dismiss();
+      setActivePillar(pillarId);
+    },
+    [pillarHint, setActivePillar],
+  );
+
   const [co2Data, setCo2Data] = useState<CO2EmissionsData | null>(null);
+  const [coastalStatus, setCoastalStatus] = useState<CoastalWaterStatusData | null>(null);
   useEffect(() => {
     loadCO2Emissions().then(setCo2Data);
+    loadCoastalWaterStatus().then(setCoastalStatus);
   }, []);
 
-  // Per-pillar actual + projected percentages (normalised to 0–100 where 100 = target met).
-  // CO₂ uses the KF25 climate model projection instead of naive linear extrapolation.
-  const natureCfg = PILLAR_CONFIGS.find((p) => p.id === 'nature');
-  const natureNormalisedPct =
-    natureCfg?.target ? (progress.natureProtectedPct / natureCfg.target) * 100 : 0;
+  // Hover highlights the relevant flows; clicking a card drills into its pillar.
+  const [hovered, setHovered] = useState<FlowSelection>(null);
+  const activeMeasure = hovered?.kind === 'measure' ? hovered.id : null;
+  const activeDomain = hovered?.kind === 'domain' ? hovered.id : null;
 
-  const co2ActualPct = co2Data
-    ? (co2Data.milestones.reduction2025Pct / co2Data.targets.reductionPct) * 100
+  const onHoverMeasure = (id: MeasureId | null) =>
+    setHovered(id ? { kind: 'measure', id } : null);
+  const onHoverDomain = (id: EffectDomainId | null) =>
+    setHovered(id ? { kind: 'domain', id } : null);
+
+  const measures = useMemo(() => buildMeasures(data), [data]);
+  const effectDomains = useMemo(
+    () => buildEffectDomains(data, co2Data, coastalStatus),
+    [data, co2Data, coastalStatus],
+  );
+  const composite = useMemo(() => buildIndsatsComposite(data), [data]);
+  const compositeMeta = GOAL_STATUS_META[composite.status];
+  const conclusion = useMemo(
+    () => buildHeroConclusion(composite, effectDomains, measures),
+    [composite, effectDomains, measures],
+  );
+
+  // Selected pillar (route) maps back to its virkemiddel/effekt so the flow stays lit.
+  const selectedMeasure = activePillar
+    ? (measures.find((m) => m.pillarId === activePillar)?.id ?? null)
     : null;
-  const co2ProjectedPct = co2Data
-    ? Math.min(100, (co2Data.milestones.reduction2030Pct / co2Data.targets.reductionPct) * 100)
+  const selectedDomain = activePillar
+    ? (effectDomains.find((d) => d.pillarId === activePillar)?.id ?? null)
     : null;
 
-  interface PillarEntry { id: string; actualPct: number; projectedPct: number; deadlineYear: number }
-  const pillarEntries: PillarEntry[] = [
-    { id: 'nitrogen', actualPct: progress.nitrogenProgressPct, projectedPct: projectEndPct(progress.nitrogenProgressPct, PILLAR_CONFIGS.find((p) => p.id === 'nitrogen')!.deadlineYear), deadlineYear: PILLAR_CONFIGS.find((p) => p.id === 'nitrogen')!.deadlineYear },
-    { id: 'extraction', actualPct: progress.extractionProgressPct, projectedPct: projectEndPct(progress.extractionProgressPct, PILLAR_CONFIGS.find((p) => p.id === 'extraction')!.deadlineYear), deadlineYear: PILLAR_CONFIGS.find((p) => p.id === 'extraction')!.deadlineYear },
-    { id: 'afforestation', actualPct: progress.afforestationProgressPct, projectedPct: projectEndPct(progress.afforestationProgressPct, PILLAR_CONFIGS.find((p) => p.id === 'afforestation')!.deadlineYear), deadlineYear: PILLAR_CONFIGS.find((p) => p.id === 'afforestation')!.deadlineYear },
-    { id: 'nature', actualPct: natureNormalisedPct, projectedPct: natureNormalisedPct, deadlineYear: PILLAR_CONFIGS.find((p) => p.id === 'nature')!.deadlineYear },
-    ...(co2ActualPct !== null && co2ProjectedPct !== null
-      ? [{ id: 'co2', actualPct: co2ActualPct, projectedPct: co2ProjectedPct, deadlineYear: PILLAR_CONFIGS.find((p) => p.id === 'co2')!.deadlineYear }]
-      : []),
-  ];
+  // Flow lines: hover replaces selection entirely (never mix hover + valgt pillar).
+  const flowMeasure = hovered !== null ? activeMeasure : selectedMeasure;
+  const flowDomain = hovered !== null ? activeDomain : selectedDomain;
 
-  const pillarStatuses = PILLAR_CONFIGS.map((p) => {
-    const entry = pillarEntries.find((e) => e.id === p.id);
-    return {
-      config: p,
-      status: assessPillarHeroStatus(entry?.projectedPct ?? null, entry?.actualPct ?? null, p.hasData && !!entry),
-    };
-  });
-
-  const onTrackCount = pillarStatuses.filter((s) => s.status === 'on-track' || s.status === 'reached').length;
-  const totalWithData = pillarStatuses.filter((s) => s.status !== 'unknown').length;
-
-  const compositeProgressPct = pillarEntries.length > 0
-    ? pillarEntries.reduce((a, e) => a + e.actualPct, 0) / pillarEntries.length
-    : 0;
-
-  const compositeProjectedPct = pillarEntries.length > 0
-    ? pillarEntries.reduce((a, e) => a + e.projectedPct, 0) / pillarEntries.length
-    : 0;
-
-  const compositeStatus = pillarEntries.length > 0
-    ? assessGoalStatus(compositeProjectedPct, compositeProgressPct)
-    : 'unknown';
-  const compositeStatusMeta = GOAL_STATUS_META[compositeStatus];
+  const highlightedDomains = activeMeasure
+    ? new Set(domainsForMeasure(activeMeasure))
+    : null;
+  const highlightedMeasures = activeDomain
+    ? new Set(measuresForDomain(activeDomain))
+    : null;
 
   return (
-    <section className="w-full pt-10 pb-14 md:pb-20 text-center relative overflow-hidden">
+    <section className="relative w-full overflow-x-hidden pb-14 pt-10 text-center md:pb-20">
       <ViewSwitcher />
 
-      <div className="absolute top-6 left-8 opacity-[0.08] pointer-events-none">
-        <Leaf className="w-32 h-32 text-primary animate-gentle-sway" strokeWidth={1} />
+      <div className="pointer-events-none absolute left-8 top-6 opacity-[0.08]">
+        <Leaf className="h-32 w-32 animate-gentle-sway text-primary" strokeWidth={1} />
       </div>
-      <div className="absolute bottom-4 right-10 opacity-[0.07] pointer-events-none">
-        <TreePine className="w-40 h-40 text-nature-moss" strokeWidth={1} />
+      <div className="pointer-events-none absolute bottom-4 right-10 opacity-[0.07]">
+        <TreePine className="h-40 w-40 text-nature-moss" strokeWidth={1} />
       </div>
-      <div className="absolute top-1/3 right-1/4 opacity-[0.06] pointer-events-none hidden md:block">
-        <Leaf className="w-20 h-20 text-nature-leaf rotate-45" strokeWidth={1} />
+      <div className="pointer-events-none absolute right-1/4 top-1/3 hidden opacity-[0.06] md:block">
+        <Leaf className="h-20 w-20 rotate-45 text-nature-leaf" strokeWidth={1} />
       </div>
 
-      {(activePillar ? config.watermarks : ['deer', 'butterfly', 'heron', 'owl'] as Animal[]).slice(0, 4).map((animal, i) => {
-        const positions = [
-          'absolute bottom-16 left-4 opacity-[0.10] hidden lg:block',
-          'absolute top-20 right-6 opacity-[0.12] hidden md:block animate-gentle-sway',
-          'absolute top-40 left-1/4 opacity-[0.08] hidden lg:block',
-          'absolute bottom-32 right-1/4 opacity-[0.09] hidden md:block',
-        ];
-        const sizes = [150, 70, 60, 90];
-        return (
-          <div key={`${animal}-${i}`} className={`pointer-events-none transition-opacity duration-300 ${positions[i]}`}>
-            <NatureWatermark animal={animal} size={sizes[i]} />
-          </div>
-        );
-      })}
+      {(activePillar ? config.watermarks : (['deer', 'butterfly', 'heron', 'owl'] as Animal[]))
+        .slice(0, 4)
+        .map((animal, i) => {
+          const positions = [
+            'absolute bottom-16 left-4 hidden opacity-[0.10] lg:block',
+            'absolute right-6 top-20 hidden animate-gentle-sway opacity-[0.12] md:block',
+            'absolute left-1/4 top-40 hidden opacity-[0.08] lg:block',
+            'absolute bottom-32 right-1/4 hidden opacity-[0.09] md:block',
+          ];
+          const sizes = [150, 70, 60, 90];
+          return (
+            <div
+              key={`${animal}-${i}`}
+              className={`pointer-events-none transition-opacity duration-300 ${positions[i]}`}
+            >
+              <NatureWatermark animal={animal} size={sizes[i]} />
+            </div>
+          );
+        })}
+
+      <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/80">
+        Fra løfter og aftaler til virkelighed
+      </p>
 
       <h1
-        className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-3"
+        className="mb-3 text-4xl font-bold tracking-tight text-foreground md:text-6xl"
         style={{ fontFamily: "'Fraunces', serif" }}
       >
         Er vi på sporet?
       </h1>
       <p
-        className="text-lg md:text-xl text-muted-foreground mb-1"
+        className="mb-8 text-lg text-muted-foreground md:text-xl"
         style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic' }}
       >
         — til et grønt Danmark
       </p>
-      <p className="text-muted-foreground text-base md:text-lg mb-4 max-w-lg mx-auto leading-relaxed flex items-center justify-center gap-1.5 flex-wrap">
-        <span>Følg Danmarks fremskridt med kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og beskyttet natur</span>
-        <InfoTooltip
-          title="Hvad ser du her?"
-          content={
-            <>
-              <p>Denne side viser Danmarks fremskridt mod de 5 hovedmål i den grønne trepart-aftale fra december 2023.</p>
-              <p>Data hentes automatisk fra offentlige kilder (MARS API, Miljøstyrelsen m.fl.) og opdateres løbende. Alle tal er baseret på officielle projektdata og statistikker.</p>
-            </>
-          }
-          source="Den Grønne Trepart (Finansministeriet, dec. 2023)"
-          methodLink="#datakilder"
-          size={15}
-          side="bottom"
-        />
-      </p>
 
-      {/* Share button — only shown when a specific pillar is active */}
+      {/* Sentinel: StickyNav slides in once the title scrolls past the top of the viewport */}
+      {heroSentinelRef && <div ref={heroSentinelRef} aria-hidden="true" />}
+
       {activePillar && (
-        <div className="flex justify-center mb-8">
+        <div className="mb-8 flex justify-center">
           <ShareButton pillarLabel={config.label} />
         </div>
       )}
 
-      {/* Overall composite progress gauge */}
-      <div className="mb-6 relative">
+      {/* Indsats gauge — area-weighted skov + lavbund anlagt */}
+      <div className="relative mb-4">
         <ArcGauge
-          value={Math.round(compositeProgressPct)}
+          value={Math.round(composite.builtPct)}
           max={100}
-          pct={compositeProgressPct}
-          projectedPct={compositeProjectedPct}
+          pct={composite.builtPct}
+          projectedPct={composite.projectedPct}
           unit="%"
-          subText="mål nået"
-          label={co2ActualPct !== null
-            ? "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning, CO₂ og beskyttet natur"
-            : "Gennemsnitlig fremgang på tværs af kvælstof, lavbundsarealer, skovrejsning og beskyttet natur"
-          }
+          subText="af areal-virkemidlerne anlagt"
+          label="Samlet indsats — skovrejsning og lavbundsarealer ført ud i virkeligheden (kvælstof vises separat i ton)"
           size={240}
-          statusLabel={compositeStatusMeta.label}
-          statusColor={compositeStatusMeta.color}
-          statusIcon={compositeStatusMeta.icon}
+          statusLabel={compositeMeta.label}
+          statusColor={compositeMeta.color}
+          statusIcon={compositeMeta.icon}
         />
-        <div className="flex items-center justify-center mt-1">
+        <div className="mt-2 flex items-center justify-center gap-1.5">
           <InfoTooltip
-            title="Hvad viser denne procent?"
+            title="Hvad viser indsats-måleren?"
             content={
               <>
-                <p><strong>Hvor langt er vi mod målstregen?</strong> Tallet viser hvor stor en andel af de samlede mål der allerede er nået — ikke om vi er foran eller bagud tidsplanen. Bemærk: delmålene har forskellige deadlines (kvælstof 2027, CO₂/beskyttet natur 2030, skovrejsning 2045).</p>
-                <p>Hvert delmål normaliseres til 0–100% (f.eks. beskyttet natur: 15% af 20%-mål = 75% nået) og vægtes lige i gennemsnittet.</p>
-                <p>Cirklerne nedenfor viser noget andet: om hvert delmål forventes at nå sit mål inden deadline (grøn ✓) eller ej (orange !). Tallet under hver cirkel er <strong>faktisk fremdrift mod målet</strong> (fx ton, ha eller procentpoint) — det samme grundlag som delmålskortene.</p>
+                <p>
+                  <strong>Bygger vi det?</strong> Tallet viser hvor stor en andel af trepartens
+                  arealomlægning (skov + lavbund) der er fysisk anlagt — ikke effekten i naturen.
+                </p>
+                <p>
+                  Ydre bue = lineær fremskrivning: hvor langt vi forventes at nå ved nuværende tempo
+                  inden skov-målets deadline. Kvælstof-vådområder vises som eget virkemiddel
+                  nedenfor (ton N, ikke hektar).
+                </p>
+                <p>
+                  Effekterne (klima, vandmiljø, natur) vises separat nedenfor og summeres aldrig til
+                  ét samlet tal.
+                </p>
               </>
             }
             source="Beregnet på baggrund af data fra MARS, KF25 og Miljøstyrelsen"
+            articleLink="maal-virkemidler-og-effekt"
             methodLink="#metode"
             size={13}
           />
         </div>
       </div>
 
-      {/* Status strip — 5 pillar indicators (clickable) */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
-        {pillarStatuses.map(({ config: pc, status }) => {
-          const isSelected = activePillar === pc.id;
-          const meta = GOAL_STATUS_META[status];
-          const compactLine = getHeroCompactProgressLine(pc, data, co2Data);
-          return (
-            <button
-              key={pc.id}
-              onClick={() => setActivePillar(pc.id)}
-              className="flex flex-col items-center gap-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg p-1 transition-transform hover:scale-110 max-w-[6.75rem] sm:max-w-[7.25rem]"
-              aria-pressed={isSelected}
-              title={`${pc.label}: ${meta.label}${compactLine ? ` — ${compactLine}` : ''}`}
-            >
-              <div
-                className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center transition-all shrink-0"
-                style={{
-                  borderColor: meta.color,
-                  backgroundColor: status === 'unknown' ? '#f5f5f5' : meta.color + '15',
-                    boxShadow: isSelected ? `0 0 0 2px white, 0 0 0 4px ${pc.accentColor}` : undefined,
-                }}
-              >
-                <span className="text-[10px] md:text-xs font-bold" style={{ color: meta.color }}>
-                  {meta.icon}
-                </span>
-              </div>
-              <span
-                className="text-[8px] md:text-[9px] text-muted-foreground tabular-nums leading-snug text-center px-0.5"
-                title={compactLine ?? undefined}
-              >
-                {compactLine ?? (pc.id === 'co2' ? '…' : '—')}
-              </span>
-              <span
-                className="text-[9px] md:text-[10px] font-semibold rounded-full px-2 py-0.5 transition-colors"
-                style={{
-                  backgroundColor: pc.accentColor + (isSelected ? '20' : '10'),
-                  color: isSelected ? pc.accentColor : pc.accentColor + 'bb',
-                }}
-              >
-                {pc.label}
-              </span>
-            </button>
-          );
-        })}
+      {/* "Kort sagt" — dynamisk hovedkonklusion, genereret fra live-tallene. */}
+      <div
+        className="mx-auto mb-10 max-w-xl rounded-2xl bg-muted/40 px-5 py-4 text-left"
+        style={{ borderLeft: `3px solid ${conclusion.color}` }}
+      >
+        <p
+          className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
+          style={{ color: conclusion.color }}
+        >
+          Kort sagt
+        </p>
+        <p
+          className="mb-2.5 text-xl leading-snug text-foreground"
+          style={{ fontFamily: "'Fraunces', serif" }}
+        >
+          {conclusion.verdict}
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {conclusion.buildLine} {conclusion.effectLine}
+          <InfoTooltip
+            title="Hvordan er konklusionen regnet?"
+            content={
+              <>
+                <p>
+                  Baseret på faktisk implementering (anlagt) og lineær fremskrivning til hvert
+                  virkemiddels deadline. Skovrejsning, lavbundsarealer og kvælstof-vådområder
+                  vurderes hver for sig — ikke som ét gennemsnit på tværs af CO₂ og beskyttet natur.
+                </p>
+                <p>
+                  Effekterne (klima, natur, vandmiljø) er forsinkede og delvist drevet udefra og
+                  vejes aldrig sammen til ét tal — de beskrives hver for sig.
+                </p>
+              </>
+            }
+            articleLink="saadan-maaler-vi"
+            methodLink="#metode"
+            size={12}
+            className="ml-1 align-middle"
+          />
+        </p>
       </div>
 
-      <p className="text-sm text-muted-foreground mb-8 flex items-center justify-center gap-1.5">
-        <span><span className="font-semibold text-foreground">{onTrackCount} af {totalWithData}</span>{' '}delmål når målet baseret på faktisk implementering</span>
-        <InfoTooltip
-          title="Når vi målet?"
-          content={
-            <>
-              <p><strong>Baseret på faktisk implementering.</strong> Statusen måler udelukkende, hvad der er fysisk gennemført (anlagt) til dato — ikke hvad der er planlagt eller godkendt.</p>
-              <p>Projekter gennemgår en lang pipeline (skitse → forundersøgelse → godkendelse → anlæg), og der forventes en <em>naturlig acceleration</em> efterhånden som flere projekter modnes. Brug <strong>scenarievælgeren</strong> i prognosekortet nedenfor for at se, hvordan billedet ændres hvis godkendte eller forundersøgte projekter også realiseres.</p>
-              <p>For CO₂ bruges KF25-klimafremskrivningen i stedet for lineær ekstrapolation. For <strong>beskyttet natur</strong> vises den aktuelle andel af juridisk beskyttet areal (Natura 2000 + §3) mod 20%-målet — uden projektion, da fremskridt sker via politiske beslutninger om arealdesignering.</p>
-              <p>
-                <span style={{ color: GOAL_STATUS_META['reached'].color }}>✓ Mål nået</span> — allerede over 100%<br />
-                <span style={{ color: GOAL_STATUS_META['on-track'].color }}>✓ Når målet</span> — prognose ≥ 100%<br />
-                <span style={{ color: GOAL_STATUS_META['very-close'].color }}>○ Tæt på målet</span> — prognose 90–99%<br />
-                <span style={{ color: GOAL_STATUS_META['close'].color }}>○ Nærmer sig målet</span> — prognose 75–89%<br />
-                <span style={{ color: GOAL_STATUS_META['behind'].color }}>! Når ikke målet</span> — prognose under 75%
-              </p>
-            </>
-          }
-          methodLink="#metode"
-          size={12}
+      {/* Flow: virkemidler → effekter. This is now the canonical "delmaal" chapter
+          — each card drills into its official pillar and carries the Klimarådet badge. */}
+      <div id={DELMAAL_CHAPTER.id} lang="da" className="mx-auto max-w-3xl scroll-mt-20 px-4 text-left">
+        <p className="mb-1.5 text-center text-xs font-semibold uppercase tracking-widest text-primary/80">
+          {DELMAAL_CHAPTER.eyebrow}
+        </p>
+        <h2
+          className="mb-6 text-center text-xl font-bold tracking-tight text-foreground md:text-2xl"
+          style={{ fontFamily: "'Fraunces', serif" }}
+        >
+          {DELMAAL_CHAPTER.question}
+        </h2>
+        <p className="mb-2 text-sm font-bold uppercase tracking-[0.12em] text-primary">
+          Det vi vil gøre
+        </p>
+        <IndsatsRow
+          measures={measures}
+          activeMeasure={activeMeasure}
+          activeDomain={activeDomain}
+          highlightedMeasures={highlightedMeasures}
+          selectedPillar={activePillar}
+          klimaraadet={data.national.klimaraadet}
+          onHover={onHoverMeasure}
+          onSelect={handlePillarSelect}
         />
-      </p>
 
-      {/* Countdown timer — only when a specific pillar is active */}
-      {activePillar && (() => {
-        const projData = getPillarProjectionData(activePillar, data, co2Data);
-        const pillarCfg = PILLAR_CONFIGS.find((p) => p.id === activePillar);
-        const deadline = projData?.deadline ?? (pillarCfg ? `${pillarCfg.deadlineYear}-12-31` : null);
-        return deadline ? <CountdownTimer deadline={deadline} /> : null;
+        {/* Hint sits in the gap between card rows — centred on flow band + row label */}
+        <div className={`relative ${showPillarHint ? 'min-h-[6.5rem] sm:min-h-[7rem]' : ''}`}>
+          {showPillarHint && (
+            <HintCallout
+              icon={Hand}
+              text="Vælg et delmål for at dykke ned i detaljerne"
+              arrow="left"
+              onDismiss={activePillar === null ? () => {} : pillarHint.dismiss}
+              className="absolute z-40 left-1/2 top-1/2 w-[calc(100%-0.5rem)] max-w-[15rem] -translate-x-1/2 -translate-y-1/2 sm:left-auto sm:right-1 sm:w-max sm:max-w-[14rem] sm:translate-x-0"
+            />
+          )}
+          <FlowConnectors
+            activeMeasure={flowMeasure}
+            activeDomain={flowDomain}
+            showLabel={activePillar === null}
+          />
+          <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-[0.12em] text-primary">
+            Det vi vil opnå
+          </p>
+        </div>
+        <EffectRow
+          domains={effectDomains}
+          activeDomain={activeDomain}
+          activeMeasure={activeMeasure}
+          highlightedDomains={highlightedDomains}
+          selectedPillar={activePillar}
+          klimaraadet={data.national.klimaraadet}
+          onHover={onHoverDomain}
+          onSelect={handlePillarSelect}
+        />
+
+        <p className="mt-3 text-center text-[11px] text-muted-foreground">
+          {activePillar ? (
+            <>
+              Viser nu detaljer for{' '}
+              <span className="font-semibold" style={{ color: config.accentColor }}>
+                {config.label}
+              </span>{' '}
+              nedenfor. Klik et andet kort for at skifte.
+            </>
+          ) : !showPillarHint ? (
+            'Klik på et kort for at dykke ned i tal, projekter og kort for det enkelte mål.'
+          ) : null}
+        </p>
+
+        <p className="mt-4 flex items-start justify-center gap-1.5 text-center text-[11px] italic text-amber-700/90">
+          <InfoTooltip
+            title="Hvorfor vises effekter hver for sig?"
+            content={
+              <p>
+                Effekterne er forsinkede og delvist drevet udefra (fx CO₂ mest fra energisektoren,
+                beskyttet natur via politiske udpegninger). Derfor vises de hver for sig — aldrig
+                vejet sammen til ét tal.
+              </p>
+            }
+            articleLink="fra-virkemiddel-til-effekt"
+            size={12}
+            className="mt-0.5 shrink-0"
+          />
+          <span>
+            Effekterne er forsinkede og delvist drevet udefra — derfor vises de hver for sig, aldrig
+            vejet sammen til ét tal.
+          </span>
+        </p>
+      </div>
+
+      {(() => {
+        // Hvert delmål har sin egen frist (config.deadlineYear er autoritativ —
+        // targets.deadline i data er fast 2030 og må ikke bruges her).
+        // Natur har ingen fast årsfrist (politiske udpegninger) → ingen nedtælling.
+        const NO_FIRM_DEADLINE: PillarId[] = ['nature'];
+
+        if (activePillar) {
+          if (NO_FIRM_DEADLINE.includes(activePillar)) {
+            return (
+              <p className="mt-10 text-center text-xs italic text-muted-foreground">
+                {config.label} har ingen fast årsfrist — fremskridt sker via politiske
+                udpegninger, ikke en projekt-deadline.
+              </p>
+            );
+          }
+          return (
+            <div className="mt-10">
+              <CountdownTimer
+                deadline={`${config.deadlineYear}-12-31`}
+                title={`Tid til frist for ${config.label}`}
+              />
+            </div>
+          );
+        }
+
+        // Forside: vis den nærmeste bindende frist (kvælstof 2027).
+        const nearest = PILLAR_CONFIGS.filter((p) => !NO_FIRM_DEADLINE.includes(p.id)).reduce(
+          (a, b) => (b.deadlineYear < a.deadlineYear ? b : a),
+        );
+        return (
+          <div className="mt-10">
+            <CountdownTimer
+              deadline={`${nearest.deadlineYear}-12-31`}
+              title={`Næste frist — ${nearest.label}`}
+            />
+          </div>
+        );
       })()}
-
     </section>
   );
 }

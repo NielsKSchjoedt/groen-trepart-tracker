@@ -1,6 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import { pillarToSlug } from '@/lib/slugs';
+import { getChapters } from '@/lib/chapters';
+import { getKommuneChapters } from '@/lib/kommune-chapters';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { ChevronDown, Globe, MapPin } from 'lucide-react';
 
@@ -12,22 +15,6 @@ interface StickyNavProps {
    */
   sentinelRef: React.RefObject<HTMLDivElement>;
 }
-
-const NATIONAL_JUMP_LINKS = [
-  { label: 'Oversigt',  href: '#oversigt' },
-  { label: 'Kort',      href: '#kort'     },
-  { label: 'Projekter', href: '#tabeller' },
-] as const;
-
-const CO2_JUMP_LINKS = [
-  { label: 'Oversigt',  href: '#oversigt' },
-  { label: 'CO₂-data', href: '#co2'      },
-] as const;
-
-const KOMMUNE_JUMP_LINKS = [
-  { label: 'Kort',  href: '#kort'  },
-  { label: 'Tabel', href: '#tabel' },
-] as const;
 
 /**
  * A slim fixed bar that slides down from the top of the viewport once the
@@ -47,14 +34,31 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isKommunerRoute = location.pathname.startsWith('/kommuner');
-  const jumpLinks = isKommunerRoute
-    ? KOMMUNE_JUMP_LINKS
-    : activePillar === 'co2'
-      ? CO2_JUMP_LINKS
-      : NATIONAL_JUMP_LINKS;
+  const isKommuneDetail = /^\/kommuner\/[^/]+/.test(location.pathname);
+
+  const chapters = useMemo(
+    () =>
+      isKommuneDetail
+        ? []
+        : isKommunerRoute
+          ? getKommuneChapters()
+          : getChapters(activePillar),
+    [isKommuneDetail, isKommunerRoute, activePillar],
+  );
+  const chapterIds = useMemo(() => chapters.map((c) => c.id), [chapters]);
+  const { activeId, progress } = useScrollSpy(chapterIds);
+
+  // Accent colour: pillar accent when one is selected, else the brand green.
+  const accent = activePillar ? config.accentColor : 'hsl(120 30% 38%)';
+
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  /** Smooth-scroll to a chapter anchor; scroll-margin handles the bar offset. */
+  const scrollToChapter = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -107,7 +111,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen((o) => !o)}
-              className="flex items-center gap-2 min-w-0 rounded-md px-1 -mx-1 py-1 cursor-pointer sm:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex items-center gap-2 min-w-0 rounded-md px-1 -mx-1 py-1 cursor-pointer lg:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-haspopup="listbox"
               aria-expanded={dropdownOpen}
               aria-label={`Aktiv søjle: ${config.label}. Tryk for at skifte.`}
@@ -120,16 +124,16 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
                 className="text-sm font-semibold flex-shrink-0"
                 style={{ color: activePillar ? config.accentColor : 'hsl(120 30% 35%)' }}
               >
-                {activePillar ? config.label : 'Oversigt'}
+                {isKommunerRoute ? 'Kommuner' : activePillar ? config.label : 'Oversigt'}
               </span>
               {activePillar && (
                 <span className="hidden md:inline text-xs text-muted-foreground truncate">
                   — {config.description}
                 </span>
               )}
-              {/* Chevron — only visible on mobile where the right-side switcher is hidden */}
+              {/* Chevron — visible below lg, where the second-row pillar switcher is hidden */}
               <ChevronDown
-                className={`sm:hidden w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                className={`lg:hidden w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
                 style={{ color: config.accentColor }}
                 strokeWidth={2.5}
               />
@@ -140,7 +144,7 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
               <div
                 role="listbox"
                 aria-label="Vælg søjle"
-                className="sm:hidden absolute top-full left-0 mt-1 w-44 rounded-xl border border-border bg-background/98 backdrop-blur-md shadow-lg py-1 z-10"
+                className="lg:hidden absolute top-full left-0 mt-1 w-44 rounded-xl border border-border bg-background/98 backdrop-blur-md shadow-lg py-1 z-10"
               >
                 {PILLAR_CONFIGS.map((p) => {
                   const isActive = p.id === activePillar;
@@ -170,17 +174,18 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Pillar switcher — dot buttons, desktop only */}
-            <div className="hidden sm:flex items-center gap-1">
+            {/* Pillar switcher — the five goals, on the top bar (desktop). Below
+                lg the active-pillar dropdown on the left handles switching. */}
+            <div className="hidden lg:flex items-center gap-1">
               {PILLAR_CONFIGS.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => handlePillarSwitch(p.id)}
-                  title={p.label}
-                  className={`h-7 rounded-md transition-all text-xs font-medium px-2 flex items-center gap-1.5 cursor-pointer ${
+                  aria-current={p.id === activePillar ? 'true' : undefined}
+                  className={`h-7 rounded-md transition-all text-xs font-medium px-2 flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                     p.id === activePillar
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'text-foreground bg-muted/50'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
                   }`}
                   style={p.id === activePillar ? { color: config.accentColor } : {}}
                 >
@@ -188,33 +193,13 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
                     className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                     style={{ backgroundColor: p.accentColor, opacity: p.id === activePillar ? 1 : 0.45 }}
                   />
-                  <span className="hidden lg:inline">{p.label}</span>
+                  {p.label}
                 </button>
               ))}
             </div>
 
-            {/* Divider */}
-            <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
-
-            {/* Section jump links — shown on both national and kommune views */}
-            {jumpLinks.length > 0 && (
-              <nav className="hidden sm:flex items-center gap-3" aria-label="Spring til sektion">
-                {jumpLinks.map(({ label, href }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </nav>
-            )}
-
             {/* Divider before toggle */}
-            {jumpLinks.length > 0 && (
-              <span className="hidden sm:block w-px h-4 bg-border flex-shrink-0" />
-            )}
+            <span className="hidden lg:block w-px h-4 bg-border flex-shrink-0" />
 
             {/* View toggle — National ↔ Kommuner */}
             <div
@@ -244,6 +229,68 @@ export function StickyNav({ sentinelRef }: StickyNavProps) {
             </div>
           </div>
 
+        </div>
+
+        {/* Section indicator — its own row so the chapters/afsnit don't crowd
+            the top bar. Inline buttons on desktop (lg+); a horizontally
+            scrollable chip row below lg. Shows chapters on national/pillar
+            views and Kort/Tabel jump links on the kommune view. */}
+        {chapters.length > 0 && (
+          <div className="hidden lg:block border-t border-border/60">
+            <nav
+              className="max-w-6xl mx-auto px-4 py-1.5 flex items-center gap-4"
+              aria-label="Spring til sektion"
+            >
+              {chapters.map((c) => {
+                    const isActive = c.id === activeId;
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => scrollToChapter(c.id)}
+                        aria-current={isActive ? 'true' : undefined}
+                        className={`text-xs transition-colors whitespace-nowrap cursor-pointer ${
+                          isActive ? 'font-semibold' : 'font-medium text-muted-foreground hover:text-foreground'
+                        }`}
+                        style={isActive ? { color: accent } : undefined}
+                      >
+                        {c.navLabel}
+                      </button>
+                    );
+                  })}
+            </nav>
+          </div>
+        )}
+
+        {/* Section chips — scrollable section indicator for screens below lg. */}
+        {chapters.length > 0 && (
+          <div className="lg:hidden border-t border-border/60 overflow-x-auto">
+            <div className="flex w-max items-center gap-2 px-4 py-1.5">
+              {chapters.map((c) => {
+                    const isActive = c.id === activeId;
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => scrollToChapter(c.id)}
+                        aria-current={isActive ? 'true' : undefined}
+                        className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] transition-colors ${
+                          isActive ? 'font-semibold' : 'font-medium text-muted-foreground'
+                        }`}
+                        style={isActive ? { color: accent, backgroundColor: `${accent}14` } : undefined}
+                      >
+                        {c.navLabel}
+                      </button>
+                    );
+                  })}
+            </div>
+          </div>
+        )}
+
+        {/* Scroll progress line */}
+        <div className="h-0.5 w-full bg-transparent" aria-hidden="true">
+          <div
+            className="h-full transition-[width] duration-150 ease-out"
+            style={{ width: `${Math.round(progress * 100)}%`, backgroundColor: accent }}
+          />
         </div>
       </div>
     </div>

@@ -1,0 +1,1020 @@
+{
+  "metadata": {
+    "generatedAt": "2026-06-12T21:29:09.899531+00:00",
+    "methodVersion": "sprint4-v1",
+    "sourceLayers": [
+      {
+        "name": "DCE 30%",
+        "path": "data/arealdata-biodiversitet/dce-30-percent.geojson",
+        "hash": "d178929c1cde38d8"
+      },
+      {
+        "name": "KU prio 1",
+        "path": "data/arealdata-biodiversitet/ku-prio-1.geojson",
+        "hash": "10435c7c54920e41"
+      },
+      {
+        "name": "KU prio 2",
+        "path": "data/arealdata-biodiversitet/ku-prio-2.geojson",
+        "hash": "10435c7c54920e41"
+      },
+      {
+        "name": "Marker 2026",
+        "path": "data/markkort/marker-2026"
+      },
+      {
+        "name": "Natura 2000",
+        "path": "data/natura2000/natura_2000_omraader.geojson",
+        "hash": "18faa93eadc24c9e"
+      }
+    ]
+  },
+  "national": {
+    "markerTotalHa": 2651286.7763,
+    "hoejtPotentialeHa": 338999.2342,
+    "lavtPotentialeHa": 318844.9008,
+    "udenforPotentialeHa": 1993442.6413
+  },
+  "byKommune": {
+    "0101": {
+      "kommuneNavn": "København",
+      "markerTotalHa": 179.9692,
+      "hoejtPotentialeHa": 155.5419,
+      "lavtPotentialeHa": 24.3099,
+      "udenforPotentialeHa": 0.1174,
+      "hoejtPotentialePct": 86.427,
+      "lavtPotentialePct": 13.5078,
+      "udenforPotentialePct": 0.0652
+    },
+    "0147": {
+      "kommuneNavn": "Frederiksberg",
+      "markerTotalHa": 0.0,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 0.0,
+      "udenforPotentialeHa": 0.0,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 0.0,
+      "udenforPotentialePct": 0.0
+    },
+    "0151": {
+      "kommuneNavn": "Ballerup",
+      "markerTotalHa": 389.7751,
+      "hoejtPotentialeHa": 82.5688,
+      "lavtPotentialeHa": 224.0369,
+      "udenforPotentialeHa": 83.1694,
+      "hoejtPotentialePct": 21.1837,
+      "lavtPotentialePct": 57.4785,
+      "udenforPotentialePct": 21.3378
+    },
+    "0153": {
+      "kommuneNavn": "Brøndby",
+      "markerTotalHa": 0.8438,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 0.0271,
+      "udenforPotentialeHa": 0.8167,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 3.2117,
+      "udenforPotentialePct": 96.7883
+    },
+    "0155": {
+      "kommuneNavn": "Dragør",
+      "markerTotalHa": 424.6165,
+      "hoejtPotentialeHa": 98.1128,
+      "lavtPotentialeHa": 45.6379,
+      "udenforPotentialeHa": 280.8658,
+      "hoejtPotentialePct": 23.1062,
+      "lavtPotentialePct": 10.748,
+      "udenforPotentialePct": 66.1458
+    },
+    "0157": {
+      "kommuneNavn": "Gentofte",
+      "markerTotalHa": 9.9164,
+      "hoejtPotentialeHa": 6.8556,
+      "lavtPotentialeHa": 3.0464,
+      "udenforPotentialeHa": 0.0144,
+      "hoejtPotentialePct": 69.134,
+      "lavtPotentialePct": 30.7208,
+      "udenforPotentialePct": 0.1452
+    },
+    "0159": {
+      "kommuneNavn": "Gladsaxe",
+      "markerTotalHa": 38.961,
+      "hoejtPotentialeHa": 9.5786,
+      "lavtPotentialeHa": 26.6451,
+      "udenforPotentialeHa": 2.7373,
+      "hoejtPotentialePct": 24.5851,
+      "lavtPotentialePct": 68.3892,
+      "udenforPotentialePct": 7.0257
+    },
+    "0161": {
+      "kommuneNavn": "Glostrup",
+      "markerTotalHa": 18.4518,
+      "hoejtPotentialeHa": 18.4518,
+      "lavtPotentialeHa": 0.0,
+      "udenforPotentialeHa": 0.0,
+      "hoejtPotentialePct": 100.0,
+      "lavtPotentialePct": 0.0,
+      "udenforPotentialePct": 0.0
+    },
+    "0163": {
+      "kommuneNavn": "Herlev",
+      "markerTotalHa": 25.4415,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 23.45,
+      "udenforPotentialeHa": 1.9915,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 92.1722,
+      "udenforPotentialePct": 7.8278
+    },
+    "0165": {
+      "kommuneNavn": "Albertslund",
+      "markerTotalHa": 298.657,
+      "hoejtPotentialeHa": 216.1548,
+      "lavtPotentialeHa": 57.0321,
+      "udenforPotentialeHa": 25.4701,
+      "hoejtPotentialePct": 72.3756,
+      "lavtPotentialePct": 19.0962,
+      "udenforPotentialePct": 8.5282
+    },
+    "0167": {
+      "kommuneNavn": "Hvidovre",
+      "markerTotalHa": 59.2617,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 52.9556,
+      "udenforPotentialeHa": 6.3061,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 89.3589,
+      "udenforPotentialePct": 10.6411
+    },
+    "0169": {
+      "kommuneNavn": "Høje-Taastrup",
+      "markerTotalHa": 2868.2225,
+      "hoejtPotentialeHa": 75.4655,
+      "lavtPotentialeHa": 375.8242,
+      "udenforPotentialeHa": 2416.9328,
+      "hoejtPotentialePct": 2.6311,
+      "lavtPotentialePct": 13.103,
+      "udenforPotentialePct": 84.2659
+    },
+    "0173": {
+      "kommuneNavn": "Lyngby-Taarbæk",
+      "markerTotalHa": 398.8378,
+      "hoejtPotentialeHa": 320.7053,
+      "lavtPotentialeHa": 8.8681,
+      "udenforPotentialeHa": 69.2644,
+      "hoejtPotentialePct": 80.41,
+      "lavtPotentialePct": 2.2235,
+      "udenforPotentialePct": 17.3666
+    },
+    "0175": {
+      "kommuneNavn": "Rødovre",
+      "markerTotalHa": 0.0,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 0.0,
+      "udenforPotentialeHa": 0.0,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 0.0,
+      "udenforPotentialePct": 0.0
+    },
+    "0183": {
+      "kommuneNavn": "Ishøj",
+      "markerTotalHa": 1024.1875,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 259.7904,
+      "udenforPotentialeHa": 764.3971,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 25.3655,
+      "udenforPotentialePct": 74.6345
+    },
+    "0185": {
+      "kommuneNavn": "Tårnby",
+      "markerTotalHa": 2915.657,
+      "hoejtPotentialeHa": 2640.1252,
+      "lavtPotentialeHa": 10.869,
+      "udenforPotentialeHa": 264.6628,
+      "hoejtPotentialePct": 90.5499,
+      "lavtPotentialePct": 0.3728,
+      "udenforPotentialePct": 9.0773
+    },
+    "0187": {
+      "kommuneNavn": "Vallensbæk",
+      "markerTotalHa": 72.7215,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 53.1962,
+      "udenforPotentialeHa": 19.5253,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 73.1506,
+      "udenforPotentialePct": 26.8494
+    },
+    "0190": {
+      "kommuneNavn": "Furesø",
+      "markerTotalHa": 1138.9557,
+      "hoejtPotentialeHa": 441.3119,
+      "lavtPotentialeHa": 353.8389,
+      "udenforPotentialeHa": 343.8049,
+      "hoejtPotentialePct": 38.7471,
+      "lavtPotentialePct": 31.067,
+      "udenforPotentialePct": 30.186
+    },
+    "0201": {
+      "kommuneNavn": "Allerød",
+      "markerTotalHa": 2127.9458,
+      "hoejtPotentialeHa": 349.8812,
+      "lavtPotentialeHa": 241.8971,
+      "udenforPotentialeHa": 1536.1675,
+      "hoejtPotentialePct": 16.4422,
+      "lavtPotentialePct": 11.3676,
+      "udenforPotentialePct": 72.1902
+    },
+    "0210": {
+      "kommuneNavn": "Fredensborg",
+      "markerTotalHa": 4199.1001,
+      "hoejtPotentialeHa": 232.7263,
+      "lavtPotentialeHa": 767.7175,
+      "udenforPotentialeHa": 3198.6563,
+      "hoejtPotentialePct": 5.5423,
+      "lavtPotentialePct": 18.2829,
+      "udenforPotentialePct": 76.1748
+    },
+    "0217": {
+      "kommuneNavn": "Helsingør",
+      "markerTotalHa": 3545.1358,
+      "hoejtPotentialeHa": 793.8843,
+      "lavtPotentialeHa": 521.8845,
+      "udenforPotentialeHa": 2229.367,
+      "hoejtPotentialePct": 22.3936,
+      "lavtPotentialePct": 14.7211,
+      "udenforPotentialePct": 62.8852
+    },
+    "0219": {
+      "kommuneNavn": "Hillerød",
+      "markerTotalHa": 8314.0053,
+      "hoejtPotentialeHa": 776.1721,
+      "lavtPotentialeHa": 1201.7994,
+      "udenforPotentialeHa": 6336.0338,
+      "hoejtPotentialePct": 9.3357,
+      "lavtPotentialePct": 14.4551,
+      "udenforPotentialePct": 76.2092
+    },
+    "0223": {
+      "kommuneNavn": "Hørsholm",
+      "markerTotalHa": 533.6842,
+      "hoejtPotentialeHa": 76.0038,
+      "lavtPotentialeHa": 155.7221,
+      "udenforPotentialeHa": 301.9583,
+      "hoejtPotentialePct": 14.2413,
+      "lavtPotentialePct": 29.1787,
+      "udenforPotentialePct": 56.58
+    },
+    "0230": {
+      "kommuneNavn": "Rudersdal",
+      "markerTotalHa": 925.7909,
+      "hoejtPotentialeHa": 227.2864,
+      "lavtPotentialeHa": 292.7565,
+      "udenforPotentialeHa": 405.748,
+      "hoejtPotentialePct": 24.5505,
+      "lavtPotentialePct": 31.6223,
+      "udenforPotentialePct": 43.8272
+    },
+    "0240": {
+      "kommuneNavn": "Egedal",
+      "markerTotalHa": 6235.2115,
+      "hoejtPotentialeHa": 656.4593,
+      "lavtPotentialeHa": 1143.5626,
+      "udenforPotentialeHa": 4435.1896,
+      "hoejtPotentialePct": 10.5283,
+      "lavtPotentialePct": 18.3404,
+      "udenforPotentialePct": 71.1313
+    },
+    "0250": {
+      "kommuneNavn": "Frederikssund",
+      "markerTotalHa": 14074.4827,
+      "hoejtPotentialeHa": 980.543,
+      "lavtPotentialeHa": 2046.7998,
+      "udenforPotentialeHa": 11047.1399,
+      "hoejtPotentialePct": 6.9668,
+      "lavtPotentialePct": 14.5426,
+      "udenforPotentialePct": 78.4906
+    },
+    "0253": {
+      "kommuneNavn": "Greve",
+      "markerTotalHa": 2291.992,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 349.8041,
+      "udenforPotentialeHa": 1942.1879,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 15.262,
+      "udenforPotentialePct": 84.738
+    },
+    "0259": {
+      "kommuneNavn": "Køge",
+      "markerTotalHa": 13188.1429,
+      "hoejtPotentialeHa": 1566.1803,
+      "lavtPotentialeHa": 714.5104,
+      "udenforPotentialeHa": 10907.4522,
+      "hoejtPotentialePct": 11.8757,
+      "lavtPotentialePct": 5.4178,
+      "udenforPotentialePct": 82.7065
+    },
+    "0260": {
+      "kommuneNavn": "Halsnæs",
+      "markerTotalHa": 3903.5891,
+      "hoejtPotentialeHa": 536.4313,
+      "lavtPotentialeHa": 898.2513,
+      "udenforPotentialeHa": 2468.9065,
+      "hoejtPotentialePct": 13.742,
+      "lavtPotentialePct": 23.0109,
+      "udenforPotentialePct": 63.2471
+    },
+    "0265": {
+      "kommuneNavn": "Roskilde",
+      "markerTotalHa": 10670.4045,
+      "hoejtPotentialeHa": 795.6163,
+      "lavtPotentialeHa": 1209.1128,
+      "udenforPotentialeHa": 8665.6754,
+      "hoejtPotentialePct": 7.4563,
+      "lavtPotentialePct": 11.3315,
+      "udenforPotentialePct": 81.2122
+    },
+    "0269": {
+      "kommuneNavn": "Solrød",
+      "markerTotalHa": 2109.9325,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 248.6324,
+      "udenforPotentialeHa": 1861.3001,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 11.7839,
+      "udenforPotentialePct": 88.2161
+    },
+    "0270": {
+      "kommuneNavn": "Gribskov",
+      "markerTotalHa": 11259.03,
+      "hoejtPotentialeHa": 1085.741,
+      "lavtPotentialeHa": 1995.2509,
+      "udenforPotentialeHa": 8178.0381,
+      "hoejtPotentialePct": 9.6433,
+      "lavtPotentialePct": 17.7213,
+      "udenforPotentialePct": 72.6354
+    },
+    "0306": {
+      "kommuneNavn": "Odsherred",
+      "markerTotalHa": 18848.8953,
+      "hoejtPotentialeHa": 71.3351,
+      "lavtPotentialeHa": 2796.0026,
+      "udenforPotentialeHa": 15981.5576,
+      "hoejtPotentialePct": 0.3785,
+      "lavtPotentialePct": 14.8338,
+      "udenforPotentialePct": 84.7878
+    },
+    "0316": {
+      "kommuneNavn": "Holbæk",
+      "markerTotalHa": 37002.9061,
+      "hoejtPotentialeHa": 1827.1094,
+      "lavtPotentialeHa": 5831.0815,
+      "udenforPotentialeHa": 29344.7152,
+      "hoejtPotentialePct": 4.9377,
+      "lavtPotentialePct": 15.7584,
+      "udenforPotentialePct": 79.3038
+    },
+    "0320": {
+      "kommuneNavn": "Faxe",
+      "markerTotalHa": 24960.8082,
+      "hoejtPotentialeHa": 1719.4765,
+      "lavtPotentialeHa": 1856.1184,
+      "udenforPotentialeHa": 21385.2133,
+      "hoejtPotentialePct": 6.8887,
+      "lavtPotentialePct": 7.4361,
+      "udenforPotentialePct": 85.6752
+    },
+    "0326": {
+      "kommuneNavn": "Kalundborg",
+      "markerTotalHa": 38442.3863,
+      "hoejtPotentialeHa": 3783.1071,
+      "lavtPotentialeHa": 3636.1259,
+      "udenforPotentialeHa": 31023.1533,
+      "hoejtPotentialePct": 9.841,
+      "lavtPotentialePct": 9.4586,
+      "udenforPotentialePct": 80.7004
+    },
+    "0329": {
+      "kommuneNavn": "Ringsted",
+      "markerTotalHa": 18842.9419,
+      "hoejtPotentialeHa": 2226.5482,
+      "lavtPotentialeHa": 1006.0399,
+      "udenforPotentialeHa": 15610.3538,
+      "hoejtPotentialePct": 11.8164,
+      "lavtPotentialePct": 5.3391,
+      "udenforPotentialePct": 82.8446
+    },
+    "0330": {
+      "kommuneNavn": "Slagelse",
+      "markerTotalHa": 37668.1282,
+      "hoejtPotentialeHa": 635.9122,
+      "lavtPotentialeHa": 3221.9073,
+      "udenforPotentialeHa": 33810.3087,
+      "hoejtPotentialePct": 1.6882,
+      "lavtPotentialePct": 8.5534,
+      "udenforPotentialePct": 89.7584
+    },
+    "0336": {
+      "kommuneNavn": "Stevns",
+      "markerTotalHa": 17692.9958,
+      "hoejtPotentialeHa": 291.9432,
+      "lavtPotentialeHa": 813.387,
+      "udenforPotentialeHa": 16587.6656,
+      "hoejtPotentialePct": 1.65,
+      "lavtPotentialePct": 4.5972,
+      "udenforPotentialePct": 93.7527
+    },
+    "0340": {
+      "kommuneNavn": "Sorø",
+      "markerTotalHa": 17148.4727,
+      "hoejtPotentialeHa": 2305.326,
+      "lavtPotentialeHa": 2421.5465,
+      "udenforPotentialeHa": 12421.6002,
+      "hoejtPotentialePct": 13.4433,
+      "lavtPotentialePct": 14.1211,
+      "udenforPotentialePct": 72.4356
+    },
+    "0350": {
+      "kommuneNavn": "Lejre",
+      "markerTotalHa": 14886.9194,
+      "hoejtPotentialeHa": 1622.1913,
+      "lavtPotentialeHa": 1361.9349,
+      "udenforPotentialeHa": 11902.7932,
+      "hoejtPotentialePct": 10.8968,
+      "lavtPotentialePct": 9.1485,
+      "udenforPotentialePct": 79.9547
+    },
+    "0360": {
+      "kommuneNavn": "Lolland",
+      "markerTotalHa": 68208.5204,
+      "hoejtPotentialeHa": 1243.8861,
+      "lavtPotentialeHa": 3063.6889,
+      "udenforPotentialeHa": 63900.9454,
+      "hoejtPotentialePct": 1.8237,
+      "lavtPotentialePct": 4.4917,
+      "udenforPotentialePct": 93.6847
+    },
+    "0370": {
+      "kommuneNavn": "Næstved",
+      "markerTotalHa": 43735.6945,
+      "hoejtPotentialeHa": 3141.7384,
+      "lavtPotentialeHa": 3371.6467,
+      "udenforPotentialeHa": 37222.3094,
+      "hoejtPotentialePct": 7.1835,
+      "lavtPotentialePct": 7.7091,
+      "udenforPotentialePct": 85.1074
+    },
+    "0376": {
+      "kommuneNavn": "Guldborgsund",
+      "markerTotalHa": 64027.4066,
+      "hoejtPotentialeHa": 3978.3144,
+      "lavtPotentialeHa": 3917.3633,
+      "udenforPotentialeHa": 56131.7289,
+      "hoejtPotentialePct": 6.2135,
+      "lavtPotentialePct": 6.1183,
+      "udenforPotentialePct": 87.6683
+    },
+    "0390": {
+      "kommuneNavn": "Vordingborg",
+      "markerTotalHa": 41506.108,
+      "hoejtPotentialeHa": 1713.7965,
+      "lavtPotentialeHa": 5095.2469,
+      "udenforPotentialeHa": 34697.0646,
+      "hoejtPotentialePct": 4.129,
+      "lavtPotentialePct": 12.2759,
+      "udenforPotentialePct": 83.5951
+    },
+    "0400": {
+      "kommuneNavn": "Bornholm",
+      "markerTotalHa": 34409.8594,
+      "hoejtPotentialeHa": 3300.5774,
+      "lavtPotentialeHa": 1966.9745,
+      "udenforPotentialeHa": 29142.3075,
+      "hoejtPotentialePct": 9.592,
+      "lavtPotentialePct": 5.7163,
+      "udenforPotentialePct": 84.6917
+    },
+    "0410": {
+      "kommuneNavn": "Middelfart",
+      "markerTotalHa": 18374.1384,
+      "hoejtPotentialeHa": 869.2986,
+      "lavtPotentialeHa": 1622.4545,
+      "udenforPotentialeHa": 15882.3853,
+      "hoejtPotentialePct": 4.7311,
+      "lavtPotentialePct": 8.8301,
+      "udenforPotentialePct": 86.4388
+    },
+    "0420": {
+      "kommuneNavn": "Assens",
+      "markerTotalHa": 33084.9631,
+      "hoejtPotentialeHa": 1336.1601,
+      "lavtPotentialeHa": 3343.085,
+      "udenforPotentialeHa": 28405.718,
+      "hoejtPotentialePct": 4.0386,
+      "lavtPotentialePct": 10.1045,
+      "udenforPotentialePct": 85.8569
+    },
+    "0430": {
+      "kommuneNavn": "Faaborg-Midtfyn",
+      "markerTotalHa": 40300.6467,
+      "hoejtPotentialeHa": 3700.1789,
+      "lavtPotentialeHa": 3491.7632,
+      "udenforPotentialeHa": 33108.7046,
+      "hoejtPotentialePct": 9.1814,
+      "lavtPotentialePct": 8.6643,
+      "udenforPotentialePct": 82.1543
+    },
+    "0440": {
+      "kommuneNavn": "Kerteminde",
+      "markerTotalHa": 13793.2699,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 1092.9078,
+      "udenforPotentialeHa": 12700.3621,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 7.9235,
+      "udenforPotentialePct": 92.0765
+    },
+    "0450": {
+      "kommuneNavn": "Nyborg",
+      "markerTotalHa": 18563.7662,
+      "hoejtPotentialeHa": 138.0294,
+      "lavtPotentialeHa": 1282.8845,
+      "udenforPotentialeHa": 17142.8523,
+      "hoejtPotentialePct": 0.7435,
+      "lavtPotentialePct": 6.9107,
+      "udenforPotentialePct": 92.3458
+    },
+    "0461": {
+      "kommuneNavn": "Odense",
+      "markerTotalHa": 12561.7316,
+      "hoejtPotentialeHa": 482.7889,
+      "lavtPotentialeHa": 1949.4709,
+      "udenforPotentialeHa": 10129.4718,
+      "hoejtPotentialePct": 3.8433,
+      "lavtPotentialePct": 15.5191,
+      "udenforPotentialePct": 80.6375
+    },
+    "0479": {
+      "kommuneNavn": "Svendborg",
+      "markerTotalHa": 25728.4328,
+      "hoejtPotentialeHa": 1815.6275,
+      "lavtPotentialeHa": 2080.0914,
+      "udenforPotentialeHa": 21832.7139,
+      "hoejtPotentialePct": 7.0569,
+      "lavtPotentialePct": 8.0848,
+      "udenforPotentialePct": 84.8583
+    },
+    "0480": {
+      "kommuneNavn": "Nordfyns",
+      "markerTotalHa": 31987.0725,
+      "hoejtPotentialeHa": 471.3001,
+      "lavtPotentialeHa": 2530.8549,
+      "udenforPotentialeHa": 28984.9175,
+      "hoejtPotentialePct": 1.4734,
+      "lavtPotentialePct": 7.9121,
+      "udenforPotentialePct": 90.6145
+    },
+    "0482": {
+      "kommuneNavn": "Langeland",
+      "markerTotalHa": 20824.1252,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 3273.4202,
+      "udenforPotentialeHa": 17550.705,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 15.7194,
+      "udenforPotentialePct": 84.2806
+    },
+    "0492": {
+      "kommuneNavn": "Ærø",
+      "markerTotalHa": 6626.9788,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 1159.6025,
+      "udenforPotentialeHa": 5467.3763,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 17.4982,
+      "udenforPotentialePct": 82.5018
+    },
+    "0510": {
+      "kommuneNavn": "Haderslev",
+      "markerTotalHa": 56512.3264,
+      "hoejtPotentialeHa": 4086.9855,
+      "lavtPotentialeHa": 6509.8297,
+      "udenforPotentialeHa": 45915.5112,
+      "hoejtPotentialePct": 7.232,
+      "lavtPotentialePct": 11.5193,
+      "udenforPotentialePct": 81.2487
+    },
+    "0530": {
+      "kommuneNavn": "Billund",
+      "markerTotalHa": 31493.2532,
+      "hoejtPotentialeHa": 11865.8058,
+      "lavtPotentialeHa": 2963.372,
+      "udenforPotentialeHa": 16664.0754,
+      "hoejtPotentialePct": 37.6773,
+      "lavtPotentialePct": 9.4095,
+      "udenforPotentialePct": 52.9132
+    },
+    "0540": {
+      "kommuneNavn": "Sønderborg",
+      "markerTotalHa": 33520.92,
+      "hoejtPotentialeHa": 442.8803,
+      "lavtPotentialeHa": 3286.1824,
+      "udenforPotentialeHa": 29791.8573,
+      "hoejtPotentialePct": 1.3212,
+      "lavtPotentialePct": 9.8034,
+      "udenforPotentialePct": 88.8754
+    },
+    "0550": {
+      "kommuneNavn": "Tønder",
+      "markerTotalHa": 89153.4901,
+      "hoejtPotentialeHa": 8418.9272,
+      "lavtPotentialeHa": 20046.397,
+      "udenforPotentialeHa": 60688.1659,
+      "hoejtPotentialePct": 9.4432,
+      "lavtPotentialePct": 22.4853,
+      "udenforPotentialePct": 68.0716
+    },
+    "0561": {
+      "kommuneNavn": "Esbjerg",
+      "markerTotalHa": 51332.961,
+      "hoejtPotentialeHa": 2100.2271,
+      "lavtPotentialeHa": 10143.4448,
+      "udenforPotentialeHa": 39089.2891,
+      "hoejtPotentialePct": 4.0914,
+      "lavtPotentialePct": 19.7601,
+      "udenforPotentialePct": 76.1485
+    },
+    "0563": {
+      "kommuneNavn": "Fanø",
+      "markerTotalHa": 1880.6648,
+      "hoejtPotentialeHa": 1877.6134,
+      "lavtPotentialeHa": 3.0436,
+      "udenforPotentialeHa": 0.0078,
+      "hoejtPotentialePct": 99.8377,
+      "lavtPotentialePct": 0.1618,
+      "udenforPotentialePct": 0.0004
+    },
+    "0573": {
+      "kommuneNavn": "Varde",
+      "markerTotalHa": 75662.8332,
+      "hoejtPotentialeHa": 16068.0113,
+      "lavtPotentialeHa": 9018.1698,
+      "udenforPotentialeHa": 50576.6521,
+      "hoejtPotentialePct": 21.2363,
+      "lavtPotentialePct": 11.9189,
+      "udenforPotentialePct": 66.8448
+    },
+    "0575": {
+      "kommuneNavn": "Vejen",
+      "markerTotalHa": 56423.9711,
+      "hoejtPotentialeHa": 4853.5363,
+      "lavtPotentialeHa": 6646.7476,
+      "udenforPotentialeHa": 44923.6872,
+      "hoejtPotentialePct": 8.6019,
+      "lavtPotentialePct": 11.78,
+      "udenforPotentialePct": 79.6181
+    },
+    "0580": {
+      "kommuneNavn": "Aabenraa",
+      "markerTotalHa": 63906.6574,
+      "hoejtPotentialeHa": 6213.0754,
+      "lavtPotentialeHa": 11255.5136,
+      "udenforPotentialeHa": 46438.0684,
+      "hoejtPotentialePct": 9.7221,
+      "lavtPotentialePct": 17.6124,
+      "udenforPotentialePct": 72.6655
+    },
+    "0607": {
+      "kommuneNavn": "Fredericia",
+      "markerTotalHa": 5623.6614,
+      "hoejtPotentialeHa": 1186.2015,
+      "lavtPotentialeHa": 272.8691,
+      "udenforPotentialeHa": 4164.5908,
+      "hoejtPotentialePct": 21.093,
+      "lavtPotentialePct": 4.8522,
+      "udenforPotentialePct": 74.0548
+    },
+    "0615": {
+      "kommuneNavn": "Horsens",
+      "markerTotalHa": 30059.8448,
+      "hoejtPotentialeHa": 4164.8944,
+      "lavtPotentialeHa": 2539.2769,
+      "udenforPotentialeHa": 23355.6735,
+      "hoejtPotentialePct": 13.8553,
+      "lavtPotentialePct": 8.4474,
+      "udenforPotentialePct": 77.6973
+    },
+    "0621": {
+      "kommuneNavn": "Kolding",
+      "markerTotalHa": 38165.2785,
+      "hoejtPotentialeHa": 2971.6789,
+      "lavtPotentialeHa": 3702.3944,
+      "udenforPotentialeHa": 31491.2052,
+      "hoejtPotentialePct": 7.7863,
+      "lavtPotentialePct": 9.7009,
+      "udenforPotentialePct": 82.5127
+    },
+    "0630": {
+      "kommuneNavn": "Vejle",
+      "markerTotalHa": 61109.8254,
+      "hoejtPotentialeHa": 12515.0542,
+      "lavtPotentialeHa": 4774.1,
+      "udenforPotentialeHa": 43820.6712,
+      "hoejtPotentialePct": 20.4796,
+      "lavtPotentialePct": 7.8123,
+      "udenforPotentialePct": 71.7081
+    },
+    "0657": {
+      "kommuneNavn": "Herning",
+      "markerTotalHa": 80512.2578,
+      "hoejtPotentialeHa": 22796.0148,
+      "lavtPotentialeHa": 8461.5875,
+      "udenforPotentialeHa": 49254.6555,
+      "hoejtPotentialePct": 28.3137,
+      "lavtPotentialePct": 10.5097,
+      "udenforPotentialePct": 61.1766
+    },
+    "0661": {
+      "kommuneNavn": "Holstebro",
+      "markerTotalHa": 47625.2254,
+      "hoejtPotentialeHa": 9444.0697,
+      "lavtPotentialeHa": 6922.4926,
+      "udenforPotentialeHa": 31258.6631,
+      "hoejtPotentialePct": 19.83,
+      "lavtPotentialePct": 14.5353,
+      "udenforPotentialePct": 65.6347
+    },
+    "0665": {
+      "kommuneNavn": "Lemvig",
+      "markerTotalHa": 33096.6607,
+      "hoejtPotentialeHa": 4791.8474,
+      "lavtPotentialeHa": 2828.4095,
+      "udenforPotentialeHa": 25476.4038,
+      "hoejtPotentialePct": 14.4783,
+      "lavtPotentialePct": 8.5459,
+      "udenforPotentialePct": 76.9758
+    },
+    "0671": {
+      "kommuneNavn": "Struer",
+      "markerTotalHa": 18057.0247,
+      "hoejtPotentialeHa": 940.7434,
+      "lavtPotentialeHa": 1576.8725,
+      "udenforPotentialeHa": 15539.4088,
+      "hoejtPotentialePct": 5.2098,
+      "lavtPotentialePct": 8.7327,
+      "udenforPotentialePct": 86.0574
+    },
+    "0706": {
+      "kommuneNavn": "Syddjurs",
+      "markerTotalHa": 38942.0819,
+      "hoejtPotentialeHa": 7455.8627,
+      "lavtPotentialeHa": 6621.1835,
+      "udenforPotentialeHa": 24865.0357,
+      "hoejtPotentialePct": 19.146,
+      "lavtPotentialePct": 17.0026,
+      "udenforPotentialePct": 63.8513
+    },
+    "0707": {
+      "kommuneNavn": "Norddjurs",
+      "markerTotalHa": 43801.6276,
+      "hoejtPotentialeHa": 5259.431,
+      "lavtPotentialeHa": 5448.2137,
+      "udenforPotentialeHa": 33093.9829,
+      "hoejtPotentialePct": 12.0074,
+      "lavtPotentialePct": 12.4384,
+      "udenforPotentialePct": 75.5542
+    },
+    "0710": {
+      "kommuneNavn": "Favrskov",
+      "markerTotalHa": 35260.1741,
+      "hoejtPotentialeHa": 3865.3834,
+      "lavtPotentialeHa": 3189.9662,
+      "udenforPotentialeHa": 28204.8245,
+      "hoejtPotentialePct": 10.9625,
+      "lavtPotentialePct": 9.0469,
+      "udenforPotentialePct": 79.9906
+    },
+    "0727": {
+      "kommuneNavn": "Odder",
+      "markerTotalHa": 15572.2427,
+      "hoejtPotentialeHa": 270.021,
+      "lavtPotentialeHa": 1385.5878,
+      "udenforPotentialeHa": 13916.6339,
+      "hoejtPotentialePct": 1.734,
+      "lavtPotentialePct": 8.8978,
+      "udenforPotentialePct": 89.3682
+    },
+    "0730": {
+      "kommuneNavn": "Randers",
+      "markerTotalHa": 51575.9085,
+      "hoejtPotentialeHa": 3816.2389,
+      "lavtPotentialeHa": 6479.2963,
+      "udenforPotentialeHa": 41280.3733,
+      "hoejtPotentialePct": 7.3993,
+      "lavtPotentialePct": 12.5626,
+      "udenforPotentialePct": 80.0381
+    },
+    "0740": {
+      "kommuneNavn": "Silkeborg",
+      "markerTotalHa": 40027.0688,
+      "hoejtPotentialeHa": 12589.9715,
+      "lavtPotentialeHa": 3450.0691,
+      "udenforPotentialeHa": 23987.0282,
+      "hoejtPotentialePct": 31.4536,
+      "lavtPotentialePct": 8.6193,
+      "udenforPotentialePct": 59.927
+    },
+    "0741": {
+      "kommuneNavn": "Samsø",
+      "markerTotalHa": 8206.5037,
+      "hoejtPotentialeHa": 951.3053,
+      "lavtPotentialeHa": 520.5286,
+      "udenforPotentialeHa": 6734.6698,
+      "hoejtPotentialePct": 11.5921,
+      "lavtPotentialePct": 6.3429,
+      "udenforPotentialePct": 82.065
+    },
+    "0746": {
+      "kommuneNavn": "Skanderborg",
+      "markerTotalHa": 23208.3155,
+      "hoejtPotentialeHa": 4577.0191,
+      "lavtPotentialeHa": 1957.4763,
+      "udenforPotentialeHa": 16673.8201,
+      "hoejtPotentialePct": 19.7215,
+      "lavtPotentialePct": 8.4344,
+      "udenforPotentialePct": 71.8442
+    },
+    "0751": {
+      "kommuneNavn": "Aarhus",
+      "markerTotalHa": 21980.7696,
+      "hoejtPotentialeHa": 780.3822,
+      "lavtPotentialeHa": 2819.5644,
+      "udenforPotentialeHa": 18380.823,
+      "hoejtPotentialePct": 3.5503,
+      "lavtPotentialePct": 12.8274,
+      "udenforPotentialePct": 83.6223
+    },
+    "0756": {
+      "kommuneNavn": "Ikast-Brande",
+      "markerTotalHa": 39806.5372,
+      "hoejtPotentialeHa": 10499.2918,
+      "lavtPotentialeHa": 4671.927,
+      "udenforPotentialeHa": 24635.3184,
+      "hoejtPotentialePct": 26.3758,
+      "lavtPotentialePct": 11.7366,
+      "udenforPotentialePct": 61.8876
+    },
+    "0760": {
+      "kommuneNavn": "Ringkøbing-Skjern",
+      "markerTotalHa": 94777.1116,
+      "hoejtPotentialeHa": 16635.6984,
+      "lavtPotentialeHa": 11458.9308,
+      "udenforPotentialeHa": 66682.4824,
+      "hoejtPotentialePct": 17.5524,
+      "lavtPotentialePct": 12.0904,
+      "udenforPotentialePct": 70.3572
+    },
+    "0766": {
+      "kommuneNavn": "Hedensted",
+      "markerTotalHa": 36543.7677,
+      "hoejtPotentialeHa": 2869.3235,
+      "lavtPotentialeHa": 2244.5218,
+      "udenforPotentialeHa": 31429.9224,
+      "hoejtPotentialePct": 7.8517,
+      "lavtPotentialePct": 6.142,
+      "udenforPotentialePct": 86.0062
+    },
+    "0773": {
+      "kommuneNavn": "Morsø",
+      "markerTotalHa": 28012.792,
+      "hoejtPotentialeHa": 0.0,
+      "lavtPotentialeHa": 3554.5779,
+      "udenforPotentialeHa": 24458.2141,
+      "hoejtPotentialePct": 0.0,
+      "lavtPotentialePct": 12.6891,
+      "udenforPotentialePct": 87.3109
+    },
+    "0779": {
+      "kommuneNavn": "Skive",
+      "markerTotalHa": 48307.5376,
+      "hoejtPotentialeHa": 3091.8202,
+      "lavtPotentialeHa": 6606.7638,
+      "udenforPotentialeHa": 38608.9536,
+      "hoejtPotentialePct": 6.4003,
+      "lavtPotentialePct": 13.6765,
+      "udenforPotentialePct": 79.9232
+    },
+    "0787": {
+      "kommuneNavn": "Thisted",
+      "markerTotalHa": 57987.8325,
+      "hoejtPotentialeHa": 13240.9571,
+      "lavtPotentialeHa": 5838.7507,
+      "udenforPotentialeHa": 38908.1247,
+      "hoejtPotentialePct": 22.834,
+      "lavtPotentialePct": 10.0689,
+      "udenforPotentialePct": 67.097
+    },
+    "0791": {
+      "kommuneNavn": "Viborg",
+      "markerTotalHa": 85673.3359,
+      "hoejtPotentialeHa": 20201.1634,
+      "lavtPotentialeHa": 10255.6399,
+      "udenforPotentialeHa": 55216.5326,
+      "hoejtPotentialePct": 23.5793,
+      "lavtPotentialePct": 11.9706,
+      "udenforPotentialePct": 64.4501
+    },
+    "0810": {
+      "kommuneNavn": "Brønderslev",
+      "markerTotalHa": 45216.8156,
+      "hoejtPotentialeHa": 2867.3249,
+      "lavtPotentialeHa": 11210.2083,
+      "udenforPotentialeHa": 31139.2824,
+      "hoejtPotentialePct": 6.3413,
+      "lavtPotentialePct": 24.7921,
+      "udenforPotentialePct": 68.8666
+    },
+    "0813": {
+      "kommuneNavn": "Frederikshavn",
+      "markerTotalHa": 34048.469,
+      "hoejtPotentialeHa": 10029.5043,
+      "lavtPotentialeHa": 4105.5078,
+      "udenforPotentialeHa": 19913.4569,
+      "hoejtPotentialePct": 29.4566,
+      "lavtPotentialePct": 12.0578,
+      "udenforPotentialePct": 58.4856
+    },
+    "0820": {
+      "kommuneNavn": "Vesthimmerlands",
+      "markerTotalHa": 56220.5093,
+      "hoejtPotentialeHa": 6235.3315,
+      "lavtPotentialeHa": 9267.5837,
+      "udenforPotentialeHa": 40717.5941,
+      "hoejtPotentialePct": 11.0908,
+      "lavtPotentialePct": 16.4843,
+      "udenforPotentialePct": 72.4248
+    },
+    "0825": {
+      "kommuneNavn": "Læsø",
+      "markerTotalHa": 5525.7485,
+      "hoejtPotentialeHa": 4197.815,
+      "lavtPotentialeHa": 703.988,
+      "udenforPotentialeHa": 623.9455,
+      "hoejtPotentialePct": 75.9683,
+      "lavtPotentialePct": 12.7401,
+      "udenforPotentialePct": 11.2916
+    },
+    "0840": {
+      "kommuneNavn": "Rebild",
+      "markerTotalHa": 44283.6664,
+      "hoejtPotentialeHa": 8423.7339,
+      "lavtPotentialeHa": 6051.8873,
+      "udenforPotentialeHa": 29808.0452,
+      "hoejtPotentialePct": 19.0222,
+      "lavtPotentialePct": 13.6662,
+      "udenforPotentialePct": 67.3116
+    },
+    "0846": {
+      "kommuneNavn": "Mariagerfjord",
+      "markerTotalHa": 45467.5377,
+      "hoejtPotentialeHa": 10463.679,
+      "lavtPotentialeHa": 3625.3884,
+      "udenforPotentialeHa": 31378.4703,
+      "hoejtPotentialePct": 23.0135,
+      "lavtPotentialePct": 7.9736,
+      "udenforPotentialePct": 69.0129
+    },
+    "0849": {
+      "kommuneNavn": "Jammerbugt",
+      "markerTotalHa": 52885.2528,
+      "hoejtPotentialeHa": 9933.4016,
+      "lavtPotentialeHa": 6385.5152,
+      "udenforPotentialeHa": 36566.336,
+      "hoejtPotentialePct": 18.7829,
+      "lavtPotentialePct": 12.0743,
+      "udenforPotentialePct": 69.1428
+    },
+    "0851": {
+      "kommuneNavn": "Aalborg",
+      "markerTotalHa": 69847.1716,
+      "hoejtPotentialeHa": 8590.348,
+      "lavtPotentialeHa": 15150.6452,
+      "udenforPotentialeHa": 46106.1784,
+      "hoejtPotentialePct": 12.2988,
+      "lavtPotentialePct": 21.6911,
+      "udenforPotentialePct": 66.0101
+    },
+    "0860": {
+      "kommuneNavn": "Hjørring",
+      "markerTotalHa": 61501.0513,
+      "hoejtPotentialeHa": 8600.2171,
+      "lavtPotentialeHa": 9397.6477,
+      "udenforPotentialeHa": 43503.1865,
+      "hoejtPotentialePct": 13.9839,
+      "lavtPotentialePct": 15.2805,
+      "udenforPotentialePct": 70.7357
+    }
+  }
+}

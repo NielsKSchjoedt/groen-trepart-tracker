@@ -22,12 +22,12 @@ function buildIssueUrl(): string {
 }
 
 /**
- * Floating action button that lives on the left edge of the viewport.
+ * Floating action button that lives near the lower-left viewport corner.
  * Clicking opens a small popover with an invitation to report bugs or
  * suggest improvements, linking to GitHub Issues with the current URL
  * pre-filled in the issue body.
  *
- * On mobile the button is positioned at the bottom-left and is smaller.
+ * Keeping it low avoids the map's left-side zoom controls on desktop.
  * The popover auto-dismisses when clicking outside.
  *
  * @example
@@ -38,16 +38,16 @@ export function BugReportFab() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed left-0 bottom-6 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-[1050]">
+    <div className="fixed left-3 bottom-4 z-[1050]">
       {/* Trigger tab */}
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Rapportér fejl eller forslag"
         aria-expanded={open}
         className={[
-          'flex items-center gap-1.5 rounded-r-lg px-2.5 py-2 md:py-3 text-xs font-medium shadow-lg transition-all duration-200 cursor-pointer',
-          'bg-foreground text-background hover:pr-4',
-          open ? 'pr-4' : '',
+          'flex items-center gap-1.5 rounded-full px-2.5 py-2 text-xs font-medium shadow-lg transition-all duration-200 cursor-pointer',
+          'bg-foreground text-background hover:px-3.5',
+          open ? 'px-3.5' : '',
         ].join(' ')}
       >
         <Bug className="w-3.5 h-3.5 flex-shrink-0" />
@@ -65,7 +65,7 @@ export function BugReportFab() {
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <div className="absolute left-0 bottom-full md:bottom-auto md:top-0 mb-2 md:mb-0 md:ml-0 md:left-full md:ml-2 w-72 rounded-xl border border-border bg-background shadow-xl p-4 animate-in fade-in slide-in-from-left-2 duration-200">
+          <div className="absolute left-0 bottom-full mb-2 w-72 rounded-xl border border-border bg-background shadow-xl p-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <div className="flex items-start justify-between mb-3">
               <p className="text-sm font-semibold text-foreground">Fandt du en fejl?</p>
               <button

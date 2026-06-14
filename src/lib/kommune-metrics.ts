@@ -1,5 +1,6 @@
 import type { SeriesColor } from './supplement-colors';
-import { KSF_COLOR_SKOV, NST_COLOR, SECTION3_COLOR, NATURA2000_COLOR } from './supplement-colors';
+import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR, SECTION3_COLOR, NATURA2000_COLOR } from './supplement-colors';
+import type { KommuneMetrics } from './types';
 
 /**
  * Metric identifiers for the municipality choropleth map and table.
@@ -34,14 +35,12 @@ export type KommunePhase = 'sketch' | 'preliminary' | 'approved' | 'established'
 export const KOMMUNE_PHASES: KommunePhase[] = ['sketch', 'preliminary', 'approved', 'established'];
 
 /**
- * Default phase selection — formal phases only (excludes sketch).
+ * Default phase selection — physically established (anlagt) only.
  *
- * Sketches are early-stage drafts without binding commitments from
- * authorities. The formal phases (preliminary / approved / established)
- * represent real government-backed investment and are more meaningful
- * as a default view.
+ * Users can expand the phase filter to include forundersøgelse and godkendt
+ * (pipeline view). Sketches remain opt-in.
  */
-export const DEFAULT_PHASES = new Set<KommunePhase>(['preliminary', 'approved', 'established']);
+export const DEFAULT_PHASES = new Set<KommunePhase>(['established']);
 
 // ---------------------------------------------------------------------------
 // Supplementary data source toggles
@@ -55,6 +54,7 @@ export type SupplementSource = 'ksf' | 'nst' | 'section3' | 'natura2000';
 
 /** Which supplement sources are relevant for each metric. */
 export const METRIC_SUPPLEMENTS: Partial<Record<KommuneMetric, SupplementSource[]>> = {
+  extraction: ['ksf'],
   afforestation: ['ksf', 'nst'],
   nature: ['section3', 'natura2000'],
 };
@@ -104,6 +104,29 @@ export const SUPPLEMENT_DEFS: Record<SupplementSource, SupplementDef> = {
     color: NATURA2000_COLOR,
   },
 };
+
+/** Metric-aware label, description, colour and data field for supplement toggles. */
+export function getSupplementPresentation(
+  id: SupplementSource,
+  metric: KommuneMetric,
+): Pick<SupplementDef, 'label' | 'description' | 'color'> & { field: string } {
+  if (id === 'ksf' && metric === 'extraction') {
+    return {
+      label: 'Klimaskovfonden (lavbund)',
+      description:
+        'Frivillige lavbundsprojekter administreret uden for MARS. Har ikke projektfasedata — inkluderes som samlet areal.',
+      field: 'extractionKsfHa',
+      color: KSF_COLOR_LAVBUND,
+    };
+  }
+  const def = SUPPLEMENT_DEFS[id];
+  return {
+    label: def.label,
+    description: def.description,
+    field: def.field,
+    color: def.color,
+  };
+}
 
 /**
  * Phase-metric shape for a single phase bucket.
@@ -179,4 +202,49 @@ export function filterByPhases(
     }
   }
   return { nitrogenT, extractionHa, afforestationMarsHa, projectCount };
+}
+
+/**
+ * Apply phase filter and optional supplement sources to kommune metrics
+ * (same logic as the choropleth on `/kommuner`).
+ */
+export function buildFilteredKommuner(
+  kommuner: Array<
+    KommuneMetrics & {
+      afforestationKsfHa?: number;
+      afforestationNstHa?: number;
+      extractionKsfHa?: number;
+      section3Ha?: number;
+      natura2000Ha?: number;
+    }
+  >,
+  selectedPhases: Set<KommunePhase>,
+  activeSupplements: Set<SupplementSource>,
+): KommuneMetrics[] {
+  return kommuner.map((km) => {
+    const filtered = filterByPhases(km, selectedPhases);
+
+    const afforestationTotal =
+      filtered.afforestationMarsHa
+      + (activeSupplements.has('ksf') ? (km.afforestationKsfHa ?? 0) : 0)
+      + (activeSupplements.has('nst') ? (km.afforestationNstHa ?? 0) : 0);
+
+    const extractionTotal =
+      filtered.extractionHa
+      + (activeSupplements.has('ksf') ? (km.extractionKsfHa ?? 0) : 0);
+
+    const natureTotal =
+      (activeSupplements.has('section3') ? (km.section3Ha ?? 0) : 0)
+      + (activeSupplements.has('natura2000') ? (km.natura2000Ha ?? 0) : 0);
+
+    return {
+      ...km,
+      nitrogenT: filtered.nitrogenT,
+      extractionHa: Math.round(extractionTotal * 10) / 10,
+      afforestationMarsHa: Math.round(filtered.afforestationMarsHa * 10) / 10,
+      afforestationTotalHa: Math.round(afforestationTotal * 10) / 10,
+      naturePotentialHa: Math.round(natureTotal * 10) / 10,
+      projectCount: filtered.projectCount,
+    };
+  });
 }

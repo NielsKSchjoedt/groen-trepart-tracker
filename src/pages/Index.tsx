@@ -1,24 +1,38 @@
 import { useEffect, useState, useMemo, useCallback, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
-import { loadDashboardData, loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
+import {
+  loadDashboardData,
+  ensureDashboardProjectDetails,
+  loadKlimaskovfondenProjects,
+  loadNaturstyrelsenSkovProjects,
+} from '@/lib/data';
 import type { DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { PillarContext, getPillarConfig, PILLAR_CONFIGS } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import { slugToPillar, pillarToSlug } from '@/lib/slugs';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
-import { PillarCards } from '@/components/PillarCards';
-import { ProjectFunnel } from '@/components/ProjectFunnel';
-import { InitiativeTypeGauge } from '@/components/InitiativeTypeGauge';
+import { OekonomiOverblik } from '@/components/oekonomi/OekonomiOverblik';
+import { OekonomiDelmaal } from '@/components/oekonomi/OekonomiDelmaal';
+import { OekonomiFootnote } from '@/components/oekonomi/OekonomiFootnote';
+import { ChapterSection } from '@/components/ChapterSection';
+import {
+  getGeografiIntro,
+  OEKONOMI_CHAPTER,
+  OEKONOMI_INTRO,
+  PROJEKTER_CHAPTER,
+  FREMSKRIVNING_CHAPTER,
+  GEOGRAFI_CHAPTER,
+  CO2DATA_CHAPTER,
+} from '@/lib/chapters';
+import { ProjectsSection } from '@/components/ProjectsSection';
 import { DataSourceSection } from '@/components/DataSourceSection';
 import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
 import { StickyNav } from '@/components/StickyNav';
 import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
-import { ProjectActivityChart } from '@/components/ProjectActivityChart';
-import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR } from '@/lib/supplement-colors';
 
 // Heavy components lazy-loaded so they split into separate JS chunks.
 // Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
@@ -29,19 +43,19 @@ const DataTable   = lazy(() => import('@/components/DataTable').then((m) => ({ d
 /** Per-pillar meta descriptions for Google and social sharing. */
 const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
   nitrogen:
-    'Følg Danmarks kvælstofreduktion i vandmiljøet. Se fremskridt mod 12.776 ton N/år-målet (kollektive virkemidler) opdelt på kystvandoplande og vandoplande.',
+    'Kort og status over Danmarks kvælstofreduktion i vandmiljøet. Følg fremskridt mod 12.776 ton N/år-målet opdelt på kystvandoplande og vandoplande.',
   extraction:
-    'Følg udtaget af kulstofrige lavbundsjorde i Danmark. Se fremskridt mod 140.000 ha-målet opdelt på vandoplande.',
+    'Kort og status over udtagning af lavbundsjord i Danmark. Følg reetablering og udtagning af lavbundsarealer mod 140.000 ha-målet.',
   afforestation:
-    'Følg skovrejsningen i Danmark. Se fremskridt mod 250.000 ha ny skov inden 2045 opdelt på vandoplande.',
+    'Kort og status over skovrejsning i Danmark. Se fremskridt mod 250.000 ha ny skov inden 2045 opdelt på vandoplande.',
   co2:
-    'Følg Danmarks CO₂-udledning og fremskridt mod 70 % reduktion i 2030. Data fra KF25 (Klimastatus og -fremskrivning 2025).',
+    'Kort og status over Danmarks CO₂-udledning og fremskridt mod 70 % reduktion i 2030. Data fra KF25 (Klimastatus og -fremskrivning 2025).',
   nature:
-    'Følg beskyttet natur i Danmark. Se fremskridt mod 20 %-målet for beskyttet natur inden 2030 opdelt på vandoplande.',
+    'Kort og status over beskyttet natur i Danmark. Se fremskridt mod 20 %-målet for beskyttet natur inden 2030.',
 };
 
 const OVERVIEW_DESCRIPTION =
-  'Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale — kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og natur.';
+  'Kort og status over implementeringen af Danmarks Grønne Trepart-aftale — kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og natur.';
 
 const Index = () => {
   const { pillarSlug } = useParams<{ pillarSlug: string }>();
@@ -92,6 +106,7 @@ const Index = () => {
 
   useEffect(() => {
     loadDashboardData().then(setData);
+    ensureDashboardProjectDetails().then(setData);
     loadKlimaskovfondenProjects().then(setKsfProjects);
     loadNaturstyrelsenSkovProjects().then(setNstProjects);
   }, []);
@@ -155,87 +170,148 @@ const Index = () => {
         <StickyNav sentinelRef={heroSentinelRef} />
         <LastUpdatedBadge fetchedAt={data.fetchedAt} />
         <div className="max-w-6xl mx-auto">
-          <HeroSection data={data} />
-          {/* Sentinel: StickyNav watches this — slides in once hero scrolls out of view */}
-          <div ref={heroSentinelRef} />
+          <HeroSection data={data} heroSentinelRef={heroSentinelRef} />
           <ScrollPrompt />
-          <div id="oversigt">
-            <PillarCards data={data} />
-          </div>
 
-          {/* Overview prompt — only shown when no pillar is selected */}
+          {/* The "delmaal" chapter (de fem løfter) now lives inside HeroSection. */}
+
+          {/* Overview: short narrative — løfter → økonomi → prompt */}
           {!pillarSelected && (
-            <section className="w-full max-w-5xl mx-auto px-4 pb-20 pt-4">
-              <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border/70 py-12 px-6 bg-card/40 text-center">
-                <div className="w-10 h-10 rounded-full bg-muted border border-border/50 flex items-center justify-center">
-                  <ChevronUp className="w-5 h-5 text-muted-foreground" />
+            <>
+              <ChapterSection
+                id={OEKONOMI_CHAPTER.id}
+                eyebrow={OEKONOMI_CHAPTER.eyebrow}
+                question={OEKONOMI_CHAPTER.question}
+                intro={OEKONOMI_INTRO}
+              >
+                <OekonomiOverblik budget={data.national.budgetData} />
+                <OekonomiFootnote
+                  kilde={data.national.budgetData?._meta.kilde}
+                  opdateret={data.national.budgetData?._meta.opdateret}
+                />
+              </ChapterSection>
+
+              <section className="w-full max-w-5xl mx-auto px-4 pb-20 pt-6">
+                <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border/70 py-12 px-6 bg-card/40 text-center">
+                  <div className="w-10 h-10 rounded-full bg-muted border border-border/50 flex items-center justify-center">
+                    <ChevronUp className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <p className="text-lg font-semibold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
+                    Vælg et delmål for at dykke ned i detaljerne
+                  </p>
+                  <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
+                    Klik på et af de fem delmålskort ovenfor for at udforske projektpipeline, Danmarkskort, tabeller og fremskrivninger
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 mt-2">
+                    {PILLAR_CONFIGS.map((p) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setActivePillar(p.id)}
+                        className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 hover:shadow-sm cursor-pointer"
+                        style={{
+                          borderColor: p.accentColor + '50',
+                          color: p.accentColor,
+                          backgroundColor: p.accentColor + '10',
+                        }}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-lg font-semibold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-                  Vælg et delmål for at dykke ned i detaljerne
-                </p>
-                <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-                  Klik på et af de fem delmålskort ovenfor for at udforske projektpipeline, Danmarkskort, tabeller og fremskrivninger
-                </p>
-                <div className="flex flex-wrap justify-center gap-2 mt-2">
-                  {PILLAR_CONFIGS.map((p) => (
-                    <button
-                      key={p.id}
-                      onClick={() => setActivePillar(p.id)}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 hover:shadow-sm cursor-pointer"
-                      style={{
-                        borderColor: p.accentColor + '50',
-                        color: p.accentColor,
-                        backgroundColor: p.accentColor + '10',
-                      }}
-                    >
-                      {p.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </section>
+              </section>
+            </>
           )}
 
-          {/* Detail sections — only rendered once a pillar is selected */}
+          {/* Pillar narrative — chapters appear once a delmål is selected */}
           {pillarSelected && (
             <>
-              {activePillar !== 'co2' && <ProjectFunnel data={data} />}
+              {/* Chapter: Hvad gør vi konkret? — forstå projekterne */}
               {activePillar !== 'co2' && (
-                <section className="w-full max-w-4xl mx-auto px-4 pb-2">
-                  <ProjectActivityChart
-                    projectDetails={pillarProjects}
-                    ksfProjects={pillarKsfProjects}
-                    nstProjects={pillarNstProjects}
-                    ksfColor={activePillar === 'afforestation' ? KSF_COLOR_SKOV : KSF_COLOR_LAVBUND}
-                    nstColor={NST_COLOR}
-                    height={220}
-                    title="Kumulativ udvikling — alle projektkilder"
+                <ChapterSection
+                  id={PROJEKTER_CHAPTER.id}
+                  eyebrow={PROJEKTER_CHAPTER.eyebrow}
+                  question={PROJEKTER_CHAPTER.question}
+                  accentColor={config.accentColor}
+                  intro="De udfordringer aftalen skal løse, bliver til konkrete projekter — vådområder, skovrejsning og lavbundsudtag — der styres gennem en fast proces. Her kan du følge hvor mange projekter der er, hvor store de er, og hvilken fase de er nået til: fra første skitse til færdigt anlæg."
+                >
+                  <ProjectsSection
+                    data={data}
+                    activePillar={activePillar as Exclude<PillarId, 'co2'>}
+                    pillarProjects={pillarProjects}
+                    pillarKsfProjects={pillarKsfProjects}
+                    pillarNstProjects={pillarNstProjects}
                   />
-                </section>
+                </ChapterSection>
               )}
-              {activePillar !== 'co2' && <InitiativeTypeGauge data={data} />}
-              <ScenarioBuilderSection data={data} />
+
+              {/* Chapter: CO₂-data (co2 pillar only) */}
               {activePillar === 'co2' && (
-                <section id="co2" className="w-full px-4 py-6">
-                  <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4" />}>
-                    <CO2Section />
-                  </Suspense>
-                </section>
+                <ChapterSection
+                  id={CO2DATA_CHAPTER.id}
+                  eyebrow={CO2DATA_CHAPTER.eyebrow}
+                  question={CO2DATA_CHAPTER.question}
+                  accentColor={config.accentColor}
+                >
+                  <section className="w-full px-4 py-2">
+                    <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4" />}>
+                      <CO2Section />
+                    </Suspense>
+                  </section>
+                  <ScenarioBuilderSection data={data} />
+                </ChapterSection>
               )}
+
+              {/* Chapter: Hvor i Danmark sker det? — kort + tabeller */}
               {activePillar !== 'co2' && (
-                <div id="kort">
-                  <Suspense fallback={<div className="h-[580px] animate-pulse bg-muted/30 rounded-2xl mx-4 my-10" />}>
-                    <DenmarkMap data={data} />
-                  </Suspense>
-                </div>
+                <ChapterSection
+                  id={GEOGRAFI_CHAPTER.id}
+                  eyebrow={GEOGRAFI_CHAPTER.eyebrow}
+                  question={GEOGRAFI_CHAPTER.question}
+                  accentColor={config.accentColor}
+                  intro={getGeografiIntro(activePillar)}
+                >
+                  <div id="kort">
+                    <Suspense fallback={<div className="h-[580px] animate-pulse bg-muted/30 rounded-2xl mx-4 my-10" />}>
+                      <DenmarkMap data={data} />
+                    </Suspense>
+                  </div>
+                  <div id="tabeller">
+                    <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
+                      <DataTable plans={data.plans} data={data} />
+                    </Suspense>
+                  </div>
+                </ChapterSection>
               )}
+
+              {/* Chapter: Når vi det i tide? — fremskrivning */}
               {activePillar !== 'co2' && (
-                <div id="tabeller">
-                  <Suspense fallback={<div className="h-64 animate-pulse bg-muted/30 rounded-xl mx-4 my-10" />}>
-                    <DataTable plans={data.plans} data={data} />
-                  </Suspense>
-                </div>
+                <ChapterSection
+                  id={FREMSKRIVNING_CHAPTER.id}
+                  eyebrow={FREMSKRIVNING_CHAPTER.eyebrow}
+                  question={FREMSKRIVNING_CHAPTER.question}
+                  accentColor={config.accentColor}
+                >
+                  <ScenarioBuilderSection data={data} />
+                </ChapterSection>
               )}
+
+              {/* Chapter: Har vi råd til det? — budget */}
+              <ChapterSection
+                id={OEKONOMI_CHAPTER.id}
+                eyebrow={OEKONOMI_CHAPTER.eyebrow}
+                question={OEKONOMI_CHAPTER.question}
+                accentColor={config.accentColor}
+                intro={`${OEKONOMI_INTRO} Nedenfor kan du også se finansiering for det delmål, du har valgt.`}
+              >
+                <OekonomiOverblik budget={data.national.budgetData} />
+                <OekonomiDelmaal budget={data.national.budgetData} />
+                <OekonomiFootnote
+                  kilde={data.national.budgetData?._meta.kilde}
+                  opdateret={data.national.budgetData?._meta.opdateret}
+                />
+              </ChapterSection>
+
               <DataSourceSection fetchedAt={data.fetchedAt} />
             </>
           )}

@@ -10,7 +10,7 @@ interface MetricOption {
 
 const METRIC_OPTIONS: MetricOption[] = [
   { id: 'nitrogen',      label: 'Kvælstof',         color: '#0d9488' },
-  { id: 'extraction',    label: 'Udtagning',         color: '#a16207' },
+  { id: 'extraction',    label: 'Lavbund',           color: '#a16207' },
   { id: 'afforestation', label: 'Skovrejsning',      color: '#15803d' },
   { id: 'nature',        label: 'Beskyttet natur',   color: '#16a34a' },
   { id: 'co2',           label: 'CO₂',               color: '#64748b' },

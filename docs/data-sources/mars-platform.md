@@ -1,4 +1,4 @@
-# MARS Platform (Miljø- og ArealRegistrerings Systemet)
+# MARS Platform (Multifunktionel Arealregistrering)
 
 **The single most critical data source for the tracker.** Built by SGAV in collaboration with Danmarks Miljøportal, launched January 29, 2025.
 
@@ -38,16 +38,14 @@ For each project/sketch project, MARS calculates:
 
 Nature projects tracked separately (no nitrogen contribution).
 
-## Access limitations (THE CRITICAL GAP)
+## Data access (public REST API)
 
-**No public REST API exists.** This is the single largest bottleneck for an independent tracker.
+**Update (March 2026): a public, unauthenticated MARS REST JSON API was found** and is now the tracker's primary data source — what was previously documented here as "THE critical gap" is resolved. The status module is backed by JSON endpoints returning projects, plans, catchment aggregations and master data; `etl/fetch_mars.py` pulls them daily, and `etl/fetch_geometries.py` fetches full-resolution project polygons. See `docs/data-sources/investigation-results.md` and `docs/references/urls.md` for the concrete endpoints.
 
-Current options for data access:
-1. **Status module web views** — public, but no machine-readable export
-2. **CSV export from planning module** — requires authorized login
-3. **Shapefile export from planning module** — requires authorized login
-4. **PDF reports** — structured but not machine-readable
-5. **Web scraping** — technically possible but fragile (UI changes break scrapers)
+Still login-gated (not required by the tracker):
+1. **CSV / shapefile export from the planning module** — authorized login
+2. **MARS GeoServer** — authenticated session
+3. **Planning module** detail data — negotiated access with SGAV
 
 ## Version history / updates
 
@@ -62,13 +60,12 @@ SGAV publishes release notes for MARS updates:
 - 236 nitrogen wetlands, 188 lowland, 170 climate-lowland, 255 afforestation
 - Status tracked through phases: skitseprojekt → forundersøgelse → etablering → anlagt
 
-## Strategy for accessing MARS data
+## Working with the MARS API
 
-**Short term**: Semi-automated scraping of public status module views; periodic manual screenshots/data collection for critical metrics.
-
-**Medium term**: Request open data exports or API access from SGAV/Danmarks Miljøportal. Note: MARS is described as being under continuous expansion with new export capabilities.
-
-**Long term**: Advocate for public API (reference: james-langridge/mars-vista-api on GitHub may contain clues about API structure: https://github.com/james-langridge/mars-vista-api/blob/main/openapi.json)
+The public REST API (above) is the primary path and removed the need for scraping. Ongoing practice:
+- **Track MARS release notes** for new endpoints, fields or data layers that change what can be harvested (see updates URL below).
+- **Re-validate the endpoints** when MARS ships a major version — field names and phase states have changed across releases.
+- For data still behind login (planning-module CSV/shapefile), request open exports from SGAV / Danmarks Miljøportal as needed.
 
 ## Key URLs
 

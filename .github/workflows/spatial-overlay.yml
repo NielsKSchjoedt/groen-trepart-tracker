@@ -1,0 +1,172 @@
+name: Spatial Overlay Benchmarks
+
+on:
+  schedule:
+    # Monthly refresh: Markkort and biodiversity benchmarks change slowly.
+    - cron: '0 8 1 * *'
+  workflow_dispatch:
+
+jobs:
+  spatial:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip wheels
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: spatial-pip-v1-${{ runner.os }}-${{ hashFiles('etl/requirements-spatial.txt') }}
+          restore-keys: |
+            spatial-pip-v1-${{ runner.os }}-
+
+      - name: Install spatial Python dependencies
+        run: python3 -m pip install -r etl/requirements-spatial.txt
+
+      - name: Spatial overlay unit tests
+        run: python3 -m unittest test_spatial_overlay -v
+        working-directory: etl
+
+      - name: Restore Markkort 2026 kommune bbox cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            data/markkort/marker-2026
+            data/markkort/marker-2026-summary.json
+          key: marker-2026-v1-${{ github.run_id }}
+          restore-keys: |
+            marker-2026-v1-
+
+      - name: Restore spatial overlay cache
+        uses: actions/cache@v5
+        with:
+          path: data/spatial-overlays/cache
+          key: spatial-overlay-cache-v1-${{ github.run_id }}
+          restore-keys: |
+            spatial-overlay-cache-v1-
+
+      - name: Fetch DAWA municipality boundaries
+        run: python3 fetch_dawa.py
+        working-directory: etl
+
+      - name: Fetch Arealdata biodiversity layers
+        run: python3 fetch_arealdata_biodiversitet.py --full-dce
+        working-directory: etl
+
+      - name: Fetch Markkort 2026 per kommune
+        run: python3 fetch_marker2026.py --force
+        working-directory: etl
+
+      - name: Build kommune nature benchmarks
+        run: python3 build_kommune_benchmark.py
+        working-directory: etl
+
+      - name: Build kommune competition ranking
+        run: python3 build_kommune_ranking.py
+        working-directory: etl
+
+      - name: Build per-project nature overlap (kommune-attributed)
+        run: python3 build_project_nature_overlap.py
+        working-directory: etl
+
+      - name: Restore §3 per-kommune cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            data/section3/by-kommune
+            data/section3/by-kommune-summary.json
+          key: section3-by-kommune-v1-${{ github.run_id }}
+          restore-keys: |
+            section3-by-kommune-v1-
+
+      - name: Fetch §3 polygons per kommune
+        run: python3 fetch_section3_by_kommune.py
+        working-directory: etl
+
+      - name: Build simplified national §3 map layer
+        run: python3 build_section3_map.py
+        working-directory: etl
+
+      - name: Build kommune × opland overlap
+        run: python3 build_kommune_oplande.py
+        working-directory: etl
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- data/kommune-benchmark public/data/kommune-benchmark data/markkort/marker-2026-summary.json data/arealdata-biodiversitet/summary.json data/etl-log.json public/data/section3-simplified.geojson)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload spatial data for commit job
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: spatial-benchmark-data
+          path: |
+            data/kommune-benchmark
+            public/data/kommune-benchmark
+            data/markkort/marker-2026-summary.json
+            data/arealdata-biodiversitet/summary.json
+            data/etl-log.json
+            public/data/section3-simplified.geojson
+
+  commit:
+    needs: spatial
+    if: needs.spatial.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: spatial-benchmark-data
+          path: .
+
+      - name: Commit and push branch
+        run: |
+          git config user.name "Trepart Tracker Bot"
+          git config user.email "bot@trepart-tracker.dk"
+          git add data/kommune-benchmark public/data/kommune-benchmark data/markkort/marker-2026-summary.json data/arealdata-biodiversitet/summary.json data/etl-log.json public/data/section3-simplified.geojson
+          DATE=$(date -u '+%Y-%m-%d')
+          git commit -m "data: update spatial benchmarks ($DATE)"
+
+          BRANCH="bot/spatial-benchmark-$DATE-${{ github.run_number }}"
+          git push origin HEAD:"$BRANCH"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          echo "DATE=$DATE" >> $GITHUB_ENV
+
+      - name: Create PR
+        env:
+          GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+        run: |
+          gh pr create \
+            --title "data: update spatial benchmarks ($DATE)" \
+            --body "Automated monthly spatial overlay refresh for kommune nature benchmarks (run #${{ github.run_number }})." \
+            --base main \
+            --head "$BRANCH"
+
+      - name: Approve PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr review "$BRANCH" --approve
+
+      - name: Enable auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge "$BRANCH" --squash --auto --delete-branch

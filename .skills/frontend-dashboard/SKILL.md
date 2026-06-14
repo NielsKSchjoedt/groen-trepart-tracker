@@ -187,12 +187,14 @@ The dashboard includes subtle nature illustrations as decorative elements. These
 `hedgehog`, `frog`, `dragonfly`.
 
 ```tsx
-<div className="absolute right-0 bottom-4 opacity-[0.10] hidden lg:block">
+<div className="absolute right-0 bottom-4 opacity-[0.10] hidden lg:block pointer-events-none">
   <NatureWatermark animal="deer" size={130} className="scale-x-[-1]" />
 </div>
 ```
 
-These are purely decorative — keep opacity very low (0.07–0.10) and hide on smaller screens.
+These are purely decorative — keep opacity very low (0.07–0.10), hide on smaller screens,
+and always add `pointer-events-none` so the absolute overlays never intercept clicks or hovers
+on interactive content beneath them.
 
 ---
 

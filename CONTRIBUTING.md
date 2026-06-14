@@ -9,7 +9,7 @@ Tak fordi du vil bidrage! This project is open source and welcomes contributions
 Any pull request that affects the frontend — layout, styling, data display, map rendering, chart changes, copy/text updates, or anything else visible to users — **must include before and after screenshots**. No exceptions.
 
 This applies to:
-- Changes to `site/` files (HTML, CSS, JS)
+- Changes to `src/` files (React components, TypeScript, CSS)
 - Changes to data files that alter what the dashboard displays (e.g., `dashboard-data.json`, TopoJSON files)
 - Changes to ETL scripts that affect the shape or content of frontend data
 

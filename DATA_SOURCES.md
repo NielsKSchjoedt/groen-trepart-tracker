@@ -24,11 +24,57 @@ This page documents all data sources, their licenses, and the attribution requir
 | Naturstyrelsen Skov (WFS)    | Statslige skovrejsningsprojekter          | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
 | Klimaregnskabet / Energistyrelsen | Kommunefordelt CO₂-regnskab (API klar) | CC0-lignende (PSI-loven) | Ja (kildeangivelse)  |
 | TRANSFORM / KU+AU+SEGES      | Potentialekort: kvælstof, CO₂, natur (planlagt) | CC0-lignende       | Ja (kildeangivelse)  |
+| Arealdata (Miljøportal)     | Biodiversitets- og omlægningskort, DCE+KU+ WFS | CC0-lignende (PSI) | Ja (kildeangivelse)  |
+| FVM (geodata.fvm.dk)        | Markkort 2026: marker + Vand, natur & skov 2026 (WFS) | CC0-lignende (PSI) | Ja (kildeangivelse)  |
+| SGAV redaktionelt (sgav.dk/groen-trepart) | Officielle forklaringer, FAQ, aftaler, faktaark, deadlines | Offentlig myndighedstekst | Ja (kildeangivelse) |
+| Aftaletekster + Rammeaftale MGTP–KL (regeringen.dk, kl.dk) | Trepartsøkonomi: arealfond, jordfordeling, kommunal kapacitetsramme (461,8 mio.) | Offentlig myndighedstekst | Ja (kildeangivelse) |
 
 
 ---
 
 ## Detaljerede vilkår / Detailed Terms
+
+### 0. SGAV redaktionelt indhold (sgav.dk/groen-trepart)
+
+**Hvad vi henter**: Tekstindhold fra alle 31 redaktionelle undersider under Den Grønne Trepart (kvælstofregulering, arealomlægning, de 23 lokale treparter, MARS, omlægningsplaner, virkemidler, retentionskort, aftaler, faktaark, § 3, jordopkøb, FAQ) + seneste side af nyhedsarkivet. Gemt som markdown i `data/sgav-content/` med `index.json`.
+
+**Crawl-metode**: `mcp__workspace__web_fetch` for statiske sider; nyhedsarkivet (`/alle-nyheder`) er JS-renderet og kræver browser-rendering. Snapshot: 31. maj 2026.
+
+**Licens**: Offentligt tilgængelig myndighedstekst fra Styrelsen for Grøn Arealomlægning og Vandmiljø.
+
+**Attribution**: "Kilde: Styrelsen for Grøn Arealomlægning og Vandmiljø (sgav.dk)"
+
+**Bemærk**: Dette er den autoritative, officielle forklaring på selve de indsatser trackeren måler (deadlines, satser, kategorisering af oplande, trappemodel, hensigtserklæringer). Bør gen-crawles periodisk, da deadlines og satser opdateres løbende.
+
+---
+
+### 0b. Trepartsøkonomi — aftaletekster + Rammeaftale MGTP–KL
+
+**Hvad vi henter**: Den autoritative finansieringsmodel for Den Grønne Trepart — to
+adskilte pengestrømme: (A) projektfinansiering via tilskudsordninger (Danmarks
+Grønne Arealfond ≥40 mia., samlet ramme ~43 mia., Novo 10 mia., jordfordeling ~740
+mio.) og (B) kommunal administrativ kapacitet (461,8 mio. kr. 2025–2032, fordelt i
+fire bloktilskudspuljer). Plus det dokumenterede drift-/plejehul (permanent drift
+først *drøftet* efter 2030).
+
+**Kilder**:
+- Rammeaftale MGTP–KL (13.12.2024) — kommunal økonomi, tabel 1: [kl.dk](https://www.kl.dk/media/q4sl0qeo/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf)
+- Aftale om et Grønt Danmark (24.6.2024): [regeringen.dk](https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf)
+- Aftale om Implementering af et Grønt Danmark: [regeringen.dk](https://regeringen.dk/media/raehl3jj/aftale-om-implementering-af-et-groent-danmark.pdf)
+- KL statusrapport (maj 2026): [kl.dk](https://www.kl.dk/media/00mhx3xi/status-paa-den-kommunale-implementering-af-arealomlaegningsindsatsen-i-groen-trepart.pdf)
+- SGAV lavbundsprojekter (100 % EU-dækning): [sgavmst.dk](https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter)
+
+**Licens**: Offentligt tilgængelig myndighedstekst / aftaletekst.
+
+**Attribution**: "Kilde: Aftale om et Grønt Danmark / Rammeaftale MGTP–KL (egen kildegennemgang)"
+
+**Bemærk**: Disse er primærkilder og bør foretrækkes over `mgtp.dk`-forsidelinks i
+`data/finansiering/aftaler.json`. Fuld gennemgang i
+[docs/data-sources/trepart-oekonomi-finansiering.md](docs/data-sources/trepart-oekonomi-finansiering.md);
+implementeringsplan i [docs/design/oekonomi-sektion-plan.md](docs/design/oekonomi-sektion-plan.md).
+Tallene er manuelt kuraterede (ikke daglig ETL) — gen-verificér periodisk.
+
+---
 
 ### 1. MARS (mars.sgav.dk) — Danmarks Miljøportal
 
@@ -207,7 +253,33 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 ---
 
-### 12. TRANSFORM — potentialekort for arealanvendelse
+### 12. Arealdata (Miljøportal) — biodiversitets- og omlægningskort
+
+**Hvad vi henter**: WMS-fliser (målretning 30% og TRANSFORM: ny natur, CO₂, kvælstof) til hovedkortet; WFS-udtræk af DCE-forekomster og KU+ CMEC-polygoner (to prioritetsniveauer) til `data/arealdata-biodiversitet/`. Den daglige kørsel bruger DCE som hits-only (`FULL_DCE=0`). Den månedlige spatial-kørsel materialiserer fuldt DCE-udtræk (~83.000 flader) med `--full-dce` og bruger det til kommune-benchmark.
+
+**Kilde / endpoint**: `https://arld-extgeo.miljoeportal.dk/geoserver/ows` (WFS) og WMS `…/wms` (se `src/lib/biodiv-map.ts`).
+
+**Licens**: CC0-lignende (PSI-loven) over Miljøportalens vilkår.
+
+**Attribution**: "Indeholder data fra Danmarks Miljøportal (miljoeportal.dk)"
+
+**Fetch**: `etl/fetch_arealdata_biodiversitet.py`, log: `etl_log` med `source=arealdata-biodiversitet`. Månedlig spatial build: `.github/workflows/spatial-overlay.yml`.
+
+---
+
+### 12b. FVM Markkort — Marker 2026 + Vand, natur & skov 2026
+
+**Hvad vi henter**: GeoJSON af projekter under Vand-, Natur- og skovrejsningsordningen, slimmet til `public/data/vand-natur-skov-projekter-2026.geojson` + resumé med kommune-fordeling (heuristik mod DAWA). Til Sprint 4 henter vi også `Marker:Marker_2026` per kommune-bbox til `data/markkort/marker-2026/<kommunekode>.geojson`, så marker aldrig skal holdes i RAM som nationalt datasæt.
+
+**Kilde / endpoint**: `https://geodata.fvm.dk/geoserver/ows` — lag `GB_og_bioordninger:Vand_Natur_og_Skovprojekter_2026` og `Marker:Marker_2026`.
+
+**Licens**: Offentlige data under FVM; jf. datakatalogs vilkår.
+
+**Fetch**: `etl/fetch_markkort_natur_projekter.py`, log: `fvm-markkort-vns`. Sprint 4 marker-fetch: `etl/fetch_marker2026.py`, log: `markkort-marker-2026`. Kommune-benchmark bygges i `etl/build_kommune_benchmark.py`.
+
+---
+
+### 13. TRANSFORM — potentialekort for arealanvendelse
 
 **Hvad vi planlægger at hente**: Fem potentialekort der viser, hvor i Danmark der er størst potentiale for klima- og miljøindsatser:
 1. Kvælstofudvaskning fra marker (hvor lækker mest)
@@ -222,7 +294,7 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 
 **Licens**: Forventet CC0-lignende — offentligt tilgængelig via Miljøportalen. Skal bekræftes.
 
-**Status**: ⚠️ Endnu ikke integreret. Kræver undersøgelse af adgangsmetode (WMS/WFS via Miljøportal?).
+**Status**: WMS-temaer for TRANSFORM (og målretning) er **integreret som valgfri lag** på hovedkortet (Biodiversitet). Fuld vektor-ETL/aggregering pr. kommune er stadig fremadrettet.
 
 **Relevans**: Direkte relevant for eksisterende dashboard — kan sammenholdes med MARS-projektdata: "her er potentialet for kvælstofreduktion — og her er hvad der faktisk er anlagt." Det er et stærkt analytisk narrativ.
 

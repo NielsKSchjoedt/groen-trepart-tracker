@@ -8,6 +8,12 @@ import type { KommuneMetric } from '@/lib/kommune-metrics';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
 import { CO2SectorChart } from './CO2SectorChart';
 import { CO2TrendChart } from './CO2TrendChart';
+import { KommuneNaturBenchmark } from './KommuneNaturBenchmark';
+import type { KommuneBenchmarkData, KommuneRankingData, KommuneTrepartLink } from '@/lib/types';
+import { KommuneStandingsDetailHeader } from '@/components/kommune-standings/KommuneStandingsDetailHeader';
+import { KommunePhaseVsNational } from '@/components/kommune-standings/KommunePhaseVsNational';
+import { KommuneOplandeOverlay } from '@/components/KommuneOplandeOverlay';
+import type { KommuneOplandeData } from '@/lib/types';
 
 interface KommuneDetailPanelProps {
   kommune: KommuneMetrics;
@@ -23,7 +29,17 @@ interface KommuneDetailPanelProps {
   activeMetric?: KommuneMetric;
   /** Full CO₂ time-series from Klimaregnskabet (optional — shown when available) */
   co2Data?: KommuneCO2Data | null;
-  onClose: () => void;
+  /** Sprint 4 nature benchmark metrics (B1/B2/B3), loaded monthly */
+  natureBenchmark?: KommuneBenchmarkData | null;
+  /** Sprint 6 competition ranking row */
+  ranking?: KommuneRankingData | null;
+  /** Sprint 6 opland overlap */
+  oplande?: KommuneOplandeData | null;
+  /** Curated link to the kommune's own Grøn Trepart entry page (optional) */
+  trepartLink?: KommuneTrepartLink | null;
+  onClose?: () => void;
+  /** Full-page layout (no side panel chrome) */
+  variant?: 'panel' | 'page';
 }
 
 /**
@@ -43,6 +59,7 @@ interface KommuneDetailPanelProps {
  * @param projectDetails - MARS projects located in this municipality
  * @param ksfProjects    - Klimaskovfonden projects in this municipality
  * @param nstProjects    - Naturstyrelsen projects in this municipality
+ * @param natureBenchmark - Optional Sprint 4 B1/B2/B3 benchmark data
  * @param onClose        - Called when the close button is pressed
  *
  * @example
@@ -62,7 +79,12 @@ export function KommuneDetailPanel({
   nstProjects,
   activeMetric,
   co2Data,
+  natureBenchmark,
+  ranking,
+  oplande,
+  trepartLink,
   onClose,
+  variant = 'panel',
 }: KommuneDetailPanelProps) {
 
   const ksfColor = activeMetric === 'extraction' ? KSF_COLOR_LAVBUND : KSF_COLOR_SKOV;
@@ -107,26 +129,61 @@ export function KommuneDetailPanel({
   );
 
   return (
-    <div className="bg-background border-l border-border h-full overflow-y-auto p-5 relative">
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-muted transition-colors cursor-pointer"
-        aria-label="Luk"
-      >
-        <X className="w-4 h-4 text-muted-foreground" />
-      </button>
+    <div
+      className={
+        variant === 'page'
+          ? 'bg-background'
+          : 'bg-background border-l border-border h-full overflow-y-auto p-5 relative'
+      }
+    >
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-muted transition-colors cursor-pointer"
+          aria-label="Luk"
+        >
+          <X className="w-4 h-4 text-muted-foreground" />
+        </button>
+      )}
 
-      {/* Header */}
-      <h2
-        className="text-lg font-bold text-foreground pr-8 mb-0.5"
-        style={{ fontFamily: "'Fraunces', serif" }}
-      >
-        {kommune.navn}
-      </h2>
-      <p className="text-xs text-muted-foreground mb-5">
-        {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
-      </p>
+      {variant === 'panel' && (
+        <>
+          <h2
+            className="text-lg font-bold text-foreground pr-8 mb-0.5"
+            style={{ fontFamily: "'Fraunces', serif" }}
+          >
+            {kommune.navn}
+          </h2>
+          <p className="text-xs text-muted-foreground mb-3">
+            {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
+          </p>
+        </>
+      )}
+
+      {variant === 'panel' && trepartLink?.url && (
+        <a
+          href={trepartLink.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={trepartLink.note || undefined}
+          className="inline-flex items-center gap-1.5 mb-4 rounded-lg border border-primary/30 bg-primary/5 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/10 transition-colors"
+        >
+          Se hvad {kommune.navn} Kommune selv siger om trepart
+          <ExternalLink className="w-3 h-3 flex-shrink-0" />
+        </a>
+      )}
+
+      {ranking?.byKommune[kommune.kode] && variant === 'panel' && (
+        <KommuneStandingsDetailHeader row={ranking.byKommune[kommune.kode]} ranking={ranking} />
+      )}
+
+      {ranking && <KommunePhaseVsNational kommune={kommune} ranking={ranking} />}
+
+      {oplande && (
+        <div className="mb-5">
+          <KommuneOplandeOverlay kommuneKode={kommune.kode} data={oplande} showNationalLink={false} />
+        </div>
+      )}
 
       {/* CO₂ section — shown first when CO₂ metric is active */}
       {showCO2First && co2Section}
@@ -145,7 +202,7 @@ export function KommuneDetailPanel({
         />
         <MetricCard
           icon={<Mountain className="w-4 h-4 text-amber-700" />}
-          label="Udtagning"
+          label="Lavbund"
           value={kommune.extractionHa}
           unit="ha"
           color="amber"
@@ -164,13 +221,15 @@ export function KommuneDetailPanel({
         />
         <MetricCard
           icon={<Leaf className="w-4 h-4 text-emerald-600" />}
-          label="Naturpotentiale"
+          label="Beskyttet natur (§3+N2000)"
           value={kommune.naturePotentialHa}
           unit="ha"
           color="emerald"
           noDataText="Ikke opdelt per kommune"
         />
       </div>
+
+      <KommuneNaturBenchmark kommuneKode={kommune.kode} benchmark={natureBenchmark ?? null} />
 
       {/* Phase distribution */}
       {hasPhases && (
@@ -201,7 +260,7 @@ export function KommuneDetailPanel({
 
       {/* MARS project list — full accordion with mini-map and scheme details */}
       {(projectDetails.length > 0 || sketchProjects.length > 0) && (
-        <div className="mb-5">
+        <div className="mb-5" id="kommune-projekter">
           <ProjectList
             projectDetails={projectDetails}
             sketchProjects={sketchProjects}

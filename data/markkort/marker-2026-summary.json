@@ -1,0 +1,699 @@
+{
+  "fetchedAt": "2026-05-17T16:18:19.747274+00:00",
+  "source": "https://geodata.fvm.dk/geoserver/ows",
+  "layer": "Marker:Marker_2026",
+  "municipalities": 98,
+  "featureSum": 1053031,
+  "bytes": 2044445047,
+  "durationSeconds": 196.7,
+  "workers": 8,
+  "errors": [],
+  "byKommune": [
+    {
+      "kode": "0101",
+      "navn": "København",
+      "status": "fetched",
+      "features": 78,
+      "bytes": 230896
+    },
+    {
+      "kode": "0147",
+      "navn": "Frederiksberg",
+      "status": "fetched",
+      "features": 0,
+      "bytes": 313
+    },
+    {
+      "kode": "0151",
+      "navn": "Ballerup",
+      "status": "fetched",
+      "features": 678,
+      "bytes": 1304919
+    },
+    {
+      "kode": "0153",
+      "navn": "Brøndby",
+      "status": "fetched",
+      "features": 43,
+      "bytes": 72891
+    },
+    {
+      "kode": "0155",
+      "navn": "Dragør",
+      "status": "fetched",
+      "features": 369,
+      "bytes": 422896
+    },
+    {
+      "kode": "0157",
+      "navn": "Gentofte",
+      "status": "fetched",
+      "features": 25,
+      "bytes": 34810
+    },
+    {
+      "kode": "0159",
+      "navn": "Gladsaxe",
+      "status": "fetched",
+      "features": 57,
+      "bytes": 130259
+    },
+    {
+      "kode": "0161",
+      "navn": "Glostrup",
+      "status": "fetched",
+      "features": 30,
+      "bytes": 96787
+    },
+    {
+      "kode": "0163",
+      "navn": "Herlev",
+      "status": "fetched",
+      "features": 21,
+      "bytes": 64095
+    },
+    {
+      "kode": "0165",
+      "navn": "Albertslund",
+      "status": "fetched",
+      "features": 254,
+      "bytes": 528235
+    },
+    {
+      "kode": "0167",
+      "navn": "Hvidovre",
+      "status": "fetched",
+      "features": 13,
+      "bytes": 28567
+    },
+    {
+      "kode": "0169",
+      "navn": "Høje-Taastrup",
+      "status": "fetched",
+      "features": 1406,
+      "bytes": 2556524
+    },
+    {
+      "kode": "0173",
+      "navn": "Lyngby-Taarbæk",
+      "status": "fetched",
+      "features": 151,
+      "bytes": 224053
+    },
+    {
+      "kode": "0175",
+      "navn": "Rødovre",
+      "status": "fetched",
+      "features": 0,
+      "bytes": 309
+    },
+    {
+      "kode": "0183",
+      "navn": "Ishøj",
+      "status": "fetched",
+      "features": 460,
+      "bytes": 791613
+    },
+    {
+      "kode": "0185",
+      "navn": "Tårnby",
+      "status": "fetched",
+      "features": 472,
+      "bytes": 1035165
+    },
+    {
+      "kode": "0187",
+      "navn": "Vallensbæk",
+      "status": "fetched",
+      "features": 84,
+      "bytes": 147958
+    },
+    {
+      "kode": "0190",
+      "navn": "Furesø",
+      "status": "fetched",
+      "features": 904,
+      "bytes": 1571071
+    },
+    {
+      "kode": "0201",
+      "navn": "Allerød",
+      "status": "fetched",
+      "features": 1689,
+      "bytes": 2862441
+    },
+    {
+      "kode": "0210",
+      "navn": "Fredensborg",
+      "status": "fetched",
+      "features": 2023,
+      "bytes": 3584157
+    },
+    {
+      "kode": "0217",
+      "navn": "Helsingør",
+      "status": "fetched",
+      "features": 1740,
+      "bytes": 3068805
+    },
+    {
+      "kode": "0219",
+      "navn": "Hillerød",
+      "status": "fetched",
+      "features": 4780,
+      "bytes": 8254091
+    },
+    {
+      "kode": "0223",
+      "navn": "Hørsholm",
+      "status": "fetched",
+      "features": 665,
+      "bytes": 1268687
+    },
+    {
+      "kode": "0230",
+      "navn": "Rudersdal",
+      "status": "fetched",
+      "features": 601,
+      "bytes": 1066559
+    },
+    {
+      "kode": "0240",
+      "navn": "Egedal",
+      "status": "fetched",
+      "features": 3665,
+      "bytes": 6380983
+    },
+    {
+      "kode": "0250",
+      "navn": "Frederikssund",
+      "status": "fetched",
+      "features": 7787,
+      "bytes": 13128243
+    },
+    {
+      "kode": "0253",
+      "navn": "Greve",
+      "status": "fetched",
+      "features": 801,
+      "bytes": 1392800
+    },
+    {
+      "kode": "0259",
+      "navn": "Køge",
+      "status": "fetched",
+      "features": 4243,
+      "bytes": 7410684
+    },
+    {
+      "kode": "0260",
+      "navn": "Halsnæs",
+      "status": "fetched",
+      "features": 2669,
+      "bytes": 4575770
+    },
+    {
+      "kode": "0265",
+      "navn": "Roskilde",
+      "status": "fetched",
+      "features": 6532,
+      "bytes": 11563254
+    },
+    {
+      "kode": "0269",
+      "navn": "Solrød",
+      "status": "fetched",
+      "features": 758,
+      "bytes": 1177629
+    },
+    {
+      "kode": "0270",
+      "navn": "Gribskov",
+      "status": "fetched",
+      "features": 4698,
+      "bytes": 7744510
+    },
+    {
+      "kode": "0306",
+      "navn": "Odsherred",
+      "status": "fetched",
+      "features": 7230,
+      "bytes": 11714259
+    },
+    {
+      "kode": "0316",
+      "navn": "Holbæk",
+      "status": "fetched",
+      "features": 15859,
+      "bytes": 27529333
+    },
+    {
+      "kode": "0320",
+      "navn": "Faxe",
+      "status": "fetched",
+      "features": 10027,
+      "bytes": 18113388
+    },
+    {
+      "kode": "0326",
+      "navn": "Kalundborg",
+      "status": "fetched",
+      "features": 11779,
+      "bytes": 21131866
+    },
+    {
+      "kode": "0329",
+      "navn": "Ringsted",
+      "status": "fetched",
+      "features": 7371,
+      "bytes": 12890819
+    },
+    {
+      "kode": "0330",
+      "navn": "Slagelse",
+      "status": "fetched",
+      "features": 9995,
+      "bytes": 17544436
+    },
+    {
+      "kode": "0336",
+      "navn": "Stevns",
+      "status": "fetched",
+      "features": 4394,
+      "bytes": 7328704
+    },
+    {
+      "kode": "0340",
+      "navn": "Sorø",
+      "status": "fetched",
+      "features": 8985,
+      "bytes": 16123878
+    },
+    {
+      "kode": "0350",
+      "navn": "Lejre",
+      "status": "fetched",
+      "features": 6344,
+      "bytes": 11760089
+    },
+    {
+      "kode": "0360",
+      "navn": "Lolland",
+      "status": "fetched",
+      "features": 9822,
+      "bytes": 22455767
+    },
+    {
+      "kode": "0370",
+      "navn": "Næstved",
+      "status": "fetched",
+      "features": 14563,
+      "bytes": 26194401
+    },
+    {
+      "kode": "0376",
+      "navn": "Guldborgsund",
+      "status": "fetched",
+      "features": 11990,
+      "bytes": 25704967
+    },
+    {
+      "kode": "0390",
+      "navn": "Vordingborg",
+      "status": "fetched",
+      "features": 11067,
+      "bytes": 22542972
+    },
+    {
+      "kode": "0400",
+      "navn": "Bornholm",
+      "status": "fetched",
+      "features": 7435,
+      "bytes": 13675544
+    },
+    {
+      "kode": "0410",
+      "navn": "Middelfart",
+      "status": "fetched",
+      "features": 7082,
+      "bytes": 15321489
+    },
+    {
+      "kode": "0420",
+      "navn": "Assens",
+      "status": "fetched",
+      "features": 13543,
+      "bytes": 28999761
+    },
+    {
+      "kode": "0430",
+      "navn": "Faaborg-Midtfyn",
+      "status": "fetched",
+      "features": 19242,
+      "bytes": 37636915
+    },
+    {
+      "kode": "0440",
+      "navn": "Kerteminde",
+      "status": "fetched",
+      "features": 5207,
+      "bytes": 10574274
+    },
+    {
+      "kode": "0450",
+      "navn": "Nyborg",
+      "status": "fetched",
+      "features": 6713,
+      "bytes": 13338738
+    },
+    {
+      "kode": "0461",
+      "navn": "Odense",
+      "status": "fetched",
+      "features": 7134,
+      "bytes": 14059854
+    },
+    {
+      "kode": "0479",
+      "navn": "Svendborg",
+      "status": "fetched",
+      "features": 10437,
+      "bytes": 20240806
+    },
+    {
+      "kode": "0480",
+      "navn": "Nordfyns",
+      "status": "fetched",
+      "features": 9808,
+      "bytes": 19894965
+    },
+    {
+      "kode": "0482",
+      "navn": "Langeland",
+      "status": "fetched",
+      "features": 7918,
+      "bytes": 16887459
+    },
+    {
+      "kode": "0492",
+      "navn": "Ærø",
+      "status": "fetched",
+      "features": 2621,
+      "bytes": 4840723
+    },
+    {
+      "kode": "0510",
+      "navn": "Haderslev",
+      "status": "fetched",
+      "features": 18991,
+      "bytes": 42288487
+    },
+    {
+      "kode": "0530",
+      "navn": "Billund",
+      "status": "fetched",
+      "features": 14423,
+      "bytes": 23548942
+    },
+    {
+      "kode": "0540",
+      "navn": "Sønderborg",
+      "status": "fetched",
+      "features": 10057,
+      "bytes": 20095243
+    },
+    {
+      "kode": "0550",
+      "navn": "Tønder",
+      "status": "fetched",
+      "features": 23273,
+      "bytes": 44911266
+    },
+    {
+      "kode": "0561",
+      "navn": "Esbjerg",
+      "status": "fetched",
+      "features": 18207,
+      "bytes": 32964706
+    },
+    {
+      "kode": "0563",
+      "navn": "Fanø",
+      "status": "fetched",
+      "features": 684,
+      "bytes": 1334888
+    },
+    {
+      "kode": "0573",
+      "navn": "Varde",
+      "status": "fetched",
+      "features": 28588,
+      "bytes": 50571349
+    },
+    {
+      "kode": "0575",
+      "navn": "Vejen",
+      "status": "fetched",
+      "features": 20252,
+      "bytes": 38606014
+    },
+    {
+      "kode": "0580",
+      "navn": "Aabenraa",
+      "status": "fetched",
+      "features": 19070,
+      "bytes": 35508285
+    },
+    {
+      "kode": "0607",
+      "navn": "Fredericia",
+      "status": "fetched",
+      "features": 2386,
+      "bytes": 5444823
+    },
+    {
+      "kode": "0615",
+      "navn": "Horsens",
+      "status": "fetched",
+      "features": 24972,
+      "bytes": 59781249
+    },
+    {
+      "kode": "0621",
+      "navn": "Kolding",
+      "status": "fetched",
+      "features": 14382,
+      "bytes": 31426686
+    },
+    {
+      "kode": "0630",
+      "navn": "Vejle",
+      "status": "fetched",
+      "features": 30050,
+      "bytes": 61819106
+    },
+    {
+      "kode": "0657",
+      "navn": "Herning",
+      "status": "fetched",
+      "features": 38585,
+      "bytes": 71296433
+    },
+    {
+      "kode": "0661",
+      "navn": "Holstebro",
+      "status": "fetched",
+      "features": 27390,
+      "bytes": 60399159
+    },
+    {
+      "kode": "0665",
+      "navn": "Lemvig",
+      "status": "fetched",
+      "features": 10182,
+      "bytes": 25605486
+    },
+    {
+      "kode": "0671",
+      "navn": "Struer",
+      "status": "fetched",
+      "features": 6092,
+      "bytes": 14437810
+    },
+    {
+      "kode": "0706",
+      "navn": "Syddjurs",
+      "status": "fetched",
+      "features": 17058,
+      "bytes": 38858723
+    },
+    {
+      "kode": "0707",
+      "navn": "Norddjurs",
+      "status": "fetched",
+      "features": 17393,
+      "bytes": 37079887
+    },
+    {
+      "kode": "0710",
+      "navn": "Favrskov",
+      "status": "fetched",
+      "features": 16058,
+      "bytes": 36246633
+    },
+    {
+      "kode": "0727",
+      "navn": "Odder",
+      "status": "fetched",
+      "features": 3981,
+      "bytes": 10109609
+    },
+    {
+      "kode": "0730",
+      "navn": "Randers",
+      "status": "fetched",
+      "features": 19614,
+      "bytes": 43713268
+    },
+    {
+      "kode": "0740",
+      "navn": "Silkeborg",
+      "status": "fetched",
+      "features": 22792,
+      "bytes": 47520578
+    },
+    {
+      "kode": "0741",
+      "navn": "Samsø",
+      "status": "fetched",
+      "features": 2667,
+      "bytes": 5249936
+    },
+    {
+      "kode": "0746",
+      "navn": "Skanderborg",
+      "status": "fetched",
+      "features": 13100,
+      "bytes": 30699918
+    },
+    {
+      "kode": "0751",
+      "navn": "Aarhus",
+      "status": "fetched",
+      "features": 10816,
+      "bytes": 25751358
+    },
+    {
+      "kode": "0756",
+      "navn": "Ikast-Brande",
+      "status": "fetched",
+      "features": 26118,
+      "bytes": 48769517
+    },
+    {
+      "kode": "0760",
+      "navn": "Ringkøbing-Skjern",
+      "status": "fetched",
+      "features": 30924,
+      "bytes": 55774758
+    },
+    {
+      "kode": "0766",
+      "navn": "Hedensted",
+      "status": "fetched",
+      "features": 16712,
+      "bytes": 39270642
+    },
+    {
+      "kode": "0773",
+      "navn": "Morsø",
+      "status": "fetched",
+      "features": 11713,
+      "bytes": 21643683
+    },
+    {
+      "kode": "0779",
+      "navn": "Skive",
+      "status": "fetched",
+      "features": 18263,
+      "bytes": 33802416
+    },
+    {
+      "kode": "0787",
+      "navn": "Thisted",
+      "status": "fetched",
+      "features": 23839,
+      "bytes": 42332825
+    },
+    {
+      "kode": "0791",
+      "navn": "Viborg",
+      "status": "fetched",
+      "features": 40846,
+      "bytes": 80860586
+    },
+    {
+      "kode": "0810",
+      "navn": "Brønderslev",
+      "status": "fetched",
+      "features": 20750,
+      "bytes": 33803326
+    },
+    {
+      "kode": "0813",
+      "navn": "Frederikshavn",
+      "status": "fetched",
+      "features": 16475,
+      "bytes": 28690253
+    },
+    {
+      "kode": "0820",
+      "navn": "Vesthimmerlands",
+      "status": "fetched",
+      "features": 19441,
+      "bytes": 34132692
+    },
+    {
+      "kode": "0825",
+      "navn": "Læsø",
+      "status": "fetched",
+      "features": 1646,
+      "bytes": 2978738
+    },
+    {
+      "kode": "0840",
+      "navn": "Rebild",
+      "status": "fetched",
+      "features": 23422,
+      "bytes": 41848784
+    },
+    {
+      "kode": "0846",
+      "navn": "Mariagerfjord",
+      "status": "fetched",
+      "features": 24041,
+      "bytes": 46750470
+    },
+    {
+      "kode": "0849",
+      "navn": "Jammerbugt",
+      "status": "fetched",
+      "features": 16858,
+      "bytes": 25890856
+    },
+    {
+      "kode": "0851",
+      "navn": "Aalborg",
+      "status": "fetched",
+      "features": 36161,
+      "bytes": 57009780
+    },
+    {
+      "kode": "0860",
+      "navn": "Hjørring",
+      "status": "fetched",
+      "features": 20497,
+      "bytes": 36390498
+    }
+  ]
+}

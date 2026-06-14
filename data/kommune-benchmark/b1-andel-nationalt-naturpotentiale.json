@@ -1,0 +1,921 @@
+{
+  "metadata": {
+    "generatedAt": "2026-06-12T21:29:09.899531+00:00",
+    "methodVersion": "sprint4-v1",
+    "sourceLayers": [
+      {
+        "name": "DCE 30%",
+        "path": "data/arealdata-biodiversitet/dce-30-percent.geojson",
+        "hash": "d178929c1cde38d8"
+      },
+      {
+        "name": "KU prio 1",
+        "path": "data/arealdata-biodiversitet/ku-prio-1.geojson",
+        "hash": "10435c7c54920e41"
+      },
+      {
+        "name": "KU prio 2",
+        "path": "data/arealdata-biodiversitet/ku-prio-2.geojson",
+        "hash": "10435c7c54920e41"
+      },
+      {
+        "name": "Marker 2026",
+        "path": "data/markkort/marker-2026"
+      },
+      {
+        "name": "Natura 2000",
+        "path": "data/natura2000/natura_2000_omraader.geojson",
+        "hash": "18faa93eadc24c9e"
+      }
+    ]
+  },
+  "national": {
+    "totalDce30Ha": 1278601.5538,
+    "totalKuPrio1Ha": 936980.5112,
+    "totalKuPrio2Ha": 936980.5112
+  },
+  "byKommune": {
+    "0101": {
+      "kommuneNavn": "København",
+      "dce30Ha": 1203.0379,
+      "dce30PctOfNational": 0.0941,
+      "kuPrio1Ha": 383.1003,
+      "kuPrio1PctOfNational": 0.0409,
+      "kuPrio2Ha": 383.1003,
+      "kuPrio2PctOfNational": 0.0409
+    },
+    "0147": {
+      "kommuneNavn": "Frederiksberg",
+      "dce30Ha": 41.494,
+      "dce30PctOfNational": 0.0032,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0151": {
+      "kommuneNavn": "Ballerup",
+      "dce30Ha": 715.5162,
+      "dce30PctOfNational": 0.056,
+      "kuPrio1Ha": 304.2336,
+      "kuPrio1PctOfNational": 0.0325,
+      "kuPrio2Ha": 304.2336,
+      "kuPrio2PctOfNational": 0.0325
+    },
+    "0153": {
+      "kommuneNavn": "Brøndby",
+      "dce30Ha": 324.449,
+      "dce30PctOfNational": 0.0254,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0155": {
+      "kommuneNavn": "Dragør",
+      "dce30Ha": 564.8577,
+      "dce30PctOfNational": 0.0442,
+      "kuPrio1Ha": 609.6483,
+      "kuPrio1PctOfNational": 0.0651,
+      "kuPrio2Ha": 609.6483,
+      "kuPrio2PctOfNational": 0.0651
+    },
+    "0157": {
+      "kommuneNavn": "Gentofte",
+      "dce30Ha": 259.1434,
+      "dce30PctOfNational": 0.0203,
+      "kuPrio1Ha": 138.4827,
+      "kuPrio1PctOfNational": 0.0148,
+      "kuPrio2Ha": 138.4827,
+      "kuPrio2PctOfNational": 0.0148
+    },
+    "0159": {
+      "kommuneNavn": "Gladsaxe",
+      "dce30Ha": 366.8166,
+      "dce30PctOfNational": 0.0287,
+      "kuPrio1Ha": 385.6016,
+      "kuPrio1PctOfNational": 0.0412,
+      "kuPrio2Ha": 385.6016,
+      "kuPrio2PctOfNational": 0.0412
+    },
+    "0161": {
+      "kommuneNavn": "Glostrup",
+      "dce30Ha": 217.932,
+      "dce30PctOfNational": 0.017,
+      "kuPrio1Ha": 194.1638,
+      "kuPrio1PctOfNational": 0.0207,
+      "kuPrio2Ha": 194.1638,
+      "kuPrio2PctOfNational": 0.0207
+    },
+    "0163": {
+      "kommuneNavn": "Herlev",
+      "dce30Ha": 155.4276,
+      "dce30PctOfNational": 0.0122,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0165": {
+      "kommuneNavn": "Albertslund",
+      "dce30Ha": 987.961,
+      "dce30PctOfNational": 0.0773,
+      "kuPrio1Ha": 1101.9438,
+      "kuPrio1PctOfNational": 0.1176,
+      "kuPrio2Ha": 1101.9438,
+      "kuPrio2PctOfNational": 0.1176
+    },
+    "0167": {
+      "kommuneNavn": "Hvidovre",
+      "dce30Ha": 197.1096,
+      "dce30PctOfNational": 0.0154,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0169": {
+      "kommuneNavn": "Høje-Taastrup",
+      "dce30Ha": 1406.5135,
+      "dce30PctOfNational": 0.11,
+      "kuPrio1Ha": 209.5554,
+      "kuPrio1PctOfNational": 0.0224,
+      "kuPrio2Ha": 209.5554,
+      "kuPrio2PctOfNational": 0.0224
+    },
+    "0173": {
+      "kommuneNavn": "Lyngby-Taarbæk",
+      "dce30Ha": 1705.9059,
+      "dce30PctOfNational": 0.1334,
+      "kuPrio1Ha": 1969.7518,
+      "kuPrio1PctOfNational": 0.2102,
+      "kuPrio2Ha": 1969.7518,
+      "kuPrio2PctOfNational": 0.2102
+    },
+    "0175": {
+      "kommuneNavn": "Rødovre",
+      "dce30Ha": 57.5746,
+      "dce30PctOfNational": 0.0045,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0183": {
+      "kommuneNavn": "Ishøj",
+      "dce30Ha": 627.5116,
+      "dce30PctOfNational": 0.0491,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0185": {
+      "kommuneNavn": "Tårnby",
+      "dce30Ha": 3439.9117,
+      "dce30PctOfNational": 0.269,
+      "kuPrio1Ha": 3420.652,
+      "kuPrio1PctOfNational": 0.3651,
+      "kuPrio2Ha": 3420.652,
+      "kuPrio2PctOfNational": 0.3651
+    },
+    "0187": {
+      "kommuneNavn": "Vallensbæk",
+      "dce30Ha": 166.1255,
+      "dce30PctOfNational": 0.013,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0190": {
+      "kommuneNavn": "Furesø",
+      "dce30Ha": 3017.2398,
+      "dce30PctOfNational": 0.236,
+      "kuPrio1Ha": 3557.386,
+      "kuPrio1PctOfNational": 0.3797,
+      "kuPrio2Ha": 3557.386,
+      "kuPrio2PctOfNational": 0.3797
+    },
+    "0201": {
+      "kommuneNavn": "Allerød",
+      "dce30Ha": 2566.7054,
+      "dce30PctOfNational": 0.2007,
+      "kuPrio1Ha": 2520.3977,
+      "kuPrio1PctOfNational": 0.269,
+      "kuPrio2Ha": 2520.3977,
+      "kuPrio2PctOfNational": 0.269
+    },
+    "0210": {
+      "kommuneNavn": "Fredensborg",
+      "dce30Ha": 4087.2797,
+      "dce30PctOfNational": 0.3197,
+      "kuPrio1Ha": 2015.6989,
+      "kuPrio1PctOfNational": 0.2151,
+      "kuPrio2Ha": 2015.6989,
+      "kuPrio2PctOfNational": 0.2151
+    },
+    "0217": {
+      "kommuneNavn": "Helsingør",
+      "dce30Ha": 5087.3458,
+      "dce30PctOfNational": 0.3979,
+      "kuPrio1Ha": 4037.7041,
+      "kuPrio1PctOfNational": 0.4309,
+      "kuPrio2Ha": 4037.7041,
+      "kuPrio2PctOfNational": 0.4309
+    },
+    "0219": {
+      "kommuneNavn": "Hillerød",
+      "dce30Ha": 9713.0938,
+      "dce30PctOfNational": 0.7597,
+      "kuPrio1Ha": 7485.4778,
+      "kuPrio1PctOfNational": 0.7989,
+      "kuPrio2Ha": 7485.4778,
+      "kuPrio2PctOfNational": 0.7989
+    },
+    "0223": {
+      "kommuneNavn": "Hørsholm",
+      "dce30Ha": 1159.9274,
+      "dce30PctOfNational": 0.0907,
+      "kuPrio1Ha": 642.3394,
+      "kuPrio1PctOfNational": 0.0686,
+      "kuPrio2Ha": 642.3394,
+      "kuPrio2PctOfNational": 0.0686
+    },
+    "0230": {
+      "kommuneNavn": "Rudersdal",
+      "dce30Ha": 3503.7085,
+      "dce30PctOfNational": 0.274,
+      "kuPrio1Ha": 2914.1714,
+      "kuPrio1PctOfNational": 0.311,
+      "kuPrio2Ha": 2914.1714,
+      "kuPrio2PctOfNational": 0.311
+    },
+    "0240": {
+      "kommuneNavn": "Egedal",
+      "dce30Ha": 4145.3666,
+      "dce30PctOfNational": 0.3242,
+      "kuPrio1Ha": 2200.1268,
+      "kuPrio1PctOfNational": 0.2348,
+      "kuPrio2Ha": 2200.1268,
+      "kuPrio2PctOfNational": 0.2348
+    },
+    "0250": {
+      "kommuneNavn": "Frederikssund",
+      "dce30Ha": 7119.929,
+      "dce30PctOfNational": 0.5569,
+      "kuPrio1Ha": 3684.998,
+      "kuPrio1PctOfNational": 0.3933,
+      "kuPrio2Ha": 3684.998,
+      "kuPrio2PctOfNational": 0.3933
+    },
+    "0253": {
+      "kommuneNavn": "Greve",
+      "dce30Ha": 787.1982,
+      "dce30PctOfNational": 0.0616,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0259": {
+      "kommuneNavn": "Køge",
+      "dce30Ha": 6836.3851,
+      "dce30PctOfNational": 0.5347,
+      "kuPrio1Ha": 5671.7822,
+      "kuPrio1PctOfNational": 0.6053,
+      "kuPrio2Ha": 5671.7822,
+      "kuPrio2PctOfNational": 0.6053
+    },
+    "0260": {
+      "kommuneNavn": "Halsnæs",
+      "dce30Ha": 5162.3181,
+      "dce30PctOfNational": 0.4037,
+      "kuPrio1Ha": 3576.5973,
+      "kuPrio1PctOfNational": 0.3817,
+      "kuPrio2Ha": 3576.5973,
+      "kuPrio2PctOfNational": 0.3817
+    },
+    "0265": {
+      "kommuneNavn": "Roskilde",
+      "dce30Ha": 4061.6216,
+      "dce30PctOfNational": 0.3177,
+      "kuPrio1Ha": 1790.6611,
+      "kuPrio1PctOfNational": 0.1911,
+      "kuPrio2Ha": 1790.6611,
+      "kuPrio2PctOfNational": 0.1911
+    },
+    "0269": {
+      "kommuneNavn": "Solrød",
+      "dce30Ha": 589.171,
+      "dce30PctOfNational": 0.0461,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0270": {
+      "kommuneNavn": "Gribskov",
+      "dce30Ha": 11457.597,
+      "dce30PctOfNational": 0.8961,
+      "kuPrio1Ha": 8190.0825,
+      "kuPrio1PctOfNational": 0.8741,
+      "kuPrio2Ha": 8190.0825,
+      "kuPrio2PctOfNational": 0.8741
+    },
+    "0306": {
+      "kommuneNavn": "Odsherred",
+      "dce30Ha": 8815.5568,
+      "dce30PctOfNational": 0.6895,
+      "kuPrio1Ha": 583.282,
+      "kuPrio1PctOfNational": 0.0623,
+      "kuPrio2Ha": 583.282,
+      "kuPrio2PctOfNational": 0.0623
+    },
+    "0316": {
+      "kommuneNavn": "Holbæk",
+      "dce30Ha": 14430.3796,
+      "dce30PctOfNational": 1.1286,
+      "kuPrio1Ha": 6117.7068,
+      "kuPrio1PctOfNational": 0.6529,
+      "kuPrio2Ha": 6117.7068,
+      "kuPrio2PctOfNational": 0.6529
+    },
+    "0320": {
+      "kommuneNavn": "Faxe",
+      "dce30Ha": 10504.2897,
+      "dce30PctOfNational": 0.8215,
+      "kuPrio1Ha": 5428.4939,
+      "kuPrio1PctOfNational": 0.5794,
+      "kuPrio2Ha": 5428.4939,
+      "kuPrio2PctOfNational": 0.5794
+    },
+    "0326": {
+      "kommuneNavn": "Kalundborg",
+      "dce30Ha": 16134.6013,
+      "dce30PctOfNational": 1.2619,
+      "kuPrio1Ha": 11384.1487,
+      "kuPrio1PctOfNational": 1.215,
+      "kuPrio2Ha": 11384.1487,
+      "kuPrio2PctOfNational": 1.215
+    },
+    "0329": {
+      "kommuneNavn": "Ringsted",
+      "dce30Ha": 6844.2688,
+      "dce30PctOfNational": 0.5353,
+      "kuPrio1Ha": 5996.6286,
+      "kuPrio1PctOfNational": 0.64,
+      "kuPrio2Ha": 5996.6286,
+      "kuPrio2PctOfNational": 0.64
+    },
+    "0330": {
+      "kommuneNavn": "Slagelse",
+      "dce30Ha": 10696.7949,
+      "dce30PctOfNational": 0.8366,
+      "kuPrio1Ha": 4995.8111,
+      "kuPrio1PctOfNational": 0.5332,
+      "kuPrio2Ha": 4995.8111,
+      "kuPrio2PctOfNational": 0.5332
+    },
+    "0336": {
+      "kommuneNavn": "Stevns",
+      "dce30Ha": 3690.3621,
+      "dce30PctOfNational": 0.2886,
+      "kuPrio1Ha": 1418.0094,
+      "kuPrio1PctOfNational": 0.1513,
+      "kuPrio2Ha": 1418.0094,
+      "kuPrio2PctOfNational": 0.1513
+    },
+    "0340": {
+      "kommuneNavn": "Sorø",
+      "dce30Ha": 10150.7122,
+      "dce30PctOfNational": 0.7939,
+      "kuPrio1Ha": 7770.6605,
+      "kuPrio1PctOfNational": 0.8293,
+      "kuPrio2Ha": 7770.6605,
+      "kuPrio2PctOfNational": 0.8293
+    },
+    "0350": {
+      "kommuneNavn": "Lejre",
+      "dce30Ha": 6326.7234,
+      "dce30PctOfNational": 0.4948,
+      "kuPrio1Ha": 3936.6376,
+      "kuPrio1PctOfNational": 0.4201,
+      "kuPrio2Ha": 3936.6376,
+      "kuPrio2PctOfNational": 0.4201
+    },
+    "0360": {
+      "kommuneNavn": "Lolland",
+      "dce30Ha": 12626.1897,
+      "dce30PctOfNational": 0.9875,
+      "kuPrio1Ha": 5235.862,
+      "kuPrio1PctOfNational": 0.5588,
+      "kuPrio2Ha": 5235.862,
+      "kuPrio2PctOfNational": 0.5588
+    },
+    "0370": {
+      "kommuneNavn": "Næstved",
+      "dce30Ha": 15064.8887,
+      "dce30PctOfNational": 1.1782,
+      "kuPrio1Ha": 9430.3639,
+      "kuPrio1PctOfNational": 1.0065,
+      "kuPrio2Ha": 9430.3639,
+      "kuPrio2PctOfNational": 1.0065
+    },
+    "0376": {
+      "kommuneNavn": "Guldborgsund",
+      "dce30Ha": 18852.2773,
+      "dce30PctOfNational": 1.4744,
+      "kuPrio1Ha": 11031.6087,
+      "kuPrio1PctOfNational": 1.1774,
+      "kuPrio2Ha": 11031.6087,
+      "kuPrio2PctOfNational": 1.1774
+    },
+    "0390": {
+      "kommuneNavn": "Vordingborg",
+      "dce30Ha": 15638.335,
+      "dce30PctOfNational": 1.2231,
+      "kuPrio1Ha": 5197.1744,
+      "kuPrio1PctOfNational": 0.5547,
+      "kuPrio2Ha": 5197.1744,
+      "kuPrio2PctOfNational": 0.5547
+    },
+    "0400": {
+      "kommuneNavn": "Bornholm",
+      "dce30Ha": 17861.3222,
+      "dce30PctOfNational": 1.3969,
+      "kuPrio1Ha": 13044.3576,
+      "kuPrio1PctOfNational": 1.3922,
+      "kuPrio2Ha": 13044.3576,
+      "kuPrio2PctOfNational": 1.3922
+    },
+    "0410": {
+      "kommuneNavn": "Middelfart",
+      "dce30Ha": 5718.5877,
+      "dce30PctOfNational": 0.4473,
+      "kuPrio1Ha": 2092.0689,
+      "kuPrio1PctOfNational": 0.2233,
+      "kuPrio2Ha": 2092.0689,
+      "kuPrio2PctOfNational": 0.2233
+    },
+    "0420": {
+      "kommuneNavn": "Assens",
+      "dce30Ha": 9895.3047,
+      "dce30PctOfNational": 0.7739,
+      "kuPrio1Ha": 3796.1362,
+      "kuPrio1PctOfNational": 0.4051,
+      "kuPrio2Ha": 3796.1362,
+      "kuPrio2PctOfNational": 0.4051
+    },
+    "0430": {
+      "kommuneNavn": "Faaborg-Midtfyn",
+      "dce30Ha": 14053.7943,
+      "dce30PctOfNational": 1.0992,
+      "kuPrio1Ha": 8821.0017,
+      "kuPrio1PctOfNational": 0.9414,
+      "kuPrio2Ha": 8821.0017,
+      "kuPrio2PctOfNational": 0.9414
+    },
+    "0440": {
+      "kommuneNavn": "Kerteminde",
+      "dce30Ha": 2877.4307,
+      "dce30PctOfNational": 0.225,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0450": {
+      "kommuneNavn": "Nyborg",
+      "dce30Ha": 4211.2943,
+      "dce30PctOfNational": 0.3294,
+      "kuPrio1Ha": 438.6762,
+      "kuPrio1PctOfNational": 0.0468,
+      "kuPrio2Ha": 438.6762,
+      "kuPrio2PctOfNational": 0.0468
+    },
+    "0461": {
+      "kommuneNavn": "Odense",
+      "dce30Ha": 5554.6295,
+      "dce30PctOfNational": 0.4344,
+      "kuPrio1Ha": 1304.9063,
+      "kuPrio1PctOfNational": 0.1393,
+      "kuPrio2Ha": 1304.9063,
+      "kuPrio2PctOfNational": 0.1393
+    },
+    "0479": {
+      "kommuneNavn": "Svendborg",
+      "dce30Ha": 8310.3027,
+      "dce30PctOfNational": 0.65,
+      "kuPrio1Ha": 4487.8401,
+      "kuPrio1PctOfNational": 0.479,
+      "kuPrio2Ha": 4487.8401,
+      "kuPrio2PctOfNational": 0.479
+    },
+    "0480": {
+      "kommuneNavn": "Nordfyns",
+      "dce30Ha": 7274.4297,
+      "dce30PctOfNational": 0.5689,
+      "kuPrio1Ha": 1745.974,
+      "kuPrio1PctOfNational": 0.1863,
+      "kuPrio2Ha": 1745.974,
+      "kuPrio2PctOfNational": 0.1863
+    },
+    "0482": {
+      "kommuneNavn": "Langeland",
+      "dce30Ha": 6670.9564,
+      "dce30PctOfNational": 0.5217,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0492": {
+      "kommuneNavn": "Ærø",
+      "dce30Ha": 1815.6208,
+      "dce30PctOfNational": 0.142,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0510": {
+      "kommuneNavn": "Haderslev",
+      "dce30Ha": 18501.7192,
+      "dce30PctOfNational": 1.447,
+      "kuPrio1Ha": 9848.1709,
+      "kuPrio1PctOfNational": 1.0511,
+      "kuPrio2Ha": 9848.1709,
+      "kuPrio2PctOfNational": 1.0511
+    },
+    "0530": {
+      "kommuneNavn": "Billund",
+      "dce30Ha": 20251.4716,
+      "dce30PctOfNational": 1.5839,
+      "kuPrio1Ha": 25534.4745,
+      "kuPrio1PctOfNational": 2.7252,
+      "kuPrio2Ha": 25534.4745,
+      "kuPrio2PctOfNational": 2.7252
+    },
+    "0540": {
+      "kommuneNavn": "Sønderborg",
+      "dce30Ha": 8969.2955,
+      "dce30PctOfNational": 0.7015,
+      "kuPrio1Ha": 2052.243,
+      "kuPrio1PctOfNational": 0.219,
+      "kuPrio2Ha": 2052.243,
+      "kuPrio2PctOfNational": 0.219
+    },
+    "0550": {
+      "kommuneNavn": "Tønder",
+      "dce30Ha": 40248.0113,
+      "dce30PctOfNational": 3.1478,
+      "kuPrio1Ha": 19433.8471,
+      "kuPrio1PctOfNational": 2.0741,
+      "kuPrio2Ha": 19433.8471,
+      "kuPrio2PctOfNational": 2.0741
+    },
+    "0561": {
+      "kommuneNavn": "Esbjerg",
+      "dce30Ha": 18582.2358,
+      "dce30PctOfNational": 1.4533,
+      "kuPrio1Ha": 4459.8101,
+      "kuPrio1PctOfNational": 0.476,
+      "kuPrio2Ha": 4459.8101,
+      "kuPrio2PctOfNational": 0.476
+    },
+    "0563": {
+      "kommuneNavn": "Fanø",
+      "dce30Ha": 5201.5243,
+      "dce30PctOfNational": 0.4068,
+      "kuPrio1Ha": 6574.6831,
+      "kuPrio1PctOfNational": 0.7017,
+      "kuPrio2Ha": 6574.6831,
+      "kuPrio2PctOfNational": 0.7017
+    },
+    "0573": {
+      "kommuneNavn": "Varde",
+      "dce30Ha": 47792.8382,
+      "dce30PctOfNational": 3.7379,
+      "kuPrio1Ha": 45709.8444,
+      "kuPrio1PctOfNational": 4.8784,
+      "kuPrio2Ha": 45709.8444,
+      "kuPrio2PctOfNational": 4.8784
+    },
+    "0575": {
+      "kommuneNavn": "Vejen",
+      "dce30Ha": 18432.6847,
+      "dce30PctOfNational": 1.4416,
+      "kuPrio1Ha": 10685.0809,
+      "kuPrio1PctOfNational": 1.1404,
+      "kuPrio2Ha": 10685.0809,
+      "kuPrio2PctOfNational": 1.1404
+    },
+    "0580": {
+      "kommuneNavn": "Aabenraa",
+      "dce30Ha": 28526.7891,
+      "dce30PctOfNational": 2.2311,
+      "kuPrio1Ha": 16852.2318,
+      "kuPrio1PctOfNational": 1.7986,
+      "kuPrio2Ha": 16852.2318,
+      "kuPrio2PctOfNational": 1.7986
+    },
+    "0607": {
+      "kommuneNavn": "Fredericia",
+      "dce30Ha": 3093.7975,
+      "dce30PctOfNational": 0.242,
+      "kuPrio1Ha": 3137.6946,
+      "kuPrio1PctOfNational": 0.3349,
+      "kuPrio2Ha": 3137.6946,
+      "kuPrio2PctOfNational": 0.3349
+    },
+    "0615": {
+      "kommuneNavn": "Horsens",
+      "dce30Ha": 14657.9845,
+      "dce30PctOfNational": 1.1464,
+      "kuPrio1Ha": 10981.2443,
+      "kuPrio1PctOfNational": 1.172,
+      "kuPrio2Ha": 10981.2443,
+      "kuPrio2PctOfNational": 1.172
+    },
+    "0621": {
+      "kommuneNavn": "Kolding",
+      "dce30Ha": 12352.4359,
+      "dce30PctOfNational": 0.9661,
+      "kuPrio1Ha": 7817.7245,
+      "kuPrio1PctOfNational": 0.8344,
+      "kuPrio2Ha": 7817.7245,
+      "kuPrio2PctOfNational": 0.8344
+    },
+    "0630": {
+      "kommuneNavn": "Vejle",
+      "dce30Ha": 29791.8822,
+      "dce30PctOfNational": 2.33,
+      "kuPrio1Ha": 29915.4195,
+      "kuPrio1PctOfNational": 3.1927,
+      "kuPrio2Ha": 29915.4195,
+      "kuPrio2PctOfNational": 3.1927
+    },
+    "0657": {
+      "kommuneNavn": "Herning",
+      "dce30Ha": 47025.6567,
+      "dce30PctOfNational": 3.6779,
+      "kuPrio1Ha": 50455.6369,
+      "kuPrio1PctOfNational": 5.3849,
+      "kuPrio2Ha": 50455.6369,
+      "kuPrio2PctOfNational": 5.3849
+    },
+    "0661": {
+      "kommuneNavn": "Holstebro",
+      "dce30Ha": 28410.9076,
+      "dce30PctOfNational": 2.222,
+      "kuPrio1Ha": 26404.554,
+      "kuPrio1PctOfNational": 2.818,
+      "kuPrio2Ha": 26404.554,
+      "kuPrio2PctOfNational": 2.818
+    },
+    "0665": {
+      "kommuneNavn": "Lemvig",
+      "dce30Ha": 16077.7926,
+      "dce30PctOfNational": 1.2575,
+      "kuPrio1Ha": 15533.7107,
+      "kuPrio1PctOfNational": 1.6578,
+      "kuPrio2Ha": 15533.7107,
+      "kuPrio2PctOfNational": 1.6578
+    },
+    "0671": {
+      "kommuneNavn": "Struer",
+      "dce30Ha": 3815.5527,
+      "dce30PctOfNational": 0.2984,
+      "kuPrio1Ha": 1826.5069,
+      "kuPrio1PctOfNational": 0.1949,
+      "kuPrio2Ha": 1826.5069,
+      "kuPrio2PctOfNational": 0.1949
+    },
+    "0706": {
+      "kommuneNavn": "Syddjurs",
+      "dce30Ha": 30126.3761,
+      "dce30PctOfNational": 2.3562,
+      "kuPrio1Ha": 21200.1783,
+      "kuPrio1PctOfNational": 2.2626,
+      "kuPrio2Ha": 21200.1783,
+      "kuPrio2PctOfNational": 2.2626
+    },
+    "0707": {
+      "kommuneNavn": "Norddjurs",
+      "dce30Ha": 24119.2821,
+      "dce30PctOfNational": 1.8864,
+      "kuPrio1Ha": 20175.0694,
+      "kuPrio1PctOfNational": 2.1532,
+      "kuPrio2Ha": 20175.0694,
+      "kuPrio2PctOfNational": 2.1532
+    },
+    "0710": {
+      "kommuneNavn": "Favrskov",
+      "dce30Ha": 13402.6355,
+      "dce30PctOfNational": 1.0482,
+      "kuPrio1Ha": 9182.5878,
+      "kuPrio1PctOfNational": 0.98,
+      "kuPrio2Ha": 9182.5878,
+      "kuPrio2PctOfNational": 0.98
+    },
+    "0727": {
+      "kommuneNavn": "Odder",
+      "dce30Ha": 4292.4843,
+      "dce30PctOfNational": 0.3357,
+      "kuPrio1Ha": 811.6372,
+      "kuPrio1PctOfNational": 0.0866,
+      "kuPrio2Ha": 811.6372,
+      "kuPrio2PctOfNational": 0.0866
+    },
+    "0730": {
+      "kommuneNavn": "Randers",
+      "dce30Ha": 17082.0738,
+      "dce30PctOfNational": 1.336,
+      "kuPrio1Ha": 7328.2213,
+      "kuPrio1PctOfNational": 0.7821,
+      "kuPrio2Ha": 7328.2213,
+      "kuPrio2PctOfNational": 0.7821
+    },
+    "0740": {
+      "kommuneNavn": "Silkeborg",
+      "dce30Ha": 41312.3882,
+      "dce30PctOfNational": 3.2311,
+      "kuPrio1Ha": 45033.6014,
+      "kuPrio1PctOfNational": 4.8062,
+      "kuPrio2Ha": 45033.6014,
+      "kuPrio2PctOfNational": 4.8062
+    },
+    "0741": {
+      "kommuneNavn": "Samsø",
+      "dce30Ha": 2848.1605,
+      "dce30PctOfNational": 0.2228,
+      "kuPrio1Ha": 1800.0628,
+      "kuPrio1PctOfNational": 0.1921,
+      "kuPrio2Ha": 1800.0628,
+      "kuPrio2PctOfNational": 0.1921
+    },
+    "0746": {
+      "kommuneNavn": "Skanderborg",
+      "dce30Ha": 16538.2288,
+      "dce30PctOfNational": 1.2935,
+      "kuPrio1Ha": 16598.4692,
+      "kuPrio1PctOfNational": 1.7715,
+      "kuPrio2Ha": 16598.4692,
+      "kuPrio2PctOfNational": 1.7715
+    },
+    "0751": {
+      "kommuneNavn": "Aarhus",
+      "dce30Ha": 8744.081,
+      "dce30PctOfNational": 0.6839,
+      "kuPrio1Ha": 2255.6151,
+      "kuPrio1PctOfNational": 0.2407,
+      "kuPrio2Ha": 2255.6151,
+      "kuPrio2PctOfNational": 0.2407
+    },
+    "0756": {
+      "kommuneNavn": "Ikast-Brande",
+      "dce30Ha": 29348.9681,
+      "dce30PctOfNational": 2.2954,
+      "kuPrio1Ha": 29214.8996,
+      "kuPrio1PctOfNational": 3.118,
+      "kuPrio2Ha": 29214.8996,
+      "kuPrio2PctOfNational": 3.118
+    },
+    "0760": {
+      "kommuneNavn": "Ringkøbing-Skjern",
+      "dce30Ha": 50206.5005,
+      "dce30PctOfNational": 3.9267,
+      "kuPrio1Ha": 43471.006,
+      "kuPrio1PctOfNational": 4.6395,
+      "kuPrio2Ha": 43471.006,
+      "kuPrio2PctOfNational": 4.6395
+    },
+    "0766": {
+      "kommuneNavn": "Hedensted",
+      "dce30Ha": 10289.9871,
+      "dce30PctOfNational": 0.8048,
+      "kuPrio1Ha": 6861.2052,
+      "kuPrio1PctOfNational": 0.7323,
+      "kuPrio2Ha": 6861.2052,
+      "kuPrio2PctOfNational": 0.7323
+    },
+    "0773": {
+      "kommuneNavn": "Morsø",
+      "dce30Ha": 6309.1983,
+      "dce30PctOfNational": 0.4934,
+      "kuPrio1Ha": 0.0,
+      "kuPrio1PctOfNational": 0.0,
+      "kuPrio2Ha": 0.0,
+      "kuPrio2PctOfNational": 0.0
+    },
+    "0779": {
+      "kommuneNavn": "Skive",
+      "dce30Ha": 16587.7776,
+      "dce30PctOfNational": 1.2973,
+      "kuPrio1Ha": 7247.1171,
+      "kuPrio1PctOfNational": 0.7735,
+      "kuPrio2Ha": 7247.1171,
+      "kuPrio2PctOfNational": 0.7735
+    },
+    "0787": {
+      "kommuneNavn": "Thisted",
+      "dce30Ha": 53930.9116,
+      "dce30PctOfNational": 4.218,
+      "kuPrio1Ha": 51547.7081,
+      "kuPrio1PctOfNational": 5.5015,
+      "kuPrio2Ha": 51547.7081,
+      "kuPrio2PctOfNational": 5.5015
+    },
+    "0791": {
+      "kommuneNavn": "Viborg",
+      "dce30Ha": 51158.9344,
+      "dce30PctOfNational": 4.0012,
+      "kuPrio1Ha": 49449.2005,
+      "kuPrio1PctOfNational": 5.2775,
+      "kuPrio2Ha": 49449.2005,
+      "kuPrio2PctOfNational": 5.2775
+    },
+    "0810": {
+      "kommuneNavn": "Brønderslev",
+      "dce30Ha": 20113.1295,
+      "dce30PctOfNational": 1.5731,
+      "kuPrio1Ha": 7257.5137,
+      "kuPrio1PctOfNational": 0.7746,
+      "kuPrio2Ha": 7257.5137,
+      "kuPrio2PctOfNational": 0.7746
+    },
+    "0813": {
+      "kommuneNavn": "Frederikshavn",
+      "dce30Ha": 28335.0912,
+      "dce30PctOfNational": 2.2161,
+      "kuPrio1Ha": 28479.2842,
+      "kuPrio1PctOfNational": 3.0395,
+      "kuPrio2Ha": 28479.2842,
+      "kuPrio2PctOfNational": 3.0395
+    },
+    "0820": {
+      "kommuneNavn": "Vesthimmerlands",
+      "dce30Ha": 20936.9001,
+      "dce30PctOfNational": 1.6375,
+      "kuPrio1Ha": 10845.1963,
+      "kuPrio1PctOfNational": 1.1575,
+      "kuPrio2Ha": 10845.1963,
+      "kuPrio2PctOfNational": 1.1575
+    },
+    "0825": {
+      "kommuneNavn": "Læsø",
+      "dce30Ha": 10351.9519,
+      "dce30PctOfNational": 0.8096,
+      "kuPrio1Ha": 9340.8844,
+      "kuPrio1PctOfNational": 0.9969,
+      "kuPrio2Ha": 9340.8844,
+      "kuPrio2PctOfNational": 0.9969
+    },
+    "0840": {
+      "kommuneNavn": "Rebild",
+      "dce30Ha": 19997.7494,
+      "dce30PctOfNational": 1.564,
+      "kuPrio1Ha": 16290.8214,
+      "kuPrio1PctOfNational": 1.7387,
+      "kuPrio2Ha": 16290.8214,
+      "kuPrio2PctOfNational": 1.7387
+    },
+    "0846": {
+      "kommuneNavn": "Mariagerfjord",
+      "dce30Ha": 20879.5947,
+      "dce30PctOfNational": 1.633,
+      "kuPrio1Ha": 22985.1315,
+      "kuPrio1PctOfNational": 2.4531,
+      "kuPrio2Ha": 22985.1315,
+      "kuPrio2PctOfNational": 2.4531
+    },
+    "0849": {
+      "kommuneNavn": "Jammerbugt",
+      "dce30Ha": 34949.0567,
+      "dce30PctOfNational": 2.7334,
+      "kuPrio1Ha": 30010.5659,
+      "kuPrio1PctOfNational": 3.2029,
+      "kuPrio2Ha": 30010.5659,
+      "kuPrio2PctOfNational": 3.2029
+    },
+    "0851": {
+      "kommuneNavn": "Aalborg",
+      "dce30Ha": 40232.1565,
+      "dce30PctOfNational": 3.1466,
+      "kuPrio1Ha": 20938.5519,
+      "kuPrio1PctOfNational": 2.2347,
+      "kuPrio2Ha": 20938.5519,
+      "kuPrio2PctOfNational": 2.2347
+    },
+    "0860": {
+      "kommuneNavn": "Hjørring",
+      "dce30Ha": 29024.1292,
+      "dce30PctOfNational": 2.27,
+      "kuPrio1Ha": 20171.2006,
+      "kuPrio1PctOfNational": 2.1528,
+      "kuPrio2Ha": 20171.2006,
+      "kuPrio2PctOfNational": 2.1528
+    }
+  }
+}

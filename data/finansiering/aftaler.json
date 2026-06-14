@@ -1,0 +1,211 @@
+{
+  "_meta": {
+    "kilde": "Aftale om et Grønt Danmark / Rammeaftale MGTP–KL — egen kildegennemgang",
+    "opdateret": "2026-06-01"
+  },
+  "stroemme": [
+    {
+      "id": "anlaeg",
+      "kicker": "Strøm A",
+      "title": "Projekterne",
+      "subtitle": "Anlæg & etablering",
+      "tone": "green",
+      "hero": "~43",
+      "heroUnit": "mia. kr.",
+      "heroNote": "samlet politisk aftaleramme (offentlig)",
+      "who": "Lodsejere & projektejere ansøger",
+      "instruments": [
+        {
+          "label": "Danmarks Grønne Arealfond",
+          "amount": "≥ 40 mia.",
+          "note": "paraplyfond — ligger inde i de ~43 mia. · ~180.000 ha"
+        },
+        {
+          "label": "Novo Nordisk Fonden",
+          "amount": "+ 10 mia.",
+          "privat": true,
+          "note": "privat fond · kommer oveni · 10-årig ramme"
+        },
+        {
+          "label": "Jordfordeling",
+          "amount": "+ 740 mio.",
+          "note": "separat virkemiddel · muliggør arealomlægning"
+        }
+      ],
+      "listNote": "Arealfonden ligger inde i rammen; Novo (privat) og jordfordeling kommer oveni — listen er ikke en sum.",
+      "keyPoint": "Tilskudsfinansieret og frivilligt for lodsejeren. Lavbund er 100 % EU-dækket — både forundersøgelse og etablering — så lodsejeren bærer ikke anlægsomkostningen.",
+      "flow": ["Stat / EU", "tilskud", "projekter"],
+      "source": {
+        "label": "Aftale om et Grønt Danmark (24.6.2024)",
+        "url": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf"
+      }
+    },
+    {
+      "id": "kapacitet",
+      "kicker": "Strøm B",
+      "title": "Kommunal kapacitet",
+      "subtitle": "Planlægning & sekretariat",
+      "tone": "teal",
+      "hero": "461,8",
+      "heroUnit": "mio. kr.",
+      "heroNote": "2025–2032 · fire bloktilskudspuljer",
+      "who": "Kommunerne via bloktilskud",
+      "breakdown": [
+        { "label": "Basisbevilling", "amount": 49.0, "note": "alle kommuner · folketalsnøgle" },
+        { "label": "Drift af lokale treparter", "amount": 88.0, "note": "10 tværkommunale samarbejder" },
+        { "label": "Fordeling, kvælstof + CO₂e", "amount": 314.8, "note": "opsøgende projektarbejde · 60/40" },
+        { "label": "Risikopulje", "amount": 10.0, "note": "opgivne EU-projekter · SGAV" }
+      ],
+      "keyPoint": "Betaler planlægningsmaskineriet — ikke projekterne. Kommunerne selvfinansierer ikke; er kommunen selv projektejer, søger den tilskud på lige fod med private (Strøm A).",
+      "flow": ["Stat", "bloktilskud", "kommuner"],
+      "source": {
+        "label": "Rammeaftale MGTP–KL (13.12.2024), tabel 1",
+        "url": "https://www.kl.dk/media/q4sl0qeo/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf"
+      }
+    },
+    {
+      "id": "drift",
+      "kicker": "Strøm C",
+      "title": "Drift & pleje",
+      "subtitle": "År efter år — efter anlæg",
+      "tone": "red",
+      "hero": "Ikke afsat",
+      "heroNote": "ingen varige driftsmidler — drøftes først efter 2030",
+      "who": "Ingen fast modtager udpeget",
+      "contextLabel": "Kun midlertidige midler:",
+      "context": [
+        { "label": "Naturnationalparker", "amount": "86 mio.", "note": "kun afsat frem til 2030" },
+        { "label": "Pleje af græs- & naturarealer", "amount": "+ 65 mio.", "note": "engangsløft i 2025" }
+      ],
+      "keyPoint": "Et strukturelt, tværgående hul. Aftalen forpligter kun parterne til at drøfte permanent driftsfinansiering efter 2030, og lavbund-tilskuddet dækker etablering — ikke den løbende pleje.",
+      "flow": ["Anlagt natur", "✕", "ikke afsat"],
+      "source": {
+        "label": "Aftale om et Grønt Danmark — drøftelse efter 2030",
+        "url": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf"
+      }
+    }
+  ],
+  "kategorier": [
+    {
+      "id": "lavbund-udtagning",
+      "kategori": "lavbund",
+      "label": "Udtagning af lavbundsjord",
+      "driftFinansieringMioKr": null,
+      "badge": "100 % EU-dækket — forundersøgelse + etablering",
+      "kilder": [
+        {
+          "kildeNavn": "MGTP Baggrundsnotat (april 2025) — tilskud udtagning kulstofrig lavbundsjord, søjle II",
+          "beloebMioKr": 2460,
+          "periode": "2024-2027",
+          "noter": "Tilskud, søjle II; jf. tabel 1 i baggrundsnotatet"
+        },
+        {
+          "kildeNavn": "Aftale om et Grønt Danmark (juni 2024)",
+          "kildeUrl": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf",
+          "beloebMioKr": 9400,
+          "arealMaalHa": 140000,
+          "deadlineYear": 2030,
+          "noter": "Samlet ramme udtagning + randzoner, jf. trepartsaftalen"
+        }
+      ],
+      "satser": {
+        "permanentEkstensiveringLavbundOmdriftKrPerHa": 82500,
+        "permanentEkstensiveringLavbundGraesKrPerHa": 35500,
+        "midlertidigEkstensiveringKrPerHaPerAar": 3300,
+        "noter": "Satser fra Ministeriet for Grøn Trepart, baggrundsnotat 12.4.2025 (afventer endelig fastsættelse for visse ordninger)"
+      }
+    },
+    {
+      "id": "kvaelstof",
+      "kategori": "kvaelstof",
+      "label": "Kvælstofindsats og ekstensivering",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "Løft til kvælstof- og vådområdeindsatsen, søjle II (MGTP)",
+          "beloebMioKr": 1000,
+          "periode": "2025-2027"
+        },
+        {
+          "kildeNavn": "Permanent ekstensivering, søjle II (MGTP)",
+          "beloebMioKr": 645,
+          "periode": "2026-2027"
+        },
+        {
+          "kildeNavn": "Midlertidig ekstensivering, søjle I (MGTP)",
+          "beloebMioKr": 700,
+          "periode": "2026-2027"
+        },
+        {
+          "kildeNavn": "Ny reguleringsmodel, søjle II (MGTP)",
+          "beloebMioKr": 250,
+          "periode": "2027"
+        }
+      ]
+    },
+    {
+      "id": "skov",
+      "kategori": "skovrejsning",
+      "label": "Skovrejsning og urørt skov",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "Aftale om et Grønt Danmark — skovrejsning (samlet)",
+          "kildeUrl": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf",
+          "beloebMioKr": 20000,
+          "arealMaalHa": 250000,
+          "deadlineYear": 2045
+        },
+        {
+          "kildeNavn": "Privat urørt skov (sub-budget)",
+          "beloebMioKr": 7000,
+          "includeInTotal": false,
+          "arealMaalHa": 80000
+        },
+        {
+          "kildeNavn": "Statslig urørt skov (sub-budget)",
+          "beloebMioKr": 2400,
+          "includeInTotal": false,
+          "arealMaalHa": 20000
+        },
+        {
+          "kildeNavn": "Skovrejsning — mio. kr. og ha i baggrundsnotat, 2025–2030 (planøkonomi)",
+          "beloebMioKr": 5206,
+          "includeInTotal": false,
+          "noter": "Jfr. tabel (privat/urørt/statslig); perioden 2025–2030 i notatet"
+        }
+      ],
+      "satser": {
+        "skovrejsningKrPerHa": 75500,
+        "uroertTillaegKrPerHa": 15000,
+        "noter": "Fra baggrundsnotatet; urørt skov har tillæg"
+      }
+    },
+    {
+      "id": "natur-sammenhaengende",
+      "kategori": "natur",
+      "label": "Større sammenhængende naturområder",
+      "driftFinansieringMioKr": null,
+      "kilder": [
+        {
+          "kildeNavn": "Statslige signaturprojekter — opkøb af mellemliggende arealer",
+          "kildeUrl": "https://www.lovguiden.dk/det-offentlige/ministeriet-groen-transition/2026-02-19-seks-nye-store-naturomraader-udpeget-til-genopretning-i-danmark",
+          "beloebMioKr": 140,
+          "noter": "'Lim' mellem eksisterende naturområder"
+        },
+        {
+          "kildeNavn": "Statslige signaturprojekter — analyse og kortlægning",
+          "beloebMioKr": 10,
+          "noter": "Analyse m.v. (jf. offentlig fremstilling)"
+        },
+        {
+          "kildeNavn": "Aftale — permanent ekstensivering, ny natur",
+          "kildeUrl": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf",
+          "beloebMioKr": 850,
+          "arealMaalHa": 10000,
+          "deadlineYear": 2024
+        }
+      ]
+    }
+  ]
+}

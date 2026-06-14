@@ -6,13 +6,21 @@ node = "22"
 description = "Install npm dependencies (topojson CLI tools, mapshaper)"
 run = "npm install -g topojson-server topojson-simplify topojson-client mapshaper"
 
+[tasks.setup-spatial]
+description = "Install optional Python GIS dependencies for monthly spatial overlays"
+run = "python3 -m pip install -r etl/requirements-spatial.txt"
+
 [tasks.fetch-data]
 description = "Run all ETL fetchers (MARS, DAWA, MiljøGIS, DST, VanDa) + build dashboard data"
 run = "bash etl/fetch_all.sh"
 
+[tasks.fetch-biodiversitet]
+description = "Arealdata WFS (KU, optional DCE) + FVM VNS 2026 — kør fra etl/"
+run = "cd etl && python3 fetch_arealdata_biodiversitet.py && python3 fetch_markkort_natur_projekter.py"
+
 [tasks.build-dashboard]
-description = "Build the slim dashboard JSON from raw MARS data"
-run = "cd etl && python3 build_dashboard_data.py"
+description = "Build dashboard JSON (summary + project details) and SGAV articles bundle"
+run = "cd etl && python3 build_dashboard_data.py && node ../scripts/build-sgav-articles.mjs"
 
 [tasks.prepare-map]
 description = "Convert GeoJSON to TopoJSON for the frontend map"
@@ -21,6 +29,14 @@ run = "bash etl/prepare_map_data.sh"
 [tasks.build-kommune-map]
 description = "Convert kommune GeoJSON to WGS84 TopoJSON for the choropleth map"
 run = "cd etl && python3 build_kommune_topojson.py"
+
+[tasks.build-natura2000-map]
+description = "Simplify terrestrial Natura 2000 polygons for the national map overlay"
+run = "cd etl && python3 build_natura2000_map.py"
+
+[tasks.build-section3-map]
+description = "Merge and simplify §3 polygons for the national map overlay"
+run = "cd etl && python3 build_section3_map.py"
 
 [tasks.all]
 description = "Full pipeline: fetch data → prepare map → build dashboard data"
@@ -41,20 +57,51 @@ echo "=== All done ==="
 description = "Fetch project geometries from MARS API (resumable — saves every 25 fetches)"
 run = "cd etl && python3 fetch_geometries.py"
 
+[tasks.fetch-marker2026]
+description = "Fetch Markkort 2026 field polygons per municipality bbox"
+run = "cd etl && python3 fetch_marker2026.py"
+
+[tasks.fetch-section3-by-kommune]
+description = "Fetch §3 protected nature polygons per municipality bbox"
+run = "cd etl && python3 fetch_section3_by_kommune.py"
+
+[tasks.build-kommune-benchmark]
+description = "Build kommune nature benchmarks B1–B4 (GeoPandas spatial overlay)"
+run = "cd etl && PYTHONUNBUFFERED=1 python3 build_kommune_benchmark.py"
+
+[tasks.build-project-nature-overlap]
+description = "Build per-project nature overlap, attributed to kommune (GeoPandas spatial overlay)"
+run = "cd etl && PYTHONUNBUFFERED=1 python3 build_project_nature_overlap.py"
+
+[tasks.build-kommune-ranking]
+description = "Build Sprint 6 kommune competition ranking JSON"
+run = "cd etl && python3 build_kommune_ranking.py"
+
+[tasks.build-kommune-oplande]
+description = "Build Sprint 6 kommune × water-catchment overlap JSON"
+run = "cd etl && python3 build_kommune_oplande.py"
+
+[tasks.test-python]
+description = "Python stdlib ETL unit tests (WFS helpers m.m.)"
+run = "cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet -v"
+
 [tasks.check]
 description = "Run all checks: lint, typecheck, build, and tests"
 run = """
-echo "=== 1/4: Lint ==="
+echo "=== 1/5: Lint ==="
 npm run lint
 echo
-echo "=== 2/4: Typecheck ==="
+echo "=== 2/5: Typecheck ==="
 npm run typecheck
 echo
-echo "=== 3/4: Build ==="
+echo "=== 3/5: Build ==="
 npm run build
 echo
-echo "=== 4/4: Tests ==="
+echo "=== 4/5: Frontend tests ==="
 npm run test
+echo
+echo "=== 5/5: Python ETL tests ==="
+cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet -v
 echo
 echo "=== All checks passed ==="
 """

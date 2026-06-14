@@ -1,0 +1,358 @@
+{
+  "_meta": {
+    "builtAt": "2026-05-17T16:21:01.854903Z",
+    "sourcePageUrl": "https://www.kefm.dk/klima/klimastatus-og-fremskrivning/klimastatus-og-fremskrivning-2026",
+    "inputFiles": [
+      "data/kf26-hoering/4-forudsaetningsnotat-landbrug-arealer-skov.pdf",
+      "data/kf26-hoering/kf26-datark-lulucf.xlsx",
+      "data/kf26-hoering/kapitel-20-landbrugsarealer.pdf",
+      "data/kf26-hoering/kapitel-21-skov-traeprodukter.pdf"
+    ],
+    "notes": [
+      "KF26 is a hearing version published 2026-05-12; final version expected 2026-09.",
+      "Skov profile is expanded from forudsætningsnotat #4 table 3.1; the PDF groups 2033-2044 as one repeated annual value."
+    ]
+  },
+  "publishedAt": "2026-05-12",
+  "version": "høring",
+  "status": "I offentlig høring frem til 2026-06-12; endelig version forventes 2026-09",
+  "sourceUrl": "https://www.kefm.dk/klima/klimastatus-og-fremskrivning/klimastatus-og-fremskrivning-2026",
+  "targetsAndHorizons": {
+    "politicalExtractionDeadline": "2030-12-31",
+    "kf26ExtractionProjectAreaHorizon": "2032",
+    "kf26ExtractionCarbonRichHorizon": "2033",
+    "politicalAfforestationDeadline": "2045-12-31",
+    "kf26AfforestationRealizationHorizon": "2047",
+    "extractionProjectAreaTargetHa": 140000,
+    "extractionAgriculturalAreaApproxHa": 120000,
+    "extractionCarbonRichAgriculturalSoilTargetHa": 70000,
+    "afforestationPoliticalTargetHa": 250000,
+    "afforestationKf26ImkHa": 273000,
+    "untouchedForestTargetWithinTrepartHa": 100000
+  },
+  "lavbundStatusDec2025": {
+    "underUdtagningHa": 71100,
+    "forundersoegelsestilsagnHa": 52400,
+    "vkpRunde3ForundersoegelseHa": 11800,
+    "vkpRunde3EtableringHa": 2900,
+    "definitionNote": "KF26-tallene dækker kulstofrige landbrugsarealer inkl. randarealer. MARS-totaler i trackeren dækker bredere projekttyper/faser og er derfor ikke direkte sammenlignelige.",
+    "source": {
+      "file": "data/kf26-hoering/4-forudsaetningsnotat-landbrug-arealer-skov.pdf",
+      "section": "Boks 2.3 / afsnit 2.4 Usikkerhed"
+    }
+  },
+  "assumptions": {
+    "lavbundNPlusYears": 5,
+    "lavbundDropoutRateRange": [
+      0.15,
+      0.35
+    ],
+    "stateAfforestationRealization": "2 år efter tilsagn",
+    "privateAfforestationRealization": "35% efter 1 år, 35% efter 2 år, 30% efter 3 år; 2025-tilsagn først fra 2026",
+    "forestMineralSoilCarbonBindingYearsKf26": 100,
+    "forestMineralSoilCarbonBindingYearsKf25": 30,
+    "forestNetEffectIncrease2030MtCo2eVsKf25": 0.2,
+    "forestNetEffectIncrease2035MtCo2eVsKf25": 0.2
+  },
+  "skovProfilPerYear": [
+    {
+      "year": 2025,
+      "stateOrdinaryHa": 330,
+      "stateUntouchedGtpHa": 0.0,
+      "privateSubsidyCapHa": 841,
+      "privateSubsidyGtpOrdinaryHa": 0.0,
+      "privateSubsidyGtpUntouchedHa": 0.0,
+      "klimaskovfondenHa": 700,
+      "totalNewInitiativesHa": 1871.0,
+      "cumulativeNewInitiativesHa": 1871.0
+    },
+    {
+      "year": 2026,
+      "stateOrdinaryHa": 330,
+      "stateUntouchedGtpHa": 0.0,
+      "privateSubsidyCapHa": 1040,
+      "privateSubsidyGtpOrdinaryHa": 4289,
+      "privateSubsidyGtpUntouchedHa": 2095,
+      "klimaskovfondenHa": 660,
+      "totalNewInitiativesHa": 8414.0,
+      "cumulativeNewInitiativesHa": 10285.0
+    },
+    {
+      "year": 2027,
+      "stateOrdinaryHa": 310,
+      "stateUntouchedGtpHa": 400,
+      "privateSubsidyCapHa": 109,
+      "privateSubsidyGtpOrdinaryHa": 6350,
+      "privateSubsidyGtpUntouchedHa": 3103,
+      "klimaskovfondenHa": 870,
+      "totalNewInitiativesHa": 11142,
+      "cumulativeNewInitiativesHa": 21427.0
+    },
+    {
+      "year": 2028,
+      "stateOrdinaryHa": 250,
+      "stateUntouchedGtpHa": 500,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 7988,
+      "privateSubsidyGtpUntouchedHa": 3903,
+      "klimaskovfondenHa": 820,
+      "totalNewInitiativesHa": 13461.0,
+      "cumulativeNewInitiativesHa": 34888.0
+    },
+    {
+      "year": 2029,
+      "stateOrdinaryHa": 210,
+      "stateUntouchedGtpHa": 800,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 6503,
+      "privateSubsidyGtpUntouchedHa": 3177,
+      "klimaskovfondenHa": 1000,
+      "totalNewInitiativesHa": 11690.0,
+      "cumulativeNewInitiativesHa": 46578.0
+    },
+    {
+      "year": 2030,
+      "stateOrdinaryHa": 210,
+      "stateUntouchedGtpHa": 1000,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 6972,
+      "privateSubsidyGtpUntouchedHa": 3406,
+      "klimaskovfondenHa": 1200,
+      "totalNewInitiativesHa": 12788.0,
+      "cumulativeNewInitiativesHa": 59366.0
+    },
+    {
+      "year": 2031,
+      "stateOrdinaryHa": 210,
+      "stateUntouchedGtpHa": 1000,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 7623,
+      "privateSubsidyGtpUntouchedHa": 3724,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 12557.0,
+      "cumulativeNewInitiativesHa": 71923.0
+    },
+    {
+      "year": 2032,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1000,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8062,
+      "privateSubsidyGtpUntouchedHa": 3939,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13001.0,
+      "cumulativeNewInitiativesHa": 84924.0
+    },
+    {
+      "year": 2033,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 98424.0
+    },
+    {
+      "year": 2034,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 111924.0
+    },
+    {
+      "year": 2035,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 125424.0
+    },
+    {
+      "year": 2036,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 138924.0
+    },
+    {
+      "year": 2037,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 152424.0
+    },
+    {
+      "year": 2038,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 165924.0
+    },
+    {
+      "year": 2039,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 179424.0
+    },
+    {
+      "year": 2040,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 192924.0
+    },
+    {
+      "year": 2041,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 206424.0
+    },
+    {
+      "year": 2042,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 219924.0
+    },
+    {
+      "year": 2043,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 233424.0
+    },
+    {
+      "year": 2044,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8384,
+      "privateSubsidyGtpUntouchedHa": 4096,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 13500.0,
+      "cumulativeNewInitiativesHa": 246924.0
+    },
+    {
+      "year": 2045,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 8029,
+      "privateSubsidyGtpUntouchedHa": 3926,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 12975.0,
+      "cumulativeNewInitiativesHa": 259899.0
+    },
+    {
+      "year": 2046,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 5095,
+      "privateSubsidyGtpUntouchedHa": 2492,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 8607.0,
+      "cumulativeNewInitiativesHa": 268506.0
+    },
+    {
+      "year": 2047,
+      "stateOrdinaryHa": 0.0,
+      "stateUntouchedGtpHa": 1020,
+      "privateSubsidyCapHa": 0.0,
+      "privateSubsidyGtpOrdinaryHa": 2211,
+      "privateSubsidyGtpUntouchedHa": 1083,
+      "klimaskovfondenHa": 0.0,
+      "totalNewInitiativesHa": 4314.0,
+      "cumulativeNewInitiativesHa": 272820.0
+    }
+  ],
+  "skovProfilSummary": {
+    "sumNewInitiativesHa": 272820.0,
+    "roundedKf26ImkHa": 273000,
+    "politicalTargetHa": 250000,
+    "source": {
+      "file": "data/kf26-hoering/4-forudsaetningsnotat-landbrug-arealer-skov.pdf",
+      "table": "Tabel 3.1"
+    },
+    "roundingNote": "Tabel 3.1 er afrundet til hele hektar; summen af de udfoldede år er derfor ca. 273.000 ha."
+  },
+  "lulucfArealer": {
+    "kulstofrigLandbrugsjord": {
+      "unit": "1000_ha",
+      "label": "I alt, > 6 % OC",
+      "selectedYears": {
+        "1990": 213.1,
+        "2024": 110.8,
+        "2025": 108.0,
+        "2030": 59.0,
+        "2033": 23.4,
+        "2035": 20.2,
+        "2050": 2.4
+      },
+      "sourceFile": "data/kf26-hoering/kf26-datark-lulucf.xlsx",
+      "sourceSheet": "LULUCF_arealer"
+    }
+  },
+  "landbrug2030Goal": {
+    "sectorReductionPctKf26": 52,
+    "lowerTargetPct": 55,
+    "upperTargetPct": 65,
+    "gapToLowerTargetMtCo2e": 0.7,
+    "gapToUpperTargetMtCo2e": 2.8,
+    "source": {
+      "url": "https://www.kefm.dk/Media/639141758684018930/Klimastatus-%20og%20fremskrivning%202026%20Del%201.pdf",
+      "section": "Tabel 1.1 / landbrugsmål i 2030"
+    }
+  },
+  "co2Headline": {
+    "target2030MarginMtCo2e": 0.4,
+    "kf25Target2030MarginMtCo2e": 1.5,
+    "source": {
+      "url": "https://www.kefm.dk/Media/639141758684018930/Klimastatus-%20og%20fremskrivning%202026%20Del%201.pdf",
+      "section": "Kapitel 1 / tabel 1.1"
+    }
+  }
+}

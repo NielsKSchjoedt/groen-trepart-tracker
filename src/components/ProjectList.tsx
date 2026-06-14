@@ -1,30 +1,27 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { ChevronDown, ChevronRight, ExternalLink, Filter, Search, Droplets, Mountain, Trees, Leaf } from 'lucide-react';
+import { ChevronDown, ChevronRight, Filter, Search, Droplets, Mountain, Trees } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
-import type { ProjectDetail, SketchProject, NaturePotential } from '@/lib/types';
-import { loadProjectGeometries } from '@/lib/data';
+import type { ProjectDetail, SketchProject, NaturePotential, ProjectNatureOverlapData, SubsidyScheme } from '@/lib/types';
+import { loadProjectGeometries, loadProjectNatureOverlap } from '@/lib/data';
 import { getPhaseConfig } from '@/lib/phase-config';
-import { ProjectMiniMap } from './ProjectMiniMap';
+import { MarsProjectDetailContent } from '@/components/MarsProjectDetailContent';
 import { ProjectMapOverlay } from './ProjectMapOverlay';
 import type { ProjectMapInfo } from './ProjectMapOverlay';
+import { useMarsProjectUrl } from '@/lib/mars-project-url';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type Tab = 'projects' | 'sketches' | 'nature';
 type PhaseFilter = 'all' | 'established' | 'approved' | 'preliminary';
-
-function formatDate(iso: string): string {
-  if (!iso) return '';
-  try {
-    return new Date(iso).toLocaleDateString('da-DK', { day: 'numeric', month: 'short', year: 'numeric' });
-  } catch {
-    return '';
-  }
-}
 
 interface ProjectListProps {
   projectDetails: ProjectDetail[];
   sketchProjects: SketchProject[];
   naturePotentials: NaturePotential[];
   activePillar: string;
+  /** Parent coastal/catchment plan name for MARS detail cards. */
+  planName?: string;
+  /** Subsidy scheme catalogue for ordning-info tooltips. */
+  schemes?: SubsidyScheme[];
   /** Override the section heading (default: "Projektdetaljer") */
   title?: string;
   /**
@@ -34,26 +31,77 @@ interface ProjectListProps {
   flat?: boolean;
 }
 
-export function ProjectList({ projectDetails, sketchProjects, naturePotentials, activePillar, title, flat }: ProjectListProps) {
+export function ProjectList({
+  projectDetails,
+  sketchProjects,
+  naturePotentials,
+  activePillar,
+  planName,
+  schemes,
+  title,
+  flat,
+}: ProjectListProps) {
   const [activeTab, setActiveTab] = useState<Tab>('projects');
   const [phaseFilter, setPhaseFilter] = useState<PhaseFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
   const [geometries, setGeometries] = useState<Record<string, [number, number][]> | null>(null);
   const geoLoadedRef = useRef(false);
+  const [natureOverlap, setNatureOverlap] = useState<ProjectNatureOverlapData | null>(null);
   const [overlayData, setOverlayData] = useState<{ coordinates: [number, number][]; info: ProjectMapInfo } | null>(null);
+  const { marsGeoId, openMarsProject, closeMarsProject } = useMarsProjectUrl();
+  const isMobile = useIsMobile();
+  const showNatureOverlap = activePillar === 'nature';
+
+  const schemeById = useMemo(() => {
+    const map = new Map<string, SubsidyScheme>();
+    for (const s of schemes ?? []) map.set(s.id, s);
+    return map;
+  }, [schemes]);
 
   const openMapOverlay = useCallback((coords: [number, number][], info: ProjectMapInfo) => {
     setOverlayData({ coordinates: coords, info });
   }, []);
 
-  // Lazy-load geometries on first expand
+  const handleToggle = useCallback((listKey: string, geoId?: string) => {
+    if (expandedKey === listKey) {
+      setExpandedKey(null);
+      if (geoId) closeMarsProject();
+      return;
+    }
+    setExpandedKey(listKey);
+    if (geoId) openMarsProject(geoId);
+  }, [expandedKey, closeMarsProject, openMarsProject]);
+
+  // Deep-link: expand matching row when ?projekt=mars:<geoId> is set (desktop inline body).
+  const [prevMarsGeoId, setPrevMarsGeoId] = useState(marsGeoId);
+  if (prevMarsGeoId !== marsGeoId) {
+    setPrevMarsGeoId(marsGeoId);
+    if (!marsGeoId) {
+      setExpandedKey(null);
+    } else {
+      const projectIdx = projectDetails.findIndex((p) => p.geoId === marsGeoId);
+      if (projectIdx >= 0) {
+        setActiveTab('projects');
+        setExpandedKey(`${projectDetails[projectIdx].id}::${projectIdx}`);
+      } else {
+        const sketchIdx = sketchProjects.findIndex((s) => s.geoId === marsGeoId);
+        if (sketchIdx >= 0) {
+          setActiveTab('sketches');
+          setExpandedKey(`${sketchProjects[sketchIdx].id}::${sketchIdx}`);
+        }
+      }
+    }
+  }
+
+  // Lazy-load geometries + nature overlap on first expand
   useEffect(() => {
-    if (expandedId && !geoLoadedRef.current) {
+    if (expandedKey && !geoLoadedRef.current) {
       geoLoadedRef.current = true;
       loadProjectGeometries().then(setGeometries);
+      loadProjectNatureOverlap().then(setNatureOverlap);
     }
-  }, [expandedId]);
+  }, [expandedKey]);
 
   const totalItems = projectDetails.length + sketchProjects.length + naturePotentials.length;
   if (totalItems === 0) return null;
@@ -76,7 +124,7 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
         {tabs.filter(t => t.show).map(tab => (
           <button
             key={tab.id}
-            onClick={() => { setActiveTab(tab.id); setExpandedId(null); }}
+            onClick={() => { setActiveTab(tab.id); setExpandedKey(null); }}
             className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors cursor-pointer ${
               activeTab === tab.id
                 ? 'bg-primary/10 text-primary'
@@ -122,29 +170,37 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
           projects={projectDetails}
           phaseFilter={phaseFilter}
           searchQuery={searchQuery}
-          expandedId={expandedId}
-          onToggle={id => setExpandedId(expandedId === id ? null : id)}
+          expandedKey={expandedKey}
+          onToggle={handleToggle}
           geometries={geometries}
+          natureOverlap={natureOverlap}
           onOpenMap={openMapOverlay}
           flat={flat}
+          planName={planName}
+          schemeById={schemeById}
+          showNatureOverlap={showNatureOverlap}
+          showInlineDetail={!isMobile}
         />
       )}
       {activeTab === 'sketches' && (
         <SketchesTab
           sketches={sketchProjects}
-          expandedId={expandedId}
-          onToggle={id => setExpandedId(expandedId === id ? null : id)}
+          expandedKey={expandedKey}
+          onToggle={handleToggle}
           geometries={geometries}
           searchQuery={searchQuery}
           onOpenMap={openMapOverlay}
           flat={flat}
+          planName={planName}
+          schemeById={schemeById}
+          showInlineDetail={!isMobile}
         />
       )}
       {activeTab === 'nature' && (
         <NaturePotentialsTab
           potentials={naturePotentials}
-          expandedId={expandedId}
-          onToggle={id => setExpandedId(expandedId === id ? null : id)}
+          expandedKey={expandedKey}
+          onToggle={key => setExpandedKey(expandedKey === key ? null : key)}
         />
       )}
 
@@ -161,16 +217,22 @@ export function ProjectList({ projectDetails, sketchProjects, naturePotentials, 
 }
 
 function ProjectsTab({
-  projects, phaseFilter, searchQuery, expandedId, onToggle, geometries, onOpenMap, flat
+  projects, phaseFilter, searchQuery, expandedKey, onToggle, geometries, natureOverlap, onOpenMap, flat,
+  planName, schemeById, showNatureOverlap, showInlineDetail,
 }: {
   projects: ProjectDetail[];
   phaseFilter: PhaseFilter;
   searchQuery: string;
-  expandedId: string | null;
-  onToggle: (id: string) => void;
+  expandedKey: string | null;
+  onToggle: (key: string, geoId?: string) => void;
   geometries: Record<string, [number, number][]> | null;
+  natureOverlap: ProjectNatureOverlapData | null;
   onOpenMap: (coords: [number, number][], info: ProjectMapInfo) => void;
   flat?: boolean;
+  planName?: string;
+  schemeById: Map<string, SubsidyScheme>;
+  showNatureOverlap: boolean;
+  showInlineDetail: boolean;
 }) {
   const filtered = useMemo(() => {
     let list = projects;
@@ -204,15 +266,17 @@ function ProjectsTab({
 
   return (
     <div className={`space-y-1.5 pr-1 ${flat ? '' : 'max-h-[400px] overflow-y-auto'}`}>
-      {filtered.map(p => {
-        const expanded = expandedId === p.id;
+      {filtered.map((p, index) => {
+        const listKey = `${p.id}::${index}`;
+        const expanded = expandedKey === listKey;
         const phase = getPhaseConfig(p.phase);
         const hasMetrics = p.nitrogenT > 0 || p.extractionHa > 0 || p.afforestationHa > 0;
+        const overlap = p.geoId ? natureOverlap?.byProject[p.geoId] ?? null : null;
 
         return (
-          <div key={p.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
+          <div key={listKey} className="border border-border rounded-lg overflow-hidden bg-card/50">
             <button
-              onClick={() => onToggle(p.id)}
+              onClick={() => onToggle(listKey, p.geoId)}
               className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors cursor-pointer"
             >
               {expanded ? (
@@ -254,110 +318,33 @@ function ProjectsTab({
               </div>
             </button>
 
-            {expanded && (
-              <div className="px-3 pb-3 pt-1 border-t border-border/50 space-y-2 text-[11px]">
-                {/* Status & measure */}
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                  <div>
-                    <span className="text-muted-foreground">Status:</span>{' '}
-                    <span className={`font-medium ${phase.text}`}>{p.statusName || phase.label}</span>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Type:</span>{' '}
-                    <span className="font-medium text-foreground">{p.measureName || '—'}</span>
-                  </div>
-                  {p.areaHa > 0 && (
-                    <div>
-                      <span className="text-muted-foreground">Areal:</span>{' '}
-                      <span className="font-medium text-foreground">{formatDanishNumber(p.areaHa, 1)} ha</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Metrics */}
-                {hasMetrics && (
-                  <div className="flex flex-wrap gap-3">
-                    {p.nitrogenT > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Droplets className="w-3 h-3 text-nature-water" />
-                        <span className="text-muted-foreground">N-reduktion:</span>
-                        <span className="font-semibold text-foreground">{formatDanishNumber(p.nitrogenT, 3)} ton</span>
-                      </div>
-                    )}
-                    {p.extractionHa > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Mountain className="w-3 h-3 text-nature-earth" />
-                        <span className="text-muted-foreground">Udtaget:</span>
-                        <span className="font-semibold text-foreground">{formatDanishNumber(p.extractionHa, 1)} ha</span>
-                      </div>
-                    )}
-                    {p.afforestationHa > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Trees className="w-3 h-3 text-primary" />
-                        <span className="text-muted-foreground">Skov:</span>
-                        <span className="font-semibold text-foreground">{formatDanishNumber(p.afforestationHa, 1)} ha</span>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Scheme & dates */}
-                <div className="space-y-1">
-                  {p.schemeName && (
-                    <div>
-                      <span className="text-muted-foreground">Tilskudsordning:</span>{' '}
-                      <span className="text-foreground">{p.schemeName}</span>
-                      {p.schemeOrg && <span className="text-muted-foreground"> ({p.schemeOrg})</span>}
-                    </div>
-                  )}
-                  <div className="flex gap-4">
-                    {p.appliedAt && (
-                      <div>
-                        <span className="text-muted-foreground">Ansøgt:</span>{' '}
-                        <span className="text-foreground">{formatDate(p.appliedAt)}</span>
-                      </div>
-                    )}
-                    {p.lastChanged && (
-                      <div>
-                        <span className="text-muted-foreground">Senest opdateret:</span>{' '}
-                        <span className="text-foreground">{formatDate(p.lastChanged)}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Mini-map for project polygon */}
-                {p.geoId && geometries?.[p.geoId] && geometries[p.geoId].length >= 3 && (
-                  <ProjectMiniMap
-                    coordinates={geometries[p.geoId]}
-                    height={160}
-                    onClick={() => onOpenMap(geometries[p.geoId], {
-                      name: p.name,
-                      phase: p.phase,
-                      phaseLabelDa: getPhaseConfig(p.phase).label,
-                      measureName: p.measureName,
-                      schemeName: p.schemeName,
-                      schemeOrg: p.schemeOrg,
-                      areaHa: p.areaHa,
-                      nitrogenT: p.nitrogenT,
-                      extractionHa: p.extractionHa,
-                      afforestationHa: p.afforestationHa,
-                    })}
-                  />
-                )}
-
-                {/* External link */}
-                {p.schemeUrl && (
-                  <a
-                    href={p.schemeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-primary hover:text-primary/80 font-medium transition-colors"
-                  >
-                    <ExternalLink className="w-3 h-3" />
-                    Se tilskudsordning
-                  </a>
-                )}
+            {expanded && showInlineDetail && (
+              <div className="px-3 pb-3 pt-1 border-t border-border/50">
+                <MarsProjectDetailContent
+                  project={p}
+                  planName={planName}
+                  variant="inline"
+                  scheme={p.schemeId ? schemeById.get(p.schemeId) : undefined}
+                  coordinates={p.geoId ? geometries?.[p.geoId] : null}
+                  natureOverlap={overlap}
+                  showNatureOverlap={showNatureOverlap}
+                  onMiniMapClick={
+                    p.geoId && geometries?.[p.geoId]
+                      ? () => onOpenMap(geometries[p.geoId], {
+                          name: p.name,
+                          phase: p.phase,
+                          phaseLabelDa: getPhaseConfig(p.phase).label,
+                          measureName: p.measureName,
+                          schemeName: p.schemeName,
+                          schemeOrg: p.schemeOrg,
+                          areaHa: p.areaHa,
+                          nitrogenT: p.nitrogenT,
+                          extractionHa: p.extractionHa,
+                          afforestationHa: p.afforestationHa,
+                        })
+                      : undefined
+                  }
+                />
               </div>
             )}
           </div>
@@ -367,14 +354,20 @@ function ProjectsTab({
   );
 }
 
-function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, onOpenMap, flat }: {
+function SketchesTab({
+  sketches, expandedKey, onToggle, geometries, searchQuery, onOpenMap, flat,
+  planName, schemeById, showInlineDetail,
+}: {
   sketches: SketchProject[];
-  expandedId: string | null;
-  onToggle: (id: string) => void;
+  expandedKey: string | null;
+  onToggle: (key: string, geoId?: string) => void;
   geometries: Record<string, [number, number][]> | null;
   searchQuery: string;
   onOpenMap: (coords: [number, number][], info: ProjectMapInfo) => void;
   flat?: boolean;
+  planName?: string;
+  schemeById: Map<string, SubsidyScheme>;
+  showInlineDetail: boolean;
 }) {
   const sorted = useMemo(() => {
     let list = sketches;
@@ -399,14 +392,15 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
 
   return (
     <div className={`space-y-1.5 pr-1 ${flat ? '' : 'max-h-[400px] overflow-y-auto'}`}>
-      {sorted.map(s => {
-        const expanded = expandedId === s.id;
+      {sorted.map((s, index) => {
+        const listKey = `${s.id}::${index}`;
+        const expanded = expandedKey === listKey;
         const hasMetrics = s.nitrogenT > 0 || s.extractionHa > 0 || s.afforestationHa > 0;
 
         return (
-          <div key={s.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
+          <div key={listKey} className="border border-border rounded-lg overflow-hidden bg-card/50">
             <button
-              onClick={() => onToggle(s.id)}
+              onClick={() => onToggle(listKey, s.geoId)}
               className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors cursor-pointer"
             >
               {expanded ? (
@@ -448,81 +442,31 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
               </div>
             </button>
 
-            {expanded && (
-              <div className="px-3 pb-3 pt-1 border-t border-border/50 space-y-2 text-[11px]">
-                {/* Type & area */}
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                  <div>
-                    <span className="text-muted-foreground">Status:</span>{' '}
-                    <span className={`font-medium ${getPhaseConfig('sketch').text}`}>{getPhaseConfig('sketch').label}</span>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Type:</span>{' '}
-                    <span className="font-medium text-foreground">{s.measureName || '—'}</span>
-                  </div>
-                  {s.areaHa > 0 && (
-                    <div>
-                      <span className="text-muted-foreground">Areal:</span>{' '}
-                      <span className="font-medium text-foreground">{formatDanishNumber(s.areaHa, 1)} ha</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Metrics */}
-                {hasMetrics && (
-                  <div className="flex flex-wrap gap-3">
-                    {s.nitrogenT > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Droplets className="w-3 h-3 text-nature-water" />
-                        <span className="text-muted-foreground">N-reduktion:</span>
-                        <span className="font-semibold text-foreground">{formatDanishNumber(s.nitrogenT, 3)} ton</span>
-                      </div>
-                    )}
-                    {s.extractionHa > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Mountain className="w-3 h-3 text-nature-earth" />
-                        <span className="text-muted-foreground">Udtaget:</span>
-                        <span className="font-semibold text-foreground">{formatDanishNumber(s.extractionHa, 1)} ha</span>
-                      </div>
-                    )}
-                    {s.afforestationHa > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Trees className="w-3 h-3 text-primary" />
-                        <span className="text-muted-foreground">Skov:</span>
-                        <span className="font-semibold text-foreground">{formatDanishNumber(s.afforestationHa, 1)} ha</span>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Scheme */}
-                {s.schemeName && (
-                  <div>
-                    <span className="text-muted-foreground">Tilskudsordning:</span>{' '}
-                    <span className="text-foreground">{s.schemeName}</span>
-                    {s.schemeOrg && <span className="text-muted-foreground"> ({s.schemeOrg})</span>}
-                  </div>
-                )}
-
-                {/* Mini-map for sketch polygon */}
-                {s.geoId && geometries?.[s.geoId] && geometries[s.geoId].length >= 3 && (
-                  <ProjectMiniMap
-                    coordinates={geometries[s.geoId]}
-                    height={160}
-                    onClick={() => onOpenMap(geometries![s.geoId], {
-                      name: s.name,
-                      phase: 'sketch',
-                      phaseLabelDa: 'Skitse',
-                      measureName: s.measureName,
-                      schemeName: s.schemeName,
-                      schemeOrg: s.schemeOrg,
-                      areaHa: s.areaHa,
-                      nitrogenT: s.nitrogenT,
-                      extractionHa: s.extractionHa,
-                      afforestationHa: s.afforestationHa,
-                    })}
-                  />
-                )}
+            {expanded && showInlineDetail && (
+              <div className="px-3 pb-3 pt-1 border-t border-border/50">
+                <MarsProjectDetailContent
+                  project={s}
+                  planName={planName}
+                  variant="inline"
+                  scheme={s.schemeId ? schemeById.get(s.schemeId) : undefined}
+                  coordinates={s.geoId ? geometries?.[s.geoId] : null}
+                  onMiniMapClick={
+                    s.geoId && geometries?.[s.geoId]
+                      ? () => onOpenMap(geometries[s.geoId], {
+                          name: s.name,
+                          phase: 'sketch',
+                          phaseLabelDa: 'Skitse',
+                          measureName: s.measureName,
+                          schemeName: s.schemeName,
+                          schemeOrg: s.schemeOrg,
+                          areaHa: s.areaHa,
+                          nitrogenT: s.nitrogenT,
+                          extractionHa: s.extractionHa,
+                          afforestationHa: s.afforestationHa,
+                        })
+                      : undefined
+                  }
+                />
               </div>
             )}
           </div>
@@ -532,10 +476,10 @@ function SketchesTab({ sketches, expandedId, onToggle, geometries, searchQuery, 
   );
 }
 
-function NaturePotentialsTab({ potentials, expandedId, onToggle }: {
+function NaturePotentialsTab({ potentials, expandedKey, onToggle }: {
   potentials: NaturePotential[];
-  expandedId: string | null;
-  onToggle: (id: string) => void;
+  expandedKey: string | null;
+  onToggle: (key: string) => void;
 }) {
   const sorted = useMemo(() =>
     [...potentials].sort((a, b) => b.areaHa - a.areaHa),
@@ -544,14 +488,15 @@ function NaturePotentialsTab({ potentials, expandedId, onToggle }: {
 
   return (
     <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
-      {sorted.map(np => {
-        const expanded = expandedId === np.id;
+      {sorted.map((np, index) => {
+        const listKey = `${np.id}::${index}`;
+        const expanded = expandedKey === listKey;
         const hasBreakdown = np.biodiversityHa > 0 || np.natura2000Ha > 0 || np.section3Ha > 0 || np.protectedNatureHa > 0;
 
         return (
-          <div key={np.id} className="border border-border rounded-lg overflow-hidden bg-card/50">
+          <div key={listKey} className="border border-border rounded-lg overflow-hidden bg-card/50">
             <button
-              onClick={() => onToggle(np.id)}
+              onClick={() => onToggle(listKey)}
               className="w-full flex items-start gap-2 p-2.5 text-left hover:bg-muted/50 transition-colors cursor-pointer"
             >
               {expanded ? (

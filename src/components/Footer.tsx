@@ -47,7 +47,13 @@ export function Footer({ fetchedAt }: FooterProps) {
             <p>Sidst opdateret: {formatted}</p>
           </div>
           <div className="text-center md:text-right space-y-1">
-            <p className="flex items-center justify-center md:justify-end gap-4">
+            <p className="flex items-center justify-center md:justify-end gap-4 flex-wrap">
+              <Link
+                to="/videnscenter"
+                className="inline-flex items-center gap-1.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
+              >
+                Videnscenter
+              </Link>
               <Link
                 to="/data-og-metode"
                 className="inline-flex items-center gap-1.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
@@ -106,6 +112,20 @@ export function Footer({ fetchedAt }: FooterProps) {
           <p>
             Grøn Trepart Tracker er et uafhængigt, non-profit open source-projekt. Ingen kommercielle
             interesser, ingen finansiering fra organisationer eller myndigheder.
+          </p>
+
+          <p>
+            Indeholder data, som benyttes i henhold til vilkår for brug af danske offentlige data
+            (herunder kortlag fra{' '}
+            <a
+              href="https://miljoeportal.dk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
+            >
+              Danmarks Miljøportal
+            </a>
+            ).
           </p>
 
           <p className="flex items-center justify-center gap-1.5">

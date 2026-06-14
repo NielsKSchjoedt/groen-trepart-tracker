@@ -1,9 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 import type { FeatureCollection, Geometry, Feature } from 'geojson';
-import type { KommuneMetrics } from '@/lib/types';
-import type { KommuneMetric } from '@/lib/kommune-metrics';
-import { formatDanishNumber } from '@/lib/format';
+import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData, ProjectNatureOverlapData } from '@/lib/types';
+import type { KommuneMetric, KommunePhase } from '@/lib/kommune-metrics';
+import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
+import {
+  resolveKommuneMapColor,
+  resolveKommuneMapValue,
+  type KommuneMapVisualContext,
+} from '@/lib/kommune-map-visualization';
+import { loadProjectGeometries, loadProjectNatureOverlap } from '@/lib/data';
+import { collectMapProjects, kommuneMetricToPillar, filterMapProjectsByKommune } from '@/lib/map-projects';
+import { MapProjectLayer } from '@/components/MapProjectLayer';
 import 'leaflet/dist/leaflet.css';
 
 export type { KommuneMetric };
@@ -12,137 +20,151 @@ interface KommuneMapProps {
   kommunerGeo: FeatureCollection<Geometry>;
   metrics: KommuneMetrics[];
   activeMetric: KommuneMetric;
-  selectedKode: string | null;
+  selectedKode?: string | null;
+  /** When set, zoom/fit map bounds to this municipality */
+  focusKode?: string | null;
   onSelect: (kode: string) => void;
+  /** Map height in px (default 520). Ignored when `fillContainer` is true. */
+  height?: number;
+  /** Fill the positioned parent (e.g. MapFullscreenShell). */
+  fillContainer?: boolean;
+  /** Called once when the Leaflet map instance is ready — use for invalidateSize. */
+  onMapReady?: (map: L.Map) => void;
+  fordelingSimulation?: NationalFordelingSimulation | null;
+  kommuneBenchmark?: KommuneBenchmarkData | null;
+  fordelingViewMode?: FordelingViewMode;
+  natureLayer?: NatureLayerKey;
+  choroplethScale?: ChoroplethScaleMode;
+  kommuneRanking?: KommuneRankingData | null;
+  ansvarIndexByKode?: Record<string, number | null>;
+  /** Tier 1: dashboard data for MARS project overlay. */
+  dashboard?: DashboardData | null;
+  selectedPhases?: Set<KommunePhase>;
+  /** When false, hide tier-1 project dots/polygons (detail page: default true). */
+  showProjectLayer?: boolean;
+  /** Called when a MARS project dot/polygon is clicked. */
+  onProjectClick?: (geoId: string, lng: number, lat: number) => void;
 }
 
-/**
- * Colour scale configurations per metric.
- * Each metric uses a sequential single-hue gradient from light to dark.
- * The lighter end represents low values; darker end represents high values.
- * Zero / no-data municipalities are shown in neutral grey.
- */
-const METRIC_COLORS: Record<KommuneMetric, { stops: string[] }> = {
-  nitrogen:     { stops: ['#ccfbf1', '#5eead4', '#0d9488', '#134e4a'] },
-  extraction:   { stops: ['#fef3c7', '#fcd34d', '#a16207', '#78350f'] },
-  afforestation:{ stops: ['#dcfce7', '#86efac', '#15803d', '#14532d'] },
-  nature:       { stops: ['#f0fdf4', '#86efac', '#16a34a', '#052e16'] },
-  // CO₂ data is not available per municipality — all values will be 0,
-  // so the map will render entirely in NO_DATA_COLOR.
-  co2:          { stops: ['#f1f5f9', '#94a3b8', '#475569', '#1e293b'] },
-};
-
-const NO_DATA_COLOR = 'hsl(0 0% 92%)';
 const SELECTED_BORDER = '#1e293b';
 
 /**
- * Linearly interpolate between two hex colours.
- *
- * @param a - Starting hex colour (e.g. "#ccfbf1")
- * @param b - Ending hex colour (e.g. "#0d9488")
- * @param t - Interpolation factor 0..1
- * @returns Interpolated hex colour
- */
-function lerpHex(a: string, b: string, t: number): string {
-  const parse = (hex: string) => [
-    parseInt(hex.slice(1, 3), 16),
-    parseInt(hex.slice(3, 5), 16),
-    parseInt(hex.slice(5, 7), 16),
-  ];
-  const [r1, g1, b1] = parse(a);
-  const [r2, g2, b2] = parse(b);
-  const r = Math.round(r1 + (r2 - r1) * t);
-  const g = Math.round(g1 + (g2 - g1) * t);
-  const bl = Math.round(b1 + (b2 - b1) * t);
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${bl.toString(16).padStart(2, '0')}`;
-}
-
-/**
- * Map a value in [0, maxVal] to a colour from the metric's gradient.
- *
- * Values at zero receive NO_DATA_COLOR (neutral grey) regardless of the
- * gradient, so truly-zero municipalities read as "no data / no activity".
- * Values above zero are mapped across the 4-stop gradient.
- *
- * @param value - The metric value for this municipality
- * @param maxVal - The maximum value across all 98 municipalities (for normalisation)
- * @param metric - Which metric's colour scale to use
- * @returns CSS hex colour string
- */
-function metricColor(value: number, maxVal: number, metric: KommuneMetric): string {
-  if (value <= 0 || maxVal <= 0) return NO_DATA_COLOR;
-  const t = Math.min(value / maxVal, 1);
-  const { stops } = METRIC_COLORS[metric];
-  // Map t across N-1 segments
-  const seg = (stops.length - 1) * t;
-  const idx = Math.min(Math.floor(seg), stops.length - 2);
-  return lerpHex(stops[idx], stops[idx + 1], seg - idx);
-}
-
-/**
- * Extract the relevant metric value from a KommuneMetrics object.
- *
- * @param km - The KommuneMetrics data for one municipality
- * @param metric - Which metric to extract
- * @returns Numeric value for the selected metric
- */
-function getMetricValue(km: KommuneMetrics, metric: KommuneMetric): number {
-  switch (metric) {
-    case 'nitrogen':     return km.nitrogenT;
-    case 'extraction':   return km.extractionHa;
-    case 'afforestation':return km.afforestationTotalHa;
-    case 'nature':       return km.naturePotentialHa;
-    case 'co2':          return km.co2EstimatedT ?? 0;
-  }
-}
-
-const METRIC_LABELS: Record<KommuneMetric, string> = {
-  nitrogen:     'ton N reduceret',
-  extraction:   'ha udtagning',
-  afforestation:'ha skovrejsning',
-  nature:       'ha beskyttet natur (§3 + Natura 2000)',
-  co2:          'ton CO₂e (samlet udledning 2023)',
-};
-
-/**
  * Leaflet choropleth map showing all 98 Danish municipalities coloured by
- * the selected metric. Supports hover tooltips and click-to-select.
- *
- * @param kommunerGeo - TopoJSON→GeoJSON FeatureCollection from loadKommunerGeoJSON()
- * @param metrics     - Per-kommune metrics array from dashboard data
- * @param activeMetric - Which metric drives the colour scale
- * @param selectedKode - The currently selected municipality kode (or null)
- * @param onSelect    - Called with the 4-digit kode when a municipality is clicked
+ * the selected metric, optional distribution simulation, or nature benchmark layers.
  */
-export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, onSelect }: KommuneMapProps) {
+export function KommuneMap({
+  kommunerGeo,
+  metrics,
+  activeMetric,
+  selectedKode = null,
+  focusKode = null,
+  onSelect,
+  height = 520,
+  fillContainer = false,
+  onMapReady,
+  fordelingSimulation = null,
+  kommuneBenchmark = null,
+  fordelingViewMode = 'actual',
+  natureLayer = 'b4-beskyttet',
+  choroplethScale = 'absolute',
+  kommuneRanking = null,
+  ansvarIndexByKode = {},
+  dashboard = null,
+  selectedPhases = new Set(['established']),
+  showProjectLayer = true,
+  onProjectClick,
+}: KommuneMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
   const selectedPathRef = useRef<L.Path | null>(null);
   const [mapReady, setMapReady] = useState(false);
+  const [leafletMap, setLeafletMap] = useState<L.Map | null>(null);
+  const [projectGeometries, setProjectGeometries] = useState<Record<string, [number, number][]> | null>(null);
+  const [natureOverlap, setNatureOverlap] = useState<ProjectNatureOverlapData | null>(null);
 
-  // Build lookup: kode → KommuneMetrics
-  const metricsById = Object.fromEntries(metrics.map((k) => [k.kode, k]));
+  const pillarId = kommuneMetricToPillar(activeMetric);
 
-  // Max value across all municipalities for this metric (for colour normalisation)
-  const maxVal = Math.max(...metrics.map((k) => getMetricValue(k, activeMetric)), 1);
+  const projectKommuneByGeoId = useMemo(() => {
+    const m: Record<string, string | null | undefined> = {};
+    if (!dashboard) return m;
+    for (const plan of dashboard.plans) {
+      for (const p of plan.projectDetails) {
+        if (p.geoId) m[p.geoId] = p.kommuneKode;
+      }
+      for (const s of plan.sketchProjects) {
+        if (s.geoId) m[s.geoId] = (s as { kommuneKode?: string | null }).kommuneKode;
+      }
+    }
+    return m;
+  }, [dashboard]);
 
-  // --- Stable refs so GeoJSON effect doesn't re-run on every selection change ---
+  const mapProjects = useMemo(() => {
+    if (!dashboard || !pillarId || !showProjectLayer) return [];
+    const all = collectMapProjects(dashboard, pillarId, selectedPhases);
+    if (!focusKode) return all;
+    return filterMapProjectsByKommune(all, focusKode, projectKommuneByGeoId);
+  }, [dashboard, pillarId, selectedPhases, showProjectLayer, focusKode, projectKommuneByGeoId]);
+
+  const metricsById = useMemo(
+    () => Object.fromEntries(metrics.map((k) => [k.kode, k])),
+    [metrics],
+  );
+
+  const visualContext: KommuneMapVisualContext = useMemo(
+    () => ({
+      activeMetric,
+      fordelingViewMode,
+      natureLayer,
+      choroplethScale,
+      fordelingSimulation,
+      kommuneBenchmark,
+      kommuneRanking,
+      ansvarIndexByKode,
+    }),
+    [
+      activeMetric,
+      fordelingViewMode,
+      natureLayer,
+      choroplethScale,
+      fordelingSimulation,
+      kommuneBenchmark,
+      kommuneRanking,
+      ansvarIndexByKode,
+    ],
+  );
+
+  const { maxVal, maxAbs } = useMemo(() => {
+    const allValues = kommunerGeo.features.map((feature) => {
+      const kode = feature.properties?.kode as string | undefined;
+      if (!kode) return 0;
+      return resolveKommuneMapValue(kode, metricsById[kode], visualContext).value;
+    });
+
+    return {
+      maxVal: Math.max(...allValues, 1),
+      maxAbs: Math.max(...allValues.map((v) => Math.abs(v)), 1),
+    };
+  }, [kommunerGeo, metricsById, visualContext]);
+
   const activeMetricRef = useRef(activeMetric);
   const maxValRef = useRef(maxVal);
+  const maxAbsRef = useRef(maxAbs);
   const metricsByIdRef = useRef(metricsById);
   const onSelectRef = useRef(onSelect);
   const selectedKodeRef = useRef(selectedKode);
+  const visualContextRef = useRef(visualContext);
 
   useEffect(() => {
     activeMetricRef.current = activeMetric;
     maxValRef.current = maxVal;
+    maxAbsRef.current = maxAbs;
     metricsByIdRef.current = metricsById;
     onSelectRef.current = onSelect;
     selectedKodeRef.current = selectedKode;
+    visualContextRef.current = visualContext;
   });
 
-  // --- Leaflet init (once) ---
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
@@ -166,16 +188,35 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
     }).addTo(map);
 
     mapRef.current = map;
+    setLeafletMap(map);
+    onMapReady?.(map);
     const id = setTimeout(() => setMapReady(true), 0);
     return () => {
       clearTimeout(id);
       map.remove();
       mapRef.current = null;
+      setLeafletMap(null);
       setMapReady(false);
     };
-  }, []);
+  }, [onMapReady]);
 
-  // --- GeoJSON layer (re-renders on metric or data change) ---
+  useEffect(() => {
+    if (!showProjectLayer || !dashboard) return;
+    let cancelled = false;
+    const loaders: Promise<unknown>[] = [loadProjectGeometries()];
+    if (pillarId === 'nature') loaders.push(loadProjectNatureOverlap());
+    Promise.all(loaders).then((results) => {
+      if (cancelled) return;
+      setProjectGeometries(results[0] as Record<string, [number, number][]>);
+      if (pillarId === 'nature') {
+        setNatureOverlap(results[1] as ProjectNatureOverlapData | null);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [showProjectLayer, dashboard, pillarId]);
+
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !mapReady) return;
@@ -186,11 +227,6 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
     }
     selectedPathRef.current = null;
 
-    /**
-     * Extract the 4-digit kode from a GeoJSON feature's properties.
-     * DAWA GeoJSON uses the `kode` property. Falls back to iterating
-     * the kommuneNavn match if kode is absent (older TopoJSON may differ).
-     */
     function getKode(feature: Feature): string | undefined {
       return feature.properties?.kode as string | undefined;
     }
@@ -199,9 +235,15 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
       if (!feature) return {};
       const kode = getKode(feature);
       const km = kode ? metricsByIdRef.current[kode] : undefined;
-      const value = km ? getMetricValue(km, activeMetricRef.current) : 0;
+      const resolved = resolveKommuneMapValue(kode ?? '', km, visualContextRef.current);
       return {
-        fillColor: metricColor(value, maxValRef.current, activeMetricRef.current),
+        fillColor: resolveKommuneMapColor(
+          resolved.value,
+          maxValRef.current,
+          maxAbsRef.current,
+          activeMetricRef.current,
+          resolved,
+        ),
         fillOpacity: 0.65,
         weight: 1,
         color: 'hsl(40 15% 80%)',
@@ -216,20 +258,12 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
         const kode = getKode(feature);
         const km = kode ? metricsByIdRef.current[kode] : undefined;
         const navn = km?.navn ?? feature.properties?.navn ?? 'Ukendt';
+        const resolved = resolveKommuneMapValue(kode ?? '', km, visualContextRef.current);
 
-        if (km) {
-          const value = getMetricValue(km, activeMetricRef.current);
-          const label = METRIC_LABELS[activeMetricRef.current];
-          const formatted = value > 0
-            ? `${formatDanishNumber(Math.round(value * 10) / 10)} ${label}`
-            : `Ingen data`;
-          path.bindTooltip(`<strong>${navn}</strong><br/>${formatted}`, {
-            sticky: true,
-            className: 'map-tooltip',
-          });
-        } else {
-          path.bindTooltip(navn, { sticky: true, className: 'map-tooltip' });
-        }
+        path.bindTooltip(
+          `<strong>${navn}</strong><br/>${resolved.label}`,
+          { sticky: true, className: 'map-tooltip' },
+        );
 
         path.on({
           mouseover: () => {
@@ -259,7 +293,6 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
 
     geoJsonLayerRef.current = layer;
 
-    // Re-apply selection highlight if a kode is already selected
     const currentKode = selectedKodeRef.current;
     if (currentKode) {
       layer.eachLayer((sublayer) => {
@@ -273,14 +306,12 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
         }
       });
     }
-  }, [kommunerGeo, activeMetric, maxVal, mapReady]);
+  }, [kommunerGeo, activeMetric, maxVal, maxAbs, mapReady, fordelingViewMode, natureLayer, fordelingSimulation, kommuneBenchmark, choroplethScale, ansvarIndexByKode]);
 
-  // --- Re-apply selection when selectedKode changes without re-building the layer ---
   useEffect(() => {
     const layer = geoJsonLayerRef.current;
     if (!layer) return;
 
-    // Clear old selection
     if (selectedPathRef.current) {
       layer.resetStyle(selectedPathRef.current);
       selectedPathRef.current = null;
@@ -301,12 +332,48 @@ export function KommuneMap({ kommunerGeo, metrics, activeMetric, selectedKode, o
     });
   }, [selectedKode]);
 
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = geoJsonLayerRef.current;
+    if (!map || !layer || !focusKode) return;
+
+    let bounds: L.LatLngBounds | null = null;
+    layer.eachLayer((sublayer) => {
+      const f = (sublayer as L.GeoJSON & { feature?: Feature }).feature;
+      if (!f) return;
+      const kode = f.properties?.kode as string | undefined;
+      if (kode === focusKode) {
+        bounds = (sublayer as L.Polygon).getBounds();
+      }
+    });
+
+    if (bounds) {
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10 });
+    }
+  }, [focusKode, mapReady, kommunerGeo]);
+
   return (
-    <div
-      ref={containerRef}
-      className="relative z-0 w-full rounded-2xl overflow-hidden border border-border shadow-md"
-      style={{ height: '520px' }}
-      aria-label="Danmarkskort med kommuner farvelagt efter valgt metrik"
-    />
+    <>
+      <div
+        ref={containerRef}
+        className={
+          fillContainer
+            ? 'absolute inset-0 z-0 rounded-2xl overflow-hidden border border-border shadow-md'
+            : 'relative z-0 w-full rounded-2xl overflow-hidden border border-border shadow-md'
+        }
+        style={fillContainer ? undefined : { height: `${height}px` }}
+        aria-label="Danmarkskort med kommuner farvelagt efter valgt metrik"
+      />
+      <MapProjectLayer
+        map={leafletMap}
+        enabled={showProjectLayer && mapProjects.length > 0}
+        projects={mapProjects}
+        geometries={projectGeometries}
+        natureOverlap={natureOverlap}
+        activePillar={pillarId}
+        paneName="kommuneMarsProjects"
+        onProjectClick={onProjectClick}
+      />
+    </>
   );
 }

@@ -1,219 +1,152 @@
-import { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { MapPin, Hand, Info, Leaf, TreePine } from 'lucide-react';
+import { useState, useMemo, useRef, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Hand, Info } from 'lucide-react';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { HintCallout } from '@/components/HintCallout';
-import { loadDashboardData, loadKommunerGeoJSON, loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects, loadKlimaregnskabData } from '@/lib/data';
-import type { DashboardData, KommuneMetrics, KlimaskovfondenProject, NaturstyrelsenSkovProject, KlimaregnskabData, KommuneCO2Data } from '@/lib/types';
-import type { FeatureCollection, Geometry } from 'geojson';
+import type { KommuneMetrics } from '@/lib/types';
 import { MetricPicker } from '@/components/MetricPicker';
-import { KommuneTable } from '@/components/KommuneTable';
-import { KommuneDetailPanel } from '@/components/KommuneDetailPanel';
-import { MobileBottomSheet } from '@/components/MobileBottomSheet';
+import { ChapterSection } from '@/components/ChapterSection';
+import {
+  KOMMUNE_GEOGRAFI_CHAPTER,
+  KOMMUNE_GEOGRAFI_INTRO,
+  KOMMUNE_LISTE_CHAPTER,
+  KOMMUNE_LISTE_INTRO,
+  KOMMUNE_RANGLISTE_CHAPTER,
+  KOMMUNE_RANGLISTE_INTRO,
+} from '@/lib/kommune-chapters';
+import { KommuneMapSection } from '@/components/KommuneMapSection';
+import { KommuneStandingsSection } from '@/components/kommune-standings/KommuneStandingsSection';
+import { KommuneMasterTable } from '@/components/kommune-standings/KommuneMasterTable';
+import { useStandings } from '@/components/kommune-standings/useStandings';
 import { Footer } from '@/components/Footer';
 import { StickyNav } from '@/components/StickyNav';
 import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
 import { usePageMeta } from '@/hooks/usePageMeta';
-import { findKommuneBySlug, kommuneToSlug } from '@/lib/kommune-slugs';
+import { useKommuneData } from '@/hooks/useKommuneData';
+import { consumeKommuneListReturnState, navigateToKommuneByKode, restoreKommuneListScroll } from '@/lib/kommune-navigation';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
-import { DEFAULT_PHASES, filterByPhases, METRIC_SUPPLEMENTS, SUPPLEMENT_DEFS } from '@/lib/kommune-metrics';
+import { buildFilteredKommuner, DEFAULT_PHASES, getSupplementPresentation, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
+import { buildDynamicRanking } from '@/lib/kommune-ranking-dynamic';
+import { enrichKommunerWithKsfLavbund } from '@/lib/kommune-ksf-lavbund';
 import { PhaseFilter } from '@/components/PhaseFilter';
-import { PILLAR_SLUGS, slugToPillar } from '@/lib/slugs';
 import { getPillarConfig } from '@/lib/pillars';
-
-// Lazy-load Leaflet-heavy choropleth map so it splits into a separate chunk
-const KommuneMap = lazy(() =>
-  import('@/components/KommuneMap').then((m) => ({ default: m.KommuneMap })),
-);
+import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
+import { computeAnsvarIndices, usesSimulationChoropleth } from '@/lib/kommune-map-visualization';
+import {
+  applyKommuneMapViewState,
+  parseKommuneMapViewState,
+  parseKommuneMetricParam,
+  resetMapViewParamsForMetric,
+} from '@/lib/kommune-map-params';
 
 /**
- * Page component for /kommuner and /kommuner/:kommuneSlug.
- *
- * Loads dashboard data, kommune TopoJSON, KSF projects, and NST projects in
- * parallel. Manages the selected municipality and active metric state, encoding
- * the selected kommune in the URL as `/kommuner/:slug` for shareability.
- *
- * Layout:
- *   StickyNav
- *   ─ Hero header
- *   ─ MetricPicker (pill selector)
- *   ─ KommuneMap (choropleth, lazy)          desktop: 60% width + detail panel 40%
- *   ─ KommuneTable (sortable, searchable)
- *   ─ Mobile bottom sheet (when selected)
- *   Footer
+ * National kommune overview at `/kommuner` — choropleth map + rangliste.
+ * Per-kommune detail lives at `/kommuner/:kommuneSlug` (KommuneDetailPage).
  */
 export default function KommunePage() {
-  const { kommuneSlug } = useParams<{ kommuneSlug: string }>();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const heroSentinelRef = useRef<HTMLDivElement>(null);
+  const pendingScrollRestore = useRef(consumeKommuneListReturnState());
   const [hintDismissed, setHintDismissed] = useState(false);
 
-  const [selectedPhases, setSelectedPhases] = useState<Set<KommunePhase>>(DEFAULT_PHASES);
-  const [activeSupplements, setActiveSupplements] = useState<Set<SupplementSource>>(new Set());
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [kommunerGeo, setKommunerGeo] = useState<FeatureCollection<Geometry> | null>(null);
-  const [ksfProjects, setKsfProjects] = useState<KlimaskovfondenProject[]>([]);
-  const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
-  const [klimaregnskab, setKlimaregnskab] = useState<KlimaregnskabData | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
+  const mapView = useMemo(() => parseKommuneMapViewState(searchParams), [searchParams]);
+  const {
+    fordelingViewMode,
+    choroplethScale,
+    natureLayer,
+    selectedPhases,
+    activeSupplements,
+  } = mapView;
 
-  /**
-   * Derive activeMetric from the URL query param (?metric=kvælstof etc.).
-   * When no ?metric= param is present, activeMetric is null (no selection)
-   * so the page shows an onboarding hint and the map displays a prompt overlay.
-   */
-  const activeMetric: KommuneMetric | null = useMemo(() => {
-    const slug = searchParams.get('metric');
-    if (!slug) return null;
-    return (slugToPillar(slug) as KommuneMetric | null) ?? null;
-  }, [searchParams]);
+  const patchMapView = (patch: Partial<typeof mapView>) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      applyKommuneMapViewState(next, { ...parseKommuneMapViewState(prev), ...patch });
+      return next;
+    }, { replace: true });
+  };
+
+  const setSelectedPhases = (phases: Set<KommunePhase>) => patchMapView({ selectedPhases: phases });
+  const setActiveSupplements = (supplements: Set<SupplementSource>) => patchMapView({ activeSupplements: supplements });
+  const setFordelingViewMode = (mode: FordelingViewMode) => patchMapView({ fordelingViewMode: mode });
+  const setChoroplethScale = (mode: ChoroplethScaleMode) => patchMapView({ choroplethScale: mode });
+  const setNatureLayer = (layer: NatureLayerKey) => patchMapView({ natureLayer: layer });
+
+  const { data, kommunerGeo, ksfProjects, kommuneRanking, kommuneBenchmark, klimaregnskab, fordelingSimulation, loadError, isLoading } = useKommuneData();
+
+  const activeMetric: KommuneMetric | null = useMemo(
+    () => parseKommuneMetricParam(searchParams),
+    [searchParams],
+  );
+
+  const kommuner: KommuneMetrics[] = useMemo(
+    () => enrichKommunerWithKsfLavbund(data?.national.byKommune ?? [], ksfProjects),
+    [data, ksfProjects],
+  );
+
+  const supplementSources = activeMetric ? METRIC_SUPPLEMENTS[activeMetric] : undefined;
+
+  const kommunerFiltered: KommuneMetrics[] = useMemo(
+    () => buildFilteredKommuner(kommuner, selectedPhases, activeSupplements),
+    [kommuner, selectedPhases, activeSupplements],
+  );
+
+  const effectiveRanking = useMemo(
+    () => (kommuneRanking ? buildDynamicRanking(kommuneRanking, kommunerFiltered) : null),
+    [kommuneRanking, kommunerFiltered],
+  );
+
+  const standings = useStandings(effectiveRanking);
+
+  const ansvarIndexByKode = useMemo(() => {
+    if (choroplethScale !== 'ansvar' || !activeMetric) return {};
+    if (activeMetric === 'extraction') {
+      return computeAnsvarIndices(kommunerFiltered, 'extraction', effectiveRanking);
+    }
+    if (activeMetric === 'afforestation') {
+      return computeAnsvarIndices(kommunerFiltered, 'afforestation', effectiveRanking);
+    }
+    return {};
+  }, [choroplethScale, activeMetric, kommunerFiltered, effectiveRanking]);
 
   usePageMeta({
-    title: 'Kommuner — Den Grønne Trepart Tracker',
-    description: 'Se fremskridt mod Den Grønne Treparts klimamål opdelt på alle 98 danske kommuner. Kvælstofreduktion, lavbundsudtagning og skovrejsning per kommune.',
+    title: 'Kommuner — status & kort',
+    description:
+      'Se fremskridt mod Den Grønne Treparts mål opdelt på alle 98 danske kommuner: kvælstof, lavbund, skovrejsning, CO₂ og beskyttet natur.',
     path: '/kommuner',
   });
 
-  // Load all data in parallel
-  useEffect(() => {
-    Promise.all([
-      loadDashboardData(),
-      loadKommunerGeoJSON().catch(() => null),
-      loadKlimaskovfondenProjects(),
-      loadNaturstyrelsenSkovProjects(),
-      loadKlimaregnskabData(),
-    ]).then(([d, geo, ksf, nst, kr]) => {
-      setData(d);
-      if (geo) setKommunerGeo(geo);
-      else setLoadError('Kommune-polygoner ikke tilgængelige endnu — kør `mise run build-kommune-map`');
-      setKsfProjects(ksf);
-      setNstProjects(nst);
-      setKlimaregnskab(kr);
-    });
-  }, []);
+  const listSearch = searchParams.toString() ? `?${searchParams.toString()}` : '';
 
-  const kommuner: KommuneMetrics[] = useMemo(
-    () => data?.national.byKommune ?? [],
-    [data],
-  );
-
-  /**
-   * Phase-filtered + supplement-adjusted view of kommuner.
-   *
-   * MARS metrics (nitrogen, extraction, afforestation) are recomputed from
-   * `byPhase` so the phase filter applies consistently. Non-MARS supplement
-   * sources (KSF, NST, §3, Natura 2000) are added on top only when toggled.
-   */
-  const kommunerFiltered: KommuneMetrics[] = useMemo(() => {
-    return kommuner.map((km) => {
-      const filtered = filterByPhases(km, selectedPhases);
-
-      const afforestationTotal =
-        filtered.afforestationMarsHa
-        + (activeSupplements.has('ksf') ? km.afforestationKsfHa : 0)
-        + (activeSupplements.has('nst') ? km.afforestationNstHa : 0);
-
-      const natureTotal =
-        (activeSupplements.has('section3') ? km.section3Ha : 0)
-        + (activeSupplements.has('natura2000') ? km.natura2000Ha : 0);
-
-      return {
-        ...km,
-        nitrogenT: filtered.nitrogenT,
-        extractionHa: filtered.extractionHa,
-        afforestationTotalHa: Math.round(afforestationTotal * 10) / 10,
-        naturePotentialHa: Math.round(natureTotal * 10) / 10,
-        projectCount: filtered.projectCount,
-      };
-    });
-  }, [kommuner, selectedPhases, activeSupplements]);
-
-  // Derive selected kode from URL slug
-  const selectedKode: string | null = useMemo(() => {
-    if (!kommuneSlug || kommuner.length === 0) return null;
-    return findKommuneBySlug(kommuneSlug, kommuner)?.kode ?? null;
-  }, [kommuneSlug, kommuner]);
-
-  const selectedKommune: KommuneMetrics | null = useMemo(
-    () => (selectedKode ? (kommuner.find((k) => k.kode === selectedKode) ?? null) : null),
-    [selectedKode, kommuner],
-  );
-
-  /**
-   * Build the ?metric= search string using Danish slugs (e.g. "lavbund").
-   * Omitted when no metric is selected (null state).
-   */
-  const metricSearch = activeMetric ? `?metric=${PILLAR_SLUGS[activeMetric]}` : '';
-
-  // When user clicks a kommune, push URL — preserving the active metric.
   const handleSelect = (kode: string) => {
-    const km = kommuner.find((k) => k.kode === kode);
-    if (!km) return;
-    const slug = kommuneToSlug(km.navn);
-    if (kode === selectedKode) {
-      navigate({ pathname: '/kommuner', search: metricSearch }, { replace: true });
-    } else {
-      navigate({ pathname: `/kommuner/${slug}`, search: metricSearch }, { replace: true });
-    }
-  };
-
-  const handleClose = () => {
-    navigate({ pathname: '/kommuner', search: metricSearch }, { replace: true });
+    navigateToKommuneByKode(navigate, kode, kommuner, listSearch);
   };
 
   const handleMetricChange = (metric: KommuneMetric) => {
     setHintDismissed(true);
-    setSearchParams({ metric: PILLAR_SLUGS[metric] }, { replace: true });
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      resetMapViewParamsForMetric(next, metric);
+      return next;
+    }, { replace: true });
   };
 
-  // Filter MARS projects for the selected kommune
-  const selectedProjectDetails = useMemo(() => {
-    if (!selectedKode || !data) return [];
-    return data.plans.flatMap((p) =>
-      p.projectDetails.filter((pd) => pd.kommuneKode === selectedKode),
-    );
-  }, [selectedKode, data]);
+  const showPhaseFilter =
+    activeMetric !== null
+    && (activeMetric === 'nitrogen' || activeMetric === 'extraction' || activeMetric === 'afforestation')
+    && !usesSimulationChoropleth(activeMetric, fordelingViewMode);
 
-  // Sketch projects from the same plans that have a project in this municipality.
-  // SketchProject has no kommuneKode, so we scope to plans that touch this municipality.
-  const selectedSketchProjects = useMemo(() => {
-    if (!selectedKode || !data) return [];
-    return data.plans
-      .filter((p) => p.projectDetails.some((pd) => pd.kommuneKode === selectedKode))
-      .flatMap((p) => p.sketchProjects);
-  }, [selectedKode, data]);
+  useEffect(() => {
+    if (isLoading || !data) return;
+    const saved = pendingScrollRestore.current;
+    if (!saved) return;
+    pendingScrollRestore.current = null;
+    restoreKommuneListScroll(saved.scrollY);
+  }, [isLoading, data]);
 
-  /**
-   * KSF projects for the selected municipality — only populated when the
-   * "ksf" supplement toggle is active, so the chart respects the toggle state.
-   */
-  const selectedKsfProjects = useMemo(() => {
-    if (!selectedKommune || !activeSupplements.has('ksf')) return [];
-    return ksfProjects.filter((p) => p.kommune === selectedKommune.navn);
-  }, [selectedKommune, ksfProjects, activeSupplements]);
-
-  /**
-   * NST projects for the selected municipality — only populated when the
-   * "nst" supplement toggle is active.
-   */
-  const selectedNstProjects = useMemo(() => {
-    if (!selectedKommune || !activeSupplements.has('nst')) return [];
-    return nstProjects.filter((p) => p.kommune === selectedKommune.navn);
-  }, [selectedKommune, nstProjects, activeSupplements]);
-
-  /** CO₂ time-series for the currently selected municipality */
-  const selectedKommuneCO2Data: KommuneCO2Data | null = useMemo(() => {
-    if (!selectedKommune || !klimaregnskab) return null;
-    return klimaregnskab.kommuner.find((k) => k.kommuneKode === selectedKommune.kode) ?? null;
-  }, [selectedKommune, klimaregnskab]);
-
-  const panelOpen = !!selectedKommune;
-
-  // ─── Loading state ────────────────────────────────────────────────────────
-
-  if (!data) {
+  if (isLoading || !data) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-2">
@@ -234,53 +167,50 @@ export default function KommunePage() {
       <StickyNav sentinelRef={heroSentinelRef} />
       <LastUpdatedBadge fetchedAt={data.fetchedAt} />
 
-      {/* Hero */}
-      <div className="max-w-6xl mx-auto px-4 pt-10 pb-6 relative overflow-hidden">
-        {/* Decorative background silhouettes */}
-        <div className="absolute top-4 left-6 opacity-[0.08] pointer-events-none">
-          <Leaf className="w-28 h-28 text-primary animate-gentle-sway" strokeWidth={1} />
-        </div>
-        <div className="absolute bottom-2 right-8 opacity-[0.06] pointer-events-none hidden md:block">
-          <TreePine className="w-24 h-24 text-nature-moss" strokeWidth={1} />
-        </div>
-
+      {/* Hero — intentionally light: the rangliste chapter header below is the real lead */}
+      <div className="max-w-6xl mx-auto px-4 pt-8 pb-1">
         <ViewSwitcher />
-        <div className="flex items-center gap-2.5 mb-1">
-          <MapPin className="w-5 h-5 text-primary" />
-          <h1
-            className="text-2xl font-bold text-foreground"
-            style={{ fontFamily: "'Fraunces', serif" }}
-          >
-            Kommuner
-          </h1>
-        </div>
-        <p className="text-sm text-muted-foreground max-w-xl flex items-start gap-1.5 flex-wrap">
-          <span>
-            Se hvordan de 98 danske kommuner bidrager til Den Grønne Treparts mål for
-            kvælstofreduktion, lavbundsudtagning og skovrejsning.
-          </span>
-          <InfoTooltip
-            title="Hvad viser kommunevisningen?"
-            content={
-              <>
-                <p>Kortvisningen farvelægger kommunerne efter den valgte metrik. Klik på en kommune for at se detaljer.</p>
-                <p><strong>MARS-data</strong> (kvælstof, udtagning, skovrejsning) viser projektdata med fasefilter. Projekter tilknyttes en kommune via DAWA-omvendt geokodning af centroider.</p>
-                <p><strong>Supplerende kilder</strong> (Klimaskovfonden, Naturstyrelsen, §3, Natura 2000) administreres uden for MARS og har ikke projektfasedata. De kan tilvælges separat via &quot;Tilføj kilder&quot;.</p>
-                <p>CO₂-udledning pr. kommune er baseret på Energistyrelsens Klimaregnskab (2023-data).</p>
-              </>
-            }
-            source="MARS API, Klimaskovfonden, Naturstyrelsen via DAWA"
-            size={13}
-            side="bottom"
-            align="start"
-          />
-        </p>
       </div>
 
       {/* Sentinel for StickyNav */}
       <div ref={heroSentinelRef} />
 
-      <div className="max-w-6xl mx-auto px-4 pb-16 space-y-6">
+      <div className="max-w-6xl mx-auto pb-16">
+
+        {/* Chapter: Ranglister (mini-boards) — først */}
+        <ChapterSection
+          id={KOMMUNE_RANGLISTE_CHAPTER.id}
+          eyebrow={KOMMUNE_RANGLISTE_CHAPTER.eyebrow}
+          question={KOMMUNE_RANGLISTE_CHAPTER.question}
+          intro={KOMMUNE_RANGLISTE_INTRO}
+        >
+          {effectiveRanking ? (
+            <div className="px-4 max-w-6xl mx-auto">
+              <KommuneStandingsSection
+                ranking={effectiveRanking}
+                standings={standings}
+                klimaregnskab={klimaregnskab}
+                benchmark={kommuneBenchmark}
+                selectedKode={null}
+                onSelect={handleSelect}
+              />
+            </div>
+          ) : (
+            <p className="text-center text-sm text-muted-foreground py-12 px-4">
+              Rangliste-data indlæses ikke endnu — kør{' '}
+              <code className="text-xs bg-muted px-1 rounded">mise run build-kommune-ranking</code>
+            </p>
+          )}
+        </ChapterSection>
+
+        {/* Chapter: Geografi (kort + filtre) */}
+        <ChapterSection
+          id={KOMMUNE_GEOGRAFI_CHAPTER.id}
+          eyebrow={KOMMUNE_GEOGRAFI_CHAPTER.eyebrow}
+          question={KOMMUNE_GEOGRAFI_CHAPTER.question}
+          intro={KOMMUNE_GEOGRAFI_INTRO}
+        >
+        <div className="max-w-6xl mx-auto px-4 space-y-6">
 
         {/* Metric picker + phase filter */}
         <div className="space-y-2">
@@ -292,9 +222,9 @@ export default function KommunePage() {
                 content={
                   <>
                     <p><strong>Kvælstof</strong> — ton N reduceret/år fra MARS-projekter. Understøtter fasefilter. Mål: 12.776 T inden 2027.</p>
-                    <p><strong>Udtagning</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Mål: 140.000 ha inden 2030.</p>
+                    <p><strong>Lavbund</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Klimaskovfondens lavbundsprojekter kan tilvælges separat. Mål: 140.000 ha inden 2030.</p>
                     <p><strong>Skovrejsning</strong> — ha ny skov fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata.</p>
-                    <p><strong>Beskyttet natur</strong> — §3-arealer og Natura 2000 kan tilvælges som separate datakilder. Disse er statslige/EU-udpegninger, ikke projekter med faser. MARS-naturdata per kommune er endnu ikke tilgængeligt.</p>
+                    <p><strong>Beskyttet natur</strong> — benchmark-kortlag fra DCE 30 %, §3 og Natura 2000 (B1–B4). Vælg kortlag i stedet for MARS-projekter, som endnu ikke findes på kommuneniveau.</p>
                     <p><strong>CO₂</strong> — Samlet CO₂e-udledning per kommune (2023). Kilde: Energi- og CO₂-regnskabet, Energistyrelsen (klimaregnskabet.dk). Klik på en kommune for sektorfordeling og tidsudvikling.</p>
                   </>
                 }
@@ -317,28 +247,34 @@ export default function KommunePage() {
             )}
           </div>
 
-          {/* Phase filter — shown for metrics backed by MARS project data */}
-          {(activeMetric === 'nitrogen' || activeMetric === 'extraction' || activeMetric === 'afforestation') && (
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="text-xs font-medium text-muted-foreground">Faser:</span>
-              <PhaseFilter selected={selectedPhases} onChange={setSelectedPhases} />
+          {/* Calculation scope — phases and supplements filter totals, not map layers */}
+          {activeMetric && (showPhaseFilter || (supplementSources?.length && fordelingViewMode === 'actual')) && (
+            <div className="space-y-2 rounded-lg border border-border/60 bg-muted/20 px-3 py-2.5">
+              {showPhaseFilter && (
+                <div className="flex items-start gap-2.5 flex-wrap">
+                  <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground pt-1">
+                    Med i beregning
+                    <InfoTooltip
+                      title="Projektfaser"
+                      content="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Ansvar-indekset (×) genberegnes efter valgte faser."
+                      source="MARS"
+                      size={11}
+                      side="right"
+                    />
+                  </span>
+                  <PhaseFilter selected={selectedPhases} onChange={setSelectedPhases} />
+                </div>
+              )}
+
+              {supplementSources && fordelingViewMode === 'actual' && (
+                <SupplementToggles
+                  metric={activeMetric}
+                  sources={supplementSources}
+                  active={activeSupplements}
+                  onChange={setActiveSupplements}
+                />
+              )}
             </div>
-          )}
-
-          {/* Supplement source toggles — shown for metrics with non-MARS data */}
-          {activeMetric && METRIC_SUPPLEMENTS[activeMetric] && (
-            <SupplementToggles
-              metric={activeMetric}
-              active={activeSupplements}
-              onChange={setActiveSupplements}
-            />
-          )}
-
-          {/* Nature has no MARS data per kommune yet — explain what's shown */}
-          {activeMetric === 'nature' && activeSupplements.size === 0 && (
-            <MetricDisclaimer>
-              MARS-naturprojekter er endnu ikke opgjort på kommuneniveau. Tilvælg §3 og/eller Natura 2000 ovenfor for at se beskyttede naturarealer.
-            </MetricDisclaimer>
           )}
 
           {/* CO₂ data coverage disclaimer */}
@@ -368,174 +304,82 @@ export default function KommunePage() {
           )}
         </div>
 
-        {/* Map + optional desktop detail panel */}
+        {/* Map */}
         <section id="kort" aria-label="Danmarkskort med kommuner">
-          {/* Colour legend — shown above the map when a metric is selected */}
-          {activeMetric && <KommuneLegend activeMetric={activeMetric} />}
+          <KommuneMapSection
+            activeMetric={activeMetric}
+            kommunerGeo={kommunerGeo}
+            kommunerFiltered={kommunerFiltered}
+            loadError={loadError}
+            fordelingSimulation={fordelingSimulation}
+            kommuneBenchmark={kommuneBenchmark}
+            fordelingViewMode={fordelingViewMode}
+            onFordelingViewModeChange={setFordelingViewMode}
+            choroplethScale={choroplethScale}
+            onChoroplethScaleChange={setChoroplethScale}
+            kommuneRanking={kommuneRanking}
+            ansvarIndexByKode={ansvarIndexByKode}
+            natureLayer={natureLayer}
+            onNatureLayerChange={setNatureLayer}
+            onSelect={handleSelect}
+            dashboard={data}
+            selectedPhases={selectedPhases}
+          />
+        </section>
+        </div>
+        </ChapterSection>
 
-          {loadError ? (
-            <div className="rounded-2xl border border-border bg-muted/30 flex items-center justify-center text-sm text-muted-foreground p-10 text-center" style={{ height: '520px' }}>
-              <div>
-                <MapPin className="w-8 h-8 mx-auto mb-3 opacity-30" />
-                <p className="font-medium mb-1">Kortdata ikke klar</p>
-                <p className="text-xs opacity-70">{loadError}</p>
-              </div>
-            </div>
-          ) : !kommunerGeo ? (
-            <div className="rounded-2xl border border-border bg-muted/10 flex items-center justify-center" style={{ height: '520px' }}>
-              <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        {/* Chapter: Den lange kommuneliste (master-tabel) — efter kortet */}
+        <ChapterSection
+          id={KOMMUNE_LISTE_CHAPTER.id}
+          eyebrow={KOMMUNE_LISTE_CHAPTER.eyebrow}
+          question={KOMMUNE_LISTE_CHAPTER.question}
+          intro={KOMMUNE_LISTE_INTRO}
+        >
+          {kommuneRanking ? (
+            <div className="px-4 max-w-6xl mx-auto space-y-3">
+              <KommuneMasterTable
+                rows={standings.tableRows}
+                mode={standings.mode}
+                sortKey={standings.sortKey}
+                sortDir={standings.sortDir}
+                onToggleSort={standings.toggleSort}
+                selectedKode={null}
+                onSelect={handleSelect}
+              />
+              <p className="text-[11px] text-muted-foreground leading-relaxed max-w-3xl">
+                Tallene viser realiseret indsats ift. kommunens andel af nationalt naturpotentiale. "Som forventet" = på niveau med ansvaret; flere gange = leverer mere end ansvaret tilsiger.
+                Skitser tæller ikke med i ranglisten. Beskyttet natur der dyrkes vises kun på kommunedetaljesiden — ikke som rangliste-akse.
+              </p>
             </div>
           ) : (
-            <div className={`flex gap-0 transition-all ${panelOpen ? '' : ''}`}>
-              <div className={`transition-all relative ${panelOpen ? 'w-full md:w-3/5' : 'w-full'}`}>
-                {activeMetric === null && (
-                  <div className="absolute inset-0 z-20 rounded-2xl bg-background/80 backdrop-blur-[2px] flex items-center justify-center pointer-events-none">
-                    <div className="text-center space-y-2 px-4">
-                      <MapPin className="w-8 h-8 mx-auto text-muted-foreground/40" />
-                      <p className="text-sm font-medium text-muted-foreground">Vælg et indsatsområde ovenfor</p>
-                      <p className="text-xs text-muted-foreground/70">Kortet viser data, når du vælger kvælstof, udtagning, skovrejsning m.fl.</p>
-                    </div>
-                  </div>
-                )}
-                <Suspense fallback={
-                  <div className="rounded-2xl border border-border bg-muted/10 flex items-center justify-center" style={{ height: '520px' }}>
-                    <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  </div>
-                }>
-                  <KommuneMap
-                    kommunerGeo={kommunerGeo}
-                    metrics={kommunerFiltered}
-                    activeMetric={activeMetric ?? 'nitrogen'}
-                    selectedKode={selectedKode}
-                    onSelect={handleSelect}
-                  />
-                </Suspense>
-              </div>
-
-              {/* Desktop detail panel */}
-              {panelOpen && selectedKommune && (
-                <div className="hidden md:block w-2/5 max-h-[520px] overflow-y-auto border-l border-t border-r border-b border-border rounded-r-2xl">
-                  <KommuneDetailPanel
-                    kommune={selectedKommune}
-                    projectDetails={selectedProjectDetails}
-                    sketchProjects={selectedSketchProjects}
-                    ksfProjects={selectedKsfProjects}
-                    nstProjects={selectedNstProjects}
-                    activeMetric={activeMetric ?? undefined}
-                    co2Data={selectedKommuneCO2Data}
-                    onClose={handleClose}
-                  />
-                </div>
-              )}
-            </div>
+            <p className="text-center text-sm text-muted-foreground py-12 px-4">
+              Kommunelisten indlæses ikke endnu — kør{' '}
+              <code className="text-xs bg-muted px-1 rounded">mise run build-kommune-ranking</code>
+            </p>
           )}
-
-        </section>
-
-        {/* Table */}
-        <section id="tabel" aria-label="Kommuneoversigt tabel">
-          <KommuneTable
-            metrics={kommunerFiltered}
-            activeMetric={activeMetric}
-            selectedKode={selectedKode}
-            onSelect={handleSelect}
-          />
-        </section>
+        </ChapterSection>
       </div>
-
-      {/* Mobile bottom sheet */}
-      {panelOpen && selectedKommune && (
-        <MobileBottomSheet onClose={handleClose}>
-          <KommuneDetailPanel
-            kommune={selectedKommune}
-            projectDetails={selectedProjectDetails}
-            sketchProjects={selectedSketchProjects}
-            ksfProjects={selectedKsfProjects}
-            nstProjects={selectedNstProjects}
-            activeMetric={activeMetric ?? undefined}
-            co2Data={selectedKommuneCO2Data}
-            onClose={handleClose}
-          />
-        </MobileBottomSheet>
-      )}
 
       <Footer fetchedAt={data?.fetchedAt ?? ''} />
     </div>
   );
 }
 
-// ─── Colour legend ─────────────────────────────────────────────────────────
-
-const LEGEND_STOPS: Record<KommuneMetric, { color: string; label: string }[]> = {
-  nitrogen: [
-    { color: '#0d9488', label: 'Høj kvælstofreduktion' },
-    { color: '#5eead4', label: 'Middel' },
-    { color: '#ccfbf1', label: 'Lav' },
-    { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
-  ],
-  extraction: [
-    { color: '#a16207', label: 'Høj udtagning' },
-    { color: '#fcd34d', label: 'Middel' },
-    { color: '#fef3c7', label: 'Lav' },
-    { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
-  ],
-  afforestation: [
-    { color: '#15803d', label: 'Høj skovrejsning' },
-    { color: '#86efac', label: 'Middel' },
-    { color: '#dcfce7', label: 'Lav' },
-    { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
-  ],
-  nature: [
-    { color: '#166534', label: 'Høj beskyttet natur' },
-    { color: '#4ade80', label: 'Middel' },
-    { color: '#dcfce7', label: 'Lav' },
-    { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
-  ],
-  co2: [
-    { color: '#b91c1c', label: 'Høj udledning (> 2M ton CO₂e)' },
-    { color: '#f97316', label: 'Middel' },
-    { color: '#fde68a', label: 'Lav' },
-    { color: 'hsl(0 0% 92%)', label: 'Ingen data' },
-  ],
-};
-
 /**
- * Inline amber banner for contextual disclaimers (e.g. when no data
- * sources are toggled on for nature).
- */
-function MetricDisclaimer({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-start gap-2 rounded-lg border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs text-amber-900 leading-relaxed dark:border-amber-500/30 dark:bg-amber-950/30 dark:text-amber-200">
-      <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-amber-500" strokeWidth={2} />
-      <span>{children}</span>
-    </div>
-  );
-}
-
-/**
- * Toggle pills for supplementary (non-MARS) data sources.
- *
- * Each pill adds a non-phased data source on top of the MARS base.
- * Toggling ON adds the source's hectares to the displayed totals;
- * toggling OFF removes them. OFF by default so the base view is
- * pure MARS project data (which supports phase filtering).
- *
- * For nature, there is currently no MARS base per kommune, so the
- * supplements are the only data available — the user needs to toggle
- * at least one on to see values.
+ * Toggle pills for supplementary (non-MARS) data sources included in the calculation.
  */
 function SupplementToggles({
   metric,
+  sources,
   active,
   onChange,
 }: {
   metric: KommuneMetric;
+  sources: SupplementSource[];
   active: Set<SupplementSource>;
   onChange: (next: Set<SupplementSource>) => void;
 }) {
-  const sources = METRIC_SUPPLEMENTS[metric];
-  if (!sources) return null;
-
   const toggle = (id: SupplementSource) => {
     const next = new Set(active);
     if (next.has(id)) next.delete(id);
@@ -545,12 +389,15 @@ function SupplementToggles({
 
   return (
     <div className="flex items-start gap-2.5 flex-wrap">
-      <span className="text-xs font-medium text-muted-foreground pt-1" title="Disse kilder administreres uden for MARS og har ikke projektfasedata">
-        Tilføj kilder <span className="font-normal opacity-70">(uden fasedata)</span>:
+      <span
+        className="text-xs font-medium text-muted-foreground pt-1"
+        title="Disse kilder lægges oven i MARS-tallene — de er ikke kortlag"
+      >
+        + Supplerende kilder
       </span>
       <div className="flex items-center gap-2 flex-wrap">
         {sources.map((srcId) => {
-          const def = SUPPLEMENT_DEFS[srcId];
+          const def = getSupplementPresentation(srcId, metric);
           const isActive = active.has(srcId);
           return (
             <button
@@ -569,7 +416,7 @@ function SupplementToggles({
                 className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors"
                 style={{ backgroundColor: isActive ? def.color.stroke : undefined }}
               />
-              + {def.label}
+              {def.label}
             </button>
           );
         })}
@@ -578,16 +425,14 @@ function SupplementToggles({
   );
 }
 
-function KommuneLegend({ activeMetric }: { activeMetric: KommuneMetric }) {
-  const stops = LEGEND_STOPS[activeMetric];
+/**
+ * Inline amber banner for contextual disclaimers.
+ */
+function MetricDisclaimer({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-muted-foreground">
-      {stops.map(({ color, label }) => (
-        <div key={label} className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full border border-border/60" style={{ backgroundColor: color }} />
-          <span>{label}</span>
-        </div>
-      ))}
+    <div className="flex items-start gap-2 rounded-lg border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs text-amber-900 leading-relaxed dark:border-amber-500/30 dark:bg-amber-950/30 dark:text-amber-200">
+      <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-amber-500" strokeWidth={2} />
+      <span>{children}</span>
     </div>
   );
 }

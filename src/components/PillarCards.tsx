@@ -4,12 +4,18 @@ import { usePillar, PILLAR_CONFIGS } from '@/lib/pillars';
 import type { PillarId, PillarConfig } from '@/lib/pillars';
 import type { DashboardData, CO2EmissionsData } from '@/lib/types';
 import { loadCO2Emissions } from '@/lib/data';
-import { projectEndPct, assessGoalStatus, GOAL_STATUS_META } from '@/lib/projections';
+import {
+  projectEndPct,
+  assessGoalStatus,
+  GOAL_STATUS_META,
+  buildLinearProjectionHoverLabel,
+} from '@/lib/projections';
 import { Droplets, Mountain, Trees, Factory, Leaf, Hand } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import { HintCallout } from './HintCallout';
 import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
+import { KlimaraadetBadge } from './KlimaraadetBadge';
 
 type BarHover = 'actual' | 'projected' | null;
 
@@ -32,6 +38,7 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
       <>
         <p>Viser areal af kulstofrige lavbundsjorde der er udtaget af landbrugsdrift — primært vådområder og lavbundsprojekter.</p>
         <p>Procenten angiver andelen af det nationale mål på 140.000 ha udtaget lavbundsareal. Suppleret af Klimaskovfondens 3 frivillige lavbundsprojekter (~30 ha).</p>
+        <p>KF26 bruger en smallere statusdefinition for kulstofrig lavbund inkl. randarealer og modellerer realisering frem mod 2032/2033. MARS-tallet her er en projektpipeline og kan derfor ikke sammenlignes én-til-én.</p>
       </>
     ),
     source: 'MARS API (Miljøstyrelsen) + Klimaskovfonden WFS (lavbund)',
@@ -41,6 +48,7 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
       <>
         <p>Viser skovrejsning fra tre kilder: <strong>MARS</strong> (vandmiljøprojekter med projektfasedata), <strong>Klimaskovfonden</strong> (~210 frivillige projekter, ~2.300 ha), og <strong>Naturstyrelsen</strong> (~30 statslige projekter, ~4.100 ha).</p>
         <p>KSF og NST administreres uden for MARS og har ikke projektfasedata. Målet er 250.000 ha ny skov inden 2045.</p>
+        <p>KF26 fastholder det politiske 2045-mål, men antager nu 2-3 års forskydning fra tilsagn til faktisk tilplantning. Den modellerede realiseringsprofil løber derfor til 2047.</p>
       </>
     ),
     source: 'MARS API + Klimaskovfonden WFS + MiljøGIS WFS (Naturstyrelsen)',
@@ -49,10 +57,10 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
     description: (
       <>
         <p>Viser Danmarks fremskrevne CO₂-reduktion ift. 1990-niveau. Klimaloven kræver 70% reduktion inden 2030.</p>
-        <p>Procenten viser den forventede reduktion baseret på KF25-fremskrivningen (Klima-, Energi- og Forsyningsministeriet).</p>
+        <p>Den detaljerede graf bruger fortsat KF25's CRF-data. KF26-høringsversionen viser en ny hovedkonklusion: målet nås kun med ca. 0,4 mio. ton CO₂e margen, og Klimarådet vurderer fortsat væsentlig risiko.</p>
       </>
     ),
-    source: 'KF25 — Klimafremskrivning 2025 (KEFM)',
+    source: 'KF25 detaljerede CRF-data + KF26 hovedkonklusion (KEFM)',
   },
   nature: {
     description: (
@@ -107,6 +115,30 @@ interface PillarProgress {
 function formatPctHeadline(pct: number, decimals = 0): string {
   if (pct > 0 && pct < 1) return '< 1%';
   return `${formatDanishNumber(decimals === 0 ? Math.round(pct) : pct, decimals)}%`;
+}
+
+/**
+ * Short editorial noun phrase per pillar, used in the section intro's
+ * scannable target line (e.g. "140.000 ha lavbund"). Kept separate from the
+ * technical `unit` field so the line reads as plain language.
+ */
+const PILLAR_TARGET_NOUN: Record<PillarId, string> = {
+  nitrogen: 'ton N mindre',
+  extraction: 'ha lavbund',
+  afforestation: 'ha ny skov',
+  co2: '% mindre CO₂',
+  nature: '% beskyttet natur',
+};
+
+/**
+ * Build the compact target tagline for a pillar, e.g. "250.000 ha ny skov"
+ * or "70 % mindre CO₂". Falls back to the label when no numeric target exists.
+ *
+ * @example pillarTargetTagline(afforestationConfig) // "250.000 ha ny skov"
+ */
+function pillarTargetTagline(pillar: PillarConfig): string {
+  if (pillar.target === null) return pillar.label;
+  return `${formatDanishNumber(pillar.target)} ${PILLAR_TARGET_NOUN[pillar.id]}`;
 }
 
 /**
@@ -206,23 +238,44 @@ export function PillarCards({ data }: PillarCardsProps) {
   }, [pillarHint, setActivePillar]);
 
   return (
-    <section lang="da" className="w-full max-w-5xl min-[1100px]:max-w-6xl min-[1280px]:max-w-7xl mx-auto px-4 py-6">
-      <div className="flex items-center justify-center gap-1.5 mb-4">
-        <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-          Status per delmål — baseret på faktisk implementering
-        </h2>
-        <InfoTooltip
-          title="Delmålskort"
-          content={
-            <>
-              <p>Hvert kort viser fremdriften for ét af Den Grønne Trepartsaftales fem delmål, <strong>udelukkende baseret på fysisk gennemførte (anlagte) projekter</strong>.</p>
-              <p>Projekter gennemgår en lang pipeline (skitse → forundersøgelse → godkendelse → anlæg), og de lave tal afspejler at implementeringen stadig er i en tidlig fase. Der forventes en naturlig acceleration efterhånden som projekterne modnes.</p>
-              <p>Brug scenarievælgeren i prognosekortet ovenfor for at simulere, hvordan billedet ser ud med godkendte eller forundersøgte projekter.</p>
-            </>
-          }
-          size={12}
-          side="bottom"
-        />
+    <section lang="da" className="w-full max-w-5xl min-[1100px]:max-w-6xl min-[1280px]:max-w-7xl mx-auto px-4 pt-2 pb-6">
+      <div className="mx-auto mb-6 max-w-3xl text-center">
+        {/* Scannable target line — gives a sense of the scale through the numbers themselves */}
+        <div className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1.5">
+          {PILLAR_CONFIGS.map((pillar, i) => (
+            <span key={pillar.id} className="flex items-center gap-1.5">
+              {i > 0 && (
+                <span className="text-border" aria-hidden="true">·</span>
+              )}
+              <span
+                className="text-xs sm:text-[13px] font-semibold whitespace-nowrap"
+                style={{ color: pillar.accentColor }}
+              >
+                {pillarTargetTagline(pillar)}
+              </span>
+            </span>
+          ))}
+        </div>
+
+        {/* Status sub-label — preserves the "anlagt vs planlagt" nuance + technical tooltip */}
+        <div className="mt-5 flex items-center justify-center gap-1.5">
+          <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+            Status per delmål — baseret på faktisk implementering
+          </span>
+          <InfoTooltip
+            title="Delmålskort"
+            content={
+              <>
+                <p>Hvert kort viser fremdriften for ét af Den Grønne Trepartsaftales fem delmål, <strong>udelukkende baseret på fysisk gennemførte (anlagte) projekter</strong>.</p>
+                <p>Projekter gennemgår en lang pipeline (skitse → forundersøgelse → godkendelse → anlæg), og de lave tal afspejler at implementeringen stadig er i en tidlig fase. Der forventes en naturlig acceleration efterhånden som projekterne modnes.</p>
+                <p>Brug scenarievælgeren i prognosekortet ovenfor for at simulere, hvordan billedet ser ud med godkendte eller forundersøgte projekter.</p>
+              </>
+            }
+            articleLink="de-fem-maal"
+            size={12}
+            side="bottom"
+          />
+        </div>
       </div>
       <div className="relative">
         {/* Show hint persistently in overview mode; otherwise only on first visit */}
@@ -268,6 +321,8 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
   const Icon = PILLAR_ICONS[pillar.id];
   const { actualPct, projectedPct, headline, projectedHeadline, subtitle } = getPillarProgress(pillar, data, co2Data);
   const [barHover, setBarHover] = useState<BarHover>(null);
+  const klimVurdering = data.national.klimaraadet?.vurderinger[pillar.id];
+  const klimUrl = data.national.klimaraadet?.url;
 
   const goalStatus = assessGoalStatus(projectedPct, actualPct);
   const goalMeta = GOAL_STATUS_META[goalStatus];
@@ -277,7 +332,7 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
     : headline;
 
   const displaySubtitle = barHover === 'projected'
-    ? 'forventet slutresultat'
+    ? buildLinearProjectionHoverLabel(new Date(), 'inline')
     : barHover === 'actual'
       ? 'faktisk fremskridt'
       : subtitle;
@@ -288,8 +343,16 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
   const projectionReachColor = goalMeta.color;
 
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onSelect}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
       className={`relative flex h-full w-full min-h-0 flex-col bg-card rounded-xl border-2 p-4 text-left transition-all hover:shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
         isActive
           ? 'shadow-md'
@@ -351,6 +414,11 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
               </span>
             )}
           </div>
+          {klimVurdering && klimUrl && (
+            <div className="mt-1.5 w-full">
+              <KlimaraadetBadge vurdering={klimVurdering} rapportUrl={klimUrl} compact />
+            </div>
+          )}
           {/* Prognose: max 2 linjer på smalle kort; fuld tekst fra md+. Natur: altid max 2 linjer + info-ikon */}
           <div className="mt-1.5 flex min-h-[2.5rem] flex-col justify-start md:min-h-0">
             {showProjection && projectedAbsolute !== null ? (
@@ -373,6 +441,7 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
                 <InfoTooltip
                   title="Hvorfor ingen tempo-prognose?"
                   content={<p>{NATURE_NO_PROJECTION_DISCLAIMER}</p>}
+                  articleLink="de-fem-maal"
                   size={12}
                   side="top"
                   className="mt-0.5 flex-shrink-0"
@@ -393,7 +462,7 @@ function PillarCard({ pillar, data, co2Data, isActive, onSelect }: PillarCardPro
           </p>
         </>
       )}
-    </button>
+    </div>
   );
 }
 
