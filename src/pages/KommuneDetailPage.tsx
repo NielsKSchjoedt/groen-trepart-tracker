@@ -253,19 +253,16 @@ export default function KommuneDetailPage() {
     return klimaregnskab.kommuner.find((k) => k.kommuneKode === kommune.kode) ?? null;
   }, [kommune, klimaregnskab]);
 
-  const co2First = activeMetric === 'co2' && !!co2Data;
-
   const detailChapters = useMemo(
     () => (kommune && data
       ? getKommuneDetailChapters({
         kommune,
         ranking: effectiveRanking,
         co2Data,
-        co2First,
         plans: data.plans,
       })
       : []),
-    [kommune, data, effectiveRanking, co2Data, co2First],
+    [kommune, data, effectiveRanking, co2Data],
   );
 
   const detailChapterIds = useMemo(
@@ -460,19 +457,6 @@ export default function KommuneDetailPage() {
           </div>
         </ChapterSection>
 
-        {co2First && co2Data && (
-          <ChapterSection
-            id={KOMMUNE_DETAIL_CO2_CHAPTER.id}
-            eyebrow={KOMMUNE_DETAIL_CO2_CHAPTER.eyebrow}
-            question={KOMMUNE_DETAIL_CO2_CHAPTER.question}
-            intro={KOMMUNE_DETAIL_CO2_INTRO}
-          >
-            <div className="px-4 max-w-3xl mx-auto">
-              <KommuneDetailCo2Section co2Data={co2Data} />
-            </div>
-          </ChapterSection>
-        )}
-
         <ChapterSection
           id={KOMMUNE_DETAIL_NOEGLETAL_CHAPTER.id}
           eyebrow={KOMMUNE_DETAIL_NOEGLETAL_CHAPTER.eyebrow}
@@ -523,19 +507,6 @@ export default function KommuneDetailPage() {
           </div>
         </ChapterSection>
 
-        {co2Data && !co2First && (
-          <ChapterSection
-            id={KOMMUNE_DETAIL_CO2_CHAPTER.id}
-            eyebrow={KOMMUNE_DETAIL_CO2_CHAPTER.eyebrow}
-            question={KOMMUNE_DETAIL_CO2_CHAPTER.question}
-            intro={KOMMUNE_DETAIL_CO2_INTRO}
-          >
-            <div className="px-4 max-w-3xl mx-auto">
-              <KommuneDetailCo2Section co2Data={co2Data} />
-            </div>
-          </ChapterSection>
-        )}
-
         <ChapterSection
           id={KOMMUNE_DETAIL_PROJEKTER_CHAPTER.id}
           eyebrow={KOMMUNE_DETAIL_PROJEKTER_CHAPTER.eyebrow}
@@ -553,6 +524,19 @@ export default function KommuneDetailPage() {
             />
           </div>
         </ChapterSection>
+
+        {co2Data && (
+          <ChapterSection
+            id={KOMMUNE_DETAIL_CO2_CHAPTER.id}
+            eyebrow={KOMMUNE_DETAIL_CO2_CHAPTER.eyebrow}
+            question={KOMMUNE_DETAIL_CO2_CHAPTER.question}
+            intro={KOMMUNE_DETAIL_CO2_INTRO}
+          >
+            <div className="px-4 max-w-3xl mx-auto">
+              <KommuneDetailCo2Section co2Data={co2Data} />
+            </div>
+          </ChapterSection>
+        )}
       </div>
 
       <Footer fetchedAt={data.fetchedAt} />

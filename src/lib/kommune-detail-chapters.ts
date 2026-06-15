@@ -79,8 +79,6 @@ export interface KommuneDetailChapterContext {
   kommune: KommuneMetrics;
   ranking: KommuneRankingData | null;
   co2Data: KommuneCO2Data | null;
-  /** When CO₂ metric is active, show CO₂ chapter right after Kort. */
-  co2First: boolean;
   /** MARS plan drill-down for proces & fremdrift section. */
   plans: Pick<Plan, 'id' | 'name' | 'projectDetails'>[];
 }
@@ -90,25 +88,19 @@ export function getKommuneDetailChapters(ctx: KommuneDetailChapterContext): Chap
   const chapters: Chapter[] = [
     KOMMUNE_DETAIL_STATUS_CHAPTER,
     KOMMUNE_DETAIL_KORT_CHAPTER,
+    KOMMUNE_DETAIL_NOEGLETAL_CHAPTER,
   ];
-
-  if (ctx.co2First && ctx.co2Data) {
-    chapters.push(KOMMUNE_DETAIL_CO2_CHAPTER);
-  }
-
-  chapters.push(KOMMUNE_DETAIL_NOEGLETAL_CHAPTER);
 
   if (hasProcesData({ plans: ctx.plans }, ctx.kommune.navn)) {
     chapters.push(KOMMUNE_DETAIL_FASEPROFIL_CHAPTER);
   }
 
   chapters.push(KOMMUNE_DETAIL_NATUR_CHAPTER);
+  chapters.push(KOMMUNE_DETAIL_PROJEKTER_CHAPTER);
 
-  if (ctx.co2Data && !ctx.co2First) {
+  if (ctx.co2Data) {
     chapters.push(KOMMUNE_DETAIL_CO2_CHAPTER);
   }
-
-  chapters.push(KOMMUNE_DETAIL_PROJEKTER_CHAPTER);
 
   return chapters;
 }
