@@ -223,8 +223,15 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
         >
           {conclusion.verdict}
         </p>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {conclusion.buildLine} {conclusion.effectLine}
+        <div className="space-y-2 text-sm leading-relaxed text-muted-foreground">
+          {conclusion.indsatsParagraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <ul className="list-disc space-y-1 pl-4 marker:text-muted-foreground/60">
+            {conclusion.effectItems.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
           <InfoTooltip
             title="Hvordan er konklusionen regnet?"
             content={
@@ -245,7 +252,7 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
             size={12}
             className="ml-1 align-middle"
           />
-        </p>
+        </div>
       </div>
 
       {/* Flow: virkemidler → effekter. This is now the canonical "delmaal" chapter

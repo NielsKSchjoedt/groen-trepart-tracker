@@ -48,10 +48,10 @@ function virkemiddelStatusSentence(measures: Measure[]): string {
 export interface HeroConclusion {
   /** Bold one-line verdict, e.g. "Vi er ikke på sporet." */
   verdict: string;
-  /** Progress sentence for the three virkemidler. */
-  buildLine: string;
-  /** Effects sentence — klima, natur, vandmiljø, never summed. */
-  effectLine: string;
+  /** Indsats copy — progress, deadlines, per-virkemiddel status. */
+  indsatsParagraphs: string[];
+  /** Effekt bullets — klima, natur, vandmiljø, never summed. */
+  effectItems: string[];
   /** Status colour (matches the gauge verdict colour). */
   color: string;
 }
@@ -124,10 +124,11 @@ export function buildHeroConclusion(
 
   const virkemiddelLine = virkemiddelStatusSentence(measures);
 
-  const buildLine =
-    `Samlet ${built} af de ${composite.totalMeasures} virkemidler er til dato anlagt. ` +
-    `Ved nuværende tempo lander vi på ~${projected} af målet. ${deadlineLine}` +
-    (virkemiddelLine ? ` ${virkemiddelLine}` : '');
+  const indsatsParagraphs = [
+    `Samlet ${built} af de ${composite.totalMeasures} virkemidler er til dato anlagt. Ved nuværende tempo lander vi på ~${projected} af målet.`,
+    deadlineLine,
+    ...(virkemiddelLine ? [virkemiddelLine] : []),
+  ];
 
   const klima = effectDomains.find((d) => d.id === 'klima');
   const natur = effectDomains.find((d) => d.id === 'natur');
@@ -151,16 +152,19 @@ export function buildHeroConclusion(
     sentences.push(`Den beskyttede natur ${verdict}.`);
   }
   if (vand) {
-    if (vand.reframe.kind === 'ecological-snapshot' && vand.reframe.totalWaters > 0) {
-      sentences.push(
-        `Kystvandenes økologiske tilstand er langt fra god — kun ${vand.reframe.goodCount} af ${vand.reframe.totalWaters} vurderes god (VP3).`,
-      );
+    if (vand.reframe.kind === 'ecological-snapshot') {
+      sentences.push('Kystvandenes økologiske tilstand er langt fra god.');
     } else {
       sentences.push(`Vandmiljøet er ${vandFragment(vand.status, vandYear)}.`);
     }
   }
 
-  const effectLine = sentences.length > 0 ? sentences.join(' ') : 'Effekterne indlæses…';
+  const effectItems = sentences.length > 0 ? sentences : ['Effekterne indlæses…'];
 
-  return { verdict: verdictFor(composite.status), buildLine, effectLine, color: meta.color };
+  return {
+    verdict: verdictFor(composite.status),
+    indsatsParagraphs,
+    effectItems,
+    color: meta.color,
+  };
 }
