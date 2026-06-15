@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useCallback, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronUp } from 'lucide-react';
+import { DelmaalVaelgKort } from '@/components/DelmaalVaelgKort';
 import {
   loadDashboardData,
   ensureDashboardProjectDetails,
@@ -20,6 +20,8 @@ import { ChapterSection } from '@/components/ChapterSection';
 import {
   getGeografiIntro,
   getChapters,
+  getExtraHashScrollIds,
+  getPillarMapPickHash,
   OEKONOMI_CHAPTER,
   OEKONOMI_INTRO,
   PROJEKTER_CHAPTER,
@@ -94,6 +96,12 @@ const Index = () => {
     [navigate],
   );
 
+  /** From the overview map picker — land on the map section, not page top. */
+  const selectPillarFromMapPick = useCallback(
+    (id: PillarId) => navigate(`/${pillarToSlug(id)}#${getPillarMapPickHash(id)}`),
+    [navigate],
+  );
+
   const pillarContextValue = useMemo(
     () => ({ activePillar, setActivePillar, config }),
     [activePillar, setActivePillar, config],
@@ -119,7 +127,7 @@ const Index = () => {
   );
 
   const chapterIds = useMemo(
-    () => getChapters(activePillar).map((c) => c.id),
+    () => [...getChapters(activePillar).map((c) => c.id), ...getExtraHashScrollIds(activePillar)],
     [activePillar],
   );
 
@@ -187,14 +195,17 @@ const Index = () => {
 
           {/* The "delmaal" chapter (de fem løfter) now lives inside HeroSection. */}
 
-          {/* Overview: short narrative — løfter → økonomi → prompt */}
+          {/* Overview: delmål-valg → økonomi */}
           {!pillarSelected && (
             <>
+              <DelmaalVaelgKort data={data} onSelect={selectPillarFromMapPick} />
+
               <ChapterSection
                 id={OEKONOMI_CHAPTER.id}
                 eyebrow={OEKONOMI_CHAPTER.eyebrow}
                 question={OEKONOMI_CHAPTER.question}
                 intro={OEKONOMI_INTRO}
+                className="pb-16"
               >
                 <OekonomiOverblik budget={data.national.budgetData} />
                 <OekonomiFootnote
@@ -202,36 +213,6 @@ const Index = () => {
                   opdateret={data.national.budgetData?._meta.opdateret}
                 />
               </ChapterSection>
-
-              <section className="w-full max-w-5xl mx-auto px-4 pb-20 pt-6">
-                <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border/70 py-12 px-6 bg-card/40 text-center">
-                  <div className="w-10 h-10 rounded-full bg-muted border border-border/50 flex items-center justify-center">
-                    <ChevronUp className="w-5 h-5 text-muted-foreground" />
-                  </div>
-                  <p className="text-lg font-semibold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-                    Vælg et delmål for at dykke ned i detaljerne
-                  </p>
-                  <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-                    Klik på et af de fem delmålskort ovenfor for at udforske projektpipeline, Danmarkskort, tabeller og fremskrivninger
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-2 mt-2">
-                    {PILLAR_CONFIGS.map((p) => (
-                      <button
-                        key={p.id}
-                        onClick={() => setActivePillar(p.id)}
-                        className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 hover:shadow-sm cursor-pointer"
-                        style={{
-                          borderColor: p.accentColor + '50',
-                          color: p.accentColor,
-                          backgroundColor: p.accentColor + '10',
-                        }}
-                      >
-                        {p.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </section>
             </>
           )}
 

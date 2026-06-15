@@ -129,3 +129,18 @@ export function getChapters(activePillar: PillarId | null): Chapter[] {
     OEKONOMI_CHAPTER,
   ];
 }
+
+/**
+ * Section hash after picking a delmål from the overview map picker — keeps
+ * the viewport on the map instead of jumping to the page top.
+ */
+export function getPillarMapPickHash(pillarId: PillarId): string {
+  return pillarId === 'co2' ? CO2DATA_CHAPTER.id : 'kort';
+}
+
+/** Extra scroll anchors beyond {@link getChapters} (nested map viewport, overview picker). */
+export function getExtraHashScrollIds(activePillar: PillarId | null): string[] {
+  if (activePillar === null) return ['kort-udforsk'];
+  if (activePillar === 'co2') return [];
+  return ['kort'];
+}

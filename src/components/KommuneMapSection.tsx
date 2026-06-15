@@ -60,6 +60,8 @@ interface KommuneMapSectionProps {
   onSelect: (kode: string) => void;
   /** When set, show delmål dots on the map until a metric is chosen (kommune list page). */
   onMetricChange?: (metric: KommuneMetric) => void;
+  /** Footnote under the delmål dot picker on the map overlay. */
+  metricPickHint?: string;
   /** Tier 1: MARS project overlay. */
   dashboard?: DashboardData | null;
   selectedPhases?: Set<KommunePhase>;
@@ -110,6 +112,7 @@ export function KommuneMapSection({
   onNatureLayerChange,
   onSelect,
   onMetricChange,
+  metricPickHint,
   dashboard = null,
   selectedPhases = new Set(['established']),
   activeSupplements = new Set(),
@@ -436,7 +439,7 @@ export function KommuneMapSection({
                     variant="overlay"
                   />
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Kortet og tabellen farvelægges, når du har valgt et indsatsområde.
+                    {metricPickHint ?? 'Kortet og tabellen farvelægges, når du har valgt et indsatsområde.'}
                   </p>
                 </div>
               ) : (

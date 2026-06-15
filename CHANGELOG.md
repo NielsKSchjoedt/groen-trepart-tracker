@@ -25,6 +25,8 @@ Kommende ændringer noteres her løbende.
 - Kommunesider har fået en ny sektion «Proces & fremdrift» der viser hvor langt kommunens MARS-projekter er i faserne — sammenlignet med naboer i samme lokale trepart og med landsgennemsnittet. Sektionen viser fasefordeling i hektar, momentum de seneste 6 måneder (både antal projekter og hektar), median tid i forundersøgelse, seneste milepæle og en nabosammenligning med dropdown. En forbeholds-boks forklarer at tilsagn gives af SGAV — ikke kommunen — og at projektantal og hektar kan pege hver sin vej.
 
 ### Forbedring
+- Når du vælger et delmål fra kortet på forsiden, bliver du på kortsektionen — URL'en får et kort-anker (#kort), så siden ikke hopper tilbage til toppen.
+- På forsiden ligger et kortafsnit mellem delmålskortene og økonomien — med Danmarkskortet sløret i baggrunden og delmålsprikkerne ovenpå, som på kommuneoversigten. Vælg et delmål for at gå videre til projekter, kort og fremskrivninger.
 - På kommuneoversigten vises delmålene som farvede prikker direkte på kortet, når du endnu ikke har valgt et indsatsområde. Når du vælger, skifter visningen til den kompakte menu med fasefilter og kortindstillinger.
 - Teksten under «Kort sagt» på forsiden er opdelt i korte afsnit og punktliste, så den er nemmere at skimme. Vandmiljø nævnes nu på samme overordnede niveau som de øvrige effekter — uden det konkrete antal kystvande i god tilstand.
 - I nabosammenligningen under «Proces & fremdrift» vises grænsenaboer (fælles kommunegrænse) først i dropdownen — ikke trepart-naboer fra samme vandoplandsplan. Horsens og Samsø kan dele trepart med Odense uden at være grænsenaboer; de ligger nu under «Øvrige kommuner». Gennemsnitsbjælken hedder «Trepart-naboer gns.» for at skille de to begreber ad.
