@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, TrendingUp } from 'lucide-react';
 import { InfoTooltip } from '@/components/InfoTooltip';
@@ -149,8 +149,15 @@ export function KommuneProcesFremdrift({
     [comparisonGroups, data, changelog],
   );
 
-  const [selectedCompareNavn, setSelectedCompareNavn] = useState<string | null>(null);
-  const activeCompareNavn = selectedCompareNavn ?? defaultCompareNavn;
+  const [compareSelection, setCompareSelection] = useState<{
+    kommune: string;
+    navn: string | null;
+  }>({ kommune: kommuneNavn, navn: null });
+
+  const activeCompareNavn =
+    compareSelection.kommune === kommuneNavn
+      ? (compareSelection.navn ?? defaultCompareNavn)
+      : defaultCompareNavn;
 
   const compareMetrics = useMemo(
     () => (activeCompareNavn
@@ -158,10 +165,6 @@ export function KommuneProcesFremdrift({
       : null),
     [data, activeCompareNavn, changelog],
   );
-
-  useEffect(() => {
-    setSelectedCompareNavn(null);
-  }, [kommuneNavn]);
 
   const godkendtPlusDiff = compareMetrics
     ? own.godkendtPlus - compareMetrics.godkendtPlus
@@ -311,7 +314,7 @@ export function KommuneProcesFremdrift({
             <span className="text-xs font-medium text-muted-foreground mb-1 block">Sammenlign med</span>
             <select
               value={activeCompareNavn ?? ''}
-              onChange={(e) => setSelectedCompareNavn(e.target.value)}
+              onChange={(e) => setCompareSelection({ kommune: kommuneNavn, navn: e.target.value })}
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             >
               {comparisonGroups.border.length > 0 && (
