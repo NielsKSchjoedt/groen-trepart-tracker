@@ -81,6 +81,10 @@ run = "cd etl && python3 build_kommune_ranking.py"
 description = "Build Sprint 6 kommune × water-catchment overlap JSON"
 run = "cd etl && python3 build_kommune_oplande.py"
 
+[tasks.build-kommune-neighbors]
+description = "Build geographic neighbor index (kommunegrænse) from DAWA polygons"
+run = "cd etl && python3 build_kommune_neighbors.py"
+
 [tasks.test-python]
 description = "Python stdlib ETL unit tests (WFS helpers m.m.)"
 run = "cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet -v"

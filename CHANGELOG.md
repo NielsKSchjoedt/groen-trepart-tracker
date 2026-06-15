@@ -17,11 +17,26 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.0.3 — 15. juni 2026
+
+**Ny sektion «Proces & fremdrift» på kommunesider**
+
+### Ny funktion
+- Kommunesider har fået en ny sektion «Proces & fremdrift» der viser hvor langt kommunens MARS-projekter er i faserne — sammenlignet med naboer i samme lokale trepart og med landsgennemsnittet. Sektionen viser fasefordeling i hektar, momentum de seneste 6 måneder (både antal projekter og hektar), median tid i forundersøgelse, seneste milepæle og en nabosammenligning med dropdown. En forbeholds-boks forklarer at tilsagn gives af SGAV — ikke kommunen — og at projektantal og hektar kan pege hver sin vej.
+
+### Forbedring
+- I nabosammenligningen under «Proces & fremdrift» vises grænsenaboer (fælles kommunegrænse) først i dropdownen — ikke trepart-naboer fra samme vandoplandsplan. Horsens og Samsø kan dele trepart med Odense uden at være grænsenaboer; de ligger nu under «Øvrige kommuner». Gennemsnitsbjælken hedder «Trepart-naboer gns.» for at skille de to begreber ad.
+- «Den fulde liste» har fået den samme filterrække som ranglisten (område, Mod målet / Ift. ansvar / Absolut og Projektfaser) — så du kan ændre visning uden at scrolle tilbage til toppen.
+- Knapper og vælgere i kontrolrækker (rangliste, kort, projekter og projektliste) har fået samme størrelse og valgt-stil — grøn markering på segmenter og ens trigger-knapper til dropdowns som Projektfaser og Kortvisning.
+- Kortkontrollerne på kommuneoversigten og enkelt-kommunesider bruger nu den kompakte menu på alle skærmstørrelser: indsatsområde-dropdown, Projektfaser og Kortvisning — i stedet for mange rækker med pill-knapper og tilvalg-toggles.
+---
+
 ## v1.0.2 — 14. juni 2026
 
 **Versionsnummer og «ny version»-meddelelse øverst på siden**
 
 ### Fejlrettelse
+- Kortvisning-knappen på kommune-kortet viste en lille prik som aktiv-indikator. Den viser nu et tydeligt tal (som Projektfaser) — fx «1» når et tilvalg som Klimaskovfonden er slået til.
 - Faseprofilen «Hvor langt er kommunen i faserne?» viste 0 % i alle bjælker for kommuner der kun har skitseprojekter (fx Vallensbæk). Nu står der i stedet tydeligt at al indsats endnu ligger i skitsefase — med hektar — indtil projekter kommer i de formelle faser.
 - Sektionsmenuen øverst på mobil (Målene, Projekter, Geografi …) gav vandret overflow på små skærme. Den kan nu scrolles inde i baren uden at siden bliver bredere.
 - Filtre-knappen på kommunelisten viste ingen tæller, når kun «anlagt» var valgt — selv om det er standard, er det stadig ét aktivt fasevalg. Knappen viser nu altid antallet af valgte faser (fx «1»).
@@ -42,7 +57,6 @@ Kommende ændringer noteres her løbende.
 - Nøgletal-kortet for beskyttet natur viser nu opdeling som de øvrige mål: §3, Natura 2000, DCE 30 %-potentiale og MARS-projekters overlap med naturpotentiale — med overskrift som «1.499 ha beskyttet (65 ha naturpotentiale)» når begge dele findes.
 - Nøgletal-kort for kvælstof, lavbund og skov viser nu «0 ton N anlagt (318 ton N i proces)» — tydelig skelnen mellem det der er fysisk anlagt og det der stadig er i pipeline. Skov tæller KSF/NST med under anlagt.
 - MARS-fasefordelingen under nøgletal vises nu inde i hvert mål-kort (kvælstof, lavbund, skov) — i stedet for én fælles liste nederst.
-- Kommunens navn, emblem og status-chips øverst på enkelt-kommunesiden er nu centreret — som overskriften i den sticky menu.
 - Kortene kan nu zoomes et niveau tættere ind — både det nationale kort, kommunekortet og projektkortene — så enkeltprojekter og små kommuner er nemmere at se i detaljer.
 - Vandmiljø-kortet under Effekt siger nu kort, at det er hovedeffekten af kvælstofindsatsen — og badge «Hovedeffekt af kvælstof» i stedet for «Ikke målsat».
 - Mål-kortene på forsiden viser nu «tid gået» (med ur) og «anlagt» (med spade) ved de to bjælker — tydeligere end bare «tid».

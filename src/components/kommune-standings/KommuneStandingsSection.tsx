@@ -1,8 +1,11 @@
 import type { KommuneRankingData, KlimaregnskabData, KommuneBenchmarkData } from '@/lib/types';
 import type { KommunePhase } from '@/lib/kommune-metrics';
+import type { MetricPaceRatios } from '@/lib/kommune-ranking';
+import type { NationalPaceContext } from '@/lib/kommune-goal-pace';
 import type { StandingsState } from './useStandings';
 import { KommuneStandingsControls } from './KommuneStandingsControls';
 import { KommuneMiniBoards } from './KommuneMiniBoards';
+import { GoalPaceBanner } from './GoalPaceBanner';
 
 interface KommuneStandingsSectionProps {
   ranking: KommuneRankingData;
@@ -13,6 +16,10 @@ interface KommuneStandingsSectionProps {
   onPhasesChange: (phases: Set<KommunePhase>) => void;
   selectedKode: string | null;
   onSelect: (kode: string) => void;
+  /** Per-metric pace scalars for the "Mod målet" lens. */
+  paceRatios?: MetricPaceRatios;
+  /** National goal-pace context — drives the banner shown in "Mod målet". */
+  nationalPace?: NationalPaceContext | null;
 }
 
 /**
@@ -30,6 +37,8 @@ export function KommuneStandingsSection({
   onPhasesChange,
   selectedKode,
   onSelect,
+  paceRatios,
+  nationalPace,
 }: KommuneStandingsSectionProps) {
   return (
     <div className="space-y-3">
@@ -41,8 +50,9 @@ export function KommuneStandingsSection({
         selectedPhases={selectedPhases}
         onPhasesChange={onPhasesChange}
       />
+      {standings.mode === 'maal' && nationalPace && <GoalPaceBanner pace={nationalPace} />}
       <KommuneMiniBoards
-        ctx={{ ranking, klimaregnskab, benchmark, globalMode: standings.mode }}
+        ctx={{ ranking, klimaregnskab, benchmark, globalMode: standings.mode, paceRatios }}
         region={standings.region}
         selectedKode={selectedKode}
         onSelect={onSelect}

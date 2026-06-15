@@ -6,6 +6,7 @@ import {
   STANDINGS_LENSES,
   standingsCell,
   standingsBarPct,
+  type MetricPaceRatios,
   type StandingsLensKey,
   type StandingsMode,
   type StandingsRow,
@@ -20,6 +21,8 @@ interface KommuneMasterTableProps {
   onToggleSort: (key: StandingsLensKey | 'leveretHa') => void;
   selectedKode: string | null;
   onSelect: (kode: string) => void;
+  /** Per-metric pace scalars for the "Mod målet" lens. */
+  paceRatios?: MetricPaceRatios;
 }
 
 export function KommuneMasterTable({
@@ -30,6 +33,7 @@ export function KommuneMasterTable({
   onToggleSort,
   selectedKode,
   onSelect,
+  paceRatios,
 }: KommuneMasterTableProps) {
   const [query, setQuery] = useState('');
   const q = query.trim().toLowerCase();
@@ -42,12 +46,12 @@ export function KommuneMasterTable({
     const m: Record<string, number> = {};
     for (const l of STANDINGS_LENSES) {
       m[l.key] = Math.max(
-        ...rows.map((r) => Math.max(standingsCell(r, l.key, mode).sort, 0)),
+        ...rows.map((r) => Math.max(standingsCell(r, l.key, mode, paceRatios).sort, 0)),
         0.01,
       );
     }
     return m;
-  }, [rows, mode]);
+  }, [rows, mode, paceRatios]);
 
   return (
     <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
@@ -155,9 +159,9 @@ export function KommuneMasterTable({
                     {formatDanishNumber(km.ansvarPct, 1)}%
                   </td>
                   {STANDINGS_LENSES.map((l) => {
-                    const c = standingsCell(km, l.key, mode);
+                    const c = standingsCell(km, l.key, mode, paceRatios);
                     const hot = sortKey === l.key;
-                    const barW = standingsBarPct(km, l.key, mode, maxByLens[l.key] ?? 1);
+                    const barW = standingsBarPct(km, l.key, mode, maxByLens[l.key] ?? 1, paceRatios);
                     return (
                       <td key={l.key} className="px-2 py-2">
                         <div className="w-full flex flex-col items-center gap-1">

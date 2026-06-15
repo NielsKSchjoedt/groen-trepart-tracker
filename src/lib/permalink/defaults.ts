@@ -24,7 +24,7 @@ export const DEFAULT_FREMSKRIVNING: FremskrivningUrlState = {
 
 export const DEFAULT_STANDINGS: StandingsUrlState = {
   sort: 'idxLavbund',
-  mode: 'relativ',
+  mode: 'maal',
   region: 'Alle regioner',
 };
 

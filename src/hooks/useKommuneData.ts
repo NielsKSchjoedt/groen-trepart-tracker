@@ -11,6 +11,7 @@ import {
   loadKommuneRanking,
   loadKommuneOplande,
   loadKommuneTrepartLinks,
+  loadKommuneNeighbors,
   loadNationalFordelingSimulation,
 } from '@/lib/data';
 import type {
@@ -23,6 +24,7 @@ import type {
   KommuneRankingData,
   KommuneOplandeData,
   KommuneTrepartLinksData,
+  KommuneNeighborsData,
   NationalFordelingSimulation,
 } from '@/lib/types';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -38,12 +40,13 @@ export interface KommuneDataBundle {
   kommuneRanking: KommuneRankingData | null;
   kommuneOplande: KommuneOplandeData | null;
   trepartLinks: KommuneTrepartLinksData | null;
+  kommuneNeighbors: KommuneNeighborsData | null;
   fordelingSimulation: NationalFordelingSimulation | null;
   loadError: string | null;
 }
 
 async function fetchKommuneBundle(): Promise<KommuneDataBundle> {
-  const [dashboard, geo, ksf, nst, kr, benchmark, ranking, oplande, trepart, fordeling] = await Promise.all([
+  const [dashboard, geo, ksf, nst, kr, benchmark, ranking, oplande, trepart, neighbors, fordeling] = await Promise.all([
     loadDashboardData(),
     loadKommunerGeoJSON().catch(() => null),
     loadKlimaskovfondenProjects(),
@@ -53,6 +56,7 @@ async function fetchKommuneBundle(): Promise<KommuneDataBundle> {
     loadKommuneRanking(),
     loadKommuneOplande(),
     loadKommuneTrepartLinks(),
+    loadKommuneNeighbors(),
     loadNationalFordelingSimulation(),
   ]);
 
@@ -66,6 +70,7 @@ async function fetchKommuneBundle(): Promise<KommuneDataBundle> {
     kommuneRanking: ranking,
     kommuneOplande: oplande,
     trepartLinks: trepart,
+    kommuneNeighbors: neighbors,
     fordelingSimulation: fordeling,
     loadError: geo ? null : 'Kommune-polygoner ikke tilgængelige endnu — kør `mise run build-kommune-map`',
   };
@@ -103,6 +108,7 @@ export function useKommuneData() {
     kommuneRanking: query.data?.kommuneRanking ?? null,
     kommuneOplande: query.data?.kommuneOplande ?? null,
     trepartLinks: query.data?.trepartLinks ?? null,
+    kommuneNeighbors: query.data?.kommuneNeighbors ?? null,
     fordelingSimulation: query.data?.fordelingSimulation ?? null,
     loadError: query.data?.loadError ?? null,
     isLoading: query.isLoading,

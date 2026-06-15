@@ -2,7 +2,6 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Hand, Info } from 'lucide-react';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
-import { InfoTooltip } from '@/components/InfoTooltip';
 import { HintCallout } from '@/components/HintCallout';
 import type { KommuneMetrics } from '@/lib/types';
 import { MetricPicker } from '@/components/MetricPicker';
@@ -18,6 +17,7 @@ import {
 } from '@/lib/kommune-chapters';
 import { KommuneMapSection } from '@/components/KommuneMapSection';
 import { KommuneStandingsSection } from '@/components/kommune-standings/KommuneStandingsSection';
+import { KommuneStandingsControls } from '@/components/kommune-standings/KommuneStandingsControls';
 import { KommuneMasterTable } from '@/components/kommune-standings/KommuneMasterTable';
 import { useStandings } from '@/components/kommune-standings/useStandings';
 import { Footer } from '@/components/Footer';
@@ -29,6 +29,7 @@ import { consumeKommuneListReturnState, navigateToKommuneByKode, restoreKommuneL
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
 import { buildFilteredKommuner, DEFAULT_PHASES, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
 import { buildDynamicRanking } from '@/lib/kommune-ranking-dynamic';
+import { computeNationalPace, paceRatiosOf } from '@/lib/kommune-goal-pace';
 import { enrichKommunerWithKsfLavbund } from '@/lib/kommune-ksf-lavbund';
 import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
 import { computeAnsvarIndices, usesSimulationChoropleth } from '@/lib/kommune-map-visualization';
@@ -101,6 +102,12 @@ export default function KommunePage() {
   );
 
   const standings = useStandings(effectiveRanking);
+
+  const nationalPace = useMemo(() => (data ? computeNationalPace(data) : null), [data]);
+  const paceRatios = useMemo(
+    () => (nationalPace ? paceRatiosOf(nationalPace) : undefined),
+    [nationalPace],
+  );
 
   const kommuneChapterIds = useMemo(
     () => getKommuneChapters().map((c) => c.id),
@@ -203,6 +210,8 @@ export default function KommunePage() {
                 onPhasesChange={setSelectedPhases}
                 selectedKode={null}
                 onSelect={handleSelect}
+                paceRatios={paceRatios}
+                nationalPace={nationalPace}
               />
             </div>
           ) : (
@@ -252,28 +261,15 @@ export default function KommunePage() {
             phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Ansvar-indekset (×) genberegnes efter valgte faser."
             supplementSources={supplementSources}
             onSupplementsChange={setActiveSupplements}
+            compactMapControls
             filterControls={
               <>
-                <div className="relative flex items-start gap-3 flex-wrap">
-                  <span className="flex items-center gap-1 text-sm font-medium text-muted-foreground pt-1.5">
-                    Vis:
-                    <InfoTooltip
-                      title="Metrikker"
-                      content={
-                        <>
-                          <p><strong>Kvælstof</strong> — ton N reduceret/år fra MARS-projekter. Understøtter fasefilter. Mål: 12.776 T inden 2027.</p>
-                          <p><strong>Lavbund</strong> — ha kulstofrig lavbundsjord fra MARS-projekter. Understøtter fasefilter. Klimaskovfondens lavbundsprojekter kan tilvælges separat. Mål: 140.000 ha inden 2030.</p>
-                          <p><strong>Skovrejsning</strong> — ha ny skov fra MARS-projekter (med fasefilter). Klimaskovfonden og Naturstyrelsen kan tilvælges separat — de administreres uden for MARS og har ikke fasedata.</p>
-                          <p><strong>Beskyttet natur</strong> — benchmark-kortlag fra DCE 30 %, §3 og Natura 2000 (B1–B4). Vælg kortlag i stedet for MARS-projekter, som endnu ikke findes på kommuneniveau.</p>
-                          <p><strong>CO₂</strong> — Samlet CO₂e-udledning per kommune (2023). Kilde: Energi- og CO₂-regnskabet, Energistyrelsen (klimaregnskabet.dk). Klik på en kommune for sektorfordeling og tidsudvikling.</p>
-                        </>
-                      }
-                      source="Den Grønne Trepart (2024)"
-                      size={12}
-                      side="right"
-                    />
-                  </span>
-                  <MetricPicker activeMetric={activeMetric} onChange={handleMetricChange} />
+                <div className="relative w-full">
+                  <MetricPicker
+                    activeMetric={activeMetric}
+                    onChange={handleMetricChange}
+                    compact
+                  />
 
                   {activeMetric === null && !hintDismissed && (
                     <HintCallout
@@ -326,6 +322,15 @@ export default function KommunePage() {
         >
           {kommuneRanking ? (
             <div className="px-4 max-w-6xl mx-auto space-y-3">
+              <KommuneStandingsControls
+                region={standings.region}
+                onRegionChange={standings.setRegion}
+                mode={standings.mode}
+                onModeChange={standings.setMode}
+                selectedPhases={selectedPhases}
+                onPhasesChange={setSelectedPhases}
+                variant="embedded"
+              />
               <KommuneMasterTable
                 rows={standings.tableRows}
                 mode={standings.mode}
@@ -334,6 +339,7 @@ export default function KommunePage() {
                 onToggleSort={standings.toggleSort}
                 selectedKode={null}
                 onSelect={handleSelect}
+                paceRatios={paceRatios}
               />
               <p className="text-[11px] text-muted-foreground leading-relaxed max-w-3xl">
                 Tallene viser realiseret indsats ift. kommunens andel af nationalt naturpotentiale. "Som forventet" = på niveau med ansvaret; flere gange = leverer mere end ansvaret tilsiger.

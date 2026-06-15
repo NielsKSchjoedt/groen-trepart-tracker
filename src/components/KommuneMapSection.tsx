@@ -8,8 +8,7 @@ import { KommuneMapOverlayLayers } from '@/components/kommune-map/KommuneMapOver
 import { ProjectDetailPanel } from '@/components/ProjectDetailPanel';
 import { MobileBottomSheet } from '@/components/MobileBottomSheet';
 import { InfoTooltip } from '@/components/InfoTooltip';
-import { PhaseFilterPopover } from '@/components/PhaseFilterPopover';
-import { SupplementSourceToggles } from '@/components/SupplementSourceToggles';
+import { KommuneMapViewControlsBar } from '@/components/KommuneMapViewControlsBar';
 import {
   KommuneFordelingDisclaimer,
   KommuneNatureLayerDisclaimer,
@@ -33,8 +32,6 @@ import type { ChoroplethScaleMode, FordelingViewMode, LegendStop, NatureLayerKey
 import {
   getKommuneMapLegendLabel,
   getKommuneMapLegendStops,
-  NATURE_LAYER_OPTIONS,
-  showChoroplethScaleToggle,
   showFordelingViewToggle,
   showNatureLayerToggle,
   usesSimulationChoropleth,
@@ -77,6 +74,8 @@ interface KommuneMapSectionProps {
   /** When set, deep-linked MARS projects outside this set are ignored. */
   allowedMarsGeoIds?: ReadonlySet<string>;
   inlineMapHeight?: string;
+  /** Dropdown + Kortvisning popover instead of inline grundkort / tilvalg rows. */
+  compactMapControls?: boolean;
   /** Metric picker row — fasefilter and kilder live on the map-controls row below. */
   filterControls?: ReactNode;
   /** Show collapsed fasefilter on the map-controls row. */
@@ -120,6 +119,7 @@ export function KommuneMapSection({
   selectedKode = null,
   allowedMarsGeoIds,
   inlineMapHeight = '580px',
+  compactMapControls = false,
   filterControls,
   showPhaseFilter = false,
   onPhasesChange,
@@ -280,152 +280,50 @@ export function KommuneMapSection({
   const pillarConfig = activeMetric ? getPillarConfig(activeMetric) : null;
 
   const mapControls = !readOnly && activeMetric ? (
-    <>
-      {showGrundkort && showNatureLayerToggle(activeMetric) && (
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-medium text-muted-foreground hidden sm:inline">Grundkort</span>
-          <div className="flex flex-wrap bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {NATURE_LAYER_OPTIONS.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                onClick={() => onNatureLayerChange(option.id)}
-                className={`px-3 py-1 text-sm rounded-md transition-all font-medium ${
-                  natureLayer === option.id
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {option.shortLabel}
-              </button>
-            ))}
-          </div>
-          <InfoTooltip
-            title="Grundkort"
-            content={
-              <p>
-                Grundkortet er den farvelagte baggrund. Vælg hvilket benchmark-kortlag der farvelægger
-                kommunerne — samme kilder som på det nationale kort under beskyttet natur.
-              </p>
-            }
-            source="Arealdata om biodiversitet · DCE 30 %"
-            side="bottom"
-            size={13}
-          />
-        </div>
-      )}
-
-      {showGrundkort && showFordelingViewToggle(activeMetric) && (
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-medium text-muted-foreground hidden sm:inline">Grundkort</span>
-          <div className="flex flex-wrap bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {([
-              { value: 'actual' as const, label: 'Faktisk' },
-              { value: 'simulated' as const, label: 'Fagligt forventet' },
-              { value: 'difference' as const, label: 'Forskel' },
-            ]).map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => onFordelingViewModeChange(option.value)}
-                className={`px-3 py-1 text-sm rounded-md transition-all font-medium ${
-                  fordelingViewMode === option.value
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-          <InfoTooltip
-            title="Grundkort"
-            content={
-              <p>
-                <strong>Faktisk</strong> viser realiseret areal fra MARS.{' '}
-                <strong>Fagligt forventet</strong> og <strong>Forskel</strong> er en simulering baseret
-                på proportional fordeling efter naturpotentiale — et diskussionsgrundlag, ikke officiel
-                kommune-fordeling.
-              </p>
-            }
-            side="bottom"
-            size={13}
-          />
-        </div>
-      )}
-
-      {showChoroplethScaleToggle(activeMetric, fordelingViewMode) && (
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-medium text-muted-foreground hidden sm:inline">Vis som</span>
-          <div className="flex flex-wrap bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {([
-              { value: 'absolute' as const, label: 'Absolut (ha)' },
-              { value: 'ansvar' as const, label: 'Ift. ansvar' },
-            ]).map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => onChoroplethScaleChange(option.value)}
-                className={`px-3 py-1 text-sm rounded-md transition-all font-medium ${
-                  choroplethScale === option.value
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-          <InfoTooltip
-            title="Absolut vs. ift. ansvar"
-            content={
-              <>
-                <p><strong>Absolut (ha)</strong> — samlet areal fra valgte projektfaser (og evt. KSF). Farver skaleres mod den kommune med mest.</p>
-                <p><strong>Ift. ansvar</strong> — samme formel som ranglisten: (kommunens andel af landets levering) ÷ (kommunens andel af naturpotentiale). 1,0× = som forventet.</p>
-              </>
-            }
-            source="MARS + DCE 30 % naturpotentiale"
-            side="bottom"
-            size={13}
-          />
-        </div>
-      )}
-
-      {showPhaseFilter && onPhasesChange && (
-        <PhaseFilterPopover
-          selected={selectedPhases}
-          onChange={onPhasesChange}
-          align="start"
-          tooltipContent={
-            phaseFilterTooltip
-            ?? 'Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse.'
-          }
-        />
-      )}
-
-      {supplementSources?.length
-        && fordelingViewMode === 'actual'
-        && onSupplementsChange
-        && activeMetric && (
-        <SupplementSourceToggles
-          metric={activeMetric}
-          sources={supplementSources}
-          active={activeSupplements}
-          onChange={onSupplementsChange}
-        />
-      )}
-
-    </>
+    <KommuneMapViewControlsBar
+      activeMetric={activeMetric}
+      showGrundkort={showGrundkort}
+      natureLayer={natureLayer}
+      onNatureLayerChange={onNatureLayerChange}
+      fordelingViewMode={fordelingViewMode}
+      onFordelingViewModeChange={onFordelingViewModeChange}
+      choroplethScale={choroplethScale}
+      onChoroplethScaleChange={onChoroplethScaleChange}
+      showPhaseFilter={showPhaseFilter}
+      selectedPhases={selectedPhases}
+      onPhasesChange={onPhasesChange}
+      phaseFilterTooltip={phaseFilterTooltip}
+      supplementSources={supplementSources}
+      activeSupplements={activeSupplements}
+      onSupplementsChange={onSupplementsChange}
+      compact={compactMapControls}
+    />
   ) : null;
 
   const shellControls = (filterControls || mapControls) ? (
-    <div className="w-full space-y-3">
-      {filterControls && <div className="space-y-2">{filterControls}</div>}
-      {mapControls && (
-        <div className="flex flex-wrap items-center gap-3">
-          {mapControls}
-        </div>
-      )}
+    <div className="w-full">
+      <div
+        className={[
+          'flex items-start gap-2 w-full',
+          !compactMapControls && 'md:flex-col md:gap-3',
+        ].filter(Boolean).join(' ')}
+      >
+        {filterControls && (
+          <div
+            className={[
+              'flex-1 min-w-0 space-y-2',
+              !compactMapControls && 'md:flex-none md:w-full',
+            ].filter(Boolean).join(' ')}
+          >
+            {filterControls}
+          </div>
+        )}
+        {mapControls && (
+          <div className="shrink-0 flex items-center gap-2">
+            {mapControls}
+          </div>
+        )}
+      </div>
     </div>
   ) : null;
 

@@ -15,13 +15,15 @@ const KEY_TO_SORT: Record<StandingsLensKey, string> = {
   idxKvaelstof: 'kvaelstof',
 };
 
-const MODE_TO_VISNING: Record<StandingsMode, string | null> = {
-  relativ: null,
+const MODE_TO_VISNING: Record<StandingsMode, string> = {
+  relativ: 'ansvar',
+  maal: 'maal',
   absolut: 'absolut',
 };
 
 const VISNING_TO_MODE: Record<string, StandingsMode> = {
   ansvar: 'relativ',
+  maal: 'maal',
   absolut: 'absolut',
 };
 
@@ -56,9 +58,8 @@ export function applyStandingsToParams(
     params.set(PERMALINK_KEYS.sort, KEY_TO_SORT[state.sort]);
   }
 
-  const visSlug = state.mode === 'relativ' ? 'ansvar' : 'absolut';
   if (state.mode !== defaults.mode) {
-    params.set(PERMALINK_KEYS.visning, visSlug);
+    params.set(PERMALINK_KEYS.visning, MODE_TO_VISNING[state.mode]);
   }
 
   if (state.region !== defaults.region) {

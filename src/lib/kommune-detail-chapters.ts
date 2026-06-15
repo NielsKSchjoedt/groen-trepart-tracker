@@ -1,6 +1,6 @@
 import type { Chapter } from './chapters';
-import { hasPhaseProfileData } from '@/components/kommune-standings/KommunePhaseVsNational';
-import type { KommuneMetrics, KommuneRankingData, KommuneCO2Data } from '@/lib/types';
+import { hasProcesData } from '@/lib/kommune-proces';
+import type { KommuneMetrics, KommuneRankingData, KommuneCO2Data, Plan } from '@/lib/types';
 
 export const KOMMUNE_DETAIL_STATUS_CHAPTER: Chapter = {
   id: 'status',
@@ -25,9 +25,9 @@ export const KOMMUNE_DETAIL_NOEGLETAL_CHAPTER: Chapter = {
 
 export const KOMMUNE_DETAIL_FASEPROFIL_CHAPTER: Chapter = {
   id: 'faseprofil',
-  navLabel: 'Faseprofil',
-  eyebrow: 'Pipeline vs. landet',
-  question: 'Hvor langt er kommunen i faserne?',
+  navLabel: 'Proces',
+  eyebrow: 'Lokal fremdrift',
+  question: 'Hvor langt er kommunen i faserne — og hvordan ser det ud i forhold til naboerne?',
 };
 
 export const KOMMUNE_DETAIL_NATUR_CHAPTER: Chapter = {
@@ -61,7 +61,7 @@ export const KOMMUNE_DETAIL_NOEGLETAL_INTRO =
   'Samlet registreret indsats på tværs af indsatsområder — uafhængigt af hvilken metrik du har valgt på kortet.';
 
 export const KOMMUNE_DETAIL_FASEPROFIL_INTRO =
-  'Andel af kommunens leverede hektar (lavbund + skov, uden skitser) i hver fase — sammenlignet med landsgennemsnittet.';
+  'Andel af kommunens MARS-projekter i hver fase — målt i hektar og sammenlignet med naboer i samme lokale trepart og med landsgennemsnittet. Viser både momentum (antal og hektar) og seneste milepæle.';
 
 export const KOMMUNE_DETAIL_NATUR_INTRO =
   'Vandoplande kommunen overlapper med, og benchmark for beskyttet natur (DCE 30 %, §3 og Natura 2000).';
@@ -81,6 +81,8 @@ export interface KommuneDetailChapterContext {
   co2Data: KommuneCO2Data | null;
   /** When CO₂ metric is active, show CO₂ chapter right after Kort. */
   co2First: boolean;
+  /** MARS plan drill-down for proces & fremdrift section. */
+  plans: Pick<Plan, 'id' | 'name' | 'projectDetails'>[];
 }
 
 /** Ordered StickyNav chapters for a kommune detail page — skips sections without data. */
@@ -96,7 +98,7 @@ export function getKommuneDetailChapters(ctx: KommuneDetailChapterContext): Chap
 
   chapters.push(KOMMUNE_DETAIL_NOEGLETAL_CHAPTER);
 
-  if (ctx.ranking && hasPhaseProfileData(ctx.kommune, ctx.ranking)) {
+  if (hasProcesData({ plans: ctx.plans }, ctx.kommune.navn)) {
     chapters.push(KOMMUNE_DETAIL_FASEPROFIL_CHAPTER);
   }
 

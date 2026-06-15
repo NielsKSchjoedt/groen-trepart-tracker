@@ -1,6 +1,9 @@
-import { AlertTriangle, Check } from 'lucide-react';
+import { useState } from 'react';
+import { AlertTriangle, Check, ChevronDown } from 'lucide-react';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
 import { METRIC_NO_DATA } from '@/lib/kommune-metrics';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ControlBarTrigger } from '@/components/ControlBar';
 
 interface MetricOption {
   id: KommuneMetric;
@@ -37,33 +40,93 @@ interface MetricPickerProps {
   /** Currently selected metric, or null when none is selected */
   activeMetric: KommuneMetric | null;
   onChange: (metric: KommuneMetric) => void;
+  /** Always use dropdown (detail page / narrow layouts). */
+  compact?: boolean;
 }
 
 /**
  * Segmented pill control for selecting which metric the KommuneMap and
  * KommuneTable display.
  *
- * Supports a `null` activeMetric state (no selection). Metrics in
- * METRIC_NO_DATA are shown with a muted warning style and a ⚠ indicator.
- * A checkmark icon reinforces which pill is currently selected.
- *
- * @param activeMetric - Currently selected metric (null = none selected)
- * @param onChange     - Called when the user selects a different metric
- *
- * @example
- *   <MetricPicker activeMetric="nitrogen" onChange={(m) => setMetric(m)} />
- *   <MetricPicker activeMetric={null} onChange={(m) => setMetric(m)} />
+ * On mobile, pills collapse into a compact dropdown to save vertical space.
  */
-export function MetricPicker({ activeMetric, onChange }: MetricPickerProps) {
+export function MetricPicker({ activeMetric, onChange, compact = false }: MetricPickerProps) {
+  const [open, setOpen] = useState(false);
   const activeHasNoData = activeMetric !== null && METRIC_NO_DATA.has(activeMetric);
   const disclaimer = activeHasNoData ? NO_DATA_DISCLAIMERS[activeMetric!] : null;
+  const activeOption = METRIC_OPTIONS.find((o) => o.id === activeMetric);
+
+  const selectMetric = (id: KommuneMetric) => {
+    onChange(id);
+    setOpen(false);
+  };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 min-w-0">
+      {/* Compact: dropdown (mobile or narrow detail layout) */}
+      <div className={compact ? '' : 'md:hidden'}>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <ControlBarTrigger
+              aria-label="Vælg indsatsområde"
+              fullWidth
+            >
+              {activeOption ? (
+                <>
+                  {activeHasNoData ? (
+                    <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 text-amber-500" strokeWidth={2.5} />
+                  ) : (
+                    <span
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: activeOption.color }}
+                    />
+                  )}
+                  <span className="truncate">{activeOption.label}</span>
+                </>
+              ) : (
+                <span className="truncate">Vælg indsatsområde</span>
+              )}
+              <ChevronDown className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0 ml-auto" strokeWidth={2.4} />
+            </ControlBarTrigger>
+          </PopoverTrigger>
+          <PopoverContent align="start" className="z-[10000] w-[min(100vw-2rem,18rem)] p-1">
+            {METRIC_OPTIONS.map(({ id, label, color }) => {
+              const isActive = id === activeMetric;
+              const isNoData = METRIC_NO_DATA.has(id);
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => selectMetric(id)}
+                  className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-sm hover:bg-muted/60 transition-colors cursor-pointer"
+                >
+                  {isNoData ? (
+                    <AlertTriangle
+                      className={`w-3.5 h-3.5 flex-shrink-0 ${isActive ? 'text-amber-500' : 'text-muted-foreground/50'}`}
+                      strokeWidth={2.5}
+                    />
+                  ) : (
+                    <span
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: color, opacity: isActive ? 1 : 0.6 }}
+                    />
+                  )}
+                  <span className={isActive ? 'font-semibold text-foreground' : 'text-muted-foreground'}>
+                    {label}
+                  </span>
+                  {isActive && <Check className="w-3.5 h-3.5 text-primary ml-auto" strokeWidth={2.6} />}
+                </button>
+              );
+            })}
+          </PopoverContent>
+        </Popover>
+      </div>
+
+      {/* Wide list page: pill row */}
       <div
         role="radiogroup"
         aria-label="Vælg indsatsområde"
-        className="flex flex-wrap items-center gap-1.5"
+        className={compact ? 'hidden' : 'hidden md:flex flex-wrap items-center gap-1.5'}
       >
         {METRIC_OPTIONS.map(({ id, label, color }) => {
           const isActive = id === activeMetric;
@@ -107,7 +170,6 @@ export function MetricPicker({ activeMetric, onChange }: MetricPickerProps) {
         })}
       </div>
 
-      {/* Per-metric disclaimer — only shown when a no-data metric is active */}
       {disclaimer && (
         <div
           role="status"

@@ -41,6 +41,9 @@ const KOMMUNE_LIST_PARAM_KEYS = [
 
 const KOMMUNE_DETAIL_PARAM_KEYS = [
   ...KOMMUNE_MAP_PARAM_KEYS,
+  // `visning` is shared with the list so the Mod målet / Ift. ansvar / Absolut
+  // lens persists when opening a kommune detail page (the "Hvor står?" section).
+  PERMALINK_KEYS.visning,
   PERMALINK_KEYS.projekt,
   PERMALINK_KEYS.fane,
 ] as const;

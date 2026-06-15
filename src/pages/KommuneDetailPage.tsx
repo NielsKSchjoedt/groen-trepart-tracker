@@ -6,8 +6,6 @@ import { Footer } from '@/components/Footer';
 import { StickyNav } from '@/components/StickyNav';
 import { SiteTopBadges } from '@/components/SiteTopBadges';
 import { KommuneEmblem } from '@/components/KommuneEmblem';
-import { INDSATS_MAAL, statusOf } from '@/lib/kommune-indsats-status';
-import { IndsatsMaalChip } from '@/components/kommune-detail/IndsatsMaalChip';
 import { KommuneMapSection } from '@/components/KommuneMapSection';
 import {
   KommuneDetailCo2Section,
@@ -19,13 +17,18 @@ import {
 import { KommuneStandingsDetailHeader } from '@/components/kommune-standings/KommuneStandingsDetailHeader';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useKommuneData, useSelectedKommune } from '@/hooks/useKommuneData';
+import { loadProjectChangelog } from '@/lib/data';
+import type { ProjectChangelog } from '@/lib/types';
 import { MetricPicker } from '@/components/MetricPicker';
 import { ChapterSection } from '@/components/ChapterSection';
 import { scrollToPageTop, getKommuneListBackTarget, navigateToKommuneByKode } from '@/lib/kommune-navigation';
 import { kommuneToSlug } from '@/lib/kommune-slugs';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
 import { buildFilteredKommuner, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
-import { buildDynamicRanking, type StandingsMode } from '@/lib/kommune-ranking-dynamic';
+import { buildDynamicRanking } from '@/lib/kommune-ranking-dynamic';
+import type { StandingsMode } from '@/lib/kommune-ranking';
+import { decodeStandings, applyStandingsToParams } from '@/lib/permalink/slices/standings';
+import { computeNationalPace, paceRatiosOf } from '@/lib/kommune-goal-pace';
 import { enrichKommunerWithKsfLavbund } from '@/lib/kommune-ksf-lavbund';
 import { dedupeByProjectId } from '@/lib/dedupe-by-id';
 import type { KommuneCO2Data } from '@/lib/types';
@@ -54,7 +57,7 @@ import {
   KOMMUNE_DETAIL_STATUS_CHAPTER,
   KOMMUNE_DETAIL_STATUS_INTRO,
 } from '@/lib/kommune-detail-chapters';
-import { hasPhaseProfileData } from '@/components/kommune-standings/KommunePhaseVsNational';
+import { hasProcesData } from '@/lib/kommune-proces';
 import { useHashScroll } from '@/lib/permalink/useHashScroll';
 import { parseProjectParam, PROJECT_PARAM } from '@/lib/permalink/slices/project-open';
 import { projectOverlapsKommune } from '@/lib/mars-kommune-overlap';
@@ -67,6 +70,11 @@ export default function KommuneDetailPage() {
   const { kommuneSlug } = useParams<{ kommuneSlug: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const heroSentinelRef = useRef<HTMLDivElement>(null);
+  const [projectChangelog, setProjectChangelog] = useState<ProjectChangelog | null>(null);
+
+  useEffect(() => {
+    loadProjectChangelog().then(setProjectChangelog);
+  }, []);
 
   const {
     data,
@@ -78,6 +86,7 @@ export default function KommuneDetailPage() {
     kommuneRanking,
     kommuneOplande,
     trepartLinks,
+    kommuneNeighbors,
     fordelingSimulation,
     loadError,
     isLoading,
@@ -123,8 +132,19 @@ export default function KommuneDetailPage() {
   const setNatureLayer = (layer: NatureLayerKey) => patchMapView({ natureLayer: layer });
   const setMapOverlays = (overlays: typeof mapOverlays) => patchMapView({ mapOverlays: overlays });
 
-  /** Måleenhed for the "Hvor står?" section — local to the page (Ift. ansvar default). */
-  const [standingsMode, setStandingsMode] = useState<StandingsMode>('relativ');
+  /** Måleenhed for the "Hvor står?" section — shared with /kommuner via the `visning` permalink param. */
+  const standingsMode: StandingsMode = useMemo(
+    () => decodeStandings(searchParams).mode,
+    [searchParams],
+  );
+  const setStandingsMode = (m: StandingsMode) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      const current = decodeStandings(next);
+      applyStandingsToParams(next, { ...current, mode: m });
+      return next;
+    }, { replace: true });
+  };
 
   const supplementSources = activeMetric ? METRIC_SUPPLEMENTS[activeMetric] : undefined;
 
@@ -141,6 +161,12 @@ export default function KommuneDetailPage() {
   const effectiveRanking = useMemo(
     () => (kommuneRanking ? buildDynamicRanking(kommuneRanking, kommunerFiltered) : null),
     [kommuneRanking, kommunerFiltered],
+  );
+
+  const nationalPace = useMemo(() => (data ? computeNationalPace(data) : null), [data]);
+  const paceRatios = useMemo(
+    () => (nationalPace ? paceRatiosOf(nationalPace) : undefined),
+    [nationalPace],
   );
 
   const ansvarIndexByKode = useMemo(() => {
@@ -230,15 +256,16 @@ export default function KommuneDetailPage() {
   const co2First = activeMetric === 'co2' && !!co2Data;
 
   const detailChapters = useMemo(
-    () => (kommune
+    () => (kommune && data
       ? getKommuneDetailChapters({
         kommune,
         ranking: effectiveRanking,
         co2Data,
         co2First,
+        plans: data.plans,
       })
       : []),
-    [kommune, effectiveRanking, co2Data, co2First],
+    [kommune, data, effectiveRanking, co2Data, co2First],
   );
 
   const detailChapterIds = useMemo(
@@ -250,6 +277,13 @@ export default function KommuneDetailPage() {
     if (!kommune || !trepartLinks) return null;
     return trepartLinks.links[kommune.kode] ?? null;
   }, [kommune, trepartLinks]);
+
+  const borderNeighborNavne = useMemo(() => {
+    if (!kommune || !kommuneNeighbors) return [];
+    return kommuneNeighbors.byNavn[kommune.navn]
+      ?? kommuneNeighbors.byKode[kommune.kode]
+      ?? [];
+  }, [kommune, kommuneNeighbors]);
 
   const listSearch = searchParams.toString() ? `?${searchParams.toString()}` : '';
   const backTarget = getKommuneListBackTarget(listSearch);
@@ -320,19 +354,6 @@ export default function KommuneDetailPage() {
               )}
             </div>
           </div>
-
-          {rankingRow && effectiveRanking && (
-            <div className="flex flex-wrap justify-center gap-1.5 mt-3.5" aria-label="Status på de tre leveringsmål">
-              {INDSATS_MAAL.map((m) => (
-                <IndsatsMaalChip
-                  key={m.key}
-                  short={m.short}
-                  tone={m.tone}
-                  status={statusOf(rankingRow[m.key])}
-                />
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
@@ -356,6 +377,8 @@ export default function KommuneDetailPage() {
                   onModeChange={setStandingsMode}
                   selectedPhases={selectedPhases}
                   onPhasesChange={setSelectedPhases}
+                  paceRatios={paceRatios}
+                  nationalPace={nationalPace}
                 />
               </div>
             </div>
@@ -394,6 +417,7 @@ export default function KommuneDetailPage() {
               selectedKode={kommune.kode}
               allowedMarsGeoIds={allowedMarsGeoIds}
               inlineMapHeight="360px"
+              compactMapControls
               dashboard={data}
               selectedPhases={selectedPhases}
               mapOverlays={mapOverlays}
@@ -408,9 +432,12 @@ export default function KommuneDetailPage() {
               onSupplementsChange={setActiveSupplements}
               filterControls={
                 <>
-                  <div className="flex items-start gap-3 flex-wrap">
-                    <span className="text-sm font-medium text-muted-foreground pt-1.5">Vis:</span>
-                    <MetricPicker activeMetric={activeMetric} onChange={handleMetricChange} />
+                  <div className="w-full">
+                    <MetricPicker
+                      activeMetric={activeMetric}
+                      onChange={handleMetricChange}
+                      compact
+                    />
                   </div>
 
                   {activeMetric === 'co2' && (
@@ -463,7 +490,7 @@ export default function KommuneDetailPage() {
           </div>
         </ChapterSection>
 
-        {effectiveRanking && hasPhaseProfileData(kommune, effectiveRanking) && (
+        {data && hasProcesData({ plans: data.plans }, kommune.navn) && (
           <ChapterSection
             id={KOMMUNE_DETAIL_FASEPROFIL_CHAPTER.id}
             eyebrow={KOMMUNE_DETAIL_FASEPROFIL_CHAPTER.eyebrow}
@@ -471,7 +498,12 @@ export default function KommuneDetailPage() {
             intro={KOMMUNE_DETAIL_FASEPROFIL_INTRO}
           >
             <div className="px-4 max-w-3xl mx-auto">
-              <KommuneDetailPhaseProfile kommune={kommune} ranking={effectiveRanking} />
+              <KommuneDetailPhaseProfile
+                kommune={kommune}
+                plans={data.plans}
+                changelog={projectChangelog}
+                borderNeighborNavne={borderNeighborNavne}
+              />
             </div>
           </ChapterSection>
         )}

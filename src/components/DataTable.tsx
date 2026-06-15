@@ -11,6 +11,7 @@ import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
 import { RecentActivity } from './RecentActivity';
+import { ControlBarSegmented } from '@/components/ControlBar';
 
 type AfforestationTab = 'mars' | 'klimaskovfonden' | 'naturstyrelsen';
 type ExtractionTab = 'mars' | 'klimaskovfonden';
@@ -1155,22 +1156,17 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       {/* Afforestation tab switcher */}
       {activePillar === 'afforestation' && (ksfProjects.length > 0 || nstProjects.length > 0) && (
         <div className="flex items-center gap-3 mb-5">
-          <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {AFFORESTATION_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setAfforestationTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all font-medium ${
-                  afforestationTab === tab.id
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {tab.icon}
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
-          </div>
+          <ControlBarSegmented
+            value={afforestationTab}
+            options={AFFORESTATION_TABS.map((tab) => ({
+              value: tab.id,
+              label: tab.label,
+              icon: tab.icon,
+              hideLabelOnMobile: true,
+            }))}
+            onChange={setAfforestationTab}
+            aria-label="Datakilde for skovrejsning"
+          />
           <InfoTooltip
             title="Tre datakilder for skovrejsning"
             content={
@@ -1200,22 +1196,17 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       {/* Extraction tab switcher */}
       {activePillar === 'extraction' && ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length > 0 && (
         <div className="flex items-center gap-3 mb-5">
-          <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {EXTRACTION_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setExtractionTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all font-medium ${
-                  extractionTab === tab.id
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {tab.icon}
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
-          </div>
+          <ControlBarSegmented
+            value={extractionTab}
+            options={EXTRACTION_TABS.map((tab) => ({
+              value: tab.id,
+              label: tab.label,
+              icon: tab.icon,
+              hideLabelOnMobile: true,
+            }))}
+            onChange={setExtractionTab}
+            aria-label="Datakilde for lavbund"
+          />
           <InfoTooltip
             title="To datakilder for lavbundsudtag"
             content={

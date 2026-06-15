@@ -122,12 +122,24 @@ describe('permalink', () => {
     const ctx = resolveRouteContext('/kommuner');
     const params = toSearchParams(
       {
-        standings: { sort: 'idxSkov', mode: 'relativ', region: 'Alle regioner' },
+        standings: { sort: 'idxSkov', mode: 'maal', region: 'Alle regioner' },
       },
       ctx,
     );
     expect(params.get('sort')).toBe('skov');
+    // 'maal' is the default lens, so it is omitted from the URL.
     expect(params.get('visning')).toBeNull();
+  });
+
+  it('encodes a non-default standings lens', () => {
+    const ctx = resolveRouteContext('/kommuner');
+    const params = toSearchParams(
+      {
+        standings: { sort: 'idxLavbund', mode: 'relativ', region: 'Alle regioner' },
+      },
+      ctx,
+    );
+    expect(params.get('visning')).toBe('ansvar');
   });
 
   it('resolves fane alias to section', () => {
@@ -154,14 +166,16 @@ describe('permalink', () => {
     expect(clean.get('projekt')).toBe('mars:abc');
     expect(clean.get('kort')).toBeNull();
     expect(clean.get('frem')).toBeNull();
-    expect(clean.get('visning')).toBeNull();
+    // `visning` is shared with the list so the lens persists onto the detail page.
+    expect(clean.get('visning')).toBe('ansvar');
   });
 
   it('extractKommuneDetailSearch drops list-only and project params', () => {
     const search = extractKommuneDetailSearch(
       '?sort=skov&metric=skovrejsning&projekt=mars:abc&visning=ansvar&faser=anlagt',
     );
-    expect(search).toBe('?metric=skovrejsning&faser=anlagt');
+    // `visning` is preserved (shared lens); `sort` and `projekt` are dropped.
+    expect(search).toBe('?metric=skovrejsning&visning=ansvar&faser=anlagt');
   });
 
   it('parseViewState ignores national map params on kommune detail', () => {

@@ -40,6 +40,7 @@ import { Map, MousePointerClick } from 'lucide-react';
 import { BASEMAP_TILE_MAX_ZOOM, CHOROPLETH_MAP_MAX_ZOOM, CHOROPLETH_MAP_MIN_ZOOM } from '@/lib/map-zoom';
 import { MapSwitchToggle } from './MapSwitchToggle';
 import { InfoTooltip } from './InfoTooltip';
+import { ControlBarInlineField, ControlBarSegmented } from '@/components/ControlBar';
 import { MapFullscreenShell } from './MapFullscreenShell';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND, NST_COLOR, SECTION3_COLOR } from '@/lib/supplement-colors';
 import { getSupplementPresentation } from '@/lib/kommune-metrics';
@@ -1700,34 +1701,9 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
     <>
       {!isStub && (
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-xs font-medium text-muted-foreground hidden sm:inline">Grundkort</span>
-              <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm flex-wrap">
-                {baseLayerOptions.map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => setBaseLayer(opt.value)}
-                    className={`px-3 py-1 text-sm rounded-md transition-all font-medium ${
-                      baseVisible && layer === opt.value
-                        ? 'bg-primary text-primary-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-                <button
-                  onClick={() => setBaseLayer('off')}
-                  aria-pressed={!baseVisible}
-                  className={`px-3 py-1 text-sm rounded-md transition-all font-medium ${
-                    !baseVisible
-                      ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  Fra
-                </button>
-              </div>
+          <ControlBarInlineField
+            label="Grundkort"
+            tooltip={
               <InfoTooltip
                 title="Grundkort"
                 content={
@@ -1745,7 +1721,19 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                 side="bottom"
                 size={13}
               />
-          </div>
+            }
+          >
+            <ControlBarSegmented
+              value={baseVisible ? layer : 'off'}
+              options={[
+                ...baseLayerOptions.map((opt) => ({ value: opt.value, label: opt.label })),
+                { value: 'off' as const, label: 'Fra' },
+              ]}
+              onChange={(v) => setBaseLayer(v)}
+              aria-label="Grundkort"
+              className="flex flex-wrap"
+            />
+          </ControlBarInlineField>
           <PhaseFilterPopover
             selected={activePhases}
             onChange={setActivePhases}

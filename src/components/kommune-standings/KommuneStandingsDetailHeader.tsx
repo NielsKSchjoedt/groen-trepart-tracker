@@ -1,11 +1,25 @@
 import type { KommuneRankingData, KommuneRankingRow } from '@/lib/types';
-import { haForAxis, rankOnAxis, type StandingsLensKey, type StandingsMode } from '@/lib/kommune-ranking';
+import {
+  haForAxis,
+  paceIdx,
+  rankOnAxis,
+  type MetricPaceRatios,
+  type StandingsLensKey,
+  type StandingsMode,
+} from '@/lib/kommune-ranking';
 import { formatDanishNumber } from '@/lib/format';
 import type { KommunePhase } from '@/lib/kommune-metrics';
+import { ControlBarSegmented } from '@/components/ControlBar';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { PhaseFilterPopover } from '@/components/PhaseFilterPopover';
 import { BAR_COLOR, FORVENTET_NIVEAU_NOTE, INDSATS_MAAL, statusOf } from '@/lib/kommune-indsats-status';
+import {
+  paceStatusOf,
+  type NationalMetricPace,
+  type NationalPaceContext,
+} from '@/lib/kommune-goal-pace';
 import { IndsatsStatusValue } from '@/components/kommune-detail/IndsatsMaalChip';
+import { GoalPaceBanner } from './GoalPaceBanner';
 
 interface KommuneStandingsDetailHeaderProps {
   row: KommuneRankingRow;
@@ -22,6 +36,10 @@ interface KommuneStandingsDetailHeaderProps {
   onModeChange?: (m: StandingsMode) => void;
   selectedPhases?: Set<KommunePhase>;
   onPhasesChange?: (phases: Set<KommunePhase>) => void;
+  /** Per-metric pace scalars for the "Mod målet" lens. */
+  paceRatios?: MetricPaceRatios;
+  /** National goal-pace context — drives the banner + per-line tempo note. */
+  nationalPace?: NationalPaceContext | null;
 }
 
 /**
@@ -65,23 +83,49 @@ export function KommuneStandingsDetailHeader({
   onModeChange,
   selectedPhases,
   onPhasesChange,
+  paceRatios,
+  nationalPace,
 }: KommuneStandingsDetailHeaderProps) {
   const gap = row.kvalitetGapPct;
   const embedded = variant === 'embedded';
   const isAbs = mode === 'absolut';
+  const isMaal = mode === 'maal';
   const showControls = !!onModeChange && !!onPhasesChange && !!selectedPhases;
+  const paceForKey = (key: StandingsLensKey): NationalMetricPace | null => {
+    if (!nationalPace) return null;
+    if (key === 'idxSkov') return nationalPace.skov;
+    if (key === 'idxKvaelstof') return nationalPace.kvaelstof;
+    return nationalPace.lavbund;
+  };
+  const modeLabel = isAbs ? 'absolut' : isMaal ? 'mod målet' : 'ift. forventet';
 
   return (
     <div className={embedded ? '' : 'mb-5 pb-5 border-b border-border'}>
       {!embedded && (
         <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">
-          Naturindsatsen — {isAbs ? 'absolut' : 'ift. forventet'}
+          Naturindsatsen — {modeLabel}
         </p>
       )}
 
       <p className={`text-sm text-muted-foreground leading-relaxed ${embedded ? 'mb-4' : 'text-xs mb-3.5'}`}>
         {isAbs ? (
           <>Absolut levering — rå hektar og ton, uden hensyn til kommunens størrelse. Søjlen viser kommunen ift. landets største leverandør.</>
+        ) : isMaal ? (
+          <>
+            Måler om kommunen leverer i det <strong className="text-foreground">tempo, målet kræver</strong> — ikke
+            mod de andre kommuner. 1,0× = præcis på sporet mod fristen; under 1,0× = bagud uanset placering ift. naboerne.
+            <InfoTooltip
+              title="Sådan læses søjlerne (mod målet)"
+              content={
+                <>
+                  <p>Det er den samme “ift. ansvar”-søjle, skaleret med landets tempo mod målet: (kommunens × ift. ansvar) × (landets fremdrift ÷ tid forløbet).</p>
+                  <p className="text-foreground">1,0× = på sporet mod fristen. Stregen på søjlen markerer 1,0×.</p>
+                </>
+              }
+              size={11}
+              side="right"
+            />
+          </>
         ) : (
           <>
             Alle tre mål måles mod kommunens andel af nationalt naturpotentiale
@@ -104,33 +148,28 @@ export function KommuneStandingsDetailHeader({
 
       {showControls && (
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <div className="inline-flex rounded-lg border border-border bg-muted/40 p-0.5" role="group" aria-label="Måleenhed">
-            {([
-              { id: 'relativ' as const, label: 'Ift. ansvar' },
-              { id: 'absolut' as const, label: 'Absolut' },
-            ]).map((o) => (
-              <button
-                key={o.id}
-                type="button"
-                onClick={() => onModeChange!(o.id)}
-                aria-pressed={mode === o.id}
-                className={[
-                  'rounded-md px-2.5 py-1.5 text-xs font-semibold transition-colors cursor-pointer',
-                  mode === o.id
-                    ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40'
-                    : 'text-muted-foreground hover:text-foreground',
-                ].join(' ')}
-              >
-                {o.label}
-              </button>
-            ))}
-          </div>
+          <ControlBarSegmented
+            value={mode}
+            options={[
+              { value: 'maal', label: 'Mod målet' },
+              { value: 'relativ', label: 'Ift. ansvar' },
+              { value: 'absolut', label: 'Absolut' },
+            ]}
+            onChange={(v) => onModeChange!(v)}
+            aria-label="Måleenhed"
+          />
           <div className="flex-1 min-w-[8px]" />
           <PhaseFilterPopover
             selected={selectedPhases!}
             onChange={onPhasesChange!}
             tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i kommunens tal. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Skitser tæller aldrig med."
           />
+        </div>
+      )}
+
+      {isMaal && nationalPace && (
+        <div className="mb-3.5">
+          <GoalPaceBanner pace={nationalPace} />
         </div>
       )}
 
@@ -175,6 +214,60 @@ export function KommuneStandingsDetailHeader({
 
                 <p className="text-[10px] text-muted-foreground mt-1">
                   {rank != null ? <span>nr. {rank} af {withData}</span> : <span>—</span>}
+                </p>
+              </div>
+            );
+          }
+
+          if (isMaal) {
+            const peer = row[m.key];
+            const pIdx = paceIdx(peer, paceRatios?.[m.key] ?? null);
+            const status = paceStatusOf(pIdx);
+            const hasData = pIdx != null;
+            const rank = hasData ? rankOnAxis(ranking, row.kode, m.key) : null;
+            const withData = idxDataCount(ranking, m.key);
+            const nat = paceForKey(m.key);
+            return (
+              <div key={m.key}>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ backgroundColor: m.tone }} />
+                  <span className="text-xs font-semibold text-foreground">{m.label}</span>
+                  <InfoTooltip
+                    title={`${m.label} — mod målet`}
+                    content={
+                      <>
+                        <p>{m.explain}</p>
+                        <p className="text-foreground">Kommunens levering ift. ansvar × landets tempo mod målet. 1,0× = på sporet mod fristen.</p>
+                        {nat && (
+                          <p>Landet samlet: {formatDanishNumber(Math.round(nat.progressPct), 0)}% af målet nået, {formatDanishNumber(Math.round(nat.paceRatio * 100), 0)}% af nødvendigt tempo.</p>
+                        )}
+                      </>
+                    }
+                    source={m.source}
+                    size={11}
+                    side="right"
+                  />
+                  <span className="ml-auto">
+                    <IndsatsStatusValue status={status} />
+                  </span>
+                </div>
+
+                <div className="relative h-2.5 rounded-full bg-muted overflow-visible">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full transition-all"
+                    style={{ width: `${fillPct(pIdx)}%`, backgroundColor: BAR_COLOR[status.kind] }}
+                  />
+                  <span
+                    className="absolute -top-0.5 -bottom-0.5 w-0.5 bg-foreground/70 rounded"
+                    style={{ left: `${BASELINE_PCT}%` }}
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  {status.detail && <span>{status.detail}</span>}
+                  {status.detail && rank != null && ' · '}
+                  {rank != null && <span>nr. {rank} af {withData}</span>}
                 </p>
               </div>
             );

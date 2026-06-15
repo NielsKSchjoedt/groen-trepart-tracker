@@ -21,9 +21,11 @@ import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
 import { CO2SectorChart } from '@/components/CO2SectorChart';
 import { CO2TrendChart } from '@/components/CO2TrendChart';
 import { KommuneNaturBenchmark } from '@/components/KommuneNaturBenchmark';
-import { KommunePhaseVsNational, hasPhaseProfileData } from '@/components/kommune-standings/KommunePhaseVsNational';
+import { KommuneProcesFremdrift } from '@/components/KommuneProcesFremdrift';
+import { hasProcesData } from '@/lib/kommune-proces';
 import { KommuneOplandeOverlay } from '@/components/KommuneOplandeOverlay';
 import { KommuneDetailBlock } from '@/components/kommune-detail/KommuneDetailBlock';
+import type { DashboardData, ProjectChangelog } from '@/lib/types';
 
 export interface KommuneDetailPageBodyProps {
   kommune: KommuneMetrics;
@@ -99,16 +101,28 @@ export function KommuneDetailKeyFigures({
   );
 }
 
-/** Faseprofil vs. landet — own chapter when data exists. */
+/** Proces & fremdrift — pipeline, momentum og nabosammenligning. */
 export function KommuneDetailPhaseProfile({
   kommune,
-  ranking,
-}: Pick<KommuneDetailPageBodyProps, 'kommune' | 'ranking'>) {
-  if (!ranking || !hasPhaseProfileData(kommune, ranking)) return null;
+  plans,
+  changelog,
+  borderNeighborNavne = [],
+}: {
+  kommune: KommuneMetrics;
+  plans: DashboardData['plans'];
+  changelog: ProjectChangelog | null;
+  borderNeighborNavne?: string[];
+}) {
+  if (!hasProcesData({ plans }, kommune.navn)) return null;
 
   return (
     <div className="rounded-2xl border border-border bg-card shadow-sm p-4 sm:p-5">
-      <KommunePhaseVsNational kommune={kommune} ranking={ranking} embedded />
+      <KommuneProcesFremdrift
+        kommuneNavn={kommune.navn}
+        plans={plans}
+        changelog={changelog}
+        borderNeighborNavne={borderNeighborNavne}
+      />
     </div>
   );
 }

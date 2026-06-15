@@ -30,6 +30,7 @@ export function MapSwitchToggle({
       )}
       <span className="font-medium text-foreground leading-tight whitespace-nowrap">{label}</span>
       <Switch
+        size="sm"
         checked={checked}
         onCheckedChange={onChange}
         className="data-[state=checked]:bg-primary shrink-0"

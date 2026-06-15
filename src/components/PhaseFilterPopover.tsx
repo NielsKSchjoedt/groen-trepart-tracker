@@ -4,6 +4,7 @@ import { phasesDifferFromDefault, type KommunePhase } from '@/lib/kommune-metric
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { PhaseFilter } from '@/components/PhaseFilter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ControlBarTrigger, ControlBarCountBadge } from '@/components/ControlBar';
 
 interface PhaseFilterPopoverProps {
   selected: Set<KommunePhase>;
@@ -12,6 +13,7 @@ interface PhaseFilterPopoverProps {
   align?: 'start' | 'center' | 'end';
   footer?: ReactNode;
   className?: string;
+  popoverClassName?: string;
 }
 
 /**
@@ -25,6 +27,7 @@ export function PhaseFilterPopover({
   align = 'end',
   footer,
   className,
+  popoverClassName,
 }: PhaseFilterPopoverProps) {
   const [open, setOpen] = useState(false);
   const selectedPhaseCount = selected.size;
@@ -33,25 +36,17 @@ export function PhaseFilterPopover({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button
-          type="button"
+        <ControlBarTrigger
           aria-label="Projektfaser"
-          className={[
-            'inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition-colors cursor-pointer',
-            filtersChanged
-              ? 'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10'
-              : 'border-border text-muted-foreground hover:text-foreground hover:bg-muted/50',
-            className,
-          ].filter(Boolean).join(' ')}
+          active={filtersChanged}
+          className={className}
         >
           <SlidersHorizontal className="w-3.5 h-3.5" strokeWidth={2.2} />
           Projektfaser
-          <span className="ml-0.5 inline-flex items-center justify-center min-w-[16px] h-4 rounded-full bg-primary px-1 text-[10px] font-bold text-white">
-            {selectedPhaseCount}
-          </span>
-        </button>
+          <ControlBarCountBadge count={selectedPhaseCount} />
+        </ControlBarTrigger>
       </PopoverTrigger>
-      <PopoverContent align={align} className="w-72 p-3.5 space-y-3">
+      <PopoverContent align={align} className={`z-[10000] w-72 p-3.5 space-y-3 ${popoverClassName ?? ''}`}>
         <div>
           <span className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground mb-2">
             Med i beregningen — fase

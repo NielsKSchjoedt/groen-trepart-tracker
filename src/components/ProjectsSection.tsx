@@ -6,10 +6,10 @@ import { getPillarMetricConfig } from '@/lib/metric-mode';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR } from '@/lib/supplement-colors';
 import { useParsedViewState, usePermalinkPatch } from '@/lib/permalink/useViewState';
 import { CopyLinkButton } from '@/lib/permalink/CopyLinkButton';
+import { ControlBarSegmented } from '@/components/ControlBar';
 import { ProjectFunnel } from './ProjectFunnel';
 import { ProjectActivityChart } from './ProjectActivityChart';
 import { InitiativeTypeGauge } from './InitiativeTypeGauge';
-import { cn } from '@/lib/utils';
 
 /** Pillars that have a project pipeline (everything except CO₂). */
 type ProjectPillar = Exclude<PillarId, 'co2'>;
@@ -51,36 +51,15 @@ export function ProjectsSection({
       {/* Shared toggle: count ↔ area/effect drives every chart below */}
       <div className="mx-auto mb-2 flex max-w-5xl flex-col items-center gap-2 px-4">
         <div className="flex w-full items-center justify-center gap-2">
-        <div
-          className="inline-flex rounded-lg border border-border bg-muted/40 p-0.5 text-xs font-medium"
-          role="group"
+        <ControlBarSegmented
+          value={mode}
+          options={[
+            { value: 'area', label: cfg.areaToggleLabel, icon: <Ruler className="h-3.5 w-3.5" /> },
+            { value: 'count', label: 'Antal projekter', icon: <Hash className="h-3.5 w-3.5" /> },
+          ]}
+          onChange={(v) => setMode(v)}
           aria-label="Vis projekterne som antal eller areal/effekt"
-        >
-          <button
-            type="button"
-            onClick={() => setMode('area')}
-            aria-pressed={mode === 'area'}
-            className={cn(
-              'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 transition',
-              mode === 'area' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground',
-            )}
-          >
-            <Ruler className="h-3.5 w-3.5" />
-            {cfg.areaToggleLabel}
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode('count')}
-            aria-pressed={mode === 'count'}
-            className={cn(
-              'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 transition',
-              mode === 'count' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground',
-            )}
-          >
-            <Hash className="h-3.5 w-3.5" />
-            Antal projekter
-          </button>
-        </div>
+        />
         <CopyLinkButton />
         </div>
         <p className="text-[11px] text-muted-foreground">

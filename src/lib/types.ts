@@ -1015,6 +1015,15 @@ export interface KommuneTrepartLinksData {
   links: Record<string, KommuneTrepartLink>;
 }
 
+/** Geographic neighbors (shared kommunegrænse) from DAWA polygons. */
+export interface KommuneNeighborsData {
+  builtAt: string;
+  source: string;
+  count: number;
+  byKode: Record<string, string[]>;
+  byNavn: Record<string, string[]>;
+}
+
 // -----------------------------------------------------------------------
 // ETL run summary — produced by etl/build_etl_summary.py
 // Served from public/data/etl-run-summary.json

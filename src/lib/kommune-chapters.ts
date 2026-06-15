@@ -29,7 +29,7 @@ export const KOMMUNE_GEOGRAFI_INTRO =
   'Vælg et indsatsområde og fasefilter (standard: kun anlagt). Klik en kommune på kortet for at dykke ned i den enkelte kommune.';
 
 export const KOMMUNE_LISTE_INTRO =
-  'Alle 98 kommuner på lavbund, skov og kvælstof på én gang. Klik en kolonne for at sortere, søg din egen kommune, eller klik en række for detaljer.';
+  'Alle 98 kommuner på lavbund, skov og kvælstof på én gang. Samme filtre som ranglisten ovenfor — område, måleenhed og projektfaser. Klik en kolonne for at sortere, søg din egen kommune, eller klik en række for detaljer.';
 
 /**
  * Narrative chapters for `/kommuner` (storytelling scroll + StickyNav).

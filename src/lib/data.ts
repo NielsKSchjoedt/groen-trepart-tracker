@@ -20,6 +20,7 @@ import type {
   KommuneRankingData,
   KommuneOplandeData,
   KommuneTrepartLinksData,
+  KommuneNeighborsData,
   ProjectNatureOverlapData,
 } from './types';
 import { feature } from 'topojson-client';
@@ -52,6 +53,7 @@ let cachedKommuneRanking: KommuneRankingData | null = null;
 let cachedProjectNatureOverlap: ProjectNatureOverlapData | null = null;
 let cachedKommuneOplande: KommuneOplandeData | null = null;
 let cachedKommuneTrepartLinks: KommuneTrepartLinksData | null = null;
+let cachedKommuneNeighbors: KommuneNeighborsData | null = null;
 
 /**
  * Normalize the raw ETL JSON (which uses nested progress objects and
@@ -688,6 +690,19 @@ export async function loadKommuneTrepartLinks(): Promise<KommuneTrepartLinksData
     cachedKommuneTrepartLinks = null;
   }
   return cachedKommuneTrepartLinks;
+}
+
+/** Geographic neighbors (kommunegrænse) keyed by kode and navn. */
+export async function loadKommuneNeighbors(): Promise<KommuneNeighborsData | null> {
+  if (cachedKommuneNeighbors) return cachedKommuneNeighbors;
+  try {
+    const res = await fetch('/data/kommune-neighbors.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKommuneNeighbors = await res.json();
+  } catch {
+    cachedKommuneNeighbors = null;
+  }
+  return cachedKommuneNeighbors;
 }
 
 /** Load project changelog (recent status changes for the news ticker) */

@@ -1,6 +1,7 @@
 import { formatDanishNumber } from '@/lib/format';
 import {
   standingsCell,
+  type MetricPaceRatios,
   type StandingsLensKey,
   type StandingsMode,
 } from '@/lib/kommune-ranking';
@@ -101,6 +102,18 @@ export const BOARDS: BoardDef[] = [
           result: 'Intet divideres. Store kommuner ligger naturligt højt.',
         },
       },
+      {
+        id: 'maal',
+        label: 'Mod målet',
+        sub: 'Udtaget lavbund ift. 2030-tempo',
+        desc: 'Kommunens lavbundsudtagning målt mod det tempo, dens andel af 2030-målet kræver — ikke mod de andre kommuner.',
+        formula: {
+          kind: 'ratio',
+          top: 'Kommunens levering ift. ansvar (×)',
+          bottom: 'Det tempo 2030-målet kræver (landets pace-ratio)',
+          result: '1,0× = præcis på sporet mod 2030. Under 1,0× = bagud, uanset placering ift. naboerne.',
+        },
+      },
     ],
   },
   {
@@ -135,6 +148,18 @@ export const BOARDS: BoardDef[] = [
           result: 'Intet divideres. Store kommuner ligger naturligt højt.',
         },
       },
+      {
+        id: 'maal',
+        label: 'Mod målet',
+        sub: 'Ny skov ift. nødvendigt tempo',
+        desc: 'Kommunens skovrejsning målt mod det tempo, dens andel af målet kræver (skovfristen 2045) — ikke mod de andre kommuner.',
+        formula: {
+          kind: 'ratio',
+          top: 'Kommunens levering ift. ansvar (×)',
+          bottom: 'Det tempo målet kræver (landets pace-ratio)',
+          result: '1,0× = præcis på sporet mod fristen. Under 1,0× = bagud, uanset placering ift. naboerne.',
+        },
+      },
     ],
   },
   {
@@ -167,6 +192,18 @@ export const BOARDS: BoardDef[] = [
           kind: 'sum',
           expr: 'Sum af kommunens egne reducerede ton N',
           result: 'Intet divideres. Store kommuner ligger naturligt højt.',
+        },
+      },
+      {
+        id: 'maal',
+        label: 'Mod målet',
+        sub: 'Reduceret N ift. 2030-tempo',
+        desc: 'Kommunens kvælstofreduktion målt mod det tempo, dens andel af målet kræver — ikke mod de andre kommuner.',
+        formula: {
+          kind: 'ratio',
+          top: 'Kommunens levering ift. ansvar (×)',
+          bottom: 'Det tempo målet kræver (landets pace-ratio)',
+          result: '1,0× = præcis på sporet. Under 1,0× = bagud, uanset placering ift. naboerne.',
         },
       },
     ],
@@ -261,6 +298,8 @@ export interface BoardContext {
   benchmark: KommuneBenchmarkData | null;
   /** Drives the active option for global (levering) boards. */
   globalMode: StandingsMode;
+  /** Per-metric pace scalars — required for the "Mod målet" (maal) option. */
+  paceRatios?: MetricPaceRatios;
 }
 
 export interface BoardEntry {
@@ -277,7 +316,11 @@ export interface BoardEntry {
 
 /** Resolve the active option id for a board given the global mode. */
 export function activeOptionId(def: BoardDef, globalMode: StandingsMode, localId: string): string {
-  if (def.global) return globalMode === 'absolut' ? 'absolut' : 'relativ';
+  if (def.global) {
+    if (globalMode === 'absolut') return 'absolut';
+    if (globalMode === 'maal') return 'maal';
+    return 'relativ';
+  }
   return localId;
 }
 
@@ -294,7 +337,9 @@ function marsValue(
 ): RawValue | null {
   const row = ctx.ranking.byKommune[kode];
   if (!row) return null;
-  const cell = standingsCell(row, lensKey, optionId === 'absolut' ? 'absolut' : 'relativ');
+  const mode: StandingsMode =
+    optionId === 'absolut' ? 'absolut' : optionId === 'maal' ? 'maal' : 'relativ';
+  const cell = standingsCell(row, lensKey, mode, ctx.paceRatios);
   if (cell.sort < 0) return null;
   return { value: cell.sort, phrase: cell.phrase };
 }
