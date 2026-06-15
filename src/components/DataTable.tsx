@@ -11,6 +11,7 @@ import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
 import { RecentActivity } from './RecentActivity';
+import { ControlBarSegmented } from '@/components/ControlBar';
 
 type AfforestationTab = 'mars' | 'klimaskovfonden' | 'naturstyrelsen';
 type ExtractionTab = 'mars' | 'klimaskovfonden';
@@ -234,7 +235,7 @@ const PILLAR_TABLE_TITLES: Record<PillarId, { heading: string; subtitle: string;
         <p>Tabellen viser de 37 kystvandegruppers lokale implementeringsplaner for kvælstofreduktion.</p>
         <p><strong>Mål:</strong> Det regulatoriske reduktionsmål fastsat i vandplanerne — ikke en sum af projekter, men et krav der skal nås.</p>
         <p><strong>Anlagt:</strong> Kun fysisk gennemførte projekter (status 15). Denne kolonne er konsistent med resten af dashboardet.</p>
-        <p><strong>I pipeline:</strong> MARS-totalen på tværs af alle projektfaser (skitser, forundersøgelse, godkendt og anlagt). Viser hvor stor en del af målet der er <em>dækket af projekter</em> — men langt fra alle er realiseret endnu.</p>
+        <p><strong>I pipeline:</strong> MARS-totalen på tværs af alle projektfaser (skitser, forundersøgelse, godkendt og anlagt). Viser hvor stor en del af målet der er <em>dækket af projekter</em> — men langt fra alle er realiseret endnu. MARS' officielle VP3-status (674 t = anlagt + etablering) udelader bevidst forundersøgelse.</p>
         <p><strong>Fremskridtlinjen</strong> viser begge: den solide del er anlagt, den lysere del er pipeline-totalen.</p>
       </>
     ),
@@ -284,7 +285,17 @@ const PILLAR_TABLE_TITLES: Record<PillarId, { heading: string; subtitle: string;
 
 // ---------- inline expanded row ----------
 
-function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: number; pillarId: PillarId }) {
+function ExpandedPlanRow({
+  plan,
+  colSpan,
+  pillarId,
+  schemes,
+}: {
+  plan: Plan;
+  colSpan: number;
+  pillarId: PillarId;
+  schemes?: DashboardData['subsidySchemes'];
+}) {
   const [showProjects, setShowProjects] = useState(false);
 
   const projects = plan.projects;
@@ -497,6 +508,8 @@ function ExpandedPlanRow({ plan, colSpan, pillarId }: { plan: Plan; colSpan: num
                 sketchProjects={plan.sketchProjects ?? []}
                 naturePotentials={plan.naturePotentials ?? []}
                 activePillar={pillarId}
+                planName={plan.name}
+                schemes={schemes}
               />
             )}
           </div>
@@ -898,6 +911,77 @@ const EXTRACTION_TABS: { id: ExtractionTab; label: string; icon: React.ReactNode
   { id: 'klimaskovfonden', label: 'Klimaskovfonden', icon: <TreePine className="w-3.5 h-3.5" /> },
 ];
 
+/** Prominent CTA below ændrings-pulsen — table content stays hidden until expanded. */
+function TableRevealGate({
+  open,
+  onOpenChange,
+  accentColor,
+  summary,
+  hint,
+  children,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  accentColor: string;
+  summary: string;
+  hint: string;
+  children: React.ReactNode;
+}) {
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => onOpenChange(true)}
+        aria-expanded={false}
+        className="group mb-2 mt-2 w-full rounded-2xl border-2 border-dashed px-5 py-5 text-left shadow-sm transition-all hover:border-solid hover:shadow-md sm:py-6"
+        style={{
+          borderColor: `${accentColor}50`,
+          backgroundColor: `${accentColor}09`,
+        }}
+      >
+        <div className="flex items-center gap-4">
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
+            style={{ backgroundColor: `${accentColor}1a` }}
+          >
+            <TableProperties className="h-6 w-6" style={{ color: accentColor }} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-base font-semibold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
+              Se implementeringsplan-tabellen
+            </p>
+            <p className="mt-0.5 text-sm text-muted-foreground">{summary}</p>
+            <p className="mt-1 text-xs text-muted-foreground/75">{hint}</p>
+          </div>
+          <div className="hidden shrink-0 flex-col items-center gap-0.5 sm:flex">
+            <span className="text-xs font-semibold" style={{ color: accentColor }}>Fold ud</span>
+            <ChevronDown className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-y-0.5" style={{ color: accentColor }} />
+          </div>
+          <ChevronDown className="h-5 w-5 shrink-0 sm:hidden" style={{ color: accentColor }} />
+        </div>
+      </button>
+    );
+  }
+
+  return (
+    <div className="mb-2">
+      <div className="mb-4 flex items-center justify-between gap-3 border-b border-border/60 pb-3">
+        <p className="text-sm font-medium text-foreground">Implementeringsplan-tabel</p>
+        <button
+          type="button"
+          onClick={() => onOpenChange(false)}
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+          aria-expanded
+        >
+          Fold tabel ind
+          <ChevronDown className="h-3.5 w-3.5 rotate-180" />
+        </button>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
   const { activePillar, config: pillarConfig } = usePillar();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -905,6 +989,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
   const [nstProjects, setNstProjects] = useState<NaturstyrelsenSkovProject[]>([]);
   const [afforestationTab, setAfforestationTab] = useState<AfforestationTab>('mars');
   const [extractionTab, setExtractionTab] = useState<ExtractionTab>('mars');
+  const [tableOpen, setTableOpen] = useState(false);
   const columns = useMemo(() => getColumnsForPillar(activePillar), [activePillar]);
   const titles = PILLAR_TABLE_TITLES[activePillar];
 
@@ -925,11 +1010,18 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
     const hasProgress = columns.some((c) => c.key === 'progress');
     setSortKey(hasProgress ? 'progress' : 'name');
     setSortDir('desc');
+    setTableOpen(false);
   }
 
   // Expanded plan ID is URL-driven: ?vandplan=<id>
   // When the pillar changes (new path), search params are dropped automatically.
   const expandedPlanId = searchParams.get(VANDPLAN_PARAM);
+
+  const [prevExpandedPlanId, setPrevExpandedPlanId] = useState(expandedPlanId);
+  if (prevExpandedPlanId !== expandedPlanId) {
+    setPrevExpandedPlanId(expandedPlanId);
+    if (expandedPlanId) setTableOpen(true);
+  }
 
   const setExpandedPlanId = (id: string | null) => {
     setSearchParams((prev) => {
@@ -975,8 +1067,30 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
     return sortDir === 'asc' ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />;
   };
 
+  const collapseSummary = useMemo(() => {
+    if (activePillar === 'afforestation') {
+      const ksfN = ksfProjects.filter((p) => p.projekttyp === 'Skovrejsning').length;
+      const parts = [`${formatDanishNumber(plans.length)} MARS-vandoplande`];
+      if (ksfN > 0) parts.push(`${formatDanishNumber(ksfN)} Klimaskovfonden`);
+      if (nstProjects.length > 0) parts.push(`${formatDanishNumber(nstProjects.length)} Naturstyrelsen`);
+      return parts.join(' · ');
+    }
+    if (activePillar === 'extraction') {
+      const ksfN = ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length;
+      return ksfN > 0
+        ? `${formatDanishNumber(plans.length)} MARS-vandoplande · ${formatDanishNumber(ksfN)} Klimaskovfonden`
+        : `${formatDanishNumber(plans.length)} vandoplande`;
+    }
+    return `${formatDanishNumber(plans.length)} vandoplande`;
+  }, [activePillar, ksfProjects, nstProjects, plans.length]);
+
+  const collapseHint =
+    'Sorterbar tabel med anlagt, pipeline og projekter — klik en række for detaljer';
+
+  const showTableGate = activePillar !== 'co2';
+
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 py-10 relative overflow-hidden">
+    <section className="w-full max-w-6xl mx-auto px-4 py-6 relative overflow-hidden">
       {/* Watermarks */}
       {pillarConfig.watermarks.slice(0, 5).map((animal, i) => {
         const positions = [
@@ -1007,8 +1121,8 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
           side="right"
         />
       </div>
-      <p className="text-sm text-muted-foreground mb-5">
-        {plans.length} {titles.subtitle} — klik en række for detaljer. Sortér ved at klikke på kolonneoverskrifter.
+      <p className="mb-4 text-sm text-muted-foreground">
+        {titles.subtitle}
       </p>
 
       <RecentActivity />
@@ -1030,25 +1144,29 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
         <NatureProtectionSummary progress={data.national.progress} />
       )}
 
+      {showTableGate && (
+      <TableRevealGate
+        open={tableOpen}
+        onOpenChange={setTableOpen}
+        accentColor={pillarConfig.accentColor}
+        summary={collapseSummary}
+        hint={collapseHint}
+      >
+
       {/* Afforestation tab switcher */}
       {activePillar === 'afforestation' && (ksfProjects.length > 0 || nstProjects.length > 0) && (
         <div className="flex items-center gap-3 mb-5">
-          <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {AFFORESTATION_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setAfforestationTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all font-medium ${
-                  afforestationTab === tab.id
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {tab.icon}
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
-          </div>
+          <ControlBarSegmented
+            value={afforestationTab}
+            options={AFFORESTATION_TABS.map((tab) => ({
+              value: tab.id,
+              label: tab.label,
+              icon: tab.icon,
+              hideLabelOnMobile: true,
+            }))}
+            onChange={setAfforestationTab}
+            aria-label="Datakilde for skovrejsning"
+          />
           <InfoTooltip
             title="Tre datakilder for skovrejsning"
             content={
@@ -1078,22 +1196,17 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       {/* Extraction tab switcher */}
       {activePillar === 'extraction' && ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length > 0 && (
         <div className="flex items-center gap-3 mb-5">
-          <div className="flex bg-card border border-border rounded-lg p-0.5 shadow-sm">
-            {EXTRACTION_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setExtractionTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-all font-medium ${
-                  extractionTab === tab.id
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {tab.icon}
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
-          </div>
+          <ControlBarSegmented
+            value={extractionTab}
+            options={EXTRACTION_TABS.map((tab) => ({
+              value: tab.id,
+              label: tab.label,
+              icon: tab.icon,
+              hideLabelOnMobile: true,
+            }))}
+            onChange={setExtractionTab}
+            aria-label="Datakilde for lavbund"
+          />
           <InfoTooltip
             title="To datakilder for lavbundsudtag"
             content={
@@ -1118,14 +1231,14 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       {activePillar !== 'co2' && (activePillar !== 'afforestation' || afforestationTab === 'mars') && (activePillar !== 'extraction' || extractionTab === 'mars' || ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length === 0) && (
         <>
           {/* Search */}
-          <div className="relative mb-4 max-w-sm">
+          <div className="relative mb-3 max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Søg vandplan..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/60"
+              className="w-full pl-9 pr-4 py-2 text-sm rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/60"
             />
           </div>
 
@@ -1137,7 +1250,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
                     {columns.map((col) => (
                       <th
                         key={col.key}
-                        className="text-left px-4 py-3 font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
+                        className="text-left px-3 py-2 font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
                         onClick={() => toggleSort(col.key)}
                       >
                         <div className="flex items-center gap-1.5">
@@ -1163,7 +1276,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
                           {columns.map((col, i) => (
                             <td
                               key={col.key}
-                              className={`px-4 py-3.5 ${i === 0 ? 'font-medium text-foreground group-hover:text-primary transition-colors max-w-[200px]' : 'text-foreground'}`}
+                              className={`px-3 py-2 ${i === 0 ? 'font-medium text-foreground group-hover:text-primary transition-colors max-w-[200px]' : 'text-foreground'}`}
                             >
                               {i === 0 ? (
                                 <div className="flex items-center gap-1.5">
@@ -1180,7 +1293,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
                           ))}
                         </tr>
                         {isExpanded && (
-                          <ExpandedPlanRow plan={plan} colSpan={columns.length} pillarId={activePillar} />
+                          <ExpandedPlanRow plan={plan} colSpan={columns.length} pillarId={activePillar} schemes={data.subsidySchemes} />
                         )}
                       </React.Fragment>
                     );
@@ -1203,6 +1316,8 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
             <span>Kilde: <a href="https://mars.sgav.dk" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30">MARS API</a> — SGAV</span>
           </div>
         </>
+      )}
+      </TableRevealGate>
       )}
     </section>
   );

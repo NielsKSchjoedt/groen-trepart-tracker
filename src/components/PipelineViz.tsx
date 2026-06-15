@@ -62,7 +62,8 @@ const STAGES: PipelineStage[] = [
     icon: Database,
     color: '#15803d',
     items: [
-      { label: 'dashboard-data.json', detail: 'Hoveddatasæt', link: ghLink('public/data/dashboard-data.json') },
+      { label: 'dashboard-summary.json', detail: 'KPI + planer (let)', link: ghLink('public/data/dashboard-summary.json') },
+      { label: 'project-details.json', detail: 'Projektdetaljer', link: ghLink('public/data/project-details.json') },
       { label: 'co2-emissions.json', detail: 'CO₂-kurver', link: ghLink('public/data/co2-emissions.json') },
       { label: 'kommuner.topo.json', detail: 'Kommunekort', link: ghLink('public/data/kommuner.topo.json') },
       { label: 'project-geometries.json', detail: 'Projektpolygoner', link: ghLink('public/data/project-geometries.json') },

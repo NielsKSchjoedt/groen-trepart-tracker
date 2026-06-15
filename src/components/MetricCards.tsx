@@ -16,16 +16,16 @@ export function MetricCards({ data }: MetricCardsProps) {
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 py-8 relative overflow-hidden">
-      <div className="absolute -right-4 top-2 opacity-[0.10] hidden md:block">
+      <div className="absolute -right-4 top-2 opacity-[0.10] hidden md:block pointer-events-none">
         <NatureWatermark animal="bee" size={100} />
       </div>
-      <div className="absolute left-0 bottom-0 opacity-[0.08] hidden lg:block">
+      <div className="absolute left-0 bottom-0 opacity-[0.08] hidden lg:block pointer-events-none">
         <NatureWatermark animal="crab" size={75} />
       </div>
-      <div className="absolute right-1/3 -top-2 opacity-[0.07] hidden md:block animate-gentle-sway">
+      <div className="absolute right-1/3 -top-2 opacity-[0.07] hidden md:block animate-gentle-sway pointer-events-none">
         <NatureWatermark animal="dragonfly" size={50} className="rotate-[-20deg]" />
       </div>
-      <div className="absolute left-1/4 top-4 opacity-[0.08] hidden lg:block">
+      <div className="absolute left-1/4 top-4 opacity-[0.08] hidden lg:block pointer-events-none">
         <NatureWatermark animal="flounder" size={70} className="rotate-6" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

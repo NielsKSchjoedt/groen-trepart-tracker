@@ -1,13 +1,20 @@
-import { X, Droplets, Trees, Mountain, Leaf, ExternalLink, Factory } from 'lucide-react';
+import { X, Droplets, Trees, Mountain, ExternalLink, Factory } from 'lucide-react';
 import type { KommuneMetrics, ProjectDetail, SketchProject, KlimaskovfondenProject, NaturstyrelsenSkovProject, KommuneCO2Data } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
-import { getPhaseConfig } from '@/lib/phase-config';
+import { KommuneMetricCard } from '@/components/kommune-detail/KommuneMetricCard';
+import { KommuneNatureMetricCard } from '@/components/kommune-detail/KommuneNatureMetricCard';
 import { ProjectActivityChart } from './ProjectActivityChart';
 import { ProjectList } from './ProjectList';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND } from '@/lib/supplement-colors';
 import { CO2SectorChart } from './CO2SectorChart';
 import { CO2TrendChart } from './CO2TrendChart';
+import { KommuneNaturBenchmark } from './KommuneNaturBenchmark';
+import type { KommuneBenchmarkData, KommuneRankingData, KommuneTrepartLink } from '@/lib/types';
+import { KommuneStandingsDetailHeader } from '@/components/kommune-standings/KommuneStandingsDetailHeader';
+import { KommunePhaseVsNational } from '@/components/kommune-standings/KommunePhaseVsNational';
+import { KommuneOplandeOverlay } from '@/components/KommuneOplandeOverlay';
+import type { KommuneOplandeData } from '@/lib/types';
 
 interface KommuneDetailPanelProps {
   kommune: KommuneMetrics;
@@ -23,7 +30,15 @@ interface KommuneDetailPanelProps {
   activeMetric?: KommuneMetric;
   /** Full CO₂ time-series from Klimaregnskabet (optional — shown when available) */
   co2Data?: KommuneCO2Data | null;
-  onClose: () => void;
+  /** Sprint 4 nature benchmark metrics (B1/B2/B3), loaded monthly */
+  natureBenchmark?: KommuneBenchmarkData | null;
+  /** Sprint 6 competition ranking row */
+  ranking?: KommuneRankingData | null;
+  /** Sprint 6 opland overlap */
+  oplande?: KommuneOplandeData | null;
+  /** Curated link to the kommune's own Grøn Trepart entry page (optional) */
+  trepartLink?: KommuneTrepartLink | null;
+  onClose?: () => void;
 }
 
 /**
@@ -43,6 +58,7 @@ interface KommuneDetailPanelProps {
  * @param projectDetails - MARS projects located in this municipality
  * @param ksfProjects    - Klimaskovfonden projects in this municipality
  * @param nstProjects    - Naturstyrelsen projects in this municipality
+ * @param natureBenchmark - Optional Sprint 4 B1/B2/B3 benchmark data
  * @param onClose        - Called when the close button is pressed
  *
  * @example
@@ -62,6 +78,10 @@ export function KommuneDetailPanel({
   nstProjects,
   activeMetric,
   co2Data,
+  natureBenchmark,
+  ranking,
+  oplande,
+  trepartLink,
   onClose,
 }: KommuneDetailPanelProps) {
 
@@ -69,30 +89,20 @@ export function KommuneDetailPanel({
   const totalAffTotal = kommune.afforestationTotalHa;
   const ksfTotal = ksfProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
   const nstTotal = nstProjects.reduce((s, p) => s + (p.areaHa || 0), 0);
-
-  const phases = [
-    { key: 'established', config: getPhaseConfig('established'), count: kommune.projectsByPhase.established },
-    { key: 'approved',    config: getPhaseConfig('approved'),    count: kommune.projectsByPhase.approved    },
-    { key: 'assessed',    config: getPhaseConfig('assessed'),    count: kommune.projectsByPhase.assessed    },
-    { key: 'sketches',    config: getPhaseConfig('sketches'),    count: kommune.projectsByPhase.sketches    },
-  ];
-  const hasPhases = phases.some((p) => p.count > 0);
+  const rankingRow = ranking?.byKommune[kommune.kode] ?? null;
+  const dce30Ha = natureBenchmark?.b1.byKommune[kommune.kode]?.dce30Ha ?? null;
 
   const showCO2First = activeMetric === 'co2' && !!co2Data;
+  const hasMarsProjects = projectDetails.length > 0 || sketchProjects.length > 0;
+  const hasSupplements = ksfProjects.length > 0 || nstProjects.length > 0;
+  const hasAnyProjects = hasMarsProjects || hasSupplements;
+  const activityCount = projectDetails.length + ksfProjects.length + nstProjects.length;
 
-  const co2Section = co2Data && (
-    <div className={showCO2First ? 'mb-5' : 'mt-5 pt-5 border-t border-border'}>
-      <div className="flex items-center gap-1.5 mb-3">
-        <Factory className="w-4 h-4 text-slate-500" />
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-          CO₂-udledning
-        </p>
-      </div>
-      <div className="space-y-4">
-        <CO2SectorChart data={co2Data} />
-        <CO2TrendChart data={co2Data} />
-      </div>
-      <p className="text-[10px] text-muted-foreground mt-2">
+  const co2Charts = co2Data && (
+    <div className="space-y-4">
+      <CO2SectorChart data={co2Data} />
+      <CO2TrendChart data={co2Data} />
+      <p className="text-xs text-muted-foreground">
         Kilde:{' '}
         <a
           href="https://klimaregnskabet.dk"
@@ -106,27 +116,64 @@ export function KommuneDetailPanel({
     </div>
   );
 
+  const co2Section = co2Data && (
+    <div className={showCO2First ? 'mb-5' : 'mt-5 pt-5 border-t border-border'}>
+      <div className="flex items-center gap-1.5 mb-3">
+        <Factory className="w-4 h-4 text-slate-500" />
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+          CO₂-udledning
+        </p>
+      </div>
+      {co2Charts}
+    </div>
+  );
+
   return (
     <div className="bg-background border-l border-border h-full overflow-y-auto p-5 relative">
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-muted transition-colors cursor-pointer"
-        aria-label="Luk"
-      >
-        <X className="w-4 h-4 text-muted-foreground" />
-      </button>
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-muted transition-colors cursor-pointer"
+          aria-label="Luk"
+        >
+          <X className="w-4 h-4 text-muted-foreground" />
+        </button>
+      )}
 
-      {/* Header */}
       <h2
         className="text-lg font-bold text-foreground pr-8 mb-0.5"
         style={{ fontFamily: "'Fraunces', serif" }}
       >
         {kommune.navn}
       </h2>
-      <p className="text-xs text-muted-foreground mb-5">
+      <p className="text-xs text-muted-foreground mb-3">
         {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
       </p>
+
+      {trepartLink?.url && (
+        <a
+          href={trepartLink.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={trepartLink.note || undefined}
+          className="inline-flex items-center gap-1.5 mb-4 rounded-lg border border-primary/30 bg-primary/5 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/10 transition-colors"
+        >
+          Se hvad {kommune.navn} Kommune selv siger om trepart
+          <ExternalLink className="w-3 h-3 flex-shrink-0" />
+        </a>
+      )}
+
+      {ranking?.byKommune[kommune.kode] && (
+        <KommuneStandingsDetailHeader row={ranking.byKommune[kommune.kode]} ranking={ranking} />
+      )}
+
+      {ranking && <KommunePhaseVsNational kommune={kommune} ranking={ranking} />}
+
+      {oplande && (
+        <div className="mb-5">
+          <KommuneOplandeOverlay kommuneKode={kommune.kode} data={oplande} showNationalLink={false} />
+        </div>
+      )}
 
       {/* CO₂ section — shown first when CO₂ metric is active */}
       {showCO2First && co2Section}
@@ -136,60 +183,45 @@ export function KommuneDetailPanel({
         {showCO2First ? 'Øvrige indsatsområder' : 'Indsatsområder'}
       </p>
       <div className="grid grid-cols-2 gap-2.5 mb-5">
-        <MetricCard
+        <KommuneMetricCard
           icon={<Droplets className="w-4 h-4 text-teal-600" />}
           label="Kvælstof"
           value={kommune.nitrogenT}
           unit="ton N"
-          color="teal"
+          kommune={kommune}
+          marsPhaseMetric="nitrogenT"
         />
-        <MetricCard
+        <KommuneMetricCard
           icon={<Mountain className="w-4 h-4 text-amber-700" />}
-          label="Udtagning"
+          label="Lavbund"
           value={kommune.extractionHa}
           unit="ha"
-          color="amber"
+          kommune={kommune}
+          marsPhaseMetric="extractionHa"
         />
-        <MetricCard
+        <KommuneMetricCard
           icon={<Trees className="w-4 h-4 text-green-700" />}
           label="Skovrejsning"
           value={totalAffTotal}
           unit="ha"
-          color="green"
           sub={totalAffTotal > 0 ? [
             kommune.afforestationMarsHa > 0 && `MARS ${formatDanishNumber(Math.round(kommune.afforestationMarsHa))} ha`,
             ksfTotal > 0 && `KSF ${formatDanishNumber(Math.round(ksfTotal))} ha`,
             nstTotal > 0 && `NST ${formatDanishNumber(Math.round(nstTotal))} ha`,
           ].filter(Boolean).join(' · ') : undefined}
+          kommune={kommune}
+          marsPhaseMetric="afforestationHa"
+          extraAnlagt={ksfTotal + nstTotal}
         />
-        <MetricCard
-          icon={<Leaf className="w-4 h-4 text-emerald-600" />}
-          label="Naturpotentiale"
-          value={kommune.naturePotentialHa}
-          unit="ha"
-          color="emerald"
+        <KommuneNatureMetricCard
+          kommune={kommune}
+          rankingRow={rankingRow}
+          dce30Ha={dce30Ha}
           noDataText="Ikke opdelt per kommune"
         />
       </div>
 
-      {/* Phase distribution */}
-      {hasPhases && (
-        <div className="mb-5">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-            Projektfaser
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {phases.filter((p) => p.count > 0).map(({ key, config, count }) => (
-              <span
-                key={key}
-                className={`inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-0.5 ${config.badge}`}
-              >
-                {config.label}: {count}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+      <KommuneNaturBenchmark kommuneKode={kommune.kode} benchmark={natureBenchmark ?? null} />
 
       {/* Project activity timeline */}
       <ProjectActivityChart
@@ -201,7 +233,7 @@ export function KommuneDetailPanel({
 
       {/* MARS project list — full accordion with mini-map and scheme details */}
       {(projectDetails.length > 0 || sketchProjects.length > 0) && (
-        <div className="mb-5">
+        <div className="mb-5" id="kommune-projekter">
           <ProjectList
             projectDetails={projectDetails}
             sketchProjects={sketchProjects}
@@ -275,38 +307,48 @@ export function KommuneDetailPanel({
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-interface MetricCardProps {
-  icon: React.ReactNode;
-  label: string;
-  value: number;
-  unit: string;
-  color: string;
-  sub?: string;
-  noDataText?: string;
+interface SupplementItem {
+  key: string;
+  primary: string;
+  secondary: string;
+  href?: string;
 }
 
-function MetricCard({ icon, label, value, unit, sub, noDataText }: MetricCardProps) {
+function SupplementProjectGroup({
+  label,
+  count,
+  items,
+}: {
+  label: string;
+  count: number;
+  items: SupplementItem[];
+}) {
   return (
-    <div className="rounded-xl border border-border bg-card p-3">
-      <div className="flex items-center gap-1.5 mb-1.5">
-        {icon}
-        <span className="text-xs font-medium text-muted-foreground">{label}</span>
-      </div>
-      {value > 0 ? (
-        <>
-          <p className="text-lg font-bold text-foreground tabular-nums leading-tight">
-            {formatDanishNumber(Math.round(value * 10) / 10)}
-            <span className="text-xs font-normal text-muted-foreground ml-1">{unit}</span>
-          </p>
-          {sub && (
-            <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">{sub}</p>
-          )}
-        </>
-      ) : (
-        <p className="text-sm text-muted-foreground italic">
-          {noDataText ?? '—'}
-        </p>
-      )}
+    <div>
+      <p className="text-sm font-medium text-foreground mb-2">
+        {label}
+        <span className="text-muted-foreground font-normal"> · {count} projekt{count !== 1 ? 'er' : ''}</span>
+      </p>
+      <ul className="divide-y divide-border/60 rounded-xl border border-border/80 overflow-hidden">
+        {items.map((item) => (
+          <li key={item.key} className="flex items-center justify-between gap-3 px-3 py-2.5 text-sm bg-muted/10">
+            {item.href ? (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/90 hover:text-primary flex items-center gap-1 min-w-0 truncate"
+              >
+                {item.primary}
+                <ExternalLink className="w-3 h-3 flex-shrink-0 opacity-60" />
+              </a>
+            ) : (
+              <span className="text-foreground/90 truncate">{item.primary}</span>
+            )}
+            <span className="text-muted-foreground tabular-nums flex-shrink-0 text-xs">{item.secondary}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -1,9 +1,35 @@
-import type { DashboardData, Plan, Catchment, CO2EmissionsData, CoastalWaterStatusData, ProjectChangelog, KlimaskovfondenProject, NaturstyrelsenSkovProject, PipelineScenarioKey, PipelineScenarioValues, KlimaregnskabData, EtlRunSummary } from './types';
+import type {
+  DashboardData,
+  Plan,
+  Catchment,
+  CO2EmissionsData,
+  CoastalWaterStatusData,
+  ProjectChangelog,
+  KlimaskovfondenProject,
+  NaturstyrelsenSkovProject,
+  PipelineScenarioKey,
+  PipelineScenarioValues,
+  KlimaregnskabData,
+  EtlRunSummary,
+  ByInitiatorHa,
+  BudgetData,
+  KlimaraadetData,
+  VandNaturSkovProjekt,
+  KommuneBenchmarkData,
+  NationalFordelingSimulation,
+  KommuneRankingData,
+  KommuneOplandeData,
+  KommuneTrepartLinksData,
+  KommuneNeighborsData,
+  ProjectNatureOverlapData,
+} from './types';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
 import type { FeatureCollection, Geometry } from 'geojson';
 
 let cachedData: DashboardData | null = null;
+let summaryRaw: Record<string, unknown> | null = null;
+let detailsMerged = false;
 let cachedLookup: Record<string, string> | null = null;
 let cachedCatchmentsTopo: Topology | null = null;
 let cachedCoastalTopo: Topology | null = null;
@@ -12,11 +38,22 @@ let cachedGeometries: Record<string, [number, number][]> | null = null;
 let cachedCO2Data: CO2EmissionsData | null = null;
 let cachedCoastalStatus: CoastalWaterStatusData | null = null;
 let cachedWaterBodiesGeo: FeatureCollection<Geometry> | null = null;
+let cachedNatura2000MapGeo: FeatureCollection<Geometry> | null = null;
+let cachedSection3MapGeo: FeatureCollection<Geometry> | null = null;
 let cachedChangelog: ProjectChangelog | null = null;
 let cachedKlimaskovfonden: KlimaskovfondenProject[] | null = null;
 let cachedNstSkov: NaturstyrelsenSkovProject[] | null = null;
 let cachedKlimaregnskab: KlimaregnskabData | null = null;
 let cachedEtlRunSummary: EtlRunSummary | null = null;
+let cachedVandNaturSkov: FeatureCollection<Geometry, VandNaturSkovProjekt> | null = null;
+let cachedVandNaturSkovKey = '';
+let cachedKommuneBenchmark: KommuneBenchmarkData | null = null;
+let cachedNationalFordeling: NationalFordelingSimulation | null = null;
+let cachedKommuneRanking: KommuneRankingData | null = null;
+let cachedProjectNatureOverlap: ProjectNatureOverlapData | null = null;
+let cachedKommuneOplande: KommuneOplandeData | null = null;
+let cachedKommuneTrepartLinks: KommuneTrepartLinksData | null = null;
+let cachedKommuneNeighbors: KommuneNeighborsData | null = null;
 
 /**
  * Normalize the raw ETL JSON (which uses nested progress objects and
@@ -52,8 +89,17 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
   const afforestationMarsEstablishedHa =
     afforestation.marsTotal?.byPhase?.established?.ha ?? afforestation.marsTotal?.ha ?? afforestation.totalHa ?? 0;
   const afforestationKsfHa = afforestation.supplementary?.klimaskovfondenHa ?? 0;
-  const afforestationNstHa = afforestation.supplementary?.nstSkovHa ?? 0;
+  const afforestationKsfProjectCount = afforestation.supplementary?.klimaskovfondenProjectCount ?? 0;
+  const afforestationNstCompletedHa = afforestation.supplementary?.nstSkovCompletedHa ?? 0;
+  const afforestationNstOngoingHa = afforestation.supplementary?.nstSkovOngoingHa ?? 0;
+  const afforestationNstMatchedCount = afforestation.supplementary?.nstSkovMatchedCount ?? 0;
+  const afforestationNstHa =
+    afforestation.supplementary?.nstSkovHa ??
+    afforestationNstCompletedHa + afforestationNstOngoingHa;
   const afforestationSupplementaryHa = afforestationKsfHa + afforestationNstHa;
+
+  const extractionKsfLavbundHa = extraction.supplementary?.klimaskovfondenLavbundHa ?? 0;
+  const extractionKsfLavbundCount = extraction.supplementary?.klimaskovfondenLavbundCount ?? 0;
   const afforestationTotal = afforestationMarsEstablishedHa + afforestationSupplementaryHa;
   const afforestationGoal =
     afforestation.goalHa ?? nat.targets?.afforestationHa ?? 250_000;
@@ -130,6 +176,7 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
 
   return {
     fetchedAt: r.fetchedAt ?? r.builtAt ?? '',
+    driftFinansiering: r.driftFinansiering as DashboardData['driftFinansiering'],
     national: {
       targets: {
         nitrogenReductionT: nat.targets?.nitrogenReductionT ?? 0,
@@ -138,6 +185,11 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         protectedNaturePct: nat.targets?.protectedNaturePct ?? 20,
         deadline: nat.targets?.deadline ?? '2030-12-31',
         forestDeadline: nat.targets?.forestDeadline ?? '2045-12-31',
+        extractionRealiseringHorisont: nat.targets?.extractionRealiseringHorisont,
+        extractionKulstofrigHa: nat.targets?.extractionKulstofrigHa,
+        extractionKulstofrigDeadline: nat.targets?.extractionKulstofrigDeadline,
+        forestKf26RealizationHorizon: nat.targets?.forestKf26RealizationHorizon,
+        uroertSkovHa: nat.targets?.uroertSkovHa,
       },
       progress: {
         nitrogenAchievedT: nitrogenEstablishedT,
@@ -155,6 +207,13 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
             : 0,
         afforestationMarsHa: afforestationMarsEstablishedHa,
         afforestationSupplementaryHa: afforestationSupplementaryHa,
+        afforestationKsfHa,
+        afforestationKsfProjectCount,
+        afforestationNstCompletedHa,
+        afforestationNstOngoingHa,
+        afforestationNstMatchedCount,
+        extractionKsfLavbundHa,
+        extractionKsfLavbundCount,
         naturePotentialAreaHa:
           nature.marsNaturePotential?.areaHa ?? 0,
         natureProtectedPct: nature.combinedEstimatePct ?? 0,
@@ -170,6 +229,13 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
         established: phases.established?.count ?? 0,
       },
       byKommune: (nat.byKommune ?? []) as any[],
+      byInitiatorHa: nat.byInitiatorHa as ByInitiatorHa | undefined,
+      budgetData: nat.budgetData as BudgetData | undefined,
+      klimaraadet: nat.klimaraadet as KlimaraadetData | undefined,
+      kf26: nat.kf26 as DashboardData['national']['kf26'],
+      byPipelinePhase: nat.byPipelinePhase,
+      cancelled: nat.cancelled,
+      byOwnerOrg: nat.byOwnerOrg,
     },
     plans: ((r.plans ?? []) as any[]).map((p: any) => {
       const defaultPhase = { established: 0, approved: 0, preliminary: 0 };
@@ -190,11 +256,115 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
+interface ProjectDetailsPayload {
+  plans: Array<{
+    id: string;
+    projectDetails: Plan['projectDetails'];
+    sketchProjects: Plan['sketchProjects'];
+    naturePotentials: Plan['naturePotentials'];
+  }>;
+  catchments: Array<{
+    id: string;
+    projectDetails: Catchment['projectDetails'];
+    sketchProjects: Catchment['sketchProjects'];
+    naturePotentials: Catchment['naturePotentials'];
+  }>;
+}
+
+/** Merge slim summary rows with drill-down arrays from project-details.json. */
+function mergeDashboardPayload(
+  summary: Record<string, unknown>,
+  details: ProjectDetailsPayload,
+): Record<string, unknown> {
+  const planDrill = new Map(details.plans.map((p) => [p.id, p]));
+  const catchDrill = new Map(details.catchments.map((c) => [c.id, c]));
+
+  const plans = ((summary.plans ?? []) as Plan[]).map((plan) => {
+    const drill = planDrill.get(plan.id);
+    return drill
+      ? {
+          ...plan,
+          projectDetails: drill.projectDetails,
+          sketchProjects: drill.sketchProjects,
+          naturePotentials: drill.naturePotentials,
+        }
+      : { ...plan, projectDetails: [], sketchProjects: [], naturePotentials: [] };
+  });
+
+  const catchments = ((summary.catchments ?? []) as Catchment[]).map((c) => {
+    const drill = catchDrill.get(c.id);
+    return drill
+      ? {
+          ...c,
+          projectDetails: drill.projectDetails,
+          sketchProjects: drill.sketchProjects,
+          naturePotentials: drill.naturePotentials,
+        }
+      : { ...c, projectDetails: [], sketchProjects: [], naturePotentials: [] };
+  });
+
+  return { ...summary, plans, catchments };
+}
+
+let detailsLoadPromise: Promise<ProjectDetailsPayload> | null = null;
+
+function emptyDetailsPayload(summary: Record<string, unknown>): ProjectDetailsPayload {
+  const plans = (summary.plans ?? []) as Array<{ id: string }>;
+  const catchments = (summary.catchments ?? []) as Array<{ id: string }>;
+  return {
+    plans: plans.map((p) => ({
+      id: p.id,
+      projectDetails: [],
+      sketchProjects: [],
+      naturePotentials: [],
+    })),
+    catchments: catchments.map((c) => ({
+      id: c.id,
+      projectDetails: [],
+      sketchProjects: [],
+      naturePotentials: [],
+    })),
+  };
+}
+
+async function fetchProjectDetails(): Promise<ProjectDetailsPayload> {
+  if (!detailsLoadPromise) {
+    detailsLoadPromise = fetch('/data/project-details.json').then((res) => {
+      if (!res.ok) throw new Error(`project-details.json: ${res.status}`);
+      return res.json() as Promise<ProjectDetailsPayload>;
+    });
+  }
+  return detailsLoadPromise;
+}
+
 export async function loadDashboardData(): Promise<DashboardData> {
-  if (cachedData) return cachedData;
-  const res = await fetch('/data/dashboard-data.json');
-  const raw = await res.json();
-  cachedData = normalizeRawData(raw);
+  if (cachedData && detailsMerged) return cachedData;
+
+  const summaryRes = await fetch('/data/dashboard-summary.json');
+  if (!summaryRes.ok) {
+    const legacy = await fetch('/data/dashboard-data.json');
+    if (!legacy.ok) throw new Error('Dashboard data not found');
+    const raw = await legacy.json();
+    cachedData = normalizeRawData(raw);
+    detailsMerged = true;
+    return cachedData!;
+  }
+
+  summaryRaw = await summaryRes.json();
+  cachedData = normalizeRawData(mergeDashboardPayload(summaryRaw, emptyDetailsPayload(summaryRaw)));
+  return cachedData!;
+}
+
+/**
+ * Fetches project-details.json and merges into cached dashboard data.
+ * Call after loadDashboardData() so KPIs render before the ~10 MB payload.
+ */
+export async function ensureDashboardProjectDetails(): Promise<DashboardData> {
+  if (detailsMerged && cachedData) return cachedData;
+  if (!summaryRaw) await loadDashboardData();
+  const details = await fetchProjectDetails();
+  cachedData = normalizeRawData(mergeDashboardPayload(summaryRaw!, details));
+  detailsMerged = true;
   return cachedData!;
 }
 
@@ -281,6 +451,32 @@ export async function loadWaterBodiesGeoJSON(): Promise<FeatureCollection<Geomet
   return cachedWaterBodiesGeo;
 }
 
+/** Load simplified terrestrial Natura 2000 polygons for the national map overlay. */
+export async function loadNatura2000MapGeo(): Promise<FeatureCollection<Geometry> | null> {
+  if (cachedNatura2000MapGeo) return cachedNatura2000MapGeo;
+  try {
+    const res = await fetch('/data/natura2000-simplified.geojson');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedNatura2000MapGeo = await res.json();
+  } catch {
+    cachedNatura2000MapGeo = null;
+  }
+  return cachedNatura2000MapGeo;
+}
+
+/** Load simplified §3 polygons (>= 50 ha) for the national map overlay. */
+export async function loadSection3MapGeo(): Promise<FeatureCollection<Geometry> | null> {
+  if (cachedSection3MapGeo) return cachedSection3MapGeo;
+  try {
+    const res = await fetch('/data/section3-simplified.geojson');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedSection3MapGeo = await res.json();
+  } catch {
+    cachedSection3MapGeo = null;
+  }
+  return cachedSection3MapGeo;
+}
+
 /** Load coastal water ecological status data (VP3 WFD assessment) */
 export async function loadCoastalWaterStatus(): Promise<CoastalWaterStatusData | null> {
   if (cachedCoastalStatus) return cachedCoastalStatus;
@@ -352,6 +548,161 @@ export async function loadEtlRunSummary(): Promise<EtlRunSummary | null> {
     cachedEtlRunSummary = null;
   }
   return cachedEtlRunSummary;
+}
+
+/**
+ * FVM / Markkort: Vand, natur & skov 2026 (slim GeoJSON for kort).
+ * Query `v` matches ETL summary generation time to bust cache after refresh.
+ */
+export async function loadVandNaturSkovProjekter(): Promise<FeatureCollection<Geometry, VandNaturSkovProjekt> | null> {
+  const summary = await loadEtlRunSummary();
+  const v = summary?.generatedAt ?? '';
+  if (cachedVandNaturSkov && cachedVandNaturSkovKey === v) return cachedVandNaturSkov;
+  try {
+    const q = v ? `?v=${encodeURIComponent(v)}` : '';
+    const res = await fetch(`/data/vand-natur-skov-projekter-2026.geojson${q}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const fc = (await res.json()) as FeatureCollection<Geometry, VandNaturSkovProjekt>;
+    cachedVandNaturSkov = fc;
+    cachedVandNaturSkovKey = v;
+  } catch {
+    cachedVandNaturSkov = null;
+  }
+  return cachedVandNaturSkov;
+}
+
+/**
+ * Load Sprint 4/5 municipality nature benchmarks (B1/B2/B3/B4).
+ *
+ * @returns Combined benchmark data, or null when the monthly spatial build has
+ * not been run yet.
+ * @example const benchmark = await loadKommuneBenchmarkData();
+ */
+export async function loadKommuneBenchmarkData(): Promise<KommuneBenchmarkData | null> {
+  if (cachedKommuneBenchmark) return cachedKommuneBenchmark;
+  try {
+    const [b1Res, b2Res, b3Res, b4Res] = await Promise.all([
+      fetch('/data/kommune-benchmark/b1-andel-nationalt-naturpotentiale.json'),
+      fetch('/data/kommune-benchmark/b2-marker-i-naturpotentiale.json'),
+      fetch('/data/kommune-benchmark/b3-n2000-er-landbrug.json'),
+      fetch('/data/kommune-benchmark/b4-vaerdibeskyttelse.json'),
+    ]);
+    if (!b1Res.ok || !b2Res.ok || !b3Res.ok) throw new Error('Kommune benchmark unavailable');
+    const b4 = b4Res.ok ? await b4Res.json() : null;
+    cachedKommuneBenchmark = {
+      b1: await b1Res.json(),
+      b2: await b2Res.json(),
+      b3: await b3Res.json(),
+      b4,
+    };
+  } catch {
+    cachedKommuneBenchmark = null;
+  }
+  return cachedKommuneBenchmark;
+}
+
+/**
+ * Load Sprint 4 national nature-goal distribution simulation.
+ *
+ * @returns Simulation data, or null when the monthly spatial build has not run.
+ * @example const simulation = await loadNationalFordelingSimulation();
+ */
+export async function loadNationalFordelingSimulation(): Promise<NationalFordelingSimulation | null> {
+  if (cachedNationalFordeling) return cachedNationalFordeling;
+  try {
+    const res = await fetch('/data/kommune-benchmark/national-fordeling-simulering.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedNationalFordeling = await res.json();
+  } catch {
+    cachedNationalFordeling = null;
+  }
+  return cachedNationalFordeling;
+}
+
+/**
+ * Load Sprint 6 municipality competition ranking (precomputed indices).
+ *
+ * @example const ranking = await loadKommuneRanking();
+ */
+export async function loadKommuneRanking(): Promise<KommuneRankingData | null> {
+  if (cachedKommuneRanking) return cachedKommuneRanking;
+  try {
+    const res = await fetch('/data/kommune-benchmark/kommune-ranking.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKommuneRanking = await res.json();
+  } catch {
+    cachedKommuneRanking = null;
+  }
+  return cachedKommuneRanking;
+}
+
+/**
+ * Per-project nature overlap (project polygons × DCE/§3/Natura 2000, clipped to
+ * kommune). Headline = biodiversitetHa. Returns null until the monthly spatial
+ * build has produced the file.
+ */
+export async function loadProjectNatureOverlap(): Promise<ProjectNatureOverlapData | null> {
+  if (cachedProjectNatureOverlap) return cachedProjectNatureOverlap;
+  try {
+    const res = await fetch('/data/project-nature-overlap.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedProjectNatureOverlap = await res.json();
+  } catch {
+    cachedProjectNatureOverlap = null;
+  }
+  return cachedProjectNatureOverlap;
+}
+
+/**
+ * Load Sprint 6 kommune × water-catchment overlap.
+ *
+ * @example const oplande = await loadKommuneOplande();
+ */
+export async function loadKommuneOplande(): Promise<KommuneOplandeData | null> {
+  if (cachedKommuneOplande) return cachedKommuneOplande;
+  try {
+    const res = await fetch('/data/kommune-benchmark/kommune-oplande.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKommuneOplande = await res.json();
+  } catch {
+    cachedKommuneOplande = null;
+  }
+  return cachedKommuneOplande;
+}
+
+/**
+ * Load curated per-kommune Grøn Trepart entry links.
+ *
+ * Maps each kommune kode to the official entry page about Den Grønne Trepart
+ * on the kommune's own domain (or a "Ingen fundet" record). Produced by
+ * scripts/build-trepart-links.mjs.
+ *
+ * @example const links = await loadKommuneTrepartLinks();
+ *          const link = links?.links[kommune.kode];
+ */
+export async function loadKommuneTrepartLinks(): Promise<KommuneTrepartLinksData | null> {
+  if (cachedKommuneTrepartLinks) return cachedKommuneTrepartLinks;
+  try {
+    const res = await fetch('/data/kommune-trepart-links.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKommuneTrepartLinks = await res.json();
+  } catch {
+    cachedKommuneTrepartLinks = null;
+  }
+  return cachedKommuneTrepartLinks;
+}
+
+/** Geographic neighbors (kommunegrænse) keyed by kode and navn. */
+export async function loadKommuneNeighbors(): Promise<KommuneNeighborsData | null> {
+  if (cachedKommuneNeighbors) return cachedKommuneNeighbors;
+  try {
+    const res = await fetch('/data/kommune-neighbors.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    cachedKommuneNeighbors = await res.json();
+  } catch {
+    cachedKommuneNeighbors = null;
+  }
+  return cachedKommuneNeighbors;
 }
 
 /** Load project changelog (recent status changes for the news ticker) */

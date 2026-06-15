@@ -11,7 +11,236 @@
  * Each scenario holds the achieved value and derived progress percentage
  * for nitrogen, extraction, and afforestation.
  */
+import type { PillarId } from './pillars';
+
 export type PipelineScenarioKey = 'established' | 'approved' | 'preliminary' | 'all';
+
+// --- Sprint 1: initiator breakdown, budget, Klimarådet (ETL + UI) ---
+
+export type InitiatorType = 'state' | 'municipal' | 'private';
+
+export type InitiatorPhase = 'sketch' | 'preliminary' | 'approved' | 'established';
+
+export interface InitiatorMetrics {
+  /** For extraction/afforestation: ha. For nitrogen in ETL, ton N reuses the same field name for a uniform shape. */
+  ha: number;
+  projectCount: number;
+}
+
+export interface InitiatorBreakdown {
+  state: InitiatorMetrics;
+  municipal: InitiatorMetrics;
+  private: InitiatorMetrics;
+}
+
+export interface ByInitiatorByPhaseEntry {
+  extraction: InitiatorBreakdown;
+  afforestation: InitiatorBreakdown;
+  nitrogen: InitiatorBreakdown;
+}
+
+export interface ByInitiatorHa {
+  extraction: InitiatorBreakdown;
+  afforestation: InitiatorBreakdown;
+  nitrogen: InitiatorBreakdown;
+  byPhase: Record<InitiatorPhase, ByInitiatorByPhaseEntry>;
+}
+
+export interface FinansieringKilde {
+  kildeNavn: string;
+  kildeUrl?: string;
+  beloebMioKr: number;
+  /** Defaults to true. Set false for sub-budgets already included in an umbrella line. */
+  includeInTotal?: boolean;
+  arealMaalHa?: number;
+  periode?: string;
+  deadlineYear?: number;
+  noter?: string;
+}
+
+export interface FinansieringSatser {
+  [key: string]: number | string | undefined;
+  noter?: string;
+}
+
+export interface FinansieringStroemInstrument {
+  label: string;
+  amount: string;
+  note?: string;
+  privat?: boolean;
+}
+
+export interface FinansieringStroemBreakdown {
+  label: string;
+  amount: number;
+  note?: string;
+}
+
+export interface FinansieringStroemContext {
+  label: string;
+  amount: string;
+  note?: string;
+}
+
+export interface FinansieringStroem {
+  id: 'anlaeg' | 'kapacitet' | 'drift';
+  kicker: string;
+  title: string;
+  subtitle?: string;
+  tone: 'green' | 'teal' | 'red';
+  hero: string;
+  heroUnit?: string;
+  heroNote: string;
+  who: string;
+  instruments?: FinansieringStroemInstrument[];
+  breakdown?: FinansieringStroemBreakdown[];
+  context?: FinansieringStroemContext[];
+  keyPoint: string;
+  flow: [string, string, string];
+  source: { label: string; url?: string };
+  listNote?: string;
+  contextLabel?: string;
+}
+
+export interface FinansieringKategori {
+  id: string;
+  kategori: 'lavbund' | 'kvaelstof' | 'skovrejsning' | 'natur' | 'co2';
+  label: string;
+  kilder: FinansieringKilde[];
+  satser?: FinansieringSatser;
+  driftFinansieringMioKr: number | null;
+  /** Optional badge for delmål detail (e.g. EU coverage) */
+  badge?: string;
+  /** ETL: established ha (lavbund+KSF or skov total) / areal where applicable */
+  realiseringHa?: number;
+  realiseringTonN?: number;
+}
+
+export interface BudgetData {
+  _meta: { kilde: string; opdateret: string };
+  /** Lag 1 — tværgående pengestrømme (anlæg, kapacitet, drift) */
+  stroemme?: FinansieringStroem[];
+  kategorier: FinansieringKategori[];
+}
+
+export type KlimaraadetRisiko = 'Lav' | 'Moderat' | 'Væsentlig' | 'Høj';
+
+export interface KlimaraadetVurdering {
+  risiko: KlimaraadetRisiko;
+  citat: string;
+  ekstraUdledningTons: number | null;
+}
+
+export interface KlimaraadetTrepartBaggrundsnotat {
+  title: string;
+  url: string;
+  publiceret: string;
+  lokalFil?: string;
+  kvantitative: {
+    lavbundRealiseretVedNuvAfgiftHa: number;
+    lavbundRealiseretVedAnbefaletAfgiftHa: number;
+    nuvAfgiftKrPrTon: number;
+    anbefaletAfgiftKrPrTon: number;
+    frafaldsrate: number;
+    tilsagnsBehovFor140kHa: number;
+    midlertidigEkstensiveringKrHaAar?: number;
+    afgiftsbelastningVed40KrKrHaAar?: number;
+    skovMinusOmraadeAndel?: {
+      udenMaalretning: number;
+      medKvaelstofMaalretning: number;
+    };
+    uroertSkovTilskudKrHa?: number;
+    produktionsskovJordvaerdiKrHa?: [number, number];
+    uroertSkovJordvaerdiKrHa?: number;
+    fosforfrigivelseKgHaAar?: [number, number];
+  };
+}
+
+export interface KlimaraadetData {
+  rapportTitle: string;
+  publiceret: string;
+  url: string;
+  vurderinger: Partial<Record<PillarId, KlimaraadetVurdering>>;
+  baggrundsnotatTrepart?: KlimaraadetTrepartBaggrundsnotat;
+  _meta?: { sourcePdfUrl?: string; lastChecked?: string };
+}
+
+export interface Kf26SkovProfileYear {
+  year: number;
+  stateOrdinaryHa: number;
+  stateUntouchedGtpHa: number;
+  privateSubsidyCapHa: number;
+  privateSubsidyGtpOrdinaryHa: number;
+  privateSubsidyGtpUntouchedHa: number;
+  klimaskovfondenHa: number;
+  totalNewInitiativesHa: number;
+  cumulativeNewInitiativesHa: number;
+}
+
+export interface Kf26TrepartData {
+  _meta?: {
+    builtAt?: string;
+    sourcePageUrl?: string;
+    inputFiles?: string[];
+    notes?: string[];
+  };
+  publishedAt: string;
+  version: string;
+  status: string;
+  sourceUrl: string;
+  targetsAndHorizons: {
+    politicalExtractionDeadline: string;
+    kf26ExtractionProjectAreaHorizon: string;
+    kf26ExtractionCarbonRichHorizon: string;
+    politicalAfforestationDeadline: string;
+    kf26AfforestationRealizationHorizon: string;
+    extractionProjectAreaTargetHa: number;
+    extractionAgriculturalAreaApproxHa: number;
+    extractionCarbonRichAgriculturalSoilTargetHa: number;
+    afforestationPoliticalTargetHa: number;
+    afforestationKf26ImkHa: number;
+    untouchedForestTargetWithinTrepartHa: number;
+  };
+  lavbundStatusDec2025: {
+    underUdtagningHa: number;
+    forundersoegelsestilsagnHa: number;
+    vkpRunde3ForundersoegelseHa: number;
+    vkpRunde3EtableringHa: number;
+    definitionNote: string;
+    source: { file: string; section: string };
+  };
+  assumptions: {
+    lavbundNPlusYears: number;
+    lavbundDropoutRateRange: [number, number];
+    stateAfforestationRealization: string;
+    privateAfforestationRealization: string;
+    forestMineralSoilCarbonBindingYearsKf26: number;
+    forestMineralSoilCarbonBindingYearsKf25: number;
+    forestNetEffectIncrease2030MtCo2eVsKf25: number;
+    forestNetEffectIncrease2035MtCo2eVsKf25: number;
+  };
+  skovProfilPerYear: Kf26SkovProfileYear[];
+  skovProfilSummary: {
+    sumNewInitiativesHa: number;
+    roundedKf26ImkHa: number;
+    politicalTargetHa: number;
+    source: { file: string; table: string };
+    roundingNote: string;
+  };
+  landbrug2030Goal: {
+    sectorReductionPctKf26: number;
+    lowerTargetPct: number;
+    upperTargetPct: number;
+    gapToLowerTargetMtCo2e: number;
+    gapToUpperTargetMtCo2e: number;
+    source: { file?: string; url?: string; section: string };
+  };
+  co2Headline: {
+    target2030MarginMtCo2e: number;
+    kf25Target2030MarginMtCo2e: number;
+    source: { file?: string; url?: string; section: string };
+  };
+}
 
 export interface PipelineScenarioValues {
   nitrogenAchievedT: number;
@@ -48,6 +277,8 @@ export interface KommuneMetrics {
   nitrogenT: number;
   /** Total lowland extraction area (ha) from MARS projects (all phases) */
   extractionHa: number;
+  /** Lowland extraction area (ha) from Klimaskovfonden lavbund projects */
+  extractionKsfHa?: number;
   /** Afforestation area (ha) from MARS projects */
   afforestationMarsHa: number;
   /** Afforestation area (ha) from Klimaskovfonden projects */
@@ -97,6 +328,7 @@ export interface KommuneMetrics {
 
 export interface DashboardData {
   fetchedAt: string;
+  driftFinansiering?: DriftFinansiering;
   national: {
     targets: {
       nitrogenReductionT: number;
@@ -105,6 +337,11 @@ export interface DashboardData {
       protectedNaturePct: number;
       deadline: string;
       forestDeadline: string;
+      extractionRealiseringHorisont?: string;
+      extractionKulstofrigHa?: number;
+      extractionKulstofrigDeadline?: string;
+      forestKf26RealizationHorizon?: string;
+      uroertSkovHa?: number;
     };
     progress: {
       nitrogenAchievedT: number;
@@ -117,6 +354,16 @@ export interface DashboardData {
       afforestationMarsHa: number;
       /** Klimaskovfonden supplementary afforestation */
       afforestationSupplementaryHa: number;
+      /** Klimaskovfonden skovrejsning (WFS) */
+      afforestationKsfHa?: number;
+      afforestationKsfProjectCount?: number;
+      /** Naturstyrelsen skov — gennemført and i gang */
+      afforestationNstCompletedHa?: number;
+      afforestationNstOngoingHa?: number;
+      afforestationNstMatchedCount?: number;
+      /** Klimaskovfonden lavbund (WFS) */
+      extractionKsfLavbundHa?: number;
+      extractionKsfLavbundCount?: number;
       naturePotentialAreaHa: number;
       /** Combined protected nature estimate as % of Danish land area */
       natureProtectedPct: number;
@@ -136,18 +383,92 @@ export interface DashboardData {
     };
     /** Per-kommune aggregated metrics — 98 entries, one per Danish municipality */
     byKommune: KommuneMetrics[];
+    byInitiatorHa?: ByInitiatorHa;
+    budgetData?: BudgetData;
+    klimaraadet?: KlimaraadetData;
+    kf26?: Kf26TrepartData;
+    byPipelinePhase?: ByPipelinePhaseRoot;
+    cancelled?: CancelledMetrics;
+    byOwnerOrg?: Record<string, { count: number; ha: number; byPipelinePhase: ByPipelinePhaseRoot }>;
   };
+  driftFinansiering?: DriftFinansiering;
   plans: Plan[];
   catchments: Catchment[];
   mitigationMeasures: MitigationMeasure[];
   subsidySchemes: SubsidyScheme[];
 }
 
-/** Per-phase metric breakdown (established / approved / preliminary). */
-export interface PhaseBreakdown {
+/** Per-phase metric totals (established / approved / preliminary) — plan-level byPhase keys. */
+export interface LegacyPhaseTotals {
   established: number;
   approved: number;
   preliminary: number;
+}
+
+// --- Sprint 2: DN 5-fase model (MARS stateNr) ---
+
+export type PipelinePhaseType =
+  | 'sketch'
+  | 'preliminary_grant'
+  | 'preliminary_done'
+  | 'establishment_grant'
+  | 'established'
+  | 'cancelled';
+
+export type PipelineMainPhase = Exclude<PipelinePhaseType, 'cancelled'>;
+
+export interface PipelinePhaseMetricsRow {
+  count: number;
+  nitrogenT: number;
+  extractionHa: number;
+  afforestationHa: number;
+  subStates?: {
+    kladde: Omit<PipelinePhaseMetricsRow, 'subStates'>;
+    ansoegt: Omit<PipelinePhaseMetricsRow, 'subStates'>;
+  };
+}
+
+export type PipelinePhaseBreakdown = Record<PipelineMainPhase, PipelinePhaseMetricsRow>;
+
+export type ByPipelinePhaseRoot = {
+  nitrogen: PipelinePhaseBreakdown;
+  extraction: PipelinePhaseBreakdown;
+  afforestation: PipelinePhaseBreakdown;
+};
+
+export interface CancelledMetrics {
+  totalCount: number;
+  totalHa: number;
+  byCancellationStage: {
+    preliminary: { count: number; ha: number };
+    establishment: { count: number; ha: number };
+  };
+  byReason: {
+    opgivet: { count: number; ha: number };
+    afslag: { count: number; ha: number };
+  };
+}
+
+export interface VandNaturSkovProjekt {
+  id?: string | number;
+  type?: string;
+  navn?: string;
+  kommune?: string | null;
+  kommuneKode?: string | null;
+  arealHa?: number | null;
+  ordning?: string;
+  kilde?: string;
+  fetchedAt?: string;
+  [key: string]: unknown;
+}
+
+export type OwnerOrgKey = 'NST' | 'SGAV' | 'LBST' | 'unknown';
+
+export interface DriftFinansiering {
+  afsat: boolean;
+  status: string;
+  label: string;
+  sources: string[];
 }
 
 export interface Plan {
@@ -159,13 +480,13 @@ export interface Plan {
   /** MARS aggregate across ALL project phases (not just established) */
   nitrogenAchievedT: number;
   nitrogenProgressPct: number;
-  nitrogenByPhase: PhaseBreakdown;
+  nitrogenByPhase: LegacyPhaseTotals;
   extractionPotentialHa: number;
   /** MARS aggregate across ALL project phases */
   extractionAchievedHa: number;
-  extractionByPhase: PhaseBreakdown;
+  extractionByPhase: LegacyPhaseTotals;
   afforestationAchievedHa: number;
-  afforestationByPhase: PhaseBreakdown;
+  afforestationByPhase: LegacyPhaseTotals;
   naturePotentialAreaHa: number;
   countNaturePotentials: number;
   projects: ProjectCounts;
@@ -204,9 +525,16 @@ export interface ProjectDetail {
   name: string;
   geoId: string;
   phase: 'preliminary' | 'approved' | 'established';
+  /** MARS 5-fase nøgle (Sprint 2) */
+  pipelinePhase?: PipelinePhaseType;
+  isCancelled?: boolean;
+  projectType?: string;
+  forvaltningsplanStatus?: 'unknown' | string | null;
   statusName: string;
   statusNr: number;
   measureName: string;
+  /** Subsidy scheme id — join key to SubsidyScheme for prose details */
+  schemeId?: string;
   schemeName: string;
   schemeOrg: string;
   schemeUrl: string;
@@ -220,6 +548,8 @@ export interface ProjectDetail {
   kommuneKode?: string | null;
   /** Municipality name resolved via DAWA reverse geocoding (null if not resolved) */
   kommuneNavn?: string | null;
+  /** All kommuner whose boundary intersects the project polygon (for map linking). */
+  overlappingKommuneKoder?: string[];
 }
 
 // Early-stage sketch project (no formal MARS status yet)
@@ -228,13 +558,23 @@ export interface SketchProject {
   name: string;
   geoId: string;
   phase: 'sketch';
+  pipelinePhase?: 'sketch';
+  sketchSubState?: 'kladde' | 'ansoegt';
   measureName: string;
+  projectType?: string;
+  forvaltningsplanStatus?: 'unknown' | string | null;
+  /** Subsidy scheme id — join key to SubsidyScheme for prose details */
+  schemeId?: string;
   schemeName: string;
   schemeOrg: string;
   nitrogenT: number;
   extractionHa: number;
   afforestationHa: number;
   areaHa: number;
+  /** 4-digit municipality code for primary overlap (largest clipped share). */
+  kommuneKode?: string | null;
+  kommuneNavn?: string | null;
+  overlappingKommuneKoder?: string[];
 }
 
 // Nature restoration potential site
@@ -261,6 +601,12 @@ export interface SubsidyScheme {
   organization: string;
   url: string;
   active: boolean;
+  /** Mitigation measure this scheme belongs to (MARS master-data) */
+  mitigationMeasureId?: string;
+  /** Prose explanation of the scheme's purpose (from MARS master-data) */
+  description?: string;
+  /** Prose explanation of who can apply for / undertake the scheme */
+  applicantText?: string;
 }
 
 // ============================================================
@@ -438,6 +784,246 @@ export interface KlimaregnskabData {
   kommuner: KommuneCO2Data[];
 }
 
+// ============================================================
+// Sprint 4 — Kommune nature benchmark (B1/B2/B3 + simulation)
+// ============================================================
+
+export interface KommuneBenchmarkMetadata {
+  generatedAt: string;
+  methodVersion: string;
+  sourceLayers: { name: string; path: string; hash?: string }[];
+  disclaimer?: string;
+}
+
+export interface KommuneBenchmarkB1Row {
+  kommuneNavn: string;
+  dce30Ha: number;
+  dce30PctOfNational: number;
+  kuPrio1Ha: number;
+  kuPrio1PctOfNational: number;
+  kuPrio2Ha: number;
+  kuPrio2PctOfNational: number;
+}
+
+export interface KommuneBenchmarkB2Row {
+  kommuneNavn: string;
+  markerTotalHa: number;
+  hoejtPotentialeHa: number;
+  lavtPotentialeHa: number;
+  udenforPotentialeHa: number;
+  hoejtPotentialePct: number;
+  lavtPotentialePct: number;
+  udenforPotentialePct: number;
+}
+
+export interface KommuneBenchmarkB3Row {
+  kommuneNavn: string;
+  n2000TotalHa: number;
+  n2000ErLandbrugHa: number;
+  andelLandbrugIN2000Pct: number | null;
+}
+
+export interface KommuneBenchmarkB4Row {
+  kommuneNavn: string;
+  naturvaerdiHa: number;
+  beskyttetHa: number;
+  overlapHa: number;
+  vaerdiUdenBeskyttelseHa: number;
+  pctVaerdiBeskyttet: number;
+}
+
+export interface KommuneBenchmarkB4Data {
+  methodVersion: string;
+  generatedAt: string;
+  sources: { name: string; path: string; hash?: string }[];
+  disclaimer?: string;
+  national: {
+    naturvaerdiHa: number;
+    beskyttetHa: number;
+    overlapHa: number;
+    vaerdiUdenBeskyttelseHa: number;
+    pctVaerdiBeskyttet: number;
+  };
+  byKommune: Record<string, KommuneBenchmarkB4Row>;
+}
+
+export interface KommuneBenchmarkData {
+  b1: {
+    metadata: KommuneBenchmarkMetadata;
+    national: { totalDce30Ha: number; totalKuPrio1Ha: number; totalKuPrio2Ha: number };
+    byKommune: Record<string, KommuneBenchmarkB1Row>;
+  };
+  b2: {
+    metadata: KommuneBenchmarkMetadata;
+    national: {
+      markerTotalHa: number;
+      hoejtPotentialeHa: number;
+      lavtPotentialeHa: number;
+      udenforPotentialeHa: number;
+    };
+    byKommune: Record<string, KommuneBenchmarkB2Row>;
+  };
+  b3: {
+    metadata: KommuneBenchmarkMetadata;
+    national: { n2000TotalHa: number; n2000ErLandbrugHa: number; andelLandbrugIN2000Pct: number };
+    byKommune: Record<string, KommuneBenchmarkB3Row>;
+  };
+  b4: KommuneBenchmarkB4Data | null;
+}
+
+export interface NationalFordelingRow {
+  kommuneNavn: string;
+  basis: 'dce30PctOfNational';
+  dce30PctOfNational: number;
+  simulatedSkovHa: number;
+  actualSkovHa: number;
+  skovDifferenceHa: number;
+  simulatedLavbundHa: number;
+  actualLavbundHa: number;
+  lavbundDifferenceHa: number;
+}
+
+export interface NationalFordelingSimulation {
+  metadata: KommuneBenchmarkMetadata;
+  national: { skovTargetHa: number; lavbundTargetHa: number };
+  byKommune: Record<string, NationalFordelingRow>;
+}
+
+/** Precomputed rank (1–98) per competition axis. */
+export type KommuneRankingMetricKey =
+  | 'idxLavbund'
+  | 'idxSkov'
+  | 'idxKvaelstof'
+  | 'kvalitetGapPct'
+  | 'leveretHa';
+
+export interface KommuneRankingRow {
+  kode: string;
+  kommuneNavn: string;
+  region: string;
+  ansvarPct: number;
+  ansvarKuPrio1Pct: number;
+  ansvarKuPrio2Pct: number;
+  leveringUdtagningPct: number | null;
+  leveringSkovPct: number | null;
+  leveringKvaelstofPct: number | null;
+  idxLavbund: number | null;
+  idxSkov: number | null;
+  idxKvaelstof: number | null;
+  kvalitetGapPct: number | null;
+  markerHoejtPotentialePct: number;
+  /** Project × DCE biodiversity-map overlap (ha), kommune-clipped (no double-count). Headline natur-signal. */
+  projektNaturBiodiversitetHa?: number;
+  projektNaturSection3Ha?: number;
+  projektNaturNatura2000Ha?: number;
+  projektNaturAreaHa?: number;
+  leveretHa: number;
+  deliveryExtractionHa: number;
+  deliverySkovHa: number;
+  deliveryKvaelstofT: number;
+  co2T: number;
+  projekterTotal: number;
+  rankByMetric: Partial<Record<KommuneRankingMetricKey, number>>;
+}
+
+export interface KommuneRankingNationalPhase {
+  extractionHa: number;
+  afforestationHa: number;
+  nitrogenT: number;
+  count: number;
+  sharePct: number;
+}
+
+export interface KommuneRankingData {
+  metadata: KommuneBenchmarkMetadata & {
+    rankingPhases: string[];
+    ansvarBasis: string;
+    disclaimer: string;
+  };
+  national: {
+    deliveryExtractionHa: number;
+    deliverySkovHa: number;
+    deliveryKvaelstofT: number;
+    leveretHa: number;
+    phaseShareHa: Record<string, KommuneRankingNationalPhase>;
+  };
+  byKommune: Record<string, KommuneRankingRow>;
+  kommuner: KommuneRankingRow[];
+}
+
+/** Sprint 6 — kommune × coastal water / catchment overlap. */
+export interface OplandOverlap {
+  opId: string;
+  opNavn: string;
+  overlapHa: number;
+  andelAfKommunePct: number;
+  andelAfOplandPct: number;
+  ecologicalStatus?: string;
+}
+
+export interface HovedoplandOverlap {
+  hovId: string;
+  hovNavn: string;
+  andelAfKommunePct: number;
+}
+
+export interface KommuneOplandeEntry {
+  kommuneNavn: string;
+  kystvandsoplande: OplandOverlap[];
+  hovedoplande: HovedoplandOverlap[];
+  antalOplande: number;
+  kystvandStatus: { opNavn: string; ecologicalStatus: string }[];
+}
+
+export interface KommuneOplandeData {
+  metadata: KommuneBenchmarkMetadata;
+  byKommune: Record<string, KommuneOplandeEntry>;
+  byOpland: Record<
+    string,
+    {
+      opNavn: string;
+      kommuner: { kode: string; kommuneNavn: string; andelAfOplandPct: number }[];
+    }
+  >;
+}
+
+// -----------------------------------------------------------------------
+// Kommune Grøn Trepart entry links — curated, verified
+// Produced by scripts/build-trepart-links.mjs from
+// data/kommune-trepart-links.csv. Served from
+// public/data/kommune-trepart-links.json, keyed by kommune kode.
+// -----------------------------------------------------------------------
+
+/** One kommune's official Grøn Trepart entry page (or "Ingen fundet"). */
+export interface KommuneTrepartLink {
+  navn: string;
+  /** Canonical entry-page URL on the kommune's own domain, or null if none found. */
+  url: string | null;
+  /** temaside | projektside | nyhedsoversigt | enkelt nyhed | ingen */
+  sidetype: string;
+  /** Whether the URL was confirmed to resolve and be about grøn trepart. */
+  verified: boolean;
+  note: string;
+}
+
+export interface KommuneTrepartLinksData {
+  generatedAt: string;
+  source: string;
+  count: number;
+  withPage: number;
+  /** Keyed by kommune kode (e.g. "0461"). */
+  links: Record<string, KommuneTrepartLink>;
+}
+
+/** Geographic neighbors (shared kommunegrænse) from DAWA polygons. */
+export interface KommuneNeighborsData {
+  builtAt: string;
+  source: string;
+  count: number;
+  byKode: Record<string, string[]>;
+  byNavn: Record<string, string[]>;
+}
+
 // -----------------------------------------------------------------------
 // ETL run summary — produced by etl/build_etl_summary.py
 // Served from public/data/etl-run-summary.json
@@ -522,4 +1108,61 @@ export interface CO2EmissionsData {
     lulucf2023: number;
     lulucf2030: number;
   };
+}
+
+// ============================================================
+// Per-project nature overlap (build_project_nature_overlap.py)
+// Project polygons clipped to kommune boundaries (no double-count),
+// intersected with the DCE 30 % biodiversity map (headline) + §3 + Natura 2000.
+// NB: overlap = strong INDICATOR of nature potential, NOT a guarantee of
+// realized/improved nature.
+// ============================================================
+
+/** One project's overlap attributed to a single kommune (its clipped piece). */
+export interface ProjectNatureOverlapPiece {
+  kode: string;
+  kommuneNavn: string;
+  projektAreaHa: number;
+  biodiversitetHa: number;
+  section3Ha: number;
+  natura2000Ha: number;
+}
+
+/** One MARS project's nature overlap, split across the kommuner it touches. */
+export interface ProjectNatureOverlap {
+  geoId: string;
+  projectId: string | null;
+  projectName: string;
+  measure: string;
+  status: string | null;
+  projektAreaHa: number;
+  primaryKommuneKode: string;
+  biodiversitetHa: number;
+  section3Ha: number;
+  natura2000Ha: number;
+  perKommune: ProjectNatureOverlapPiece[];
+}
+
+/** Per-kommune aggregate of project nature overlap. */
+export interface ProjectNatureOverlapKommune {
+  kommuneNavn: string;
+  projektAreaHa: number;
+  biodiversitetHa: number;
+  section3Ha: number;
+  natura2000Ha: number;
+  antalProjekter: number;
+}
+
+export interface ProjectNatureOverlapData {
+  metadata: {
+    methodVersion: string;
+    generatedAt: string;
+    headline: string;
+    note: string;
+    projectsWithGeometry: number;
+    projectsWithOverlap: number;
+    sources: string[];
+  };
+  byProject: Record<string, ProjectNatureOverlap>;
+  byKommune: Record<string, ProjectNatureOverlapKommune>;
 }

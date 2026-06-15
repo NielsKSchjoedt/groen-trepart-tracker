@@ -61,7 +61,7 @@ Grøn Trepart Tracker er et non-profit, filantropisk projekt. Det er ikke finans
 
 ```bash
 git clone https://github.com/NielsKSchjoedt/groen-trepart-tracker.git
-cd trepart-tracker
+cd groen-trepart-tracker
 mise install            # installerer Python 3.12 + Node 22
 mise run setup          # installerer topojson CLI-værktøjer globalt
 ```
@@ -162,6 +162,27 @@ Det her er et åbent projekt, og alle bidrag er velkomne — store som små. Du 
 - **Data** — hjælp med at finde nye åbne datakilder eller opdage fejl i vores metrikker
 - **Design** — vi vil gerne lave noget folk *vil* dele — idéer til visualiseringer og brugeroplevelse er meget velkomne
 - **Spred ordet** — jo flere øjne på fremdriften, jo bedre
+
+### Preview-deployments (Cloudflare Pages)
+
+Production deployer automatisk fra `main` til [treparttracker.dk](https://treparttracker.dk). Preview-deployments giver en separat live-URL uden at påvirke det offentlige site.
+
+| Trigger | Hvornår |
+| --- | --- |
+| **Pull request mod `main`** | Automatisk preview + kommentar med URL på PR'en |
+| **Push til `beta` eller `preview/*`** | Automatisk preview |
+| **Manuelt** | GitHub → Actions → *Deploy Preview* → Run workflow |
+
+Preview-URL'er ser typisk sådan ud: `https://<branch>.groen-trepart-tracker.pages.dev` (Cloudflare saniterer branch-navne, fx `/` → `-`).
+
+**Manuel deploy af din nuværende branch:**
+
+1. Push branchen til GitHub
+2. Gå til **Actions** → **Deploy Preview** → **Run workflow**
+3. Vælg din branch i dropdown'en → **Run workflow**
+4. Åbn URL'en i workflow-summaries (eller PR-kommentaren)
+
+`main` kan ikke deployes som preview — det er production.
 
 ### Tekniske noter for udviklere
 

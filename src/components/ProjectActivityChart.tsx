@@ -6,6 +6,7 @@ import {
 import type { ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import type { SeriesColor } from '@/lib/supplement-colors';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR } from '@/lib/supplement-colors';
+import type { MetricMode, PillarMetricConfig } from '@/lib/metric-mode';
 import { PHASE_CONFIGS } from '@/lib/phase-config';
 import type { ProjectPhase } from '@/lib/phase-config';
 
@@ -142,10 +143,16 @@ function buildCumulativeData(
   mars: ProjectDetail[],
   ksf: KlimaskovfondenProject[],
   nst: NaturstyrelsenSkovProject[],
+  mode: MetricMode,
+  marsField: PillarMetricConfig['marsField'],
 ): BuildResult | null {
   const marsWithDate = mars.filter((p) => p.appliedAt && !isNaN(Date.parse(p.appliedAt)));
   const totalPoints = marsWithDate.length + ksf.length + nst.length;
   if (totalPoints < MIN_PROJECTS) return null;
+
+  // In 'area' mode each project contributes its area/effect; in 'count' mode
+  // each project contributes 1.
+  const isArea = mode === 'area';
 
   const buckets = new Map<string, BucketRecord>();
 
@@ -158,17 +165,19 @@ function buildCumulativeData(
     const d = new Date(p.appliedAt);
     const key = clampMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
     const phase = (p.phase as ProjectPhase) || 'sketch';
-    ensureBucket(key)[phase] += 1;
+    ensureBucket(key)[phase] += isArea ? ((p as unknown as Record<string, number>)[marsField] ?? 0) : 1;
   }
 
   for (const p of ksf) {
     const year = p.year ?? 2024;
     const key = clampMonth(`${year}-01`);
-    ensureBucket(key).ksf += 1;
+    ensureBucket(key).ksf += isArea ? (p.areaHa ?? 0) : 1;
   }
 
   if (nst.length > 0) {
-    ensureBucket(AGREEMENT_MONTH).nst += nst.length;
+    ensureBucket(AGREEMENT_MONTH).nst += isArea
+      ? nst.reduce((s, p) => s + (p.areaHa ?? 0), 0)
+      : nst.length;
   }
 
   const allKeys = [...buckets.keys()].sort();
@@ -213,7 +222,7 @@ interface ProjectActivityChartProps {
   ksfProjects?: KlimaskovfondenProject[];
   /** Naturstyrelsen projects (no date data — shown as baseline, optional) */
   nstProjects?: NaturstyrelsenSkovProject[];
-  /** Override KSF stroke/fill to match pillar context (e.g. green for skovrejsning) */
+  /** Override KSF stroke/fill to match pillar context (e.g. purple for skovrejsning) */
   ksfColor?: SeriesColor;
   /** Override NST stroke/fill */
   nstColor?: SeriesColor;
@@ -221,8 +230,18 @@ interface ProjectActivityChartProps {
   height?: number;
   /** Section title (default: "Projektaktivitet over tid") */
   title?: string;
+  /** Hide built-in uppercase title (when wrapped in KommuneDetailBlock). */
+  showTitle?: boolean;
   /** Additional CSS classes on the outer wrapper */
   className?: string;
+  /** Display by project count or accumulated area/effect (default 'area') */
+  mode?: MetricMode;
+  /** MARS field used in 'area' mode (default 'areaHa') */
+  marsField?: PillarMetricConfig['marsField'];
+  /** Unit suffix shown in tooltip in 'area' mode (e.g. "ha", "ton N") */
+  unit?: string;
+  /** Decimals for tooltip values in 'area' mode (default 0) */
+  decimals?: number;
 }
 
 /**
@@ -260,14 +279,19 @@ export function ProjectActivityChart({
   nstColor,
   height = 170,
   title = 'Kumulativ udvikling i projekter over tid',
+  showTitle = true,
   className = 'mb-5',
+  mode = 'area',
+  marsField = 'areaHa',
+  unit = '',
+  decimals = 0,
 }: ProjectActivityChartProps) {
   const resolvedKsfColor = ksfColor ?? DEFAULT_SUPPLEMENT_COLORS.ksf;
   const resolvedNstColor = nstColor ?? DEFAULT_SUPPLEMENT_COLORS.nst;
 
   const result = useMemo(
-    () => buildCumulativeData(projectDetails, ksfProjects, nstProjects),
-    [projectDetails, ksfProjects, nstProjects],
+    () => buildCumulativeData(projectDetails, ksfProjects, nstProjects, mode, marsField),
+    [projectDetails, ksfProjects, nstProjects, mode, marsField],
   );
 
   if (!result) return null;
@@ -275,6 +299,9 @@ export function ProjectActivityChart({
   const { data, startMonth } = result;
   const hasKsf = ksfProjects.length > 0;
   const hasNst = nstProjects.length > 0;
+
+  // Y-axis unit label reflects the active display mode.
+  const yAxisLabel = mode === 'area' ? unit || 'Areal' : 'Antal projekter';
 
   const legendItems: { key: string; label: string; color: string; dashed?: boolean }[] = [
     ...PHASE_CONFIGS.filter((cfg) => data.some((d) => d[cfg.id as keyof ChartDatum] as number > 0))
@@ -285,9 +312,11 @@ export function ProjectActivityChart({
 
   return (
     <div className={className}>
-      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-        {title}
-      </p>
+      {showTitle && (
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+          {title}
+        </p>
+      )}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
         {legendItems.map((item) => (
           <span key={item.key} className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground">
@@ -304,7 +333,7 @@ export function ProjectActivityChart({
       </div>
       <div className="rounded-lg border border-border/50 bg-muted/20 p-2">
         <ResponsiveContainer width="100%" height={height}>
-          <AreaChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -20 }}>
+          <AreaChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -4 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(0 0% 88%)" />
             <XAxis
               dataKey="label"
@@ -318,9 +347,20 @@ export function ProjectActivityChart({
               tickLine={false}
               axisLine={false}
               allowDecimals={false}
+              width={48}
+              label={{
+                value: yAxisLabel,
+                angle: -90,
+                position: 'insideLeft',
+                style: {
+                  fontSize: 10,
+                  fill: 'hsl(0 0% 45%)',
+                  textAnchor: 'middle',
+                },
+              }}
             />
             <Tooltip
-              content={<CustomTooltip />}
+              content={<CustomTooltip unit={mode === 'area' ? unit : ''} decimals={decimals} />}
               cursor={{ stroke: 'hsl(0 0% 70%)', strokeDasharray: '3 3' }}
             />
             {/* MARS phases (bottom of stack) */}
@@ -371,6 +411,7 @@ export function ProjectActivityChart({
       <p className="text-[10px] text-muted-foreground/70 mt-1 px-0.5">
         Grafen starter ved første observerede data ({formatMonthLabel(startMonth)}).
         {' '}Den Grønne Trepart blev underskrevet juni 2024.
+        {' '}Skitseprojekter indgår ikke: MARS registrerer ingen dato for dem, så de kan ikke placeres på tidslinjen.
       </p>
     </div>
   );
@@ -380,14 +421,18 @@ export function ProjectActivityChart({
  * Custom Recharts tooltip showing the month label and per-series breakdown.
  * Handles both MARS phases and supplementary sources.
  */
-function CustomTooltip({ active, payload, label }: {
+function CustomTooltip({ active, payload, label, unit = '', decimals = 0 }: {
   active?: boolean;
   payload?: Array<{ dataKey: string; value: number; color: string }>;
   label?: string;
+  unit?: string;
+  decimals?: number;
 }) {
   if (!active || !payload?.length) return null;
 
   const total = payload.reduce((sum, entry) => sum + (entry.value || 0), 0);
+  const fmt = (v: number) =>
+    `${v.toLocaleString('da-DK', { maximumFractionDigits: decimals })}${unit ? ` ${unit}` : ''}`;
 
   return (
     <div className="rounded-lg border border-border bg-background/95 backdrop-blur-sm shadow-md px-3 py-2 text-xs">
@@ -404,12 +449,12 @@ function CustomTooltip({ active, payload, label }: {
                 style={{ backgroundColor: entry.color }}
               />
               <span className="text-muted-foreground">{seriesLabel}:</span>
-              <span className="font-medium text-foreground">{entry.value}</span>
+              <span className="font-medium text-foreground">{fmt(entry.value)}</span>
             </div>
           );
         })}
       <div className="border-t border-border/50 mt-1 pt-1 font-semibold text-foreground">
-        I alt: {total}
+        I alt: {fmt(total)}
       </div>
     </div>
   );

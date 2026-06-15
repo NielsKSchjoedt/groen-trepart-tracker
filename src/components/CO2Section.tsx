@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Factory, TrendingDown, Leaf, ExternalLink, BarChart2, MapPin } from 'lucide-react';
+import { AlertTriangle, Factory, TrendingDown, Leaf, ExternalLink, BarChart2, MapPin } from 'lucide-react';
 import { InfoTooltip } from './InfoTooltip';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -36,7 +36,9 @@ export function CO2Section() {
 
   const m = co2.milestones;
   const gapToTarget = co2.milestones.totalExcl2030 - co2.targets.target2030ExclLulucf;
-  const onTrack = gapToTarget <= 0;
+  const reductionPct = m.reduction2025Pct;
+  const targetPct = co2.targets.reductionPct;
+  const onTrack = reductionPct >= targetPct * 0.99;
 
   // Build chart data — show every 5th year before 2020, then every year from 2020
   const chartData = co2.years
@@ -66,11 +68,13 @@ export function CO2Section() {
             content={
               <>
                 <p>Viser Danmarks samlede drivhusgasudledning (ekskl. LULUCF) og fremskrivning mod 2030.</p>
-                <p><strong>Reduktion 2023:</strong> Faktisk opnået reduktion ift. 1990-niveau.<br/>
-                <strong>Reduktion 2030:</strong> KF25-fremskrevet reduktion — Klimaloven kræver 70%.</p>
+                <p><strong>Reduktion 2025:</strong> Estimeret reduktion ift. 1990-niveau (samme referenceår som forsiden).<br/>
+                <strong>Reduktion 2023:</strong> Sidste faktiske år i KF25-datasættet.<br/>
+                <strong>Reduktion 2030:</strong> detaljeret KF25-fremskrevet reduktion — Klimaloven kræver 70%.</p>
+                <p>KF26-høringsversionen viser en nyere hovedkonklusion: Danmark når kun 2030-målet med ca. 0,4 mio. ton CO₂e margen, mens Klimarådet fortsat vurderer væsentlig risiko.</p>
               </>
             }
-            source="KF25 — Klimafremskrivning 2025 (KEFM)"
+            source="KF25 detaljerede CRF-data + KF26 hovedkonklusion (KEFM)"
             methodLink="#soejler"
             size={12}
             side="right"
@@ -79,9 +83,9 @@ export function CO2Section() {
 
         <div className="grid grid-cols-2 gap-3">
           <MilestoneStat
-            value={`${m.reduction2023Pct}%`}
-            label="Reduktion 2023"
-            sub="(faktisk)"
+            value={`${m.reduction2025Pct}%`}
+            label="Reduktion 2025"
+            sub="(estimat)"
             color="#737373"
           />
           <MilestoneStat
@@ -91,18 +95,25 @@ export function CO2Section() {
             color={onTrack ? '#16a34a' : '#f97316'}
           />
           <MilestoneStat
-            value={`${formatDanishNumber(m.totalExcl2023, 1)}`}
-            label="Mio. ton 2023"
-            sub="ekskl. LULUCF"
+            value={`${m.reduction2023Pct}%`}
+            label="Reduktion 2023"
+            sub="(faktisk)"
             color="#737373"
           />
           <MilestoneStat
-            value={onTrack ? 'På sporet' : `${formatDanishNumber(Math.abs(gapToTarget), 2)} mio. t`}
-            label={onTrack ? 'Mål nået' : 'Mangler i 2030'}
-            sub={`Mål: ${formatDanishNumber(co2.targets.target2030ExclLulucf, 1)} mio. t`}
-            color={onTrack ? '#16a34a' : '#dc2626'}
+            value={onTrack ? 'Tæt på mål' : `${formatDanishNumber(Math.abs(gapToTarget), 2)} mio. t`}
+            label={onTrack ? 'Nationalt nær mål' : 'Mangler i 2030'}
+            sub={`Mål: ${formatDanishNumber(co2.targets.target2030ExclLulucf, 1)} mio. t (${targetPct} %)`}
+            color={onTrack ? '#16a34a' : '#eab308'}
           />
         </div>
+      </div>
+
+      <div className="flex items-start gap-2.5 rounded-lg border border-amber-200/70 bg-amber-50/50 px-3.5 py-3 text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/20 dark:text-amber-100">
+        <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-300 flex-shrink-0 mt-0.5" />
+        <p className="text-xs leading-relaxed">
+          <span className="font-semibold">KF26 er nyere end denne graf.</span> Grafen bruger fortsat KF25's detaljerede CRF-tabeller. KF26-høringsversionen fra maj 2026 siger, at Danmark lige akkurat når 70%-målet med ca. 0,4 mio. ton CO₂e margen, men Klimarådet vurderer stadig, at 2030-målet ikke er tilstrækkeligt sandsynliggjort.
+        </p>
       </div>
 
       {/* Emissions trajectory chart */}
@@ -289,7 +300,7 @@ export function CO2Section() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-0.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
           >
-            KF25 (KEFM) <ExternalLink className="w-2.5 h-2.5" />
+            KF25 detaljerede data (KEFM) <ExternalLink className="w-2.5 h-2.5" />
           </a>
         </span>
       </div>
