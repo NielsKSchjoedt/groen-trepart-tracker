@@ -19,6 +19,81 @@ const METRIC_OPTIONS: MetricOption[] = [
   { id: 'co2',           label: 'CO₂',               color: '#64748b' },
 ];
 
+interface MetricDotPickerProps {
+  activeMetric: KommuneMetric | null;
+  onChange: (metric: KommuneMetric) => void;
+  /** Larger, centred pills for the map overlay before first selection. */
+  variant?: 'inline' | 'overlay';
+}
+
+/**
+ * Coloured delmål pills — used on the kommune map before a metric is chosen,
+ * and as the wide-screen picker on the list page.
+ */
+export function MetricDotPicker({
+  activeMetric,
+  onChange,
+  variant = 'inline',
+}: MetricDotPickerProps) {
+  const isOverlay = variant === 'overlay';
+
+  return (
+    <div
+      role="radiogroup"
+      aria-label="Vælg indsatsområde"
+      className={
+        isOverlay
+          ? 'flex flex-wrap items-center justify-center gap-2'
+          : 'flex flex-wrap items-center gap-1.5'
+      }
+    >
+      {METRIC_OPTIONS.map(({ id, label, color }) => {
+        const isActive = id === activeMetric;
+        const isNoData = METRIC_NO_DATA.has(id);
+
+        return (
+          <button
+            key={id}
+            type="button"
+            role="radio"
+            aria-checked={isActive}
+            onClick={() => onChange(id)}
+            title={isNoData ? 'Data ikke tilgængeligt på kommuneniveau' : undefined}
+            className={`
+              flex items-center gap-2 rounded-full font-medium border transition-all duration-150 cursor-pointer
+              ${isOverlay ? 'px-4 py-2.5 text-sm shadow-sm bg-background' : 'px-3 py-1.5 text-sm'}
+              ${isActive && !isNoData
+                ? 'text-white border-transparent shadow-md'
+                : isActive && isNoData
+                  ? 'bg-muted/60 text-muted-foreground border-border shadow-sm ring-1 ring-border'
+                  : isOverlay
+                    ? 'text-foreground border-border/80 hover:border-border hover:shadow-md'
+                    : 'bg-card text-muted-foreground border-border hover:text-foreground hover:border-border/70'
+              }
+            `}
+            style={isActive && !isNoData ? { backgroundColor: color, borderColor: color } : {}}
+          >
+            {isActive && !isNoData ? (
+              <Check className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={3} />
+            ) : isNoData ? (
+              <AlertTriangle
+                className={`flex-shrink-0 ${isOverlay ? 'w-4 h-4' : 'w-3 h-3'} ${isActive ? 'text-amber-500' : 'text-muted-foreground/50'}`}
+                strokeWidth={2.5}
+              />
+            ) : (
+              <span
+                className={`rounded-full flex-shrink-0 ${isOverlay ? 'w-3 h-3' : 'w-2 h-2'}`}
+                style={{ backgroundColor: color }}
+              />
+            )}
+            {label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 /**
  * Explanatory disclaimer shown below the picker when a no-data metric is active.
  * Keyed by KommuneMetric — only metrics in METRIC_NO_DATA need an entry.
@@ -123,52 +198,11 @@ export function MetricPicker({ activeMetric, onChange, compact = false }: Metric
       </div>
 
       {/* Wide list page: pill row */}
-      <div
-        role="radiogroup"
-        aria-label="Vælg indsatsområde"
-        className={compact ? 'hidden' : 'hidden md:flex flex-wrap items-center gap-1.5'}
-      >
-        {METRIC_OPTIONS.map(({ id, label, color }) => {
-          const isActive = id === activeMetric;
-          const isNoData = METRIC_NO_DATA.has(id);
-
-          return (
-            <button
-              key={id}
-              role="radio"
-              aria-checked={isActive}
-              onClick={() => onChange(id)}
-              title={isNoData ? 'Data ikke tilgængeligt på kommuneniveau' : undefined}
-              className={`
-                flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium
-                border transition-all duration-150 cursor-pointer
-                ${isActive && !isNoData
-                  ? 'text-white border-transparent shadow-sm'
-                  : isActive && isNoData
-                    ? 'bg-muted/60 text-muted-foreground border-border shadow-sm ring-1 ring-border'
-                    : 'bg-card text-muted-foreground border-border hover:text-foreground hover:border-border/70'
-                }
-              `}
-              style={isActive && !isNoData ? { backgroundColor: color, borderColor: color } : {}}
-            >
-              {isActive && !isNoData ? (
-                <Check className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={3} />
-              ) : isNoData ? (
-                <AlertTriangle
-                  className={`w-3 h-3 flex-shrink-0 ${isActive ? 'text-amber-500' : 'text-muted-foreground/50'}`}
-                  strokeWidth={2.5}
-                />
-              ) : (
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: color, opacity: 0.6 }}
-                />
-              )}
-              {label}
-            </button>
-          );
-        })}
-      </div>
+      {!compact && (
+        <div className="hidden md:block">
+          <MetricDotPicker activeMetric={activeMetric} onChange={onChange} />
+        </div>
+      )}
 
       {disclaimer && (
         <div

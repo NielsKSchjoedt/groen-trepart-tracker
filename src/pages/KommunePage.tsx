@@ -1,8 +1,7 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Hand, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { ViewSwitcher } from '@/components/ViewSwitcher';
-import { HintCallout } from '@/components/HintCallout';
 import type { KommuneMetrics } from '@/lib/types';
 import { MetricPicker } from '@/components/MetricPicker';
 import { ChapterSection } from '@/components/ChapterSection';
@@ -50,7 +49,6 @@ export default function KommunePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const heroSentinelRef = useRef<HTMLDivElement>(null);
   const pendingScrollRestore = useRef(consumeKommuneListReturnState());
-  const [hintDismissed, setHintDismissed] = useState(false);
 
   const mapView = useMemo(() => parseKommuneMapViewState(searchParams), [searchParams]);
   const {
@@ -144,7 +142,6 @@ export default function KommunePage() {
   };
 
   const handleMetricChange = (metric: KommuneMetric) => {
-    setHintDismissed(true);
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       resetMapViewParamsForMetric(next, metric);
@@ -249,6 +246,7 @@ export default function KommunePage() {
             natureLayer={natureLayer}
             onNatureLayerChange={setNatureLayer}
             onSelect={handleSelect}
+            onMetricChange={handleMetricChange}
             dashboard={data}
             selectedPhases={selectedPhases}
             mapOverlays={mapOverlays}
@@ -263,6 +261,7 @@ export default function KommunePage() {
             onSupplementsChange={setActiveSupplements}
             compactMapControls
             filterControls={
+              activeMetric !== null ? (
               <>
                 <div className="relative w-full">
                   <MetricPicker
@@ -270,16 +269,6 @@ export default function KommunePage() {
                     onChange={handleMetricChange}
                     compact
                   />
-
-                  {activeMetric === null && !hintDismissed && (
-                    <HintCallout
-                      icon={Hand}
-                      text="Vælg et indsatsområde for at se data på kortet og i tabellen"
-                      arrow="left"
-                      onDismiss={() => setHintDismissed(true)}
-                      className="absolute left-1/2 -translate-x-1/2 -bottom-12 sm:left-auto sm:translate-x-0 sm:right-0 sm:bottom-auto sm:-top-1"
-                    />
-                  )}
                 </div>
 
                 {activeMetric === 'co2' && (
@@ -307,6 +296,7 @@ export default function KommunePage() {
                   </MetricDisclaimer>
                 )}
               </>
+              ) : undefined
             }
           />
         </section>

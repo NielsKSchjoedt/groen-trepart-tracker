@@ -14,6 +14,7 @@ import {
   KommuneNatureLayerDisclaimer,
 } from '@/components/KommuneMapControls';
 import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import { MetricDotPicker } from '@/components/MetricPicker';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
 import { getPillarConfig } from '@/lib/pillars';
 import type { SelectedProject } from '@/lib/project-selection';
@@ -57,6 +58,8 @@ interface KommuneMapSectionProps {
   natureLayer: NatureLayerKey;
   onNatureLayerChange: (layer: NatureLayerKey) => void;
   onSelect: (kode: string) => void;
+  /** When set, show delmål dots on the map until a metric is chosen (kommune list page). */
+  onMetricChange?: (metric: KommuneMetric) => void;
   /** Tier 1: MARS project overlay. */
   dashboard?: DashboardData | null;
   selectedPhases?: Set<KommunePhase>;
@@ -106,6 +109,7 @@ export function KommuneMapSection({
   natureLayer,
   onNatureLayerChange,
   onSelect,
+  onMetricChange,
   dashboard = null,
   selectedPhases = new Set(['established']),
   activeSupplements = new Set(),
@@ -422,14 +426,28 @@ export function KommuneMapSection({
       {() => (
         <>
           {activeMetric === null && (
-            <div className="absolute inset-0 z-20 rounded-2xl bg-background/80 backdrop-blur-[2px] flex items-center justify-center pointer-events-none">
-              <div className="text-center space-y-2 px-4">
-                <MapPin className="w-8 h-8 mx-auto text-muted-foreground/40" />
-                <p className="text-sm font-medium text-muted-foreground">Vælg et indsatsområde ovenfor</p>
-                <p className="text-xs text-muted-foreground/70">
-                  Kortet viser data, når du vælger kvælstof, lavbund, skovrejsning m.fl.
-                </p>
-              </div>
+            <div className="absolute inset-0 z-20 rounded-2xl bg-background/70 backdrop-blur-[3px] flex items-center justify-center p-4 sm:p-6">
+              {onMetricChange ? (
+                <div className="text-center space-y-4 max-w-lg pointer-events-auto">
+                  <p className="text-sm font-semibold text-foreground">Vælg et delmål</p>
+                  <MetricDotPicker
+                    activeMetric={null}
+                    onChange={onMetricChange}
+                    variant="overlay"
+                  />
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Kortet og tabellen farvelægges, når du har valgt et indsatsområde.
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center space-y-2 px-4 pointer-events-none">
+                  <MapPin className="w-8 h-8 mx-auto text-muted-foreground/40" />
+                  <p className="text-sm font-medium text-muted-foreground">Vælg et indsatsområde ovenfor</p>
+                  <p className="text-xs text-muted-foreground/70">
+                    Kortet viser data, når du vælger kvælstof, lavbund, skovrejsning m.fl.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
