@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-06-14T07:31:06.966163+00:00",
-  "builtAt": "2026-06-14T07:39:34.366845+00:00",
+  "fetchedAt": "2026-06-15T07:50:20.552091+00:00",
+  "builtAt": "2026-06-15T08:10:01.242329+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-06-14T07:31:06.966163+00:00"
+      "fetchedAt": "2026-06-15T07:50:20.552091+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-06-14T07:31:48.561788+00:00"
+      "fetchedAt": "2026-06-15T07:51:04.157149+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-06-14T07:32:35.887588+00:00"
+      "fetchedAt": "2026-06-15T08:03:06.583564+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-06-14T07:31:51.796843+00:00"
+      "fetchedAt": "2026-06-15T07:51:07.511522+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-06-14T07:32:19.222232Z"
+      "fetchedAt": "2026-06-15T07:51:38.228727Z"
     }
   },
   "national": {
@@ -151,7 +151,7 @@
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 2778.8,
+              "ha": 2781.2,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1528,
+      "total": 1529,
       "phases": {
         "sketches": {
           "count": 5272,
@@ -310,7 +310,7 @@
           "implemented": false
         },
         "assessed": {
-          "count": 890,
+          "count": 891,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
@@ -815,19 +815,19 @@
         "region": "Region Nordjylland",
         "nitrogenT": 0.0,
         "extractionHa": 836.9,
-        "afforestationMarsHa": 33.9,
+        "afforestationMarsHa": 36.4,
         "afforestationKsfHa": 8.0,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 41.9,
+        "afforestationTotalHa": 44.4,
         "section3Ha": 6465.4,
         "natura2000Ha": 1865.3,
         "naturePotentialHa": 8330.8,
         "co2EstimatedT": 396766.9,
-        "projectCount": 51,
+        "projectCount": 52,
         "projectsByPhase": {
           "sketches": 35,
           "assessed": 3,
-          "approved": 13,
+          "approved": 14,
           "established": 0
         },
         "byPhase": {
@@ -846,8 +846,8 @@
           "approved": {
             "nitrogenT": 0.0,
             "extractionHa": 84.0,
-            "afforestationHa": 33.9,
-            "count": 13
+            "afforestationHa": 36.4,
+            "count": 14
           },
           "established": {
             "nitrogenT": 0.0,
@@ -5243,19 +5243,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 34.6,
-        "approved": 514.0,
+        "approved": 516.5,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 10089.0,
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 640,
-        "assessed": 169,
+        "assessed": 170,
         "approved": 140,
         "established": 7,
         "byStatus": {
           "preliminary": 140,
-          "approved": 169,
+          "approved": 170,
           "established": 7
         }
       },
@@ -11580,6 +11580,26 @@
           "lastChanged": "2026-06-12T06:24:48.30377+00:00",
           "kommuneKode": "0773",
           "kommuneNavn": "Morsø"
+        },
+        {
+          "id": "f1da7d58-ae81-4e2d-be32-ba42eb6d053f",
+          "name": "Hebbelstrupvej 243",
+          "geoId": "406363e2-15c9-43ee-b64e-f41cbf5db8a4",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 2.48,
+          "areaHa": 2.48,
+          "appliedAt": "2026-01-16T12:00:00+00:00",
+          "lastChanged": "2026-06-15T06:38:02.870894+00:00",
+          "kommuneKode": "0810",
+          "kommuneNavn": "Brønderslev"
         }
       ],
       "sketchProjects": [
@@ -152069,7 +152089,7 @@
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 640,
-        "assessed": 169,
+        "assessed": 170,
         "approved": 140,
         "established": 7
       },
@@ -158393,6 +158413,26 @@
           "lastChanged": "2026-06-12T06:24:48.30377+00:00",
           "kommuneKode": "0773",
           "kommuneNavn": "Morsø"
+        },
+        {
+          "id": "f1da7d58-ae81-4e2d-be32-ba42eb6d053f",
+          "name": "Hebbelstrupvej 243",
+          "geoId": "406363e2-15c9-43ee-b64e-f41cbf5db8a4",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 2.48,
+          "areaHa": 2.48,
+          "appliedAt": "2026-01-16T12:00:00+00:00",
+          "lastChanged": "2026-06-15T06:38:02.870894+00:00",
+          "kommuneKode": "0810",
+          "kommuneNavn": "Brønderslev"
         }
       ],
       "sketchProjects": [
