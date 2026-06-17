@@ -42937,21 +42937,21 @@
     "id": "e657bbe8-581e-4e5e-92bd-e39cc965c2f2",
     "name": "Limfjorden",
     "geoLocationId": "e7762bdb-1ef7-4fbe-a745-b21e7996f92e",
-    "totalNitrogenReductionT": 1274.497386588632,
+    "totalNitrogenReductionT": 1274.5294953402513,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 10088.569114475036,
     "countApprovedProjects": 140,
-    "countAssessedProjects": 170,
+    "countAssessedProjects": 171,
     "countEstablishedProjects": 7,
     "countSketchProjects": 640,
     "countNaturePotentials": 8,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 4.1420804363695165,
+        "nitrogenReductionT": 4.174189187988869,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 551.1033803239018
+        "afforestationEffortHa": 554.8236931419735
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -48688,6 +48688,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2026-01-16T12:00:00+00:00",
         "lastStateChanged": "2026-06-15T06:38:02.870894+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "30c6ba9b-52fd-4135-8f76-42d9d8536566",
+        "projectName": "Hulgårde 6",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.03210875161935251,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 3.7203128180717178,
+        "overlappingAreaHa": 3.7203128180717178,
+        "supplGeo1OverlappingAreaHa": 3.415813633342737,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "e331703d-294e-4388-ba5a-79c87de2400a",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-05-19T12:00:00+00:00",
+        "lastStateChanged": "2026-06-16T13:49:36.558182+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }

@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-06-16T07:51:37.767243+00:00",
-  "builtAt": "2026-06-16T08:01:48.820139+00:00",
+  "fetchedAt": "2026-06-17T07:43:17.676360+00:00",
+  "builtAt": "2026-06-17T07:52:17.389304+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-06-16T07:51:37.767243+00:00"
+      "fetchedAt": "2026-06-17T07:43:17.676360+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-06-16T07:52:33.347677+00:00"
+      "fetchedAt": "2026-06-17T07:44:05.808164+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-06-16T07:53:40.052376+00:00"
+      "fetchedAt": "2026-06-17T07:45:04.949194+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-06-16T07:52:36.951969+00:00"
+      "fetchedAt": "2026-06-17T07:44:09.345384+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-06-16T07:53:15.920223Z"
+      "fetchedAt": "2026-06-17T07:44:44.102485Z"
     }
   },
   "national": {
@@ -151,7 +151,7 @@
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 2781.2,
+              "ha": 2785.0,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1531,
+      "total": 1532,
       "phases": {
         "sketches": {
           "count": 5272,
@@ -310,7 +310,7 @@
           "implemented": false
         },
         "assessed": {
-          "count": 891,
+          "count": 892,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
@@ -4509,21 +4509,21 @@
         "kode": "0787",
         "navn": "Thisted",
         "region": "Region Nordjylland",
-        "nitrogenT": 155.0,
+        "nitrogenT": 155.1,
         "extractionHa": 3185.9,
-        "afforestationMarsHa": 86.3,
+        "afforestationMarsHa": 90.0,
         "afforestationKsfHa": 18.7,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 105.0,
+        "afforestationTotalHa": 108.7,
         "section3Ha": 26559.5,
         "natura2000Ha": 16938.8,
         "naturePotentialHa": 43498.3,
         "co2EstimatedT": 483577.2,
-        "projectCount": 168,
+        "projectCount": 169,
         "projectsByPhase": {
           "sketches": 126,
           "assessed": 15,
-          "approved": 27,
+          "approved": 28,
           "established": 0
         },
         "byPhase": {
@@ -4540,10 +4540,10 @@
             "count": 15
           },
           "approved": {
-            "nitrogenT": 32.5,
+            "nitrogenT": 32.6,
             "extractionHa": 912.1,
-            "afforestationHa": 86.3,
-            "count": 27
+            "afforestationHa": 90.0,
+            "count": 28
           },
           "established": {
             "nitrogenT": 0.0,
@@ -5243,19 +5243,19 @@
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
         "established": 34.6,
-        "approved": 516.5,
+        "approved": 520.2,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 10089.0,
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 640,
-        "assessed": 170,
+        "assessed": 171,
         "approved": 140,
         "established": 7,
         "byStatus": {
           "preliminary": 140,
-          "approved": 170,
+          "approved": 171,
           "established": 7
         }
       },
@@ -11600,6 +11600,26 @@
           "lastChanged": "2026-06-15T06:38:02.870894+00:00",
           "kommuneKode": "0810",
           "kommuneNavn": "Brønderslev"
+        },
+        {
+          "id": "30c6ba9b-52fd-4135-8f76-42d9d8536566",
+          "name": "Hulgårde 6",
+          "geoId": "e331703d-294e-4388-ba5a-79c87de2400a",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.032,
+          "extractionHa": 0,
+          "afforestationHa": 3.72,
+          "areaHa": 3.72,
+          "appliedAt": "2026-05-19T12:00:00+00:00",
+          "lastChanged": "2026-06-16T13:49:36.558182+00:00",
+          "kommuneKode": "0787",
+          "kommuneNavn": "Thisted"
         }
       ],
       "sketchProjects": [
@@ -152129,7 +152149,7 @@
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 640,
-        "assessed": 170,
+        "assessed": 171,
         "approved": 140,
         "established": 7
       },
@@ -158473,6 +158493,26 @@
           "lastChanged": "2026-06-15T06:38:02.870894+00:00",
           "kommuneKode": "0810",
           "kommuneNavn": "Brønderslev"
+        },
+        {
+          "id": "30c6ba9b-52fd-4135-8f76-42d9d8536566",
+          "name": "Hulgårde 6",
+          "geoId": "e331703d-294e-4388-ba5a-79c87de2400a",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.032,
+          "extractionHa": 0,
+          "afforestationHa": 3.72,
+          "areaHa": 3.72,
+          "appliedAt": "2026-05-19T12:00:00+00:00",
+          "lastChanged": "2026-06-16T13:49:36.558182+00:00",
+          "kommuneKode": "0787",
+          "kommuneNavn": "Thisted"
         }
       ],
       "sketchProjects": [
