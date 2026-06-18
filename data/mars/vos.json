@@ -1748,11 +1748,11 @@
     "id": "871d818f-613d-437e-ae6d-81651f2b0ee4",
     "name": "Vadehavet",
     "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
-    "totalNitrogenReductionT": 470.59533820271173,
+    "totalNitrogenReductionT": 548.8820567077194,
     "totalExtractionEffortHa": null,
     "totalAfforestationEffortHa": null,
     "totalNaturePotentialAreaHa": 13950.624826040177,
-    "countApprovedProjects": 58,
+    "countApprovedProjects": 59,
     "countAssessedProjects": 92,
     "countEstablishedProjects": 13,
     "countSketchProjects": 364,
@@ -1778,8 +1778,8 @@
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 149.67844637061773,
-        "extractionEffortHa": 617.4149807279956,
+        "nitrogenReductionT": 227.9651648756253,
+        "extractionEffortHa": 651.745127936065,
         "afforestationEffortHa": 0
       },
       {
@@ -4721,6 +4721,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2026-02-03T12:00:00+00:00",
         "lastStateChanged": "2026-06-15T09:03:10.854144+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "0541f1dc-efbf-4c1e-94d9-47098a598a5c",
+        "projectName": "Tilløb til Ribe Østerå - kvælstof",
+        "projectStatus": 6,
+        "nitrogenReductionT": 78.28671850500757,
+        "extractionEffortHa": 34.33014720806938,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 869.8524278333977,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "dbe5121b-f320-4de7-88ec-ff4a57e02019",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2025-12-11T12:00:00+00:00",
+        "lastStateChanged": "2026-06-17T12:22:36.026918+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
