@@ -9,6 +9,7 @@
       "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
       "description": "Du kan hos Styrelsen for Grøn Arealomlægning og Vandmiljø søge om tilskud til Permanent Ekstensivering. Formålet med tilskudsordningen er at udtage landbrugsjorde permanent, for at reducere klimapåvirkningen, kvælstofudledningen og fremme biodiversiteten. Tilskudsordningen kan søges af privatpersoner, private selskaber og driftsformer, offentlige myndigheder samt vandforsyningsselskaber og menighedsråd der er ejer af det pågældende område.",
       "url": "https://lbst.dk/tilskud/tilskudsguide/2014-22/permanent-ekstensivering",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -44,7 +45,7 @@
           "minNitrogenReductionT": null
         }
       ],
-      "active": true,
+      "active": false,
       "allowPrivateUserApply": true,
       "allowPrivateCompanyApply": true,
       "allowMunicipalityApply": true,
@@ -67,6 +68,7 @@
       "mitigationMeasureId": "72688c3e-2616-48a3-b1a1-8869f12c5ec1",
       "description": "Øvrig udtagning er ikke en tilskudsordning du kan søge, men en mulighed for at registrere arealer der ikke finansieres af en tilskudsordning, men som bidrager til udtagningsindsatsen. Det kan f.eks. være arealer der er finansieret af fonde og/eller private lodsejere.",
       "url": null,
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -93,15 +95,6 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "aa8462b4-ace8-4bc8-9960-a6aa5137410d",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
           "id": "0f13bcc7-ec58-4259-b923-779337e62986",
           "title": "Drænopland",
           "type": "draenopland",
@@ -118,6 +111,15 @@
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "aa8462b4-ace8-4bc8-9960-a6aa5137410d",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
         }
       ]
     },
@@ -130,6 +132,7 @@
       "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
       "description": "Du kan søge tilskud til at lave et Klima-lavbundsprojekt hos Styrelsen for Grøn Arealomlægning og Vandmiljø. Et Klima-lavbundsprojekt har til formål at udtage kulstofrige lavbundsjorde for at reducere landbrugets udledning af drivhusgasser samt understøtte natur-, vandmiljø- og øvrige klimaformål. Tilskudsordningen hos SGAV kan søges af kommuner, lodsejere og fonde.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -146,7 +149,7 @@
       "requiredCarbonOverlapPercentage": 60,
       "applicationPeriods": [],
       "subsidySchemeOverlaps": [],
-      "active": true,
+      "active": false,
       "allowPrivateUserApply": true,
       "allowPrivateCompanyApply": true,
       "allowMunicipalityApply": true,
@@ -168,18 +171,18 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "26128134-9374-4690-833c-b8abce7ccc32",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "d4f52269-d962-4f1f-b267-eb4d4173e9af",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "d4f52269-d962-4f1f-b267-eb4d4173e9af",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "26128134-9374-4690-833c-b8abce7ccc32",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -189,13 +192,14 @@
     },
     {
       "id": "1f60c9e0-12a6-437c-ad6e-4e86397ac9b5",
-      "name": "Lavbundsprojekt (VLP)",
+      "name": "Lavbundsprojekt (VLP-VKP)",
       "organization": "SGAV",
       "ownerVat": "DK20814616",
       "flowNr": 4,
       "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-      "description": "Du kan søge tilskud til et Lavbundsprojekt (VLP) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et lavbundsprojekt har til formål at udtage kulstofrige lavbundsjorde for at reducere drivhusgasudledning, fjerne kvælstof og til forbedring af natur. Tilskudsordningen kan søges af kommuner og Naturstyrelsen.",
+      "description": "Du kan søge tilskud til et Lavbundsprojekt (VLP-VKP) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et lavbundsprojekt har til formål at udtage kulstofrige lavbundsjorde for at reducere drivhusgasudledning, fjerne kvælstof og til forbedring af natur. Tilskudsordningen kan søges af kommuner og Naturstyrelsen.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+      "childScheme": true,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -226,18 +230,18 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "aefaeda1-ab79-4a45-a821-e0fe262fee43",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "1551b990-b6f3-4649-85c5-935869542b9b",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "1551b990-b6f3-4649-85c5-935869542b9b",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "aefaeda1-ab79-4a45-a821-e0fe262fee43",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -263,6 +267,7 @@
       "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
       "description": "Minivådområder er en tilskudsordning der kan søges hos Styrelsen for Grøn Arealomlægning og Vandmiljø. Formålet med tilskudsordningen er at forbedre vandmiljøet ved at reducere kvælstof og fosfor fra markernes drænvand. Tilskudsordningen kan søges af private og kan også gennemføres med flere lodsejere. Minivådområdet skal være placeret inden for områder, der er udpeget som ’egnet’ eller ’potentielt egnet’.",
       "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -303,15 +308,6 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "79c74143-68c7-4f93-89ba-099587a08c0a",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
           "id": "7eb889d4-e427-41e5-9e1e-fc856b48866d",
           "title": "Drænopland",
           "type": "draenopland",
@@ -328,18 +324,28 @@
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "79c74143-68c7-4f93-89ba-099587a08c0a",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
         }
       ]
     },
     {
       "id": "29852eac-95b4-47e0-ac4a-3e0c60d0d5e9",
-      "name": "Kvælstofvådområde (VLP)",
+      "name": "Kvælstofvådområde (VLP-VKP)",
       "organization": "SGAV",
       "ownerVat": "DK20814616",
       "flowNr": 4,
       "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-      "description": "Du kan søge tilskud til et Kvælstofvådområde (VLP) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (VLP). Et kvælstofvådområde har til formål at genskabe naturlige vandforhold, så udledningen af kvælstof til vores kystvande, fjorde og søer mindskes. Kvælstofvådområdeordningen kan søges af kommuner og Naturstyrelsen, som gennemfører projekterne gennem frivillige aftaler med lodsejere.",
+      "description": "Du kan søge tilskud til et Kvælstofvådområde (VLP-VKP) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et kvælstofvådområde har til formål at genskabe naturlige vandforhold, så udledningen af kvælstof til vores kystvande, fjorde og søer mindskes. Kvælstofvådområdeordningen kan søges af kommuner og Naturstyrelsen, som gennemfører projekterne gennem frivillige aftaler med lodsejere.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+      "childScheme": true,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -500,7 +506,8 @@
       "flowNr": 4,
       "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
       "description": "Du kan søge tilskud til et Lavbundsprojekt (VLP-KLA) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et lavbundsprojekt har til formål at udtage kulstofrige lavbundsjorde for at reducere landbrugets udledning af drivhusgasser samt understøtte natur-, vandmiljø- og øvrige klimaformål. Tilskudsordningen hos SGAV yder tilskud til private og offentlige lodsejere, og giver ikke tilskud til jordfordeling.",
-      "url": "-",
+      "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/vaadomraader-og-lavbundsprojekter-2026",
+      "childScheme": true,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -531,9 +538,9 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "17f826dc-7aeb-4de0-ad2a-3693ef42ec4d",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "5e2f32f5-4e91-4e95-84c2-63dc115abb42",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -549,9 +556,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "5e2f32f5-4e91-4e95-84c2-63dc115abb42",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "17f826dc-7aeb-4de0-ad2a-3693ef42ec4d",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -561,13 +568,14 @@
     },
     {
       "id": "487cb49b-3b3a-4ba5-bd8d-25d014df8b60",
-      "name": "Restaurering af ådale (VLP)",
+      "name": "Restaurering af ådale (VLP-VKP)",
       "organization": "SGAV",
       "ownerVat": "DK20814616",
       "flowNr": 4,
       "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
-      "description": "Ordningen om tilskud til Restaurering af ådale (VLP) administreres af Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Projekter om restaurering af ådale har til formål at forbedre fysiske forhold i vandløb, til fjernelse af kvælstof og fosfor samt til reduktion af drivhusgasudledning. Kommuner kan søge om tilskud til Restaurering af ådale, såfremt ådalen er beliggende i et af de 10 vandområder med indsatsen ”Restaurering af ådale”.",
+      "description": "Ordningen om tilskud til Restaurering af ådale (VLP-VKP) administreres af Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Projekter om restaurering af ådale har til formål at forbedre fysiske forhold i vandløb, til fjernelse af kvælstof og fosfor samt til reduktion af drivhusgasudledning. Kommuner kan søge om tilskud til Restaurering af ådale, såfremt ådalen er beliggende i et af de 10 vandområder med indsatsen ”Restaurering af ådale”.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/restaurering-af-aadale",
+      "childScheme": true,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -598,9 +606,9 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "4f4caae2-9d1f-46d8-b7c2-d3594b725dc7",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "df572f77-9fb3-4f1a-bd92-6d7bb12f5335",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -616,9 +624,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "df572f77-9fb3-4f1a-bd92-6d7bb12f5335",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "4f4caae2-9d1f-46d8-b7c2-d3594b725dc7",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -635,6 +643,7 @@
       "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
       "description": "Et skovrejsningsprojekt har til formål at støtte det nationale mål om etablering af 250.000 ha skov inden 2045, og bidrager samtidig til en reduktion af kvælstofudledningen. NST har modtaget en særskilt bevilling til statslig skovrejsning. Naturstyrelsen indgår aftaler med private lodsejere i samarbejde med kommuner og landbrugets organisationer.",
       "url": "https://naturstyrelsen.dk/ny-natur/skovrejsning",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -679,6 +688,7 @@
       "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
       "description": "Ordningen om tilskud til Restaurering af ådale administreres af Styrelsen for Grøn Arealomlægning og Vandmiljø, som vurderer det natur- og miljøfaglige indhold af ansøgninger om tilskud til gennemførelse af projekter om restaurering af ådale på baggrund af fastsatte kriterier. Kommuner kan søge om tilskud til Restaurering af ådale, såfremt ådalen er beliggende i et af de 10 vandområder med indsatsen ”Restaurering af ådale.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/restaurering-af-aadale",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": "https://lbst.dk/tilskud/tast-selv",
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -721,7 +731,7 @@
           "minNitrogenReductionT": null
         }
       ],
-      "active": true,
+      "active": false,
       "allowPrivateUserApply": true,
       "allowPrivateCompanyApply": true,
       "allowMunicipalityApply": true,
@@ -744,18 +754,18 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "669022f6-e465-4883-ae6d-2300d3c5d3ca",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "ff4f24dd-12dd-4d56-85b8-49c3071f8e39",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "ff4f24dd-12dd-4d56-85b8-49c3071f8e39",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "669022f6-e465-4883-ae6d-2300d3c5d3ca",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -772,6 +782,7 @@
       "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
       "description": "Du kan søge tilskud til at lave et skovrejsningsprojekt hos Styrelsen for Grøn Arealomlægning og Vandmiljø.  Den nye ordning for skovrejsning har til formål at støtte op om det nationale mål om at etablere 250.000 ha skov inden 2045, og bidrager samtidig til en reduktion af kvælstofudledningen. Tilskuddet kan søges af offentlige institutioner, lodsejere og private fonde.",
       "url": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -849,13 +860,17 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "24118614-790a-47bf-9ee4-2cfbc369399f",
-          "title": "Ekstra tilskudsareal",
-          "type": "ekstra_tilskudsarealer",
-          "automatic": false,
+          "id": "d01155c9-d4c3-49f4-bb26-7ce14a10051c",
+          "title": "Tilskudsberettiget areal",
+          "type": null,
+          "automatic": true,
           "clipToProjectGeometry": true,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
+          "mustOverlapWithDatasets": [
+            "urn:dmp:ds:marker-by-year"
+          ],
+          "mustNotOverlapWithDatasets": [
+            "urn:dmp:ds:beskyttede-naturtyper"
+          ]
         },
         {
           "id": "e7efc037-cda0-4262-9c95-39dd234b77ef",
@@ -871,9 +886,9 @@
           ]
         },
         {
-          "id": "34bb2b32-1f55-4fe7-9d61-f2abd8fc5e5b",
-          "title": "Lysåbne arealer",
-          "type": "lysaabne_arealer",
+          "id": "434633e0-4241-4f38-b451-f2b45b70ebd4",
+          "title": "Urørt skov",
+          "type": "uroert_skov",
           "automatic": false,
           "clipToProjectGeometry": true,
           "mustOverlapWithDatasets": null,
@@ -889,38 +904,35 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "434633e0-4241-4f38-b451-f2b45b70ebd4",
-          "title": "Urørt skov",
-          "type": "uroert_skov",
+          "id": "24118614-790a-47bf-9ee4-2cfbc369399f",
+          "title": "Ekstra tilskudsareal",
+          "type": "ekstra_tilskudsarealer",
           "automatic": false,
           "clipToProjectGeometry": true,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "d01155c9-d4c3-49f4-bb26-7ce14a10051c",
-          "title": "Tilskudsberettiget areal",
-          "type": null,
-          "automatic": true,
+          "id": "34bb2b32-1f55-4fe7-9d61-f2abd8fc5e5b",
+          "title": "Lysåbne arealer",
+          "type": "lysaabne_arealer",
+          "automatic": false,
           "clipToProjectGeometry": true,
-          "mustOverlapWithDatasets": [
-            "urn:dmp:ds:marker-by-year"
-          ],
-          "mustNotOverlapWithDatasets": [
-            "urn:dmp:ds:beskyttede-naturtyper"
-          ]
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
         }
       ]
     },
     {
       "id": "85a6111a-4270-44d0-b6d8-a36fafc72175",
-      "name": "Fosforvådområde (VLP)",
+      "name": "Fosforvådområde (VLP-VKP)",
       "organization": "SGAV",
       "ownerVat": "DK20814616",
       "flowNr": 4,
       "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
-      "description": "Du kan søge tilskud til et Fosforvådområde (VLP) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et fosforvådområde har til formål at genskabe naturlige vandforhold, så udledningen af fosfor til vores kystvande, fjorde og søer mindskes. Fosforvådområdeordningen kan søges af kommuner og Naturstyrelsen, som gennemfører projekterne gennem frivillige aftaler med lodsejere.",
+      "description": "Du kan søge tilskud til et Fosforvådområde (VLP-VKP) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et fosforvådområde har til formål at genskabe naturlige vandforhold, så udledningen af fosfor til vores kystvande, fjorde og søer mindskes. Fosforvådområdeordningen kan søges af kommuner og Naturstyrelsen, som gennemfører projekterne gennem frivillige aftaler med lodsejere.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+      "childScheme": true,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -951,9 +963,9 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "5756d34f-bf97-4c43-80d5-256eef1554e1",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "e07e1221-c2b3-43ef-bc34-3b8033f400c3",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -969,9 +981,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "e07e1221-c2b3-43ef-bc34-3b8033f400c3",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "5756d34f-bf97-4c43-80d5-256eef1554e1",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -988,6 +1000,7 @@
       "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
       "description": "Du kan søge tilskud til lavbundsprojekter hos Styrelsen for Grøn Arealomlægning og Vandmiljøs ordning Vand- og Klimaprojekter. Formålet med tilskudsordningen er at reducere drivhusgasudledning, fjerne kvælstof og til forbedring af natur. Tilskudsordningen kan søges af kommuner og Naturstyrelsen.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": "https://lbst.dk/tilskud/tast-selv",
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -1015,7 +1028,7 @@
         }
       ],
       "subsidySchemeOverlaps": [],
-      "active": true,
+      "active": false,
       "allowPrivateUserApply": true,
       "allowPrivateCompanyApply": true,
       "allowMunicipalityApply": true,
@@ -1028,6 +1041,15 @@
       "generateReport": false,
       "flowType": "full",
       "supplementaryGeometryTypes": [
+        {
+          "id": "2d3ea0d2-1db5-491c-9a55-a714f154ef5e",
+          "title": "Drænopland",
+          "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
         {
           "id": "9c8d69a5-4af2-4eed-9538-104500844d98",
           "title": "Vandløbsopland",
@@ -1045,15 +1067,6 @@
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "2d3ea0d2-1db5-491c-9a55-a714f154ef5e",
-          "title": "Drænopland",
-          "type": "draenopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
         }
       ]
     },
@@ -1066,6 +1079,7 @@
       "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
       "description": "Du kan søge tilskud til at lave et kvælstofvådområde under Styrelsen for Grøn Arealomlægning og Vandmiljøs ordning til Vand- og Klimaprojekter. Et kvælstofvådområde har til formål at genskabe naturlige vandforhold, så udledningen af kvælstof til vores kystvande, fjorde og søer mindskes. Kvælstofvådområdeordningen kan søges af kommuner og Naturstyrelsen, som gennemfører projekterne gennem frivillige aftaler med lodsejere.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": "https://lbst.dk/tilskud/tast-selv",
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -1106,7 +1120,7 @@
           "minNitrogenReductionT": 0
         }
       ],
-      "active": true,
+      "active": false,
       "allowPrivateUserApply": true,
       "allowPrivateCompanyApply": true,
       "allowMunicipalityApply": true,
@@ -1156,7 +1170,8 @@
       "flowNr": 4,
       "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
       "description": "Du kan søge tilskud til et Kvælstofvådområde (VLP-KLA) hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Et kvælstofvådområde har til formål at genskabe naturlige vandforhold, så udledningen af kvælstof til vores kystvande, fjorde og søer mindskes. Tilskudsordningen hos SGAV yder tilskud til private og offentlige lodsejere, og der gives ikke tilskud til jordfordeling.",
-      "url": "-",
+      "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/vaadomraader-og-lavbundsprojekter-2026",
+      "childScheme": true,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -1281,18 +1296,18 @@
       "flowType": "establishment",
       "supplementaryGeometryTypes": [
         {
-          "id": "548792e7-626f-4ad6-9285-2352d0bf8bc1",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "3fedb1f7-72b9-42f7-8403-726642960d86",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "3fedb1f7-72b9-42f7-8403-726642960d86",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "548792e7-626f-4ad6-9285-2352d0bf8bc1",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1318,6 +1333,7 @@
       "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
       "description": "Et kvælstofvådområdeprojekt har til formål at genskabe naturlige vandforhold, så udledningen af kvælstof til vores kystvande, fjorde og søer mindskes. Naturstyrelsen indgår aftaler med private lodsejere i samarbejde med kommuner og landbrugets organisationer.",
       "url": "https://naturstyrelsen.dk/ny-natur/vaadomraadeprojekter",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -1447,9 +1463,9 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "6b2ec3c6-086c-4363-b587-382839ad094f",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "3fd736ee-1950-42ab-bee9-d3dba70a018f",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1465,9 +1481,9 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "3fd736ee-1950-42ab-bee9-d3dba70a018f",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
+          "id": "6b2ec3c6-086c-4363-b587-382839ad094f",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -1484,6 +1500,7 @@
       "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
       "description": "Du kan søge tilskud til et KLA-lavbundsprojekt eller et kvælstofvådområdeprojekt hos Styrelsen for Grøn Arealomlægning og Vandmiljø. Et Klima-lavbundsprojekt har til formål at udtage kulstofrige lavbundsjorde for at reducere landbrugets udledning af drivhusgasser samt understøtte natur-, vandmiljø- og øvrige klimaformål. Tilskudsordningen hos SGAV yder tilskud til private og offentlige lodsejere.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": "https://f2-mobil.sgav.dk/SelfService/submission/submit/kla2_application?reset=1",
       "applicationFormUrlEstablishment": null,
@@ -1519,6 +1536,15 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
+          "id": "0b8a1e91-5bce-477e-8589-65b896bd68d2",
+          "title": "Drænopland",
+          "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "a55f8b0e-f840-4483-a68b-c3a4e76d22d3",
           "title": "Vandløbsopland",
           "type": "vandloebsopland",
@@ -1535,15 +1561,6 @@
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "0b8a1e91-5bce-477e-8589-65b896bd68d2",
-          "title": "Drænopland",
-          "type": "draenopland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
         }
       ]
     },
@@ -1556,6 +1573,7 @@
       "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
       "description": "Du kan søge tilskud til et KLA-kvælstofvådområdeprojekt hos Styrelsen for Grøn Arealomlægning og Vandmiljø. Et kvælstofvådområdeprojekt har til formål at genskabe naturlige vandforhold, så udledningen af kvælstof til vores kystvande, fjorde og søer mindskes. Tilskudsordningen hos SGAV yder tilskud til private og offentlige lodsejere.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": "https://f2-mobil.sgav.dk/SelfService/submission/submit/kla2_application?reset=1",
       "applicationFormUrlEstablishment": null,
@@ -1685,15 +1703,6 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
-          "id": "68b6cdae-2a7a-4456-ab11-8682fdac9b97",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
           "id": "d96fed81-9938-4e8b-81cb-d28f00e5ba5d",
           "title": "Drænopland",
           "type": "draenopland",
@@ -1710,6 +1719,15 @@
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
+        },
+        {
+          "id": "68b6cdae-2a7a-4456-ab11-8682fdac9b97",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
         }
       ]
     },
@@ -1722,6 +1740,7 @@
       "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
       "description": "Et Klima-lavbundsprojekt har til formål at udtage kulstofrige lavbundsjorde for at reducere landbrugets udledning af drivhusgasser samt understøtte natur-, vandmiljø- og øvrige klimaformål. Naturstyrelsen indgår aftaler med private lodsejere i samarbejde med kommuner og landbrugets organisationer.",
       "url": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -1757,6 +1776,15 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
+          "id": "25652272-cd80-49fa-88be-d192b9efe246",
+          "title": "Direkte opland",
+          "type": "direkte_opland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "004a37b7-607a-42de-9c5c-1a1c5046ae53",
           "title": "Drænopland",
           "type": "draenopland",
@@ -1773,15 +1801,6 @@
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "25652272-cd80-49fa-88be-d192b9efe246",
-          "title": "Direkte opland",
-          "type": "direkte_opland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
         }
       ]
     },
@@ -1794,6 +1813,7 @@
       "mitigationMeasureId": "72688c3e-2616-48a3-b1a1-8869f12c5ec1",
       "description": "Finansiering, f.eks. fra særbevillinger, som ikke er en del af de øvrige eksisterende bevillinger eller tilskudsmuligheder.",
       "url": null,
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -1866,6 +1886,7 @@
       "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
       "description": "Ordningen er udgået med ny Skovrejsningsordning pr. August 2025. Formålet med tilskudsordningen er at forbedre klima og miljø ved at binde CO₂, reducere kvælstof i vandmiljø og beskyttedrikkevandsressourcerne ved at plante skov. Tilskudsordningen kan søges af private lodsejere og kommuner.",
       "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -1880,7 +1901,13 @@
       "applicantText": null,
       "minAreaHa": null,
       "requiredCarbonOverlapPercentage": null,
-      "applicationPeriods": [],
+      "applicationPeriods": [
+        {
+          "startDate": "2026-06-24T08:36:00+00:00",
+          "endDate": "2026-07-25T08:36:34.98+00:00",
+          "extensionEndDate": null
+        }
+      ],
       "subsidySchemeOverlaps": [],
       "active": false,
       "allowPrivateUserApply": false,
@@ -1899,8 +1926,9 @@
       "ownerVat": "DK20814616",
       "flowNr": 3,
       "mitigationMeasureId": "41b7fa08-3361-437d-823d-8c5ca7f3ee61",
-      "description": "Du kan søge tilskud til en forundersøgelse af et udtagningsprojekt hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Forundersøgelsen skal vise, om du efterfølgende, kan søge etablering af en af følgende projekttyper: Lavbundsprojekt UDEN jordfordeling (VLP_KLA), Kvælstofvådområde UDEN jordfordeling (VLP-KLA), Lavbundsprojekt MED jordfordeling (VLP), Kvælstofvådområde MED jordfordeling (VLP), Restaurering af ådale (VLP) eller Fosforvådområder (VLP).",
-      "url": "-",
+      "description": "Du kan søge tilskud til en forundersøgelse af et udtagningsprojekt hos Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV). Forundersøgelsen skal vise, om du efterfølgende, kan søge etablering af en af følgende projekttyper: Lavbundsprojekt UDEN jordfordeling (VLP-KLA), Kvælstofvådområde UDEN jordfordeling (VLP-KLA), Lavbundsprojekt MED jordfordeling (VLP-VKP), Kvælstofvådområde MED jordfordeling (VLP-VKP), Restaurering af ådale (VLP-VKP) eller Fosforvådområder (VLP-VKP).",
+      "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/vaadomraader-og-lavbundsprojekter-2026",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -2034,18 +2062,18 @@
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "d68b59f7-4d86-41d8-9c21-f9f892eceb32",
-          "title": "Drænopland",
-          "type": "draenopland",
+          "id": "2e16d2d9-a2bb-4d0a-9e8c-bb0179a36a87",
+          "title": "Vandløbsopland",
+          "type": "vandloebsopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
           "mustNotOverlapWithDatasets": null
         },
         {
-          "id": "2e16d2d9-a2bb-4d0a-9e8c-bb0179a36a87",
-          "title": "Vandløbsopland",
-          "type": "vandloebsopland",
+          "id": "d68b59f7-4d86-41d8-9c21-f9f892eceb32",
+          "title": "Drænopland",
+          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
@@ -2062,6 +2090,7 @@
       "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
       "description": "Et fosforvådområde har til formål at genskabe naturlige vandforhold, så udledningen af fosfor til vores kystvande, fjorde og søer mindskes. Naturstyrelsen indgår aftaler med private lodsejere i samarbejde med kommuner og landbrugets organisationer.",
       "url": "https://naturstyrelsen.dk/ny-natur/vaadomraadeprojekter",
+      "childScheme": false,
       "color": "rgba(14, 71, 67, 1)",
       "applicationFormUrlPreliminaryExamination": null,
       "applicationFormUrlEstablishment": null,
@@ -2134,6 +2163,7 @@
       "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
       "description": "Du kan søge tilskud til at lave et fosforvådområde under Styrelsen for Grøn Arealomlægning og Vandmiljøs ordning til Vand- og Klimaprojekter. Et fosforvådområde har til formål at genskabe naturlige vandforhold, så udledningen af fosfor til vores kystvande, fjorde og søer mindskes. Fosforvådområdeordningerne kan søges af kommuner og Naturstyrelsen, som gennemfører projekterne gennem frivillige aftaler med lodsejere.",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+      "childScheme": false,
       "color": "rgba(0, 110, 122, 1)",
       "applicationFormUrlPreliminaryExamination": "https://lbst.dk/tilskud/tast-selv",
       "applicationFormUrlEstablishment": "https://lbst.dk/tilskud/tast-selv",
@@ -2161,7 +2191,7 @@
         }
       ],
       "subsidySchemeOverlaps": [],
-      "active": true,
+      "active": false,
       "allowPrivateUserApply": true,
       "allowPrivateCompanyApply": true,
       "allowMunicipalityApply": true,
@@ -2175,6 +2205,15 @@
       "flowType": "full",
       "supplementaryGeometryTypes": [
         {
+          "id": "15cc885b-6446-44e7-8cea-8ac7a061ad34",
+          "title": "Drænopland",
+          "type": "draenopland",
+          "automatic": false,
+          "clipToProjectGeometry": false,
+          "mustOverlapWithDatasets": null,
+          "mustNotOverlapWithDatasets": null
+        },
+        {
           "id": "21228aab-3c0f-40e2-953d-d23b6ba5ac4c",
           "title": "Vandløbsopland",
           "type": "vandloebsopland",
@@ -2187,15 +2226,6 @@
           "id": "c94bf6a1-da74-4ab8-977e-1c3d64d3a1d9",
           "title": "Direkte opland",
           "type": "direkte_opland",
-          "automatic": false,
-          "clipToProjectGeometry": false,
-          "mustOverlapWithDatasets": null,
-          "mustNotOverlapWithDatasets": null
-        },
-        {
-          "id": "15cc885b-6446-44e7-8cea-8ac7a061ad34",
-          "title": "Drænopland",
-          "type": "draenopland",
           "automatic": false,
           "clipToProjectGeometry": false,
           "mustOverlapWithDatasets": null,
