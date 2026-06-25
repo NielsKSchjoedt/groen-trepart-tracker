@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-06-24T07:06:38.006847+00:00",
-  "builtAt": "2026-06-24T07:17:53.033031+00:00",
+  "fetchedAt": "2026-06-25T07:06:48.700457+00:00",
+  "builtAt": "2026-06-25T07:18:04.014629+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-06-24T07:06:38.006847+00:00"
+      "fetchedAt": "2026-06-25T07:06:48.700457+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-06-24T07:07:37.784641+00:00"
+      "fetchedAt": "2026-06-25T07:07:49.674302+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-06-24T07:09:01.164256+00:00"
+      "fetchedAt": "2026-06-25T07:09:08.620348+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-06-24T07:07:41.802245+00:00"
+      "fetchedAt": "2026-06-25T07:07:53.751662+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-06-24T07:08:29.097343Z"
+      "fetchedAt": "2026-06-25T07:08:40.868218Z"
     }
   },
   "national": {
@@ -95,15 +95,15 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 4355.3,
-        "totalProgressPct": 34.1,
+        "totalT": 4964.3,
+        "totalProgressPct": 38.9,
         "byPhase": {
           "established": {
             "T": 27.6,
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 678.5,
+            "T": 678.4,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
@@ -144,14 +144,14 @@
       "afforestation": {
         "goalHa": 250000,
         "marsTotal": {
-          "ha": 60.0,
+          "ha": 3257.6,
           "byPhase": {
             "established": {
-              "ha": 541.0,
+              "ha": 543.2,
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 2712.2,
+              "ha": 2714.3,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1523,
+      "total": 1524,
       "phases": {
         "sketches": {
           "count": 5272,
@@ -320,7 +320,7 @@
           "implemented": false
         },
         "established": {
-          "count": 94,
+          "count": 95,
           "description": "Anlagt — physically implemented and operational",
           "implemented": true
         }
@@ -2015,19 +2015,19 @@
         "region": "Region Midtjylland",
         "nitrogenT": 49.6,
         "extractionHa": 1256.0,
-        "afforestationMarsHa": 68.5,
+        "afforestationMarsHa": 72.9,
         "afforestationKsfHa": 51.4,
         "afforestationNstHa": 185.2,
-        "afforestationTotalHa": 305.1,
+        "afforestationTotalHa": 309.5,
         "section3Ha": 12193.2,
         "natura2000Ha": 615.6,
         "naturePotentialHa": 12808.8,
         "co2EstimatedT": 657631.1,
-        "projectCount": 75,
+        "projectCount": 76,
         "projectsByPhase": {
           "sketches": 51,
           "assessed": 7,
-          "approved": 16,
+          "approved": 17,
           "established": 1
         },
         "byPhase": {
@@ -2046,8 +2046,8 @@
           "approved": {
             "nitrogenT": 12.4,
             "extractionHa": 114.5,
-            "afforestationHa": 68.5,
-            "count": 16
+            "afforestationHa": 72.9,
+            "count": 17
           },
           "established": {
             "nitrogenT": 0.6,
@@ -3695,19 +3695,19 @@
         "region": "Region Midtjylland",
         "nitrogenT": 249.6,
         "extractionHa": 3646.3,
-        "afforestationMarsHa": 154.1,
+        "afforestationMarsHa": 151.7,
         "afforestationKsfHa": 60.6,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 214.7,
+        "afforestationTotalHa": 212.3,
         "section3Ha": 21270.9,
         "natura2000Ha": 18292.9,
         "naturePotentialHa": 39563.8,
         "co2EstimatedT": 784752.8,
-        "projectCount": 70,
+        "projectCount": 69,
         "projectsByPhase": {
           "sketches": 31,
           "assessed": 13,
-          "approved": 21,
+          "approved": 20,
           "established": 5
         },
         "byPhase": {
@@ -3724,10 +3724,10 @@
             "count": 13
           },
           "approved": {
-            "nitrogenT": 32.7,
+            "nitrogenT": 32.6,
             "extractionHa": 776.9,
-            "afforestationHa": 132.2,
-            "count": 21
+            "afforestationHa": 129.9,
+            "count": 20
           },
           "established": {
             "nitrogenT": 0.1,
@@ -4607,20 +4607,20 @@
         "region": "Region Syddanmark",
         "nitrogenT": 55.9,
         "extractionHa": 3862.5,
-        "afforestationMarsHa": 48.0,
+        "afforestationMarsHa": 50.2,
         "afforestationKsfHa": 21.6,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 69.5,
+        "afforestationTotalHa": 71.8,
         "section3Ha": 11233.8,
         "natura2000Ha": 3982.5,
         "naturePotentialHa": 15216.2,
         "co2EstimatedT": 928030.2,
-        "projectCount": 47,
+        "projectCount": 48,
         "projectsByPhase": {
           "sketches": 20,
           "assessed": 6,
           "approved": 16,
-          "established": 5
+          "established": 6
         },
         "byPhase": {
           "sketch": {
@@ -4644,8 +4644,8 @@
           "established": {
             "nitrogenT": 0.1,
             "extractionHa": 0.0,
-            "afforestationHa": 20.8,
-            "count": 5
+            "afforestationHa": 23.1,
+            "count": 6
           }
         }
       },
@@ -5234,13 +5234,13 @@
         "preliminary": 1072.1
       },
       "extractionPotentialHa": 55576.8,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 29206.7,
       "extractionByPhase": {
         "established": 404.9,
         "approved": 8307.0,
         "preliminary": 20494.9
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 526.0,
       "afforestationByPhase": {
         "established": 37.1,
         "approved": 488.9,
@@ -19945,23 +19945,23 @@
       "geoLocationId": "d6d533e3-f3bf-4651-996c-179335247d98",
       "nameNormalized": "Vesterhavet, syd",
       "nitrogenGoalT": 2420.6,
-      "nitrogenAchievedT": 0,
-      "nitrogenProgressPct": 0.0,
+      "nitrogenAchievedT": 600.4,
+      "nitrogenProgressPct": 24.8,
       "nitrogenByPhase": {
-        "established": 3.1,
+        "established": 3.2,
         "approved": 68.4,
         "preliminary": 528.8
       },
       "extractionPotentialHa": 28437.1,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 15750.0,
       "extractionByPhase": {
         "established": 1.2,
         "approved": 4057.3,
         "preliminary": 11691.5
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 524.8,
       "afforestationByPhase": {
-        "established": 177.6,
+        "established": 179.9,
         "approved": 345.0,
         "preliminary": 0
       },
@@ -19971,11 +19971,11 @@
         "sketches": 448,
         "assessed": 111,
         "approved": 65,
-        "established": 18,
+        "established": 19,
         "byStatus": {
           "preliminary": 65,
           "approved": 111,
-          "established": 18
+          "established": 19
         }
       },
       "status": "Published",
@@ -23859,6 +23859,26 @@
           "lastChanged": "2026-06-22T13:22:13.564793+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "bf7846d6-a7b8-418e-bde6-e30f69ca4576",
+          "name": "Privat Skovrejsning",
+          "geoId": "c7c573d0-0826-43c6-a7b2-f7ba315a1adf",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Privat Skovrejsning",
+          "schemeOrg": "LBST",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+          "nitrogenT": 0.026,
+          "extractionHa": 0,
+          "afforestationHa": 2.26,
+          "areaHa": 2.26,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-06-24T08:53:05.814279+00:00",
+          "kommuneKode": "0550",
+          "kommuneNavn": "Tønder"
         }
       ],
       "sketchProjects": [
@@ -29862,20 +29882,20 @@
       "nitrogenProgressPct": 44.5,
       "nitrogenByPhase": {
         "established": 1.3,
-        "approved": 161.6,
+        "approved": 161.5,
         "preliminary": 791.7
       },
       "extractionPotentialHa": 24065.0,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 10610.3,
       "extractionByPhase": {
         "established": 17.3,
         "approved": 3139.1,
         "preliminary": 7453.9
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 953.1,
       "afforestationByPhase": {
         "established": 98.3,
-        "approved": 852.7,
+        "approved": 854.7,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 479.0,
@@ -31934,26 +31954,6 @@
           "kommuneNavn": "Billund"
         },
         {
-          "id": "bf7846d6-a7b8-418e-bde6-e30f69ca4576",
-          "name": "Privat Skovrejsning",
-          "geoId": "17776c7a-70f6-4efc-b642-903f82ed1809",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Privat Skovrejsning",
-          "schemeOrg": "LBST",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
-          "nitrogenT": 0.026,
-          "extractionHa": 0,
-          "afforestationHa": 2.37,
-          "areaHa": 2.37,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0760",
-          "kommuneNavn": "Ringkøbing-Skjern"
-        },
-        {
           "id": "a00a370c-6604-4022-8d4e-aee6fe4a99bf",
           "name": "Filskov øst",
           "geoId": "eae8531d-dd44-4bfb-a2e4-39300581146d",
@@ -33672,6 +33672,26 @@
           "lastChanged": "2026-06-19T10:36:55.096941+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "953d3ac9-069a-46a4-975e-50a104e029e9",
+          "name": "Døvlingvej 7",
+          "geoId": "5c783c30-c2ae-4287-9e48-fe525524bcb7",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.002,
+          "extractionHa": 0,
+          "afforestationHa": 4.45,
+          "areaHa": 4.45,
+          "appliedAt": "2026-06-12T12:00:00+00:00",
+          "lastChanged": "2026-06-24T12:53:51.7062+00:00",
+          "kommuneKode": "0657",
+          "kommuneNavn": "Herning"
         }
       ],
       "sketchProjects": [
@@ -36493,13 +36513,13 @@
         "preliminary": 118.4
       },
       "extractionPotentialHa": 13082.7,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 3546.3,
       "extractionByPhase": {
         "established": 0,
         "approved": 371.1,
         "preliminary": 3175.2
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 79.4,
       "afforestationByPhase": {
         "established": 16.4,
         "approved": 63.0,
@@ -42298,13 +42318,13 @@
         "preliminary": 331.7
       },
       "extractionPotentialHa": 5647.5,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 1445.7,
       "extractionByPhase": {
         "established": 34.3,
         "approved": 377.0,
         "preliminary": 1034.4
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 145.4,
       "afforestationByPhase": {
         "established": 17.2,
         "approved": 128.2,
@@ -50179,13 +50199,13 @@
         "preliminary": 147.7
       },
       "extractionPotentialHa": 7424.9,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 5178.6,
       "extractionByPhase": {
         "established": 0,
         "approved": 100.5,
         "preliminary": 5078.1
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 104.4,
       "afforestationByPhase": {
         "established": 88.8,
         "approved": 15.5,
@@ -52630,13 +52650,13 @@
         "preliminary": 85.3
       },
       "extractionPotentialHa": 1907.0,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 788.8,
       "extractionByPhase": {
         "established": 0,
         "approved": 369.1,
         "preliminary": 419.7
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 12.0,
       "afforestationByPhase": {
         "established": 3.1,
         "approved": 8.8,
@@ -60047,13 +60067,13 @@
         "preliminary": 61.1
       },
       "extractionPotentialHa": 982.6,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 409.2,
       "extractionByPhase": {
         "established": 0,
         "approved": 298.5,
         "preliminary": 110.7
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 31.6,
       "afforestationByPhase": {
         "established": 10.3,
         "approved": 21.3,
@@ -64981,13 +65001,13 @@
         "preliminary": 301.2
       },
       "extractionPotentialHa": 17714.2,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 7584.3,
       "extractionByPhase": {
         "established": 84.0,
         "approved": 1501.3,
         "preliminary": 5999.0
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 393.0,
       "afforestationByPhase": {
         "established": 19.2,
         "approved": 373.8,
@@ -69171,13 +69191,13 @@
         "preliminary": 122.2
       },
       "extractionPotentialHa": 2077.7,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 1554.3,
       "extractionByPhase": {
         "established": 0.7,
         "approved": 522.3,
         "preliminary": 1031.3
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 94.0,
       "afforestationByPhase": {
         "established": 8.0,
         "approved": 86.0,
@@ -70771,7 +70791,7 @@
           "geoId": "82d5970b-7c5c-42be-a016-f87f66e5ca9c",
           "phase": "sketch",
           "measureName": "Kvælstofvådområder",
-          "schemeName": "Kvælstofvådområde (VLP)",
+          "schemeName": "Kvælstofvådområde (VLP-VKP)",
           "schemeOrg": "SGAV",
           "nitrogenT": 33.965,
           "extractionHa": 6.21,
@@ -72609,13 +72629,13 @@
         "preliminary": 49.4
       },
       "extractionPotentialHa": 3092.9,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 606.3,
       "extractionByPhase": {
         "established": 18.9,
         "approved": 345.5,
         "preliminary": 241.9
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 52.1,
       "afforestationByPhase": {
         "established": 8.0,
         "approved": 44.1,
@@ -80306,13 +80326,13 @@
         "preliminary": 1.4
       },
       "extractionPotentialHa": 14213.6,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 4514.9,
       "extractionByPhase": {
         "established": 127.6,
         "approved": 396.7,
         "preliminary": 3990.7
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 31.4,
       "afforestationByPhase": {
         "established": 4.1,
         "approved": 27.3,
@@ -83191,13 +83211,13 @@
         "preliminary": 100.3
       },
       "extractionPotentialHa": 1202.6,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 97.5,
       "extractionByPhase": {
         "established": 0,
         "approved": 0.8,
         "preliminary": 96.6
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 32.3,
       "afforestationByPhase": {
         "established": 0,
         "approved": 32.3,
@@ -89665,13 +89685,13 @@
         "preliminary": 45.7
       },
       "extractionPotentialHa": 7607.8,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 1588.9,
       "extractionByPhase": {
         "established": 0,
         "approved": 101.6,
         "preliminary": 1487.3
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 29.1,
       "afforestationByPhase": {
         "established": 3.8,
         "approved": 25.3,
@@ -92591,7 +92611,7 @@
         "preliminary": 64.7
       },
       "extractionPotentialHa": 771.4,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 687.8,
       "extractionByPhase": {
         "established": 0,
         "approved": 261.8,
@@ -93504,13 +93524,13 @@
         "preliminary": 10.8
       },
       "extractionPotentialHa": 1167.5,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 83.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 29.9,
         "preliminary": 53.8
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 5.4,
       "afforestationByPhase": {
         "established": 3.3,
         "approved": 2.2,
@@ -97884,13 +97904,13 @@
         "preliminary": 6.9
       },
       "extractionPotentialHa": 944.8,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 957.8,
       "extractionByPhase": {
         "established": 0,
         "approved": 192.3,
         "preliminary": 765.5
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 3.8,
       "afforestationByPhase": {
         "established": 2.8,
         "approved": 1.1,
@@ -98969,13 +98989,13 @@
         "preliminary": 81.1
       },
       "extractionPotentialHa": 7464.4,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 3153.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 1117.5,
         "preliminary": 2036.2
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 91.4,
       "afforestationByPhase": {
         "established": 4.1,
         "approved": 87.3,
@@ -100036,13 +100056,13 @@
         "preliminary": 35.4
       },
       "extractionPotentialHa": 178.8,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 4.1,
       "extractionByPhase": {
         "established": 0,
         "approved": 2.8,
         "preliminary": 1.3
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 2.4,
       "afforestationByPhase": {
         "established": 2.4,
         "approved": 0,
@@ -101449,13 +101469,13 @@
         "preliminary": 32.0
       },
       "extractionPotentialHa": 676.2,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 97.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 0,
         "preliminary": 97.7
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 6.5,
       "afforestationByPhase": {
         "established": 4.6,
         "approved": 2.0,
@@ -102183,7 +102203,7 @@
         "preliminary": 11.9
       },
       "extractionPotentialHa": 360.9,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 151.4,
       "extractionByPhase": {
         "established": 0,
         "approved": 112.0,
@@ -102568,13 +102588,13 @@
         "preliminary": 4.2
       },
       "extractionPotentialHa": 1076.1,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 235.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 130.7,
         "preliminary": 105.0
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 20.8,
       "afforestationByPhase": {
         "established": 16.3,
         "approved": 4.5,
@@ -103862,13 +103882,13 @@
         "preliminary": 0
       },
       "extractionPotentialHa": 2081.5,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 329.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 159.2,
         "preliminary": 170.6
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 6.8,
       "afforestationByPhase": {
         "established": 0,
         "approved": 6.8,
@@ -104523,7 +104543,7 @@
         "preliminary": 0
       },
       "extractionPotentialHa": 1417.9,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 250.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 0,
@@ -105294,13 +105314,13 @@
         "preliminary": 0
       },
       "extractionPotentialHa": 578.4,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 133.1,
       "extractionByPhase": {
         "established": 0,
         "approved": 24.0,
         "preliminary": 109.2
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 1.6,
       "afforestationByPhase": {
         "established": 0,
         "approved": 1.6,
@@ -105929,13 +105949,13 @@
         "preliminary": 50.8
       },
       "extractionPotentialHa": 2762.8,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 1104.8,
       "extractionByPhase": {
         "established": 0,
         "approved": 0,
         "preliminary": 1104.8
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 5.1,
       "afforestationByPhase": {
         "established": 0,
         "approved": 5.1,
@@ -107947,7 +107967,7 @@
         "approved": 245.7,
         "preliminary": 0
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 12.3,
       "afforestationByPhase": {
         "established": 12.3,
         "approved": 0,
@@ -109306,13 +109326,13 @@
         "preliminary": 4.8
       },
       "extractionPotentialHa": 5589.4,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 2302.4,
       "extractionByPhase": {
         "established": 0,
         "approved": 0,
         "preliminary": 2302.4
       },
-      "afforestationAchievedHa": 0,
+      "afforestationAchievedHa": 33.1,
       "afforestationByPhase": {
         "established": 0,
         "approved": 33.1,
@@ -110039,7 +110059,7 @@
       "geoLocationId": "7e291ce0-d9f8-411f-a758-cd6058be1a8a",
       "nameNormalized": "Smaalandsfarvandet, syd",
       "nitrogenGoalT": 0,
-      "nitrogenAchievedT": 0,
+      "nitrogenAchievedT": 8.6,
       "nitrogenProgressPct": 0,
       "nitrogenByPhase": {
         "established": 0,
@@ -111025,28 +111045,28 @@
           "id": "1dae3843-a6a8-4d61-8423-34449d64eb3d",
           "name": "Det Bornholmske Højland - del 1",
           "areaHa": 4275.59,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.48,
+          "protectedNatureHa": 2008.33,
+          "section3Ha": 444.17,
+          "natura2000Ha": 625.16
         },
         {
           "id": "04af6485-645c-47b5-8814-927575d074aa",
           "name": "Det Bornholmske Højland - del 3",
           "areaHa": 3776.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 101.94,
+          "protectedNatureHa": 3655.95,
+          "section3Ha": 356.75,
+          "natura2000Ha": 3572.73
         },
         {
           "id": "74ef44a1-4949-4ff7-b1ad-b30f1251058b",
           "name": "Det Bornholmske Højland - del 2",
           "areaHa": 4005.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.88,
+          "protectedNatureHa": 1892.88,
+          "section3Ha": 189.44,
+          "natura2000Ha": 277.4
         }
       ]
     },
@@ -111056,8 +111076,8 @@
       "geoLocationId": "58d9dc24-0196-41ca-af1b-a4fde6011205",
       "nameNormalized": "Det Sydfynske Oehav",
       "nitrogenAchievedT": 102.5,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 120.5,
+      "afforestationAchievedHa": 37.7,
       "naturePotentialAreaHa": 11222.5,
       "countNaturePotentials": 10,
       "projects": {
@@ -119310,8 +119330,8 @@
           "name": "FMK - Den sydfynske højderyg",
           "areaHa": 288.34,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 45.79,
+          "section3Ha": 2.28,
           "natura2000Ha": 0
         },
         {
@@ -119327,46 +119347,46 @@
           "id": "76c6267d-fedf-4171-ae9e-c8f834c6aff0",
           "name": "Naturpotentialeprojekt DN/sportsfiskerne, Tåsinge",
           "areaHa": 1039.61,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.69,
+          "protectedNatureHa": 105.93,
+          "section3Ha": 52.22,
+          "natura2000Ha": 145.2
         },
         {
           "id": "41743b17-0a56-466d-9d6a-4230c07a11fc",
           "name": "FMK - Den Fynske Højderyg Midt",
           "areaHa": 21.05,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 1.95,
+          "section3Ha": 0.11,
+          "natura2000Ha": 0.03
         },
         {
           "id": "bff35da5-0b91-4e9a-952c-ac7195112d17",
           "name": "FMK - Den Fynske Højderyg Øst",
           "areaHa": 267.88,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 52.05,
+          "protectedNatureHa": 183.16,
+          "section3Ha": 69.78,
           "natura2000Ha": 0
         },
         {
           "id": "eeec3877-6768-4494-bc66-3d3c16170a28",
           "name": "FMK Den Fynske Højderyg Syd",
           "areaHa": 551.5,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 5.84,
+          "protectedNatureHa": 264.97,
+          "section3Ha": 73.75,
           "natura2000Ha": 0
         },
         {
           "id": "bf914057-5cac-45d4-9100-07c43d36eed2",
           "name": "Den Fynske Højderyg, Svendborg Kommune og DSØ",
           "areaHa": 9048.75,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 49.49,
+          "protectedNatureHa": 3412.71,
+          "section3Ha": 505.11,
+          "natura2000Ha": 137.81
         },
         {
           "id": "1c3fa855-7a6f-4f56-81c0-c094afd8112b",
@@ -119403,8 +119423,8 @@
       "geoLocationId": "9fdae150-77ba-4a9c-af6c-9b63ac9324a5",
       "nameNormalized": "Djursland",
       "nitrogenAchievedT": 105.7,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 3205.2,
+      "afforestationAchievedHa": 132.5,
       "naturePotentialAreaHa": 3752.3,
       "countNaturePotentials": 10,
       "projects": {
@@ -120640,27 +120660,27 @@
           "id": "056053e3-4544-4c1b-96db-7551250a247d",
           "name": "Hevring Naturpotentiale 1",
           "areaHa": 353.75,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 11.28,
+          "protectedNatureHa": 194.27,
+          "section3Ha": 81.34,
+          "natura2000Ha": 77.91
         },
         {
           "id": "7c2685c4-dd48-441e-a665-25ca57e34112",
           "name": "SDK: Havmølle Å Del 1",
           "areaHa": 1340.83,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 62.7,
+          "protectedNatureHa": 842.39,
+          "section3Ha": 203.35,
+          "natura2000Ha": 71.48
         },
         {
           "id": "66f7e1b7-d463-455a-9442-76d6ff1623be",
           "name": "SDK: Havmølle Å Del 2",
           "areaHa": 749.76,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 41.5,
+          "protectedNatureHa": 626.15,
+          "section3Ha": 142.8,
           "natura2000Ha": 0
         },
         {
@@ -120668,8 +120688,8 @@
           "name": "SDK: Helgenæs Øst Del 2a m lodsejerdialog",
           "areaHa": 17.87,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 1.97,
+          "section3Ha": 0.74,
           "natura2000Ha": 0
         },
         {
@@ -120677,44 +120697,44 @@
           "name": "SDK: Helgenæs Øst Del 3 afv lodsejerdialog",
           "areaHa": 73.63,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 62.57,
+          "section3Ha": 12.74,
+          "natura2000Ha": 0.66
         },
         {
           "id": "93f30961-50a1-4e02-8f9a-5a2858d4ce09",
           "name": "SDK: Helgenæs Øst Del 1 afv lodsejerdialog",
           "areaHa": 52.89,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 45.95,
+          "section3Ha": 8.59,
+          "natura2000Ha": 0.15
         },
         {
           "id": "4ca93e00-f830-4646-b56f-02fddde7f136",
           "name": "SDK: Helgenæs Øst Del 2b m lodsejerdialog",
           "areaHa": 19.93,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 1.69,
+          "section3Ha": 0.65,
           "natura2000Ha": 0
         },
         {
           "id": "1ff78318-e338-4755-8866-2c228362f1df",
           "name": "NDK Gjerrild Naturpotentiale 2",
           "areaHa": 199.97,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 1.57,
+          "protectedNatureHa": 153.57,
+          "section3Ha": 27.12,
           "natura2000Ha": 0
         },
         {
           "id": "2ba81c1b-ab82-4a40-82ba-8410da41011b",
           "name": "Naturpotentiale Hevring 2",
           "areaHa": 862.41,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 4.53,
+          "protectedNatureHa": 520.64,
+          "section3Ha": 192.4,
           "natura2000Ha": 0
         },
         {
@@ -120722,8 +120742,8 @@
           "name": "NDK: Gjerrild naturpotentiale 1",
           "areaHa": 81.3,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 10.45,
+          "section3Ha": 1.98,
           "natura2000Ha": 0
         }
       ]
@@ -120734,8 +120754,8 @@
       "geoLocationId": "ccadd213-889a-4b90-b3da-2739a427e5fd",
       "nameNormalized": "Horsens Fjord",
       "nitrogenAchievedT": 101.9,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 668.3,
+      "afforestationAchievedHa": 120.1,
       "naturePotentialAreaHa": 8018.4,
       "countNaturePotentials": 5,
       "projects": {
@@ -122814,9 +122834,9 @@
           "id": "55298716-79e6-492d-b9bb-b89d4722b6e5",
           "name": "Naturpot. Hedensted, Horsens Fj., delvis lodsejerd",
           "areaHa": 2501.14,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 29.39,
+          "protectedNatureHa": 1661.26,
+          "section3Ha": 442.49,
           "natura2000Ha": 0
         },
         {
@@ -122824,26 +122844,26 @@
           "name": "Kysing Fjord",
           "areaHa": 387.22,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 158.33,
+          "section3Ha": 129.56,
+          "natura2000Ha": 91.63
         },
         {
           "id": "397a0030-034e-441f-b1a4-dc1340708f24",
           "name": "Naturområde Hansted Ådal, uden lodsejerdialog",
           "areaHa": 2663.26,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 244.15,
+          "protectedNatureHa": 1613.85,
+          "section3Ha": 877.85,
           "natura2000Ha": 0
         },
         {
           "id": "8bdf9a6c-b086-465e-9d69-b826f5bbc97e",
           "name": "Test - Signaturprojekt Hedensted",
           "areaHa": 2466.81,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 29.39,
+          "protectedNatureHa": 1610.51,
+          "section3Ha": 438.79,
           "natura2000Ha": 0
         }
       ]
@@ -122854,8 +122874,8 @@
       "geoLocationId": "16626f60-7d48-4aa0-8846-63efddc1893c",
       "nameNormalized": "Isefjord og Roskilde Fjord",
       "nitrogenAchievedT": 123.4,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 3546.3,
+      "afforestationAchievedHa": 70.7,
       "naturePotentialAreaHa": 6509.1,
       "countNaturePotentials": 13,
       "projects": {
@@ -128146,7 +128166,7 @@
           "name": "Måløv Naturpark - Naturpotentiale",
           "areaHa": 5.88,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 5.74,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -128154,27 +128174,27 @@
           "id": "cf52ab35-9978-4fce-a0e5-1b0029d61d42",
           "name": "Naturpotentiale - Tuse Næs",
           "areaHa": 682.32,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 6.15,
+          "protectedNatureHa": 250.95,
+          "section3Ha": 115.74,
+          "natura2000Ha": 249.41
         },
         {
           "id": "2b2eab35-0eab-4b1a-8b12-3224934f9de9",
           "name": "Naturpotentiale - Tempelkrog - Elverdamsdalen",
           "areaHa": 560.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.92,
+          "protectedNatureHa": 240.54,
+          "section3Ha": 217.43,
+          "natura2000Ha": 19.88
         },
         {
           "id": "f8d8fc1a-f672-4234-9bc0-806b99c518cf",
           "name": "Kregme Mose",
           "areaHa": 38.54,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 10.98,
+          "section3Ha": 4.3,
           "natura2000Ha": 0
         },
         {
@@ -128182,17 +128202,17 @@
           "name": "Ullerup",
           "areaHa": 84.65,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 75.79,
+          "section3Ha": 1.69,
           "natura2000Ha": 0
         },
         {
           "id": "30825500-6c8b-4b47-a867-cf44fd1da109",
           "name": "Naturpotentiale Orø",
           "areaHa": 731.87,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.46,
+          "protectedNatureHa": 242.01,
+          "section3Ha": 193.41,
           "natura2000Ha": 0
         },
         {
@@ -128200,8 +128220,8 @@
           "name": "Råmosen - Naturpotentiale",
           "areaHa": 10.03,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 9.93,
+          "section3Ha": 9.5,
           "natura2000Ha": 0
         },
         {
@@ -128209,26 +128229,26 @@
           "name": "Østerhøj Naturpark - Naturpotentialer",
           "areaHa": 40.46,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 38.77,
+          "section3Ha": 17.78,
           "natura2000Ha": 0
         },
         {
           "id": "d3b2c355-3a73-4872-9739-a6680e788979",
           "name": "Naturpotentiale - Lammefjorden",
           "areaHa": 801.89,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 5.16,
+          "protectedNatureHa": 576.6,
+          "section3Ha": 332.2,
           "natura2000Ha": 0
         },
         {
           "id": "30715d22-cc67-48e6-b679-e0c24be50004",
           "name": "Naturpotentiale - Brorfelde",
           "areaHa": 493.56,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 2.22,
+          "protectedNatureHa": 252.4,
+          "section3Ha": 106.88,
           "natura2000Ha": 0
         },
         {
@@ -128236,26 +128256,26 @@
           "name": "Skovrejsning Melby Evetofte",
           "areaHa": 57.49,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 20.07,
+          "section3Ha": 3.22,
           "natura2000Ha": 0
         },
         {
           "id": "5d5e79a2-7cf4-4df9-b141-2c182c0b8700",
           "name": "Arrenæs",
           "areaHa": 1397.11,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 52.67,
+          "protectedNatureHa": 955.12,
+          "section3Ha": 362.56,
+          "natura2000Ha": 505.1
         },
         {
           "id": "ce42aba1-bf09-4917-bdd9-78312cdc2f51",
           "name": "Naturpotentiale - Kobbel å - Kundby Bjergby enge",
           "areaHa": 1604.36,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 1293.12,
+          "section3Ha": 460.61,
           "natura2000Ha": 0
         }
       ]
@@ -128266,8 +128286,8 @@
       "geoLocationId": "f31f1a37-304a-4e5b-b069-930444eea262",
       "nameNormalized": "Kalundborg",
       "nitrogenAchievedT": 138.8,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 5235.5,
+      "afforestationAchievedHa": 100.0,
       "naturePotentialAreaHa": 2095.0,
       "countNaturePotentials": 4,
       "projects": {
@@ -129983,7 +130003,7 @@
           "name": "Natur - Skjoldenæsholm 4",
           "areaHa": 10.99,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.88,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -129992,27 +130012,27 @@
           "name": "Natur - Vesterskoven 2",
           "areaHa": 25.85,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.18,
+          "section3Ha": 0.07,
           "natura2000Ha": 0
         },
         {
           "id": "46241b7b-5adc-4c2b-b524-84f0a528046c",
           "name": "Naturpotentiale - Store Åmose",
           "areaHa": 2001.21,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 67.77,
+          "protectedNatureHa": 1750.64,
+          "section3Ha": 344.45,
+          "natura2000Ha": 966.64
         },
         {
           "id": "fd816c2b-6786-4bd1-861e-c5a3ea555d72",
           "name": "Natur Maglebjerg mose vest",
           "areaHa": 57.01,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 38.48,
+          "protectedNatureHa": 55.19,
+          "section3Ha": 0.67,
+          "natura2000Ha": 29.7
         }
       ]
     },
@@ -130022,8 +130042,8 @@
       "geoLocationId": "3fd6178e-33ab-475e-b746-8c703160b482",
       "nameNormalized": "Koege Bugt",
       "nitrogenAchievedT": 50.8,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 1104.9,
+      "afforestationAchievedHa": 5.1,
       "naturePotentialAreaHa": 90.9,
       "countNaturePotentials": 3,
       "projects": {
@@ -131524,25 +131544,25 @@
           "areaHa": 28.51,
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "section3Ha": 0.07,
           "natura2000Ha": 0
         },
         {
           "id": "e8474cf1-71c3-476b-bea7-b6fde9ad1da0",
           "name": "Naturprojekt Bagholt Mose",
           "areaHa": 1.9,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.9,
+          "protectedNatureHa": 1.9,
+          "section3Ha": 1.9,
+          "natura2000Ha": 1.7
         },
         {
           "id": "ace670bc-f575-4d74-930a-fb232236aeeb",
           "name": "Brinkholm til Stevns Å",
           "areaHa": 60.52,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 11.37,
+          "section3Ha": 6.02,
           "natura2000Ha": 0
         }
       ]
@@ -131553,8 +131573,8 @@
       "geoLocationId": "998c6c9d-c4cd-4c1f-b81f-575102a7d09e",
       "nameNormalized": "Lillebælt/Fyn",
       "nitrogenAchievedT": 125.7,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 621.7,
+      "afforestationAchievedHa": 15.4,
       "naturePotentialAreaHa": 5697.6,
       "countNaturePotentials": 15,
       "projects": {
@@ -137397,17 +137417,17 @@
           "name": "Sammenhængende natur",
           "areaHa": 222.89,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 137.38,
+          "section3Ha": 109.23,
+          "natura2000Ha": 107.64
         },
         {
           "id": "1e40e905-88fd-4040-ba85-bc0ac6cf1484",
           "name": "Del af Højfyn til Lillebælt - i Odense Kommune",
           "areaHa": 82.15,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 8.76,
+          "section3Ha": 8.23,
           "natura2000Ha": 0
         },
         {
@@ -137415,8 +137435,8 @@
           "name": "Sammenhængene natur Middelfart (2)",
           "areaHa": 110.97,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 29.47,
+          "section3Ha": 18.14,
           "natura2000Ha": 0
         },
         {
@@ -137424,80 +137444,80 @@
           "name": "Sammenhængende natur",
           "areaHa": 115.58,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 74.84,
+          "section3Ha": 31.93,
           "natura2000Ha": 0
         },
         {
           "id": "1d8dc1d4-6744-4253-b4ab-cf9b7c6e8201",
           "name": "Sammenhængene natur Middelfart (1)",
           "areaHa": 2135.01,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 88.5,
+          "protectedNatureHa": 1182.58,
+          "section3Ha": 469.59,
+          "natura2000Ha": 603.77
         },
         {
           "id": "b6c9d427-5920-44ec-9c92-b987161a263f",
           "name": "Nat_01",
           "areaHa": 801.61,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 24.58,
+          "protectedNatureHa": 282.18,
+          "section3Ha": 126.68,
+          "natura2000Ha": 475.57
         },
         {
           "id": "0f980db6-d4cf-4a9f-ac2b-9c15e8e9923d",
           "name": "FMK - Horneland Nord",
           "areaHa": 21.92,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 0.96,
+          "section3Ha": 0.37,
           "natura2000Ha": 0
         },
         {
           "id": "08f13e5f-9909-4249-8ae5-98054359b438",
           "name": "Nat_HB1",
           "areaHa": 168.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 6.56,
+          "protectedNatureHa": 52.23,
+          "section3Ha": 31.55,
           "natura2000Ha": 0
         },
         {
           "id": "84231b46-643c-4e70-8295-85e0bb3e63b4",
           "name": "FMK - Den fynske højderyg (1)",
           "areaHa": 1455.41,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.58,
+          "protectedNatureHa": 709.8,
+          "section3Ha": 243.0,
+          "natura2000Ha": 192.73
         },
         {
           "id": "2f1848c3-9a85-4c91-899b-9d1cd75072f1",
           "name": "FMK - Horne Mølle Å",
           "areaHa": 33.63,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 7.79,
+          "section3Ha": 0.17,
           "natura2000Ha": 0
         },
         {
           "id": "82816b83-d861-4fd8-8ab8-fc81c0137138",
           "name": "FMK - Lyø",
           "areaHa": 281.44,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.07,
+          "protectedNatureHa": 87.73,
+          "section3Ha": 44.95,
+          "natura2000Ha": 0.0
         },
         {
           "id": "1c3fa855-7a6f-4f56-81c0-c094afd8112b",
           "name": "FMK - Horneland Syd",
           "areaHa": 263.07,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 48.73,
+          "section3Ha": 6.45,
           "natura2000Ha": 0
         },
         {
@@ -137526,8 +137546,8 @@
       "geoLocationId": "206bbd6e-26f8-4036-b6f3-c7e524854a5d",
       "nameNormalized": "Lillebælt/Jylland",
       "nitrogenAchievedT": 277.2,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 2736.9,
+      "afforestationAchievedHa": 174.3,
       "naturePotentialAreaHa": 38453.4,
       "countNaturePotentials": 33,
       "projects": {
@@ -141639,7 +141659,7 @@
           "geoId": "82d5970b-7c5c-42be-a016-f87f66e5ca9c",
           "phase": "sketch",
           "measureName": "Kvælstofvådområder",
-          "schemeName": "Kvælstofvådområde (VLP)",
+          "schemeName": "Kvælstofvådområde (VLP-VKP)",
           "schemeOrg": "SGAV",
           "nitrogenT": 33.965,
           "extractionHa": 6.21,
@@ -151662,27 +151682,27 @@
           "id": "d791c827-b74a-4e6b-a800-458ac04f5cc7",
           "name": "Naturpotentiale Vejle Inderfjord",
           "areaHa": 488.2,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.98,
+          "protectedNatureHa": 284.8,
+          "section3Ha": 96.05,
+          "natura2000Ha": 44.28
         },
         {
           "id": "afe4e728-828e-41b7-b188-a37f7cf1283d",
           "name": "Naturpotentiale Vejle Yderfjord_Vejle Kommune",
           "areaHa": 289.31,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 8.38,
+          "protectedNatureHa": 244.25,
+          "section3Ha": 123.56,
           "natura2000Ha": 0
         },
         {
           "id": "ca08b020-3e48-4c39-b5c6-449828582735",
           "name": "Vester Nebel Ådal",
           "areaHa": 678.38,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 2.56,
+          "protectedNatureHa": 328.04,
+          "section3Ha": 117.7,
           "natura2000Ha": 0
         },
         {
@@ -151690,62 +151710,62 @@
           "name": "Marielund",
           "areaHa": 313.1,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 162.44,
+          "section3Ha": 48.03,
           "natura2000Ha": 0
         },
         {
           "id": "87b04848-1520-4ea4-b956-3611f2382625",
           "name": "Kolding Ådal",
           "areaHa": 751.7,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 4.67,
+          "protectedNatureHa": 366.95,
+          "section3Ha": 168.43,
           "natura2000Ha": 0
         },
         {
           "id": "f9f2ccc6-6eab-47c1-8977-c5f379eb32c6",
           "name": "Almind Ådal",
           "areaHa": 425.49,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 6.98,
+          "protectedNatureHa": 159.91,
+          "section3Ha": 91.67,
           "natura2000Ha": 0
         },
         {
           "id": "7a4cf11c-05ee-4859-ae14-a88c11f2b998",
           "name": "Svanemosen",
           "areaHa": 515.97,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 157.2,
+          "protectedNatureHa": 448.15,
+          "section3Ha": 188.84,
+          "natura2000Ha": 297.59
         },
         {
           "id": "767932fa-ec81-4b3f-b09e-c1d877927527",
           "name": "Dons-søerne",
           "areaHa": 469.2,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.18,
+          "protectedNatureHa": 297.32,
+          "section3Ha": 219.59,
           "natura2000Ha": 0
         },
         {
           "id": "9f11d3ac-09ab-4118-9e63-7afd52694a47",
           "name": "Viuf Skov",
           "areaHa": 249.31,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 4.53,
+          "protectedNatureHa": 153.68,
+          "section3Ha": 23.26,
           "natura2000Ha": 0
         },
         {
           "id": "9024db58-6cb1-428e-b779-5b53d4f98860",
           "name": "Skærsø",
           "areaHa": 250.63,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 50.27,
+          "protectedNatureHa": 194.33,
+          "section3Ha": 102.01,
           "natura2000Ha": 0
         },
         {
@@ -151753,35 +151773,35 @@
           "name": "Naturpotentiale Kolding Inderfjord_Vejle Kommune",
           "areaHa": 32.95,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 23.94,
+          "section3Ha": 4.26,
           "natura2000Ha": 0
         },
         {
           "id": "21ac7a81-5cb6-41c5-b92d-578d27cbb7e8",
           "name": "Hylkedalen",
           "areaHa": 340.0,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 1.15,
+          "protectedNatureHa": 175.21,
+          "section3Ha": 82.37,
           "natura2000Ha": 0
         },
         {
           "id": "5a42d220-a61b-4b44-b56e-7cb497bf699a",
           "name": "Naturkategori HK1",
           "areaHa": 2928.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 28.8,
+          "protectedNatureHa": 1406.12,
+          "section3Ha": 532.58,
+          "natura2000Ha": 675.07
         },
         {
           "id": "9aa14cfc-d640-42e1-8685-d296a2763708",
           "name": "Naturkategori HK3",
           "areaHa": 1365.2,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.37,
+          "protectedNatureHa": 367.91,
+          "section3Ha": 208.6,
           "natura2000Ha": 0
         },
         {
@@ -151789,98 +151809,98 @@
           "name": "Naturkategori HK4",
           "areaHa": 387.32,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 144.78,
+          "section3Ha": 29.86,
+          "natura2000Ha": 353.58
         },
         {
           "id": "1d955d29-1133-41c7-b008-6bdca8415526",
           "name": "Skamlingen",
           "areaHa": 662.32,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 310.37,
+          "section3Ha": 62.3,
+          "natura2000Ha": 2.95
         },
         {
           "id": "b504d366-75d8-4a90-9333-b73fd47054d5",
           "name": "Stenderupskovene",
           "areaHa": 884.35,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 2.13,
+          "protectedNatureHa": 645.78,
+          "section3Ha": 18.98,
+          "natura2000Ha": 623.93
         },
         {
           "id": "5b1536a8-838b-483a-be08-cd6a989a0022",
           "name": "Naturkategori HK2",
           "areaHa": 2507.0,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 464.24,
+          "section3Ha": 167.99,
+          "natura2000Ha": 239.28
         },
         {
           "id": "80fee724-0d0a-4940-944e-0f00586d4a69",
           "name": "Naturkategori HK7",
           "areaHa": 137.71,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 36.65,
+          "section3Ha": 2.29,
           "natura2000Ha": 0
         },
         {
           "id": "75b75356-673f-4506-a4e6-529abb0858d7",
           "name": "Hejls Nor",
           "areaHa": 722.53,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 43.41,
+          "protectedNatureHa": 176.25,
+          "section3Ha": 124.89,
+          "natura2000Ha": 324.18
         },
         {
           "id": "d221a138-0e67-4de8-972d-b545c10739bc",
           "name": "SK - naturpotentiale (1)",
           "areaHa": 944.01,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 5.98,
+          "protectedNatureHa": 589.81,
+          "section3Ha": 76.53,
+          "natura2000Ha": 448.79
         },
         {
           "id": "babe7b0f-54ca-4600-99a8-a01569509104",
           "name": "SK - naturpotentialer",
           "areaHa": 4414.8,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 29.19,
+          "protectedNatureHa": 1594.69,
+          "section3Ha": 433.78,
+          "natura2000Ha": 668.12
         },
         {
           "id": "3c7ee91e-5010-4b7a-9a8f-0a010b1669a6",
           "name": "SK - naturpotentiale",
           "areaHa": 412.86,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 126.09,
+          "section3Ha": 78.81,
+          "natura2000Ha": 0.2
         },
         {
           "id": "bfad8452-0263-4fd3-bf3b-4ed86fa76bf4",
           "name": "SK - naturpotentiale (2)",
           "areaHa": 2681.8,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 623.48,
+          "section3Ha": 294.64,
+          "natura2000Ha": 0.0
         },
         {
           "id": "b9bd32f5-e71c-4ca3-9f51-3abe473a2913",
           "name": "SK - naturpotentiale (1)",
           "areaHa": 834.23,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 289.79,
+          "section3Ha": 88.61,
           "natura2000Ha": 0
         },
         {
@@ -151888,45 +151908,45 @@
           "name": "SK - naturpotentiale",
           "areaHa": 3147.17,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 502.16,
+          "section3Ha": 183.91,
+          "natura2000Ha": 28.11
         },
         {
           "id": "552e7c47-4724-470b-b328-b8d2cfedd946",
           "name": "SK - naturpotentialer",
           "areaHa": 3784.24,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 17.74,
+          "protectedNatureHa": 1363.5,
+          "section3Ha": 643.57,
+          "natura2000Ha": 0.15
         },
         {
           "id": "ed445511-edcf-4d0d-8fb9-aceb03fdd4e5",
           "name": "SK - naturpotentiale (2)",
           "areaHa": 1956.6,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 718.83,
+          "section3Ha": 453.95,
           "natura2000Ha": 0
         },
         {
           "id": "9c91ef1c-9de1-41f5-824c-57114152b116",
           "name": "SK - naturpotentiale",
           "areaHa": 1961.21,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 9.06,
+          "protectedNatureHa": 984.26,
+          "section3Ha": 217.02,
+          "natura2000Ha": 799.47
         },
         {
           "id": "8170917f-c434-4f71-91ea-475e6c6a5496",
           "name": "Naturpotentiale_Aabenraa_3",
           "areaHa": 3912.7,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 113.2,
+          "protectedNatureHa": 2757.34,
+          "section3Ha": 725.14,
+          "natura2000Ha": 654.0
         },
         {
           "id": "bfd02459-dbfd-4176-81a2-43b000ca1930",
@@ -151934,7 +151954,7 @@
           "areaHa": 3.22,
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "section3Ha": 2.68,
           "natura2000Ha": 0
         },
         {
@@ -151963,8 +151983,8 @@
       "geoLocationId": "e7762bdb-1ef7-4fbe-a745-b21e7996f92e",
       "nameNormalized": "Limfjorden",
       "nitrogenAchievedT": 1260.9,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 29206.8,
+      "afforestationAchievedHa": 525.9,
       "naturePotentialAreaHa": 10088.6,
       "countNaturePotentials": 8,
       "projects": {
@@ -166582,9 +166602,9 @@
           "id": "89cd8d6d-f849-41cc-9b3c-5311503114a3",
           "name": "Ulsted Rimmer - Naturpotentiale",
           "areaHa": 1297.77,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 115.79,
+          "protectedNatureHa": 670.46,
+          "section3Ha": 251.79,
           "natura2000Ha": 0
         },
         {
@@ -166600,36 +166620,36 @@
           "id": "05a186a7-7ae4-4b05-a86f-3c6dee60c296",
           "name": "Fussing Sø oplandet",
           "areaHa": 675.56,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.51,
+          "protectedNatureHa": 224.98,
+          "section3Ha": 83.17,
+          "natura2000Ha": 177.32
         },
         {
           "id": "828d8806-df00-4248-bacf-ff19d6ff2835",
           "name": "Halkærbredning naturpotentiale Aalborg",
           "areaHa": 2575.06,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 176.96,
+          "protectedNatureHa": 1377.95,
+          "section3Ha": 739.73,
+          "natura2000Ha": 652.01
         },
         {
           "id": "02c16787-d479-4f42-a4de-227760be48f2",
           "name": "Drikkevand og naturpark Aalborg  - Naturpotentiale",
           "areaHa": 2485.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.55,
+          "protectedNatureHa": 961.23,
+          "section3Ha": 291.53,
           "natura2000Ha": 0
         },
         {
           "id": "50fe5b2a-80f1-42e0-a2fc-320cf43b9bc7",
           "name": "Ulsted Rimmer - Naturpotentiale",
           "areaHa": 1297.77,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 115.79,
+          "protectedNatureHa": 670.46,
+          "section3Ha": 251.79,
           "natura2000Ha": 0
         },
         {
@@ -166637,18 +166657,18 @@
           "name": "Venø Naturprojekt",
           "areaHa": 124.21,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 85.07,
+          "section3Ha": 47.45,
+          "natura2000Ha": 11.56
         },
         {
           "id": "a5fff11f-87d0-4fbe-9439-df305ae6c972",
           "name": "Natura2000 vest",
           "areaHa": 1372.03,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 992.62,
+          "protectedNatureHa": 1362.4,
+          "section3Ha": 1322.89,
+          "natura2000Ha": 1372.02
         }
       ]
     },
@@ -166658,8 +166678,8 @@
       "geoLocationId": "3120038c-89b9-4969-b9be-080d41634937",
       "nameNormalized": "Mariager Fjord",
       "nitrogenAchievedT": 23.5,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 1419.2,
+      "afforestationAchievedHa": 23.0,
       "naturePotentialAreaHa": 7874.2,
       "countNaturePotentials": 8,
       "projects": {
@@ -168706,73 +168726,73 @@
           "id": "2aa7020e-c120-4e91-a876-16aedba7cc0f",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Kastbjerg 1",
           "areaHa": 3964.22,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 155.81,
+          "protectedNatureHa": 1039.52,
+          "section3Ha": 616.22,
+          "natura2000Ha": 750.87
         },
         {
           "id": "bbc3c32c-bf1f-4191-955c-a170d5ab2ff8",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Villestrup 3",
           "areaHa": 568.42,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.48,
+          "protectedNatureHa": 151.44,
+          "section3Ha": 68.29,
+          "natura2000Ha": 67.2
         },
         {
           "id": "92dc9f7f-9499-4320-9bd9-d7595c02b8b1",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Kastbjerg 2",
           "areaHa": 524.53,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 20.14,
+          "protectedNatureHa": 316.25,
+          "section3Ha": 77.93,
+          "natura2000Ha": 83.94
         },
         {
           "id": "e3b9c152-d7e1-4514-9111-2c9dcf5a3679",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Villestrup 5",
           "areaHa": 308.22,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 115.2,
+          "section3Ha": 38.9,
           "natura2000Ha": 0
         },
         {
           "id": "4933a893-83fc-415c-a1f5-f75178b6c4f8",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Villestrup 1",
           "areaHa": 1158.68,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 6.75,
+          "protectedNatureHa": 351.45,
+          "section3Ha": 156.63,
+          "natura2000Ha": 166.54
         },
         {
           "id": "ba8adad5-a62e-4bf9-8661-27fe79941cb5",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Villestrup 2",
           "areaHa": 613.41,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.57,
+          "protectedNatureHa": 134.16,
+          "section3Ha": 84.45,
+          "natura2000Ha": 98.33
         },
         {
           "id": "fe92b20b-4f08-41ce-95e8-f5e5873e2fcf",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Kastbjerg 3",
           "areaHa": 302.57,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 12.85,
+          "protectedNatureHa": 183.0,
+          "section3Ha": 63.57,
+          "natura2000Ha": 76.55
         },
         {
           "id": "ba0b04d4-f07e-40a6-9b91-f9b78f2af82c",
           "name": "LTP_Mariager Fjord_SSNO_NP_ellipser_Villestrup 4",
           "areaHa": 434.1,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 96.57,
+          "protectedNatureHa": 373.84,
+          "section3Ha": 233.66,
+          "natura2000Ha": 167.82
         }
       ]
     },
@@ -168782,8 +168802,8 @@
       "geoLocationId": "fc518755-7a08-4091-8418-7eaa5cc71d55",
       "nameNormalized": "Nissum Fjord",
       "nitrogenAchievedT": 404.7,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 2947.4,
+      "afforestationAchievedHa": 168.7,
       "naturePotentialAreaHa": 0,
       "countNaturePotentials": 0,
       "projects": {
@@ -171024,8 +171044,8 @@
       "geoLocationId": "1629d655-2a73-45eb-bb19-9f7da5b44f19",
       "nameNormalized": "Nordlige Kattegat, Skagerrak",
       "nitrogenAchievedT": 5.6,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 5637.8,
+      "afforestationAchievedHa": 76.8,
       "naturePotentialAreaHa": 16522.2,
       "countNaturePotentials": 14,
       "projects": {
@@ -172766,36 +172786,36 @@
           "id": "398b8af0-8555-4f8b-9bff-0dc5d221d88a",
           "name": "Natura2000 øst",
           "areaHa": 600.95,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.29,
+          "protectedNatureHa": 452.72,
+          "section3Ha": 233.22,
+          "natura2000Ha": 598.11
         },
         {
           "id": "89cd8d6d-f849-41cc-9b3c-5311503114a3",
           "name": "Ulsted Rimmer - Naturpotentiale",
           "areaHa": 590.48,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 50.5,
+          "protectedNatureHa": 557.18,
+          "section3Ha": 294.09,
           "natura2000Ha": 0
         },
         {
           "id": "0b102c67-3261-4951-975f-1f4418789a09",
           "name": "Gudenåplanen delområde 12",
           "areaHa": 861.13,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 100.19,
+          "protectedNatureHa": 493.39,
+          "section3Ha": 120.29,
+          "natura2000Ha": 129.7
         },
         {
           "id": "50fe5b2a-80f1-42e0-a2fc-320cf43b9bc7",
           "name": "Ulsted Rimmer - Naturpotentiale",
           "areaHa": 590.48,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 50.5,
+          "protectedNatureHa": 557.18,
+          "section3Ha": 294.09,
           "natura2000Ha": 0
         },
         {
@@ -172811,82 +172831,82 @@
           "id": "d19b1ed2-4084-497a-b728-97c4c5f30eac",
           "name": "Understed bakker kode 82",
           "areaHa": 81.78,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.29,
+          "protectedNatureHa": 56.85,
+          "section3Ha": 9.38,
+          "natura2000Ha": 3.53
         },
         {
           "id": "a1950a30-e10c-44a5-a683-94cdcd052ca4",
           "name": "Understed bakker kode 66",
           "areaHa": 65.83,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 49.61,
+          "section3Ha": 20.31,
+          "natura2000Ha": 33.28
         },
         {
           "id": "2aa1da39-60fb-45a3-be35-5f6e9f0cad0f",
           "name": "Understed bakker kode 108",
           "areaHa": 107.87,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 39.71,
+          "section3Ha": 23.82,
+          "natura2000Ha": 11.06
         },
         {
           "id": "8a0dbb01-260b-4f48-8bbd-80f76a5a4fbd",
           "name": "Område 1 Tuen Tolne",
           "areaHa": 6566.4,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 306.82,
+          "protectedNatureHa": 4760.33,
+          "section3Ha": 1383.71,
+          "natura2000Ha": 200.58
         },
         {
           "id": "22b1ad3e-b61e-4a10-b2cc-dfde14e09b41",
           "name": "Understed bakker kode 56",
           "areaHa": 55.54,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 34.73,
+          "section3Ha": 19.98,
+          "natura2000Ha": 41.91
         },
         {
           "id": "ae56d3a9-6ead-49f9-a94d-6e6c7ea52f5b",
           "name": "Understed bakker kode 13 og 43",
           "areaHa": 58.16,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 12.01,
+          "section3Ha": 6.35,
+          "natura2000Ha": 9.34
         },
         {
           "id": "af7ec24e-fe8e-4def-a7d3-4524ba643cec",
           "name": "Understed bakker kode 99",
           "areaHa": 98.99,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 23.1,
+          "section3Ha": 16.66,
+          "natura2000Ha": 17.16
         },
         {
           "id": "57e0b8e4-af49-4c34-ba56-fbf09dd175b9",
           "name": "Område 6 Kjul-Tversted",
           "areaHa": 3951.15,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 11.35,
+          "protectedNatureHa": 3482.91,
+          "section3Ha": 1178.12,
+          "natura2000Ha": 644.25
         },
         {
           "id": "4f80f096-3de4-460b-ad9d-108400d9a85a",
           "name": "Område 5 Skallerup-Tornby",
           "areaHa": 2890.58,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 15.25,
+          "protectedNatureHa": 2525.65,
+          "section3Ha": 1688.23,
+          "natura2000Ha": 622.4
         }
       ]
     },
@@ -172896,8 +172916,8 @@
       "geoLocationId": "dc776228-7379-425b-b8f8-e99c854a99b0",
       "nameNormalized": "Odense Fjord",
       "nitrogenAchievedT": 262.1,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 777.4,
+      "afforestationAchievedHa": 25.4,
       "naturePotentialAreaHa": 21843.9,
       "countNaturePotentials": 17,
       "projects": {
@@ -178261,36 +178281,36 @@
           "id": "bdd10d9d-775d-4df3-aa03-7e64b0558981",
           "name": "Grøn Ring  om Odense - Naturpotentiale",
           "areaHa": 4273.0,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 6.5,
+          "protectedNatureHa": 1912.63,
+          "section3Ha": 716.91,
+          "natura2000Ha": 256.01
         },
         {
           "id": "b6bb5513-4818-4a1d-b3e3-1dff64e1f61b",
           "name": "FMK - Sallinge Å Nedre del",
           "areaHa": 824.62,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 350.54,
+          "section3Ha": 73.22,
+          "natura2000Ha": 11.72
         },
         {
           "id": "02d7a89e-1c42-4834-9492-6d2611e3df24",
           "name": "FMK - Odense Å",
           "areaHa": 1402.25,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.2,
+          "protectedNatureHa": 493.52,
+          "section3Ha": 109.92,
+          "natura2000Ha": 274.89
         },
         {
           "id": "32445be8-1968-4c32-8d2a-affd3ae877ab",
           "name": "FMK - Salling Å Øvre del",
           "areaHa": 279.44,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 106.76,
+          "section3Ha": 9.09,
           "natura2000Ha": 0
         },
         {
@@ -178298,53 +178318,53 @@
           "name": "FMK - Sortelung",
           "areaHa": 61.42,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 12.96,
+          "section3Ha": 12.77,
+          "natura2000Ha": 23.57
         },
         {
           "id": "1ce7f390-d99b-45fc-9aca-1d79b12edd96",
           "name": "Naturpotentiale - Seden Strand - Odense Inderfjord",
           "areaHa": 1144.44,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 5.73,
+          "protectedNatureHa": 566.57,
+          "section3Ha": 323.67,
+          "natura2000Ha": 288.52
         },
         {
           "id": "30d47fcb-fa80-49c4-b4cb-8002da3b528b",
           "name": "Fyns Hoved",
           "areaHa": 1562.94,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 3.13,
+          "protectedNatureHa": 281.79,
+          "section3Ha": 176.07,
+          "natura2000Ha": 166.42
         },
         {
           "id": "d30c0d54-de4f-4821-acf1-e8445a749719",
           "name": "Skove og ådale vest for Odense indenfor ODK",
           "areaHa": 4818.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 7.82,
+          "protectedNatureHa": 1639.4,
+          "section3Ha": 539.23,
           "natura2000Ha": 0
         },
         {
           "id": "38aece1d-962c-4f93-b720-07c725f37fd7",
           "name": "FMK - Den fynske højderyg",
           "areaHa": 6940.29,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 281.08,
+          "protectedNatureHa": 4403.5,
+          "section3Ha": 1306.69,
+          "natura2000Ha": 2934.96
         },
         {
           "id": "39f727fc-23d8-4e21-9fba-f52c8fe17aaf",
           "name": "FMK - Vittinge Å",
           "areaHa": 125.26,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 32.12,
+          "section3Ha": 16.36,
           "natura2000Ha": 0
         },
         {
@@ -178352,9 +178372,9 @@
           "name": "FMK - Hågerup Å",
           "areaHa": 405.35,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 84.15,
+          "section3Ha": 44.63,
+          "natura2000Ha": 12.57
         }
       ]
     },
@@ -178364,8 +178384,8 @@
       "geoLocationId": "9a6214be-6950-4050-ac90-f9931e2c2559",
       "nameNormalized": "Randers Fjord",
       "nitrogenAchievedT": 324.9,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 7532.8,
+      "afforestationAchievedHa": 351.8,
       "naturePotentialAreaHa": 50167.1,
       "countNaturePotentials": 20,
       "projects": {
@@ -182105,27 +182125,27 @@
           "id": "0822c77a-008b-49ee-9876-365a092c07be",
           "name": "Gudenåplanen delområde 3.1",
           "areaHa": 3165.77,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 205.23,
+          "protectedNatureHa": 3018.82,
+          "section3Ha": 2231.74,
+          "natura2000Ha": 2552.02
         },
         {
           "id": "0b102c67-3261-4951-975f-1f4418789a09",
           "name": "Gudenåplanen delområde 12",
           "areaHa": 1568.76,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.59,
+          "protectedNatureHa": 244.16,
+          "section3Ha": 99.95,
+          "natura2000Ha": 386.43
         },
         {
           "id": "bc969536-6ba7-416b-84a0-7704855700f2",
           "name": "Favrskov Store Naturområder 4",
           "areaHa": 3782.34,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 248.87,
+          "protectedNatureHa": 2736.11,
+          "section3Ha": 603.18,
           "natura2000Ha": 0
         },
         {
@@ -182133,35 +182153,35 @@
           "name": "Gudenåplanen Delopland 8 (2)",
           "areaHa": 1.3,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 0.43,
+          "section3Ha": 0.61,
           "natura2000Ha": 0
         },
         {
           "id": "93cfa3ce-7f5c-4025-8ff0-2dc36f45231b",
           "name": "Favrskov Store Naturområder 2",
           "areaHa": 2275.92,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 59.16,
+          "protectedNatureHa": 1763.49,
+          "section3Ha": 333.19,
           "natura2000Ha": 0
         },
         {
           "id": "9faacbe1-028e-43f1-b829-0eee2d2e9e74",
           "name": "Gudenåplanen delområde 6",
           "areaHa": 3512.32,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 46.5,
+          "protectedNatureHa": 2272.94,
+          "section3Ha": 977.48,
+          "natura2000Ha": 70.22
         },
         {
           "id": "642ff6d2-458a-4a97-afb6-2404b2a9908f",
           "name": "Gudenåplanen Delområde 7",
           "areaHa": 4068.71,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 109.24,
+          "protectedNatureHa": 2029.54,
+          "section3Ha": 544.41,
           "natura2000Ha": 0
         },
         {
@@ -182169,27 +182189,27 @@
           "name": "Naturpotentiale Randers Fjord_Vejle Kommune",
           "areaHa": 22.29,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 9.15,
+          "section3Ha": 1.12,
+          "natura2000Ha": 18.62
         },
         {
           "id": "579af7f6-e285-401d-9436-605419b06993",
           "name": "Gudenåplanen delområde 3.2",
           "areaHa": 1914.46,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 48.95,
+          "protectedNatureHa": 1527.13,
+          "section3Ha": 789.52,
+          "natura2000Ha": 45.32
         },
         {
           "id": "88d63283-a467-4482-879e-c7c3338fc77d",
           "name": "Gudenåplanen delområde 2",
           "areaHa": 3917.0,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 266.67,
+          "protectedNatureHa": 2093.25,
+          "section3Ha": 803.71,
+          "natura2000Ha": 394.06
         },
         {
           "id": "05a186a7-7ae4-4b05-a86f-3c6dee60c296",
@@ -182204,82 +182224,82 @@
           "id": "95be172c-c291-44b1-b5a8-5d9698eb98f5",
           "name": "Gudenåplanen Delopland 8 (1)",
           "areaHa": 3626.23,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 234.45,
+          "protectedNatureHa": 1887.26,
+          "section3Ha": 924.7,
           "natura2000Ha": 0
         },
         {
           "id": "6a9d6f40-5213-4325-8214-b665f8b6a846",
           "name": "Gudenåplanen delområde 11",
           "areaHa": 3153.52,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1.29,
+          "protectedNatureHa": 753.25,
+          "section3Ha": 215.73,
+          "natura2000Ha": 904.69
         },
         {
           "id": "19814c2b-ac47-462b-b31e-a364604e35a1",
           "name": "Favrskov Store Naturområder 1",
           "areaHa": 289.16,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 9.27,
+          "protectedNatureHa": 242.2,
+          "section3Ha": 43.12,
           "natura2000Ha": 0
         },
         {
           "id": "60c11692-8155-4237-879a-2d7f2e2e7022",
           "name": "Gudenåplanen delområde 5",
           "areaHa": 3457.73,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 69.37,
+          "protectedNatureHa": 1785.53,
+          "section3Ha": 676.94,
+          "natura2000Ha": 479.73
         },
         {
           "id": "55518f04-ae71-46e7-8d85-8e43f64e2f57",
           "name": "Favrskov Store Naturområder 3",
           "areaHa": 539.12,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 80.75,
+          "protectedNatureHa": 424.64,
+          "section3Ha": 162.06,
           "natura2000Ha": 0
         },
         {
           "id": "4214eabf-351f-4721-8039-4973f22681c6",
           "name": "Gudenåplanen Delområde 10",
           "areaHa": 4377.08,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 15.78,
+          "protectedNatureHa": 1001.15,
+          "section3Ha": 374.96,
+          "natura2000Ha": 374.55
         },
         {
           "id": "aa2c888e-22fa-4c1a-b067-fc9e98c5966f",
           "name": "Gudenåplanen Delområde 4",
           "areaHa": 2510.79,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 48.25,
+          "protectedNatureHa": 2123.11,
+          "section3Ha": 1044.7,
+          "natura2000Ha": 647.28
         },
         {
           "id": "12546938-b46f-4a59-85db-45d907d81c00",
           "name": "Gudenåplanen Delvandopland 9",
           "areaHa": 3932.49,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 6.5,
+          "protectedNatureHa": 2110.82,
+          "section3Ha": 486.54,
+          "natura2000Ha": 21.37
         },
         {
           "id": "711375cd-c03e-4038-93af-a094223c3f67",
           "name": "Gudenåplanen delområde 1",
           "areaHa": 4036.16,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 541.38,
+          "protectedNatureHa": 2045.65,
+          "section3Ha": 1359.81,
+          "natura2000Ha": 1607.86
         }
       ]
     },
@@ -182288,9 +182308,9 @@
       "name": "Ringkøbing Fjord",
       "geoLocationId": "ff855793-7ba1-499d-a048-85271927e92b",
       "nameNormalized": "Ringkoebing Fjord",
-      "nitrogenAchievedT": 549.9,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "nitrogenAchievedT": 549.8,
+      "extractionAchievedHa": 7662.8,
+      "afforestationAchievedHa": 784.4,
       "naturePotentialAreaHa": 479.0,
       "countNaturePotentials": 2,
       "projects": {
@@ -183661,26 +183681,6 @@
           "kommuneNavn": "Billund"
         },
         {
-          "id": "bf7846d6-a7b8-418e-bde6-e30f69ca4576",
-          "name": "Privat Skovrejsning",
-          "geoId": "17776c7a-70f6-4efc-b642-903f82ed1809",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Privat Skovrejsning",
-          "schemeOrg": "LBST",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
-          "nitrogenT": 0.026,
-          "extractionHa": 0,
-          "afforestationHa": 2.37,
-          "areaHa": 2.37,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0760",
-          "kommuneNavn": "Ringkøbing-Skjern"
-        },
-        {
           "id": "31b726fc-b57f-4846-95f4-106d5231ad41",
           "name": "Forundersøgelse, lavbundsprojekt, Engebækgårdvej",
           "geoId": "e33a54ed-9e10-4574-abff-dd0f90800460",
@@ -184999,6 +184999,26 @@
           "lastChanged": "2026-06-19T10:36:55.096941+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "953d3ac9-069a-46a4-975e-50a104e029e9",
+          "name": "Døvlingvej 7",
+          "geoId": "5c783c30-c2ae-4287-9e48-fe525524bcb7",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.002,
+          "extractionHa": 0,
+          "afforestationHa": 4.45,
+          "areaHa": 4.45,
+          "appliedAt": "2026-06-12T12:00:00+00:00",
+          "lastChanged": "2026-06-24T12:53:51.7062+00:00",
+          "kommuneKode": "0657",
+          "kommuneNavn": "Herning"
         }
       ],
       "sketchProjects": [
@@ -186789,9 +186809,9 @@
           "id": "3da98ffc-b655-4da6-8165-392f3248aec7",
           "name": "Naturpotentiale Ringkøbing Fjord_Vejle Kommune",
           "areaHa": 479.02,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 2.0,
+          "protectedNatureHa": 239.99,
+          "section3Ha": 98.55,
           "natura2000Ha": 0
         },
         {
@@ -186810,9 +186830,9 @@
       "name": "Smålandsfarvandet",
       "geoLocationId": "8438dae5-5799-4b63-8474-48a2502a209f",
       "nameNormalized": "Smaalandsfarvandet",
-      "nitrogenAchievedT": 0,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "nitrogenAchievedT": 155.5,
+      "extractionAchievedHa": 3907.4,
+      "afforestationAchievedHa": 47.7,
       "naturePotentialAreaHa": 7451.6,
       "countNaturePotentials": 70,
       "projects": {
@@ -192839,8 +192859,8 @@
           "name": "Grundvandsbeskyttelse Roløkke",
           "areaHa": 190.67,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 10.85,
+          "section3Ha": 0.96,
           "natura2000Ha": 0
         },
         {
@@ -192848,8 +192868,8 @@
           "name": "Natur - Marrebæks Rende",
           "areaHa": 210.19,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 0.2,
+          "section3Ha": 0.22,
           "natura2000Ha": 0
         },
         {
@@ -192857,9 +192877,9 @@
           "name": "Natur - Refshale",
           "areaHa": 48.84,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 15.12,
+          "section3Ha": 0.17,
+          "natura2000Ha": 48.84
         },
         {
           "id": "2b496846-7387-4124-9aa4-48a2081a10a5",
@@ -192875,8 +192895,8 @@
           "name": "Natur - Langs Hunse Å fra Nørresø til Knuthenborg",
           "areaHa": 136.98,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.74,
+          "section3Ha": 0.34,
           "natura2000Ha": 0
         },
         {
@@ -192884,8 +192904,8 @@
           "name": "Grundvandsbeskyttelse Nybølle",
           "areaHa": 62.88,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 0.14,
+          "section3Ha": 0.15,
           "natura2000Ha": 0
         },
         {
@@ -192893,34 +192913,34 @@
           "name": "Natur - Jernbanestien nord",
           "areaHa": 26.11,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 0.04,
+          "section3Ha": 0.0,
+          "natura2000Ha": 26.11
         },
         {
           "id": "a540cf7e-d419-4022-812d-fa0c0b8eb0bc",
           "name": "Natur - Røgbølle Sø vest",
           "areaHa": 75.0,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.19,
+          "protectedNatureHa": 11.31,
+          "section3Ha": 0.28,
+          "natura2000Ha": 74.89
         },
         {
           "id": "f4a3d31e-addd-4cb6-87eb-5904c6ba6d83",
           "name": "Natur Langs Kommunevandløb 33L og 32L Nældevads Å",
           "areaHa": 201.36,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 18.14,
+          "section3Ha": 2.25,
           "natura2000Ha": 0
         },
         {
           "id": "f7bf8045-b23f-47ae-8d99-88a521be53b7",
           "name": "Natur - Charlottenlund",
           "areaHa": 5.89,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "biodiversityHa": 0.04,
+          "protectedNatureHa": 1.8,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -192928,18 +192948,18 @@
           "id": "a2ebb08c-a50f-4086-9433-65ace4d34da8",
           "name": "Natur - Søndersø Syd",
           "areaHa": 200.83,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.96,
+          "protectedNatureHa": 44.36,
+          "section3Ha": 7.05,
+          "natura2000Ha": 200.44
         },
         {
           "id": "9c443f48-c171-4b77-a5dd-e4ef4a99bdae",
           "name": "Grundvandsbeskyttelse Hunseby",
           "areaHa": 190.68,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.07,
+          "section3Ha": 1.73,
           "natura2000Ha": 0
         },
         {
@@ -192956,7 +192976,7 @@
           "name": "Natur - Saxhøj 1",
           "areaHa": 3.94,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.01,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -192964,10 +192984,10 @@
           "id": "186e4cc7-4e4d-4008-91c6-5818956f5a7d",
           "name": "Natur - Søholt Nord",
           "areaHa": 23.76,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.08,
+          "protectedNatureHa": 10.44,
+          "section3Ha": 0.07,
+          "natura2000Ha": 23.76
         },
         {
           "id": "998fb223-52e7-45d5-b7bb-dc4d1fc3b609",
@@ -192983,8 +193003,8 @@
           "name": "Natur - Kastager Nor",
           "areaHa": 48.25,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 18.43,
+          "section3Ha": 0.12,
           "natura2000Ha": 0
         },
         {
@@ -193001,45 +193021,45 @@
           "name": "Natur - Nørrehave Syd",
           "areaHa": 36.51,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.71,
           "section3Ha": 0,
-          "natura2000Ha": 0
+          "natura2000Ha": 36.56
         },
         {
           "id": "1ec1c0fa-87fe-47d1-8bf8-ad2baf9f7644",
           "name": "Natur - Torrig Å",
           "areaHa": 164.16,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.28,
+          "protectedNatureHa": 51.74,
+          "section3Ha": 34.82,
+          "natura2000Ha": 26.3
         },
         {
           "id": "638e0fd1-27a1-44a1-9807-1b24bbe2261a",
           "name": "Natur - Nørrehave nord",
           "areaHa": 17.41,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 3.44,
+          "section3Ha": 0.04,
+          "natura2000Ha": 17.41
         },
         {
           "id": "78db5c73-c79d-4b8b-9fb8-bfbf0bbc33e7",
           "name": "Grundvandsbeskyttelse Nørreballe",
           "areaHa": 512.41,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 96.53,
+          "section3Ha": 1.26,
           "natura2000Ha": 0
         },
         {
           "id": "e7f75e61-81f7-4a36-8c47-fcc3e9775679",
           "name": "Natur - Søholt Syd",
           "areaHa": 25.0,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 0.0,
+          "protectedNatureHa": 13.68,
+          "section3Ha": 0.04,
+          "natura2000Ha": 25.0
         },
         {
           "id": "b20c0d5d-8941-4211-8fd0-20cbdbaef911",
@@ -193073,7 +193093,7 @@
           "name": "Natur - Lysemose nord",
           "areaHa": 2.75,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.37,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -193082,7 +193102,7 @@
           "name": "Natur - Egehusmarken",
           "areaHa": 7.21,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.15,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -193100,7 +193120,7 @@
           "name": "Natur - Saxhøj 2",
           "areaHa": 7.86,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.27,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -193109,17 +193129,17 @@
           "name": "Grundvandsbeskyttelse Askø",
           "areaHa": 58.68,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 0.2,
+          "section3Ha": 0.04,
+          "natura2000Ha": 58.68
         },
         {
           "id": "01c1fa44-fb8c-4a26-970f-40c1c3629a04",
           "name": "Natur - Haraldsted Sø 1",
           "areaHa": 31.39,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.02,
+          "protectedNatureHa": 2.7,
+          "section3Ha": 0.01,
           "natura2000Ha": 0
         },
         {
@@ -193127,35 +193147,35 @@
           "name": "Natur - Ringsted ådal 2",
           "areaHa": 170.93,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 24.99,
+          "section3Ha": 0.97,
           "natura2000Ha": 0
         },
         {
           "id": "13a7a57b-7227-4aae-8d23-74079a281476",
           "name": "Natur Suså, Ådal ved Vrangstrup",
           "areaHa": 182.3,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 7.3,
+          "protectedNatureHa": 149.02,
+          "section3Ha": 107.13,
+          "natura2000Ha": 5.53
         },
         {
           "id": "db8efb0a-c065-414e-918d-483851d8e273",
           "name": "Natur - Haraldsted Sø 2",
           "areaHa": 99.36,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 7.01,
+          "section3Ha": 1.43,
           "natura2000Ha": 0
         },
         {
           "id": "d7454902-9c17-4a3b-a032-cb6d315b7a5e",
           "name": "Natur - Ringsted ådal 5",
           "areaHa": 19.32,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.0,
+          "protectedNatureHa": 5.4,
+          "section3Ha": 0.01,
           "natura2000Ha": 0
         },
         {
@@ -193163,8 +193183,8 @@
           "name": "Natur - Gyrstinge Sø 2",
           "areaHa": 4.96,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.8,
+          "section3Ha": 2.56,
           "natura2000Ha": 0
         },
         {
@@ -193172,35 +193192,35 @@
           "name": "Natur - Sneslev Lilleå",
           "areaHa": 614.99,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 55.75,
+          "section3Ha": 2.05,
           "natura2000Ha": 0
         },
         {
           "id": "c68d2e4f-f04a-46a2-a1de-f3363740b8ab",
           "name": "Natur ved Tuel Å - nedre del",
           "areaHa": 444.36,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.0,
+          "protectedNatureHa": 59.59,
+          "section3Ha": 30.38,
           "natura2000Ha": 0
         },
         {
           "id": "89a20e54-68c1-46ef-b412-ceacbb7dbe7e",
           "name": "Natur Suså, Ådal Nord for Søerne",
           "areaHa": 319.9,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 41.43,
+          "protectedNatureHa": 203.16,
+          "section3Ha": 122.18,
+          "natura2000Ha": 64.33
         },
         {
           "id": "1d3251b1-3417-4a6c-a511-76ea585d6479",
           "name": "Natur - Vigersted Kildeplads",
           "areaHa": 639.48,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.1,
+          "protectedNatureHa": 39.0,
+          "section3Ha": 7.24,
           "natura2000Ha": 0
         },
         {
@@ -193208,26 +193228,26 @@
           "name": "Natur - Haraldsted Sø 3",
           "areaHa": 90.87,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 19.94,
+          "section3Ha": 2.66,
           "natura2000Ha": 0
         },
         {
           "id": "5d21fc5e-8540-4a85-9a9f-2be163d6b8b6",
           "name": "Natur - Skjoldenæsholm 2",
           "areaHa": 54.46,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 1.36,
+          "protectedNatureHa": 36.78,
+          "section3Ha": 2.37,
           "natura2000Ha": 0
         },
         {
           "id": "5f76e2a2-8d78-4b9d-a4e2-02f40ee9cc50",
           "name": "Natur ved Horsebøbæk øvre del",
           "areaHa": 58.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 2.45,
+          "protectedNatureHa": 47.81,
+          "section3Ha": 31.45,
           "natura2000Ha": 0
         },
         {
@@ -193235,8 +193255,8 @@
           "name": "Natur - Ringsted ådal 4",
           "areaHa": 31.91,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 1.59,
+          "section3Ha": 0.0,
           "natura2000Ha": 0
         },
         {
@@ -193244,8 +193264,8 @@
           "name": "Natur - Vesterskoven 2",
           "areaHa": 31.06,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 0.51,
+          "section3Ha": 0.08,
           "natura2000Ha": 0
         },
         {
@@ -193253,26 +193273,26 @@
           "name": "Natur - Jystrup 1",
           "areaHa": 39.12,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 13.11,
+          "section3Ha": 0.3,
+          "natura2000Ha": 0.28
         },
         {
           "id": "c57188a0-5bfd-49cd-a5c3-4c7ae6f7bffc",
           "name": "Natur Suså, Vetterslev til Assendrup",
           "areaHa": 128.5,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 80.2,
+          "section3Ha": 53.73,
+          "natura2000Ha": 7.7
         },
         {
           "id": "86f60864-64a2-4a3f-a93b-83606e398117",
           "name": "Natur - Suså",
           "areaHa": 266.59,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 14.57,
+          "section3Ha": 0.79,
           "natura2000Ha": 0
         },
         {
@@ -193280,8 +193300,8 @@
           "name": "Natur - Vigersdal ådal",
           "areaHa": 180.93,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 66.19,
+          "section3Ha": 48.38,
           "natura2000Ha": 0
         },
         {
@@ -193289,8 +193309,8 @@
           "name": "Natur - Gyrstinge Sø 3",
           "areaHa": 47.86,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 20.89,
+          "section3Ha": 1.16,
           "natura2000Ha": 0
         },
         {
@@ -193298,8 +193318,8 @@
           "name": "Natur - Vesterskoven 3",
           "areaHa": 162.07,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 9.47,
+          "section3Ha": 2.68,
           "natura2000Ha": 0
         },
         {
@@ -193307,17 +193327,17 @@
           "name": "Natur Suså - Søerne til Holløse",
           "areaHa": 40.16,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 37.44,
+          "section3Ha": 23.41,
+          "natura2000Ha": 23.77
         },
         {
           "id": "4563fdc3-8073-43d8-8bef-4add884e4aff",
           "name": "Natur - Ringsted ådal 1",
           "areaHa": 131.5,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.02,
+          "protectedNatureHa": 12.83,
+          "section3Ha": 4.71,
           "natura2000Ha": 0
         },
         {
@@ -193325,8 +193345,8 @@
           "name": "Natur - Skjoldenæsholm 3",
           "areaHa": 47.61,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 13.52,
+          "section3Ha": 3.07,
           "natura2000Ha": 0
         },
         {
@@ -193334,8 +193354,8 @@
           "name": "Natur - Haraldsted Sø 5",
           "areaHa": 34.96,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.59,
+          "section3Ha": 0.4,
           "natura2000Ha": 0
         },
         {
@@ -193343,17 +193363,17 @@
           "name": "Natur - Skjoldenæsholm 4",
           "areaHa": 53.25,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 10.23,
+          "section3Ha": 2.13,
+          "natura2000Ha": 0.14
         },
         {
           "id": "3c4c59bd-b0f9-4537-9674-353704134ea2",
           "name": "Natur - Høm Lilleå",
           "areaHa": 262.69,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 3.21,
+          "section3Ha": 0.9,
           "natura2000Ha": 0
         },
         {
@@ -193361,8 +193381,8 @@
           "name": "Natur - Vesterskoven 1",
           "areaHa": 87.76,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 6.75,
+          "section3Ha": 0.27,
           "natura2000Ha": 0
         },
         {
@@ -193370,8 +193390,8 @@
           "name": "Natur - Ringsted ådal 3",
           "areaHa": 136.01,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 6.63,
+          "section3Ha": 0.25,
           "natura2000Ha": 0
         },
         {
@@ -193379,8 +193399,8 @@
           "name": "Valsømagle Kildeplads 2",
           "areaHa": 47.48,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.75,
+          "section3Ha": 0.9,
           "natura2000Ha": 0
         },
         {
@@ -193388,16 +193408,16 @@
           "name": "Natur - Gyrstinge Sø 1",
           "areaHa": 53.57,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 3.48,
+          "section3Ha": 0.82,
           "natura2000Ha": 0
         },
         {
           "id": "53eb1b98-4e07-4491-9b9b-76beb8566286",
           "name": "Natur - Skjoldenæsholm 1",
           "areaHa": 9.61,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "biodiversityHa": 0.03,
+          "protectedNatureHa": 1.52,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -193405,18 +193425,18 @@
           "id": "fa160e52-1dd7-49d4-9520-ace09c025967",
           "name": "Natur - Jystrup 2",
           "areaHa": 12.91,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "biodiversityHa": 0.05,
+          "protectedNatureHa": 3.19,
           "section3Ha": 0,
-          "natura2000Ha": 0
+          "natura2000Ha": 0.11
         },
         {
           "id": "34090062-d9ab-4d71-ad1a-7832204e9b7c",
           "name": "Natur - Horsebøbæk ved Rødeng",
           "areaHa": 54.53,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.04,
+          "protectedNatureHa": 31.8,
+          "section3Ha": 18.78,
           "natura2000Ha": 0
         },
         {
@@ -193424,8 +193444,8 @@
           "name": "Natur - Haraldsted Sø 4",
           "areaHa": 56.15,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 6.65,
+          "section3Ha": 1.66,
           "natura2000Ha": 0
         },
         {
@@ -193433,8 +193453,8 @@
           "name": "Natur ved Skovnæs Mose",
           "areaHa": 96.28,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 23.53,
+          "section3Ha": 12.64,
           "natura2000Ha": 0
         },
         {
@@ -193442,17 +193462,17 @@
           "name": "Natur i Nørre Mose og Eskildstrup sø",
           "areaHa": 204.36,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 147.1,
+          "section3Ha": 114.68,
           "natura2000Ha": 0
         },
         {
           "id": "f62165b1-c86c-4568-b9a2-04e9f95fdb35",
           "name": "Natur ved Bromme Mose og Munke Bjergbysø",
           "areaHa": 146.37,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 8.38,
+          "protectedNatureHa": 136.97,
+          "section3Ha": 96.63,
           "natura2000Ha": 0
         },
         {
@@ -193460,8 +193480,8 @@
           "name": "Natur ved Glarmosen",
           "areaHa": 67.42,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 59.45,
+          "section3Ha": 32.39,
           "natura2000Ha": 0
         }
       ]
@@ -193472,8 +193492,8 @@
       "geoLocationId": "34fc8546-ef34-4153-be33-e880ed98c0a1",
       "nameNormalized": "Storebælt",
       "nitrogenAchievedT": 59.8,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 300.5,
+      "afforestationAchievedHa": 23.1,
       "naturePotentialAreaHa": 2707.9,
       "countNaturePotentials": 5,
       "projects": {
@@ -198346,9 +198366,9 @@
           "id": "0b8a047d-6a6a-4364-80ec-10cb623922b0",
           "name": "022-028. Vindinge Ådal",
           "areaHa": 1166.4,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 24.84,
+          "protectedNatureHa": 676.86,
+          "section3Ha": 400.79,
           "natura2000Ha": 0
         },
         {
@@ -198356,17 +198376,17 @@
           "name": "136. Kastel Ådal - DN Nyborg",
           "areaHa": 265.21,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 110.56,
+          "section3Ha": 52.02,
           "natura2000Ha": 0
         },
         {
           "id": "15572b80-97d4-4f0b-8cc8-54a5bfdad971",
           "name": "143.  Ørbæk Ådal - DN Nyborg",
           "areaHa": 256.72,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.55,
+          "protectedNatureHa": 103.22,
+          "section3Ha": 60.96,
           "natura2000Ha": 0
         },
         {
@@ -198374,18 +198394,18 @@
           "name": "086. Kogsbøllebæk - DN Nyborg",
           "areaHa": 386.64,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 60.83,
+          "section3Ha": 33.56,
+          "natura2000Ha": 1.91
         },
         {
           "id": "30d47fcb-fa80-49c4-b4cb-8002da3b528b",
           "name": "Fyns Hoved",
           "areaHa": 632.93,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 147.75,
+          "section3Ha": 40.47,
+          "natura2000Ha": 24.83
         }
       ]
     },
@@ -198395,8 +198415,8 @@
       "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
       "nameNormalized": "Vadehavet",
       "nitrogenAchievedT": 548.8,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 11675.3,
+      "afforestationAchievedHa": 473.7,
       "naturePotentialAreaHa": 13950.6,
       "countNaturePotentials": 13,
       "projects": {
@@ -206436,62 +206456,62 @@
           "name": "Svanemosen",
           "areaHa": 189.12,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 148.84,
+          "section3Ha": 3.11,
+          "natura2000Ha": 84.13
         },
         {
           "id": "80fee724-0d0a-4940-944e-0f00586d4a69",
           "name": "Naturkategori HK7",
           "areaHa": 2.97,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.76,
+          "section3Ha": 0.04,
           "natura2000Ha": 0
         },
         {
           "id": "2afa34f8-cbbf-467c-a293-571422bf7937",
           "name": "Klelund Dyrehave",
           "areaHa": 3344.38,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 92.18,
+          "protectedNatureHa": 2097.2,
+          "section3Ha": 618.76,
+          "natura2000Ha": 27.39
         },
         {
           "id": "3d08342c-d39a-4188-8392-a4420d8a6531",
           "name": "Naturpotentiale Kragelund Mose",
           "areaHa": 363.14,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 59.39,
+          "protectedNatureHa": 356.54,
+          "section3Ha": 203.01,
           "natura2000Ha": 0
         },
         {
           "id": "baed7c9b-0630-4418-bb3c-210eb424def6",
           "name": "Potentielt sammenhængende natur Billund",
           "areaHa": 699.23,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 89.21,
+          "protectedNatureHa": 553.97,
+          "section3Ha": 279.98,
+          "natura2000Ha": 39.42
         },
         {
           "id": "cbd886ca-d154-43da-b270-f9fdeb2b43f2",
           "name": "LIFE Naturprojekt Kongeåen",
           "areaHa": 776.87,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 524.25,
+          "section3Ha": 97.28,
+          "natura2000Ha": 644.68
         },
         {
           "id": "324d8005-0220-4f60-bbe5-a3fad230acee",
           "name": "Naturpotentiale Brændstrup Bæk",
           "areaHa": 69.14,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.92,
+          "protectedNatureHa": 67.91,
+          "section3Ha": 52.81,
           "natura2000Ha": 0
         },
         {
@@ -206499,45 +206519,45 @@
           "name": "Naturpotentiale Grådyb_Vejle Kommune",
           "areaHa": 82.01,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 36.43,
+          "section3Ha": 8.9,
           "natura2000Ha": 0
         },
         {
           "id": "26bc6efa-d1e7-4cae-86d0-89bbc8311032",
           "name": "Naturkategori HK5",
           "areaHa": 5509.6,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 90.69,
+          "protectedNatureHa": 2713.51,
+          "section3Ha": 977.79,
+          "natura2000Ha": 133.77
         },
         {
           "id": "d3176360-2400-4b32-bd51-20a8ae7cc542",
           "name": "Naturpotentiale Vejen Mose",
           "areaHa": 142.49,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 30.01,
+          "protectedNatureHa": 118.6,
+          "section3Ha": 54.79,
+          "natura2000Ha": 118.2
         },
         {
           "id": "bfd02459-dbfd-4176-81a2-43b000ca1930",
           "name": "Naturkategori HK6",
           "areaHa": 544.34,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 121.79,
+          "protectedNatureHa": 303.42,
+          "section3Ha": 214.33,
           "natura2000Ha": 0
         },
         {
           "id": "d28e9140-40fc-4280-83d7-d521b38174a4",
           "name": "Naturpotentiale Tønder (1)",
           "areaHa": 2226.58,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 176.68,
+          "protectedNatureHa": 1557.94,
+          "section3Ha": 355.72,
+          "natura2000Ha": 1117.3
         }
       ]
     },
@@ -206546,16 +206566,16 @@
       "name": "Vidå-Kruså",
       "geoLocationId": "08d5519c-2f77-4837-b92c-497768e46127",
       "nameNormalized": "Vidaa-Krusaa",
-      "nitrogenAchievedT": 0,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "nitrogenAchievedT": 51.6,
+      "extractionAchievedHa": 4074.9,
+      "afforestationAchievedHa": 51.2,
       "naturePotentialAreaHa": 19133.8,
       "countNaturePotentials": 6,
       "projects": {
         "sketches": 89,
         "assessed": 22,
         "approved": 7,
-        "established": 4
+        "established": 5
       },
       "projectDetails": [
         {
@@ -207217,6 +207237,26 @@
           "lastChanged": "2026-03-11T11:48:27.0818+00:00",
           "kommuneKode": "0510",
           "kommuneNavn": "Haderslev"
+        },
+        {
+          "id": "bf7846d6-a7b8-418e-bde6-e30f69ca4576",
+          "name": "Privat Skovrejsning",
+          "geoId": "c7c573d0-0826-43c6-a7b2-f7ba315a1adf",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Privat Skovrejsning",
+          "schemeOrg": "LBST",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+          "nitrogenT": 0.026,
+          "extractionHa": 0,
+          "afforestationHa": 2.26,
+          "areaHa": 2.26,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-06-24T08:53:05.814279+00:00",
+          "kommuneKode": "0550",
+          "kommuneNavn": "Tønder"
         }
       ],
       "sketchProjects": [
@@ -208392,46 +208432,46 @@
           "id": "9c91ef1c-9de1-41f5-824c-57114152b116",
           "name": "SK - naturpotentiale",
           "areaHa": 1617.14,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 9.91,
+          "protectedNatureHa": 302.38,
+          "section3Ha": 79.5,
+          "natura2000Ha": 35.82
         },
         {
           "id": "a7856c4a-c0f6-4845-8635-65f40be8d7b5",
           "name": "Naturpotentiale_Aabenraa_2",
           "areaHa": 2111.73,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 211.39,
+          "protectedNatureHa": 1793.51,
+          "section3Ha": 382.5,
+          "natura2000Ha": 405.27
         },
         {
           "id": "b4f594f1-3f4e-41b1-a932-872083cf8a64",
           "name": "Naturpotentiale_Aabenraa_1",
           "areaHa": 8207.14,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 1149.74,
+          "protectedNatureHa": 5524.08,
+          "section3Ha": 2909.82,
+          "natura2000Ha": 3552.26
         },
         {
           "id": "af6698e5-0c1f-4196-9122-7f134f602642",
           "name": "Naturpotentiale Tønder (2)",
           "areaHa": 6300.58,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 661.88,
+          "protectedNatureHa": 4459.52,
+          "section3Ha": 1173.19,
+          "natura2000Ha": 1483.63
         },
         {
           "id": "d28e9140-40fc-4280-83d7-d521b38174a4",
           "name": "Naturpotentiale Tønder (1)",
           "areaHa": 896.64,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 78.46,
+          "protectedNatureHa": 579.5,
+          "section3Ha": 120.0,
+          "natura2000Ha": 153.03
         }
       ]
     },
@@ -208441,7 +208481,7 @@
       "geoLocationId": "da5513b6-c6e7-42c6-bab1-0c91145ab9b3",
       "nameNormalized": "Aarhus Bugt",
       "nitrogenAchievedT": 2.0,
-      "extractionAchievedHa": 0,
+      "extractionAchievedHa": 250.7,
       "afforestationAchievedHa": 20.9,
       "naturePotentialAreaHa": 0,
       "countNaturePotentials": 0,
@@ -209374,8 +209414,8 @@
       "geoLocationId": "2fe44767-bfec-40a9-a023-d6b4c68e730b",
       "nameNormalized": "Oeresund",
       "nitrogenAchievedT": 20.2,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 245.7,
+      "afforestationAchievedHa": 15.1,
       "naturePotentialAreaHa": 1529.7,
       "countNaturePotentials": 20,
       "projects": {
@@ -210674,7 +210714,7 @@
           "name": "Skovrejsningsprojekt 3 - Naturpotentiale",
           "areaHa": 5.04,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 4.98,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -210683,17 +210723,17 @@
           "name": "Skovrejsningsprojekt 1 - Naturpotentiale",
           "areaHa": 14.18,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 13.64,
+          "section3Ha": 0.26,
           "natura2000Ha": 0
         },
         {
           "id": "aeaf54c6-377a-4de1-8e75-1ecd4ec1fa93",
           "name": "Øge naturkvalitet bynært",
           "areaHa": 72.83,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 2.87,
+          "protectedNatureHa": 68.78,
+          "section3Ha": 15.54,
           "natura2000Ha": 0
         },
         {
@@ -210701,8 +210741,8 @@
           "name": "Usserød Ådal Vest, naturpotentiale",
           "areaHa": 6.37,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 5.59,
+          "section3Ha": 3.37,
           "natura2000Ha": 0
         },
         {
@@ -210710,8 +210750,8 @@
           "name": "Bolbroeng, naturpotentiale",
           "areaHa": 2.27,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.25,
+          "section3Ha": 2.23,
           "natura2000Ha": 0
         },
         {
@@ -210719,8 +210759,8 @@
           "name": "Skovrejsningsprojekt 4 - Naturpotentiale",
           "areaHa": 2.79,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 2.79,
+          "section3Ha": 0.0,
           "natura2000Ha": 0
         },
         {
@@ -210728,8 +210768,8 @@
           "name": "Skovrejsningsprojekt 2 - Naturpotentiale",
           "areaHa": 6.04,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 5.94,
+          "section3Ha": 0.7,
           "natura2000Ha": 0
         },
         {
@@ -210737,8 +210777,8 @@
           "name": "Ny Allerødgårds jorde, natur og/eller skovrejsning",
           "areaHa": 20.07,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 19.56,
+          "section3Ha": 0.28,
           "natura2000Ha": 0
         },
         {
@@ -210746,8 +210786,8 @@
           "name": "Bynært naturpotentiale, Ermelunden",
           "areaHa": 27.14,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 25.71,
+          "section3Ha": 2.35,
           "natura2000Ha": 0
         },
         {
@@ -210764,8 +210804,8 @@
           "name": "Rolighedsmoserne",
           "areaHa": 32.33,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 18.09,
+          "section3Ha": 10.68,
           "natura2000Ha": 0
         },
         {
@@ -210773,8 +210813,8 @@
           "name": "Usserød Ådal Syd, naturpotentiale",
           "areaHa": 10.81,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 9.79,
+          "section3Ha": 9.95,
           "natura2000Ha": 0
         },
         {
@@ -210782,17 +210822,17 @@
           "name": "Kilen i Folehaveskoven, naturpotentiale",
           "areaHa": 7.69,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 7.42,
+          "section3Ha": 5.93,
+          "natura2000Ha": 7.57
         },
         {
           "id": "06438c03-fb9f-414a-a2ae-9fa6bfc4771d",
           "name": "Usserød Ådal Nord, naturpotentiale",
           "areaHa": 5.9,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 4.52,
+          "section3Ha": 5.84,
           "natura2000Ha": 0
         },
         {
@@ -210800,26 +210840,26 @@
           "name": "Sophienberg eng, naturpotentiale",
           "areaHa": 21.31,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 21.13,
+          "section3Ha": 10.84,
           "natura2000Ha": 0
         },
         {
           "id": "feaa3e82-4356-49ee-8a81-9fe0cc2b11a7",
           "name": "Maglemosen - Naturpotentiale",
           "areaHa": 83.16,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 2.14,
+          "protectedNatureHa": 73.22,
+          "section3Ha": 68.08,
           "natura2000Ha": 0
         },
         {
           "id": "e5f2bf66-eca9-4f9e-8e82-894c4b8c96c7",
           "name": "Naturpotentiale - Nivå Engfjord",
           "areaHa": 951.41,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 19.22,
+          "protectedNatureHa": 482.32,
+          "section3Ha": 241.4,
           "natura2000Ha": 0
         },
         {
@@ -210827,8 +210867,8 @@
           "name": "Sømosen - Naturpotentiale",
           "areaHa": 8.69,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 5.73,
+          "section3Ha": 3.36,
           "natura2000Ha": 0
         },
         {
@@ -210836,8 +210876,8 @@
           "name": "Torup Enge",
           "areaHa": 211.69,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 152.9,
+          "section3Ha": 18.07,
           "natura2000Ha": 0
         },
         {
@@ -210845,8 +210885,8 @@
           "name": "Skovrejsning Melby Evetofte",
           "areaHa": 34.87,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 9.34,
+          "section3Ha": 0.26,
           "natura2000Ha": 0
         }
       ]
@@ -210857,8 +210897,8 @@
       "geoLocationId": "a0071559-4a81-417a-acad-8559a07171ec",
       "nameNormalized": "Oestersoeen",
       "nitrogenAchievedT": 268.6,
-      "extractionAchievedHa": 0,
-      "afforestationAchievedHa": 0,
+      "extractionAchievedHa": 2761.5,
+      "afforestationAchievedHa": 10.4,
       "naturePotentialAreaHa": 1828.4,
       "countNaturePotentials": 16,
       "projects": {
@@ -214599,8 +214639,8 @@
           "name": "Natur - Nebbelunde - Rødby langs Kirkenorsløbet",
           "areaHa": 32.2,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 1.15,
+          "section3Ha": 0.09,
           "natura2000Ha": 0
         },
         {
@@ -214608,7 +214648,7 @@
           "name": "Natur - Sædinge langs Kirkenorsløbet",
           "areaHa": 10.36,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
+          "protectedNatureHa": 0.16,
           "section3Ha": 0,
           "natura2000Ha": 0
         },
@@ -214616,9 +214656,9 @@
           "id": "88249048-55f9-4352-b4ad-0455c50f69dc",
           "name": "Natur - Lidsø Myggefjed",
           "areaHa": 195.38,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "biodiversityHa": 0.37,
+          "protectedNatureHa": 99.89,
+          "section3Ha": 71.34,
           "natura2000Ha": 0
         },
         {
@@ -214626,8 +214666,8 @@
           "name": "Natur - Riddertoften naturbuffer",
           "areaHa": 16.86,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 4.34,
+          "section3Ha": 0.23,
           "natura2000Ha": 0
         },
         {
@@ -214635,8 +214675,8 @@
           "name": "Natur - Kramnitze Rappeholm",
           "areaHa": 48.89,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 37.28,
+          "section3Ha": 0.21,
           "natura2000Ha": 0
         },
         {
@@ -214646,7 +214686,7 @@
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
           "section3Ha": 0,
-          "natura2000Ha": 0
+          "natura2000Ha": 74.31
         },
         {
           "id": "619a10ae-d638-4d0d-8ae3-ba520e41f9f2",
@@ -214655,34 +214695,34 @@
           "biodiversityHa": 0,
           "protectedNatureHa": 0,
           "section3Ha": 0,
-          "natura2000Ha": 0
+          "natura2000Ha": 5.66
         },
         {
           "id": "a540cf7e-d419-4022-812d-fa0c0b8eb0bc",
           "name": "Natur - Røgbølle Sø vest",
           "areaHa": 10.32,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 0.69,
+          "section3Ha": 0.05,
+          "natura2000Ha": 9.93
         },
         {
           "id": "6f7419d0-e38f-47bc-8250-c8053f9830c5",
           "name": "Helhedsprojekt Møn",
           "areaHa": 717.31,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 99.16,
+          "protectedNatureHa": 367.72,
+          "section3Ha": 224.39,
+          "natura2000Ha": 262.81
         },
         {
           "id": "93ee784f-05df-4e06-910c-286f6467820c",
           "name": "Fritlægning af rørlagte vandløb",
           "areaHa": 10.56,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "protectedNatureHa": 0.03,
+          "section3Ha": 0.03,
+          "natura2000Ha": 0.0
         },
         {
           "id": "ffc986c6-efe5-425c-a8b5-faa38f473c6e",
@@ -214698,8 +214738,8 @@
           "name": "Tubæk Å Helhedsprojekt",
           "areaHa": 638.56,
           "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
+          "protectedNatureHa": 216.27,
+          "section3Ha": 157.75,
           "natura2000Ha": 0
         },
         {
@@ -214724,10 +214764,10 @@
           "id": "f1547d5d-f3e2-4c18-8d7a-8521ba013164",
           "name": "Kilde Å",
           "areaHa": 59.1,
-          "biodiversityHa": 0,
-          "protectedNatureHa": 0,
-          "section3Ha": 0,
-          "natura2000Ha": 0
+          "biodiversityHa": 2.31,
+          "protectedNatureHa": 25.56,
+          "section3Ha": 0.15,
+          "natura2000Ha": 17.46
         },
         {
           "id": "1f171790-e232-413d-8f21-8b8ee8118d34",
@@ -214797,7 +214837,7 @@
       "name": "Permanent ekstensivering",
       "organization": "SGAV",
       "url": "https://lbst.dk/tilskud/tilskudsguide/2014-22/permanent-ekstensivering",
-      "active": true
+      "active": false
     },
     {
       "id": "0c0fb584-18d3-4bd2-9a87-d113eccc6537",
@@ -214811,11 +214851,11 @@
       "name": "SGAV Klima-Lavbund",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
-      "active": true
+      "active": false
     },
     {
       "id": "1f60c9e0-12a6-437c-ad6e-4e86397ac9b5",
-      "name": "Lavbundsprojekt (VLP)",
+      "name": "Lavbundsprojekt (VLP-VKP)",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
       "active": true
@@ -214829,7 +214869,7 @@
     },
     {
       "id": "29852eac-95b4-47e0-ac4a-3e0c60d0d5e9",
-      "name": "Kvælstofvådområde (VLP)",
+      "name": "Kvælstofvådområde (VLP-VKP)",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
       "active": true
@@ -214838,12 +214878,12 @@
       "id": "4634165f-af41-462d-8f84-bd647dc1f3df",
       "name": "Lavbundsprojekt (VLP-KLA)",
       "organization": "SGAV",
-      "url": "-",
+      "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/vaadomraader-og-lavbundsprojekter-2026",
       "active": true
     },
     {
       "id": "487cb49b-3b3a-4ba5-bd8d-25d014df8b60",
-      "name": "Restaurering af ådale (VLP)",
+      "name": "Restaurering af ådale (VLP-VKP)",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/restaurering-af-aadale",
       "active": true
@@ -214860,7 +214900,7 @@
       "name": "Restaurering af ådale",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/restaurering-af-aadale",
-      "active": true
+      "active": false
     },
     {
       "id": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
@@ -214871,7 +214911,7 @@
     },
     {
       "id": "85a6111a-4270-44d0-b6d8-a36fafc72175",
-      "name": "Fosforvådområde (VLP)",
+      "name": "Fosforvådområde (VLP-VKP)",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
       "active": true
@@ -214881,20 +214921,20 @@
       "name": "Lavbundsprojekter",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-      "active": true
+      "active": false
     },
     {
       "id": "a1f3e207-4a9c-433d-a58a-dca8e12feabf",
       "name": "Kvælstofvådområder",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
-      "active": true
+      "active": false
     },
     {
       "id": "bc406d32-ef20-45f7-866f-d74683181303",
       "name": "Kvælstofvådområde (VLP-KLA)",
       "organization": "SGAV",
-      "url": "-",
+      "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/vaadomraader-og-lavbundsprojekter-2026",
       "active": true
     },
     {
@@ -214943,7 +214983,7 @@
       "id": "e2e564ac-dc5c-4eea-939e-53eaf4f6163f",
       "name": "Forundersøgelse (VLP)",
       "organization": "SGAV",
-      "url": "-",
+      "url": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/vaadomraader-og-lavbundsprojekter-2026",
       "active": true
     },
     {
@@ -214958,7 +214998,7 @@
       "name": "Fosforvådområder",
       "organization": "SGAV",
       "url": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
-      "active": true
+      "active": false
     }
   ]
 }
