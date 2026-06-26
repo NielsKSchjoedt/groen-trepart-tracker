@@ -42919,21 +42919,21 @@
     "id": "e657bbe8-581e-4e5e-92bd-e39cc965c2f2",
     "name": "Limfjorden",
     "geoLocationId": "e7762bdb-1ef7-4fbe-a745-b21e7996f92e",
-    "totalNitrogenReductionT": 1260.932862456163,
+    "totalNitrogenReductionT": 1260.9332313495229,
     "totalExtractionEffortHa": 29206.759615294373,
-    "totalAfforestationEffortHa": 525.9456931419734,
+    "totalAfforestationEffortHa": 535.463644248355,
     "totalNaturePotentialAreaHa": 10088.569114475036,
     "countApprovedProjects": 139,
-    "countAssessedProjects": 166,
+    "countAssessedProjects": 167,
     "countEstablishedProjects": 9,
     "countSketchProjects": 640,
     "countNaturePotentials": 8,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 3.8605563039006694,
+        "nitrogenReductionT": 3.860925197260411,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 525.9456931419734
+        "afforestationEffortHa": 535.463644248355
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -48616,6 +48616,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-06-22T13:21:36.147755+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "2d28d9e5-576e-4565-bc13-04b50e533002",
+        "projectName": "Andrupvej 8",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.0003688933597417029,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 9.517951106381553,
+        "overlappingAreaHa": 9.517951106381553,
+        "supplGeo1OverlappingAreaHa": 9.320553703265325,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "bed58218-1d71-4df1-95b3-855ce202f6eb",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-06-02T12:00:00+00:00",
+        "lastStateChanged": "2026-06-25T09:56:25.31462+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
