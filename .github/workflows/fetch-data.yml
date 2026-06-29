@@ -34,7 +34,7 @@ jobs:
       # geometries via DAWA on every run (~38 min). The cache is keyed by run
       # so the latest entry is always restored via the restore-keys fallback.
       - name: Restore geocoding cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/geo-kommune-cache.json
           key: geo-kommune-cache-v1-${{ github.run_id }}
@@ -46,7 +46,7 @@ jobs:
       # geometry API calls on every run (~20-38 min). With the cache, only
       # newly added MARS projects are fetched (typically 0-50 per day).
       - name: Restore MARS geometry cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/mars/geometries-wkt.json
           key: geometries-wkt-v1-${{ github.run_id }}
@@ -57,7 +57,7 @@ jobs:
       # and only re-fetch when a new data year becomes available (probed with
       # a single API call).
       - name: Restore Klimaregnskab raw data
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/klimaregnskab/noegletal_raw.json
           key: klimaregnskab-raw-v1-${{ github.run_id }}
@@ -68,7 +68,7 @@ jobs:
       # Coordinates that have already been geocoded are reused — only new
       # projects trigger API calls.
       - name: Restore Klimaskovfonden geocode cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/klimaskovfonden/geocode-cache.json
           key: klimaskov-geocode-v1-${{ github.run_id }}
@@ -76,7 +76,7 @@ jobs:
             klimaskov-geocode-v1-
 
       - name: Restore Naturstyrelsen geocode cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/naturstyrelsen-skov/geocode-cache.json
           key: naturstyrelsen-geocode-v1-${{ github.run_id }}
@@ -86,7 +86,7 @@ jobs:
       # §3 protected areas: skip 186K-feature WFS pagination when the total
       # feature count is unchanged since last run.
       - name: Restore §3 summary (for count-based skip)
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             data/section3/summary.json
@@ -98,7 +98,7 @@ jobs:
       # DAWA municipality boundaries: essentially static data, re-fetched
       # only when files are older than 30 days.
       - name: Restore DAWA data
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             data/dawa/kommuner.json
