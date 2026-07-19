@@ -14741,6 +14741,136 @@
         "stations": 2837
       },
       "notes": "2837 stations, 2837 with coordinates"
+    },
+    {
+      "timestamp": "2026-07-19T07:58:41.523056+00:00",
+      "source": "mars",
+      "status": "ok",
+      "endpoints": [
+        "https://mars.sgav.dk/api/master-data",
+        "https://mars.sgav.dk/api/status/plans",
+        "https://mars.sgav.dk/api/status/projects",
+        "https://mars.sgav.dk/api/status/vos",
+        "https://mars.sgav.dk/api/status/metadata"
+      ],
+      "records": {
+        "master-data": 1,
+        "plans": 37,
+        "projects": 1565,
+        "vos": 23,
+        "metadata": 1
+      },
+      "notes": "All endpoints OK",
+      "duration_seconds": 6.3
+    },
+    {
+      "timestamp": "2026-07-19T07:58:41.593723+00:00",
+      "source": "dawa",
+      "status": "ok",
+      "endpoints": [],
+      "records": {
+        "municipalities": 99
+      },
+      "notes": "Skipped — files fresh (< 30 days old)",
+      "duration_seconds": 0.0
+    },
+    {
+      "timestamp": "2026-07-19T07:58:56.882519+00:00",
+      "source": "miljoegis",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (vandprojekter)"
+      ],
+      "records": {
+        "kla_projektforslag": 80,
+        "kla_projektomraader": 4,
+        "helhedsprojekter_tilsagn2020": 2,
+        "kla_e23_bioprio": 100,
+        "kvaelstofretention": 100,
+        "vaadomraadepotentiale": 100
+      },
+      "notes": "6 layers fetched"
+    },
+    {
+      "timestamp": "2026-07-19T07:59:25.893416+00:00",
+      "source": "natura2000",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (natur)"
+      ],
+      "records": {
+        "natura_2000_sites": 250
+      },
+      "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)",
+      "duration_seconds": 20.9
+    },
+    {
+      "timestamp": "2026-07-19T07:59:27.912165+00:00",
+      "source": "klimaskovfonden",
+      "status": "ok",
+      "endpoints": [
+        "https://test.admin.gc2.io/ows/klimaskovfonden/public/"
+      ],
+      "records": {
+        "projects": 243
+      },
+      "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)",
+      "duration_seconds": 1.9
+    },
+    {
+      "timestamp": "2026-07-19T08:00:03.827781+00:00",
+      "source": "section3",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (natur)"
+      ],
+      "records": {
+        "section3_areas": 186628,
+        "section3_municipalities": 97
+      },
+      "notes": "186,628 §3 areas (skipped — count unchanged)",
+      "duration_seconds": 0.6
+    },
+    {
+      "timestamp": "2026-07-19T08:00:25.446161+00:00",
+      "source": "forest",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (np3basis2020, skovdrift)"
+      ],
+      "records": {
+        "fredskov_parcels": 59822,
+        "skovkort_polygons": 61588
+      },
+      "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons",
+      "duration_seconds": 21.6
+    },
+    {
+      "timestamp": "2026-07-19T08:00:41.557926+00:00",
+      "source": "dst",
+      "status": "ok",
+      "endpoints": [
+        "https://api.statbank.dk/v1/data"
+      ],
+      "records": {
+        "ARE207": 2100,
+        "SKOV1": 9962,
+        "FOND19": 63,
+        "TILSKUD2": 115
+      },
+      "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+    },
+    {
+      "timestamp": "2026-07-19T08:00:44.900552+00:00",
+      "source": "vanda",
+      "status": "ok",
+      "endpoints": [
+        "https://vandah.miljoeportal.dk/api/stations"
+      ],
+      "records": {
+        "stations": 2837
+      },
+      "notes": "2837 stations, 2837 with coordinates"
     }
   ]
 }
