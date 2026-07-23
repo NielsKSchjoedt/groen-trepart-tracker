@@ -586,11 +586,11 @@
     "id": "82c6b761-5683-4ab3-9aea-015353383665",
     "name": "Århus Bugt syd, Samsø og Nordlige Bælthav",
     "geoLocationId": "5846ef66-cbaf-4583-8d25-59ec44f892b8",
-    "totalNitrogenReductionT": 423.789564693243,
+    "totalNitrogenReductionT": 426.463564693243,
     "totalExtractionEffortHa": 1738.7951599762453,
     "totalAfforestationEffortHa": 145.39861768909148,
     "totalNaturePotentialAreaHa": 29861.90588110368,
-    "countApprovedProjects": 68,
+    "countApprovedProjects": 69,
     "countAssessedProjects": 49,
     "countEstablishedProjects": 5,
     "countSketchProjects": 431,
@@ -598,7 +598,7 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 368.76365104665445,
+        "nitrogenReductionT": 371.4376510466544,
         "extractionEffortHa": 299.5506643176522,
         "afforestationEffortHa": 0
       },
@@ -2821,6 +2821,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2026-02-26T12:00:00+00:00",
         "lastStateChanged": "2026-07-22T06:54:48.889298+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "25d4ba4b-0b2c-4368-bffb-d7f26bdde2a3",
+        "projectName": "Lille vådområde ved Båstrup",
+        "projectStatus": 6,
+        "nitrogenReductionT": 2.674,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 8.982559962040229,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "b39478e4-e0fd-43f9-852a-698c9f8a874c",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-26T12:00:00+00:00",
+        "lastStateChanged": "2026-07-22T08:07:40.671848+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
