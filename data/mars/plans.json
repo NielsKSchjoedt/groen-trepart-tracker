@@ -586,11 +586,11 @@
     "id": "82c6b761-5683-4ab3-9aea-015353383665",
     "name": "Århus Bugt syd, Samsø og Nordlige Bælthav",
     "geoLocationId": "5846ef66-cbaf-4583-8d25-59ec44f892b8",
-    "totalNitrogenReductionT": 426.463564693243,
-    "totalExtractionEffortHa": 1738.7951599762453,
+    "totalNitrogenReductionT": 430.1281140643814,
+    "totalExtractionEffortHa": 1738.9051599762454,
     "totalAfforestationEffortHa": 145.39861768909148,
     "totalNaturePotentialAreaHa": 29861.90588110368,
-    "countApprovedProjects": 69,
+    "countApprovedProjects": 72,
     "countAssessedProjects": 49,
     "countEstablishedProjects": 5,
     "countSketchProjects": 431,
@@ -598,8 +598,8 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 371.4376510466544,
-        "extractionEffortHa": 299.5506643176522,
+        "nitrogenReductionT": 375.10220041779286,
+        "extractionEffortHa": 299.66066431765216,
         "afforestationEffortHa": 0
       },
       {
@@ -643,6 +643,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2025-10-31T13:36:30.758979+00:00",
         "lastStateChanged": "2026-03-20T12:09:17.62793+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "2bac9462-ac2c-462f-914b-438e23a66911",
+        "projectName": "Lille vådområde ved Østermarksvej",
+        "projectStatus": 6,
+        "nitrogenReductionT": 1.712,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 6.335940377777984,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "4594a341-12db-4d53-aee2-0afcf6034916",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-26T12:00:00+00:00",
+        "lastStateChanged": "2026-07-23T11:48:29.86668+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
@@ -845,6 +863,24 @@
         "reducedAreaHa": null
       },
       {
+        "projectId": "fd0a110d-cb94-475a-818c-91325ce979d0",
+        "projectName": "Lille vådområde ved Ramsherredvej",
+        "projectStatus": 6,
+        "nitrogenReductionT": 1.706,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 5.218214460913468,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "576ba5a6-750a-4c62-b821-1429ac173c80",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-26T12:00:00+00:00",
+        "lastStateChanged": "2026-07-23T12:27:06.130092+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
         "projectId": "444f9611-d2a2-40c4-8a1b-c4b740218433",
         "projectName": "Odense Kommune Permanent ekstensivering",
         "projectStatus": 10,
@@ -859,6 +895,24 @@
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-02-05T14:02:22.494308+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "e22a1a86-9325-4583-9aa8-973f96d4b375",
+        "projectName": "Synnedrupvej fast track vådområde",
+        "projectStatus": 6,
+        "nitrogenReductionT": 0.24654937113841488,
+        "extractionEffortHa": 0.11000000000000001,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 2.739437457096083,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "ae700ecc-a8b5-4e96-bf31-2bc83380da0f",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-24T12:00:00+00:00",
+        "lastStateChanged": "2026-07-23T12:30:18.605436+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
@@ -23175,11 +23229,11 @@
     "id": "9409a7da-4fad-432b-aec1-ffbc1c42cd30",
     "name": "Jammerland Bugt og Musholm Bugt",
     "geoLocationId": "c39f34eb-62be-418a-8d07-f0faab92e180",
-    "totalNitrogenReductionT": 151.37392874604166,
-    "totalExtractionEffortHa": 5060.849967460271,
+    "totalNitrogenReductionT": 151.66371218986555,
+    "totalExtractionEffortHa": 5060.856576297299,
     "totalAfforestationEffortHa": 106.37074104141095,
     "totalNaturePotentialAreaHa": 2609.445439578963,
-    "countApprovedProjects": 13,
+    "countApprovedProjects": 14,
     "countAssessedProjects": 17,
     "countEstablishedProjects": 6,
     "countSketchProjects": 124,
@@ -23198,6 +23252,12 @@
         "afforestationEffortHa": 0
       },
       {
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "nitrogenReductionT": 2.041016433027973,
+        "extractionEffortHa": 2.6203469176326024,
+        "afforestationEffortHa": 0
+      },
+      {
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
         "nitrogenReductionT": 0.958,
         "extractionEffortHa": 0,
@@ -23213,12 +23273,6 @@
         "mitigationMeasureId": "e2f6c99b-d97d-4fb6-90fe-1ac62cf703b3",
         "nitrogenReductionT": 8.91402235482751,
         "extractionEffortHa": 116.895,
-        "afforestationEffortHa": 0
-      },
-      {
-        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 1.7512329892040883,
-        "extractionEffortHa": 2.6137380806045685,
         "afforestationEffortHa": 0
       }
     ],
@@ -23274,6 +23328,24 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "bb509ee6-7baa-4e35-8f28-989695d9284f",
+        "projectName": "Kvælstofvådområde Halkevad Å",
+        "projectStatus": 6,
+        "nitrogenReductionT": 0.28978344382388466,
+        "extractionEffortHa": 0.006608837028034031,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 3.2198160424882,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "36fb9c9f-6f0b-4e6f-be82-cd8a08de62e3",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-12T12:00:00+00:00",
+        "lastStateChanged": "2026-07-23T12:37:28.161136+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
@@ -66929,11 +67001,11 @@
     "id": "f041a782-df8d-4e1b-8326-becd5d7550e9",
     "name": "Nordlige Lillebælt",
     "geoLocationId": "c300a46e-33a0-4d03-ac10-a351e35ed04d",
-    "totalNitrogenReductionT": 147.6853781138216,
-    "totalExtractionEffortHa": 1568.2227909726553,
+    "totalNitrogenReductionT": 151.1445482638543,
+    "totalExtractionEffortHa": 1568.3127909726552,
     "totalAfforestationEffortHa": 93.99074144657142,
     "totalNaturePotentialAreaHa": 905.0591240839491,
-    "countApprovedProjects": 26,
+    "countApprovedProjects": 29,
     "countAssessedProjects": 41,
     "countEstablishedProjects": 5,
     "countSketchProjects": 162,
@@ -66941,8 +67013,8 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
-        "nitrogenReductionT": 74.2785589518671,
-        "extractionEffortHa": 53.344008410436324,
+        "nitrogenReductionT": 77.73772910189976,
+        "extractionEffortHa": 53.43400841043633,
         "afforestationEffortHa": 0
       },
       {
@@ -67044,6 +67116,24 @@
         "reducedAreaHa": null
       },
       {
+        "projectId": "c3cf8214-5423-4917-bddc-7cef9b2d6aa7",
+        "projectName": "Små vådområder Skovled huse TH23",
+        "projectStatus": 6,
+        "nitrogenReductionT": 0.5128886519173298,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 5.698762799086303,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "1e950608-4be2-439e-b056-183b92517508",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-11T12:00:00+00:00",
+        "lastStateChanged": "2026-07-23T12:06:58.006033+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
         "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
         "projectName": "Vejle Kommune Permanent ekstensivering",
         "projectStatus": 10,
@@ -67062,6 +67152,24 @@
         "reducedAreaHa": null
       },
       {
+        "projectId": "80728b5a-959f-4e2c-9896-724d4cc0bb61",
+        "projectName": "Stouby Kirkevej",
+        "projectStatus": 6,
+        "nitrogenReductionT": 2.6665916162899403,
+        "extractionEffortHa": 0.08999999999999998,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 29.628795736552775,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "0c34f48a-a40a-4a82-9e90-c71694026f20",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-16T12:00:00+00:00",
+        "lastStateChanged": "2026-07-23T12:42:48.424757+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
         "projectId": "0c59071d-5b16-4385-bdb1-ee4d1637ca72",
         "projectName": "Hønnerup klima-lavbundsprojekt",
         "projectStatus": 6,
@@ -67076,6 +67184,24 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-02-24T12:47:45.594561+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "d58db470-5108-4b2d-984b-5fecbaf96d99",
+        "projectName": "Små vådområder Nørrelund AN19",
+        "projectStatus": 6,
+        "nitrogenReductionT": 0.27968988182541515,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": null,
+        "overlappingAreaHa": 3.107665353602579,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "52a5807d-291b-4e7a-9737-d03c8ede2550",
+        "subsidySchemeId": "cd5e848f-f6db-4c0d-b312-e5fa11a54965",
+        "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
+        "applicationTimestamp": "2026-02-11T12:00:00+00:00",
+        "lastStateChanged": "2026-07-24T07:41:02.742923+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
