@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-03T09:21:50.741587+00:00",
-  "builtAt": "2026-08-03T09:30:15.136730+00:00",
+  "fetchedAt": "2026-08-04T08:19:12.765706+00:00",
+  "builtAt": "2026-08-04T08:27:34.735482+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-03T09:21:50.741587+00:00"
+      "fetchedAt": "2026-08-04T08:19:12.765706+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-03T09:22:33.993695+00:00"
+      "fetchedAt": "2026-08-04T08:19:55.764827+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-03T09:23:26.521597+00:00"
+      "fetchedAt": "2026-08-04T08:20:47.694528+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-03T09:22:37.506846+00:00"
+      "fetchedAt": "2026-08-04T08:19:59.135666+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-03T09:23:08.488415Z"
+      "fetchedAt": "2026-08-04T08:20:29.432000Z"
     }
   },
   "national": {
@@ -95,7 +95,7 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 5169.4,
+        "totalT": 5169.6,
         "totalProgressPct": 40.5,
         "byPhase": {
           "established": {
@@ -107,7 +107,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4462.0,
+            "T": 4462.2,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1598,
+      "total": 1599,
       "phases": {
         "sketches": {
           "count": 5272,
@@ -315,7 +315,7 @@
           "implemented": false
         },
         "approved": {
-          "count": 733,
+          "count": 734,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -429,7 +429,7 @@
         "kode": "0751",
         "navn": "Aarhus",
         "region": "Region Midtjylland",
-        "nitrogenT": 17.6,
+        "nitrogenT": 17.8,
         "extractionHa": 632.6,
         "afforestationMarsHa": 33.1,
         "afforestationKsfHa": 145.2,
@@ -439,10 +439,10 @@
         "natura2000Ha": 1178.3,
         "naturePotentialHa": 2673.0,
         "co2EstimatedT": 1140105.4,
-        "projectCount": 52,
+        "projectCount": 53,
         "projectsByPhase": {
           "sketches": 27,
-          "assessed": 18,
+          "assessed": 19,
           "approved": 7,
           "established": 0
         },
@@ -454,10 +454,10 @@
             "count": 27
           },
           "preliminary": {
-            "nitrogenT": 16.6,
+            "nitrogenT": 16.8,
             "extractionHa": 632.6,
             "afforestationHa": 0.0,
-            "count": 18
+            "count": 19
           },
           "approved": {
             "nitrogenT": 1.0,
@@ -42450,12 +42450,12 @@
       "geoLocationId": "5846ef66-cbaf-4583-8d25-59ec44f892b8",
       "nameNormalized": "Aarhus Bugt syd, Samsoe og Nordlige Bælthav",
       "nitrogenGoalT": 660.1,
-      "nitrogenAchievedT": 435.6,
+      "nitrogenAchievedT": 435.8,
       "nitrogenProgressPct": 66.0,
       "nitrogenByPhase": {
         "established": 0.3,
         "approved": 33.1,
-        "preliminary": 402.2
+        "preliminary": 402.4
       },
       "extractionPotentialHa": 5647.5,
       "extractionAchievedHa": 1738.9,
@@ -42475,10 +42475,10 @@
       "projects": {
         "sketches": 431,
         "assessed": 49,
-        "approved": 79,
+        "approved": 80,
         "established": 5,
         "byStatus": {
-          "preliminary": 79,
+          "preliminary": 80,
           "approved": 49,
           "established": 5
         }
@@ -44064,6 +44064,26 @@
           "lastChanged": "2026-03-26T07:40:02.102389+00:00",
           "kommuneKode": "0430",
           "kommuneNavn": "Faaborg-Midtfyn"
+        },
+        {
+          "id": "37bcd1e5-b12c-49da-8f04-32020e722dba",
+          "name": "Storenor Bæk fast track vådområde",
+          "geoId": "e10332ed-0a6b-410f-974b-3ba3fe4a5328",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 0.173,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 1.92,
+          "appliedAt": "2026-02-26T12:00:00+00:00",
+          "lastChanged": "2026-08-03T10:25:13.913572+00:00",
+          "kommuneKode": "0751",
+          "kommuneNavn": "Aarhus"
         },
         {
           "id": "c0837d3d-b5e5-4ef9-9644-03a92b3b34d7",
@@ -122353,7 +122373,7 @@
       "name": "Horsens Fjord",
       "geoLocationId": "ccadd213-889a-4b90-b3da-2739a427e5fd",
       "nameNormalized": "Horsens Fjord",
-      "nitrogenAchievedT": 162.0,
+      "nitrogenAchievedT": 162.2,
       "extractionAchievedHa": 699.7,
       "afforestationAchievedHa": 120.1,
       "naturePotentialAreaHa": 8018.4,
@@ -122361,7 +122381,7 @@
       "projects": {
         "sketches": 84,
         "assessed": 27,
-        "approved": 46,
+        "approved": 47,
         "established": 4
       },
       "projectDetails": [
@@ -123224,6 +123244,26 @@
           "lastChanged": "2026-07-31T08:59:55.758712+00:00",
           "kommuneKode": "0615",
           "kommuneNavn": "Horsens"
+        },
+        {
+          "id": "37bcd1e5-b12c-49da-8f04-32020e722dba",
+          "name": "Storenor Bæk fast track vådområde",
+          "geoId": "e10332ed-0a6b-410f-974b-3ba3fe4a5328",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 0.173,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 1.92,
+          "appliedAt": "2026-02-26T12:00:00+00:00",
+          "lastChanged": "2026-08-03T10:25:13.913572+00:00",
+          "kommuneKode": "0751",
+          "kommuneNavn": "Aarhus"
         },
         {
           "id": "8844be4d-194f-4a19-a896-d63d28e563a4",
