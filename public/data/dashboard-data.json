@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-04T08:19:12.765706+00:00",
-  "builtAt": "2026-08-04T08:27:34.735482+00:00",
+  "fetchedAt": "2026-08-05T08:16:10.586971+00:00",
+  "builtAt": "2026-08-05T08:25:21.196364+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-04T08:19:12.765706+00:00"
+      "fetchedAt": "2026-08-05T08:16:10.586971+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-04T08:19:55.764827+00:00"
+      "fetchedAt": "2026-08-05T08:17:05.397254+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-04T08:20:47.694528+00:00"
+      "fetchedAt": "2026-08-05T08:18:05.898445+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-04T08:19:59.135666+00:00"
+      "fetchedAt": "2026-08-05T08:17:08.809899+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-04T08:20:29.432000Z"
+      "fetchedAt": "2026-08-05T08:17:44.389985Z"
     }
   },
   "national": {
@@ -95,7 +95,7 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 5169.6,
+        "totalT": 5178.0,
         "totalProgressPct": 40.5,
         "byPhase": {
           "established": {
@@ -107,7 +107,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4462.2,
+            "T": 4470.7,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -116,7 +116,7 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 96970.1,
+        "totalHa": 97046.8,
         "totalProgressPct": 69.3,
         "byPhase": {
           "established": {
@@ -124,11 +124,11 @@
             "description": "Anlagt — wetland projects actually constructed"
           },
           "approved": {
-            "ha": 23053.2,
+            "ha": 23043.3,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 73188.5,
+            "ha": 73275.1,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1599,
+      "total": 1600,
       "phases": {
         "sketches": {
           "count": 5272,
@@ -315,7 +315,7 @@
           "implemented": false
         },
         "approved": {
-          "count": 734,
+          "count": 735,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -573,7 +573,7 @@
         "kode": "0420",
         "navn": "Assens",
         "region": "Region Syddanmark",
-        "nitrogenT": 126.9,
+        "nitrogenT": 127.4,
         "extractionHa": 641.7,
         "afforestationMarsHa": 6.0,
         "afforestationKsfHa": 268.3,
@@ -598,7 +598,7 @@
             "count": 184
           },
           "preliminary": {
-            "nitrogenT": 83.3,
+            "nitrogenT": 83.7,
             "extractionHa": 428.2,
             "afforestationHa": 0.0,
             "count": 30
@@ -1725,8 +1725,8 @@
         "kode": "0376",
         "navn": "Guldborgsund",
         "region": "Region Sjælland",
-        "nitrogenT": 278.9,
-        "extractionHa": 3593.9,
+        "nitrogenT": 286.0,
+        "extractionHa": 3680.5,
         "afforestationMarsHa": 1.6,
         "afforestationKsfHa": 58.2,
         "afforestationNstHa": 0.0,
@@ -1735,10 +1735,10 @@
         "natura2000Ha": 932.9,
         "naturePotentialHa": 4489.7,
         "co2EstimatedT": 431363.4,
-        "projectCount": 189,
+        "projectCount": 190,
         "projectsByPhase": {
           "sketches": 113,
-          "assessed": 50,
+          "assessed": 51,
           "approved": 26,
           "established": 0
         },
@@ -1750,10 +1750,10 @@
             "count": 113
           },
           "preliminary": {
-            "nitrogenT": 243.7,
-            "extractionHa": 2519.8,
+            "nitrogenT": 250.7,
+            "extractionHa": 2606.4,
             "afforestationHa": 0.0,
-            "count": 50
+            "count": 51
           },
           "approved": {
             "nitrogenT": 35.3,
@@ -2445,7 +2445,7 @@
         "kode": "0756",
         "navn": "Ikast-Brande",
         "region": "Region Midtjylland",
-        "nitrogenT": 156.6,
+        "nitrogenT": 157.6,
         "extractionHa": 2594.5,
         "afforestationMarsHa": 234.0,
         "afforestationKsfHa": 86.2,
@@ -2470,8 +2470,8 @@
             "count": 20
           },
           "preliminary": {
-            "nitrogenT": 147.3,
-            "extractionHa": 1758.9,
+            "nitrogenT": 148.3,
+            "extractionHa": 1759.0,
             "afforestationHa": 0.0,
             "count": 11
           },
@@ -3262,7 +3262,7 @@
         "navn": "Norddjurs",
         "region": "Region Midtjylland",
         "nitrogenT": 117.4,
-        "extractionHa": 970.9,
+        "extractionHa": 978.7,
         "afforestationMarsHa": 57.0,
         "afforestationKsfHa": 0.0,
         "afforestationNstHa": 0.0,
@@ -3293,7 +3293,7 @@
           },
           "approved": {
             "nitrogenT": 16.5,
-            "extractionHa": 337.3,
+            "extractionHa": 345.0,
             "afforestationHa": 52.9,
             "count": 11
           },
@@ -4078,7 +4078,7 @@
         "navn": "Skive",
         "region": "Region Midtjylland",
         "nitrogenT": 142.2,
-        "extractionHa": 1976.5,
+        "extractionHa": 1966.5,
         "afforestationMarsHa": 39.1,
         "afforestationKsfHa": 2.4,
         "afforestationNstHa": 0.0,
@@ -4109,7 +4109,7 @@
           },
           "approved": {
             "nitrogenT": 35.9,
-            "extractionHa": 824.4,
+            "extractionHa": 814.5,
             "afforestationHa": 39.1,
             "count": 18
           },
@@ -4702,7 +4702,7 @@
         "navn": "Varde",
         "region": "Region Syddanmark",
         "nitrogenT": 115.9,
-        "extractionHa": 1961.4,
+        "extractionHa": 2005.0,
         "afforestationMarsHa": 333.6,
         "afforestationKsfHa": 18.8,
         "afforestationNstHa": 0.0,
@@ -4727,7 +4727,7 @@
           },
           "preliminary": {
             "nitrogenT": 81.9,
-            "extractionHa": 1209.6,
+            "extractionHa": 1253.2,
             "afforestationHa": 0.0,
             "count": 17
           },
@@ -5234,10 +5234,10 @@
         "preliminary": 1072.2
       },
       "extractionPotentialHa": 55576.8,
-      "extractionAchievedHa": 29206.9,
+      "extractionAchievedHa": 29196.9,
       "extractionByPhase": {
         "established": 444.4,
-        "approved": 8267.5,
+        "approved": 8257.5,
         "preliminary": 20495.0
       },
       "afforestationAchievedHa": 537.2,
@@ -7862,26 +7862,6 @@
           "kommuneNavn": "Rebild"
         },
         {
-          "id": "1568d3ae-0a92-4d1d-9d9b-f121568369d7",
-          "name": "Lavbundsprojekt, syd for Fårup",
-          "geoId": "470a1431-035b-4f2c-9cd8-bfad2b0eb9aa",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 0,
-          "extractionHa": 168.31,
-          "afforestationHa": 0,
-          "areaHa": 168.31,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
-          "kommuneKode": "0730",
-          "kommuneNavn": "Randers"
-        },
-        {
           "id": "1d91e2f3-7c03-47eb-8876-352106ae2c17",
           "name": "Odby Sø Vådområde",
           "geoId": "32bc756f-c769-4a28-b896-96a8b83dde23",
@@ -8480,26 +8460,6 @@
           "lastChanged": "2026-02-17T11:23:47.441977+00:00",
           "kommuneKode": "0773",
           "kommuneNavn": "Morsø"
-        },
-        {
-          "id": "b7ac8c05-eb2e-44b1-9072-162a8a8cccec",
-          "name": "Lavbundsprojekt ved Hegnet Mølleå",
-          "geoId": "546f0758-7035-4675-a739-9b3a2ddcd510",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 12.681,
-          "extractionHa": 133.15,
-          "afforestationHa": 0,
-          "areaHa": 133.15,
-          "appliedAt": "2025-09-25T11:44:47.51509+00:00",
-          "lastChanged": "2025-09-25T11:46:31.550808+00:00",
-          "kommuneKode": "0779",
-          "kommuneNavn": "Skive"
         },
         {
           "id": "c57fc1e7-76b0-4319-bf71-5b181e565655",
@@ -9382,6 +9342,26 @@
           "kommuneNavn": "Brønderslev"
         },
         {
+          "id": "1568d3ae-0a92-4d1d-9d9b-f121568369d7",
+          "name": "Lavbundsprojekt, syd for Fårup",
+          "geoId": "ecad7868-effd-4668-9a54-09759cd57151",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 0,
+          "extractionHa": 168.31,
+          "afforestationHa": 0,
+          "areaHa": 174.56,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-05T07:56:26.63623+00:00",
+          "kommuneKode": "0730",
+          "kommuneNavn": "Randers"
+        },
+        {
           "id": "4e03143d-4451-4643-b24a-dd04e5f5c039",
           "name": "Nørkær Å Vest",
           "geoId": "da812ecc-e0d5-4708-bafc-33965b7f2113",
@@ -9440,6 +9420,26 @@
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0787",
           "kommuneNavn": "Thisted"
+        },
+        {
+          "id": "b7ac8c05-eb2e-44b1-9072-162a8a8cccec",
+          "name": "Lavbundsprojekt ved Hegnet Mølleå",
+          "geoId": "7e9d8f65-803b-40ef-bc5b-74909f4d6366",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 12.681,
+          "extractionHa": 123.21,
+          "afforestationHa": 0,
+          "areaHa": 123.21,
+          "appliedAt": "2025-09-25T11:44:47.51509+00:00",
+          "lastChanged": "2026-08-05T08:04:24.939859+00:00",
+          "kommuneKode": "0779",
+          "kommuneNavn": "Skive"
         },
         {
           "id": "93efbdde-12b0-417c-a5c8-57ab1234f16e",
@@ -20013,11 +20013,11 @@
         "preliminary": 528.8
       },
       "extractionPotentialHa": 28437.1,
-      "extractionAchievedHa": 15750.0,
+      "extractionAchievedHa": 15793.7,
       "extractionByPhase": {
         "established": 1.2,
         "approved": 4057.3,
-        "preliminary": 11691.5
+        "preliminary": 11735.1
       },
       "afforestationAchievedHa": 529.0,
       "afforestationByPhase": {
@@ -20543,7 +20543,7 @@
         {
           "id": "47b19c0d-2f71-4af3-af8e-e8f4c2728c68",
           "name": "Lavbundsprojekt - Stokbæk - Forundersøgelse",
-          "geoId": "ad90160e-1bc9-4119-b7b2-0b528a550f42",
+          "geoId": "01e2685d-2e48-41bf-9f02-56b77682f5e2",
           "phase": "preliminary",
           "statusName": "Forundersøgelsestilsagn",
           "statusNr": 6,
@@ -20552,11 +20552,11 @@
           "schemeOrg": "SGAV",
           "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
           "nitrogenT": 0,
-          "extractionHa": 17.03,
+          "extractionHa": 60.69,
           "afforestationHa": 0,
           "areaHa": 17.03,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
+          "lastChanged": "2026-08-05T08:15:32.563309+00:00",
           "kommuneKode": "0573",
           "kommuneNavn": "Varde"
         },
@@ -21921,26 +21921,6 @@
           "kommuneNavn": "Tønder"
         },
         {
-          "id": "a89bf3f3-0681-44a3-83d5-16ac4ae305a1",
-          "name": "Privat Skovrejsning",
-          "geoId": "f5c09c4c-6255-4111-ada8-b2859ad4f0d2",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Privat Skovrejsning",
-          "schemeOrg": "LBST",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
-          "nitrogenT": 0.454,
-          "extractionHa": 0,
-          "afforestationHa": 58.34,
-          "areaHa": 58.34,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0573",
-          "kommuneNavn": "Varde"
-        },
-        {
           "id": "ca048600-8af0-43eb-bd5a-53f1c3eee1fa",
           "name": "Forundersøgelse lavbundsprojekt Frederikshåbvej",
           "geoId": "362ede36-17f7-4024-9f78-47cb42d88737",
@@ -22361,26 +22341,6 @@
           "kommuneNavn": "Varde"
         },
         {
-          "id": "b7da752f-f45f-4fc3-b8b1-433f1170dfbe",
-          "name": "Privat Skovrejsning",
-          "geoId": "ea8c936d-098f-44b4-9e77-4982828a6384",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Privat Skovrejsning",
-          "schemeOrg": "LBST",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
-          "nitrogenT": 0.455,
-          "extractionHa": 0,
-          "afforestationHa": 46.68,
-          "areaHa": 46.68,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0573",
-          "kommuneNavn": "Varde"
-        },
-        {
           "id": "3681a402-b90c-44f5-9623-18c8b1991f3a",
           "name": "Ulvemosen",
           "geoId": "ae1fa0ef-40d6-4db7-9713-afdf87ca03be",
@@ -22641,6 +22601,26 @@
           "kommuneNavn": "Tønder"
         },
         {
+          "id": "b7da752f-f45f-4fc3-b8b1-433f1170dfbe",
+          "name": "Privat Skovrejsning",
+          "geoId": "76a5231c-1a24-4f62-a554-7ca0587d4fe6",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Privat Skovrejsning",
+          "schemeOrg": "LBST",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+          "nitrogenT": 0.455,
+          "extractionHa": 0,
+          "afforestationHa": 46.68,
+          "areaHa": 39.69,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-04T12:42:47.465789+00:00",
+          "kommuneKode": "0573",
+          "kommuneNavn": "Varde"
+        },
+        {
           "id": "25621359-a4a0-4127-a8d1-bdab6088605f",
           "name": "Grimstrup F2023",
           "geoId": "ec1170a8-e280-4f3e-97e2-f52b3fb9c48b",
@@ -22659,6 +22639,26 @@
           "lastChanged": "2026-03-17T10:30:27.964844+00:00",
           "kommuneKode": "0561",
           "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "a89bf3f3-0681-44a3-83d5-16ac4ae305a1",
+          "name": "Privat Skovrejsning",
+          "geoId": "75371b81-38dc-409f-b1a6-61b58a76ad71",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Privat Skovrejsning",
+          "schemeOrg": "LBST",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+          "nitrogenT": 0.454,
+          "extractionHa": 0,
+          "afforestationHa": 58.34,
+          "areaHa": 48.72,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-04T12:49:14.871185+00:00",
+          "kommuneKode": "0573",
+          "kommuneNavn": "Varde"
         },
         {
           "id": "8ad8709f-a585-476c-8041-8896a2fb30d7",
@@ -29958,12 +29958,12 @@
       "geoLocationId": "6eef198d-cd21-419d-9ed2-7f89a1e277f6",
       "nameNormalized": "Vesterhavet, nord",
       "nitrogenGoalT": 2142.8,
-      "nitrogenAchievedT": 955.7,
+      "nitrogenAchievedT": 956.7,
       "nitrogenProgressPct": 44.6,
       "nitrogenByPhase": {
         "established": 1.3,
         "approved": 162.7,
-        "preliminary": 791.7
+        "preliminary": 792.7
       },
       "extractionPotentialHa": 24065.0,
       "extractionAchievedHa": 10610.3,
@@ -30409,26 +30409,6 @@
           "afforestationHa": 0,
           "areaHa": 319.35,
           "appliedAt": "2025-07-07T11:18:27.007511+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
-          "kommuneKode": "0756",
-          "kommuneNavn": "Ikast-Brande"
-        },
-        {
-          "id": "e89f959c-ce4d-492c-b541-dbfbe5d772c5",
-          "name": "Alkjærhøj Mose",
-          "geoId": "578659fd-b192-4340-8fd8-197f6486f2d8",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Kvælstofvådområder",
-          "schemeName": "Kvælstofvådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
-          "nitrogenT": 3.523,
-          "extractionHa": 7.66,
-          "afforestationHa": 0,
-          "areaHa": 39.14,
-          "appliedAt": "2025-07-09T08:56:25.005942+00:00",
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0756",
           "kommuneNavn": "Ikast-Brande"
@@ -31732,6 +31712,26 @@
           "lastChanged": "2026-03-17T11:23:25.958504+00:00",
           "kommuneKode": "0573",
           "kommuneNavn": "Varde"
+        },
+        {
+          "id": "e89f959c-ce4d-492c-b541-dbfbe5d772c5",
+          "name": "Alkjærhøj Mose",
+          "geoId": "aa86a44b-5fa1-4cfb-99cf-0344d1bf85a0",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+          "nitrogenT": 4.519,
+          "extractionHa": 7.66,
+          "afforestationHa": 0,
+          "areaHa": 50.21,
+          "appliedAt": "2025-07-09T08:56:25.005942+00:00",
+          "lastChanged": "2026-08-05T07:27:56.817086+00:00",
+          "kommuneKode": "0756",
+          "kommuneNavn": "Ikast-Brande"
         },
         {
           "id": "358b24b8-edfe-412c-9052-9608afe59393",
@@ -63410,19 +63410,19 @@
       "geoLocationId": "6d6eaa1d-6aed-4778-9232-c30318366406",
       "nameNormalized": "Femerbælt",
       "nitrogenGoalT": 390.2,
-      "nitrogenAchievedT": 215.6,
-      "nitrogenProgressPct": 55.2,
+      "nitrogenAchievedT": 218.7,
+      "nitrogenProgressPct": 56.0,
       "nitrogenByPhase": {
         "established": 0,
         "approved": 24.7,
-        "preliminary": 191.0
+        "preliminary": 194.1
       },
       "extractionPotentialHa": 2344.9,
-      "extractionAchievedHa": 1564.2,
+      "extractionAchievedHa": 1649.4,
       "extractionByPhase": {
         "established": 0,
         "approved": 208.8,
-        "preliminary": 1355.5
+        "preliminary": 1440.7
       },
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
@@ -63646,26 +63646,6 @@
           "kommuneNavn": "Guldborgsund"
         },
         {
-          "id": "31d140d7-4ada-4b96-aa5e-bd74dc0940e8",
-          "name": "Lavbund forprojekt Handermelle",
-          "geoId": "3ccaeece-e822-4426-8acd-073805bad9a4",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 4.57,
-          "extractionHa": 114.25,
-          "afforestationHa": 0,
-          "areaHa": 112.58,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
-          "kommuneKode": "0376",
-          "kommuneNavn": "Guldborgsund"
-        },
-        {
           "id": "b2ad9f0a-4650-432e-b226-c5833eaf68c8",
           "name": "Stubberup Mose",
           "geoId": "2b4c90f1-c284-4d43-a237-747f01c4f7b1",
@@ -63882,6 +63862,26 @@
           "areaHa": 110.79,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-03-17T11:25:20.093197+00:00",
+          "kommuneKode": "0376",
+          "kommuneNavn": "Guldborgsund"
+        },
+        {
+          "id": "31d140d7-4ada-4b96-aa5e-bd74dc0940e8",
+          "name": "Lavbund forprojekt Handermelle",
+          "geoId": "1e98a618-b136-4b70-aab4-cae1e4729318",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 7.675,
+          "extractionHa": 199.45,
+          "afforestationHa": 0,
+          "areaHa": 196.71,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-05T07:30:59.725948+00:00",
           "kommuneKode": "0376",
           "kommuneNavn": "Guldborgsund"
         },
@@ -73941,12 +73941,12 @@
       "geoLocationId": "d619832d-a979-468b-afe9-4f6ae504b7b6",
       "nameNormalized": "Lillebælt, syd",
       "nitrogenGoalT": 217.4,
-      "nitrogenAchievedT": 62.9,
-      "nitrogenProgressPct": 28.9,
+      "nitrogenAchievedT": 63.4,
+      "nitrogenProgressPct": 29.1,
       "nitrogenByPhase": {
         "established": 0.1,
         "approved": 10.1,
-        "preliminary": 52.7
+        "preliminary": 53.1
       },
       "extractionPotentialHa": 3092.9,
       "extractionAchievedHa": 547.8,
@@ -74719,7 +74719,7 @@
         {
           "id": "94ec6b93-787c-4556-99c3-8e64be467391",
           "name": "Damsbo forundersøgelse 2025",
-          "geoId": "574ac137-cbd7-43ba-83a3-3f2a5d8bf490",
+          "geoId": "25278850-703f-49fe-9747-321203d67c25",
           "phase": "preliminary",
           "statusName": "Forundersøgelsestilsagn",
           "statusNr": 6,
@@ -74727,12 +74727,12 @@
           "schemeName": "Kvælstofvådområder",
           "schemeOrg": "SGAV",
           "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
-          "nitrogenT": 4.262,
+          "nitrogenT": 4.7,
           "extractionHa": 0.16,
           "afforestationHa": 0,
-          "areaHa": 47.44,
+          "areaHa": 52.22,
           "appliedAt": "2025-07-10T19:26:17.961074+00:00",
-          "lastChanged": "2025-08-29T13:58:05.514012+00:00",
+          "lastChanged": "2026-08-05T07:21:09.460517+00:00",
           "kommuneKode": "0420",
           "kommuneNavn": "Assens"
         },
@@ -100389,10 +100389,10 @@
         "preliminary": 140.0
       },
       "extractionPotentialHa": 7464.4,
-      "extractionAchievedHa": 3261.1,
+      "extractionAchievedHa": 3268.8,
       "extractionByPhase": {
         "established": 0,
-        "approved": 1117.5,
+        "approved": 1125.2,
         "preliminary": 2143.6
       },
       "afforestationAchievedHa": 91.4,
@@ -100517,26 +100517,6 @@
           "kommuneNavn": "Syddjurs"
         },
         {
-          "id": "3e8ca640-15bd-45c7-883e-ec791bbe3c2f",
-          "name": "Skærvad Å lavbundsprojekt",
-          "geoId": "e04e4a2b-9a76-40b2-9b4c-af52f7e33d30",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 2.151,
-          "extractionHa": 61.19,
-          "afforestationHa": 0,
-          "areaHa": 61.19,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0707",
-          "kommuneNavn": "Norddjurs"
-        },
-        {
           "id": "667dad1e-f51a-41f0-b969-14874092c1ff",
           "name": "Skod Å etape 1",
           "geoId": "d949e444-654b-40be-856f-2508cbb9b675",
@@ -100655,6 +100635,26 @@
           "lastChanged": "2026-03-16T13:11:00.388207+00:00",
           "kommuneKode": "0706",
           "kommuneNavn": "Syddjurs"
+        },
+        {
+          "id": "3e8ca640-15bd-45c7-883e-ec791bbe3c2f",
+          "name": "Skærvad Å lavbundsprojekt",
+          "geoId": "8f458d41-ee21-422c-8d24-ce93dd6679bb",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 2.151,
+          "extractionHa": 68.92,
+          "afforestationHa": 0,
+          "areaHa": 68.92,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-05T08:11:24.372428+00:00",
+          "kommuneKode": "0707",
+          "kommuneNavn": "Norddjurs"
         },
         {
           "id": "b53fb97f-f73b-4613-81d3-6ea49e4110e8",
@@ -103635,19 +103635,19 @@
       "geoLocationId": "6b5c8c6a-a9ae-46a8-8e14-cf0296adb719",
       "nameNormalized": "Hjelm Bugt",
       "nitrogenGoalT": 32.2,
-      "nitrogenAchievedT": 14.8,
-      "nitrogenProgressPct": 46.0,
+      "nitrogenAchievedT": 18.7,
+      "nitrogenProgressPct": 58.1,
       "nitrogenByPhase": {
         "established": 0,
         "approved": 2.9,
-        "preliminary": 11.9
+        "preliminary": 15.8
       },
       "extractionPotentialHa": 360.9,
-      "extractionAchievedHa": 151.4,
+      "extractionAchievedHa": 152.8,
       "extractionByPhase": {
         "established": 0,
         "approved": 112.0,
-        "preliminary": 39.4
+        "preliminary": 40.8
       },
       "afforestationAchievedHa": 0,
       "afforestationByPhase": {
@@ -103660,10 +103660,10 @@
       "projects": {
         "sketches": 13,
         "assessed": 2,
-        "approved": 6,
+        "approved": 7,
         "established": 0,
         "byStatus": {
-          "preliminary": 6,
+          "preliminary": 7,
           "approved": 2,
           "established": 0
         }
@@ -103787,6 +103787,26 @@
           "areaHa": 54.55,
           "appliedAt": "2025-07-10T11:44:31.287451+00:00",
           "lastChanged": "2025-08-29T14:00:44.672224+00:00",
+          "kommuneKode": "0376",
+          "kommuneNavn": "Guldborgsund"
+        },
+        {
+          "id": "8e940338-0a21-4649-9a89-41840577dfd7",
+          "name": "Tromnæs Enge",
+          "geoId": "9073d1a0-cdf2-4082-a8a0-2062cde7fed4",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 3.907,
+          "extractionHa": 1.39,
+          "afforestationHa": 0,
+          "areaHa": 43.89,
+          "appliedAt": "2026-02-27T12:00:00+00:00",
+          "lastChanged": "2026-08-04T08:58:05.75531+00:00",
           "kommuneKode": "0376",
           "kommuneNavn": "Guldborgsund"
         },
@@ -121003,7 +121023,7 @@
       "geoLocationId": "9fdae150-77ba-4a9c-af6c-9b63ac9324a5",
       "nameNormalized": "Djursland",
       "nitrogenAchievedT": 164.6,
-      "extractionAchievedHa": 3312.5,
+      "extractionAchievedHa": 3320.3,
       "afforestationAchievedHa": 132.5,
       "naturePotentialAreaHa": 3752.3,
       "countNaturePotentials": 10,
@@ -121113,26 +121133,6 @@
           "lastChanged": "2025-11-25T11:34:49.918716+00:00",
           "kommuneKode": "0706",
           "kommuneNavn": "Syddjurs"
-        },
-        {
-          "id": "3e8ca640-15bd-45c7-883e-ec791bbe3c2f",
-          "name": "Skærvad Å lavbundsprojekt",
-          "geoId": "e04e4a2b-9a76-40b2-9b4c-af52f7e33d30",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 2.151,
-          "extractionHa": 61.19,
-          "afforestationHa": 0,
-          "areaHa": 61.19,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0707",
-          "kommuneNavn": "Norddjurs"
         },
         {
           "id": "e67ef9e3-6b05-4461-8ca7-c9e78ffcf8d4",
@@ -121391,6 +121391,26 @@
           "areaHa": 22.76,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-01-28T13:54:30.686548+00:00",
+          "kommuneKode": "0707",
+          "kommuneNavn": "Norddjurs"
+        },
+        {
+          "id": "3e8ca640-15bd-45c7-883e-ec791bbe3c2f",
+          "name": "Skærvad Å lavbundsprojekt",
+          "geoId": "8f458d41-ee21-422c-8d24-ce93dd6679bb",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 2.151,
+          "extractionHa": 68.92,
+          "afforestationHa": 0,
+          "areaHa": 68.92,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-05T08:11:24.372428+00:00",
           "kommuneKode": "0707",
           "kommuneNavn": "Norddjurs"
         },
@@ -133772,7 +133792,7 @@
       "name": "Lillebælt/Fyn",
       "geoLocationId": "998c6c9d-c4cd-4c1f-b81f-575102a7d09e",
       "nameNormalized": "Lillebælt/Fyn",
-      "nitrogenAchievedT": 130.8,
+      "nitrogenAchievedT": 131.3,
       "extractionAchievedHa": 622.1,
       "afforestationAchievedHa": 15.4,
       "naturePotentialAreaHa": 5697.6,
@@ -134545,26 +134565,6 @@
           "kommuneNavn": "Assens"
         },
         {
-          "id": "94ec6b93-787c-4556-99c3-8e64be467391",
-          "name": "Damsbo forundersøgelse 2025",
-          "geoId": "574ac137-cbd7-43ba-83a3-3f2a5d8bf490",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Kvælstofvådområder",
-          "schemeName": "Kvælstofvådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
-          "nitrogenT": 4.262,
-          "extractionHa": 0.16,
-          "afforestationHa": 0,
-          "areaHa": 47.44,
-          "appliedAt": "2025-07-10T19:26:17.961074+00:00",
-          "lastChanged": "2025-08-29T13:58:05.514012+00:00",
-          "kommuneKode": "0420",
-          "kommuneNavn": "Assens"
-        },
-        {
           "id": "7886e954-0bba-4a74-8694-80d8eefede59",
           "name": "Dammen",
           "geoId": "a80fdef3-ca30-4e6c-9914-bff85100cd07",
@@ -134643,6 +134643,26 @@
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0480",
           "kommuneNavn": "Nordfyns"
+        },
+        {
+          "id": "94ec6b93-787c-4556-99c3-8e64be467391",
+          "name": "Damsbo forundersøgelse 2025",
+          "geoId": "25278850-703f-49fe-9747-321203d67c25",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+          "nitrogenT": 4.7,
+          "extractionHa": 0.16,
+          "afforestationHa": 0,
+          "areaHa": 52.22,
+          "appliedAt": "2025-07-10T19:26:17.961074+00:00",
+          "lastChanged": "2026-08-05T07:21:09.460517+00:00",
+          "kommuneKode": "0420",
+          "kommuneNavn": "Assens"
         },
         {
           "id": "c3136337-9700-49a4-8dcd-5a90e2dd5720",
@@ -154543,7 +154563,7 @@
       "geoLocationId": "e7762bdb-1ef7-4fbe-a745-b21e7996f92e",
       "nameNormalized": "Limfjorden",
       "nitrogenAchievedT": 1261.0,
-      "extractionAchievedHa": 29206.9,
+      "extractionAchievedHa": 29197.0,
       "afforestationAchievedHa": 537.2,
       "naturePotentialAreaHa": 10088.6,
       "countNaturePotentials": 8,
@@ -156935,26 +156955,6 @@
           "kommuneNavn": "Randers"
         },
         {
-          "id": "1568d3ae-0a92-4d1d-9d9b-f121568369d7",
-          "name": "Lavbundsprojekt, syd for Fårup",
-          "geoId": "470a1431-035b-4f2c-9cd8-bfad2b0eb9aa",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 0,
-          "extractionHa": 168.31,
-          "afforestationHa": 0,
-          "areaHa": 168.31,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
-          "kommuneKode": "0730",
-          "kommuneNavn": "Randers"
-        },
-        {
           "id": "7bcb3f2f-d65b-4da7-a5aa-59435f29394b",
           "name": "Torsdals Bæk klima-lavbundsprojekt",
           "geoId": "a94f2769-98a7-4da7-b872-801dcccbad9c",
@@ -157995,26 +157995,6 @@
           "kommuneNavn": "Thisted"
         },
         {
-          "id": "b7ac8c05-eb2e-44b1-9072-162a8a8cccec",
-          "name": "Lavbundsprojekt ved Hegnet Mølleå",
-          "geoId": "546f0758-7035-4675-a739-9b3a2ddcd510",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 12.681,
-          "extractionHa": 133.15,
-          "afforestationHa": 0,
-          "areaHa": 133.15,
-          "appliedAt": "2025-09-25T11:44:47.51509+00:00",
-          "lastChanged": "2025-09-25T11:46:31.550808+00:00",
-          "kommuneKode": "0779",
-          "kommuneNavn": "Skive"
-        },
-        {
           "id": "b6e29f01-12ba-4b72-9a90-58d5f4211e22",
           "name": "Hoejriis",
           "geoId": "65186f7f-9fe8-435a-b3a1-f2a36be6af29",
@@ -158695,6 +158675,26 @@
           "kommuneNavn": "Thisted"
         },
         {
+          "id": "1568d3ae-0a92-4d1d-9d9b-f121568369d7",
+          "name": "Lavbundsprojekt, syd for Fårup",
+          "geoId": "ecad7868-effd-4668-9a54-09759cd57151",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 0,
+          "extractionHa": 168.31,
+          "afforestationHa": 0,
+          "areaHa": 174.56,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-05T07:56:26.63623+00:00",
+          "kommuneKode": "0730",
+          "kommuneNavn": "Randers"
+        },
+        {
           "id": "5c512e9d-ddb0-4979-91f7-250f52c868d4",
           "name": "Spang Enge",
           "geoId": "59c6356d-c0dd-4796-bc31-6b24bff8051a",
@@ -158813,6 +158813,26 @@
           "lastChanged": "2026-02-10T12:47:41.516983+00:00",
           "kommuneKode": "0791",
           "kommuneNavn": "Viborg"
+        },
+        {
+          "id": "b7ac8c05-eb2e-44b1-9072-162a8a8cccec",
+          "name": "Lavbundsprojekt ved Hegnet Mølleå",
+          "geoId": "7e9d8f65-803b-40ef-bc5b-74909f4d6366",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 12.681,
+          "extractionHa": 123.21,
+          "afforestationHa": 0,
+          "areaHa": 123.21,
+          "appliedAt": "2025-09-25T11:44:47.51509+00:00",
+          "lastChanged": "2026-08-05T08:04:24.939859+00:00",
+          "kommuneKode": "0779",
+          "kommuneNavn": "Skive"
         },
         {
           "id": "1c99c5dc-8781-40cb-bc6b-b1b0499d8525",
@@ -185088,7 +185108,7 @@
       "name": "Ringkøbing Fjord",
       "geoLocationId": "ff855793-7ba1-499d-a048-85271927e92b",
       "nameNormalized": "Ringkoebing Fjord",
-      "nitrogenAchievedT": 550.8,
+      "nitrogenAchievedT": 551.8,
       "extractionAchievedHa": 7662.8,
       "afforestationAchievedHa": 811.8,
       "naturePotentialAreaHa": 479.0,
@@ -185317,26 +185337,6 @@
           "areaHa": 2.26,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2025-11-26T13:39:37.096741+00:00",
-          "kommuneKode": "0756",
-          "kommuneNavn": "Ikast-Brande"
-        },
-        {
-          "id": "e89f959c-ce4d-492c-b541-dbfbe5d772c5",
-          "name": "Alkjærhøj Mose",
-          "geoId": "578659fd-b192-4340-8fd8-197f6486f2d8",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Kvælstofvådområder",
-          "schemeName": "Kvælstofvådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
-          "nitrogenT": 3.523,
-          "extractionHa": 7.66,
-          "afforestationHa": 0,
-          "areaHa": 39.14,
-          "appliedAt": "2025-07-09T08:56:25.005942+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0756",
           "kommuneNavn": "Ikast-Brande"
         },
@@ -186179,6 +186179,26 @@
           "lastChanged": "2026-03-17T11:23:25.958504+00:00",
           "kommuneKode": "0573",
           "kommuneNavn": "Varde"
+        },
+        {
+          "id": "e89f959c-ce4d-492c-b541-dbfbe5d772c5",
+          "name": "Alkjærhøj Mose",
+          "geoId": "aa86a44b-5fa1-4cfb-99cf-0344d1bf85a0",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+          "nitrogenT": 4.519,
+          "extractionHa": 7.66,
+          "afforestationHa": 0,
+          "areaHa": 50.21,
+          "appliedAt": "2025-07-09T08:56:25.005942+00:00",
+          "lastChanged": "2026-08-05T07:27:56.817086+00:00",
+          "kommuneKode": "0756",
+          "kommuneNavn": "Ikast-Brande"
         },
         {
           "id": "12cccf6e-817f-42f1-8fe6-1fe047ce68a3",
@@ -201415,7 +201435,7 @@
       "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
       "nameNormalized": "Vadehavet",
       "nitrogenAchievedT": 548.8,
-      "extractionAchievedHa": 11675.3,
+      "extractionAchievedHa": 11718.9,
       "afforestationAchievedHa": 477.8,
       "naturePotentialAreaHa": 13950.6,
       "countNaturePotentials": 13,
@@ -201729,7 +201749,7 @@
         {
           "id": "47b19c0d-2f71-4af3-af8e-e8f4c2728c68",
           "name": "Lavbundsprojekt - Stokbæk - Forundersøgelse",
-          "geoId": "ad90160e-1bc9-4119-b7b2-0b528a550f42",
+          "geoId": "01e2685d-2e48-41bf-9f02-56b77682f5e2",
           "phase": "preliminary",
           "statusName": "Forundersøgelsestilsagn",
           "statusNr": 6,
@@ -201738,11 +201758,11 @@
           "schemeOrg": "SGAV",
           "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
           "nitrogenT": 0,
-          "extractionHa": 17.03,
+          "extractionHa": 60.69,
           "afforestationHa": 0,
           "areaHa": 17.03,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
+          "lastChanged": "2026-08-05T08:15:32.563309+00:00",
           "kommuneKode": "0573",
           "kommuneNavn": "Varde"
         },
@@ -202687,26 +202707,6 @@
           "kommuneNavn": "Esbjerg"
         },
         {
-          "id": "a89bf3f3-0681-44a3-83d5-16ac4ae305a1",
-          "name": "Privat Skovrejsning",
-          "geoId": "f5c09c4c-6255-4111-ada8-b2859ad4f0d2",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Privat Skovrejsning",
-          "schemeOrg": "LBST",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
-          "nitrogenT": 0.454,
-          "extractionHa": 0,
-          "afforestationHa": 58.34,
-          "areaHa": 58.34,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0573",
-          "kommuneNavn": "Varde"
-        },
-        {
           "id": "7d1cd733-49e6-4702-b8b4-6c5b2649f9a7",
           "name": "Privat Skovrejsning",
           "geoId": "8ef8473f-a8e2-46ee-867b-9a0af3efeba8",
@@ -202905,26 +202905,6 @@
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0561",
           "kommuneNavn": "Esbjerg"
-        },
-        {
-          "id": "b7da752f-f45f-4fc3-b8b1-433f1170dfbe",
-          "name": "Privat Skovrejsning",
-          "geoId": "ea8c936d-098f-44b4-9e77-4982828a6384",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Privat Skovrejsning",
-          "schemeOrg": "LBST",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
-          "nitrogenT": 0.455,
-          "extractionHa": 0,
-          "afforestationHa": 46.68,
-          "areaHa": 46.68,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0573",
-          "kommuneNavn": "Varde"
         },
         {
           "id": "9a39bb0e-0119-44b0-b3ab-36036140425b",
@@ -203667,6 +203647,26 @@
           "kommuneNavn": "Vejen"
         },
         {
+          "id": "b7da752f-f45f-4fc3-b8b1-433f1170dfbe",
+          "name": "Privat Skovrejsning",
+          "geoId": "76a5231c-1a24-4f62-a554-7ca0587d4fe6",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Privat Skovrejsning",
+          "schemeOrg": "LBST",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+          "nitrogenT": 0.455,
+          "extractionHa": 0,
+          "afforestationHa": 46.68,
+          "areaHa": 39.69,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-04T12:42:47.465789+00:00",
+          "kommuneKode": "0573",
+          "kommuneNavn": "Varde"
+        },
+        {
           "id": "25621359-a4a0-4127-a8d1-bdab6088605f",
           "name": "Grimstrup F2023",
           "geoId": "ec1170a8-e280-4f3e-97e2-f52b3fb9c48b",
@@ -203685,6 +203685,26 @@
           "lastChanged": "2026-03-17T10:30:27.964844+00:00",
           "kommuneKode": "0561",
           "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "a89bf3f3-0681-44a3-83d5-16ac4ae305a1",
+          "name": "Privat Skovrejsning",
+          "geoId": "75371b81-38dc-409f-b1a6-61b58a76ad71",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Privat Skovrejsning",
+          "schemeOrg": "LBST",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/privat-skovrejsning-2024",
+          "nitrogenT": 0.454,
+          "extractionHa": 0,
+          "afforestationHa": 58.34,
+          "areaHa": 48.72,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-04T12:49:14.871185+00:00",
+          "kommuneKode": "0573",
+          "kommuneNavn": "Varde"
         },
         {
           "id": "8ad8709f-a585-476c-8041-8896a2fb30d7",
@@ -213916,15 +213936,15 @@
       "name": "Østersøen",
       "geoLocationId": "a0071559-4a81-417a-acad-8559a07171ec",
       "nameNormalized": "Oestersoeen",
-      "nitrogenAchievedT": 268.6,
-      "extractionAchievedHa": 2761.5,
+      "nitrogenAchievedT": 275.6,
+      "extractionAchievedHa": 2848.0,
       "afforestationAchievedHa": 10.4,
       "naturePotentialAreaHa": 1828.4,
       "countNaturePotentials": 16,
       "projects": {
         "sketches": 174,
         "assessed": 21,
-        "approved": 51,
+        "approved": 52,
         "established": 1
       },
       "projectDetails": [
@@ -214145,26 +214165,6 @@
           "areaHa": 0.82,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0376",
-          "kommuneNavn": "Guldborgsund"
-        },
-        {
-          "id": "31d140d7-4ada-4b96-aa5e-bd74dc0940e8",
-          "name": "Lavbund forprojekt Handermelle",
-          "geoId": "3ccaeece-e822-4426-8acd-073805bad9a4",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "Lavbundsprojekter",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
-          "nitrogenT": 4.57,
-          "extractionHa": 114.25,
-          "afforestationHa": 0,
-          "areaHa": 112.66,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0376",
           "kommuneNavn": "Guldborgsund"
         },
@@ -214629,6 +214629,26 @@
           "kommuneNavn": "Guldborgsund"
         },
         {
+          "id": "8e940338-0a21-4649-9a89-41840577dfd7",
+          "name": "Tromnæs Enge",
+          "geoId": "9073d1a0-cdf2-4082-a8a0-2062cde7fed4",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "KLA-Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/klima-lavbund",
+          "nitrogenT": 3.907,
+          "extractionHa": 1.39,
+          "afforestationHa": 0,
+          "areaHa": 43.89,
+          "appliedAt": "2026-02-27T12:00:00+00:00",
+          "lastChanged": "2026-08-04T08:58:05.75531+00:00",
+          "kommuneKode": "0376",
+          "kommuneNavn": "Guldborgsund"
+        },
+        {
           "id": "c0ba760c-409d-4291-8c5e-6b5bc2261532",
           "name": "Ambæk Bæk",
           "geoId": "fd66955b-d188-48d2-a986-bab61a891ffd",
@@ -214665,6 +214685,26 @@
           "areaHa": 110.8,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-03-17T11:25:20.093197+00:00",
+          "kommuneKode": "0376",
+          "kommuneNavn": "Guldborgsund"
+        },
+        {
+          "id": "31d140d7-4ada-4b96-aa5e-bd74dc0940e8",
+          "name": "Lavbund forprojekt Handermelle",
+          "geoId": "1e98a618-b136-4b70-aab4-cae1e4729318",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 7.675,
+          "extractionHa": 199.45,
+          "afforestationHa": 0,
+          "areaHa": 196.8,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-08-05T07:30:59.725948+00:00",
           "kommuneKode": "0376",
           "kommuneNavn": "Guldborgsund"
         },
