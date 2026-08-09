@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-07T06:59:17.203411+00:00",
-  "builtAt": "2026-08-07T07:08:42.131978+00:00",
+  "fetchedAt": "2026-08-09T06:37:22.003229+00:00",
+  "builtAt": "2026-08-09T06:56:47.880172+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-07T06:59:17.203411+00:00"
+      "fetchedAt": "2026-08-09T06:37:22.003229+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-07T07:00:55.007240+00:00"
+      "fetchedAt": "2026-08-09T06:38:05.078824+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-07T07:01:42.988766+00:00"
+      "fetchedAt": "2026-08-09T06:50:01.554027+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-07T07:00:58.279809+00:00"
+      "fetchedAt": "2026-08-09T06:38:08.527039+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-07T07:01:25.871799Z"
+      "fetchedAt": "2026-08-09T06:38:37.134821Z"
     }
   },
   "national": {
@@ -103,7 +103,7 @@
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 677.5,
+            "T": 677.6,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
@@ -144,14 +144,14 @@
       "afforestation": {
         "goalHa": 250000,
         "marsTotal": {
-          "ha": 3325.5,
+          "ha": 3327.8,
           "byPhase": {
             "established": {
               "ha": 581.8,
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 2743.7,
+              "ha": 2746.0,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -302,7 +302,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1659,
+      "total": 1660,
       "phases": {
         "sketches": {
           "count": 5272,
@@ -310,7 +310,7 @@
           "implemented": false
         },
         "assessed": {
-          "count": 937,
+          "count": 938,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
@@ -1391,19 +1391,19 @@
         "region": "Region Hovedstaden",
         "nitrogenT": 9.5,
         "extractionHa": 309.7,
-        "afforestationMarsHa": 5.9,
+        "afforestationMarsHa": 8.2,
         "afforestationKsfHa": 8.9,
         "afforestationNstHa": 51.2,
-        "afforestationTotalHa": 66.0,
+        "afforestationTotalHa": 68.3,
         "section3Ha": 2012.0,
         "natura2000Ha": 16133.4,
         "naturePotentialHa": 18145.4,
         "co2EstimatedT": 177459.6,
-        "projectCount": 50,
+        "projectCount": 51,
         "projectsByPhase": {
           "sketches": 42,
           "assessed": 5,
-          "approved": 3,
+          "approved": 4,
           "established": 0
         },
         "byPhase": {
@@ -1422,8 +1422,8 @@
           "approved": {
             "nitrogenT": 0.4,
             "extractionHa": 0.0,
-            "afforestationHa": 5.9,
-            "count": 3
+            "afforestationHa": 8.2,
+            "count": 4
           },
           "established": {
             "nitrogenT": 0.0,
@@ -37179,22 +37179,22 @@
         "approved": 371.1,
         "preliminary": 3175.2
       },
-      "afforestationAchievedHa": 79.4,
+      "afforestationAchievedHa": 81.7,
       "afforestationByPhase": {
         "established": 16.4,
-        "approved": 63.0,
+        "approved": 65.3,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 6755.6,
       "countNaturePotentials": 14,
       "projects": {
         "sketches": 324,
-        "assessed": 36,
+        "assessed": 37,
         "approved": 29,
         "established": 6,
         "byStatus": {
           "preliminary": 29,
-          "approved": 36,
+          "approved": 37,
           "established": 6
         }
       },
@@ -38619,6 +38619,26 @@
           "lastChanged": "2026-06-12T07:15:29.873919+00:00",
           "kommuneKode": "0265",
           "kommuneNavn": "Roskilde"
+        },
+        {
+          "id": "45373faf-8bc5-4a9c-8765-d491bc7dacca",
+          "name": "Jakob Pedeersen",
+          "geoId": "ce706171-dec6-424a-b10d-6c2f0247c4c8",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.015,
+          "extractionHa": 0,
+          "afforestationHa": 2.36,
+          "areaHa": 2.36,
+          "appliedAt": "2025-10-26T09:15:01.695517+00:00",
+          "lastChanged": "2026-08-07T12:05:06.308155+00:00",
+          "kommuneKode": "0250",
+          "kommuneNavn": "Frederikssund"
         }
       ],
       "sketchProjects": [
@@ -126433,14 +126453,14 @@
       "name": "Isefjord og Roskilde Fjord",
       "geoLocationId": "16626f60-7d48-4aa0-8846-63efddc1893c",
       "nameNormalized": "Isefjord og Roskilde Fjord",
-      "nitrogenAchievedT": 123.4,
+      "nitrogenAchievedT": 123.5,
       "extractionAchievedHa": 3546.3,
-      "afforestationAchievedHa": 70.7,
+      "afforestationAchievedHa": 73.0,
       "naturePotentialAreaHa": 6509.1,
       "countNaturePotentials": 13,
       "projects": {
         "sketches": 304,
-        "assessed": 32,
+        "assessed": 33,
         "approved": 29,
         "established": 5
       },
@@ -127764,6 +127784,26 @@
           "lastChanged": "2026-06-12T07:15:29.873919+00:00",
           "kommuneKode": "0265",
           "kommuneNavn": "Roskilde"
+        },
+        {
+          "id": "45373faf-8bc5-4a9c-8765-d491bc7dacca",
+          "name": "Jakob Pedeersen",
+          "geoId": "ce706171-dec6-424a-b10d-6c2f0247c4c8",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.015,
+          "extractionHa": 0,
+          "afforestationHa": 2.36,
+          "areaHa": 2.36,
+          "appliedAt": "2025-10-26T09:15:01.695517+00:00",
+          "lastChanged": "2026-08-07T12:05:06.308155+00:00",
+          "kommuneKode": "0250",
+          "kommuneNavn": "Frederikssund"
         }
       ],
       "sketchProjects": [

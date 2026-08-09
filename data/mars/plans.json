@@ -28715,12 +28715,12 @@
     "id": "2fe37485-e465-4df5-8f6c-c41f62e49806",
     "name": "Kattegat, Nordsjælland",
     "geoLocationId": "6afc2bad-fef8-4123-88eb-d9a72c30889c",
-    "totalNitrogenReductionT": 143.6819392110431,
+    "totalNitrogenReductionT": 143.69674967800512,
     "totalExtractionEffortHa": 3546.2825609409715,
-    "totalAfforestationEffortHa": 79.38174187141463,
+    "totalAfforestationEffortHa": 81.73931630447395,
     "totalNaturePotentialAreaHa": 6755.6347078122235,
     "countApprovedProjects": 29,
-    "countAssessedProjects": 36,
+    "countAssessedProjects": 37,
     "countEstablishedProjects": 6,
     "countSketchProjects": 324,
     "countNaturePotentials": 14,
@@ -28739,9 +28739,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.6793754009662545,
+        "nitrogenReductionT": 0.6941858679282626,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 79.38174187141463
+        "afforestationEffortHa": 81.73931630447395
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -30044,6 +30044,24 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2026-02-27T12:00:00+00:00",
         "lastStateChanged": "2026-06-12T07:15:29.873919+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "45373faf-8bc5-4a9c-8765-d491bc7dacca",
+        "projectName": "Jakob Pedeersen",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.014810466962008162,
+        "extractionEffortHa": null,
+        "afforestationEffortHa": 2.3575744330593174,
+        "overlappingAreaHa": 2.357574433059318,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "ce706171-dec6-424a-b10d-6c2f0247c4c8",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-10-26T09:15:01.695517+00:00",
+        "lastStateChanged": "2026-08-07T12:05:06.308155+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
