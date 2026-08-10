@@ -60899,21 +60899,21 @@
     "id": "aa17c4e9-c8ab-4a12-b62e-1efa7c4faf78",
     "name": "Randers Fjord",
     "geoLocationId": "9a6214be-6950-4050-ac90-f9931e2c2559",
-    "totalNitrogenReductionT": 363.2006233213809,
+    "totalNitrogenReductionT": 363.22504859192827,
     "totalExtractionEffortHa": 8091.1375059171405,
-    "totalAfforestationEffortHa": 351.79980088763216,
+    "totalAfforestationEffortHa": 358.1384022577473,
     "totalNaturePotentialAreaHa": 50167.05280330108,
     "countApprovedProjects": 43,
-    "countAssessedProjects": 58,
+    "countAssessedProjects": 59,
     "countEstablishedProjects": 9,
     "countSketchProjects": 134,
     "countNaturePotentials": 20,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 2.341941218271253,
+        "nitrogenReductionT": 2.366366488818659,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 351.79980088763216
+        "afforestationEffortHa": 358.1384022577473
       },
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -62918,6 +62918,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2026-08-06T12:00:00+00:00",
         "lastStateChanged": "2026-08-06T13:09:03.645615+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "f99b3411-e3d8-42e6-913d-8ca7478722ea",
+        "projectName": "Markbæk Skov",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.02442527054740596,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 6.338601370115155,
+        "overlappingAreaHa": 6.338601370115155,
+        "supplGeo1OverlappingAreaHa": 5.2363370018462945,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "d6ebad93-f7d0-4f25-9fb3-b2342ae288fe",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-12-26T12:00:00+00:00",
+        "lastStateChanged": "2026-08-10T06:04:35.319413+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
