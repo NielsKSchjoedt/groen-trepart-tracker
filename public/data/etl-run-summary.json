@@ -1,6 +1,53 @@
 {
-  "generatedAt": "2026-08-18T06:42:43.165428+00:00",
+  "generatedAt": "2026-08-19T06:37:30.590631+00:00",
   "recentRuns": [
+    {
+      "date": "2026-08-19",
+      "runAt": "2026-08-19T06:28:53.253807+00:00",
+      "status": "ok",
+      "sources": {
+        "mars": {
+          "status": "ok",
+          "projects": 1664,
+          "plans": 37,
+          "notes": "All endpoints OK"
+        },
+        "dawa": {
+          "status": "ok",
+          "municipalities": 99,
+          "notes": "Skipped — files fresh (< 30 days old)"
+        },
+        "miljoegis": {
+          "status": "ok",
+          "notes": "6 layers fetched"
+        },
+        "natura2000": {
+          "status": "ok",
+          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
+        },
+        "klimaskovfonden": {
+          "status": "ok",
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
+        },
+        "section3": {
+          "status": "ok",
+          "notes": "186,628 §3 areas (skipped — count unchanged)"
+        },
+        "forest": {
+          "status": "ok",
+          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
+        },
+        "dst": {
+          "status": "ok",
+          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+        },
+        "vanda": {
+          "status": "ok",
+          "stations": 2869,
+          "notes": "2869 stations, 2869 with coordinates"
+        }
+      }
+    },
     {
       "date": "2026-08-18",
       "runAt": "2026-08-18T06:30:24.523998+00:00",
@@ -1320,53 +1367,6 @@
     {
       "date": "2026-07-18",
       "runAt": "2026-07-18T07:29:24.982970+00:00",
-      "status": "ok",
-      "sources": {
-        "mars": {
-          "status": "ok",
-          "projects": 1565,
-          "plans": 37,
-          "notes": "All endpoints OK"
-        },
-        "dawa": {
-          "status": "ok",
-          "municipalities": 99,
-          "notes": "Skipped — files fresh (< 30 days old)"
-        },
-        "miljoegis": {
-          "status": "ok",
-          "notes": "6 layers fetched"
-        },
-        "natura2000": {
-          "status": "ok",
-          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
-        },
-        "klimaskovfonden": {
-          "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
-        },
-        "section3": {
-          "status": "ok",
-          "notes": "186,628 §3 areas (skipped — count unchanged)"
-        },
-        "forest": {
-          "status": "ok",
-          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
-        },
-        "dst": {
-          "status": "ok",
-          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
-        },
-        "vanda": {
-          "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
-        }
-      }
-    },
-    {
-      "date": "2026-07-17",
-      "runAt": "2026-07-17T07:54:29.749372+00:00",
       "status": "ok",
       "sources": {
         "mars": {

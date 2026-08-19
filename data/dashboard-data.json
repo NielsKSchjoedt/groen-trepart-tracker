@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-18T06:24:49.473926+00:00",
-  "builtAt": "2026-08-18T06:42:42.313836+00:00",
+  "fetchedAt": "2026-08-19T06:25:42.344511+00:00",
+  "builtAt": "2026-08-19T06:37:29.562763+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-18T06:24:49.473926+00:00"
+      "fetchedAt": "2026-08-19T06:25:42.344511+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-18T06:28:49.881813+00:00"
+      "fetchedAt": "2026-08-19T06:26:43.335050+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-18T06:30:02.798782+00:00"
+      "fetchedAt": "2026-08-19T06:28:33.938177+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-18T06:28:53.760686+00:00"
+      "fetchedAt": "2026-08-19T06:27:19.273545+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-18T06:29:36.527276Z"
+      "fetchedAt": "2026-08-19T06:28:05.946074Z"
     }
   },
   "national": {
@@ -95,19 +95,19 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 5177.1,
-        "totalProgressPct": 40.5,
+        "totalT": 5551.0,
+        "totalProgressPct": 43.4,
         "byPhase": {
           "established": {
             "T": 30.1,
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 677.3,
+            "T": 702.3,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4469.7,
+            "T": 4818.7,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -116,19 +116,19 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 96988.6,
-        "totalProgressPct": 69.3,
+        "totalHa": 95969.0,
+        "totalProgressPct": 68.5,
         "byPhase": {
           "established": {
             "ha": 728.4,
             "description": "Anlagt — wetland projects actually constructed"
           },
           "approved": {
-            "ha": 23056.3,
+            "ha": 24621.2,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 73203.9,
+            "ha": 70619.3,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -163,33 +163,33 @@
           "disclaimer": "MARS only tracks afforestation within its project system. This represents a tiny fraction of national forest planting."
         },
         "supplementary": {
-          "klimaskovfondenHa": 2859.3,
-          "klimaskovfondenProjectCount": 240,
+          "klimaskovfondenHa": 3119.2,
+          "klimaskovfondenProjectCount": 280,
           "klimaskovfondenSource": "klimaskovfonden",
           "klimaskovfondenByYear": {
             "2022-1": {
               "count": 18,
-              "areaHa": 153.68
+              "areaHa": 153.55
             },
             "2022-2": {
               "count": 18,
               "areaHa": 143.49
             },
             "2023-3": {
-              "count": 22,
-              "areaHa": 212.3
+              "count": 20,
+              "areaHa": 189.4
             },
             "2023-4": {
-              "count": 18,
-              "areaHa": 155.32
+              "count": 17,
+              "areaHa": 151.34
             },
             "2024-5": {
               "count": 44,
-              "areaHa": 511.97
+              "areaHa": 486.82
             },
             "2024-6": {
-              "count": 22,
-              "areaHa": 246.37
+              "count": 21,
+              "areaHa": 235.86
             },
             "2025-7": {
               "count": 6,
@@ -197,15 +197,19 @@
             },
             "2025-8": {
               "count": 49,
-              "areaHa": 595.19
+              "areaHa": 595.21
             },
             "2025-9": {
               "count": 43,
-              "areaHa": 569.1
+              "areaHa": 561.01
+            },
+            "2026-10": {
+              "count": 44,
+              "areaHa": 380.72
             },
             "KSF køb": {
               "count": 2,
-              "areaHa": 183.4
+              "areaHa": 133.29
             },
             "Partnerskab": {
               "count": 1,
@@ -302,7 +306,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1662,
+      "total": 1664,
       "phases": {
         "sketches": {
           "count": 5269,
@@ -310,7 +314,7 @@
           "implemented": false
         },
         "assessed": {
-          "count": 937,
+          "count": 939,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
@@ -336,9 +340,9 @@
         "nitrogenT": 19.3,
         "extractionHa": 386.6,
         "afforestationMarsHa": 74.6,
-        "afforestationKsfHa": 54.9,
+        "afforestationKsfHa": 54.8,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 129.5,
+        "afforestationTotalHa": 129.4,
         "section3Ha": 6583.2,
         "natura2000Ha": 3550.2,
         "naturePotentialHa": 10133.4,
@@ -576,9 +580,9 @@
         "nitrogenT": 127.4,
         "extractionHa": 641.7,
         "afforestationMarsHa": 6.0,
-        "afforestationKsfHa": 268.3,
+        "afforestationKsfHa": 307.4,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 274.3,
+        "afforestationTotalHa": 313.3,
         "section3Ha": 3398.0,
         "natura2000Ha": 0.0,
         "naturePotentialHa": 3398.0,
@@ -672,9 +676,9 @@
         "nitrogenT": 79.8,
         "extractionHa": 1881.3,
         "afforestationMarsHa": 103.4,
-        "afforestationKsfHa": 36.5,
+        "afforestationKsfHa": 45.1,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 139.9,
+        "afforestationTotalHa": 148.6,
         "section3Ha": 5299.9,
         "natura2000Ha": 629.7,
         "naturePotentialHa": 5929.5,
@@ -912,9 +916,9 @@
         "nitrogenT": 42.1,
         "extractionHa": 2031.1,
         "afforestationMarsHa": 1.8,
-        "afforestationKsfHa": 5.3,
+        "afforestationKsfHa": 17.3,
         "afforestationNstHa": 123.2,
-        "afforestationTotalHa": 130.4,
+        "afforestationTotalHa": 142.3,
         "section3Ha": 1272.3,
         "natura2000Ha": 0.0,
         "naturePotentialHa": 1272.3,
@@ -957,8 +961,8 @@
         "kode": "0561",
         "navn": "Esbjerg",
         "region": "Region Syddanmark",
-        "nitrogenT": 119.7,
-        "extractionHa": 4895.2,
+        "nitrogenT": 493.7,
+        "extractionHa": 3875.5,
         "afforestationMarsHa": 25.2,
         "afforestationKsfHa": 47.8,
         "afforestationNstHa": 0.0,
@@ -967,11 +971,11 @@
         "natura2000Ha": 583.6,
         "naturePotentialHa": 6444.1,
         "co2EstimatedT": 887817.8,
-        "projectCount": 67,
+        "projectCount": 69,
         "projectsByPhase": {
           "sketches": 40,
           "assessed": 12,
-          "approved": 14,
+          "approved": 16,
           "established": 1
         },
         "byPhase": {
@@ -982,16 +986,16 @@
             "count": 40
           },
           "preliminary": {
-            "nitrogenT": 105.0,
-            "extractionHa": 4472.3,
+            "nitrogenT": 454.0,
+            "extractionHa": 1887.7,
             "afforestationHa": 0.0,
             "count": 12
           },
           "approved": {
-            "nitrogenT": 14.7,
-            "extractionHa": 422.9,
+            "nitrogenT": 39.7,
+            "extractionHa": 1987.8,
             "afforestationHa": 21.9,
-            "count": 14
+            "count": 16
           },
           "established": {
             "nitrogenT": 0.0,
@@ -1008,9 +1012,9 @@
         "nitrogenT": 62.5,
         "extractionHa": 293.4,
         "afforestationMarsHa": 45.5,
-        "afforestationKsfHa": 94.5,
+        "afforestationKsfHa": 88.3,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 140.1,
+        "afforestationTotalHa": 133.8,
         "section3Ha": 4357.6,
         "natura2000Ha": 4400.0,
         "naturePotentialHa": 8757.5,
@@ -1104,9 +1108,9 @@
         "nitrogenT": 29.0,
         "extractionHa": 703.5,
         "afforestationMarsHa": 5.9,
-        "afforestationKsfHa": 15.0,
+        "afforestationKsfHa": 20.2,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 20.8,
+        "afforestationTotalHa": 26.1,
         "section3Ha": 2462.0,
         "natura2000Ha": 0.0,
         "naturePotentialHa": 2462.0,
@@ -1776,9 +1780,9 @@
         "nitrogenT": 122.3,
         "extractionHa": 1436.0,
         "afforestationMarsHa": 34.8,
-        "afforestationKsfHa": 43.2,
+        "afforestationKsfHa": 65.1,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 78.1,
+        "afforestationTotalHa": 100.0,
         "section3Ha": 4305.4,
         "natura2000Ha": 1872.4,
         "naturePotentialHa": 6177.8,
@@ -1824,9 +1828,9 @@
         "nitrogenT": 0.0,
         "extractionHa": 0.0,
         "afforestationMarsHa": 0.0,
-        "afforestationKsfHa": 4.7,
+        "afforestationKsfHa": 9.9,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 4.7,
+        "afforestationTotalHa": 9.9,
         "section3Ha": 4671.3,
         "natura2000Ha": 5029.1,
         "naturePotentialHa": 9700.4,
@@ -2016,9 +2020,9 @@
         "nitrogenT": 49.6,
         "extractionHa": 1256.0,
         "afforestationMarsHa": 72.9,
-        "afforestationKsfHa": 51.4,
+        "afforestationKsfHa": 51.7,
         "afforestationNstHa": 185.2,
-        "afforestationTotalHa": 309.5,
+        "afforestationTotalHa": 309.9,
         "section3Ha": 12193.2,
         "natura2000Ha": 615.6,
         "naturePotentialHa": 12808.8,
@@ -2112,9 +2116,9 @@
         "nitrogenT": 4.8,
         "extractionHa": 2225.5,
         "afforestationMarsHa": 28.7,
-        "afforestationKsfHa": 55.9,
+        "afforestationKsfHa": 54.7,
         "afforestationNstHa": 201.4,
-        "afforestationTotalHa": 286.0,
+        "afforestationTotalHa": 284.8,
         "section3Ha": 10506.3,
         "natura2000Ha": 1820.1,
         "naturePotentialHa": 12326.3,
@@ -2160,9 +2164,9 @@
         "nitrogenT": 115.1,
         "extractionHa": 2755.6,
         "afforestationMarsHa": 35.7,
-        "afforestationKsfHa": 94.8,
+        "afforestationKsfHa": 78.1,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 130.5,
+        "afforestationTotalHa": 113.8,
         "section3Ha": 3118.0,
         "natura2000Ha": 3434.8,
         "naturePotentialHa": 6552.8,
@@ -2256,9 +2260,9 @@
         "nitrogenT": 123.3,
         "extractionHa": 933.6,
         "afforestationMarsHa": 83.7,
-        "afforestationKsfHa": 22.1,
+        "afforestationKsfHa": 28.5,
         "afforestationNstHa": 105.7,
-        "afforestationTotalHa": 211.5,
+        "afforestationTotalHa": 217.9,
         "section3Ha": 3781.8,
         "natura2000Ha": 4912.0,
         "naturePotentialHa": 8693.9,
@@ -2448,9 +2452,9 @@
         "nitrogenT": 157.6,
         "extractionHa": 2594.5,
         "afforestationMarsHa": 234.0,
-        "afforestationKsfHa": 86.2,
+        "afforestationKsfHa": 92.6,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 320.2,
+        "afforestationTotalHa": 326.6,
         "section3Ha": 6575.2,
         "natura2000Ha": 3922.0,
         "naturePotentialHa": 10497.3,
@@ -2592,9 +2596,9 @@
         "nitrogenT": 22.0,
         "extractionHa": 1794.9,
         "afforestationMarsHa": 14.5,
-        "afforestationKsfHa": 23.3,
+        "afforestationKsfHa": 51.0,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 37.8,
+        "afforestationTotalHa": 65.5,
         "section3Ha": 8636.1,
         "natura2000Ha": 3394.7,
         "naturePotentialHa": 12030.8,
@@ -2640,9 +2644,9 @@
         "nitrogenT": 62.2,
         "extractionHa": 4.1,
         "afforestationMarsHa": 2.4,
-        "afforestationKsfHa": 29.9,
+        "afforestationKsfHa": 42.9,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 32.2,
+        "afforestationTotalHa": 45.3,
         "section3Ha": 1012.2,
         "natura2000Ha": 102.4,
         "naturePotentialHa": 1114.6,
@@ -2688,9 +2692,9 @@
         "nitrogenT": 40.7,
         "extractionHa": 827.5,
         "afforestationMarsHa": 20.7,
-        "afforestationKsfHa": 175.6,
+        "afforestationKsfHa": 80.9,
         "afforestationNstHa": 406.7,
-        "afforestationTotalHa": 603.0,
+        "afforestationTotalHa": 508.4,
         "section3Ha": 2587.5,
         "natura2000Ha": 413.5,
         "naturePotentialHa": 3001.0,
@@ -2880,9 +2884,9 @@
         "nitrogenT": 14.0,
         "extractionHa": 116.8,
         "afforestationMarsHa": 12.6,
-        "afforestationKsfHa": 35.0,
+        "afforestationKsfHa": 48.9,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 47.5,
+        "afforestationTotalHa": 61.4,
         "section3Ha": 1314.0,
         "natura2000Ha": 1582.7,
         "naturePotentialHa": 2896.7,
@@ -2928,9 +2932,9 @@
         "nitrogenT": 348.2,
         "extractionHa": 828.7,
         "afforestationMarsHa": 31.1,
-        "afforestationKsfHa": 4.1,
+        "afforestationKsfHa": 9.4,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 35.2,
+        "afforestationTotalHa": 40.6,
         "section3Ha": 5275.6,
         "natura2000Ha": 759.1,
         "naturePotentialHa": 6034.7,
@@ -3072,9 +3076,9 @@
         "nitrogenT": 0.0,
         "extractionHa": 0.0,
         "afforestationMarsHa": 27.4,
-        "afforestationKsfHa": 0.0,
+        "afforestationKsfHa": 4.7,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 27.4,
+        "afforestationTotalHa": 32.1,
         "section3Ha": 5031.7,
         "natura2000Ha": 731.9,
         "naturePotentialHa": 5763.7,
@@ -3120,9 +3124,9 @@
         "nitrogenT": 26.5,
         "extractionHa": 1666.6,
         "afforestationMarsHa": 40.1,
-        "afforestationKsfHa": 32.7,
+        "afforestationKsfHa": 30.0,
         "afforestationNstHa": 26.1,
-        "afforestationTotalHa": 98.9,
+        "afforestationTotalHa": 96.2,
         "section3Ha": 8883.1,
         "natura2000Ha": 2318.2,
         "naturePotentialHa": 11201.3,
@@ -3312,9 +3316,9 @@
         "nitrogenT": 35.5,
         "extractionHa": 53.7,
         "afforestationMarsHa": 6.2,
-        "afforestationKsfHa": 25.1,
+        "afforestationKsfHa": 33.8,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 31.3,
+        "afforestationTotalHa": 40.0,
         "section3Ha": 2286.3,
         "natura2000Ha": 0.0,
         "naturePotentialHa": 2286.3,
@@ -3360,9 +3364,9 @@
         "nitrogenT": 5.3,
         "extractionHa": 63.0,
         "afforestationMarsHa": 0.0,
-        "afforestationKsfHa": 15.8,
+        "afforestationKsfHa": 11.9,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 15.8,
+        "afforestationTotalHa": 11.9,
         "section3Ha": 1323.5,
         "natura2000Ha": 351.7,
         "naturePotentialHa": 1675.3,
@@ -3408,9 +3412,9 @@
         "nitrogenT": 25.4,
         "extractionHa": 433.3,
         "afforestationMarsHa": 12.3,
-        "afforestationKsfHa": 116.0,
+        "afforestationKsfHa": 115.1,
         "afforestationNstHa": 44.0,
-        "afforestationTotalHa": 172.2,
+        "afforestationTotalHa": 171.4,
         "section3Ha": 4284.6,
         "natura2000Ha": 3921.0,
         "naturePotentialHa": 8205.6,
@@ -3504,9 +3508,9 @@
         "nitrogenT": 151.1,
         "extractionHa": 540.1,
         "afforestationMarsHa": 7.5,
-        "afforestationKsfHa": 8.5,
+        "afforestationKsfHa": 14.0,
         "afforestationNstHa": 270.6,
-        "afforestationTotalHa": 286.6,
+        "afforestationTotalHa": 292.2,
         "section3Ha": 1498.8,
         "natura2000Ha": 0.0,
         "naturePotentialHa": 1498.8,
@@ -3600,9 +3604,9 @@
         "nitrogenT": 137.0,
         "extractionHa": 2734.4,
         "afforestationMarsHa": 33.2,
-        "afforestationKsfHa": 65.4,
+        "afforestationKsfHa": 73.4,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 98.7,
+        "afforestationTotalHa": 106.6,
         "section3Ha": 5104.4,
         "natura2000Ha": 192.5,
         "naturePotentialHa": 5296.9,
@@ -3696,9 +3700,9 @@
         "nitrogenT": 249.6,
         "extractionHa": 3646.3,
         "afforestationMarsHa": 151.7,
-        "afforestationKsfHa": 60.6,
+        "afforestationKsfHa": 70.2,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 212.3,
+        "afforestationTotalHa": 221.9,
         "section3Ha": 21270.9,
         "natura2000Ha": 18292.9,
         "naturePotentialHa": 39563.8,
@@ -3744,9 +3748,9 @@
         "nitrogenT": 32.7,
         "extractionHa": 903.0,
         "afforestationMarsHa": 4.3,
-        "afforestationKsfHa": 12.6,
+        "afforestationKsfHa": 11.3,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 16.9,
+        "afforestationTotalHa": 15.6,
         "section3Ha": 1830.2,
         "natura2000Ha": 126.7,
         "naturePotentialHa": 1957.0,
@@ -3984,9 +3988,9 @@
         "nitrogenT": 31.0,
         "extractionHa": 291.7,
         "afforestationMarsHa": 86.0,
-        "afforestationKsfHa": 81.6,
+        "afforestationKsfHa": 81.4,
         "afforestationNstHa": 135.8,
-        "afforestationTotalHa": 303.4,
+        "afforestationTotalHa": 303.2,
         "section3Ha": 8062.6,
         "natura2000Ha": 9402.0,
         "naturePotentialHa": 17464.6,
@@ -4032,9 +4036,9 @@
         "nitrogenT": 3.3,
         "extractionHa": 481.6,
         "afforestationMarsHa": 36.0,
-        "afforestationKsfHa": 5.8,
+        "afforestationKsfHa": 29.9,
         "afforestationNstHa": 148.5,
-        "afforestationTotalHa": 190.3,
+        "afforestationTotalHa": 214.4,
         "section3Ha": 6242.9,
         "natura2000Ha": 0.0,
         "naturePotentialHa": 6242.9,
@@ -4080,9 +4084,9 @@
         "nitrogenT": 142.2,
         "extractionHa": 1966.5,
         "afforestationMarsHa": 39.1,
-        "afforestationKsfHa": 2.4,
+        "afforestationKsfHa": 16.8,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 41.5,
+        "afforestationTotalHa": 55.9,
         "section3Ha": 6302.3,
         "natura2000Ha": 408.4,
         "naturePotentialHa": 6710.7,
@@ -4272,9 +4276,9 @@
         "nitrogenT": 50.0,
         "extractionHa": 826.3,
         "afforestationMarsHa": 2.4,
-        "afforestationKsfHa": 22.8,
+        "afforestationKsfHa": 32.2,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 25.2,
+        "afforestationTotalHa": 34.5,
         "section3Ha": 629.0,
         "natura2000Ha": 5091.0,
         "naturePotentialHa": 5720.0,
@@ -4368,9 +4372,9 @@
         "nitrogenT": 70.6,
         "extractionHa": 228.5,
         "afforestationMarsHa": 11.4,
-        "afforestationKsfHa": 18.5,
+        "afforestationKsfHa": 25.9,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 29.9,
+        "afforestationTotalHa": 37.2,
         "section3Ha": 1709.2,
         "natura2000Ha": 257.2,
         "naturePotentialHa": 1966.5,
@@ -4608,9 +4612,9 @@
         "nitrogenT": 55.9,
         "extractionHa": 3862.5,
         "afforestationMarsHa": 50.2,
-        "afforestationKsfHa": 21.6,
+        "afforestationKsfHa": 57.1,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 71.8,
+        "afforestationTotalHa": 107.3,
         "section3Ha": 11233.8,
         "natura2000Ha": 3982.5,
         "naturePotentialHa": 15216.2,
@@ -4704,9 +4708,9 @@
         "nitrogenT": 115.9,
         "extractionHa": 1920.0,
         "afforestationMarsHa": 333.6,
-        "afforestationKsfHa": 18.8,
+        "afforestationKsfHa": 24.0,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 352.4,
+        "afforestationTotalHa": 357.6,
         "section3Ha": 22395.6,
         "natura2000Ha": 14283.5,
         "naturePotentialHa": 36679.1,
@@ -4752,9 +4756,9 @@
         "nitrogenT": 261.6,
         "extractionHa": 3518.0,
         "afforestationMarsHa": 54.5,
-        "afforestationKsfHa": 160.1,
+        "afforestationKsfHa": 203.6,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 214.5,
+        "afforestationTotalHa": 258.0,
         "section3Ha": 5472.1,
         "natura2000Ha": 1333.7,
         "naturePotentialHa": 6805.8,
@@ -4800,9 +4804,9 @@
         "nitrogenT": 120.3,
         "extractionHa": 875.0,
         "afforestationMarsHa": 401.1,
-        "afforestationKsfHa": 127.7,
+        "afforestationKsfHa": 143.4,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 528.8,
+        "afforestationTotalHa": 544.5,
         "section3Ha": 7034.4,
         "natura2000Ha": 6157.1,
         "naturePotentialHa": 13191.4,
@@ -4896,9 +4900,9 @@
         "nitrogenT": 247.5,
         "extractionHa": 7178.9,
         "afforestationMarsHa": 258.3,
-        "afforestationKsfHa": 118.7,
+        "afforestationKsfHa": 138.5,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 377.0,
+        "afforestationTotalHa": 396.8,
         "section3Ha": 15094.4,
         "natura2000Ha": 31916.1,
         "naturePotentialHa": 47010.5,
@@ -4944,9 +4948,9 @@
         "nitrogenT": 62.5,
         "extractionHa": 1145.9,
         "afforestationMarsHa": 14.1,
-        "afforestationKsfHa": 41.0,
+        "afforestationKsfHa": 52.0,
         "afforestationNstHa": 0.0,
-        "afforestationTotalHa": 55.2,
+        "afforestationTotalHa": 66.2,
         "section3Ha": 3789.4,
         "natura2000Ha": 3434.9,
         "naturePotentialHa": 7224.3,
@@ -20405,19 +20409,19 @@
       "geoLocationId": "9559a46a-19cc-43eb-b93c-5d70a78a7896",
       "nameNormalized": "Vesterhavet, syd",
       "nitrogenGoalT": 2420.6,
-      "nitrogenAchievedT": 600.4,
-      "nitrogenProgressPct": 24.8,
+      "nitrogenAchievedT": 974.4,
+      "nitrogenProgressPct": 40.3,
       "nitrogenByPhase": {
         "established": 3.9,
-        "approved": 67.7,
-        "preliminary": 528.8
+        "approved": 92.7,
+        "preliminary": 877.8
       },
       "extractionPotentialHa": 28437.1,
-      "extractionAchievedHa": 15703.5,
+      "extractionAchievedHa": 14683.9,
       "extractionByPhase": {
         "established": 1.2,
-        "approved": 4057.3,
-        "preliminary": 11645.0
+        "approved": 5622.3,
+        "preliminary": 9060.4
       },
       "afforestationAchievedHa": 529.0,
       "afforestationByPhase": {
@@ -20429,12 +20433,12 @@
       "countNaturePotentials": 18,
       "projects": {
         "sketches": 445,
-        "assessed": 115,
+        "assessed": 117,
         "approved": 64,
         "established": 20,
         "byStatus": {
           "preliminary": 64,
-          "approved": 115,
+          "approved": 117,
           "established": 20
         }
       },
@@ -23661,26 +23665,6 @@
           "kommuneNavn": "Aabenraa"
         },
         {
-          "id": "27f15e5d-8f15-47b4-91a9-2d4859d8f453",
-          "name": "Ribe",
-          "geoId": "1d0292d1-676b-4f72-95a3-ca60414ce9e4",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "NST Klima-Lavbund",
-          "schemeOrg": "NST",
-          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
-          "nitrogenT": 0,
-          "extractionHa": 2696.33,
-          "afforestationHa": 0,
-          "areaHa": 2696.33,
-          "appliedAt": "2025-06-27T07:26:05.355262+00:00",
-          "lastChanged": "2026-03-02T09:50:35.655909+00:00",
-          "kommuneKode": "0561",
-          "kommuneNavn": "Esbjerg"
-        },
-        {
           "id": "106f195d-2542-4839-b545-11e6f2ad1a3f",
           "name": "Sejersbæk Kog",
           "geoId": "3d9658c0-c7e0-4b40-a0a0-f1091fa386ae",
@@ -24419,6 +24403,66 @@
           "lastChanged": "2026-08-05T13:22:12.792712+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "1f673b44-3185-4e7b-9b63-b687cfb98d47",
+          "name": "Ribe Vesterå",
+          "geoId": "625d249a-9368-4195-9364-f93684761b9b",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "NST Kvælstofvådområder",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/vaadomraadeprojekter",
+          "nitrogenT": 349,
+          "extractionHa": 111.74,
+          "afforestationHa": 0,
+          "areaHa": 4074.58,
+          "appliedAt": "2026-08-18T12:00:00+00:00",
+          "lastChanged": "2026-08-18T11:03:06.115128+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "27f15e5d-8f15-47b4-91a9-2d4859d8f453",
+          "name": "Ribe",
+          "geoId": "e1370cbc-396b-4a6e-9afb-3d695645e499",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 0,
+          "extractionHa": 1402.8,
+          "afforestationHa": 0,
+          "areaHa": 1402.8,
+          "appliedAt": "2025-06-27T07:26:05.355262+00:00",
+          "lastChanged": "2026-08-18T13:24:22.863807+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "16409a12-9637-4034-9f18-4978f21cc0ff",
+          "name": "Ribe, kalvslund",
+          "geoId": "ef5737c6-1d0f-4937-9549-d6a6cc6a2362",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "NST Kvælstofvådområder",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/vaadomraadeprojekter",
+          "nitrogenT": 24.991,
+          "extractionHa": 162.13,
+          "afforestationHa": 0,
+          "areaHa": 637.07,
+          "appliedAt": "2026-08-18T12:00:00+00:00",
+          "lastChanged": "2026-08-18T13:30:56.911309+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
         }
       ],
       "sketchProjects": [
@@ -203895,14 +203939,14 @@
       "name": "Vadehavet",
       "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
       "nameNormalized": "Vadehavet",
-      "nitrogenAchievedT": 548.8,
-      "extractionAchievedHa": 11628.8,
+      "nitrogenAchievedT": 922.8,
+      "extractionAchievedHa": 10609.1,
       "afforestationAchievedHa": 477.8,
       "naturePotentialAreaHa": 13950.6,
       "countNaturePotentials": 13,
       "projects": {
         "sketches": 361,
-        "assessed": 94,
+        "assessed": 96,
         "approved": 58,
         "established": 15
       },
@@ -206648,26 +206692,6 @@
           "kommuneNavn": "Varde"
         },
         {
-          "id": "27f15e5d-8f15-47b4-91a9-2d4859d8f453",
-          "name": "Ribe",
-          "geoId": "1d0292d1-676b-4f72-95a3-ca60414ce9e4",
-          "phase": "preliminary",
-          "statusName": "Forundersøgelsestilsagn",
-          "statusNr": 6,
-          "measureName": "Lavbundsprojekter",
-          "schemeName": "NST Klima-Lavbund",
-          "schemeOrg": "NST",
-          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
-          "nitrogenT": 0,
-          "extractionHa": 2696.33,
-          "afforestationHa": 0,
-          "areaHa": 2696.33,
-          "appliedAt": "2025-06-27T07:26:05.355262+00:00",
-          "lastChanged": "2026-03-02T09:50:35.655909+00:00",
-          "kommuneKode": "0561",
-          "kommuneNavn": "Esbjerg"
-        },
-        {
           "id": "bc8e777d-a0e0-4eed-adc7-25d3d27eaeea",
           "name": "Vrenderup Mose",
           "geoId": "9fe8181e-b1f9-421a-8935-bf7a10ea9665",
@@ -207246,6 +207270,66 @@
           "lastChanged": "2026-08-05T13:22:12.792712+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "1f673b44-3185-4e7b-9b63-b687cfb98d47",
+          "name": "Ribe Vesterå",
+          "geoId": "625d249a-9368-4195-9364-f93684761b9b",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "NST Kvælstofvådområder",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/vaadomraadeprojekter",
+          "nitrogenT": 349,
+          "extractionHa": 111.74,
+          "afforestationHa": 0,
+          "areaHa": 4074.58,
+          "appliedAt": "2026-08-18T12:00:00+00:00",
+          "lastChanged": "2026-08-18T11:03:06.115128+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "27f15e5d-8f15-47b4-91a9-2d4859d8f453",
+          "name": "Ribe",
+          "geoId": "e1370cbc-396b-4a6e-9afb-3d695645e499",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 0,
+          "extractionHa": 1402.8,
+          "afforestationHa": 0,
+          "areaHa": 1402.8,
+          "appliedAt": "2025-06-27T07:26:05.355262+00:00",
+          "lastChanged": "2026-08-18T13:24:22.863807+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "16409a12-9637-4034-9f18-4978f21cc0ff",
+          "name": "Ribe, kalvslund",
+          "geoId": "ef5737c6-1d0f-4937-9549-d6a6cc6a2362",
+          "phase": "approved",
+          "statusName": "Etableringstilsagn",
+          "statusNr": 10,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "NST Kvælstofvådområder",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/vaadomraadeprojekter",
+          "nitrogenT": 24.991,
+          "extractionHa": 162.13,
+          "afforestationHa": 0,
+          "areaHa": 637.07,
+          "appliedAt": "2026-08-18T12:00:00+00:00",
+          "lastChanged": "2026-08-18T13:30:56.911309+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
         }
       ],
       "sketchProjects": [
