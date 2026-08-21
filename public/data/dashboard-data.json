@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-20T06:26:36.588295+00:00",
-  "builtAt": "2026-08-20T06:36:26.342757+00:00",
+  "fetchedAt": "2026-08-21T06:27:49.470800+00:00",
+  "builtAt": "2026-08-21T06:36:13.435028+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-20T06:26:36.588295+00:00"
+      "fetchedAt": "2026-08-21T06:27:49.470800+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-20T06:27:18.184658+00:00"
+      "fetchedAt": "2026-08-21T06:28:32.098763+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-20T06:28:05.806620+00:00"
+      "fetchedAt": "2026-08-21T06:29:20.605468+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-20T06:27:21.391877+00:00"
+      "fetchedAt": "2026-08-21T06:28:35.476920+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-20T06:27:48.842141Z"
+      "fetchedAt": "2026-08-21T06:29:02.886133Z"
     }
   },
   "national": {
@@ -95,8 +95,8 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 5539.5,
-        "totalProgressPct": 43.4,
+        "totalT": 5577.0,
+        "totalProgressPct": 43.7,
         "byPhase": {
           "established": {
             "T": 30.1,
@@ -107,7 +107,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4807.2,
+            "T": 4844.6,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -116,8 +116,8 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 95681.1,
-        "totalProgressPct": 68.3,
+        "totalHa": 96474.3,
+        "totalProgressPct": 68.9,
         "byPhase": {
           "established": {
             "ha": 728.4,
@@ -128,7 +128,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 70331.5,
+            "ha": 71124.7,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -306,7 +306,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1663,
+      "total": 1664,
       "phases": {
         "sketches": {
           "count": 5269,
@@ -319,7 +319,7 @@
           "implemented": false
         },
         "approved": {
-          "count": 733,
+          "count": 735,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -2113,8 +2113,8 @@
         "kode": "0860",
         "navn": "Hjørring",
         "region": "Region Nordjylland",
-        "nitrogenT": 4.8,
-        "extractionHa": 2225.5,
+        "nitrogenT": 42.3,
+        "extractionHa": 3018.7,
         "afforestationMarsHa": 28.7,
         "afforestationKsfHa": 54.7,
         "afforestationNstHa": 201.4,
@@ -2123,10 +2123,10 @@
         "natura2000Ha": 1820.1,
         "naturePotentialHa": 12326.3,
         "co2EstimatedT": 715272.6,
-        "projectCount": 26,
+        "projectCount": 28,
         "projectsByPhase": {
           "sketches": 8,
-          "assessed": 6,
+          "assessed": 8,
           "approved": 12,
           "established": 0
         },
@@ -2138,10 +2138,10 @@
             "count": 8
           },
           "preliminary": {
-            "nitrogenT": 4.8,
-            "extractionHa": 2225.5,
+            "nitrogenT": 42.3,
+            "extractionHa": 3018.7,
             "afforestationHa": 0.0,
-            "count": 6
+            "count": 8
           },
           "approved": {
             "nitrogenT": 0.0,
@@ -110261,19 +110261,19 @@
       "geoLocationId": "f82493d4-ea4c-4b52-9ba6-12c4de210603",
       "nameNormalized": "Nordlige Kattegat, Aalbæk Bugt",
       "nitrogenGoalT": 0,
-      "nitrogenAchievedT": 0.1,
+      "nitrogenAchievedT": 26.1,
       "nitrogenProgressPct": 0,
       "nitrogenByPhase": {
         "established": 0,
         "approved": 0.1,
-        "preliminary": 0
+        "preliminary": 26.0
       },
       "extractionPotentialHa": 2959.9,
-      "extractionAchievedHa": 239.8,
+      "extractionAchievedHa": 789.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 191.9,
-        "preliminary": 47.9
+        "preliminary": 597.8
       },
       "afforestationAchievedHa": 7.9,
       "afforestationByPhase": {
@@ -110286,10 +110286,10 @@
       "projects": {
         "sketches": 13,
         "assessed": 7,
-        "approved": 1,
+        "approved": 2,
         "established": 0,
         "byStatus": {
-          "preliminary": 1,
+          "preliminary": 2,
           "approved": 7,
           "established": 0
         }
@@ -110453,6 +110453,26 @@
           "areaHa": 1.26,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-03-11T12:27:41.817527+00:00",
+          "kommuneKode": "0860",
+          "kommuneNavn": "Hjørring"
+        },
+        {
+          "id": "975e686a-ff77-4078-9ec7-664ec28a6c9d",
+          "name": "Vogn Enge",
+          "geoId": "df4014b3-9bbc-4471-a27a-15574ccbdb90",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 25.966,
+          "extractionHa": 549.97,
+          "afforestationHa": 0,
+          "areaHa": 549.97,
+          "appliedAt": "2026-08-20T12:00:00+00:00",
+          "lastChanged": "2026-08-20T09:32:47.427865+00:00",
           "kommuneKode": "0860",
           "kommuneNavn": "Hjørring"
         }
@@ -112083,19 +112103,19 @@
       "geoLocationId": "a25b24a4-28be-4019-89d3-0fb1bf77f923",
       "nameNormalized": "Skagerrak",
       "nitrogenGoalT": 0,
-      "nitrogenAchievedT": 5.0,
+      "nitrogenAchievedT": 16.5,
       "nitrogenProgressPct": 0,
       "nitrogenByPhase": {
         "established": 0,
         "approved": 0.2,
-        "preliminary": 4.8
+        "preliminary": 16.3
       },
       "extractionPotentialHa": 5589.4,
-      "extractionAchievedHa": 2302.4,
+      "extractionAchievedHa": 2545.7,
       "extractionByPhase": {
         "established": 0,
         "approved": 0,
-        "preliminary": 2302.4
+        "preliminary": 2545.7
       },
       "afforestationAchievedHa": 37.1,
       "afforestationByPhase": {
@@ -112108,10 +112128,10 @@
       "projects": {
         "sketches": 19,
         "assessed": 15,
-        "approved": 7,
+        "approved": 8,
         "established": 0,
         "byStatus": {
-          "preliminary": 7,
+          "preliminary": 8,
           "approved": 15,
           "established": 0
         }
@@ -112555,6 +112575,26 @@
           "areaHa": 4.03,
           "appliedAt": "2026-02-09T12:00:00+00:00",
           "lastChanged": "2026-08-12T06:44:17.965631+00:00",
+          "kommuneKode": "0860",
+          "kommuneNavn": "Hjørring"
+        },
+        {
+          "id": "975e686a-ff77-4078-9ec7-664ec28a6c9d",
+          "name": "Vogn Enge",
+          "geoId": "df4014b3-9bbc-4471-a27a-15574ccbdb90",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 11.486,
+          "extractionHa": 243.28,
+          "afforestationHa": 0,
+          "areaHa": 243.28,
+          "appliedAt": "2026-08-20T12:00:00+00:00",
+          "lastChanged": "2026-08-20T09:32:47.427865+00:00",
           "kommuneKode": "0860",
           "kommuneNavn": "Hjørring"
         }
@@ -175668,15 +175708,15 @@
       "name": "Nordlige Kattegat, Skagerrak",
       "geoLocationId": "1629d655-2a73-45eb-bb19-9f7da5b44f19",
       "nameNormalized": "Nordlige Kattegat, Skagerrak",
-      "nitrogenAchievedT": 5.6,
-      "extractionAchievedHa": 5637.8,
+      "nitrogenAchievedT": 43.1,
+      "extractionAchievedHa": 6431.1,
       "afforestationAchievedHa": 80.8,
       "naturePotentialAreaHa": 16522.2,
       "countNaturePotentials": 14,
       "projects": {
         "sketches": 71,
         "assessed": 27,
-        "approved": 13,
+        "approved": 14,
         "established": 1
       },
       "projectDetails": [
@@ -176497,6 +176537,26 @@
           "areaHa": 4.03,
           "appliedAt": "2026-02-09T12:00:00+00:00",
           "lastChanged": "2026-08-12T06:44:17.965631+00:00",
+          "kommuneKode": "0860",
+          "kommuneNavn": "Hjørring"
+        },
+        {
+          "id": "975e686a-ff77-4078-9ec7-664ec28a6c9d",
+          "name": "Vogn Enge",
+          "geoId": "df4014b3-9bbc-4471-a27a-15574ccbdb90",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 37.452,
+          "extractionHa": 793.25,
+          "afforestationHa": 0,
+          "areaHa": 793.25,
+          "appliedAt": "2026-08-20T12:00:00+00:00",
+          "lastChanged": "2026-08-20T09:32:47.427865+00:00",
           "kommuneKode": "0860",
           "kommuneNavn": "Hjørring"
         }
