@@ -3,11 +3,11 @@
     "id": "08eb614d-bead-43e2-ba65-45c0be09aaf6",
     "name": "Nordlige Kattegat, Skagerrak",
     "geoLocationId": "1629d655-2a73-45eb-bb19-9f7da5b44f19",
-    "totalNitrogenReductionT": 5.626548641606075,
-    "totalExtractionEffortHa": 5637.806094260186,
+    "totalNitrogenReductionT": 43.078548641606076,
+    "totalExtractionEffortHa": 6431.056379644385,
     "totalAfforestationEffortHa": 80.7911788362884,
     "totalNaturePotentialAreaHa": 16522.197658450543,
-    "countApprovedProjects": 13,
+    "countApprovedProjects": 14,
     "countAssessedProjects": 27,
     "countEstablishedProjects": 1,
     "countSketchProjects": 71,
@@ -27,8 +27,8 @@
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 5.275104995952285,
-        "extractionEffortHa": 5637.806094260186,
+        "nitrogenReductionT": 42.72710499595228,
+        "extractionEffortHa": 6431.056379644385,
         "afforestationEffortHa": 0
       }
     ],
@@ -768,6 +768,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2026-02-09T12:00:00+00:00",
         "lastStateChanged": "2026-08-12T06:44:17.965631+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "975e686a-ff77-4078-9ec7-664ec28a6c9d",
+        "projectName": "Vogn Enge",
+        "projectStatus": 6,
+        "nitrogenReductionT": 37.452,
+        "extractionEffortHa": 793.2502853841991,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 793.2502853841996,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "df4014b3-9bbc-4471-a27a-15574ccbdb90",
+        "subsidySchemeId": "d94c569c-a7f2-4c24-92e0-dd8a539ebe92",
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "applicationTimestamp": "2026-08-20T12:00:00+00:00",
+        "lastStateChanged": "2026-08-20T09:32:47.427865+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
