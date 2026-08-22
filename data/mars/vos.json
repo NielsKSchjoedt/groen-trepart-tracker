@@ -1748,11 +1748,11 @@
     "id": "871d818f-613d-437e-ae6d-81651f2b0ee4",
     "name": "Vadehavet",
     "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
-    "totalNitrogenReductionT": 911.3126148147071,
-    "totalExtractionEffortHa": 10321.220440585044,
+    "totalNitrogenReductionT": 922.8278303587781,
+    "totalExtractionEffortHa": 10609.100829186826,
     "totalAfforestationEffortHa": 477.75382134063346,
     "totalNaturePotentialAreaHa": 13950.624826040177,
-    "countApprovedProjects": 57,
+    "countApprovedProjects": 58,
     "countAssessedProjects": 96,
     "countEstablishedProjects": 15,
     "countSketchProjects": 361,
@@ -1760,8 +1760,8 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 292.9298002570708,
-        "extractionEffortHa": 9395.602837407056,
+        "nitrogenReductionT": 304.4450158011418,
+        "extractionEffortHa": 9683.483226008837,
         "afforestationEffortHa": 0
       },
       {
@@ -4811,6 +4811,24 @@
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
         "applicationTimestamp": "2026-08-18T12:00:00+00:00",
         "lastStateChanged": "2026-08-18T13:30:56.911309+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "2960882d-5f8d-4c89-bf5a-cf743df4ebc0",
+        "projectName": "Lille Kongeå Klima-lavbundsprojekt",
+        "projectStatus": 6,
+        "nitrogenReductionT": 11.515215544070982,
+        "extractionEffortHa": 287.88038860178204,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 287.88038860178057,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "f9f1e6f6-6ad7-4182-a179-f0a3a32a5618",
+        "subsidySchemeId": "13ccc329-af28-4f1a-b389-930aa94bef26",
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "applicationTimestamp": "2026-08-21T12:00:00+00:00",
+        "lastStateChanged": "2026-08-21T10:17:00.402859+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
