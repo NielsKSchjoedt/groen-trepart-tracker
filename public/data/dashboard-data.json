@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-24T06:35:56.830089+00:00",
-  "builtAt": "2026-08-24T06:45:38.721114+00:00",
+  "fetchedAt": "2026-08-25T06:27:52.873454+00:00",
+  "builtAt": "2026-08-25T06:47:19.988984+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-24T06:35:56.830089+00:00"
+      "fetchedAt": "2026-08-25T06:27:52.873454+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-24T06:36:44.959522+00:00"
+      "fetchedAt": "2026-08-25T06:28:42.663025+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-24T06:37:45.666965+00:00"
+      "fetchedAt": "2026-08-25T06:39:21.670386+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-24T06:36:48.689746+00:00"
+      "fetchedAt": "2026-08-25T06:28:46.002559+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-24T06:37:23.697435Z"
+      "fetchedAt": "2026-08-25T06:29:25.222906Z"
     }
   },
   "national": {
@@ -95,8 +95,8 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 5588.5,
-        "totalProgressPct": 43.7,
+        "totalT": 5630.4,
+        "totalProgressPct": 44.1,
         "byPhase": {
           "established": {
             "T": 30.1,
@@ -107,7 +107,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4856.1,
+            "T": 4898.1,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -116,8 +116,8 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 96762.2,
-        "totalProgressPct": 69.1,
+        "totalHa": 97703.7,
+        "totalProgressPct": 69.8,
         "byPhase": {
           "established": {
             "ha": 728.4,
@@ -128,7 +128,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 71412.6,
+            "ha": 72354.1,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -306,7 +306,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1665,
+      "total": 1666,
       "phases": {
         "sketches": {
           "count": 5269,
@@ -319,7 +319,7 @@
           "implemented": false
         },
         "approved": {
-          "count": 736,
+          "count": 737,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
@@ -961,8 +961,8 @@
         "kode": "0561",
         "navn": "Esbjerg",
         "region": "Region Syddanmark",
-        "nitrogenT": 493.7,
-        "extractionHa": 3875.5,
+        "nitrogenT": 535.7,
+        "extractionHa": 4817.0,
         "afforestationMarsHa": 25.2,
         "afforestationKsfHa": 47.8,
         "afforestationNstHa": 0.0,
@@ -971,10 +971,10 @@
         "natura2000Ha": 583.6,
         "naturePotentialHa": 6444.1,
         "co2EstimatedT": 887817.8,
-        "projectCount": 69,
+        "projectCount": 70,
         "projectsByPhase": {
           "sketches": 40,
-          "assessed": 12,
+          "assessed": 13,
           "approved": 16,
           "established": 1
         },
@@ -986,10 +986,10 @@
             "count": 40
           },
           "preliminary": {
-            "nitrogenT": 454.0,
-            "extractionHa": 1887.7,
+            "nitrogenT": 495.9,
+            "extractionHa": 2829.2,
             "afforestationHa": 0.0,
-            "count": 12
+            "count": 13
           },
           "approved": {
             "nitrogenT": 39.7,
@@ -20409,19 +20409,19 @@
       "geoLocationId": "9559a46a-19cc-43eb-b93c-5d70a78a7896",
       "nameNormalized": "Vesterhavet, syd",
       "nitrogenGoalT": 2420.6,
-      "nitrogenAchievedT": 974.4,
-      "nitrogenProgressPct": 40.3,
+      "nitrogenAchievedT": 1016.4,
+      "nitrogenProgressPct": 42.0,
       "nitrogenByPhase": {
         "established": 3.9,
         "approved": 92.7,
-        "preliminary": 877.8
+        "preliminary": 919.8
       },
       "extractionPotentialHa": 28437.1,
-      "extractionAchievedHa": 14683.9,
+      "extractionAchievedHa": 15625.4,
       "extractionByPhase": {
         "established": 1.2,
         "approved": 5622.3,
-        "preliminary": 9060.4
+        "preliminary": 10001.9
       },
       "afforestationAchievedHa": 529.0,
       "afforestationByPhase": {
@@ -20434,10 +20434,10 @@
       "projects": {
         "sketches": 445,
         "assessed": 117,
-        "approved": 64,
+        "approved": 65,
         "established": 20,
         "byStatus": {
-          "preliminary": 64,
+          "preliminary": 65,
           "approved": 117,
           "established": 20
         }
@@ -24463,6 +24463,26 @@
           "lastChanged": "2026-08-21T10:17:00.402859+00:00",
           "kommuneKode": "0575",
           "kommuneNavn": "Vejen"
+        },
+        {
+          "id": "289e8f11-43b8-4336-955c-5d7fd7b07d83",
+          "name": "Hulmose",
+          "geoId": "1bce2947-931a-418d-afd6-4d6a76fdc6d9",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 41.954,
+          "extractionHa": 941.54,
+          "afforestationHa": 0,
+          "areaHa": 941.54,
+          "appliedAt": "2026-08-24T12:00:00+00:00",
+          "lastChanged": "2026-08-24T09:03:36.086022+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
         }
       ],
       "sketchProjects": [
@@ -203999,15 +204019,15 @@
       "name": "Vadehavet",
       "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
       "nameNormalized": "Vadehavet",
-      "nitrogenAchievedT": 922.8,
-      "extractionAchievedHa": 10609.1,
+      "nitrogenAchievedT": 964.8,
+      "extractionAchievedHa": 11550.6,
       "afforestationAchievedHa": 477.8,
       "naturePotentialAreaHa": 13950.6,
       "countNaturePotentials": 13,
       "projects": {
         "sketches": 361,
         "assessed": 96,
-        "approved": 58,
+        "approved": 59,
         "established": 15
       },
       "projectDetails": [
@@ -207390,6 +207410,26 @@
           "lastChanged": "2026-08-21T10:17:00.402859+00:00",
           "kommuneKode": "0575",
           "kommuneNavn": "Vejen"
+        },
+        {
+          "id": "289e8f11-43b8-4336-955c-5d7fd7b07d83",
+          "name": "Hulmose",
+          "geoId": "1bce2947-931a-418d-afd6-4d6a76fdc6d9",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "NST Klima-Lavbund",
+          "schemeOrg": "NST",
+          "schemeUrl": "https://naturstyrelsen.dk/ny-natur/klimalavbundsprojekter",
+          "nitrogenT": 41.954,
+          "extractionHa": 941.54,
+          "afforestationHa": 0,
+          "areaHa": 941.54,
+          "appliedAt": "2026-08-24T12:00:00+00:00",
+          "lastChanged": "2026-08-24T09:03:36.086022+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
         }
       ],
       "sketchProjects": [
