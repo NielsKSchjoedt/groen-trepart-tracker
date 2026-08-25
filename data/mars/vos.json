@@ -1748,11 +1748,11 @@
     "id": "871d818f-613d-437e-ae6d-81651f2b0ee4",
     "name": "Vadehavet",
     "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
-    "totalNitrogenReductionT": 922.8278303587781,
-    "totalExtractionEffortHa": 10609.100829186826,
+    "totalNitrogenReductionT": 964.781830358778,
+    "totalExtractionEffortHa": 11550.639731089097,
     "totalAfforestationEffortHa": 477.75382134063346,
     "totalNaturePotentialAreaHa": 13950.624826040177,
-    "countApprovedProjects": 58,
+    "countApprovedProjects": 59,
     "countAssessedProjects": 96,
     "countEstablishedProjects": 15,
     "countSketchProjects": 361,
@@ -1760,8 +1760,8 @@
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 304.4450158011418,
-        "extractionEffortHa": 9683.483226008837,
+        "nitrogenReductionT": 346.3990158011418,
+        "extractionEffortHa": 10625.022127911108,
         "afforestationEffortHa": 0
       },
       {
@@ -4829,6 +4829,24 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2026-08-21T12:00:00+00:00",
         "lastStateChanged": "2026-08-21T10:17:00.402859+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "289e8f11-43b8-4336-955c-5d7fd7b07d83",
+        "projectName": "Hulmose",
+        "projectStatus": 6,
+        "nitrogenReductionT": 41.954,
+        "extractionEffortHa": 941.5389019022714,
+        "afforestationEffortHa": 0,
+        "overlappingAreaHa": 941.5389019022716,
+        "supplGeo1OverlappingAreaHa": null,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "1bce2947-931a-418d-afd6-4d6a76fdc6d9",
+        "subsidySchemeId": "d94c569c-a7f2-4c24-92e0-dd8a539ebe92",
+        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
+        "applicationTimestamp": "2026-08-24T12:00:00+00:00",
+        "lastStateChanged": "2026-08-24T09:03:36.086022+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
