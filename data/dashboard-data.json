@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-08-31T12:08:05.647805+00:00",
-  "builtAt": "2026-08-31T12:17:38.023784+00:00",
+  "fetchedAt": "2026-09-01T10:45:27.999426+00:00",
+  "builtAt": "2026-09-01T11:05:58.176891+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-08-31T12:08:05.647805+00:00"
+      "fetchedAt": "2026-09-01T10:45:27.999426+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-08-31T12:08:52.161688+00:00"
+      "fetchedAt": "2026-09-01T10:46:21.299401+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-08-31T12:09:58.651852+00:00"
+      "fetchedAt": "2026-09-01T10:58:41.891593+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-08-31T12:08:55.618174+00:00"
+      "fetchedAt": "2026-09-01T10:46:24.780341+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-08-31T12:09:34.909123Z"
+      "fetchedAt": "2026-09-01T10:47:01.885593Z"
     }
   },
   "national": {
@@ -95,19 +95,19 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 5624.1,
-        "totalProgressPct": 44.0,
+        "totalT": 5633.5,
+        "totalProgressPct": 44.1,
         "byPhase": {
           "established": {
-            "T": 30.1,
+            "T": 30.5,
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 701.6,
+            "T": 701.2,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 4892.4,
+            "T": 4901.9,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -116,7 +116,7 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 97039.5,
+        "totalHa": 97053.1,
         "totalProgressPct": 69.3,
         "byPhase": {
           "established": {
@@ -128,7 +128,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 71703.5,
+            "ha": 71717.1,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -147,11 +147,11 @@
           "ha": 3340.3,
           "byPhase": {
             "established": {
-              "ha": 606.4,
+              "ha": 631.5,
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 2733.9,
+              "ha": 2708.9,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -306,7 +306,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1660,
+      "total": 1662,
       "phases": {
         "sketches": {
           "count": 5269,
@@ -314,17 +314,17 @@
           "implemented": false
         },
         "assessed": {
-          "count": 936,
+          "count": 930,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
         "approved": {
-          "count": 734,
+          "count": 736,
           "description": "Godkendt — approved for implementation",
           "implemented": false
         },
         "established": {
-          "count": 108,
+          "count": 114,
           "description": "Anlagt — physically implemented and operational",
           "implemented": true
         }
@@ -961,8 +961,8 @@
         "kode": "0561",
         "navn": "Esbjerg",
         "region": "Region Syddanmark",
-        "nitrogenT": 530.0,
-        "extractionHa": 4791.9,
+        "nitrogenT": 539.5,
+        "extractionHa": 4805.5,
         "afforestationMarsHa": 25.2,
         "afforestationKsfHa": 47.8,
         "afforestationNstHa": 0.0,
@@ -971,10 +971,10 @@
         "natura2000Ha": 583.6,
         "naturePotentialHa": 6444.1,
         "co2EstimatedT": 887817.8,
-        "projectCount": 68,
+        "projectCount": 69,
         "projectsByPhase": {
           "sketches": 40,
-          "assessed": 12,
+          "assessed": 13,
           "approved": 15,
           "established": 1
         },
@@ -986,10 +986,10 @@
             "count": 40
           },
           "preliminary": {
-            "nitrogenT": 490.3,
-            "extractionHa": 2817.6,
+            "nitrogenT": 499.7,
+            "extractionHa": 2831.3,
             "afforestationHa": 0.0,
-            "count": 12
+            "count": 13
           },
           "approved": {
             "nitrogenT": 39.7,
@@ -2123,10 +2123,10 @@
         "natura2000Ha": 1820.1,
         "naturePotentialHa": 12326.3,
         "co2EstimatedT": 715272.6,
-        "projectCount": 27,
+        "projectCount": 28,
         "projectsByPhase": {
           "sketches": 8,
-          "assessed": 7,
+          "assessed": 8,
           "approved": 12,
           "established": 0
         },
@@ -2141,7 +2141,7 @@
             "nitrogenT": 42.3,
             "extractionHa": 2489.5,
             "afforestationHa": 0.0,
-            "count": 7
+            "count": 8
           },
           "approved": {
             "nitrogenT": 0.0,
@@ -2175,8 +2175,8 @@
         "projectsByPhase": {
           "sketches": 68,
           "assessed": 6,
-          "approved": 12,
-          "established": 2
+          "approved": 11,
+          "established": 3
         },
         "byPhase": {
           "sketch": {
@@ -2194,14 +2194,14 @@
           "approved": {
             "nitrogenT": 1.3,
             "extractionHa": 120.9,
-            "afforestationHa": 31.3,
-            "count": 12
+            "afforestationHa": 29.6,
+            "count": 11
           },
           "established": {
             "nitrogenT": 0.1,
             "extractionHa": 0.0,
-            "afforestationHa": 4.4,
-            "count": 2
+            "afforestationHa": 6.0,
+            "count": 3
           }
         }
       },
@@ -3135,8 +3135,8 @@
         "projectsByPhase": {
           "sketches": 161,
           "assessed": 6,
-          "approved": 13,
-          "established": 4
+          "approved": 11,
+          "established": 6
         },
         "byPhase": {
           "sketch": {
@@ -3152,16 +3152,16 @@
             "count": 6
           },
           "approved": {
-            "nitrogenT": 22.6,
+            "nitrogenT": 22.5,
             "extractionHa": 572.8,
-            "afforestationHa": 20.9,
-            "count": 13
+            "afforestationHa": 15.2,
+            "count": 11
           },
           "established": {
-            "nitrogenT": 1.4,
+            "nitrogenT": 1.5,
             "extractionHa": 39.5,
-            "afforestationHa": 19.2,
-            "count": 4
+            "afforestationHa": 24.9,
+            "count": 6
           }
         }
       },
@@ -3279,8 +3279,8 @@
         "projectsByPhase": {
           "sketches": 29,
           "assessed": 11,
-          "approved": 12,
-          "established": 1
+          "approved": 11,
+          "established": 2
         },
         "byPhase": {
           "sketch": {
@@ -3296,16 +3296,16 @@
             "count": 11
           },
           "approved": {
-            "nitrogenT": 16.5,
+            "nitrogenT": 16.4,
             "extractionHa": 345.0,
-            "afforestationHa": 52.9,
-            "count": 12
+            "afforestationHa": 50.3,
+            "count": 11
           },
           "established": {
-            "nitrogenT": 0.0,
+            "nitrogenT": 0.1,
             "extractionHa": 0.0,
-            "afforestationHa": 4.1,
-            "count": 1
+            "afforestationHa": 6.8,
+            "count": 2
           }
         }
       },
@@ -4095,8 +4095,8 @@
         "projectsByPhase": {
           "sketches": 77,
           "assessed": 15,
-          "approved": 21,
-          "established": 0
+          "approved": 20,
+          "established": 1
         },
         "byPhase": {
           "sketch": {
@@ -4112,16 +4112,16 @@
             "count": 15
           },
           "approved": {
-            "nitrogenT": 35.9,
+            "nitrogenT": 35.8,
             "extractionHa": 814.5,
-            "afforestationHa": 39.1,
-            "count": 21
+            "afforestationHa": 27.4,
+            "count": 20
           },
           "established": {
-            "nitrogenT": 0.0,
+            "nitrogenT": 0.2,
             "extractionHa": 0.0,
-            "afforestationHa": 0.0,
-            "count": 0
+            "afforestationHa": 11.7,
+            "count": 1
           }
         }
       },
@@ -4815,8 +4815,8 @@
         "projectsByPhase": {
           "sketches": 127,
           "assessed": 4,
-          "approved": 54,
-          "established": 10
+          "approved": 53,
+          "established": 11
         },
         "byPhase": {
           "sketch": {
@@ -4834,14 +4834,14 @@
           "approved": {
             "nitrogenT": 32.3,
             "extractionHa": 868.7,
-            "afforestationHa": 320.8,
-            "count": 54
+            "afforestationHa": 317.5,
+            "count": 53
           },
           "established": {
-            "nitrogenT": 1.3,
+            "nitrogenT": 1.4,
             "extractionHa": 0.0,
-            "afforestationHa": 80.2,
-            "count": 10
+            "afforestationHa": 83.5,
+            "count": 11
           }
         }
       },
@@ -5233,8 +5233,8 @@
       "nitrogenAchievedT": 1259.9,
       "nitrogenProgressPct": 43.9,
       "nitrogenByPhase": {
-        "established": 1.4,
-        "approved": 187.3,
+        "established": 1.6,
+        "approved": 187.1,
         "preliminary": 1071.2
       },
       "extractionPotentialHa": 55576.8,
@@ -5246,21 +5246,21 @@
       },
       "afforestationAchievedHa": 537.2,
       "afforestationByPhase": {
-        "established": 46.4,
-        "approved": 490.8,
+        "established": 60.8,
+        "approved": 476.4,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 10089.0,
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 640,
-        "assessed": 183,
+        "assessed": 181,
         "approved": 139,
-        "established": 14,
+        "established": 16,
         "byStatus": {
           "preliminary": 139,
-          "approved": 183,
-          "established": 14
+          "approved": 181,
+          "established": 16
         }
       },
       "status": "Published",
@@ -5324,26 +5324,6 @@
           "lastChanged": "2026-03-18T08:31:07.683798+00:00",
           "kommuneKode": "0851",
           "kommuneNavn": "Aalborg"
-        },
-        {
-          "id": "55f6c6f8-2dc7-422e-bc8b-830754557250",
-          "name": "Palledamvej 22",
-          "geoId": "5fcaa74b-04ca-47b2-b585-fcb527d39462",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.182,
-          "extractionHa": 0,
-          "afforestationHa": 11.74,
-          "areaHa": 11.74,
-          "appliedAt": "2025-09-29T13:59:31.612679+00:00",
-          "lastChanged": "2026-03-24T12:13:46.709776+00:00",
-          "kommuneKode": "0779",
-          "kommuneNavn": "Skive"
         },
         {
           "id": "167df777-63d7-48f6-a8d3-91930db9c65a",
@@ -9886,26 +9866,6 @@
           "kommuneNavn": "Holstebro"
         },
         {
-          "id": "88e6bd58-08f0-4f40-b783-138844eb9f2f",
-          "name": "Glovdalvej 6",
-          "geoId": "adaa1727-a3f9-4058-92ca-40ac09389aa2",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.028,
-          "extractionHa": 0,
-          "afforestationHa": 2.65,
-          "areaHa": 2.65,
-          "appliedAt": "2025-10-07T09:33:48.679379+00:00",
-          "lastChanged": "2026-02-24T10:07:51.115683+00:00",
-          "kommuneKode": "0846",
-          "kommuneNavn": "Mariagerfjord"
-        },
-        {
           "id": "ee0965bb-3604-44c7-bc2f-02602caa62a5",
           "name": "N. A. Christensensvej",
           "geoId": "c8273c24-a33c-4bf1-a390-4af20cbf2555",
@@ -11984,6 +11944,46 @@
           "lastChanged": "2026-08-12T12:41:48.519081+00:00",
           "kommuneKode": "0791",
           "kommuneNavn": "Viborg"
+        },
+        {
+          "id": "88e6bd58-08f0-4f40-b783-138844eb9f2f",
+          "name": "Glovdalvej 6",
+          "geoId": "fe2fde2a-2434-41db-a617-f6b56530a6d1",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.028,
+          "extractionHa": 0,
+          "afforestationHa": 2.65,
+          "areaHa": 2.65,
+          "appliedAt": "2025-10-07T09:33:48.679379+00:00",
+          "lastChanged": "2026-09-01T09:01:46.604485+00:00",
+          "kommuneKode": "0846",
+          "kommuneNavn": "Mariagerfjord"
+        },
+        {
+          "id": "55f6c6f8-2dc7-422e-bc8b-830754557250",
+          "name": "Palledamvej 22",
+          "geoId": "bb5ad6ba-47da-4360-8de8-31ac31f2b887",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.182,
+          "extractionHa": 0,
+          "afforestationHa": 11.74,
+          "areaHa": 11.74,
+          "appliedAt": "2025-09-29T13:59:31.612679+00:00",
+          "lastChanged": "2026-09-01T09:16:58.111377+00:00",
+          "kommuneKode": "0779",
+          "kommuneNavn": "Skive"
         }
       ],
       "sketchProjects": [
@@ -20389,19 +20389,19 @@
       "geoLocationId": "9559a46a-19cc-43eb-b93c-5d70a78a7896",
       "nameNormalized": "Vesterhavet, syd",
       "nitrogenGoalT": 2420.6,
-      "nitrogenAchievedT": 1010.7,
-      "nitrogenProgressPct": 41.8,
+      "nitrogenAchievedT": 1020.2,
+      "nitrogenProgressPct": 42.1,
       "nitrogenByPhase": {
         "established": 3.9,
         "approved": 92.7,
-        "preliminary": 914.1
+        "preliminary": 923.6
       },
       "extractionPotentialHa": 28437.1,
-      "extractionAchievedHa": 15600.2,
+      "extractionAchievedHa": 15613.9,
       "extractionByPhase": {
         "established": 1.2,
         "approved": 5608.6,
-        "preliminary": 9990.4
+        "preliminary": 10004.0
       },
       "afforestationAchievedHa": 529.0,
       "afforestationByPhase": {
@@ -20414,10 +20414,10 @@
       "projects": {
         "sketches": 445,
         "assessed": 116,
-        "approved": 64,
+        "approved": 65,
         "established": 20,
         "byStatus": {
-          "preliminary": 64,
+          "preliminary": 65,
           "approved": 116,
           "established": 20
         }
@@ -24423,6 +24423,26 @@
           "lastChanged": "2026-08-31T07:27:28.65897+00:00",
           "kommuneKode": "0575",
           "kommuneNavn": "Vejen"
+        },
+        {
+          "id": "ace45471-0e26-47cf-8c16-0faff0ce68db",
+          "name": "Ilsted Å R2026",
+          "geoId": "1188503a-0d7a-4db4-8a73-c2cd96d86a2d",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+          "nitrogenT": 9.458,
+          "extractionHa": 13.62,
+          "afforestationHa": 0,
+          "areaHa": 105.09,
+          "appliedAt": "2026-09-01T12:00:00+00:00",
+          "lastChanged": "2026-09-01T08:43:13.146469+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
         }
       ],
       "sketchProjects": [
@@ -30386,8 +30406,8 @@
       "nitrogenAchievedT": 956.7,
       "nitrogenProgressPct": 44.6,
       "nitrogenByPhase": {
-        "established": 1.3,
-        "approved": 162.7,
+        "established": 1.4,
+        "approved": 162.6,
         "preliminary": 792.7
       },
       "extractionPotentialHa": 24065.0,
@@ -30399,21 +30419,21 @@
       },
       "afforestationAchievedHa": 989.3,
       "afforestationByPhase": {
-        "established": 98.3,
-        "approved": 890.9,
+        "established": 101.6,
+        "approved": 887.6,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 479.0,
       "countNaturePotentials": 2,
       "projects": {
         "sketches": 214,
-        "assessed": 127,
+        "assessed": 126,
         "approved": 52,
-        "established": 15,
+        "established": 16,
         "byStatus": {
           "preliminary": 52,
-          "approved": 127,
-          "established": 15
+          "approved": 126,
+          "established": 16
         }
       },
       "status": "Published",
@@ -32999,26 +33019,6 @@
           "kommuneNavn": "Ringkøbing-Skjern"
         },
         {
-          "id": "5700a3fa-35cf-4224-833a-634dbdb4e0d1",
-          "name": "Lindet Kratvej 34 - Skovrejsning",
-          "geoId": "7b6ec34c-31bb-4402-911f-2908262a3358",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.092,
-          "extractionHa": 0,
-          "afforestationHa": 3.29,
-          "areaHa": 3.29,
-          "appliedAt": "2025-11-03T12:17:03.281962+00:00",
-          "lastChanged": "2026-01-30T11:05:20.761064+00:00",
-          "kommuneKode": "0630",
-          "kommuneNavn": "Vejle"
-        },
-        {
           "id": "0b81939d-7ab2-4494-bbc4-f2b9c6fed966",
           "name": "Otto Riis Lund, Ringivevej 99, Give",
           "geoId": "edfe305f-0717-4ae1-a07c-877205e99650",
@@ -34295,6 +34295,26 @@
           "areaHa": 194.31,
           "appliedAt": "2026-08-06T12:00:00+00:00",
           "lastChanged": "2026-08-06T13:09:03.645615+00:00",
+          "kommuneKode": "0630",
+          "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "5700a3fa-35cf-4224-833a-634dbdb4e0d1",
+          "name": "Lindet Kratvej 34 - Skovrejsning",
+          "geoId": "5e4b9f99-80aa-4f62-902c-8ef41c3b3ee1",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.092,
+          "extractionHa": 0,
+          "afforestationHa": 3.29,
+          "areaHa": 3.29,
+          "appliedAt": "2025-11-03T12:17:03.281962+00:00",
+          "lastChanged": "2026-09-01T08:52:53.83095+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
         }
@@ -51672,21 +51692,21 @@
       },
       "afforestationAchievedHa": 106.4,
       "afforestationByPhase": {
-        "established": 88.8,
-        "approved": 17.5,
+        "established": 90.5,
+        "approved": 15.9,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 2609.4,
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 124,
-        "assessed": 18,
+        "assessed": 17,
         "approved": 17,
-        "established": 6,
+        "established": 7,
         "byStatus": {
           "preliminary": 17,
-          "approved": 18,
-          "established": 6
+          "approved": 17,
+          "established": 7
         }
       },
       "status": "Published",
@@ -52252,26 +52272,6 @@
           "kommuneNavn": "Slagelse"
         },
         {
-          "id": "d0c6cdb3-e10c-40b9-a1ca-c038a052eea9",
-          "name": "Sønderstrupvej 123",
-          "geoId": "37464df1-bcfd-4a40-a7a0-919c96640592",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.006,
-          "extractionHa": 0,
-          "afforestationHa": 1.66,
-          "areaHa": 1.66,
-          "appliedAt": "2025-12-15T12:00:00+00:00",
-          "lastChanged": "2026-03-20T09:50:51.50049+00:00",
-          "kommuneKode": "0316",
-          "kommuneNavn": "Holbæk"
-        },
-        {
           "id": "465d55b9-7e24-4fb0-9ce0-5540e864886d",
           "name": "Lavbundsprojekt Engkrogen",
           "geoId": "3fe39e7d-f2cb-4d95-b068-cd67b11d871e",
@@ -52510,6 +52510,26 @@
           "lastChanged": "2026-08-05T12:01:41.611611+00:00",
           "kommuneKode": "0330",
           "kommuneNavn": "Slagelse"
+        },
+        {
+          "id": "d0c6cdb3-e10c-40b9-a1ca-c038a052eea9",
+          "name": "Sønderstrupvej 123",
+          "geoId": "af5691cd-1481-4cf3-ada9-5a31f58f7973",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.006,
+          "extractionHa": 0,
+          "afforestationHa": 1.66,
+          "areaHa": 1.66,
+          "appliedAt": "2025-12-15T12:00:00+00:00",
+          "lastChanged": "2026-09-01T09:26:18.712422+00:00",
+          "kommuneKode": "0316",
+          "kommuneNavn": "Holbæk"
         }
       ],
       "sketchProjects": [
@@ -82646,7 +82666,7 @@
       "nitrogenAchievedT": 24.1,
       "nitrogenProgressPct": 11.3,
       "nitrogenByPhase": {
-        "established": 0.0,
+        "established": 0.1,
         "approved": 22.6,
         "preliminary": 1.4
       },
@@ -82659,21 +82679,21 @@
       },
       "afforestationAchievedHa": 31.4,
       "afforestationByPhase": {
-        "established": 13.3,
-        "approved": 18.2,
+        "established": 16.3,
+        "approved": 15.1,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 10517.1,
       "countNaturePotentials": 12,
       "projects": {
         "sketches": 170,
-        "assessed": 14,
+        "assessed": 13,
         "approved": 9,
-        "established": 3,
+        "established": 4,
         "byStatus": {
           "preliminary": 9,
-          "approved": 14,
-          "established": 3
+          "approved": 13,
+          "established": 4
         }
       },
       "status": "Published",
@@ -82795,26 +82815,6 @@
           "areaHa": 81.51,
           "appliedAt": "2025-11-03T11:18:33.87935+00:00",
           "lastChanged": "2026-03-26T07:33:26.100176+00:00",
-          "kommuneKode": "0846",
-          "kommuneNavn": "Mariagerfjord"
-        },
-        {
-          "id": "61fe517f-362d-426a-bedb-2218b3650ed1",
-          "name": "Skoven i Den Gamle Motorbane",
-          "geoId": "4c9d837f-ee78-4da5-bb97-8dcb6ff3cbb0",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.019,
-          "extractionHa": 0,
-          "afforestationHa": 3.02,
-          "areaHa": 3.02,
-          "appliedAt": "2025-10-24T08:29:28.633233+00:00",
-          "lastChanged": "2026-01-26T15:23:13.680529+00:00",
           "kommuneKode": "0846",
           "kommuneNavn": "Mariagerfjord"
         },
@@ -83195,6 +83195,26 @@
           "areaHa": 9.19,
           "appliedAt": "2025-10-24T08:33:51.570388+00:00",
           "lastChanged": "2026-08-10T07:12:44.495187+00:00",
+          "kommuneKode": "0846",
+          "kommuneNavn": "Mariagerfjord"
+        },
+        {
+          "id": "61fe517f-362d-426a-bedb-2218b3650ed1",
+          "name": "Skoven i Den Gamle Motorbane",
+          "geoId": "79ee582f-61b9-4158-b99d-001ee12f7f38",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.019,
+          "extractionHa": 0,
+          "afforestationHa": 3.02,
+          "areaHa": 3.02,
+          "appliedAt": "2025-10-24T08:29:28.633233+00:00",
+          "lastChanged": "2026-09-01T08:22:14.829539+00:00",
           "kommuneKode": "0846",
           "kommuneNavn": "Mariagerfjord"
         }
@@ -101602,21 +101622,21 @@
       },
       "afforestationAchievedHa": 91.4,
       "afforestationByPhase": {
-        "established": 16.3,
-        "approved": 75.0,
+        "established": 19.0,
+        "approved": 72.4,
         "preliminary": 0
       },
       "naturePotentialAreaHa": 2090.9,
       "countNaturePotentials": 3,
       "projects": {
         "sketches": 41,
-        "assessed": 12,
+        "assessed": 11,
         "approved": 11,
-        "established": 2,
+        "established": 3,
         "byStatus": {
           "preliminary": 11,
-          "approved": 12,
-          "established": 2
+          "approved": 11,
+          "established": 3
         }
       },
       "status": "Published",
@@ -101838,26 +101858,6 @@
           "areaHa": 68.92,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-08-05T08:11:24.372428+00:00",
-          "kommuneKode": "0707",
-          "kommuneNavn": "Norddjurs"
-        },
-        {
-          "id": "b53fb97f-f73b-4613-81d3-6ea49e4110e8",
-          "name": "Riishøjgård Skov",
-          "geoId": "523b1cdb-6175-4e79-b988-30c99fc77833",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.055,
-          "extractionHa": 0,
-          "afforestationHa": 2.67,
-          "areaHa": 2.67,
-          "appliedAt": "2025-09-16T07:10:18.71169+00:00",
-          "lastChanged": "2026-04-07T12:01:30.983348+00:00",
           "kommuneKode": "0707",
           "kommuneNavn": "Norddjurs"
         },
@@ -102120,6 +102120,26 @@
           "lastChanged": "2026-08-12T11:48:41.29736+00:00",
           "kommuneKode": "0706",
           "kommuneNavn": "Syddjurs"
+        },
+        {
+          "id": "b53fb97f-f73b-4613-81d3-6ea49e4110e8",
+          "name": "Riishøjgård Skov",
+          "geoId": "0380e7ef-dea6-430a-91bf-f67d5ed2222a",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.055,
+          "extractionHa": 0,
+          "afforestationHa": 2.67,
+          "areaHa": 2.67,
+          "appliedAt": "2025-09-16T07:10:18.71169+00:00",
+          "lastChanged": "2026-09-01T08:37:30.534265+00:00",
+          "kommuneKode": "0707",
+          "kommuneNavn": "Norddjurs"
         }
       ],
       "sketchProjects": [
@@ -112068,10 +112088,10 @@
       "projects": {
         "sketches": 19,
         "assessed": 15,
-        "approved": 7,
+        "approved": 8,
         "established": 0,
         "byStatus": {
-          "preliminary": 7,
+          "preliminary": 8,
           "approved": 15,
           "established": 0
         }
@@ -112515,6 +112535,26 @@
           "areaHa": 243.28,
           "appliedAt": "2026-08-20T12:00:00+00:00",
           "lastChanged": "2026-08-20T09:32:47.427865+00:00",
+          "kommuneKode": "0860",
+          "kommuneNavn": "Hjørring"
+        },
+        {
+          "id": "fe5c4777-649e-4fd9-b025-b8f8c4aa4c08",
+          "name": "Lavbundsprojekt Sønderskov",
+          "geoId": "3b3e9e7c-36d5-4306-8344-02ad260d53fe",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 529.22,
+          "appliedAt": "2026-09-01T12:00:00+00:00",
+          "lastChanged": "2026-09-01T06:24:59.074833+00:00",
           "kommuneKode": "0860",
           "kommuneNavn": "Hjørring"
         }
@@ -122314,9 +122354,9 @@
       "countNaturePotentials": 10,
       "projects": {
         "sketches": 46,
-        "assessed": 17,
+        "assessed": 16,
         "approved": 14,
-        "established": 2
+        "established": 3
       },
       "projectDetails": [
         {
@@ -122700,26 +122740,6 @@
           "kommuneNavn": "Norddjurs"
         },
         {
-          "id": "b53fb97f-f73b-4613-81d3-6ea49e4110e8",
-          "name": "Riishøjgård Skov",
-          "geoId": "523b1cdb-6175-4e79-b988-30c99fc77833",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.055,
-          "extractionHa": 0,
-          "afforestationHa": 2.67,
-          "areaHa": 2.67,
-          "appliedAt": "2025-09-16T07:10:18.71169+00:00",
-          "lastChanged": "2026-04-07T12:01:30.983348+00:00",
-          "kommuneKode": "0707",
-          "kommuneNavn": "Norddjurs"
-        },
-        {
           "id": "9a985db2-5db0-4c79-b64f-84339de26a82",
           "name": "Havmølle Å",
           "geoId": "44846078-9cac-4209-8ce9-8cec0a9b3d29",
@@ -122978,6 +122998,26 @@
           "lastChanged": "2026-08-12T11:48:41.29736+00:00",
           "kommuneKode": "0706",
           "kommuneNavn": "Syddjurs"
+        },
+        {
+          "id": "b53fb97f-f73b-4613-81d3-6ea49e4110e8",
+          "name": "Riishøjgård Skov",
+          "geoId": "0380e7ef-dea6-430a-91bf-f67d5ed2222a",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.055,
+          "extractionHa": 0,
+          "afforestationHa": 2.67,
+          "areaHa": 2.67,
+          "appliedAt": "2025-09-16T07:10:18.71169+00:00",
+          "lastChanged": "2026-09-01T08:37:30.534265+00:00",
+          "kommuneKode": "0707",
+          "kommuneNavn": "Norddjurs"
         }
       ],
       "sketchProjects": [
@@ -131857,9 +131897,9 @@
       "countNaturePotentials": 4,
       "projects": {
         "sketches": 89,
-        "assessed": 15,
+        "assessed": 14,
         "approved": 8,
-        "established": 3
+        "established": 4
       },
       "projectDetails": [
         {
@@ -132143,26 +132183,6 @@
           "kommuneNavn": "Odsherred"
         },
         {
-          "id": "d0c6cdb3-e10c-40b9-a1ca-c038a052eea9",
-          "name": "Sønderstrupvej 123",
-          "geoId": "37464df1-bcfd-4a40-a7a0-919c96640592",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.006,
-          "extractionHa": 0,
-          "afforestationHa": 1.66,
-          "areaHa": 1.66,
-          "appliedAt": "2025-12-15T12:00:00+00:00",
-          "lastChanged": "2026-03-20T09:50:51.50049+00:00",
-          "kommuneKode": "0316",
-          "kommuneNavn": "Holbæk"
-        },
-        {
           "id": "465d55b9-7e24-4fb0-9ce0-5540e864886d",
           "name": "Lavbundsprojekt Engkrogen",
           "geoId": "3fe39e7d-f2cb-4d95-b068-cd67b11d871e",
@@ -132381,6 +132401,26 @@
           "lastChanged": "2026-06-29T12:34:03.167511+00:00",
           "kommuneKode": "0326",
           "kommuneNavn": "Kalundborg"
+        },
+        {
+          "id": "d0c6cdb3-e10c-40b9-a1ca-c038a052eea9",
+          "name": "Sønderstrupvej 123",
+          "geoId": "af5691cd-1481-4cf3-ada9-5a31f58f7973",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.006,
+          "extractionHa": 0,
+          "afforestationHa": 1.66,
+          "areaHa": 1.66,
+          "appliedAt": "2025-12-15T12:00:00+00:00",
+          "lastChanged": "2026-09-01T09:26:18.712422+00:00",
+          "kommuneKode": "0316",
+          "kommuneNavn": "Holbæk"
         }
       ],
       "sketchProjects": [
@@ -156034,9 +156074,9 @@
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 640,
-        "assessed": 183,
+        "assessed": 181,
         "approved": 139,
-        "established": 14
+        "established": 16
       },
       "projectDetails": [
         {
@@ -156098,26 +156138,6 @@
           "lastChanged": "2026-03-18T08:31:07.683798+00:00",
           "kommuneKode": "0851",
           "kommuneNavn": "Aalborg"
-        },
-        {
-          "id": "55f6c6f8-2dc7-422e-bc8b-830754557250",
-          "name": "Palledamvej 22",
-          "geoId": "5fcaa74b-04ca-47b2-b585-fcb527d39462",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.182,
-          "extractionHa": 0,
-          "afforestationHa": 11.74,
-          "areaHa": 11.74,
-          "appliedAt": "2025-09-29T13:59:31.612679+00:00",
-          "lastChanged": "2026-03-24T12:13:46.709776+00:00",
-          "kommuneKode": "0779",
-          "kommuneNavn": "Skive"
         },
         {
           "id": "167df777-63d7-48f6-a8d3-91930db9c65a",
@@ -160700,26 +160720,6 @@
           "kommuneNavn": "Holstebro"
         },
         {
-          "id": "88e6bd58-08f0-4f40-b783-138844eb9f2f",
-          "name": "Glovdalvej 6",
-          "geoId": "adaa1727-a3f9-4058-92ca-40ac09389aa2",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.028,
-          "extractionHa": 0,
-          "afforestationHa": 2.65,
-          "areaHa": 2.65,
-          "appliedAt": "2025-10-07T09:33:48.679379+00:00",
-          "lastChanged": "2026-02-24T10:07:51.115683+00:00",
-          "kommuneKode": "0846",
-          "kommuneNavn": "Mariagerfjord"
-        },
-        {
           "id": "c59964ce-ac93-49e4-af7b-6eb057aca073",
           "name": "Thoruphedevej 2",
           "geoId": "82e088bf-fc66-4176-aeba-853ad3d20269",
@@ -162758,6 +162758,46 @@
           "lastChanged": "2026-08-12T12:41:48.519081+00:00",
           "kommuneKode": "0791",
           "kommuneNavn": "Viborg"
+        },
+        {
+          "id": "88e6bd58-08f0-4f40-b783-138844eb9f2f",
+          "name": "Glovdalvej 6",
+          "geoId": "fe2fde2a-2434-41db-a617-f6b56530a6d1",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.028,
+          "extractionHa": 0,
+          "afforestationHa": 2.65,
+          "areaHa": 2.65,
+          "appliedAt": "2025-10-07T09:33:48.679379+00:00",
+          "lastChanged": "2026-09-01T09:01:46.604485+00:00",
+          "kommuneKode": "0846",
+          "kommuneNavn": "Mariagerfjord"
+        },
+        {
+          "id": "55f6c6f8-2dc7-422e-bc8b-830754557250",
+          "name": "Palledamvej 22",
+          "geoId": "bb5ad6ba-47da-4360-8de8-31ac31f2b887",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.182,
+          "extractionHa": 0,
+          "afforestationHa": 11.74,
+          "areaHa": 11.74,
+          "appliedAt": "2025-09-29T13:59:31.612679+00:00",
+          "lastChanged": "2026-09-01T09:16:58.111377+00:00",
+          "kommuneKode": "0779",
+          "kommuneNavn": "Skive"
         }
       ],
       "sketchProjects": [
@@ -171169,9 +171209,9 @@
       "countNaturePotentials": 8,
       "projects": {
         "sketches": 133,
-        "assessed": 9,
+        "assessed": 8,
         "approved": 4,
-        "established": 2
+        "established": 3
       },
       "projectDetails": [
         {
@@ -171231,26 +171271,6 @@
           "areaHa": 392.2,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0846",
-          "kommuneNavn": "Mariagerfjord"
-        },
-        {
-          "id": "61fe517f-362d-426a-bedb-2218b3650ed1",
-          "name": "Skoven i Den Gamle Motorbane",
-          "geoId": "4c9d837f-ee78-4da5-bb97-8dcb6ff3cbb0",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.019,
-          "extractionHa": 0,
-          "afforestationHa": 3.02,
-          "areaHa": 3.02,
-          "appliedAt": "2025-10-24T08:29:28.633233+00:00",
-          "lastChanged": "2026-01-26T15:23:13.680529+00:00",
           "kommuneKode": "0846",
           "kommuneNavn": "Mariagerfjord"
         },
@@ -171471,6 +171491,26 @@
           "areaHa": 9.19,
           "appliedAt": "2025-10-24T08:33:51.570388+00:00",
           "lastChanged": "2026-08-10T07:12:44.495187+00:00",
+          "kommuneKode": "0846",
+          "kommuneNavn": "Mariagerfjord"
+        },
+        {
+          "id": "61fe517f-362d-426a-bedb-2218b3650ed1",
+          "name": "Skoven i Den Gamle Motorbane",
+          "geoId": "79ee582f-61b9-4158-b99d-001ee12f7f38",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.019,
+          "extractionHa": 0,
+          "afforestationHa": 3.02,
+          "areaHa": 3.02,
+          "appliedAt": "2025-10-24T08:29:28.633233+00:00",
+          "lastChanged": "2026-09-01T08:22:14.829539+00:00",
           "kommuneKode": "0846",
           "kommuneNavn": "Mariagerfjord"
         }
@@ -175576,7 +175616,7 @@
       "projects": {
         "sketches": 71,
         "assessed": 27,
-        "approved": 13,
+        "approved": 14,
         "established": 1
       },
       "projectDetails": [
@@ -176397,6 +176437,26 @@
           "areaHa": 793.25,
           "appliedAt": "2026-08-20T12:00:00+00:00",
           "lastChanged": "2026-08-20T09:32:47.427865+00:00",
+          "kommuneKode": "0860",
+          "kommuneNavn": "Hjørring"
+        },
+        {
+          "id": "fe5c4777-649e-4fd9-b025-b8f8c4aa4c08",
+          "name": "Lavbundsprojekt Sønderskov",
+          "geoId": "3b3e9e7c-36d5-4306-8344-02ad260d53fe",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Lavbundsprojekter",
+          "schemeName": "Lavbundsprojekter",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter",
+          "nitrogenT": 0,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 529.22,
+          "appliedAt": "2026-09-01T12:00:00+00:00",
+          "lastChanged": "2026-09-01T06:24:59.074833+00:00",
           "kommuneKode": "0860",
           "kommuneNavn": "Hjørring"
         }
@@ -187320,9 +187380,9 @@
       "countNaturePotentials": 2,
       "projects": {
         "sketches": 137,
-        "assessed": 90,
+        "assessed": 89,
         "approved": 36,
-        "established": 12
+        "established": 13
       },
       "projectDetails": [
         {
@@ -189086,26 +189146,6 @@
           "kommuneNavn": "Ringkøbing-Skjern"
         },
         {
-          "id": "5700a3fa-35cf-4224-833a-634dbdb4e0d1",
-          "name": "Lindet Kratvej 34 - Skovrejsning",
-          "geoId": "7b6ec34c-31bb-4402-911f-2908262a3358",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Skovrejsning",
-          "schemeName": "Skovrejsning",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
-          "nitrogenT": 0.092,
-          "extractionHa": 0,
-          "afforestationHa": 3.29,
-          "areaHa": 3.29,
-          "appliedAt": "2025-11-03T12:17:03.281962+00:00",
-          "lastChanged": "2026-01-30T11:05:20.761064+00:00",
-          "kommuneKode": "0630",
-          "kommuneNavn": "Vejle"
-        },
-        {
           "id": "0b81939d-7ab2-4494-bbc4-f2b9c6fed966",
           "name": "Otto Riis Lund, Ringivevej 99, Give",
           "geoId": "edfe305f-0717-4ae1-a07c-877205e99650",
@@ -190082,6 +190122,26 @@
           "areaHa": 194.39,
           "appliedAt": "2026-08-06T12:00:00+00:00",
           "lastChanged": "2026-08-06T13:09:03.645615+00:00",
+          "kommuneKode": "0630",
+          "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "5700a3fa-35cf-4224-833a-634dbdb4e0d1",
+          "name": "Lindet Kratvej 34 - Skovrejsning",
+          "geoId": "5e4b9f99-80aa-4f62-902c-8ef41c3b3ee1",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Skovrejsning",
+          "schemeName": "Skovrejsning",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov",
+          "nitrogenT": 0.092,
+          "extractionHa": 0,
+          "afforestationHa": 3.29,
+          "areaHa": 3.29,
+          "appliedAt": "2025-11-03T12:17:03.281962+00:00",
+          "lastChanged": "2026-09-01T08:52:53.83095+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
         }
@@ -203839,15 +203899,15 @@
       "name": "Vadehavet",
       "geoLocationId": "3120bee1-3417-4d03-b063-8521917ce0cb",
       "nameNormalized": "Vadehavet",
-      "nitrogenAchievedT": 959.1,
-      "extractionAchievedHa": 11525.5,
+      "nitrogenAchievedT": 968.6,
+      "extractionAchievedHa": 11539.1,
       "afforestationAchievedHa": 477.8,
       "naturePotentialAreaHa": 13950.6,
       "countNaturePotentials": 13,
       "projects": {
         "sketches": 361,
         "assessed": 95,
-        "approved": 58,
+        "approved": 59,
         "established": 15
       },
       "projectDetails": [
@@ -207210,6 +207270,26 @@
           "lastChanged": "2026-08-31T07:27:28.65897+00:00",
           "kommuneKode": "0575",
           "kommuneNavn": "Vejen"
+        },
+        {
+          "id": "ace45471-0e26-47cf-8c16-0faff0ce68db",
+          "name": "Ilsted Å R2026",
+          "geoId": "1188503a-0d7a-4db4-8a73-c2cd96d86a2d",
+          "phase": "preliminary",
+          "statusName": "Forundersøgelsestilsagn",
+          "statusNr": 6,
+          "measureName": "Kvælstofvådområder",
+          "schemeName": "Kvælstofvådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/kvaelstof-og-fosforvaadomraader",
+          "nitrogenT": 9.458,
+          "extractionHa": 13.62,
+          "afforestationHa": 0,
+          "areaHa": 105.09,
+          "appliedAt": "2026-09-01T12:00:00+00:00",
+          "lastChanged": "2026-09-01T08:43:13.146469+00:00",
+          "kommuneKode": "0561",
+          "kommuneNavn": "Esbjerg"
         }
       ],
       "sketchProjects": [
