@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-09-03T10:22:02.868600+00:00",
-  "builtAt": "2026-09-03T10:33:08.663251+00:00",
+  "fetchedAt": "2026-09-04T10:08:54.423225+00:00",
+  "builtAt": "2026-09-04T10:18:40.741212+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-09-03T10:22:02.868600+00:00"
+      "fetchedAt": "2026-09-04T10:08:54.423225+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-09-03T10:23:01.618151+00:00"
+      "fetchedAt": "2026-09-04T10:09:46.641691+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-09-03T10:24:19.266843+00:00"
+      "fetchedAt": "2026-09-04T10:10:50.503566+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-09-03T10:23:05.909435+00:00"
+      "fetchedAt": "2026-09-04T10:09:50.273120+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-09-03T10:23:52.246735Z"
+      "fetchedAt": "2026-09-04T10:10:27.024780Z"
     }
   },
   "national": {
@@ -99,11 +99,11 @@
         "totalProgressPct": 44.1,
         "byPhase": {
           "established": {
-            "T": 30.5,
+            "T": 32.5,
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 701.2,
+            "T": 699.1,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
@@ -314,7 +314,7 @@
           "implemented": false
         },
         "assessed": {
-          "count": 930,
+          "count": 921,
           "description": "Vurderet — formally assessed by authorities",
           "implemented": false
         },
@@ -324,7 +324,7 @@
           "implemented": false
         },
         "established": {
-          "count": 114,
+          "count": 123,
           "description": "Anlagt — physically implemented and operational",
           "implemented": true
         }
@@ -1887,8 +1887,8 @@
         "projectsByPhase": {
           "sketches": 56,
           "assessed": 30,
-          "approved": 22,
-          "established": 4
+          "approved": 21,
+          "established": 5
         },
         "byPhase": {
           "sketch": {
@@ -1904,16 +1904,16 @@
             "count": 30
           },
           "approved": {
-            "nitrogenT": 15.7,
+            "nitrogenT": 15.5,
             "extractionHa": 105.6,
             "afforestationHa": 147.2,
-            "count": 22
+            "count": 21
           },
           "established": {
-            "nitrogenT": 0.2,
+            "nitrogenT": 0.4,
             "extractionHa": 34.3,
             "afforestationHa": 14.4,
-            "count": 4
+            "count": 5
           }
         }
       },
@@ -2703,8 +2703,8 @@
         "projectsByPhase": {
           "sketches": 115,
           "assessed": 10,
-          "approved": 49,
-          "established": 3
+          "approved": 46,
+          "established": 6
         },
         "byPhase": {
           "sketch": {
@@ -2720,16 +2720,16 @@
             "count": 10
           },
           "approved": {
-            "nitrogenT": 17.3,
+            "nitrogenT": 16.6,
             "extractionHa": 312.6,
             "afforestationHa": 15.0,
-            "count": 49
+            "count": 46
           },
           "established": {
-            "nitrogenT": 0.1,
+            "nitrogenT": 0.7,
             "extractionHa": 0.0,
             "afforestationHa": 5.7,
-            "count": 3
+            "count": 6
           }
         }
       },
@@ -2943,8 +2943,8 @@
         "projectsByPhase": {
           "sketches": 9,
           "assessed": 12,
-          "approved": 19,
-          "established": 0
+          "approved": 18,
+          "established": 1
         },
         "byPhase": {
           "sketch": {
@@ -2960,16 +2960,16 @@
             "count": 12
           },
           "approved": {
-            "nitrogenT": 53.3,
+            "nitrogenT": 53.1,
             "extractionHa": 414.9,
             "afforestationHa": 31.1,
-            "count": 19
+            "count": 18
           },
           "established": {
-            "nitrogenT": 0.0,
+            "nitrogenT": 0.3,
             "extractionHa": 0.0,
             "afforestationHa": 0.0,
-            "count": 0
+            "count": 1
           }
         }
       },
@@ -3183,8 +3183,8 @@
         "projectsByPhase": {
           "sketches": 74,
           "assessed": 33,
-          "approved": 11,
-          "established": 0
+          "approved": 10,
+          "established": 1
         },
         "byPhase": {
           "sketch": {
@@ -3200,16 +3200,16 @@
             "count": 33
           },
           "approved": {
-            "nitrogenT": 1.5,
+            "nitrogenT": 1.3,
             "extractionHa": 48.8,
             "afforestationHa": 7.8,
-            "count": 11
+            "count": 10
           },
           "established": {
-            "nitrogenT": 0.0,
+            "nitrogenT": 0.2,
             "extractionHa": 0.0,
             "afforestationHa": 0.0,
-            "count": 0
+            "count": 1
           }
         }
       },
@@ -3711,8 +3711,8 @@
         "projectsByPhase": {
           "sketches": 31,
           "assessed": 13,
-          "approved": 20,
-          "established": 5
+          "approved": 19,
+          "established": 6
         },
         "byPhase": {
           "sketch": {
@@ -3728,16 +3728,16 @@
             "count": 13
           },
           "approved": {
-            "nitrogenT": 32.6,
+            "nitrogenT": 32.3,
             "extractionHa": 776.9,
             "afforestationHa": 129.9,
-            "count": 20
+            "count": 19
           },
           "established": {
-            "nitrogenT": 0.1,
+            "nitrogenT": 0.4,
             "extractionHa": 0.0,
             "afforestationHa": 21.9,
-            "count": 5
+            "count": 6
           }
         }
       },
@@ -4767,8 +4767,8 @@
         "projectsByPhase": {
           "sketches": 97,
           "assessed": 16,
-          "approved": 24,
-          "established": 2
+          "approved": 23,
+          "established": 3
         },
         "byPhase": {
           "sketch": {
@@ -4784,16 +4784,16 @@
             "count": 16
           },
           "approved": {
-            "nitrogenT": 5.3,
+            "nitrogenT": 5.1,
             "extractionHa": 421.6,
             "afforestationHa": 48.2,
-            "count": 24
+            "count": 23
           },
           "established": {
-            "nitrogenT": 0.1,
+            "nitrogenT": 0.3,
             "extractionHa": 0.0,
             "afforestationHa": 6.2,
-            "count": 2
+            "count": 3
           }
         }
       },
@@ -4815,8 +4815,8 @@
         "projectsByPhase": {
           "sketches": 127,
           "assessed": 4,
-          "approved": 53,
-          "established": 11
+          "approved": 52,
+          "established": 12
         },
         "byPhase": {
           "sketch": {
@@ -4832,16 +4832,16 @@
             "count": 4
           },
           "approved": {
-            "nitrogenT": 32.3,
+            "nitrogenT": 32.0,
             "extractionHa": 868.7,
             "afforestationHa": 317.5,
-            "count": 53
+            "count": 52
           },
           "established": {
-            "nitrogenT": 1.4,
+            "nitrogenT": 1.6,
             "extractionHa": 0.0,
             "afforestationHa": 83.5,
-            "count": 11
+            "count": 12
           }
         }
       },
@@ -20392,8 +20392,8 @@
       "nitrogenAchievedT": 1020.2,
       "nitrogenProgressPct": 42.1,
       "nitrogenByPhase": {
-        "established": 3.9,
-        "approved": 92.7,
+        "established": 4.2,
+        "approved": 92.4,
         "preliminary": 923.6
       },
       "extractionPotentialHa": 28437.1,
@@ -20413,13 +20413,13 @@
       "countNaturePotentials": 18,
       "projects": {
         "sketches": 445,
-        "assessed": 116,
+        "assessed": 114,
         "approved": 65,
-        "established": 20,
+        "established": 22,
         "byStatus": {
           "preliminary": 65,
-          "approved": 116,
-          "established": 20
+          "approved": 114,
+          "established": 22
         }
       },
       "status": "Published",
@@ -20985,26 +20985,6 @@
           "kommuneNavn": "Vejen"
         },
         {
-          "id": "5e98fb4a-ddc9-44f7-823e-121554ba3194",
-          "name": "Minivådområde ved Gl. Brøstrup",
-          "geoId": "0d7416f7-c34e-4845-bc49-571e0de0d8c2",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.187,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.38,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0575",
-          "kommuneNavn": "Vejen"
-        },
-        {
           "id": "d1fb5fef-a2f7-47d7-ad6f-786440c6f557",
           "name": "Privat Skovrejsning",
           "geoId": "4ead54e8-149a-4d2e-b560-486682adadab",
@@ -21423,26 +21403,6 @@
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0550",
           "kommuneNavn": "Tønder"
-        },
-        {
-          "id": "ee0d7599-1559-4c4f-98b6-4d071fc95d84",
-          "name": "MVO 24 - Kristine H Sørensen",
-          "geoId": "ff70c760-aeea-49ce-a9f9-b176a9c8ddc9",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.186,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.37,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-11-25T11:26:58.806249+00:00",
-          "kommuneKode": "0621",
-          "kommuneNavn": "Kolding"
         },
         {
           "id": "8b9e8381-7903-441a-a543-5b3f301ba451",
@@ -24443,6 +24403,46 @@
           "lastChanged": "2026-09-01T08:43:13.146469+00:00",
           "kommuneKode": "0561",
           "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "5e98fb4a-ddc9-44f7-823e-121554ba3194",
+          "name": "Minivådområde ved Gl. Brøstrup",
+          "geoId": "e120bce2-9b32-4ad6-9b61-807beb0cfa77",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.187,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.38,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:11:59.700267+00:00",
+          "kommuneKode": "0575",
+          "kommuneNavn": "Vejen"
+        },
+        {
+          "id": "ee0d7599-1559-4c4f-98b6-4d071fc95d84",
+          "name": "MVO 24 - Kristine H Sørensen",
+          "geoId": "c62c65c7-0f38-4fe4-bdbf-30a2fe799d68",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.186,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.37,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:17:03.329266+00:00",
+          "kommuneKode": "0621",
+          "kommuneNavn": "Kolding"
         }
       ],
       "sketchProjects": [
@@ -30406,8 +30406,8 @@
       "nitrogenAchievedT": 956.7,
       "nitrogenProgressPct": 44.6,
       "nitrogenByPhase": {
-        "established": 1.4,
-        "approved": 162.6,
+        "established": 2.0,
+        "approved": 162.0,
         "preliminary": 792.7
       },
       "extractionPotentialHa": 24065.0,
@@ -30427,13 +30427,13 @@
       "countNaturePotentials": 2,
       "projects": {
         "sketches": 214,
-        "assessed": 126,
+        "assessed": 124,
         "approved": 52,
-        "established": 16,
+        "established": 18,
         "byStatus": {
           "preliminary": 52,
-          "approved": 126,
-          "established": 16
+          "approved": 124,
+          "established": 18
         }
       },
       "status": "Published",
@@ -31133,26 +31133,6 @@
           "extractionHa": 0,
           "afforestationHa": 3.82,
           "areaHa": 3.82,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0665",
-          "kommuneNavn": "Lemvig"
-        },
-        {
-          "id": "c490135d-4202-4ead-82d8-0060f90ed56f",
-          "name": "Nr. Dahl Minivådområde",
-          "geoId": "18f0764f-18eb-442b-8e88-ab7dc1a73967",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.253,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.57,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0665",
@@ -32557,26 +32537,6 @@
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0657",
           "kommuneNavn": "Herning"
-        },
-        {
-          "id": "0a0b16ca-1e93-4626-be7e-1131053a5de1",
-          "name": "Minivådområde Jørgen Bjerg",
-          "geoId": "b17a7fba-30c1-461b-a429-0b29a282b0cd",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.337,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.52,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0760",
-          "kommuneNavn": "Ringkøbing-Skjern"
         },
         {
           "id": "e8c0ca2a-2f9c-492b-a62e-7b1c3d9e35d5",
@@ -34317,6 +34277,46 @@
           "lastChanged": "2026-09-01T08:52:53.83095+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "0a0b16ca-1e93-4626-be7e-1131053a5de1",
+          "name": "Minivådområde Jørgen Bjerg",
+          "geoId": "06cc9aac-c24d-4de7-bf87-44bc74bf69db",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.337,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.52,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:15:18.639734+00:00",
+          "kommuneKode": "0760",
+          "kommuneNavn": "Ringkøbing-Skjern"
+        },
+        {
+          "id": "c490135d-4202-4ead-82d8-0060f90ed56f",
+          "name": "Nr. Dahl Minivådområde",
+          "geoId": "a7f5e6a8-69ad-416c-b80b-d15d671e54c0",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.253,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.57,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:17:24.201273+00:00",
+          "kommuneKode": "0665",
+          "kommuneNavn": "Lemvig"
         }
       ],
       "sketchProjects": [
@@ -54230,8 +54230,8 @@
       "nitrogenAchievedT": 138.4,
       "nitrogenProgressPct": 32.5,
       "nitrogenByPhase": {
-        "established": 0.0,
-        "approved": 53.1,
+        "established": 0.3,
+        "approved": 52.8,
         "preliminary": 85.3
       },
       "extractionPotentialHa": 1907.0,
@@ -54251,13 +54251,13 @@
       "countNaturePotentials": 14,
       "projects": {
         "sketches": 448,
-        "assessed": 43,
+        "assessed": 42,
         "approved": 30,
-        "established": 2,
+        "established": 3,
         "byStatus": {
           "preliminary": 30,
-          "approved": 43,
-          "established": 2
+          "approved": 42,
+          "established": 3
         }
       },
       "status": "Published",
@@ -54421,26 +54421,6 @@
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0510",
           "kommuneNavn": "Haderslev"
-        },
-        {
-          "id": "a1656cb2-1a91-4cc4-8266-eeb63e177d17",
-          "name": "MVO 24 - Brian Langhoff",
-          "geoId": "8606e098-0acf-4c98-b529-51bf8ceab45b",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.279,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.32,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0621",
-          "kommuneNavn": "Kolding"
         },
         {
           "id": "3975a3ed-326b-45cb-a1f3-b9d416069039",
@@ -55759,6 +55739,26 @@
           "areaHa": 35.83,
           "appliedAt": "2026-08-05T12:00:00+00:00",
           "lastChanged": "2026-08-06T13:14:38.346912+00:00",
+          "kommuneKode": "0621",
+          "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "a1656cb2-1a91-4cc4-8266-eeb63e177d17",
+          "name": "MVO 24 - Brian Langhoff",
+          "geoId": "9d414394-7810-4435-ab9a-40b1ac64bcbd",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.279,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.32,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:15:42.903338+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
         }
@@ -61727,8 +61727,8 @@
       "nitrogenAchievedT": 66.9,
       "nitrogenProgressPct": 16.6,
       "nitrogenByPhase": {
-        "established": 0.1,
-        "approved": 5.8,
+        "established": 0.4,
+        "approved": 5.4,
         "preliminary": 61.1
       },
       "extractionPotentialHa": 982.6,
@@ -61748,13 +61748,13 @@
       "countNaturePotentials": 13,
       "projects": {
         "sketches": 99,
-        "assessed": 25,
+        "assessed": 23,
         "approved": 26,
-        "established": 2,
+        "established": 4,
         "byStatus": {
           "preliminary": 26,
-          "approved": 25,
-          "established": 2
+          "approved": 23,
+          "established": 4
         }
       },
       "status": "Published",
@@ -62140,26 +62140,6 @@
           "kommuneNavn": "Kolding"
         },
         {
-          "id": "1909ab5c-5a2c-489f-a9d6-e3ff2e3186a0",
-          "name": "MVO 24 Malkstedgård I/S",
-          "geoId": "3a568b0c-33f8-4d28-a4df-b30a13251bf5",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.162,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.23,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0621",
-          "kommuneNavn": "Kolding"
-        },
-        {
           "id": "4047bcc7-f0ce-4116-b6f9-00a1e20a11e6",
           "name": "MVO 24 v. Vonsildvej - VOGA",
           "geoId": "f2346604-76dc-4fab-87b1-5002604003d8",
@@ -62278,26 +62258,6 @@
           "lastChanged": "2025-12-19T11:08:05.089968+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
-        },
-        {
-          "id": "93ecd244-8e80-414f-b4f1-6d35173970c0",
-          "name": "Ellebæk minivådområde",
-          "geoId": "22ea0b37-32ab-4aec-bbad-97f54eeeb410",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.208,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.36,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0410",
-          "kommuneNavn": "Middelfart"
         },
         {
           "id": "9c0f0922-114a-441b-aee6-e55d1efeffa2",
@@ -62816,6 +62776,46 @@
           "areaHa": 0.22,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-08-31T07:26:12.279392+00:00",
+          "kommuneKode": "0621",
+          "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "93ecd244-8e80-414f-b4f1-6d35173970c0",
+          "name": "Ellebæk minivådområde",
+          "geoId": "3acd99e9-76c8-41d4-8f9a-11ec3f084ce1",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.208,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.36,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:16:23.347966+00:00",
+          "kommuneKode": "0410",
+          "kommuneNavn": "Middelfart"
+        },
+        {
+          "id": "1909ab5c-5a2c-489f-a9d6-e3ff2e3186a0",
+          "name": "MVO 24 Malkstedgård I/S",
+          "geoId": "39b8f102-8bc5-4951-97c6-3b70cdedd35c",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.162,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.23,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:16:45.542484+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
         }
@@ -71111,8 +71111,8 @@
       "nitrogenAchievedT": 157.0,
       "nitrogenProgressPct": 54.9,
       "nitrogenByPhase": {
-        "established": 1.5,
-        "approved": 13.8,
+        "established": 2.0,
+        "approved": 13.3,
         "preliminary": 141.7
       },
       "extractionPotentialHa": 2077.7,
@@ -71132,13 +71132,13 @@
       "countNaturePotentials": 5,
       "projects": {
         "sketches": 162,
-        "assessed": 42,
+        "assessed": 40,
         "approved": 34,
-        "established": 6,
+        "established": 8,
         "byStatus": {
           "preliminary": 34,
-          "approved": 42,
-          "established": 6
+          "approved": 40,
+          "established": 8
         }
       },
       "status": "Published",
@@ -71924,26 +71924,6 @@
           "kommuneNavn": "Vejle"
         },
         {
-          "id": "4e67fa85-2de6-4a5f-b62d-4533505a1c20",
-          "name": "Minivådområde - Højvang",
-          "geoId": "22190921-466c-4ac4-ba44-a00365b4874f",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.192,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.26,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-11-25T11:24:26.047369+00:00",
-          "kommuneKode": "0766",
-          "kommuneNavn": "Hedensted"
-        },
-        {
           "id": "0f04b9d7-4f41-41e4-9479-528a8d72f1e0",
           "name": "Minivådområde - Tårnvej",
           "geoId": "68739dc1-4535-4bea-a4b4-c3c06ab3ab28",
@@ -71958,26 +71938,6 @@
           "extractionHa": 0,
           "afforestationHa": 0,
           "areaHa": 0.23,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0630",
-          "kommuneNavn": "Vejle"
-        },
-        {
-          "id": "91fcf7fc-8103-4a78-8d96-a0c410c285d7",
-          "name": "MVO 24 v. gården - St. Ballesgaard",
-          "geoId": "410fe2a0-e7ec-4b21-b772-4df05e567c4c",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.265,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.46,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0630",
@@ -72780,6 +72740,46 @@
           "areaHa": 39.76,
           "appliedAt": "2026-08-06T12:00:00+00:00",
           "lastChanged": "2026-08-06T10:27:23.673608+00:00",
+          "kommuneKode": "0630",
+          "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "4e67fa85-2de6-4a5f-b62d-4533505a1c20",
+          "name": "Minivådområde - Højvang",
+          "geoId": "c3148abf-6666-4862-a8cd-6569158a5494",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.192,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.26,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:14:35.228246+00:00",
+          "kommuneKode": "0766",
+          "kommuneNavn": "Hedensted"
+        },
+        {
+          "id": "91fcf7fc-8103-4a78-8d96-a0c410c285d7",
+          "name": "MVO 24 v. gården - St. Ballesgaard",
+          "geoId": "6c38d848-2844-49e9-9dc9-c5407b86b78f",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.265,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.46,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:16:00.206063+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
         }
@@ -135164,9 +135164,9 @@
       "countNaturePotentials": 15,
       "projects": {
         "sketches": 315,
-        "assessed": 32,
+        "assessed": 31,
         "approved": 63,
-        "established": 3
+        "established": 4
       },
       "projectDetails": [
         {
@@ -135328,26 +135328,6 @@
           "lastChanged": "2026-03-19T08:27:54.488002+00:00",
           "kommuneKode": "0430",
           "kommuneNavn": "Faaborg-Midtfyn"
-        },
-        {
-          "id": "93ecd244-8e80-414f-b4f1-6d35173970c0",
-          "name": "Ellebæk minivådområde",
-          "geoId": "22ea0b37-32ab-4aec-bbad-97f54eeeb410",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.208,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.36,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0410",
-          "kommuneNavn": "Middelfart"
         },
         {
           "id": "a1983f5d-666f-4a2a-8155-c280f9b17114",
@@ -137128,6 +137108,26 @@
           "lastChanged": "2026-08-06T10:42:35.318711+00:00",
           "kommuneKode": "0420",
           "kommuneNavn": "Assens"
+        },
+        {
+          "id": "93ecd244-8e80-414f-b4f1-6d35173970c0",
+          "name": "Ellebæk minivådområde",
+          "geoId": "3acd99e9-76c8-41d4-8f9a-11ec3f084ce1",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.208,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.36,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:16:23.347966+00:00",
+          "kommuneKode": "0410",
+          "kommuneNavn": "Middelfart"
         }
       ],
       "sketchProjects": [
@@ -141377,9 +141377,9 @@
       "countNaturePotentials": 33,
       "projects": {
         "sketches": 849,
-        "assessed": 112,
+        "assessed": 108,
         "approved": 43,
-        "established": 12
+        "established": 16
       },
       "projectDetails": [
         {
@@ -142043,26 +142043,6 @@
           "kommuneNavn": "Vejle"
         },
         {
-          "id": "a1656cb2-1a91-4cc4-8266-eeb63e177d17",
-          "name": "MVO 24 - Brian Langhoff",
-          "geoId": "8606e098-0acf-4c98-b529-51bf8ceab45b",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.279,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.32,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0621",
-          "kommuneNavn": "Kolding"
-        },
-        {
           "id": "9c3ea7d4-69cb-4511-8469-684928184489",
           "name": "Minivådområde - Nr. Aldummøllevej",
           "geoId": "f6957d5a-2947-4d21-8b86-e01896d0d059",
@@ -142441,26 +142421,6 @@
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0540",
           "kommuneNavn": "Sønderborg"
-        },
-        {
-          "id": "91fcf7fc-8103-4a78-8d96-a0c410c285d7",
-          "name": "MVO 24 v. gården - St. Ballesgaard",
-          "geoId": "410fe2a0-e7ec-4b21-b772-4df05e567c4c",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.265,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.46,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0630",
-          "kommuneNavn": "Vejle"
         },
         {
           "id": "531db172-207c-4527-8856-f7a33ae08dba",
@@ -143303,26 +143263,6 @@
           "kommuneNavn": "Sønderborg"
         },
         {
-          "id": "1909ab5c-5a2c-489f-a9d6-e3ff2e3186a0",
-          "name": "MVO 24 Malkstedgård I/S",
-          "geoId": "3a568b0c-33f8-4d28-a4df-b30a13251bf5",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.162,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.23,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0621",
-          "kommuneNavn": "Kolding"
-        },
-        {
           "id": "a19ec748-a21d-42b6-8e44-dd47cb10da01",
           "name": "Kvælstofvådområde ved Istok Mose",
           "geoId": "bfab75ca-39b4-46a7-a1cd-ffe48c68951e",
@@ -143381,26 +143321,6 @@
           "lastChanged": "2025-08-28T08:12:04.002597+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
-        },
-        {
-          "id": "4e67fa85-2de6-4a5f-b62d-4533505a1c20",
-          "name": "Minivådområde - Højvang",
-          "geoId": "22190921-466c-4ac4-ba44-a00365b4874f",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.192,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.26,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-11-25T11:24:26.047369+00:00",
-          "kommuneKode": "0766",
-          "kommuneNavn": "Hedensted"
         },
         {
           "id": "9c0f0922-114a-441b-aee6-e55d1efeffa2",
@@ -144719,6 +144639,86 @@
           "areaHa": 0.22,
           "appliedAt": "2025-05-15T09:15:18.741554+00:00",
           "lastChanged": "2026-08-31T07:26:12.279392+00:00",
+          "kommuneKode": "0621",
+          "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "4e67fa85-2de6-4a5f-b62d-4533505a1c20",
+          "name": "Minivådområde - Højvang",
+          "geoId": "c3148abf-6666-4862-a8cd-6569158a5494",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.192,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.26,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:14:35.228246+00:00",
+          "kommuneKode": "0766",
+          "kommuneNavn": "Hedensted"
+        },
+        {
+          "id": "a1656cb2-1a91-4cc4-8266-eeb63e177d17",
+          "name": "MVO 24 - Brian Langhoff",
+          "geoId": "9d414394-7810-4435-ab9a-40b1ac64bcbd",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.279,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.32,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:15:42.903338+00:00",
+          "kommuneKode": "0621",
+          "kommuneNavn": "Kolding"
+        },
+        {
+          "id": "91fcf7fc-8103-4a78-8d96-a0c410c285d7",
+          "name": "MVO 24 v. gården - St. Ballesgaard",
+          "geoId": "6c38d848-2844-49e9-9dc9-c5407b86b78f",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.265,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.46,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:16:00.206063+00:00",
+          "kommuneKode": "0630",
+          "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "1909ab5c-5a2c-489f-a9d6-e3ff2e3186a0",
+          "name": "MVO 24 Malkstedgård I/S",
+          "geoId": "39b8f102-8bc5-4951-97c6-3b70cdedd35c",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.162,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.23,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:16:45.542484+00:00",
           "kommuneKode": "0621",
           "kommuneNavn": "Kolding"
         }
@@ -173333,9 +173333,9 @@
       "countNaturePotentials": 0,
       "projects": {
         "sketches": 80,
-        "assessed": 42,
+        "assessed": 41,
         "approved": 16,
-        "established": 3
+        "established": 4
       },
       "projectDetails": [
         {
@@ -173637,26 +173637,6 @@
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0661",
           "kommuneNavn": "Holstebro"
-        },
-        {
-          "id": "c490135d-4202-4ead-82d8-0060f90ed56f",
-          "name": "Nr. Dahl Minivådområde",
-          "geoId": "18f0764f-18eb-442b-8e88-ab7dc1a73967",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.253,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.57,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0665",
-          "kommuneNavn": "Lemvig"
         },
         {
           "id": "2d8f8219-40ab-4cae-b925-08b14e8255c7",
@@ -174557,6 +174537,26 @@
           "lastChanged": "2026-08-06T12:23:10.256092+00:00",
           "kommuneKode": "0661",
           "kommuneNavn": "Holstebro"
+        },
+        {
+          "id": "c490135d-4202-4ead-82d8-0060f90ed56f",
+          "name": "Nr. Dahl Minivådområde",
+          "geoId": "a7f5e6a8-69ad-416c-b80b-d15d671e54c0",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.253,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.57,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:17:24.201273+00:00",
+          "kommuneKode": "0665",
+          "kommuneNavn": "Lemvig"
         }
       ],
       "sketchProjects": [
@@ -187380,9 +187380,9 @@
       "countNaturePotentials": 2,
       "projects": {
         "sketches": 137,
-        "assessed": 89,
+        "assessed": 88,
         "approved": 36,
-        "established": 13
+        "established": 14
       },
       "projectDetails": [
         {
@@ -189026,26 +189026,6 @@
           "kommuneNavn": "Ringkøbing-Skjern"
         },
         {
-          "id": "0a0b16ca-1e93-4626-be7e-1131053a5de1",
-          "name": "Minivådområde Jørgen Bjerg",
-          "geoId": "b17a7fba-30c1-461b-a429-0b29a282b0cd",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.337,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.52,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0760",
-          "kommuneNavn": "Ringkøbing-Skjern"
-        },
-        {
           "id": "c58bf370-0a33-479a-87d0-4c955ef99038",
           "name": "Filskov vest",
           "geoId": "f7bd6b7f-085b-4587-bc67-28dca2188604",
@@ -190144,6 +190124,26 @@
           "lastChanged": "2026-09-01T08:52:53.83095+00:00",
           "kommuneKode": "0630",
           "kommuneNavn": "Vejle"
+        },
+        {
+          "id": "0a0b16ca-1e93-4626-be7e-1131053a5de1",
+          "name": "Minivådområde Jørgen Bjerg",
+          "geoId": "06cc9aac-c24d-4de7-bf87-44bc74bf69db",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.337,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.52,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:15:18.639734+00:00",
+          "kommuneKode": "0760",
+          "kommuneNavn": "Ringkøbing-Skjern"
         }
       ],
       "sketchProjects": [
@@ -203906,9 +203906,9 @@
       "countNaturePotentials": 13,
       "projects": {
         "sketches": 361,
-        "assessed": 95,
+        "assessed": 93,
         "approved": 59,
-        "established": 15
+        "established": 17
       },
       "projectDetails": [
         {
@@ -204290,26 +204290,6 @@
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0575",
           "kommuneNavn": "Vejen"
-        },
-        {
-          "id": "ee0d7599-1559-4c4f-98b6-4d071fc95d84",
-          "name": "MVO 24 - Kristine H Sørensen",
-          "geoId": "ff70c760-aeea-49ce-a9f9-b176a9c8ddc9",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.186,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.37,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-11-25T11:26:58.806249+00:00",
-          "kommuneKode": "0621",
-          "kommuneNavn": "Kolding"
         },
         {
           "id": "49ebacc0-d205-425d-ae4b-2703d681233b",
@@ -204930,26 +204910,6 @@
           "lastChanged": "2025-08-28T08:12:03.526261+00:00",
           "kommuneKode": "0561",
           "kommuneNavn": "Esbjerg"
-        },
-        {
-          "id": "5e98fb4a-ddc9-44f7-823e-121554ba3194",
-          "name": "Minivådområde ved Gl. Brøstrup",
-          "geoId": "0d7416f7-c34e-4845-bc49-571e0de0d8c2",
-          "phase": "approved",
-          "statusName": "Etableringstilsagn",
-          "statusNr": 10,
-          "measureName": "Minivådområder",
-          "schemeName": "Minivådområder",
-          "schemeOrg": "SGAV",
-          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
-          "nitrogenT": 0.187,
-          "extractionHa": 0,
-          "afforestationHa": 0,
-          "areaHa": 0.38,
-          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
-          "lastChanged": "2025-08-28T08:12:04.002597+00:00",
-          "kommuneKode": "0575",
-          "kommuneNavn": "Vejen"
         },
         {
           "id": "a8ba3ff9-465f-435e-9998-33c9f8db4caa",
@@ -207290,6 +207250,46 @@
           "lastChanged": "2026-09-01T08:43:13.146469+00:00",
           "kommuneKode": "0561",
           "kommuneNavn": "Esbjerg"
+        },
+        {
+          "id": "5e98fb4a-ddc9-44f7-823e-121554ba3194",
+          "name": "Minivådområde ved Gl. Brøstrup",
+          "geoId": "e120bce2-9b32-4ad6-9b61-807beb0cfa77",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.187,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.38,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:11:59.700267+00:00",
+          "kommuneKode": "0575",
+          "kommuneNavn": "Vejen"
+        },
+        {
+          "id": "ee0d7599-1559-4c4f-98b6-4d071fc95d84",
+          "name": "MVO 24 - Kristine H Sørensen",
+          "geoId": "c62c65c7-0f38-4fe4-bdbf-30a2fe799d68",
+          "phase": "established",
+          "statusName": "Anlagt",
+          "statusNr": 15,
+          "measureName": "Minivådområder",
+          "schemeName": "Minivådområder",
+          "schemeOrg": "SGAV",
+          "schemeUrl": "https://lbst.dk/tilskud/tilskudsguide/2023-og-senere/minivaadomraader-2024-og-2025",
+          "nitrogenT": 0.186,
+          "extractionHa": 0,
+          "afforestationHa": 0,
+          "areaHa": 0.37,
+          "appliedAt": "2025-05-15T09:15:18.741554+00:00",
+          "lastChanged": "2026-09-04T09:17:03.329266+00:00",
+          "kommuneKode": "0621",
+          "kommuneNavn": "Kolding"
         }
       ],
       "sketchProjects": [
