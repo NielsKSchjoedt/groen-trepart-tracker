@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-09-10T10:14:34.724183+00:00",
-  "builtAt": "2026-09-10T10:23:48.678531+00:00",
+  "fetchedAt": "2026-09-11T10:12:38.844637+00:00",
+  "builtAt": "2026-09-11T10:23:59.572558+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
@@ -8,7 +8,7 @@
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-09-10T10:14:34.724183+00:00"
+      "fetchedAt": "2026-09-11T10:12:38.844637+00:00"
     },
     "dawa": {
       "name": "DAWA — Danmarks Adressers Web API",
@@ -26,7 +26,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-09-10T10:15:40.176348+00:00"
+      "fetchedAt": "2026-09-11T10:13:40.070703+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +51,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-09-10T10:16:29.783253+00:00"
+      "fetchedAt": "2026-09-11T10:15:05.072388+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +69,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-09-10T10:15:43.136533+00:00"
+      "fetchedAt": "2026-09-11T10:13:44.123450+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +80,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-09-10T10:16:12.194122Z"
+      "fetchedAt": "2026-09-11T10:14:37.352293Z"
     }
   },
   "national": {
@@ -52273,7 +52273,7 @@
         },
         {
           "id": "0abcbb2e-d3b7-4cb0-a2d6-4518c3138c5e",
-          "name": "Dævidrød lavbundsområde",
+          "name": "Dævidsrød lavbundsområde",
           "geoId": "dd73503f-2ce4-4c8f-83df-fd20d9e175ef",
           "phase": "approved",
           "statusName": "Etableringstilsagn",
@@ -193589,7 +193589,7 @@
         },
         {
           "id": "0abcbb2e-d3b7-4cb0-a2d6-4518c3138c5e",
-          "name": "Dævidrød lavbundsområde",
+          "name": "Dævidsrød lavbundsområde",
           "geoId": "dd73503f-2ce4-4c8f-83df-fd20d9e175ef",
           "phase": "approved",
           "statusName": "Etableringstilsagn",
