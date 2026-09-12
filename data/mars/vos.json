@@ -73343,12 +73343,12 @@
     "id": "9a0568dd-e915-4940-af8a-28929d54e2e5",
     "name": "Kalundborg",
     "geoLocationId": "f31f1a37-304a-4e5b-b069-930444eea262",
-    "totalNitrogenReductionT": 134.15741461145208,
+    "totalNitrogenReductionT": 134.1781308435933,
     "totalExtractionEffortHa": 5117.708987516235,
-    "totalAfforestationEffortHa": 105.57851579901987,
+    "totalAfforestationEffortHa": 109.52005251215203,
     "totalNaturePotentialAreaHa": 2095.0485472441633,
     "countApprovedProjects": 8,
-    "countAssessedProjects": 14,
+    "countAssessedProjects": 15,
     "countEstablishedProjects": 4,
     "countSketchProjects": 89,
     "countNaturePotentials": 4,
@@ -73361,9 +73361,9 @@
       },
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "nitrogenReductionT": 0.30895255404632643,
+        "nitrogenReductionT": 0.32966878618753637,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 105.57851579901987
+        "afforestationEffortHa": 109.52005251215203
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -73844,6 +73844,24 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-12-15T12:00:00+00:00",
         "lastStateChanged": "2026-09-01T09:26:18.712422+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "5e7bbeb9-7a53-4bec-ae6d-06095bcddb58",
+        "projectName": "Sølen Skovrejsning",
+        "projectStatus": 10,
+        "nitrogenReductionT": 0.02071623214120994,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 3.9415367131321664,
+        "overlappingAreaHa": 3.9415367131321655,
+        "supplGeo1OverlappingAreaHa": 3.1035959620779323,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "804ba5cd-4d4e-42f0-af02-f276fd5c77f4",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2026-02-27T12:00:00+00:00",
+        "lastStateChanged": "2026-09-11T11:55:45.842832+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
