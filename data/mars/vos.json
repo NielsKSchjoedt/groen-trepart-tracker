@@ -5,19 +5,20 @@
     "geoLocationId": "1629d655-2a73-45eb-bb19-9f7da5b44f19",
     "totalNitrogenReductionT": 43.078548641606076,
     "totalExtractionEffortHa": 5901.832379644386,
-    "totalAfforestationEffortHa": 84.26669152971273,
+    "totalAfforestationEffortHa": 84.26669152971272,
     "totalNaturePotentialAreaHa": 16522.197658450543,
     "countApprovedProjects": 14,
-    "countAssessedProjects": 28,
-    "countEstablishedProjects": 1,
+    "countAssessedProjects": 27,
+    "countEstablishedProjects": 2,
     "countSketchProjects": 71,
     "countNaturePotentials": 14,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "nitrogenReductionT": 0.08524739417423388,
         "extractionEffortHa": 0,
-        "afforestationEffortHa": 84.26669152971273
+        "afforestationEffortHa": 84.26669152971272
       },
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -430,24 +431,6 @@
         "reducedAreaHa": null
       },
       {
-        "projectId": "97d3232b-baa4-4146-9336-5de4e931c633",
-        "projectName": "Skovrejsning Kronholmsvej 61",
-        "projectStatus": 10,
-        "nitrogenReductionT": 0,
-        "extractionEffortHa": 0,
-        "afforestationEffortHa": 2.5036385277162636,
-        "overlappingAreaHa": 2.5036385277162645,
-        "supplGeo1OverlappingAreaHa": 2.0935785241924676,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "6081304b-d1c1-4e67-a28f-45dcc6833639",
-        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
-        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
-        "applicationTimestamp": "2025-12-23T12:00:00+00:00",
-        "lastStateChanged": "2026-04-17T11:40:46.762495+00:00",
-        "originalEffects": null,
-        "reducedAreaHa": null
-      },
-      {
         "projectId": "4f49c2ec-8213-4d33-849d-12f94b517b6f",
         "projectName": "Lille Vildmose",
         "projectStatus": 6,
@@ -804,6 +787,24 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2026-09-09T19:25:02.627721+00:00",
+        "originalEffects": null,
+        "reducedAreaHa": null
+      },
+      {
+        "projectId": "97d3232b-baa4-4146-9336-5de4e931c633",
+        "projectName": "Skovrejsning Kronholmsvej 61",
+        "projectStatus": 15,
+        "nitrogenReductionT": 0,
+        "extractionEffortHa": 0,
+        "afforestationEffortHa": 2.5036385277162636,
+        "overlappingAreaHa": 2.5036385277162645,
+        "supplGeo1OverlappingAreaHa": 2.0935785241924676,
+        "supplGeo2OverlappingAreaHa": null,
+        "geoLocationId": "02b5570c-0958-4c03-82cd-6e479effcbde",
+        "subsidySchemeId": "82f3f7fe-bedd-484e-89d4-a689b02b1bf2",
+        "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
+        "applicationTimestamp": "2025-12-23T12:00:00+00:00",
+        "lastStateChanged": "2026-09-15T08:01:58.119153+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       }
@@ -1760,7 +1761,8 @@
         "created": "2026-06-04T12:44:35.36885+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "871d818f-613d-437e-ae6d-81651f2b0ee4",
@@ -1775,6 +1777,7 @@
     "countEstablishedProjects": 17,
     "countSketchProjects": 361,
     "countNaturePotentials": 13,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -8981,26 +8984,28 @@
         "created": "2026-08-17T07:14:56.583372+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "36e25f52-8cc9-410f-a323-c6f68c4aa6a8",
     "name": "Lillebælt/Jylland",
     "geoLocationId": "206bbd6e-26f8-4036-b6f3-c7e524854a5d",
-    "totalNitrogenReductionT": 311.62239789662283,
-    "totalExtractionEffortHa": 2697.386215049714,
+    "totalNitrogenReductionT": 310.3863978966229,
+    "totalExtractionEffortHa": 2666.4882150497137,
     "totalAfforestationEffortHa": 176.6218272983374,
     "totalNaturePotentialAreaHa": 38453.43715339679,
-    "countApprovedProjects": 47,
+    "countApprovedProjects": 46,
     "countAssessedProjects": 109,
     "countEstablishedProjects": 16,
     "countSketchProjects": 849,
     "countNaturePotentials": 33,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 77.31571573108818,
-        "extractionEffortHa": 2405.5071409332,
+        "nitrogenReductionT": 76.07971573108819,
+        "extractionEffortHa": 2374.6091409332003,
         "afforestationEffortHa": 0
       },
       {
@@ -9536,24 +9541,6 @@
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-11-26T12:52:52.49434+00:00",
-        "originalEffects": null,
-        "reducedAreaHa": null
-      },
-      {
-        "projectId": "06706554-4483-41c3-b704-c3e4afd5126f",
-        "projectName": "Eltang Vig",
-        "projectStatus": 6,
-        "nitrogenReductionT": 1.236,
-        "extractionEffortHa": 30.898,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 30.823647517900373,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "3dd82278-44b3-4397-bfea-0d37d45767f1",
-        "subsidySchemeId": "13ccc329-af28-4f1a-b389-930aa94bef26",
-        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
@@ -21870,7 +21857,8 @@
         "created": "2026-08-17T07:14:56.583372+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "b95acc0c-794c-4faa-8290-948b80689ae7",
@@ -21885,6 +21873,7 @@
     "countEstablishedProjects": 4,
     "countSketchProjects": 315,
     "countNaturePotentials": 15,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -27331,7 +27320,8 @@
         "created": "2026-06-08T11:45:06.696075+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "0fac071a-d6cb-40d0-8cde-6d08d4f3632e",
@@ -27346,6 +27336,7 @@
     "countEstablishedProjects": 1,
     "countSketchProjects": 324,
     "countNaturePotentials": 17,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -32297,7 +32288,8 @@
         "created": "2026-06-08T11:45:06.696075+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "3a11a113-0833-4f40-a498-9614c76a09f5",
@@ -32312,6 +32304,7 @@
     "countEstablishedProjects": 4,
     "countSketchProjects": 295,
     "countNaturePotentials": 5,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -36512,7 +36505,8 @@
         "created": "2026-06-08T11:45:06.696075+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "a88e337d-9157-4fbd-839c-082013909213",
@@ -36527,6 +36521,7 @@
     "countEstablishedProjects": 1,
     "countSketchProjects": 578,
     "countNaturePotentials": 10,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -43798,7 +43793,8 @@
         "created": "2026-06-08T11:45:06.696075+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "e657bbe8-581e-4e5e-92bd-e39cc965c2f2",
@@ -43813,6 +43809,7 @@
     "countEstablishedProjects": 16,
     "countSketchProjects": 640,
     "countNaturePotentials": 8,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
@@ -57040,7 +57037,8 @@
         "created": "2026-05-04T13:38:40.976555+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "337be9b0-2d88-4a70-a3bd-02ecbdbc3e7b",
@@ -57055,6 +57053,7 @@
     "countEstablishedProjects": 3,
     "countSketchProjects": 133,
     "countNaturePotentials": 8,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -58921,7 +58920,8 @@
         "created": "2026-05-04T13:15:24.563506+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "090bd55b-d528-4d59-bd20-c6b7b7c5a9b9",
@@ -58936,6 +58936,7 @@
     "countEstablishedProjects": 4,
     "countSketchProjects": 80,
     "countNaturePotentials": 0,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -60950,7 +60951,8 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337"
       }
     ],
-    "naturePotentials": []
+    "naturePotentials": [],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "aa17c4e9-c8ab-4a12-b62e-1efa7c4faf78",
@@ -60965,6 +60967,7 @@
     "countEstablishedProjects": 10,
     "countSketchProjects": 134,
     "countNaturePotentials": 20,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
@@ -64732,7 +64735,8 @@
         "created": "2026-05-07T07:54:07.286005+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "de947faa-0933-4175-a353-cd5696abdf3f",
@@ -64747,6 +64751,7 @@
     "countEstablishedProjects": 3,
     "countSketchProjects": 46,
     "countNaturePotentials": 10,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "85bffbd9-fc34-41b8-8302-df2fb124f394",
@@ -64953,7 +64958,7 @@
         "supplGeo1OverlappingAreaHa": null,
         "supplGeo2OverlappingAreaHa": null,
         "geoLocationId": "2c7cdcb2-d9eb-42b7-b365-c01c672586d9",
-        "subsidySchemeId": "9df33a22-2ec7-47fb-b5ad-5c45e2a06979",
+        "subsidySchemeId": "1f60c9e0-12a6-437c-ad6e-4e86397ac9b5",
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
@@ -66004,7 +66009,8 @@
         "created": "2026-05-07T07:54:07.286005+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "9d70f0ec-36c1-48b7-93a4-4b9894ad3a43",
@@ -66019,6 +66025,7 @@
     "countEstablishedProjects": 2,
     "countSketchProjects": 47,
     "countNaturePotentials": 0,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -66812,21 +66819,23 @@
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292"
       }
     ],
-    "naturePotentials": []
+    "naturePotentials": [],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "2a6788a4-91d1-4a96-b0fa-9fbf0d4a4159",
     "name": "Ringkøbing Fjord",
     "geoLocationId": "ff855793-7ba1-499d-a048-85271927e92b",
-    "totalNitrogenReductionT": 551.7637665607151,
-    "totalExtractionEffortHa": 7667.9635597509205,
+    "totalNitrogenReductionT": 549.0817665607152,
+    "totalExtractionEffortHa": 7600.90955975092,
     "totalAfforestationEffortHa": 811.8382469632544,
     "totalNaturePotentialAreaHa": 479.04919885390154,
-    "countApprovedProjects": 36,
+    "countApprovedProjects": 35,
     "countAssessedProjects": 88,
     "countEstablishedProjects": 14,
     "countSketchProjects": 137,
     "countNaturePotentials": 2,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -66842,8 +66851,8 @@
       },
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "nitrogenReductionT": 245.6121979809334,
-        "extractionEffortHa": 7077.358152931703,
+        "nitrogenReductionT": 242.93019798093337,
+        "extractionEffortHa": 7010.304152931703,
         "afforestationEffortHa": 0
       },
       {
@@ -67829,24 +67838,6 @@
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
         "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
         "lastStateChanged": "2025-08-28T08:12:04.002597+00:00",
-        "originalEffects": null,
-        "reducedAreaHa": null
-      },
-      {
-        "projectId": "edc4006d-6c94-44c5-aed8-8c4d736486ac",
-        "projectName": "Filskov midt",
-        "projectStatus": 6,
-        "nitrogenReductionT": 2.682,
-        "extractionEffortHa": 67.054,
-        "afforestationEffortHa": 0,
-        "overlappingAreaHa": 67.05406806276764,
-        "supplGeo1OverlappingAreaHa": null,
-        "supplGeo2OverlappingAreaHa": null,
-        "geoLocationId": "51a299d7-58cf-40a1-bd53-448cedb5f958",
-        "subsidySchemeId": "9df33a22-2ec7-47fb-b5ad-5c45e2a06979",
-        "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
-        "applicationTimestamp": "2025-05-15T09:15:18.741554+00:00",
-        "lastStateChanged": "2025-08-28T08:12:03.526261+00:00",
         "originalEffects": null,
         "reducedAreaHa": null
       },
@@ -70879,7 +70870,8 @@
         "created": "2026-05-07T07:54:07.286005+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "75c134ee-fe5e-459e-9a7f-0b18a4163a00",
@@ -70894,6 +70886,7 @@
     "countEstablishedProjects": 4,
     "countSketchProjects": 84,
     "countNaturePotentials": 5,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
@@ -73337,7 +73330,8 @@
         "created": "2026-06-08T11:45:06.696075+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "9a0568dd-e915-4940-af8a-28929d54e2e5",
@@ -73352,6 +73346,7 @@
     "countEstablishedProjects": 4,
     "countSketchProjects": 89,
     "countNaturePotentials": 4,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -74896,7 +74891,8 @@
         "created": "2026-05-04T13:24:07.822476+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "13537c79-52f3-4346-9715-18d5d40524d0",
@@ -74911,6 +74907,7 @@
     "countEstablishedProjects": 5,
     "countSketchProjects": 304,
     "countNaturePotentials": 13,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -79660,7 +79657,8 @@
         "created": "2026-06-03T08:45:28.032591+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "3223ec80-5515-4462-8873-d1fb85cfd122",
@@ -79675,6 +79673,7 @@
     "countEstablishedProjects": 5,
     "countSketchProjects": 80,
     "countNaturePotentials": 20,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
@@ -81042,7 +81041,8 @@
         "created": "2026-06-03T08:45:28.032591+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "99b38a10-f057-47f2-b814-c997bc5afc59",
@@ -81057,6 +81057,7 @@
     "countEstablishedProjects": 0,
     "countSketchProjects": 97,
     "countNaturePotentials": 3,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -82407,7 +82408,8 @@
         "created": "2026-05-04T15:38:50.827783+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "008e0d05-3965-4d1e-ad9d-62887be42e47",
@@ -82422,6 +82424,7 @@
     "countEstablishedProjects": 4,
     "countSketchProjects": 316,
     "countNaturePotentials": 70,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "dd264f93-915a-4df9-b94e-22190f9478e7",
@@ -88851,7 +88854,8 @@
         "created": "2026-05-04T13:24:07.822476+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "1cedf69c-15fb-4ca1-91f8-3e80dd0466ee",
@@ -88866,6 +88870,7 @@
     "countEstablishedProjects": 1,
     "countSketchProjects": 174,
     "countNaturePotentials": 16,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "9d4b932e-c6d6-4550-984f-6623601894c6",
@@ -92341,7 +92346,8 @@
         "created": "2026-05-04T13:03:06.310157+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "e88596ff-062e-4100-9ec4-6a947af76410",
@@ -92356,6 +92362,7 @@
     "countEstablishedProjects": 0,
     "countSketchProjects": 0,
     "countNaturePotentials": 3,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "1076fbc9-5ab9-4236-86ed-7d7cc51a2292",
@@ -92488,7 +92495,8 @@
         "created": "2026-05-04T10:41:15.397351+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   },
   {
     "id": "ec7a81b9-db05-479b-9642-f3b7f2001937",
@@ -92503,6 +92511,7 @@
     "countEstablishedProjects": 5,
     "countSketchProjects": 89,
     "countNaturePotentials": 6,
+    "countPermanentEkstensiveringProjects": 0,
     "mitigationMeasures": [
       {
         "mitigationMeasureId": "4d1bdb7a-ee68-46c1-9364-792ad26eb337",
@@ -94215,6 +94224,7 @@
         "created": "2026-08-17T07:14:56.583372+00:00",
         "updated": null
       }
-    ]
+    ],
+    "permanentEkstensiveringProjects": []
   }
 ]
