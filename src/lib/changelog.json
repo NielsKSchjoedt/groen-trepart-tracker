@@ -1,12 +1,12 @@
 [
   {
     "version": "v1.0.4",
-    "date": "2026-09-11",
+    "date": "2026-10-05",
     "summary": "Publicerbar natur- og kommunevisning: unikke projekter, vandmiljø som mål, ærligere overlap",
     "changes": [
       {
         "type": "method",
-        "description": "Naturpipelinen talte det samme projekt flere gange, når det lå i flere kystvandoplande. Nu tælles hvert projekt kun én gang. Lige nu er der 1.668 unikke MARS-projekter, og 917 af dem er lavbund eller skovrejsning. (Teknisk: deduplikering på projekt-id i computePillarProjects.)"
+        "description": "Naturpipelinen talte det samme projekt flere gange, når det lå i flere kystvandoplande. Nu tælles hvert projekt kun én gang. Lige nu er der 1.605 unikke MARS-projekter, og 912 af dem er lavbund eller skovrejsning. (Teknisk: deduplikering på projekt-id i computePillarProjects.)"
       },
       {
         "type": "method",
@@ -18,7 +18,7 @@
       },
       {
         "type": "fix",
-        "description": "Naturpipelinen talte kvælstofvådområder med som naturprojekter. De er taget ud. Naturindsatsen er nu lavbund plus al skovrejsning — med en særskilt opgørelse af 26,2 ha dokumenteret urørt skov. Overlap med eksisterende natur vises som stedspecifikt, ikke som et ubetinget plus."
+        "description": "Naturpipelinen talte kvælstofvådområder med som naturprojekter. De er taget ud. Naturindsatsen er nu lavbund plus al skovrejsning — med en særskilt opgørelse af 27,98 ha dokumenteret urørt skov. Overlap med eksisterende natur vises som stedspecifikt, ikke som et ubetinget plus."
       },
       {
         "type": "fix",
@@ -58,7 +58,7 @@
       },
       {
         "type": "data",
-        "description": "Datagrundlaget er opdateret med det daglige MARS-udtræk fra 11. september 2026 (fusioneret fra main)."
+        "description": "Datagrundlaget er opdateret med det daglige MARS-udtræk fra 5. oktober 2026 (fusioneret fra main)."
       }
     ]
   },

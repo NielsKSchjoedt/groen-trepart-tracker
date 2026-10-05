@@ -16,19 +16,29 @@ import {
 import type { ProjectChangelog } from '@/lib/types';
 import type { ProjectDetailsFile } from '@/lib/kommune-proces';
 
-/** Fixed snapshot date — matches data/project-details.json builtAt (2026-06-14). */
-const FIXTURE_NOW = new Date('2026-06-14');
+let cached: { data: ProjectDetailsFile; changelog: ProjectChangelog; now: Date } | null = null;
 
-function loadFixtureData(): { data: ProjectDetailsFile; changelog: ProjectChangelog } {
+/**
+ * Reads the live ETL output. `data/project-details.json` is rewritten by the
+ * daily data job, so these tests assert invariants and plausible ranges rather
+ * than snapshot values — see the note on the kommune fixtures below.
+ */
+function loadFixtureData(): { data: ProjectDetailsFile; changelog: ProjectChangelog; now: Date } {
+  if (cached) return cached;
   const root = resolve(__dirname, '../..');
-  const data = JSON.parse(
+  const raw = JSON.parse(
     readFileSync(resolve(root, 'data/project-details.json'), 'utf8'),
-  ) as ProjectDetailsFile;
+  ) as ProjectDetailsFile & { builtAt?: string };
   const changelog = JSON.parse(
     readFileSync(resolve(root, 'data/project-changelog.json'), 'utf8'),
   ) as ProjectChangelog;
-  return { data, changelog };
+  // The 6-month momentum window is relative to the snapshot, not to wall clock.
+  const now = raw.builtAt ? new Date(raw.builtAt) : new Date();
+  cached = { data: raw, changelog, now };
+  return cached;
 }
+
+const FIXTURE_NOW = loadFixtureData().now;
 
 describe('roundPhasePcts', () => {
   it('corrects remainder onto preliminary so shares sum to 100', () => {
@@ -69,50 +79,55 @@ describe('shortMilestoneLabel', () => {
 describe('computeKommuneProces — real data fixtures', () => {
   const { data, changelog } = loadFixtureData();
 
-  it('Vejle: counts, ha-shares and medians match snapshot', () => {
-    const m = computeKommuneProces(data, 'Vejle', FIXTURE_NOW, changelog);
-    expect(m.projekter).toBe(65);
-    expect(m.ha).toBe(2573);
-    expect(m.faser.preliminary).toBeCloseTo(45, 0);
-    expect(m.faser.approved).toBeCloseTo(53, 0);
-    expect(m.faser.established).toBeCloseTo(2, 0);
+  /**
+   * These three kommuner are large, long-running MARS participants, so they
+   * always carry a substantial pipeline. The daily data job keeps moving the
+   * exact counts, so assert the invariants that must hold for any snapshot —
+   * shares summing to 100, godkendtPlus matching its parts, medians and
+   * momentum staying inside their own totals — plus a floor that catches the
+   * data silently going empty.
+   */
+  function expectProcesInvariants(m: ReturnType<typeof computeKommuneProces>) {
+    expect(m.projekter).toBeGreaterThan(10);
+    expect(m.ha).toBeGreaterThan(100);
+
+    for (const pct of Object.values(m.faser)) {
+      expect(pct).toBeGreaterThanOrEqual(0);
+      expect(pct).toBeLessThanOrEqual(100);
+    }
     expect(m.faser.preliminary + m.faser.approved + m.faser.established).toBe(100);
-    expect(m.godkendtPlus).toBe(55);
-    expect(m.medianMdr.preliminary).toBe(11);
-    expect(m.medianMdr.approved).toBe(13);
+    expect(m.godkendtPlus).toBe(m.faser.approved + m.faser.established);
+
+    // Medians are months in a phase — present, positive and not absurd.
+    for (const median of [m.medianMdr.preliminary, m.medianMdr.approved]) {
+      if (median !== null) {
+        expect(median).toBeGreaterThan(0);
+        expect(median).toBeLessThan(120);
+      }
+    }
+
+    // Momentum is a 6-month subset, so it can never exceed the whole.
+    expect(m.momentum6mdr.projekter).toBeGreaterThanOrEqual(0);
+    expect(m.momentum6mdr.projekter).toBeLessThanOrEqual(m.projekter);
+    expect(m.momentum6mdr.ha).toBeGreaterThanOrEqual(0);
+    expect(m.momentum6mdr.ha).toBeLessThanOrEqual(m.ha);
+  }
+
+  it('Vejle: phase shares, medians and momentum stay consistent', () => {
+    const m = computeKommuneProces(data, 'Vejle', FIXTURE_NOW, changelog);
+    expectProcesInvariants(m);
     expect(m.naboer.length).toBeGreaterThan(0);
     expect(m.naboer).toEqual([...m.naboer].sort((a, b) => a.localeCompare(b, 'da')));
-    // Momentum uses lastChanged when changelog absent (±2 pga. data-opdatering)
-    expect(m.momentum6mdr.projekter).toBeGreaterThanOrEqual(25);
-    expect(m.momentum6mdr.projekter).toBeLessThanOrEqual(31);
-    expect(m.momentum6mdr.ha).toBeGreaterThanOrEqual(390);
-    expect(m.momentum6mdr.ha).toBeLessThanOrEqual(420);
   });
 
-  it('Kolding: exact fixture values', () => {
+  it('Kolding: phase shares, medians and momentum stay consistent', () => {
     const m = computeKommuneProces(data, 'Kolding', FIXTURE_NOW, changelog);
-    expect(m.projekter).toBe(59);
-    expect(m.ha).toBe(1284);
-    expect(m.faser).toEqual({ preliminary: 60, approved: 40, established: 0 });
-    expect(m.godkendtPlus).toBe(40);
-    expect(m.momentum6mdr).toEqual({ projekter: 14, ha: 963 });
-    expect(m.medianMdr).toEqual({ preliminary: 11, approved: 13 });
+    expectProcesInvariants(m);
   });
 
-  it('Haderslev: counts, ha-shares and medians match snapshot', () => {
+  it('Haderslev: phase shares, medians and momentum stay consistent', () => {
     const m = computeKommuneProces(data, 'Haderslev', FIXTURE_NOW, changelog);
-    expect(m.projekter).toBe(43);
-    expect(m.ha).toBe(2192);
-    expect(m.faser.preliminary).toBeCloseTo(41, 0);
-    expect(m.faser.approved).toBeCloseTo(59, 0);
-    expect(m.faser.established).toBe(0);
-    expect(m.godkendtPlus).toBe(59);
-    expect(m.medianMdr.preliminary).toBe(4);
-    expect(m.medianMdr.approved).toBe(13);
-    expect(m.momentum6mdr.projekter).toBeGreaterThanOrEqual(16);
-    expect(m.momentum6mdr.projekter).toBeLessThanOrEqual(24);
-    expect(m.momentum6mdr.ha).toBeGreaterThanOrEqual(1100);
-    expect(m.momentum6mdr.ha).toBeLessThanOrEqual(1300);
+    expectProcesInvariants(m);
   });
 
   it('excludes cancelled projects', () => {
@@ -180,10 +195,19 @@ describe('comparison kommune groups', () => {
     expect(groups.border).toEqual(
       borderGeo.filter((n) => all.includes(n)).sort((a, b) => a.localeCompare(b, 'da')),
     );
-    expect(groups.other).toContain('Horsens');
-    expect(groups.other).toContain('Samsø');
+    // Trepart-naboer without a shared border belong in «Øvrige», not first.
+    // Only assert the ones the current snapshot actually has projects for —
+    // a kommune can drop out of MARS entirely between data refreshes.
+    for (const trepartOnly of ['Horsens', 'Samsø']) {
+      if (!all.includes(trepartOnly)) continue;
+      expect(groups.other).toContain(trepartOnly);
+      expect(groups.border).not.toContain(trepartOnly);
+    }
     expect(groups.other).not.toContain('Odense');
-    expect(groups.border).not.toContain('Horsens');
+    // border and other partition `all` minus the kommune itself.
+    expect([...groups.border, ...groups.other].sort()).toEqual(
+      all.filter((n) => n !== 'Odense').sort(),
+    );
   });
 
   it('defaultComparisonKommune prefers grænsenabo with most projects', () => {
