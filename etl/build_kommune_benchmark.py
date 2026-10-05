@@ -29,6 +29,7 @@ except ImportError as exc:  # pragma: no cover - user-facing failure path
     ) from exc
 
 from etl_log import log_etl_run
+from nature_projects import MARS_EXCLUDED_AFGKODER
 from spatial_overlay import DEFAULT_SOURCE_CRS, METRIC_CRS, SpatialIndex, repair_geometry
 
 REPO = SCRIPT_DIR.parent
@@ -47,7 +48,7 @@ DCE_PATH = BIODIV_DIR / "dce-30-percent.geojson"
 KU1_PATH = BIODIV_DIR / "ku-prio-1.geojson"
 KU2_PATH = BIODIV_DIR / "ku-prio-2.geojson"
 
-METHOD_VERSION = "sprint4-v1"
+METHOD_VERSION = "sprint4-v2"
 B4_METHOD_VERSION = "sprint5-v1"
 # B4 defaults — adjust here when definitions change
 B4_NATURVAERDI_PATH = DCE_PATH
@@ -259,21 +260,56 @@ def load_n2000_terrestrial_index() -> SpatialIndex:
     return SpatialIndex(terrestrial, name="natura2000_terrestrial", source_crs=METRIC_CRS)
 
 
-def load_marker_index(kode: str) -> SpatialIndex | None:
+def marker_afgkode(feature: dict[str, Any]) -> str:
+    """Return the crop code from a Marker_2026 feature, or empty string."""
+
+    props = feature.get("properties") or {}
+    return str(props.get("Afgkode") or props.get("afgkode") or props.get("AFGKODE") or "").strip()
+
+
+def features_have_afgkode(features: list[dict[str, Any]]) -> bool:
+    """True when at least one feature carries a non-empty Afgkode."""
+
+    return any(marker_afgkode(feat) for feat in features)
+
+
+def filter_marker_features(
+    features: list[dict[str, Any]],
+    *,
+    apply_mars_exclusion: bool,
+) -> list[dict[str, Any]]:
+    """Drop MARS non-farmland crop codes when Afgkode is present and exclusion is on."""
+
+    if not apply_mars_exclusion:
+        return features
+    return [feat for feat in features if marker_afgkode(feat) not in MARS_EXCLUDED_AFGKODER]
+
+
+def load_marker_features(kode: str) -> list[dict[str, Any]]:
+    """Load Marker_2026 GeoJSON features for one municipality."""
+
+    path = MARKER_DIR / f"{kode}.geojson"
+    if not path.exists():
+        return []
+    with open(path, encoding="utf-8") as f:
+        fc = json.load(f)
+    return [feat for feat in fc.get("features", []) if feat.get("geometry")]
+
+
+def load_marker_index(kode: str, *, apply_mars_exclusion: bool = False) -> SpatialIndex | None:
     """
     Load one municipality's Marker_2026 bbox file as a SpatialIndex.
 
     @param kode - 4-digit municipality code
+    @param apply_mars_exclusion - Drop crop codes MARS does not treat as farmland
     @returns SpatialIndex or None if file is absent/empty
-    @example load_marker_index("0851")
+    @example load_marker_index("0851", apply_mars_exclusion=True)
     """
 
-    path = MARKER_DIR / f"{kode}.geojson"
-    if not path.exists():
-        return None
-    with open(path, encoding="utf-8") as f:
-        fc = json.load(f)
-    features = [feat for feat in fc.get("features", []) if feat.get("geometry")]
+    features = filter_marker_features(
+        load_marker_features(kode),
+        apply_mars_exclusion=apply_mars_exclusion,
+    )
     if not features:
         return None
     return SpatialIndex.from_features(features, name=f"marker_{kode}")
@@ -345,6 +381,7 @@ def build() -> dict[str, Any]:
 
     generated_at = datetime.now(timezone.utc).isoformat()
     inputs = {
+        "methodVersion": METHOD_VERSION,
         "kommuner": file_hash(KOMMUNER_PATH),
         "dce30": file_hash(DCE_PATH),
         "kuPrio1": file_hash(KU1_PATH),
@@ -416,7 +453,20 @@ def build() -> dict[str, Any]:
         vaerdi_uden_ha = round(max(0.0, naturvaerdi_ha - overlap_ha), 4)
         pct_vaerdi_beskyttet = pct(overlap_ha, naturvaerdi_ha)
 
-        marker = load_marker_index(kode)
+        marker_features = load_marker_features(kode)
+        has_afgkode = features_have_afgkode(marker_features)
+        marker = (
+            SpatialIndex.from_features(marker_features, name=f"marker_{kode}")
+            if marker_features
+            else None
+        )
+        b3_features = filter_marker_features(marker_features, apply_mars_exclusion=has_afgkode)
+        marker_b3 = (
+            SpatialIndex.from_features(b3_features, name=f"marker_b3_{kode}")
+            if b3_features
+            else None
+        )
+        farmland_n2000_ha_all = 0.0
         if marker is None:
             marker_total_ha = high_ha = low_ha = farmland_n2000_ha = 0.0
         else:
@@ -426,9 +476,17 @@ def build() -> dict[str, Any]:
             n2000_target = repair_geometry(n2000_union.intersection(kommune_metric))
             high_ha = marker.intersect_area_metric(high_target)["totalHa"] if not high_target.is_empty else 0.0
             low_ha = marker.intersect_area_metric(low_target)["totalHa"] if not low_target.is_empty else 0.0
-            farmland_n2000_ha = (
+            farmland_n2000_ha_all = (
                 marker.intersect_area_metric(n2000_target)["totalHa"] if not n2000_target.is_empty else 0.0
             )
+            if marker_b3 is None or not has_afgkode:
+                farmland_n2000_ha = farmland_n2000_ha_all
+            else:
+                farmland_n2000_ha = (
+                    marker_b3.intersect_area_metric(n2000_target)["totalHa"]
+                    if not n2000_target.is_empty
+                    else 0.0
+                )
 
         outside_ha = max(marker_total_ha - high_ha - low_ha, 0.0)
         n2000_total_ha = n2000_result["totalHa"]
@@ -450,6 +508,8 @@ def build() -> dict[str, Any]:
                 "n2000TotalHa": n2000_total_ha,
                 "n2000ErLandbrugHa": round(farmland_n2000_ha, 4),
                 "andelLandbrugIN2000Pct": pct(farmland_n2000_ha, n2000_total_ha) if n2000_total_ha else None,
+                "n2000ErLandbrugHaAllCrops": round(farmland_n2000_ha_all, 4),
+                "afgkodePresent": has_afgkode,
             },
             "b4": {
                 "naturvaerdiHa": naturvaerdi_ha,
@@ -475,6 +535,10 @@ def build() -> dict[str, Any]:
     total_outside = sum(v["b2"]["udenforPotentialeHa"] for v in rows.values())
     total_n2000 = sum(v["b3"]["n2000TotalHa"] for v in rows.values())
     total_n2000_farmland = sum(v["b3"]["n2000ErLandbrugHa"] for v in rows.values())
+    total_n2000_farmland_all = sum(
+        v["b3"].get("n2000ErLandbrugHaAllCrops", v["b3"]["n2000ErLandbrugHa"]) for v in rows.values()
+    )
+    afgkode_applied = any(v["b3"].get("afgkodePresent") for v in rows.values())
     total_naturvaerdi = sum(v["b4"]["naturvaerdiHa"] for v in rows.values())
     total_beskyttet = sum(v["b4"]["beskyttetHa"] for v in rows.values())
     total_overlap = sum(v["b4"]["overlapHa"] for v in rows.values())
@@ -561,11 +625,20 @@ def build() -> dict[str, Any]:
         "byKommune": b2_by,
     }
     b3 = {
-        "metadata": meta,
+        "metadata": {
+            **meta,
+            "afgkodeExclusionApplied": afgkode_applied,
+            "disclaimer": (
+                "B3 headline uses MARS Afgkode exclusions when Marker_2026 features carry Afgkode; "
+                "otherwise all crops. Denominator is terrestrial Natura 2000 only (§3 excluded)."
+            ),
+        },
         "national": {
             "n2000TotalHa": round(total_n2000, 4),
             "n2000ErLandbrugHa": round(total_n2000_farmland, 4),
             "andelLandbrugIN2000Pct": pct(total_n2000_farmland, total_n2000),
+            "n2000ErLandbrugHaAllCrops": round(total_n2000_farmland_all, 4),
+            "andelLandbrugIN2000PctAllCrops": pct(total_n2000_farmland_all, total_n2000),
         },
         "byKommune": b3_by,
     }

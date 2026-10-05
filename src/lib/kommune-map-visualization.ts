@@ -26,6 +26,18 @@ export const NATURE_LAYER_OPTIONS: {
   { id: 'b3-landbrug', label: 'N2000 der er landbrug (B3)', shortLabel: 'B3 N2000' },
 ];
 
+/** Plain-language formula for each B-layer choropleth (F9). */
+export const NATURE_LAYER_FORMULAS: Record<NatureLayerKey, string> = {
+  'b4-beskyttet':
+    'Andel af kortlagt naturværdi (DCE 30 %) der samtidig har §3- eller Natura 2000-status. Farven er relativ til landets kommuner — mørkest = højest andel.',
+  'b1-potentiale':
+    'Hektar DCE 30 % naturpotentiale i kommunen. Farven er relativ til landets kommuner — mørkest = flest hektar.',
+  'b2-marker':
+    'Andel af Markkort 2026-areal der ligger i KU prio 1 (højt potentiale). Farven er relativ til landets kommuner.',
+  'b3-landbrug':
+    'Andel af terrestrisk Natura 2000 der overlapper landbrugsjord (FVM Markkort). Nævneren er kun Natura 2000 — §3 indgår ikke. Farven er relativ til landets kommuner.',
+};
+
 export interface KommuneMapVisualContext {
   activeMetric: KommuneMetric;
   fordelingViewMode: FordelingViewMode;
@@ -36,6 +48,8 @@ export interface KommuneMapVisualContext {
   kommuneRanking?: KommuneRankingData | null;
   /** Precomputed ansvar indices keyed by kommune kode (skov/lavbund only). */
   ansvarIndexByKode?: Record<string, number | null>;
+  /** Optional max choropleth value for numeric legend labels. */
+  legendMaxVal?: number;
 }
 
 export interface ResolvedKommuneMapValue {
@@ -341,37 +355,85 @@ export function resolveKommuneMapColor(
 
 export type LegendStop = { color: string; label: string };
 
+function natureLayerExtent(ctx: KommuneMapVisualContext): { max: number; unit: string; decimals: number } {
+  const benchmark = ctx.kommuneBenchmark;
+  let max = 0;
+  switch (ctx.natureLayer) {
+    case 'b4-beskyttet':
+      for (const row of Object.values(benchmark?.b4?.byKommune ?? {})) {
+        max = Math.max(max, row.pctVaerdiBeskyttet ?? 0);
+      }
+      return { max: max || 100, unit: '%', decimals: 0 };
+    case 'b1-potentiale':
+      for (const row of Object.values(benchmark?.b1.byKommune ?? {})) {
+        max = Math.max(max, row.dce30Ha ?? 0);
+      }
+      return { max: max || 1, unit: 'ha', decimals: 0 };
+    case 'b2-marker':
+      for (const row of Object.values(benchmark?.b2.byKommune ?? {})) {
+        max = Math.max(max, row.hoejtPotentialePct ?? 0);
+      }
+      return { max: max || 100, unit: '%', decimals: 0 };
+    case 'b3-landbrug':
+      for (const row of Object.values(benchmark?.b3.byKommune ?? {})) {
+        max = Math.max(max, row.andelLandbrugIN2000Pct ?? 0);
+      }
+      return { max: max || 100, unit: '%', decimals: 0 };
+  }
+}
+
+function sequentialNumericStops(
+  colors: [string, string, string],
+  max: number,
+  unit: string,
+  decimals: number,
+  noDataLabel: string,
+): LegendStop[] {
+  const fmt = (n: number) => `${formatDanishNumber(n, decimals)} ${unit}`;
+  return [
+    { color: colors[0], label: fmt(max) },
+    { color: colors[1], label: fmt(max / 2) },
+    { color: colors[2], label: fmt(0) },
+    { color: NO_DATA_COLOR, label: noDataLabel },
+  ];
+}
+
 export function getKommuneMapLegendStops(ctx: KommuneMapVisualContext): LegendStop[] {
   if (ctx.activeMetric === 'nature') {
+    const { max, unit, decimals } = natureLayerExtent(ctx);
     switch (ctx.natureLayer) {
       case 'b4-beskyttet':
-        return [
-          { color: '#052e16', label: 'Høj andel med §3-/N2000-status' },
-          { color: '#16a34a', label: 'Middel' },
-          { color: '#f0fdf4', label: 'Lav' },
-          { color: NO_DATA_COLOR, label: 'Ingen kortlagt naturværdi' },
-        ];
+        return sequentialNumericStops(
+          ['#052e16', '#16a34a', '#f0fdf4'],
+          max,
+          unit,
+          decimals,
+          'Ingen kortlagt naturværdi',
+        );
       case 'b1-potentiale':
-        return [
-          { color: '#052e16', label: 'Stort DCE 30 %-potentiale' },
-          { color: '#16a34a', label: 'Middel' },
-          { color: '#f0fdf4', label: 'Lavt' },
-          { color: NO_DATA_COLOR, label: 'Ingen data' },
-        ];
+        return sequentialNumericStops(
+          ['#052e16', '#16a34a', '#f0fdf4'],
+          max,
+          unit,
+          decimals,
+          'Ingen data',
+        );
       case 'b2-marker':
-        return [
-          { color: '#052e16', label: 'Mange marker med højt potentiale' },
-          { color: '#16a34a', label: 'Middel' },
-          { color: '#f0fdf4', label: 'Få' },
-          { color: NO_DATA_COLOR, label: 'Ingen data' },
-        ];
+        return sequentialNumericStops(
+          ['#052e16', '#16a34a', '#f0fdf4'],
+          max,
+          unit,
+          decimals,
+          'Ingen data',
+        );
       case 'b3-landbrug':
-        return [
-          { color: '#78350f', label: 'Høj andel N2000 på landbrug' },
-          { color: '#fcd34d', label: 'Middel' },
-          { color: '#fef3c7', label: 'Lav' },
-          { color: NO_DATA_COLOR, label: 'Ingen N2000 / ingen landbrug' },
-        ];
+        return sequentialNumericStops(
+          ['#78350f', '#fcd34d', '#fef3c7'],
+          max,
+          unit,
+          decimals,
+          'Ingen N2000 / ingen landbrug',
+        );
     }
   }
 
@@ -405,6 +467,27 @@ export function getKommuneMapLegendStops(ctx: KommuneMapVisualContext): LegendSt
       { color: stops[0], label: 'Under forventet' },
       { color: NO_DATA_COLOR, label: 'Ingen levering' },
     ];
+  }
+
+  const max = ctx.legendMaxVal;
+  const pipelineUnits: Record<KommuneMetric, { unit: string; decimals: number; noData: string }> = {
+    nitrogen: { unit: 't N', decimals: 0, noData: 'Ingen data' },
+    extraction: { unit: 'ha', decimals: 0, noData: 'Ingen data' },
+    afforestation: { unit: 'ha', decimals: 0, noData: 'Ingen data' },
+    nature: { unit: 'ha', decimals: 0, noData: 'Ingen data' },
+    co2: { unit: 't CO₂e', decimals: 0, noData: 'Ingen data' },
+  };
+  const pipelineColors: Record<KommuneMetric, [string, string, string]> = {
+    nitrogen: ['#0d9488', '#5eead4', '#ccfbf1'],
+    extraction: ['#a16207', '#fcd34d', '#fef3c7'],
+    afforestation: ['#15803d', '#86efac', '#dcfce7'],
+    nature: ['#052e16', '#16a34a', '#f0fdf4'],
+    co2: ['#b91c1c', '#f97316', '#fde68a'],
+  };
+
+  if (max && max > 0) {
+    const spec = pipelineUnits[ctx.activeMetric];
+    return sequentialNumericStops(pipelineColors[ctx.activeMetric], max, spec.unit, spec.decimals, spec.noData);
   }
 
   const defaults: Record<KommuneMetric, LegendStop[]> = {

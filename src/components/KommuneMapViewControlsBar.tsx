@@ -12,6 +12,7 @@ import {
   ControlBarCountBadge,
 } from '@/components/ControlBar';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
+import { DEFAULT_PHASES } from '@/lib/kommune-metrics';
 import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
 import {
   NATURE_LAYER_OPTIONS,
@@ -54,7 +55,7 @@ export function KommuneMapViewControlsBar({
   choroplethScale,
   onChoroplethScaleChange,
   showPhaseFilter = false,
-  selectedPhases = new Set(['established']),
+  selectedPhases = new Set(DEFAULT_PHASES),
   onPhasesChange,
   phaseFilterTooltip,
   supplementSources = [],
@@ -129,7 +130,7 @@ export function KommuneMapViewControlsBar({
   );
 
   const phaseTooltipContent = phaseFilterTooltip
-    ?? 'Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse.';
+    ?? 'Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet. Standard er forundersøgelse, godkendt og anlagt — skitser tæller ikke med.';
 
   const natureOptions = NATURE_LAYER_OPTIONS.map((o) => ({ value: o.id, label: o.shortLabel }));
   const fordelingOptions = [

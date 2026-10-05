@@ -396,6 +396,8 @@ export interface DashboardData {
   catchments: Catchment[];
   mitigationMeasures: MitigationMeasure[];
   subsidySchemes: SubsidyScheme[];
+  fieldDatasetConfigurations?: FieldDatasetConfiguration[];
+  marsNature?: MarsNatureSummary;
 }
 
 /** Per-phase metric totals (established / approved / preliminary) — plan-level byPhase keys. */
@@ -550,6 +552,10 @@ export interface ProjectDetail {
   kommuneNavn?: string | null;
   /** All kommuner whose boundary intersects the project polygon (for map linking). */
   overlappingKommuneKoder?: string[];
+  /** Resolved supplementary geometries (urørt skov, lysåbne arealer, …). */
+  supplementaryGeometries?: SupplementaryGeometry[];
+  /** Sum of geometries with type `uroert_skov`. */
+  uroertSkovHa?: number;
 }
 
 // Early-stage sketch project (no formal MARS status yet)
@@ -577,6 +583,14 @@ export interface SketchProject {
   overlappingKommuneKoder?: string[];
 }
 
+export interface SupplementaryGeometry {
+  name: string;
+  areaHa: number;
+  type: string | null;
+  title: string;
+  typeId: string;
+}
+
 // Nature restoration potential site
 export interface NaturePotential {
   id: string;
@@ -595,6 +609,24 @@ export interface MitigationMeasure {
   icon: string;
 }
 
+export interface SubsidySchemeOverlap {
+  datasetId: string;
+  mustOverlap: boolean;
+  mustNotOverlap: boolean;
+  overlapOkMessage: string;
+  overlapNotOkMessage: string;
+  minOverlapAreaHa?: number | null;
+  minNitrogenReductionT?: number | null;
+}
+
+export interface SupplementaryGeometryType {
+  id: string;
+  title: string;
+  type: string | null;
+  mustOverlapWithDatasets?: string[] | null;
+  mustNotOverlapWithDatasets?: string[] | null;
+}
+
 export interface SubsidyScheme {
   id: string;
   name: string;
@@ -607,6 +639,32 @@ export interface SubsidyScheme {
   description?: string;
   /** Prose explanation of who can apply for / undertake the scheme */
   applicantText?: string;
+  /** Machine-readable siting rules from MARS (e.g. must not overlap §3). */
+  overlaps?: SubsidySchemeOverlap[];
+  supplementaryGeometryTypes?: SupplementaryGeometryType[];
+}
+
+export interface FieldDatasetConfiguration {
+  datasetId: string;
+  title: string;
+  year: number | null;
+  excludedAfgkoder: string[];
+}
+
+export interface MarsNatureSummary {
+  uniqueProjects: number;
+  naturePipelineProjects: number;
+  lavbundProjects: number;
+  afforestationProjects: number;
+  excludedProjects: number;
+  uroertSkov: {
+    projectCount: number;
+    geometryCount: number;
+    areaHa: number;
+    typeId: string;
+    note: string;
+  };
+  subsidySitingNote: string;
 }
 
 // ============================================================
@@ -793,6 +851,7 @@ export interface KommuneBenchmarkMetadata {
   methodVersion: string;
   sourceLayers: { name: string; path: string; hash?: string }[];
   disclaimer?: string;
+  afgkodeExclusionApplied?: boolean;
 }
 
 export interface KommuneBenchmarkB1Row {
@@ -821,6 +880,8 @@ export interface KommuneBenchmarkB3Row {
   n2000TotalHa: number;
   n2000ErLandbrugHa: number;
   andelLandbrugIN2000Pct: number | null;
+  n2000ErLandbrugHaAllCrops?: number;
+  afgkodePresent?: boolean;
 }
 
 export interface KommuneBenchmarkB4Row {
@@ -865,7 +926,13 @@ export interface KommuneBenchmarkData {
   };
   b3: {
     metadata: KommuneBenchmarkMetadata;
-    national: { n2000TotalHa: number; n2000ErLandbrugHa: number; andelLandbrugIN2000Pct: number };
+    national: {
+      n2000TotalHa: number;
+      n2000ErLandbrugHa: number;
+      andelLandbrugIN2000Pct: number;
+      n2000ErLandbrugHaAllCrops?: number;
+      andelLandbrugIN2000PctAllCrops?: number;
+    };
     byKommune: Record<string, KommuneBenchmarkB3Row>;
   };
   b4: KommuneBenchmarkB4Data | null;
@@ -1153,6 +1220,21 @@ export interface ProjectNatureOverlapKommune {
   antalProjekter: number;
 }
 
+export interface ProjectNatureOverlapNationalSummary {
+  thresholdHa: number;
+  naturePipelineMeasures: string[];
+  projectsWithGeometry: number;
+  naturePipelineWithGeometry: number;
+  withBiodiversityOverlap: number;
+  withBiodiversityOverlapUnthresholded: number;
+  withoutBiodiversityOverlap: number;
+  biodiversitetHa: number;
+  section3Ha: number;
+  natura2000Ha: number;
+  lavbund: { projects: number; withOverlap: number; biodiversitetHa: number };
+  afforestation: { projects: number; withOverlap: number; biodiversitetHa: number };
+}
+
 export interface ProjectNatureOverlapData {
   metadata: {
     methodVersion: string;
@@ -1162,7 +1244,9 @@ export interface ProjectNatureOverlapData {
     projectsWithGeometry: number;
     projectsWithOverlap: number;
     sources: string[];
+    overlapThresholdHa?: number;
   };
+  nationalSummary?: ProjectNatureOverlapNationalSummary;
   byProject: Record<string, ProjectNatureOverlap>;
   byKommune: Record<string, ProjectNatureOverlapKommune>;
 }

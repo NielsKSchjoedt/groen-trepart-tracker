@@ -164,7 +164,11 @@ export function KommuneDetailPanel({
       )}
 
       {ranking?.byKommune[kommune.kode] && (
-        <KommuneStandingsDetailHeader row={ranking.byKommune[kommune.kode]} ranking={ranking} />
+        <KommuneStandingsDetailHeader
+          row={ranking.byKommune[kommune.kode]}
+          ranking={ranking}
+          b3={natureBenchmark?.b3.byKommune[kommune.kode]}
+        />
       )}
 
       {ranking && <KommunePhaseVsNational kommune={kommune} ranking={ranking} />}

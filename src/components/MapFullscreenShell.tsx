@@ -137,19 +137,21 @@ export function MapFullscreenShell({
       {banners && <div className={cn(isFullscreen && 'px-4 pt-3')}>{banners}</div>}
 
       <div className={cn(isFullscreen && 'flex min-h-0 flex-1 flex-col overflow-hidden p-3 md:p-4')}>
-        <div className={cn('flex transition-all', isFullscreen && 'min-h-0 flex-1', sidePanel ? 'gap-0' : '')}>
+        <div
+          className={cn(
+            'flex overflow-hidden',
+            isFullscreen && 'min-h-0 flex-1',
+            sidePanel ? 'gap-0' : '',
+          )}
+          style={!isFullscreen ? { height: inlineMapHeight } : undefined}
+        >
           <div
             className={cn(
-              'relative transition-all',
+              'relative min-h-0 overflow-hidden',
               sidePanel ? 'w-full md:w-3/5' : 'w-full',
-              isFullscreen && 'min-h-0',
             )}
-            style={!isFullscreen ? { minHeight: inlineMapHeight } : undefined}
           >
-            <div
-              className={cn('relative w-full', isFullscreen ? 'h-full min-h-0' : '')}
-              style={!isFullscreen ? { height: inlineMapHeight } : undefined}
-            >
+            <div className="relative h-full min-h-0 w-full">
               {children(isFullscreen)}
 
               {((!expandDisabled && !isFullscreen) || mapOverlayControls) && (
@@ -172,7 +174,12 @@ export function MapFullscreenShell({
           </div>
 
           {sidePanel && (
-            <div className={cn(isFullscreen && 'flex h-full min-h-0 w-2/5 flex-col')}>
+            <div
+              className={cn(
+                'hidden min-h-0 overflow-y-auto md:flex md:flex-col',
+                isFullscreen ? 'h-full w-2/5' : 'h-full w-2/5',
+              )}
+            >
               {sidePanel}
             </div>
           )}

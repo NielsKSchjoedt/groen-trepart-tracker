@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-14T21:09:00.347886+00:00",
+  "fetchedAt": "2026-09-11T21:23:12.007349+00:00",
   "wfsBase": "https://arld-extgeo.miljoeportal.dk/geoserver/ows",
   "layers": {
     "d1_hits": {
@@ -14,10 +14,9 @@
       "typeName": "ku:ku_239omr_cmec2024_2_2",
       "numberMatched": 239
     },
-    "d1_fetched": 0,
+    "d1_fetched": 83579,
     "ku_prio_1_fetched": 239,
     "ku_prio_2_fetched": 239
   },
-  "fullDce": false,
-  "note_dce": "FULL_DCE=0: skipped file write; use hits count for audit. Set FULL_DCE=1 in scheduled job to materialise."
+  "fullDce": true
 }

@@ -16,6 +16,7 @@ import {
 import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import { MetricDotPicker } from '@/components/MetricPicker';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
+import { DEFAULT_PHASES } from '@/lib/kommune-metrics';
 import { getPillarConfig } from '@/lib/pillars';
 import type { SelectedProject } from '@/lib/project-selection';
 import { findMarsProjectByGeoId } from '@/lib/map-projects';
@@ -33,6 +34,7 @@ import type { ChoroplethScaleMode, FordelingViewMode, LegendStop, NatureLayerKey
 import {
   getKommuneMapLegendLabel,
   getKommuneMapLegendStops,
+  resolveKommuneMapValue,
   showFordelingViewToggle,
   showNatureLayerToggle,
   usesSimulationChoropleth,
@@ -89,6 +91,9 @@ interface KommuneMapSectionProps {
   phaseFilterTooltip?: string;
   supplementSources?: SupplementSource[];
   onSupplementsChange?: (next: Set<SupplementSource>) => void;
+  /** Controlled fullscreen (permalink restore via `fuldskaerm=1`). */
+  isFullscreen?: boolean;
+  onFullscreenChange?: (open: boolean) => void;
 }
 
 /**
@@ -114,7 +119,7 @@ export function KommuneMapSection({
   onMetricChange,
   metricPickHint,
   dashboard = null,
-  selectedPhases = new Set(['established']),
+  selectedPhases = new Set(DEFAULT_PHASES),
   activeSupplements = new Set(),
   mapOverlays,
   onMapOverlaysChange,
@@ -133,6 +138,8 @@ export function KommuneMapSection({
   phaseFilterTooltip,
   supplementSources,
   onSupplementsChange,
+  isFullscreen,
+  onFullscreenChange,
 }: KommuneMapSectionProps) {
   const mapRef = useRef<L.Map | null>(null);
   const [leafletMap, setLeafletMap] = useState<L.Map | null>(null);
@@ -241,16 +248,23 @@ export function KommuneMapSection({
   }, [selectedProject]);
 
   const visualContext = useMemo(
-    () => ({
-      activeMetric: activeMetric ?? 'nitrogen',
-      fordelingViewMode,
-      natureLayer,
-      choroplethScale,
-      fordelingSimulation,
-      kommuneBenchmark,
-      kommuneRanking,
-      ansvarIndexByKode,
-    }),
+    () => {
+      const base = {
+        activeMetric: activeMetric ?? 'nitrogen' as const,
+        fordelingViewMode,
+        natureLayer,
+        choroplethScale,
+        fordelingSimulation,
+        kommuneBenchmark,
+        kommuneRanking,
+        ansvarIndexByKode,
+      };
+      const legendMaxVal = Math.max(
+        1,
+        ...kommunerFiltered.map((km) => resolveKommuneMapValue(km.kode, km, base).value),
+      );
+      return { ...base, legendMaxVal };
+    },
     [
       activeMetric,
       fordelingViewMode,
@@ -260,6 +274,7 @@ export function KommuneMapSection({
       kommuneBenchmark,
       kommuneRanking,
       ansvarIndexByKode,
+      kommunerFiltered,
     ],
   );
 
@@ -374,6 +389,8 @@ export function KommuneMapSection({
   return (
     <>
     <MapFullscreenShell
+      isFullscreen={isFullscreen}
+      onFullscreenChange={onFullscreenChange}
       fullscreenTitle="Kommune-kort"
       fullscreenTitleAddon={
         pillarConfig ? (
@@ -410,7 +427,7 @@ export function KommuneMapSection({
       inlineMapHeight={inlineMapHeight}
       mapOverlayControls={mapOverlayControls}
       sidePanel={selectedProject ? (
-        <div className="hidden md:block w-full max-h-[580px] overflow-y-auto md:max-h-full">
+        <div className="hidden md:block w-full h-full overflow-y-auto">
           <ProjectDetailPanel
             project={selectedProject}
             coordinates={projectCoordinates}
@@ -429,7 +446,7 @@ export function KommuneMapSection({
       {() => (
         <>
           {activeMetric === null && (
-            <div className="absolute inset-0 z-20 rounded-2xl bg-background/70 backdrop-blur-[3px] flex items-center justify-center p-4 sm:p-6">
+            <div className="absolute inset-0 z-[800] rounded-2xl bg-background/70 backdrop-blur-[3px] flex items-center justify-center p-4 sm:p-6 pointer-events-auto">
               {onMetricChange ? (
                 <div className="text-center space-y-4 max-w-lg pointer-events-auto">
                   <p className="text-sm font-semibold text-foreground">Vælg et delmål</p>
@@ -454,6 +471,7 @@ export function KommuneMapSection({
             </div>
           )}
 
+          <div className={activeMetric === null ? 'pointer-events-none h-full' : 'h-full'}>
           <Suspense
             fallback={
               <div className="absolute inset-0 rounded-2xl border border-border bg-muted/10 flex items-center justify-center">
@@ -493,6 +511,7 @@ export function KommuneMapSection({
               />
             )}
           </Suspense>
+          </div>
 
           {activeMetric && legendStops.length > 0 && (
             <div className="absolute bottom-3 left-3 z-[500] max-w-[15rem] sm:max-w-[17rem] pointer-events-none">

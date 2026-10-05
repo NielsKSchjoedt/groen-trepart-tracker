@@ -8,6 +8,7 @@ import type {
   KlimaskovfondenProject,
   NaturstyrelsenSkovProject,
   SubsidyScheme,
+  MarsNatureSummary,
 } from '@/lib/types';
 import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects, loadProjectGeometries, loadProjectNatureOverlap } from '@/lib/data';
 import { usePillar } from '@/lib/pillars';
@@ -26,11 +27,16 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { getPhaseConfig, PIPELINE_PHASE_CONFIGS } from '@/lib/phase-config';
-import { NatureWatermark } from './NatureWatermark';
 import { InfoTooltip } from './InfoTooltip';
 import { ProjectMapOverlay, type ProjectMapInfo } from './ProjectMapOverlay';
 import { MarsProjectDetailContent, MarsProjectStickyHeader } from './MarsProjectDetailContent';
 import type { ProjectNatureOverlapData } from '@/lib/types';
+import {
+  computePillarProjects,
+  flattenPillarProjects,
+  type PillarProjects,
+  type ProjectWithPlan,
+} from '@/lib/pillar-projects';
 
 interface ProjectFunnelProps {
   data: DashboardData;
@@ -48,80 +54,12 @@ function stageToProjectKey(stage: PipelineMainPhase): keyof PillarProjects {
   return stage === 'sketch' ? 'sketches' : stage;
 }
 
-/** A project enriched with its parent plan name for display in the project list */
-type ProjectWithPlan = (ProjectDetail | SketchProject) & { planName: string };
-
-/** Grouped project lists per stage, filtered to the active pillar */
-interface PillarProjects {
-  sketches: ProjectWithPlan[];
-  preliminary_grant: ProjectWithPlan[];
-  preliminary_done: ProjectWithPlan[];
-  establishment_grant: ProjectWithPlan[];
-  established: ProjectWithPlan[];
-}
-
-/**
- * Compute pillar-specific project lists by collecting individual projects
- * that have a non-zero effect for the given pillar, grouped by pipeline stage.
- *
- * Each MARS project can contribute to multiple pillars simultaneously
- * (e.g. a wetland project reduces nitrogen AND extracts lowland).
- * This function collects only those relevant to the selected pillar.
- *
- * @param data - Full dashboard data
- * @param pillarId - Active pillar ('nitrogen' | 'extraction' | 'afforestation' | 'nature')
- * @returns Projects grouped by stage, each enriched with its parent plan name
- *
- * @example
- * const { sketches, preliminary_grant, establishment_grant, established } = computePillarProjects(data, 'nitrogen');
- */
-function computePillarProjects(data: DashboardData, pillarId: PillarId): PillarProjects {
-  const result: PillarProjects = {
-    sketches: [],
-    preliminary_grant: [],
-    preliminary_done: [],
-    establishment_grant: [],
-    established: [],
-  };
-
-  const effectField = ({
-    nitrogen: 'nitrogenT',
-    extraction: 'extractionHa',
-    afforestation: 'afforestationHa',
-  } as Record<string, string>)[pillarId];
-
-  const includeAllMarsProjects = pillarId === 'nature';
-  if (!effectField && !includeAllMarsProjects) return result;
-
-  for (const plan of data.plans) {
-    for (const sk of plan.sketchProjects) {
-      if (includeAllMarsProjects || ((sk as unknown as Record<string, unknown>)[effectField] as number > 0)) {
-        result.sketches.push({ ...sk, planName: plan.name });
-      }
-    }
-    for (const proj of plan.projectDetails) {
-      if (proj.pipelinePhase === 'cancelled' || proj.isCancelled) continue;
-      const stage = proj.pipelinePhase as PipelineMainPhase | undefined;
-      const stageKey = stage === 'sketch' ? 'sketches' : stage;
-      if (
-        stageKey &&
-        stageKey in result &&
-        (includeAllMarsProjects || ((proj as unknown as Record<string, unknown>)[effectField] as number > 0))
-      ) {
-        result[stageKey].push({ ...proj, planName: plan.name });
-      }
-    }
-  }
-
-  return result;
-}
-
 /** Pillar-specific descriptions for the funnel header */
 const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (total: number) => string; tooltip: string }> = {
   nitrogen: {
     title: 'Kvælstof-projekter',
     subtitle: (total) => `${formatDanishNumber(total)} projekter med kvælstofreducerende effekt`,
-    tooltip: 'Projekter fra MARS-databasen der har en dokumenteret kvælstofreducerende effekt (N-reduktion > 0 ton/år). Samme projekt kan bidrage til flere delmål.',
+    tooltip: 'Projekter fra MARS-databasen der har en dokumenteret kvælstofreducerende effekt (N-reduktion > 0 ton/år). Samme projekt kan bidrage til flere delmål. Et projekt kan også ligge i flere kystvandoplande; nationalt tælles det kun én gang.',
   },
   extraction: {
     title: 'Lavbunds-projekter',
@@ -135,8 +73,9 @@ const PILLAR_FUNNEL_DESCRIPTIONS: Record<string, { title: string; subtitle: (tot
   },
   nature: {
     title: 'Naturprojekter',
-    subtitle: (_total) => 'Projekter fra alle typer virkemidler i MARS',
-    tooltip: 'For beskyttet natur-delmålet vises den samlede projekt-pipeline — alle MARS-projekter uanset specifikt virkemiddel. Naturbeskyttelse afhænger af den samlede indsats.',
+    subtitle: (total) => `${formatDanishNumber(total)} lavbunds- og skovrejsningsprojekter`,
+    tooltip:
+      'Natur-pipelinen tæller lavbundsprojekter og al skovrejsning — ikke alle MARS-projekter. Kvælstofvådområder, minivådområder, ekstensivering og fosforvådområder er ude, efter DN’s kriterium. Naturoverlap er ikke udvælgelseskriteriet. Et projekt kan ligge i flere kystvandoplande; nationalt tælles det kun én gang.',
   },
 };
 
@@ -167,6 +106,52 @@ function getPillarMetric(
 }
 
 const MAX_VISIBLE = 8;
+
+function NaturePipelineBreakdown({
+  projects,
+  marsNature,
+}: {
+  projects: ProjectWithPlan[];
+  marsNature?: MarsNatureSummary;
+}) {
+  const lavbund = marsNature?.lavbundProjects
+    ?? projects.filter((p) => p.measureName === 'Lavbundsprojekter' && p.pipelinePhase !== 'sketch').length;
+  const skov = marsNature?.afforestationProjects
+    ?? projects.filter((p) => p.measureName === 'Skovrejsning' && p.pipelinePhase !== 'sketch').length;
+  const uroertHa = marsNature?.uroertSkov.areaHa
+    ?? projects.reduce((sum, p) => sum + (('uroertSkovHa' in p ? p.uroertSkovHa : 0) ?? 0), 0);
+  const uroertCount = marsNature?.uroertSkov.projectCount
+    ?? projects.filter((p) => (('uroertSkovHa' in p ? p.uroertSkovHa : 0) ?? 0) > 0).length;
+  const uniqueAll = marsNature?.uniqueProjects;
+  const excluded = marsNature?.excludedProjects;
+  const pipelineTotal = marsNature?.naturePipelineProjects ?? lavbund + skov;
+
+  return (
+    <div className="mb-6 rounded-xl border border-border bg-muted/30 px-4 py-3 text-xs leading-relaxed text-foreground space-y-2">
+      <p>
+        <strong>{formatDanishNumber(lavbund)} lavbund</strong>
+        {' + '}
+        <strong>{formatDanishNumber(skov)} skovrejsning</strong>
+        {uniqueAll != null && excluded != null && (
+          <>
+            {' '}
+            — {formatDanishNumber(pipelineTotal)} af {formatDanishNumber(uniqueAll)} unikke MARS-projekter i de formelle faser (skitser vises i pipelinen, men tælles ikke med her).
+            Udeladt: {formatDanishNumber(excluded)} (kvælstofvådområder, minivådområder, ekstensivering, fosforvådområder og øvrige).
+          </>
+        )}
+      </p>
+      <p>
+        Skovrejsning vises som eget delta, fordi MARS ikke skiller plantage fra urørt skov.
+        Dokumenteret urørt skov i MARS: <strong>{formatDanishNumber(uroertHa, 1)} ha</strong> på {formatDanishNumber(uroertCount)} SGAV-projekter.
+        Privat Skovrejsning og NST kan slet ikke registrere urørt skov, så det er et underkantstal — ikke et landsdækkende filter.
+      </p>
+      <p className="text-muted-foreground">
+        {marsNature?.subsidySitingNote
+          ?? 'MARS holder tilskudsareal ude af registreret §3-natur. Naturoverlap er stedsspecifikt — ikke en ubetinget god indikator.'}
+      </p>
+    </div>
+  );
+}
 
 function toProjectMapInfo(proj: ProjectWithPlan): ProjectMapInfo {
   const phase = proj.phase === 'sketch' ? 'sketch' : proj.phase;
@@ -543,22 +528,7 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
   }
 
   return (
-    <section id="pipeline-status" className="w-full max-w-5xl mx-auto px-4 pt-4 pb-10 relative overflow-hidden">
-      <div className="absolute -left-6 bottom-8 opacity-[0.10] hidden lg:block pointer-events-none">
-        <NatureWatermark animal="heron" size={140} />
-      </div>
-      <div className="absolute right-4 top-4 opacity-[0.09] hidden md:block pointer-events-none">
-        <NatureWatermark animal="seal" size={100} className="scale-x-[-1]" />
-      </div>
-      <div className="absolute left-1/3 top-2 opacity-[0.07] hidden lg:block animate-gentle-sway pointer-events-none">
-        <NatureWatermark animal="butterfly" size={50} />
-      </div>
-      <div className="absolute right-1/4 bottom-4 opacity-[0.08] hidden lg:block pointer-events-none">
-        <NatureWatermark animal="cod" size={80} className="rotate-[-15deg]" />
-      </div>
-      <div className="absolute left-8 top-16 opacity-[0.07] hidden xl:block pointer-events-none">
-        <NatureWatermark animal="eel" size={70} className="rotate-[20deg]" />
-      </div>
+    <section id="pipeline-status" className="w-full max-w-5xl mx-auto px-4 pt-4 pb-10 relative">
       <div className="flex items-center gap-2.5 mb-2">
         <GitPullRequestArrow className="w-5 h-5 text-primary" />
         <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
@@ -583,9 +553,19 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
         />
       </div>
       <p className="text-sm text-muted-foreground mb-1.5">
-        {desc.subtitle(totalProjects)}
+        {desc.subtitle(
+          activePillar === 'nature' && data.marsNature
+            ? data.marsNature.naturePipelineProjects
+            : totalProjects,
+        )}
         <span className="ml-2 text-xs text-muted-foreground/70">— klik på en fase for at se projekterne</span>
       </p>
+      {activePillar === 'nature' && (
+        <NaturePipelineBreakdown
+          projects={flattenPillarProjects(pillarProjects)}
+          marsNature={data.marsNature}
+        />
+      )}
       <p className="text-[11px] text-muted-foreground/80 mb-8">{shareCaption}</p>
 
       <div className="space-y-4">

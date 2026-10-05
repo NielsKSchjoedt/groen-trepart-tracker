@@ -6,6 +6,13 @@ import { Footer } from '@/components/Footer';
 import { StickyNav } from '@/components/StickyNav';
 import { SiteTopBadges } from '@/components/SiteTopBadges';
 import { KommuneEmblem } from '@/components/KommuneEmblem';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { KommuneMapSection } from '@/components/KommuneMapSection';
 import {
   KommuneDetailCo2Section,
@@ -115,6 +122,7 @@ export default function KommuneDetailPage() {
     selectedPhases,
     activeSupplements,
     mapOverlays,
+    fullscreen,
   } = mapView;
 
   const patchMapView = (patch: Partial<typeof mapView>) => {
@@ -131,6 +139,7 @@ export default function KommuneDetailPage() {
   const setChoroplethScale = (mode: ChoroplethScaleMode) => patchMapView({ choroplethScale: mode });
   const setNatureLayer = (layer: NatureLayerKey) => patchMapView({ natureLayer: layer });
   const setMapOverlays = (overlays: typeof mapOverlays) => patchMapView({ mapOverlays: overlays });
+  const setFullscreen = (open: boolean) => patchMapView({ fullscreen: open });
 
   /** Måleenhed for the "Hvor står?" section — shared with /kommuner via the `visning` permalink param. */
   const standingsMode: StandingsMode = useMemo(
@@ -327,12 +336,25 @@ export default function KommuneDetailPage() {
           <div className="flex flex-col items-center gap-2 mb-1">
             <KommuneEmblem name={kommune.navn} size={56} />
             <div className="min-w-0">
-              <h1
-                className="text-2xl sm:text-3xl font-bold text-foreground leading-tight"
-                style={{ fontFamily: "'Fraunces', serif" }}
-              >
-                {kommune.navn}
-              </h1>
+              <h1 className="sr-only">{kommune.navn}</h1>
+              <Select value={kommune.kode} onValueChange={handleSelect}>
+                <SelectTrigger
+                  className="mx-auto h-auto w-auto min-w-[12rem] max-w-[min(100%,24rem)] border-0 bg-transparent px-2 py-1 text-2xl sm:text-3xl font-bold text-foreground shadow-none focus:ring-0 focus:ring-offset-0"
+                  style={{ fontFamily: "'Fraunces', serif" }}
+                  aria-label="Vælg kommune"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="max-h-80">
+                  {[...kommuner]
+                    .sort((a, b) => a.navn.localeCompare(b.navn, 'da'))
+                    .map((km) => (
+                      <SelectItem key={km.kode} value={km.kode}>
+                        {km.navn}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
               <p className="text-sm text-muted-foreground mt-1">
                 {kommune.region} · {kommune.projectCount} MARS-projekt{kommune.projectCount !== 1 ? 'er' : ''}
               </p>
@@ -376,6 +398,7 @@ export default function KommuneDetailPage() {
                   onPhasesChange={setSelectedPhases}
                   paceRatios={paceRatios}
                   nationalPace={nationalPace}
+                  b3={kommuneBenchmark?.b3.byKommune[kommune.kode]}
                 />
               </div>
             </div>
@@ -414,6 +437,8 @@ export default function KommuneDetailPage() {
               selectedKode={kommune.kode}
               allowedMarsGeoIds={allowedMarsGeoIds}
               inlineMapHeight="360px"
+              isFullscreen={fullscreen}
+              onFullscreenChange={setFullscreen}
               compactMapControls
               dashboard={data}
               selectedPhases={selectedPhases}
@@ -424,7 +449,7 @@ export default function KommuneDetailPage() {
               nstProjects={nstForKommune}
               showPhaseFilter={showPhaseFilter}
               onPhasesChange={setSelectedPhases}
-              phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet og i nøgletal. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse."
+              phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet og i nøgletal. Standard er forundersøgelse, godkendt og anlagt — skitser tæller ikke med."
               supplementSources={supplementSources}
               onSupplementsChange={setActiveSupplements}
               filterControls={

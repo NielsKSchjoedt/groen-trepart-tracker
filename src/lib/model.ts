@@ -425,8 +425,8 @@ export function buildEffectDomains(
           : '…',
       goalFooter:
         coastalTotal > 0
-          ? `MÅLING: VP3 TILSTAND · ${formatDanishNumber(coastalTotal, 0)} KYSTVANDE`
-          : 'MÅLING: VP3 TILSTAND · KYSTVANDE',
+          ? `MÅL: GOD TILSTAND I ALLE ${formatDanishNumber(coastalTotal, 0)} · FRIST 22.12.2027`
+          : 'MÅL: GOD TILSTAND OVERALT · FRIST 22.12.2027',
       reframe: {
         kind: 'ecological-snapshot',
         how:
@@ -435,9 +435,10 @@ export function buildEffectDomains(
             : 'Samlet økologisk tilstand vurderes for kystvandene (VP3) — ikke via kvælstof-ton alene.',
         valueLabel:
           coastalTotal > 0
-            ? `af ${formatDanishNumber(coastalTotal, 0)} kystvande i god økologisk tilstand (målet er god overalt)`
+            ? `af ${formatDanishNumber(coastalTotal, 0)} kystvande i god økologisk tilstand (målet er god tilstand overalt senest 22.12.2027)`
             : 'kystvande i god økologisk tilstand',
-        note: `Kvælstof-vådområder er delmålet — effekten i vandet følger langsomt efter.`,
+        note:
+          'Treparten leverer ton kvælstof — og de ton er ikke nok til at bringe vandområderne i god økologisk tilstand. Fristen kan for enkelte vandområder være forlænget eller målet lempet efter vandplanlægningsloven §§ 10–11; det skal i så fald være begrundet. Kilde: lovbekendtgørelse nr. 126 af 26. januar 2017 § 7 stk. 2 nr. 2 og § 10 stk. 3; BEK nr. 1670 af 8. december 2025.',
         verdictLabel:
           coastalTotal > 0
             ? coastalGood === 0
@@ -448,8 +449,7 @@ export function buildEffectDomains(
         totalWaters: coastalTotal,
         distributionLine: formatEcoDistributionLine(coastalEco),
       },
-      isDelmaal: false,
-      effectBadge: 'IKKE MÅLSAT',
+      isDelmaal: true,
     },
     {
       id: 'natur',

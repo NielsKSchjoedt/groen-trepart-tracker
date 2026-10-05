@@ -1,6 +1,6 @@
 import { AlertTriangle } from 'lucide-react';
 import type { FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
-import { NATURE_LAYER_OPTIONS } from '@/lib/kommune-map-visualization';
+import { NATURE_LAYER_FORMULAS, NATURE_LAYER_OPTIONS } from '@/lib/kommune-map-visualization';
 
 interface SegmentedToggleProps<T extends string> {
   label: string;
@@ -89,12 +89,13 @@ export function KommuneFordelingDisclaimer() {
 
 export function KommuneNatureLayerDisclaimer({ layer }: { layer: NatureLayerKey }) {
   const text = NATURE_LAYER_OPTIONS.find((option) => option.id === layer)?.label ?? 'Naturkortlag';
+  const formula = NATURE_LAYER_FORMULAS[layer];
   return (
     <div className="flex items-start gap-2 rounded-lg border border-emerald-200/70 bg-emerald-50/80 px-3 py-2 text-xs text-emerald-950 leading-relaxed">
       <AlertTriangle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-emerald-600" strokeWidth={2} />
       <span>
         Viser <strong>{text}</strong> fra Arealdata om biodiversitet, §3 og Natura 2000 — samme kortlag
-        som på det nationale kort. MARS-naturprojekter er endnu ikke opgjort på kommuneniveau.
+        som på det nationale kort. {formula} MARS-naturprojekter er endnu ikke opgjort på kommuneniveau.
       </span>
     </div>
   );

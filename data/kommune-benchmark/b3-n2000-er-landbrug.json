@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-12T21:29:09.899531+00:00",
-    "methodVersion": "sprint4-v1",
+    "generatedAt": "2026-09-11T21:24:16.721502+00:00",
+    "methodVersion": "sprint4-v2",
     "sourceLayers": [
       {
         "name": "DCE 30%",
@@ -25,603 +25,803 @@
       {
         "name": "Natura 2000",
         "path": "data/natura2000/natura_2000_omraader.geojson",
-        "hash": "18faa93eadc24c9e"
+        "hash": "c78bad51eb59de05"
       }
-    ]
+    ],
+    "afgkodeExclusionApplied": true,
+    "disclaimer": "B3 headline uses MARS Afgkode exclusions when Marker_2026 features carry Afgkode; otherwise all crops. Denominator is terrestrial Natura 2000 only (§3 excluded)."
   },
   "national": {
     "n2000TotalHa": 302614.527,
-    "n2000ErLandbrugHa": 110011.4984,
-    "andelLandbrugIN2000Pct": 36.3537
+    "n2000ErLandbrugHa": 79085.2806,
+    "andelLandbrugIN2000Pct": 26.134,
+    "n2000ErLandbrugHaAllCrops": 110235.2662,
+    "andelLandbrugIN2000PctAllCrops": 36.4276
   },
   "byKommune": {
     "0101": {
       "kommuneNavn": "København",
       "n2000TotalHa": 353.5748,
-      "n2000ErLandbrugHa": 155.5419,
-      "andelLandbrugIN2000Pct": 43.9912
+      "n2000ErLandbrugHa": 0.0,
+      "andelLandbrugIN2000Pct": 0.0,
+      "n2000ErLandbrugHaAllCrops": 155.5419,
+      "afgkodePresent": true
     },
     "0147": {
       "kommuneNavn": "Frederiksberg",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": false
     },
     "0151": {
       "kommuneNavn": "Ballerup",
       "n2000TotalHa": 51.8809,
       "n2000ErLandbrugHa": 1.7413,
-      "andelLandbrugIN2000Pct": 3.3563
+      "andelLandbrugIN2000Pct": 3.3563,
+      "n2000ErLandbrugHaAllCrops": 1.7413,
+      "afgkodePresent": true
     },
     "0153": {
       "kommuneNavn": "Brøndby",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0155": {
       "kommuneNavn": "Dragør",
       "n2000TotalHa": 211.3154,
-      "n2000ErLandbrugHa": 42.9436,
-      "andelLandbrugIN2000Pct": 20.322
+      "n2000ErLandbrugHa": 32.0799,
+      "andelLandbrugIN2000Pct": 15.1811,
+      "n2000ErLandbrugHaAllCrops": 42.9436,
+      "afgkodePresent": true
     },
     "0157": {
       "kommuneNavn": "Gentofte",
       "n2000TotalHa": 47.4824,
-      "n2000ErLandbrugHa": 3.0583,
-      "andelLandbrugIN2000Pct": 6.4409
+      "n2000ErLandbrugHa": 0.0,
+      "andelLandbrugIN2000Pct": 0.0,
+      "n2000ErLandbrugHaAllCrops": 3.0583,
+      "afgkodePresent": true
     },
     "0159": {
       "kommuneNavn": "Gladsaxe",
       "n2000TotalHa": 146.0793,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": 0.0
+      "andelLandbrugIN2000Pct": 0.0,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0161": {
       "kommuneNavn": "Glostrup",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0163": {
       "kommuneNavn": "Herlev",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0165": {
       "kommuneNavn": "Albertslund",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0167": {
       "kommuneNavn": "Hvidovre",
       "n2000TotalHa": 4.9057,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": 0.0
+      "andelLandbrugIN2000Pct": 0.0,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0169": {
       "kommuneNavn": "Høje-Taastrup",
       "n2000TotalHa": 120.1032,
-      "n2000ErLandbrugHa": 32.068,
-      "andelLandbrugIN2000Pct": 26.7004
+      "n2000ErLandbrugHa": 30.8345,
+      "andelLandbrugIN2000Pct": 25.6733,
+      "n2000ErLandbrugHaAllCrops": 32.068,
+      "afgkodePresent": true
     },
     "0173": {
       "kommuneNavn": "Lyngby-Taarbæk",
       "n2000TotalHa": 1399.967,
-      "n2000ErLandbrugHa": 272.2073,
-      "andelLandbrugIN2000Pct": 19.4438
+      "n2000ErLandbrugHa": 12.782,
+      "andelLandbrugIN2000Pct": 0.913,
+      "n2000ErLandbrugHaAllCrops": 272.2073,
+      "afgkodePresent": true
     },
     "0175": {
       "kommuneNavn": "Rødovre",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": false
     },
     "0183": {
       "kommuneNavn": "Ishøj",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0185": {
       "kommuneNavn": "Tårnby",
       "n2000TotalHa": 3456.1914,
-      "n2000ErLandbrugHa": 2637.5121,
-      "andelLandbrugIN2000Pct": 76.3127
+      "n2000ErLandbrugHa": 273.3725,
+      "andelLandbrugIN2000Pct": 7.9096,
+      "n2000ErLandbrugHaAllCrops": 2637.5121,
+      "afgkodePresent": true
     },
     "0187": {
       "kommuneNavn": "Vallensbæk",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0190": {
       "kommuneNavn": "Furesø",
       "n2000TotalHa": 1661.2708,
-      "n2000ErLandbrugHa": 23.3274,
-      "andelLandbrugIN2000Pct": 1.4042
+      "n2000ErLandbrugHa": 20.8665,
+      "andelLandbrugIN2000Pct": 1.2561,
+      "n2000ErLandbrugHaAllCrops": 23.3274,
+      "afgkodePresent": true
     },
     "0201": {
       "kommuneNavn": "Allerød",
       "n2000TotalHa": 960.7812,
-      "n2000ErLandbrugHa": 31.5346,
-      "andelLandbrugIN2000Pct": 3.2822
+      "n2000ErLandbrugHa": 21.2088,
+      "andelLandbrugIN2000Pct": 2.2075,
+      "n2000ErLandbrugHaAllCrops": 31.5346,
+      "afgkodePresent": true
     },
     "0210": {
       "kommuneNavn": "Fredensborg",
       "n2000TotalHa": 1469.6433,
       "n2000ErLandbrugHa": 3.2357,
-      "andelLandbrugIN2000Pct": 0.2202
+      "andelLandbrugIN2000Pct": 0.2202,
+      "n2000ErLandbrugHaAllCrops": 3.2357,
+      "afgkodePresent": true
     },
     "0217": {
       "kommuneNavn": "Helsingør",
       "n2000TotalHa": 3273.0145,
-      "n2000ErLandbrugHa": 287.2099,
-      "andelLandbrugIN2000Pct": 8.7751
+      "n2000ErLandbrugHa": 155.6468,
+      "andelLandbrugIN2000Pct": 4.7555,
+      "n2000ErLandbrugHaAllCrops": 287.2099,
+      "afgkodePresent": true
     },
     "0219": {
       "kommuneNavn": "Hillerød",
       "n2000TotalHa": 5457.5248,
-      "n2000ErLandbrugHa": 500.8713,
-      "andelLandbrugIN2000Pct": 9.1776
+      "n2000ErLandbrugHa": 372.7384,
+      "andelLandbrugIN2000Pct": 6.8298,
+      "n2000ErLandbrugHaAllCrops": 500.8709,
+      "afgkodePresent": true
     },
     "0223": {
       "kommuneNavn": "Hørsholm",
       "n2000TotalHa": 221.5953,
       "n2000ErLandbrugHa": 6.9809,
-      "andelLandbrugIN2000Pct": 3.1503
+      "andelLandbrugIN2000Pct": 3.1503,
+      "n2000ErLandbrugHaAllCrops": 6.9809,
+      "afgkodePresent": true
     },
     "0230": {
       "kommuneNavn": "Rudersdal",
       "n2000TotalHa": 1672.4608,
-      "n2000ErLandbrugHa": 59.4998,
-      "andelLandbrugIN2000Pct": 3.5576
+      "n2000ErLandbrugHa": 42.0396,
+      "andelLandbrugIN2000Pct": 2.5136,
+      "n2000ErLandbrugHaAllCrops": 59.4998,
+      "afgkodePresent": true
     },
     "0240": {
       "kommuneNavn": "Egedal",
       "n2000TotalHa": 897.2918,
-      "n2000ErLandbrugHa": 73.3185,
-      "andelLandbrugIN2000Pct": 8.1711
+      "n2000ErLandbrugHa": 63.4375,
+      "andelLandbrugIN2000Pct": 7.0699,
+      "n2000ErLandbrugHaAllCrops": 73.3185,
+      "afgkodePresent": true
     },
     "0250": {
       "kommuneNavn": "Frederikssund",
       "n2000TotalHa": 3443.0456,
-      "n2000ErLandbrugHa": 792.7691,
-      "andelLandbrugIN2000Pct": 23.0252
+      "n2000ErLandbrugHa": 653.6329,
+      "andelLandbrugIN2000Pct": 18.9841,
+      "n2000ErLandbrugHaAllCrops": 793.2579,
+      "afgkodePresent": true
     },
     "0253": {
       "kommuneNavn": "Greve",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0259": {
       "kommuneNavn": "Køge",
       "n2000TotalHa": 244.4236,
-      "n2000ErLandbrugHa": 67.3159,
-      "andelLandbrugIN2000Pct": 27.5407
+      "n2000ErLandbrugHa": 18.2087,
+      "andelLandbrugIN2000Pct": 7.4496,
+      "n2000ErLandbrugHaAllCrops": 67.3159,
+      "afgkodePresent": true
     },
     "0260": {
       "kommuneNavn": "Halsnæs",
       "n2000TotalHa": 2916.0121,
-      "n2000ErLandbrugHa": 120.7165,
-      "andelLandbrugIN2000Pct": 4.1398
+      "n2000ErLandbrugHa": 73.9106,
+      "andelLandbrugIN2000Pct": 2.5346,
+      "n2000ErLandbrugHaAllCrops": 120.7165,
+      "afgkodePresent": true
     },
     "0265": {
       "kommuneNavn": "Roskilde",
       "n2000TotalHa": 843.5359,
-      "n2000ErLandbrugHa": 254.6914,
-      "andelLandbrugIN2000Pct": 30.1933
+      "n2000ErLandbrugHa": 251.4003,
+      "andelLandbrugIN2000Pct": 29.8032,
+      "n2000ErLandbrugHaAllCrops": 254.6915,
+      "afgkodePresent": true
     },
     "0269": {
       "kommuneNavn": "Solrød",
       "n2000TotalHa": 90.0937,
       "n2000ErLandbrugHa": 25.6858,
-      "andelLandbrugIN2000Pct": 28.5101
+      "andelLandbrugIN2000Pct": 28.5101,
+      "n2000ErLandbrugHaAllCrops": 25.6858,
+      "afgkodePresent": true
     },
     "0270": {
       "kommuneNavn": "Gribskov",
       "n2000TotalHa": 7279.5929,
-      "n2000ErLandbrugHa": 487.6333,
-      "andelLandbrugIN2000Pct": 6.6986
+      "n2000ErLandbrugHa": 419.6455,
+      "andelLandbrugIN2000Pct": 5.7647,
+      "n2000ErLandbrugHaAllCrops": 487.6333,
+      "afgkodePresent": true
     },
     "0306": {
       "kommuneNavn": "Odsherred",
       "n2000TotalHa": 1830.9192,
-      "n2000ErLandbrugHa": 639.0086,
-      "andelLandbrugIN2000Pct": 34.901
+      "n2000ErLandbrugHa": 454.2221,
+      "andelLandbrugIN2000Pct": 24.8084,
+      "n2000ErLandbrugHaAllCrops": 639.0086,
+      "afgkodePresent": true
     },
     "0316": {
       "kommuneNavn": "Holbæk",
       "n2000TotalHa": 1351.6506,
-      "n2000ErLandbrugHa": 737.9294,
-      "andelLandbrugIN2000Pct": 54.5947
+      "n2000ErLandbrugHa": 718.0314,
+      "andelLandbrugIN2000Pct": 53.1226,
+      "n2000ErLandbrugHaAllCrops": 740.8456,
+      "afgkodePresent": true
     },
     "0320": {
       "kommuneNavn": "Faxe",
       "n2000TotalHa": 1010.5512,
-      "n2000ErLandbrugHa": 371.5986,
-      "andelLandbrugIN2000Pct": 36.7719
+      "n2000ErLandbrugHa": 320.1254,
+      "andelLandbrugIN2000Pct": 31.6783,
+      "n2000ErLandbrugHaAllCrops": 371.5986,
+      "afgkodePresent": true
     },
     "0326": {
       "kommuneNavn": "Kalundborg",
       "n2000TotalHa": 9366.7011,
-      "n2000ErLandbrugHa": 3931.181,
-      "andelLandbrugIN2000Pct": 41.9697
+      "n2000ErLandbrugHa": 2371.7136,
+      "andelLandbrugIN2000Pct": 25.3207,
+      "n2000ErLandbrugHaAllCrops": 3983.5479,
+      "afgkodePresent": true
     },
     "0329": {
       "kommuneNavn": "Ringsted",
       "n2000TotalHa": 429.0288,
-      "n2000ErLandbrugHa": 121.4012,
-      "andelLandbrugIN2000Pct": 28.2967
+      "n2000ErLandbrugHa": 26.0528,
+      "andelLandbrugIN2000Pct": 6.0725,
+      "n2000ErLandbrugHaAllCrops": 121.4012,
+      "afgkodePresent": true
     },
     "0330": {
       "kommuneNavn": "Slagelse",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0336": {
       "kommuneNavn": "Stevns",
       "n2000TotalHa": 421.2118,
-      "n2000ErLandbrugHa": 120.0224,
-      "andelLandbrugIN2000Pct": 28.4945
+      "n2000ErLandbrugHa": 86.3221,
+      "andelLandbrugIN2000Pct": 20.4938,
+      "n2000ErLandbrugHaAllCrops": 120.0224,
+      "afgkodePresent": true
     },
     "0340": {
       "kommuneNavn": "Sorø",
       "n2000TotalHa": 1722.9654,
-      "n2000ErLandbrugHa": 951.6885,
-      "andelLandbrugIN2000Pct": 55.2355
+      "n2000ErLandbrugHa": 796.8267,
+      "andelLandbrugIN2000Pct": 46.2474,
+      "n2000ErLandbrugHaAllCrops": 954.0777,
+      "afgkodePresent": true
     },
     "0350": {
       "kommuneNavn": "Lejre",
       "n2000TotalHa": 2334.1458,
-      "n2000ErLandbrugHa": 924.1642,
-      "andelLandbrugIN2000Pct": 39.5933
+      "n2000ErLandbrugHa": 493.05,
+      "andelLandbrugIN2000Pct": 21.1234,
+      "n2000ErLandbrugHaAllCrops": 923.6222,
+      "afgkodePresent": true
     },
     "0360": {
       "kommuneNavn": "Lolland",
       "n2000TotalHa": 3311.3651,
-      "n2000ErLandbrugHa": 1343.0752,
-      "andelLandbrugIN2000Pct": 40.5596
+      "n2000ErLandbrugHa": 1207.143,
+      "andelLandbrugIN2000Pct": 36.4545,
+      "n2000ErLandbrugHaAllCrops": 1344.1655,
+      "afgkodePresent": true
     },
     "0370": {
       "kommuneNavn": "Næstved",
       "n2000TotalHa": 3279.3159,
-      "n2000ErLandbrugHa": 1173.8533,
-      "andelLandbrugIN2000Pct": 35.7957
+      "n2000ErLandbrugHa": 1046.8734,
+      "andelLandbrugIN2000Pct": 31.9235,
+      "n2000ErLandbrugHaAllCrops": 1171.8242,
+      "afgkodePresent": true
     },
     "0376": {
       "kommuneNavn": "Guldborgsund",
       "n2000TotalHa": 2382.9836,
-      "n2000ErLandbrugHa": 845.5953,
-      "andelLandbrugIN2000Pct": 35.4847
+      "n2000ErLandbrugHa": 807.3891,
+      "andelLandbrugIN2000Pct": 33.8814,
+      "n2000ErLandbrugHaAllCrops": 845.5953,
+      "afgkodePresent": true
     },
     "0390": {
       "kommuneNavn": "Vordingborg",
       "n2000TotalHa": 1499.9459,
-      "n2000ErLandbrugHa": 533.2637,
-      "andelLandbrugIN2000Pct": 35.5522
+      "n2000ErLandbrugHa": 244.1518,
+      "andelLandbrugIN2000Pct": 16.2774,
+      "n2000ErLandbrugHaAllCrops": 533.2637,
+      "afgkodePresent": true
     },
     "0400": {
       "kommuneNavn": "Bornholm",
       "n2000TotalHa": 7232.1579,
-      "n2000ErLandbrugHa": 1095.1595,
-      "andelLandbrugIN2000Pct": 15.1429
+      "n2000ErLandbrugHa": 704.392,
+      "andelLandbrugIN2000Pct": 9.7397,
+      "n2000ErLandbrugHaAllCrops": 1095.6993,
+      "afgkodePresent": true
     },
     "0410": {
       "kommuneNavn": "Middelfart",
       "n2000TotalHa": 173.3862,
-      "n2000ErLandbrugHa": 86.6662,
-      "andelLandbrugIN2000Pct": 49.9845
+      "n2000ErLandbrugHa": 81.2804,
+      "andelLandbrugIN2000Pct": 46.8782,
+      "n2000ErLandbrugHaAllCrops": 86.6662,
+      "afgkodePresent": true
     },
     "0420": {
       "kommuneNavn": "Assens",
       "n2000TotalHa": 556.9389,
-      "n2000ErLandbrugHa": 382.6046,
-      "andelLandbrugIN2000Pct": 68.6978
+      "n2000ErLandbrugHa": 140.1433,
+      "andelLandbrugIN2000Pct": 25.1631,
+      "n2000ErLandbrugHaAllCrops": 382.0676,
+      "afgkodePresent": true
     },
     "0430": {
       "kommuneNavn": "Faaborg-Midtfyn",
       "n2000TotalHa": 3870.0046,
-      "n2000ErLandbrugHa": 1475.0263,
-      "andelLandbrugIN2000Pct": 38.1143
+      "n2000ErLandbrugHa": 1123.5201,
+      "andelLandbrugIN2000Pct": 29.0315,
+      "n2000ErLandbrugHaAllCrops": 1475.0264,
+      "afgkodePresent": true
     },
     "0440": {
       "kommuneNavn": "Kerteminde",
       "n2000TotalHa": 599.7795,
-      "n2000ErLandbrugHa": 328.1532,
-      "andelLandbrugIN2000Pct": 54.7123
+      "n2000ErLandbrugHa": 262.5892,
+      "andelLandbrugIN2000Pct": 43.781,
+      "n2000ErLandbrugHaAllCrops": 328.1532,
+      "afgkodePresent": true
     },
     "0450": {
       "kommuneNavn": "Nyborg",
       "n2000TotalHa": 364.2469,
-      "n2000ErLandbrugHa": 133.7735,
-      "andelLandbrugIN2000Pct": 36.7261
+      "n2000ErLandbrugHa": 4.0256,
+      "andelLandbrugIN2000Pct": 1.1052,
+      "n2000ErLandbrugHaAllCrops": 133.7735,
+      "afgkodePresent": true
     },
     "0461": {
       "kommuneNavn": "Odense",
       "n2000TotalHa": 485.7109,
-      "n2000ErLandbrugHa": 306.9103,
-      "andelLandbrugIN2000Pct": 63.1879
+      "n2000ErLandbrugHa": 252.9514,
+      "andelLandbrugIN2000Pct": 52.0786,
+      "n2000ErLandbrugHaAllCrops": 306.9105,
+      "afgkodePresent": true
     },
     "0479": {
       "kommuneNavn": "Svendborg",
       "n2000TotalHa": 1926.4417,
-      "n2000ErLandbrugHa": 1223.5778,
-      "andelLandbrugIN2000Pct": 63.5149
+      "n2000ErLandbrugHa": 1145.6263,
+      "andelLandbrugIN2000Pct": 59.4685,
+      "n2000ErLandbrugHaAllCrops": 1227.2211,
+      "afgkodePresent": true
     },
     "0480": {
       "kommuneNavn": "Nordfyns",
       "n2000TotalHa": 739.8962,
-      "n2000ErLandbrugHa": 350.2335,
-      "andelLandbrugIN2000Pct": 47.3355
+      "n2000ErLandbrugHa": 249.1339,
+      "andelLandbrugIN2000Pct": 33.6715,
+      "n2000ErLandbrugHaAllCrops": 350.2335,
+      "afgkodePresent": true
     },
     "0482": {
       "kommuneNavn": "Langeland",
       "n2000TotalHa": 4931.0096,
-      "n2000ErLandbrugHa": 3348.2301,
-      "andelLandbrugIN2000Pct": 67.9015
+      "n2000ErLandbrugHa": 3072.9655,
+      "andelLandbrugIN2000Pct": 62.3192,
+      "n2000ErLandbrugHaAllCrops": 3337.6932,
+      "afgkodePresent": true
     },
     "0492": {
       "kommuneNavn": "Ærø",
       "n2000TotalHa": 1989.4215,
-      "n2000ErLandbrugHa": 1477.0703,
-      "andelLandbrugIN2000Pct": 74.2462
+      "n2000ErLandbrugHa": 1412.1553,
+      "andelLandbrugIN2000Pct": 70.9832,
+      "n2000ErLandbrugHaAllCrops": 1477.0398,
+      "afgkodePresent": true
     },
     "0510": {
       "kommuneNavn": "Haderslev",
       "n2000TotalHa": 2268.4361,
-      "n2000ErLandbrugHa": 593.9736,
-      "andelLandbrugIN2000Pct": 26.1843
+      "n2000ErLandbrugHa": 312.488,
+      "andelLandbrugIN2000Pct": 13.7755,
+      "n2000ErLandbrugHaAllCrops": 593.9736,
+      "afgkodePresent": true
     },
     "0530": {
       "kommuneNavn": "Billund",
       "n2000TotalHa": 1009.7095,
-      "n2000ErLandbrugHa": 367.6337,
-      "andelLandbrugIN2000Pct": 36.4098
+      "n2000ErLandbrugHa": 190.2444,
+      "andelLandbrugIN2000Pct": 18.8415,
+      "n2000ErLandbrugHaAllCrops": 367.6337,
+      "afgkodePresent": true
     },
     "0540": {
       "kommuneNavn": "Sønderborg",
       "n2000TotalHa": 2059.6709,
-      "n2000ErLandbrugHa": 218.1905,
-      "andelLandbrugIN2000Pct": 10.5935
+      "n2000ErLandbrugHa": 174.7302,
+      "andelLandbrugIN2000Pct": 8.4834,
+      "n2000ErLandbrugHaAllCrops": 218.1905,
+      "afgkodePresent": true
     },
     "0550": {
       "kommuneNavn": "Tønder",
       "n2000TotalHa": 3581.1332,
-      "n2000ErLandbrugHa": 961.4042,
-      "andelLandbrugIN2000Pct": 26.8464
+      "n2000ErLandbrugHa": 789.154,
+      "andelLandbrugIN2000Pct": 22.0364,
+      "n2000ErLandbrugHaAllCrops": 961.3991,
+      "afgkodePresent": true
     },
     "0561": {
       "kommuneNavn": "Esbjerg",
       "n2000TotalHa": 651.4713,
-      "n2000ErLandbrugHa": 436.9332,
-      "andelLandbrugIN2000Pct": 67.0687
+      "n2000ErLandbrugHa": 396.25,
+      "andelLandbrugIN2000Pct": 60.8239,
+      "n2000ErLandbrugHaAllCrops": 441.1417,
+      "afgkodePresent": true
     },
     "0563": {
       "kommuneNavn": "Fanø",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0573": {
       "kommuneNavn": "Varde",
       "n2000TotalHa": 14960.4408,
-      "n2000ErLandbrugHa": 3765.5353,
-      "andelLandbrugIN2000Pct": 25.1699
+      "n2000ErLandbrugHa": 2460.868,
+      "andelLandbrugIN2000Pct": 16.4492,
+      "n2000ErLandbrugHaAllCrops": 3781.3486,
+      "afgkodePresent": true
     },
     "0575": {
       "kommuneNavn": "Vejen",
       "n2000TotalHa": 1206.1389,
-      "n2000ErLandbrugHa": 598.0763,
-      "andelLandbrugIN2000Pct": 49.586
+      "n2000ErLandbrugHa": 411.1648,
+      "andelLandbrugIN2000Pct": 34.0893,
+      "n2000ErLandbrugHaAllCrops": 593.662,
+      "afgkodePresent": true
     },
     "0580": {
       "kommuneNavn": "Aabenraa",
       "n2000TotalHa": 3559.9969,
-      "n2000ErLandbrugHa": 989.0893,
-      "andelLandbrugIN2000Pct": 27.7834
+      "n2000ErLandbrugHa": 894.9148,
+      "andelLandbrugIN2000Pct": 25.1381,
+      "n2000ErLandbrugHaAllCrops": 989.0864,
+      "afgkodePresent": true
     },
     "0607": {
       "kommuneNavn": "Fredericia",
       "n2000TotalHa": 0.0,
       "n2000ErLandbrugHa": 0.0,
-      "andelLandbrugIN2000Pct": null
+      "andelLandbrugIN2000Pct": null,
+      "n2000ErLandbrugHaAllCrops": 0.0,
+      "afgkodePresent": true
     },
     "0615": {
       "kommuneNavn": "Horsens",
       "n2000TotalHa": 2121.6805,
-      "n2000ErLandbrugHa": 619.291,
-      "andelLandbrugIN2000Pct": 29.1887
+      "n2000ErLandbrugHa": 466.7456,
+      "andelLandbrugIN2000Pct": 21.9989,
+      "n2000ErLandbrugHaAllCrops": 619.1701,
+      "afgkodePresent": true
     },
     "0621": {
       "kommuneNavn": "Kolding",
       "n2000TotalHa": 413.5113,
       "n2000ErLandbrugHa": 75.9347,
-      "andelLandbrugIN2000Pct": 18.3634
+      "andelLandbrugIN2000Pct": 18.3634,
+      "n2000ErLandbrugHaAllCrops": 75.9347,
+      "afgkodePresent": true
     },
     "0630": {
       "kommuneNavn": "Vejle",
       "n2000TotalHa": 5079.3851,
-      "n2000ErLandbrugHa": 1791.1091,
-      "andelLandbrugIN2000Pct": 35.2623
+      "n2000ErLandbrugHa": 1248.6304,
+      "andelLandbrugIN2000Pct": 24.5823,
+      "n2000ErLandbrugHaAllCrops": 1790.3997,
+      "afgkodePresent": true
     },
     "0657": {
       "kommuneNavn": "Herning",
       "n2000TotalHa": 3396.3781,
-      "n2000ErLandbrugHa": 440.6027,
-      "andelLandbrugIN2000Pct": 12.9727
+      "n2000ErLandbrugHa": 385.5141,
+      "andelLandbrugIN2000Pct": 11.3507,
+      "n2000ErLandbrugHaAllCrops": 440.6027,
+      "afgkodePresent": true
     },
     "0661": {
       "kommuneNavn": "Holstebro",
       "n2000TotalHa": 6263.1552,
-      "n2000ErLandbrugHa": 2734.2063,
-      "andelLandbrugIN2000Pct": 43.6554
+      "n2000ErLandbrugHa": 1954.7588,
+      "andelLandbrugIN2000Pct": 31.2104,
+      "n2000ErLandbrugHaAllCrops": 2732.8217,
+      "afgkodePresent": true
     },
     "0665": {
       "kommuneNavn": "Lemvig",
       "n2000TotalHa": 5340.0497,
-      "n2000ErLandbrugHa": 2848.6196,
-      "andelLandbrugIN2000Pct": 53.3444
+      "n2000ErLandbrugHa": 1803.9966,
+      "andelLandbrugIN2000Pct": 33.7824,
+      "n2000ErLandbrugHaAllCrops": 2849.48,
+      "afgkodePresent": true
     },
     "0671": {
       "kommuneNavn": "Struer",
       "n2000TotalHa": 704.3841,
-      "n2000ErLandbrugHa": 329.7203,
-      "andelLandbrugIN2000Pct": 46.8097
+      "n2000ErLandbrugHa": 273.8003,
+      "andelLandbrugIN2000Pct": 38.8709,
+      "n2000ErLandbrugHaAllCrops": 329.7203,
+      "afgkodePresent": true
     },
     "0706": {
       "kommuneNavn": "Syddjurs",
       "n2000TotalHa": 4499.4863,
-      "n2000ErLandbrugHa": 2134.4774,
-      "andelLandbrugIN2000Pct": 47.4382
+      "n2000ErLandbrugHa": 1602.1353,
+      "andelLandbrugIN2000Pct": 35.6071,
+      "n2000ErLandbrugHaAllCrops": 2138.8973,
+      "afgkodePresent": true
     },
     "0707": {
       "kommuneNavn": "Norddjurs",
       "n2000TotalHa": 1889.3637,
-      "n2000ErLandbrugHa": 1140.2055,
-      "andelLandbrugIN2000Pct": 60.3487
+      "n2000ErLandbrugHa": 1128.77,
+      "andelLandbrugIN2000Pct": 59.7434,
+      "n2000ErLandbrugHaAllCrops": 1139.4935,
+      "afgkodePresent": true
     },
     "0710": {
       "kommuneNavn": "Favrskov",
       "n2000TotalHa": 28.0598,
-      "n2000ErLandbrugHa": 8.4741,
-      "andelLandbrugIN2000Pct": 30.2001
+      "n2000ErLandbrugHa": 8.4735,
+      "andelLandbrugIN2000Pct": 30.198,
+      "n2000ErLandbrugHaAllCrops": 8.4741,
+      "afgkodePresent": true
     },
     "0727": {
       "kommuneNavn": "Odder",
       "n2000TotalHa": 102.1661,
-      "n2000ErLandbrugHa": 71.8243,
-      "andelLandbrugIN2000Pct": 70.3015
+      "n2000ErLandbrugHa": 49.7686,
+      "andelLandbrugIN2000Pct": 48.7134,
+      "n2000ErLandbrugHaAllCrops": 71.8243,
+      "afgkodePresent": true
     },
     "0730": {
       "kommuneNavn": "Randers",
       "n2000TotalHa": 5735.705,
-      "n2000ErLandbrugHa": 3235.0846,
-      "andelLandbrugIN2000Pct": 56.4026
+      "n2000ErLandbrugHa": 2966.2988,
+      "andelLandbrugIN2000Pct": 51.7164,
+      "n2000ErLandbrugHaAllCrops": 3234.6821,
+      "afgkodePresent": true
     },
     "0740": {
       "kommuneNavn": "Silkeborg",
       "n2000TotalHa": 8584.6564,
-      "n2000ErLandbrugHa": 1127.8626,
-      "andelLandbrugIN2000Pct": 13.1381
+      "n2000ErLandbrugHa": 654.8458,
+      "andelLandbrugIN2000Pct": 7.6281,
+      "n2000ErLandbrugHaAllCrops": 1131.7589,
+      "afgkodePresent": true
     },
     "0741": {
       "kommuneNavn": "Samsø",
       "n2000TotalHa": 1449.4739,
-      "n2000ErLandbrugHa": 957.4813,
-      "andelLandbrugIN2000Pct": 66.0572
+      "n2000ErLandbrugHa": 791.2847,
+      "andelLandbrugIN2000Pct": 54.5912,
+      "n2000ErLandbrugHaAllCrops": 958.9571,
+      "afgkodePresent": true
     },
     "0746": {
       "kommuneNavn": "Skanderborg",
       "n2000TotalHa": 2542.924,
-      "n2000ErLandbrugHa": 248.623,
-      "andelLandbrugIN2000Pct": 9.7771
+      "n2000ErLandbrugHa": 211.3215,
+      "andelLandbrugIN2000Pct": 8.3102,
+      "n2000ErLandbrugHaAllCrops": 250.1923,
+      "afgkodePresent": true
     },
     "0751": {
       "kommuneNavn": "Aarhus",
       "n2000TotalHa": 1210.1299,
-      "n2000ErLandbrugHa": 473.8206,
-      "andelLandbrugIN2000Pct": 39.1545
+      "n2000ErLandbrugHa": 137.1872,
+      "andelLandbrugIN2000Pct": 11.3366,
+      "n2000ErLandbrugHaAllCrops": 473.8206,
+      "afgkodePresent": true
     },
     "0756": {
       "kommuneNavn": "Ikast-Brande",
       "n2000TotalHa": 5348.588,
-      "n2000ErLandbrugHa": 658.56,
-      "andelLandbrugIN2000Pct": 12.3128
+      "n2000ErLandbrugHa": 409.7334,
+      "andelLandbrugIN2000Pct": 7.6606,
+      "n2000ErLandbrugHaAllCrops": 657.3427,
+      "afgkodePresent": true
     },
     "0760": {
       "kommuneNavn": "Ringkøbing-Skjern",
       "n2000TotalHa": 21373.5868,
-      "n2000ErLandbrugHa": 9311.5412,
-      "andelLandbrugIN2000Pct": 43.5656
+      "n2000ErLandbrugHa": 7812.8291,
+      "andelLandbrugIN2000Pct": 36.5537,
+      "n2000ErLandbrugHaAllCrops": 9301.3962,
+      "afgkodePresent": true
     },
     "0766": {
       "kommuneNavn": "Hedensted",
       "n2000TotalHa": 3775.0712,
-      "n2000ErLandbrugHa": 1588.8106,
-      "andelLandbrugIN2000Pct": 42.0869
+      "n2000ErLandbrugHa": 1261.7239,
+      "andelLandbrugIN2000Pct": 33.4225,
+      "n2000ErLandbrugHaAllCrops": 1588.8106,
+      "afgkodePresent": true
     },
     "0773": {
       "kommuneNavn": "Morsø",
       "n2000TotalHa": 1492.8089,
-      "n2000ErLandbrugHa": 863.2644,
-      "andelLandbrugIN2000Pct": 57.8282
+      "n2000ErLandbrugHa": 728.2895,
+      "andelLandbrugIN2000Pct": 48.7865,
+      "n2000ErLandbrugHaAllCrops": 857.9093,
+      "afgkodePresent": true
     },
     "0779": {
       "kommuneNavn": "Skive",
       "n2000TotalHa": 2915.8437,
-      "n2000ErLandbrugHa": 1519.3194,
-      "andelLandbrugIN2000Pct": 52.1057
+      "n2000ErLandbrugHa": 934.3977,
+      "andelLandbrugIN2000Pct": 32.0455,
+      "n2000ErLandbrugHaAllCrops": 1544.37,
+      "afgkodePresent": true
     },
     "0787": {
       "kommuneNavn": "Thisted",
       "n2000TotalHa": 27357.9771,
-      "n2000ErLandbrugHa": 6712.2779,
-      "andelLandbrugIN2000Pct": 24.535
+      "n2000ErLandbrugHa": 4969.6922,
+      "andelLandbrugIN2000Pct": 18.1654,
+      "n2000ErLandbrugHaAllCrops": 6800.4684,
+      "afgkodePresent": true
     },
     "0791": {
       "kommuneNavn": "Viborg",
       "n2000TotalHa": 15489.7735,
-      "n2000ErLandbrugHa": 8754.0781,
-      "andelLandbrugIN2000Pct": 56.5152
+      "n2000ErLandbrugHa": 6295.1553,
+      "andelLandbrugIN2000Pct": 40.6407,
+      "n2000ErLandbrugHaAllCrops": 8763.5547,
+      "afgkodePresent": true
     },
     "0810": {
       "kommuneNavn": "Brønderslev",
       "n2000TotalHa": 1973.0668,
-      "n2000ErLandbrugHa": 1272.8902,
-      "andelLandbrugIN2000Pct": 64.5133
+      "n2000ErLandbrugHa": 938.2138,
+      "andelLandbrugIN2000Pct": 47.551,
+      "n2000ErLandbrugHaAllCrops": 1272.8758,
+      "afgkodePresent": true
     },
     "0813": {
       "kommuneNavn": "Frederikshavn",
       "n2000TotalHa": 12292.7859,
-      "n2000ErLandbrugHa": 3883.6166,
-      "andelLandbrugIN2000Pct": 31.5926
+      "n2000ErLandbrugHa": 2630.744,
+      "andelLandbrugIN2000Pct": 21.4007,
+      "n2000ErLandbrugHaAllCrops": 3878.4229,
+      "afgkodePresent": true
     },
     "0820": {
       "kommuneNavn": "Vesthimmerlands",
       "n2000TotalHa": 4732.0404,
-      "n2000ErLandbrugHa": 3511.0295,
-      "andelLandbrugIN2000Pct": 74.1969
+      "n2000ErLandbrugHa": 2925.9416,
+      "andelLandbrugIN2000Pct": 61.8326,
+      "n2000ErLandbrugHaAllCrops": 3526.9213,
+      "afgkodePresent": true
     },
     "0825": {
       "kommuneNavn": "Læsø",
       "n2000TotalHa": 727.5738,
-      "n2000ErLandbrugHa": 452.5068,
-      "andelLandbrugIN2000Pct": 62.1939
+      "n2000ErLandbrugHa": 296.4095,
+      "andelLandbrugIN2000Pct": 40.7394,
+      "n2000ErLandbrugHaAllCrops": 452.5068,
+      "afgkodePresent": true
     },
     "0840": {
       "kommuneNavn": "Rebild",
       "n2000TotalHa": 6800.7365,
-      "n2000ErLandbrugHa": 2986.5545,
-      "andelLandbrugIN2000Pct": 43.9152
+      "n2000ErLandbrugHa": 1309.733,
+      "andelLandbrugIN2000Pct": 19.2587,
+      "n2000ErLandbrugHaAllCrops": 2986.537,
+      "afgkodePresent": true
     },
     "0846": {
       "kommuneNavn": "Mariagerfjord",
       "n2000TotalHa": 8202.8284,
-      "n2000ErLandbrugHa": 3791.3072,
-      "andelLandbrugIN2000Pct": 46.2195
+      "n2000ErLandbrugHa": 1901.3973,
+      "andelLandbrugIN2000Pct": 23.1798,
+      "n2000ErLandbrugHaAllCrops": 3848.4736,
+      "afgkodePresent": true
     },
     "0849": {
       "kommuneNavn": "Jammerbugt",
       "n2000TotalHa": 9972.8432,
-      "n2000ErLandbrugHa": 4603.2345,
-      "andelLandbrugIN2000Pct": 46.1577
+      "n2000ErLandbrugHa": 3694.2079,
+      "andelLandbrugIN2000Pct": 37.0427,
+      "n2000ErLandbrugHaAllCrops": 4593.1701,
+      "afgkodePresent": true
     },
     "0851": {
       "kommuneNavn": "Aalborg",
       "n2000TotalHa": 11660.3437,
-      "n2000ErLandbrugHa": 5485.2312,
-      "andelLandbrugIN2000Pct": 47.0418
+      "n2000ErLandbrugHa": 3733.0755,
+      "andelLandbrugIN2000Pct": 32.0151,
+      "n2000ErLandbrugHaAllCrops": 5478.0187,
+      "afgkodePresent": true
     },
     "0860": {
       "kommuneNavn": "Hjørring",
       "n2000TotalHa": 1809.5877,
-      "n2000ErLandbrugHa": 669.0538,
-      "andelLandbrugIN2000Pct": 36.9727
+      "n2000ErLandbrugHa": 354.3242,
+      "andelLandbrugIN2000Pct": 19.5804,
+      "n2000ErLandbrugHaAllCrops": 662.0148,
+      "afgkodePresent": true
     }
   }
 }

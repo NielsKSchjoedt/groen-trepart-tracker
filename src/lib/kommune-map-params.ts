@@ -14,6 +14,7 @@ import {
   DEFAULT_KOMMUNE_MAP_OVERLAYS,
   parseKommuneMapOverlays,
 } from '@/lib/kommune-map-overlays';
+import { PERMALINK_KEYS } from '@/lib/permalink/schema';
 
 export interface KommuneMapViewState {
   fordelingViewMode: FordelingViewMode;
@@ -22,6 +23,7 @@ export interface KommuneMapViewState {
   selectedPhases: Set<KommunePhase>;
   activeSupplements: Set<SupplementSource>;
   mapOverlays: Set<KommuneMapOverlayToken>;
+  fullscreen: boolean;
 }
 
 const PHASE_SLUG: Record<KommunePhase, string> = {
@@ -131,6 +133,7 @@ export function parseKommuneMapViewState(params: URLSearchParams): KommuneMapVie
     selectedPhases,
     activeSupplements,
     mapOverlays: parseKommuneMapOverlays(params),
+    fullscreen: params.get(PERMALINK_KEYS.fuldskaerm) === '1',
   };
 }
 
@@ -144,6 +147,7 @@ export function applyKommuneMapViewState(
   params.delete('natur');
   params.delete('faser');
   params.delete('tilvalg');
+  params.delete(PERMALINK_KEYS.fuldskaerm);
 
   const viewSlug = VIEW_SLUG[state.fordelingViewMode];
   if (viewSlug) params.set('vis', viewSlug);
@@ -172,6 +176,10 @@ export function applyKommuneMapViewState(
   }
 
   applyKommuneMapOverlays(params, state.mapOverlays);
+
+  if (state.fullscreen) {
+    params.set(PERMALINK_KEYS.fuldskaerm, '1');
+  }
 }
 
 export function parseKommuneMetricParam(params: URLSearchParams): KommuneMetric | null {
@@ -234,6 +242,7 @@ export function resetMapViewParamsForMetric(params: URLSearchParams, metric: Kom
     selectedPhases: new Set(DEFAULT_PHASES),
     activeSupplements: new Set(),
     mapOverlays: new Set(DEFAULT_KOMMUNE_MAP_OVERLAYS),
+    fullscreen: false,
   });
   params.set('metric', PILLAR_SLUGS[metric]);
 }

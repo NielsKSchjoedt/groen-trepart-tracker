@@ -18,3 +18,4 @@ export * from './slices/projects';
 export * from './slices/fremskrivning';
 export * from './slices/standings';
 export * from './slices/section';
+export * from './vis-paa-kort';

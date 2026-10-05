@@ -187,6 +187,11 @@ export function StreamCard({ stroem }: StreamCardProps) {
         </div>
 
         <SourceLine label={stroem.source.label} url={stroem.source.url} accentColor={t.ink} />
+        {stroem.id === 'kapacitet' && (
+          <p className="mt-2 text-[10px] leading-snug text-muted-foreground">
+            461,8 mio. kr. er vores egen læsning af Rammeaftale MGTP–KL tabel 1 — ikke uafhængigt valideret.
+          </p>
+        )}
       </div>
     </div>
   );

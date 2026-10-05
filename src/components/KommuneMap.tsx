@@ -3,6 +3,7 @@ import L from 'leaflet';
 import type { FeatureCollection, Geometry, Feature } from 'geojson';
 import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData, ProjectNatureOverlapData } from '@/lib/types';
 import type { KommuneMetric, KommunePhase } from '@/lib/kommune-metrics';
+import { DEFAULT_PHASES } from '@/lib/kommune-metrics';
 import type { ChoroplethScaleMode, FordelingViewMode, NatureLayerKey } from '@/lib/kommune-map-visualization';
 import {
   resolveKommuneMapColor,
@@ -76,7 +77,7 @@ export function KommuneMap({
   kommuneRanking = null,
   ansvarIndexByKode = {},
   dashboard = null,
-  selectedPhases = new Set(['established']),
+  selectedPhases = new Set(DEFAULT_PHASES),
   showProjectLayer = true,
   onProjectClick,
 }: KommuneMapProps) {

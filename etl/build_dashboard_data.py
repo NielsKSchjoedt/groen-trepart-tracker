@@ -169,6 +169,17 @@ for s in master.get("states", []):
 measure_lookup = {m["id"]: m for m in master.get("mitigationMeasures", [])}
 scheme_lookup = {s["id"]: s for s in master.get("subsidySchemes", [])}
 
+# supplementaryGeometryTypeId → {type, title} across all schemes
+_geom_type_lookup: dict[str, dict[str, str | None]] = {}
+for _scheme in master.get("subsidySchemes", []):
+    for _gt in _scheme.get("supplementaryGeometryTypes") or []:
+        _gid = _gt.get("id")
+        if _gid:
+            _geom_type_lookup[_gid] = {
+                "type": _gt.get("type"),
+                "title": _gt.get("title") or "",
+            }
+
 # Some subsidy-scheme URLs in MARS master-data are stale (404). Landbrugsstyrelsens
 # (LBST) tilskudssider er flyttet til Styrelsen for Grøn Arealomlægning og Vandmiljø
 # (sgav.dk/sgavmst.dk), og enkelte NST-stier er ændret. Vi overskriver dem her,
@@ -378,6 +389,11 @@ def enrich_project(p):
     kommune_data = GEO_ID_KOMMUNE.get(geo_id)
 
     project_type = project_type_from_measure_name(measure.get("name", ""))
+    supplementary = slim_supplementary_geometries(p.get("supplementaryGeometries"))
+    uroert_ha = round(
+        sum(g["areaHa"] for g in supplementary if g.get("type") == "uroert_skov"),
+        2,
+    )
     return {
         "id": p.get("projectId", ""),
         "name": p.get("projectName", "Unavngivet projekt"),
@@ -402,6 +418,8 @@ def enrich_project(p):
         "lastChanged": p.get("lastStateChanged", ""),
         "kommuneKode": kommune_data["kode"] if kommune_data else None,
         "kommuneNavn": kommune_data["navn"] if kommune_data else None,
+        "supplementaryGeometries": supplementary or None,
+        "uroertSkovHa": uroert_ha or None,
     }
 
 
@@ -431,6 +449,118 @@ def enrich_sketch(s):
         "extractionHa": round(s.get("extractionEffortHa", 0) or 0, 2),
         "afforestationHa": round(s.get("afforestationEffortHa", 0) or 0, 2),
         "areaHa": round(s.get("overlappingAreaHa", 0) or 0, 2),
+    }
+
+
+def slim_supplementary_geometries(raw) -> list[dict]:
+    """Resolve supplementaryGeometryTypeId to type/title; drop empty lists."""
+    if not raw:
+        return []
+    out = []
+    for g in raw:
+        tid = g.get("supplementaryGeometryTypeId") or ""
+        meta = _geom_type_lookup.get(tid, {})
+        out.append({
+            "name": g.get("name") or "",
+            "areaHa": round(g.get("areaHa") or 0, 2),
+            "type": meta.get("type"),
+            "title": meta.get("title") or "",
+            "typeId": tid,
+        })
+    return out
+
+
+def slim_scheme_overlaps(raw) -> list[dict]:
+    out = []
+    for o in raw or []:
+        out.append({
+            "datasetId": o.get("datasetId") or "",
+            "mustOverlap": bool(o.get("mustOverlap")),
+            "mustNotOverlap": bool(o.get("mustNotOverlap")),
+            "overlapOkMessage": (o.get("overlapOkMessage") or "").strip(),
+            "overlapNotOkMessage": (o.get("overlapNotOkMessage") or "").strip(),
+            "minOverlapAreaHa": o.get("minOverlapAreaHa"),
+            "minNitrogenReductionT": o.get("minNitrogenReductionT"),
+        })
+    return out
+
+
+def slim_scheme_geom_types(raw) -> list[dict]:
+    out = []
+    for t in raw or []:
+        out.append({
+            "id": t.get("id") or "",
+            "title": t.get("title") or "",
+            "type": t.get("type"),
+            "mustOverlapWithDatasets": t.get("mustOverlapWithDatasets"),
+            "mustNotOverlapWithDatasets": t.get("mustNotOverlapWithDatasets"),
+        })
+    return out
+
+
+def slim_field_dataset_configurations() -> list[dict]:
+    out = []
+    for cfg in master.get("fieldDatasetConfigurations") or []:
+        excluded = []
+        for overlap in cfg.get("fieldDatasetConfigurationOverlaps") or []:
+            if overlap.get("attributeName") == "Afgkode" and overlap.get("attributeOperator") == "<>":
+                excluded.extend(str(v) for v in (overlap.get("attributeValues") or []))
+        out.append({
+            "datasetId": cfg.get("datasetId") or "",
+            "title": cfg.get("title") or "",
+            "year": cfg.get("year"),
+            "excludedAfgkoder": excluded,
+        })
+    return out
+
+
+def build_mars_nature_summary() -> dict:
+    """Unique-project nature pipeline counts + documented urørt skov from raw MARS."""
+    from collections import Counter
+    from nature_projects import (
+        NATURE_PIPELINE_MEASURES,
+        UROERT_SKOV_TYPE_ID,
+        is_nature_pipeline_measure,
+    )
+
+    measure_names = Counter()
+    uroert_projects = set()
+    uroert_geoms = 0
+    uroert_ha = 0.0
+    for p in projects:
+        mname = measure_lookup.get(p.get("mitigationMeasureId"), {}).get("name", "")
+        measure_names[mname] += 1
+        for g in p.get("supplementaryGeometries") or []:
+            if g.get("supplementaryGeometryTypeId") == UROERT_SKOV_TYPE_ID:
+                uroert_geoms += 1
+                uroert_ha += g.get("areaHa") or 0
+                uroert_projects.add(p.get("projectId"))
+    unique_n = len(projects)
+    lavbund = measure_names.get("Lavbundsprojekter", 0)
+    affor = measure_names.get("Skovrejsning", 0)
+    pipeline = sum(measure_names[m] for m in NATURE_PIPELINE_MEASURES)
+    return {
+        "uniqueProjects": unique_n,
+        "naturePipelineProjects": pipeline,
+        "lavbundProjects": lavbund,
+        "afforestationProjects": affor,
+        "excludedProjects": unique_n - pipeline,
+        "uroertSkov": {
+            "projectCount": len(uroert_projects),
+            "geometryCount": uroert_geoms,
+            "areaHa": round(uroert_ha, 2),
+            "typeId": UROERT_SKOV_TYPE_ID,
+            "note": (
+                "Kun SGAV-ordningen Skovrejsning kan registrere urørt skov. "
+                "Privat Skovrejsning (LBST) og NST Skovrejsning har ingen geometri-type for det, "
+                "så 26 ha er et underkantstal — ikke et filter vi kan bruge landsdækkende."
+            ),
+        },
+        "subsidySitingNote": (
+            "MARS holder tilskudsareal ude af registreret §3-natur: tilskudsberettiget areal "
+            "for skovrejsning må ikke overlappe urn:dmp:ds:beskyttede-naturtyper, og Permanent "
+            "ekstensivering skriver «Areal må ikke overlappe med et registreret § 3. naturområde.»"
+        ),
     }
 
 
@@ -782,9 +912,14 @@ dashboard_data = {
             "mitigationMeasureId": s.get("mitigationMeasureId", ""),
             "description": (s.get("description") or "").strip(),
             "applicantText": (s.get("applicantText") or "").strip(),
+            "overlaps": slim_scheme_overlaps(s.get("subsidySchemeOverlaps")),
+            "supplementaryGeometryTypes": slim_scheme_geom_types(s.get("supplementaryGeometryTypes")),
         }
         for s in master.get("subsidySchemes", [])
     ],
+
+    "fieldDatasetConfigurations": slim_field_dataset_configurations(),
+    "marsNature": build_mars_nature_summary(),
 
     "driftFinansiering": {
         "afsat": False,

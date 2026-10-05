@@ -7,6 +7,7 @@ import type { PillarId } from './pillars';
 import type { KommuneMetric } from './kommune-metrics';
 import type { ProjectPhase } from './phase-config';
 import { buildMarsProjectOverlapByGeoId } from './mars-kommune-overlap';
+import { projectMatchesPillar } from './pillar-projects';
 
 /** Screen bbox must reach this multiple of dot diameter before switching from dot to polygon. */
 export const MAP_PROJECT_POLYGON_MIN_DOT_FACTOR = 1;
@@ -90,12 +91,6 @@ export function findMarsProjectByGeoId(
   return undefined;
 }
 
-const PILLAR_EFFECT_FIELD: Partial<Record<PillarId, keyof ProjectDetail>> = {
-  nitrogen: 'nitrogenT',
-  extraction: 'extractionHa',
-  afforestation: 'afforestationHa',
-};
-
 const PIPELINE_TO_FILTER_PHASE: Record<string, ProjectPhase> = {
   sketch: 'sketch',
   preliminary_grant: 'preliminary',
@@ -117,10 +112,7 @@ function pillarRelevant(
   project: ProjectDetail | SketchProject,
   pillarId: PillarId,
 ): boolean {
-  if (pillarId === 'nature' || pillarId === 'co2') return pillarId === 'nature';
-  const field = PILLAR_EFFECT_FIELD[pillarId];
-  if (!field) return false;
-  return ((project as Record<string, unknown>)[field] as number) > 0;
+  return projectMatchesPillar(project, pillarId);
 }
 
 /**
@@ -161,7 +153,12 @@ export function collectMapProjects(
     }
   }
 
-  return items;
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    if (seen.has(item.geoId)) return false;
+    seen.add(item.geoId);
+    return true;
+  });
 }
 
 /** Simple centroid of a GeoJSON outer ring ([lng, lat] pairs). */

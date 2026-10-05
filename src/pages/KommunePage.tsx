@@ -58,6 +58,7 @@ export default function KommunePage() {
     selectedPhases,
     activeSupplements,
     mapOverlays,
+    fullscreen,
   } = mapView;
 
   const patchMapView = (patch: Partial<typeof mapView>) => {
@@ -74,6 +75,7 @@ export default function KommunePage() {
   const setChoroplethScale = (mode: ChoroplethScaleMode) => patchMapView({ choroplethScale: mode });
   const setNatureLayer = (layer: NatureLayerKey) => patchMapView({ natureLayer: layer });
   const setMapOverlays = (overlays: typeof mapOverlays) => patchMapView({ mapOverlays: overlays });
+  const setFullscreen = (open: boolean) => patchMapView({ fullscreen: open });
 
   const { data, kommunerGeo, ksfProjects, nstProjects, kommuneRanking, kommuneBenchmark, klimaregnskab, fordelingSimulation, loadError, isLoading } = useKommuneData();
 
@@ -256,9 +258,11 @@ export default function KommunePage() {
             nstProjects={nstProjects}
             showPhaseFilter={showPhaseFilter}
             onPhasesChange={setSelectedPhases}
-            phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Ansvar-indekset (×) genberegnes efter valgte faser."
+            phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er forundersøgelse, godkendt og anlagt — skitser tæller ikke med. Ansvar-indekset (×) genberegnes efter valgte faser."
             supplementSources={supplementSources}
             onSupplementsChange={setActiveSupplements}
+            isFullscreen={fullscreen}
+            onFullscreenChange={setFullscreen}
             compactMapControls
             filterControls={
               activeMetric !== null ? (

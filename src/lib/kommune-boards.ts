@@ -233,7 +233,7 @@ export const BOARDS: BoardDef[] = [
         id: 'projektnatur',
         label: 'Natur berørt af projekter',
         sub: 'Projektareal på kortlagt natur (ha)',
-        desc: 'Hvor mange hektar af kommunens trepart-projekter der ligger oven på kortlagt natur (biodiversitetskortet). Projekter er klippet til kommunegrænser, så areal ikke tælles dobbelt. En stærk indikator for naturpotentiale — IKKE en garanti for, at naturen reelt forbedres.',
+        desc: 'Hvor mange hektar af kommunens trepart-projekter der ligger oven på kortlagt natur (biodiversitetskortet). Projekter er klippet til kommunegrænser, så areal ikke tælles dobbelt. Overlap er stedsspecifikt og ikke en ubetinget god indikator — projekter lagt hvor der allerede er natur kan ramme eksisterende beskyttelse, ikke ny natur.',
         formula: {
           kind: 'sum',
           expr: 'Projektareal i kommunen der overlapper DCE-biodiversitetskortet (ha)',

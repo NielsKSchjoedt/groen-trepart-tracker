@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-09-11T10:24:00.621409+00:00",
+  "generatedAt": "2026-09-11T21:49:17.931395+00:00",
   "recentRuns": [
     {
       "date": "2026-09-11",
-      "runAt": "2026-09-11T10:15:24.261884+00:00",
+      "runAt": "2026-09-11T21:49:17.899449+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1668,
+          "projects": 1669,
           "plans": 37,
           "notes": "All endpoints OK"
         },
         "dawa": {
           "status": "ok",
           "municipalities": 99,
-          "notes": "Skipped — files fresh (< 30 days old)"
+          "notes": "99 municipalities, 99 features"
         },
         "miljoegis": {
           "status": "ok",
@@ -45,6 +45,44 @@
           "status": "ok",
           "stations": 2882,
           "notes": "2882 stations, 2882 with coordinates"
+        },
+        "markkort-marker-2026": {
+          "status": "ok",
+          "notes": "Marker_2026 per-kommune bbox fetch (0 errors)"
+        },
+        "arealdata-biodiversitet": {
+          "status": "ok",
+          "ku1": 239,
+          "ku2": 239,
+          "dce_hits": 83579,
+          "dce_fetched": 83579,
+          "notes": "Arealdata WFS. FULL_DCE=True. KU+ audit."
+        },
+        "fvm-markkort-vns": {
+          "status": "ok",
+          "vns": 4213,
+          "municipalities_tagged": 83,
+          "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary"
+        },
+        "fetch_coastal_status": {
+          "status": "ok",
+          "notes": "Ecological: {'Ringe': 55, 'Dårlig': 25, 'Moderat': 24, 'God': 5}"
+        },
+        "section3-by-kommune": {
+          "status": "ok",
+          "notes": "§3 ais_par3 per-kommune bbox fetch (0 errors)"
+        },
+        "kommune-benchmark": {
+          "status": "ok",
+          "notes": "Sprint 4 B1/B2/B3 + B4 værdi-beskyttelse + national fordelings-simulering"
+        },
+        "kommune-oplande": {
+          "status": "ok",
+          "notes": "Sprint 6 kommune × opland crosswalk"
+        },
+        "kommune-ranking": {
+          "status": "ok",
+          "notes": "Sprint 6 kommune competition ranking"
         }
       }
     },

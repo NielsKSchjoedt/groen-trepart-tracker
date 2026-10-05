@@ -7,7 +7,6 @@ import type { Plan, DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovPro
 import { loadKlimaskovfondenProjects, loadNaturstyrelsenSkovProjects } from '@/lib/data';
 import { AlertTriangle, ArrowUpDown, ArrowUp, ArrowDown, Search, TableProperties, ChevronDown, ChevronRight, Hammer, Droplets, MapPin, Mountain, Trees, TreePine, Landmark, Leaf, Shield, ExternalLink } from 'lucide-react';
 import { getPhaseConfig } from '@/lib/phase-config';
-import { NatureWatermark } from './NatureWatermark';
 import { ProjectList } from './ProjectList';
 import { InfoTooltip } from './InfoTooltip';
 import { RecentActivity } from './RecentActivity';
@@ -1091,23 +1090,6 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-6 relative overflow-hidden">
-      {/* Watermarks */}
-      {pillarConfig.watermarks.slice(0, 5).map((animal, i) => {
-        const positions = [
-          'absolute -right-4 top-20 opacity-[0.08] hidden lg:block',
-          'absolute left-0 bottom-16 opacity-[0.09] hidden lg:block',
-          'absolute right-1/4 bottom-8 opacity-[0.07] hidden md:block',
-          'absolute left-1/3 top-8 opacity-[0.06] hidden xl:block animate-gentle-sway',
-          'absolute right-8 top-4 opacity-[0.08] hidden lg:block',
-        ];
-        const sizes = [100, 90, 80, 50, 70];
-        return (
-          <div key={`${animal}-${i}`} className={`pointer-events-none ${positions[i]}`}>
-            <NatureWatermark animal={animal} size={sizes[i]} />
-          </div>
-        );
-      })}
-
       <div className="flex items-center gap-2.5 mb-2">
         <TableProperties className="w-5 h-5" style={{ color: pillarConfig.accentColor }} />
         <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

@@ -1,4 +1,4 @@
-import type { KommuneRankingData, KommuneRankingRow } from '@/lib/types';
+import type { KommuneRankingData, KommuneRankingRow, KommuneBenchmarkB3Row } from '@/lib/types';
 import {
   haForAxis,
   paceIdx,
@@ -20,6 +20,9 @@ import {
 } from '@/lib/kommune-goal-pace';
 import { IndsatsStatusValue } from '@/components/kommune-detail/IndsatsMaalChip';
 import { GoalPaceBanner } from './GoalPaceBanner';
+import { VisPaaKortLink } from '@/components/VisPaaKortLink';
+import { visPaaKortKommuneB3 } from '@/lib/permalink';
+import { kommuneToSlug } from '@/lib/kommune-slugs';
 
 interface KommuneStandingsDetailHeaderProps {
   row: KommuneRankingRow;
@@ -40,6 +43,8 @@ interface KommuneStandingsDetailHeaderProps {
   paceRatios?: MetricPaceRatios;
   /** National goal-pace context — drives the banner + per-line tempo note. */
   nationalPace?: NationalPaceContext | null;
+  /** B3 hectares for this kommune (Markkort ∩ terrestrial Natura 2000). */
+  b3?: KommuneBenchmarkB3Row | null;
 }
 
 /**
@@ -85,6 +90,7 @@ export function KommuneStandingsDetailHeader({
   onPhasesChange,
   paceRatios,
   nationalPace,
+  b3,
 }: KommuneStandingsDetailHeaderProps) {
   const gap = row.kvalitetGapPct;
   const embedded = variant === 'embedded';
@@ -162,7 +168,7 @@ export function KommuneStandingsDetailHeader({
           <PhaseFilterPopover
             selected={selectedPhases!}
             onChange={onPhasesChange!}
-            tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i kommunens tal. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Skitser tæller aldrig med."
+            tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i kommunens tal. Standard er forundersøgelse, godkendt og anlagt — skitser tæller aldrig med."
           />
         </div>
       )}
@@ -343,9 +349,20 @@ export function KommuneStandingsDetailHeader({
           <span className="text-xs font-semibold text-foreground">Beskyttet natur der dyrkes</span>
           <InfoTooltip
             title="Beskyttet natur der dyrkes"
-            content="Hvor stor en del af kommunens fredede natur (Natura 2000) der i dag reelt er landbrug. Det er ikke et Grøn Trepart-mål, men en indikator for forbedringsbehov: høj andel = meget udpeget natur kunne genoprettes. Lav andel = naturen er allerede natur."
+            content={
+              <>
+                <p>Beregnet som Markkort 2026 ∩ terrestrisk Natura 2000 ∩ kommune. Vist som procent og hektar, så 57 % ikke kan dække over én hektar. Det er et behovstal — ikke et Grøn Trepart-mål.</p>
+                <p>§3-beskyttet natur indgår ikke i nævneren; udsagnet handler om den udpegede Natura 2000-natur. Snitfladen kan endnu ikke vises som eget kortlag — «vis på kort» tænder Natura 2000 og B3-choropleth.</p>
+                <p>MARS udelader visse afgrødekoder (Afgkode) når de definerer «dyrket». Vi efterprøver den liste og bruger den MARS-sammenlignelige variant som hovedtal når den afviger.</p>
+              </>
+            }
+            source="Markkort 2026 (FVM) × terrestrisk Natura 2000"
             size={11}
             side="right"
+          />
+          <VisPaaKortLink
+            href={visPaaKortKommuneB3(kommuneToSlug(row.kommuneNavn))}
+            className="shrink-0"
           />
           <span className="ml-auto text-sm font-bold tabular-nums text-amber-700" style={{ fontFamily: "'Fraunces', serif" }}>
             {gap == null ? '—' : `${formatDanishNumber(gap, 0)}%`}
@@ -362,7 +379,9 @@ export function KommuneStandingsDetailHeader({
         <p className="text-[10px] text-muted-foreground mt-1">
           {gap == null
             ? 'Ingen data for denne kommune.'
-            : 'Måler behov, ikke indsats — derfor holdt adskilt fra de tre mål ovenfor.'}
+            : b3
+              ? `${formatDanishNumber(gap, 0)} % · ${formatDanishNumber(Math.round(b3.n2000ErLandbrugHa))} ha af ${formatDanishNumber(Math.round(b3.n2000TotalHa))} ha Natura 2000. Måler behov, ikke indsats — derfor holdt adskilt fra de tre mål ovenfor.`
+              : 'Måler behov, ikke indsats — derfor holdt adskilt fra de tre mål ovenfor.'}
         </p>
       </div>
     </div>

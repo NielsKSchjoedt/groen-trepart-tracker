@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ArcGauge } from './ArcGauge';
 import { CountdownTimer } from './CountdownTimer';
-import { NatureWatermark } from './NatureWatermark';
-import type { Animal } from './NatureWatermark';
 import { ShareButton } from './ShareButton';
 import { usePillar, PILLAR_CONFIGS, type PillarId } from '@/lib/pillars';
 import { loadCO2Emissions, loadCoastalWaterStatus } from '@/lib/data';
@@ -116,26 +114,6 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
       <div className="pointer-events-none absolute right-1/4 top-1/3 hidden opacity-[0.06] md:block">
         <Leaf className="h-20 w-20 rotate-45 text-nature-leaf" strokeWidth={1} />
       </div>
-
-      {(activePillar ? config.watermarks : (['deer', 'butterfly', 'heron', 'owl'] as Animal[]))
-        .slice(0, 4)
-        .map((animal, i) => {
-          const positions = [
-            'absolute bottom-16 left-4 hidden opacity-[0.10] lg:block',
-            'absolute right-6 top-20 hidden animate-gentle-sway opacity-[0.12] md:block',
-            'absolute left-1/4 top-40 hidden opacity-[0.08] lg:block',
-            'absolute bottom-32 right-1/4 hidden opacity-[0.09] md:block',
-          ];
-          const sizes = [150, 70, 60, 90];
-          return (
-            <div
-              key={`${animal}-${i}`}
-              className={`pointer-events-none transition-opacity duration-300 ${positions[i]}`}
-            >
-              <NatureWatermark animal={animal} size={sizes[i]} />
-            </div>
-          );
-        })}
 
       <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/80">
         Fra løfter og aftaler til virkelighed
@@ -270,6 +248,9 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
         <p className="mb-2 text-sm font-bold uppercase tracking-[0.12em] text-primary">
           Det vi vil gøre
         </p>
+        <p className="mb-3 text-center text-[12px] leading-snug text-muted-foreground">
+          Virkemidlerne treparten anlægger — skov, lavbund og vådområder — den fysiske indsats.
+        </p>
         <IndsatsRow
           measures={measures}
           activeMeasure={activeMeasure}
@@ -299,6 +280,9 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
           />
           <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-[0.12em] text-primary">
             Det vi vil opnå
+          </p>
+          <p className="mb-3 text-center text-[12px] leading-snug text-muted-foreground">
+            Effekterne i klima, vand og natur — det vi vil se ude i landskabet, ikke bare projekterne.
           </p>
         </div>
         <EffectRow

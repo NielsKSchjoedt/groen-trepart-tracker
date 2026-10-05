@@ -180,21 +180,11 @@ Headers use the `Fraunces` serif font:
 
 Body text uses the system default (Tailwind's `font-sans`).
 
-### Nature Watermarks
+### Nature watermarks
 
-The dashboard includes subtle nature illustrations as decorative elements. These use the
-`NatureWatermark` component with animal variants: `deer`, `butterfly`, `eel`, `flounder`,
-`hedgehog`, `frog`, `dragonfly`.
-
-```tsx
-<div className="absolute right-0 bottom-4 opacity-[0.10] hidden lg:block pointer-events-none">
-  <NatureWatermark animal="deer" size={130} className="scale-x-[-1]" />
-</div>
-```
-
-These are purely decorative — keep opacity very low (0.07–0.10), hide on smaller screens,
-and always add `pointer-events-none` so the absolute overlays never intercept clicks or hovers
-on interactive content beneath them.
+Do **not** add `NatureWatermark` animal silhouettes back into the dashboard.
+They were removed after user feedback that they cluttered the numbers.
+Keep decorative treatment to simple Lucide icons at very low opacity if needed.
 
 ---
 

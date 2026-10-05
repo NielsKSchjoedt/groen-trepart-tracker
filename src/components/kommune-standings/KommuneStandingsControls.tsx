@@ -117,7 +117,7 @@ export function KommuneStandingsControls({
         <PhaseFilterPopover
           selected={selectedPhases}
           onChange={onPhasesChange}
-          tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i ranglisten. Standard er kun anlagt — udvid for at inkludere godkendt og forundersøgelse. Skitser tæller aldrig med."
+          tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i ranglisten. Standard er forundersøgelse, godkendt og anlagt — skitser tæller aldrig med."
           footer={<CopyLinkButton />}
         />
       </ControlBar>

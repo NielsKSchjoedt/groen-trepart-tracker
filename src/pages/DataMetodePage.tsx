@@ -366,12 +366,38 @@ const METHOD_SECTIONS = [
     ),
   },
   {
+    title: 'Vandmiljø som retligt mål (vandrammedirektivet)',
+    content: (
+      <>
+        <p>
+          God økologisk tilstand i alle 109 kystvande er et retligt mål — ikke et treparts-delmål
+          med egne hektar. Fristen er senest 22. december 2027 efter lov om vandplanlægning § 7
+          stk. 2 nr. 2 og § 10 stk. 3 (LBK nr. 126 af 26. januar 2017). BEK nr. 1670 af 8. december 2025
+          udmønter de gældende vandområdeplaner. Fristforlængelse kan gives for det enkelte
+          vandområde efter §§ 10–11 — det er ikke det samme som en politisk udskydelse af hele målet.
+        </p>
+        <p>
+          Treparten leverer tons kvælstof via kollektive virkemidler. De tons er nødvendige, men
+          ikke tilstrækkelige til god økologisk tilstand. Trackeren påstår ikke, at målet er
+          udskudt ét år til 2028.
+        </p>
+      </>
+    ),
+  },
+  {
     title: 'Overlap-korrektion for beskyttet natur',
     content: (
       <>
-        <p>Natura 2000 og §3-beskyttede arealer overlapper. Det totale beskyttede areal beregnes som:</p>
-        <p className="font-mono bg-muted/50 rounded-lg p-3 text-xs">total = natura2000_terrestrisk + §3_total × (1 - overlapFaktor)</p>
-        <p>Overlapfaktoren er sat til ~30% baseret på erfaringstal. En præcis beregning ville kræve spatial union af alle polygoner — en tung GIS-operation der ikke er implementeret endnu.</p>
+        <p>
+          Natura 2000 og §3-beskyttede arealer overlapper. Det nationale tal 15,3 % beskyttet
+          natur er <strong>OECD 2024-estimatet</strong> — ikke en GIS-union af vores egne kortlag.
+          Vi har ikke beregnet en landsdækkende spatial union af alle naturpolygoner.
+        </p>
+        <p>
+          Projekt-overlap med naturpotentiale er et andet tal: MARS-projekter klippet med
+          DCE 30 % (tærskel &gt; 0,1 ha). Overlap er stedspecifikt og ikke automatisk «godt»
+          på samme måde som 1 ton CO₂.
+        </p>
       </>
     ),
   },
@@ -877,7 +903,9 @@ export default function DataMetodePage() {
             </li>
             <li>
               <strong>Naturkvalitet</strong> — B3: andel af Natura 2000-arealer, der reelt er landbrugsjord
-              (&quot;udpeget ≠ beskyttet&quot;). Høj procent = stort forbedringspotentiale, ikke en skammeliste.
+              (&quot;udpeget ≠ beskyttet&quot;). Nævneren er kun Natura 2000 — §3 indgår ikke. Hovedtallet
+              bruger MARS-afgrødekoder (Afgkode-udelukkelse) når Markkort har koden. Høj procent = stort
+              forbedringspotentiale, ikke en skammeliste.
             </li>
             <li>
               <strong>Oplande</strong> — spatial overlap mellem kommuner og kystvandsoplande (VP3) viser,

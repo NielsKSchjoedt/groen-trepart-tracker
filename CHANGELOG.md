@@ -17,6 +17,35 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.0.4 — 11. september 2026
+
+**Publicerbar natur- og kommunevisning: unikke projekter, vandmiljø som mål, ærligere overlap**
+
+### Fejlrettelse
+- Naturpipelinen talte kvælstofvådområder med som naturprojekter. De er taget ud. Naturindsatsen er nu lavbund plus al skovrejsning — med en særskilt opgørelse af 26,2 ha dokumenteret urørt skov. Overlap med eksisterende natur vises som stedspecifikt, ikke som et ubetinget plus.
+- Tal for beskyttet natur stod som «korrigeret for ca. 30 % overlap». 15,3 % er OECD's estimat fra 2024 — ikke en GIS-union af vores egne kortlag. Teksten siger det nu.
+- På kommunekortet kunne projektpanelet skubbe kortet i højden, så man mistede overblikket (typisk når man åbnede et skovrejsningsprojekt). Panelet scroller nu inden for kortets højde.
+
+### Metodeændring
+- Naturpipelinen talte det samme projekt flere gange, når det lå i flere kystvandoplande. Nu tælles hvert projekt kun én gang. Lige nu er der 1.668 unikke MARS-projekter, og 917 af dem er lavbund eller skovrejsning. (Teknisk: deduplikering på projekt-id i computePillarProjects.)
+- På kommunesiderne talte standardvisningen kun anlagte projekter. Nu tæller forundersøgelse, godkendt og anlagt med — skitser gør det stadig ikke. Ranglisten og kortet følger det samme fasefilter.
+- Vandmiljø stod som «ikke målsat». Det er et retligt mål: god økologisk tilstand i alle 109 kystvande senest 22. december 2027 (lov om vandplanlægning § 7 stk. 2 nr. 2 og § 10 stk. 3). Trepartens kvælstof-tons er nødvendige, men ikke nok til god tilstand. Trackeren påstår ikke, at målet er udskudt ét år til 2028.
+
+### Forbedring
+- Fra nøgletal og kommune-benchmarks kan man åbne kortet med de rigtige lag tændt — naturpotentiale, Natura 2000 eller §3 — i fuld skærm.
+- Projektlisten viser overlap med naturpotentiale i hektar, eller «0 ha overlap», så man ikke skal åbne hvert projekt for at se det.
+- Kommunekortets farveskala har tal (procent eller hektar) i stedet for kun «høj / middel / lav». En kort forklaring under kortet siger, hvad farven måler.
+- På den enkelte kommuneside kan man skifte kommune i overskriften uden at gå tilbage til listen. Adressen og filtrene følger med.
+- «Det vi vil gøre» og «Det vi vil opnå» har fået en sætning hver, så forskellen mellem indsats og effekt er tydelig uden at åbne mere.
+- Økonomien viser de tre pengestrømme i samme enhed — cirka 43, 0,46 og 0 mia. kr. — så det er synligt, at der er mange penge til at lave projekter, få til at implementere og ingen til at drifte. 461,8 mio. kr. til kapacitet er vores læsning af Rammeaftale MGTP–KL tabel 1, ikke et uafhængigt tjekket tal.
+
+### Dataopdatering
+- Datagrundlaget er opdateret med det daglige MARS-udtræk fra 11. september 2026 (fusioneret fra main).
+
+### Fjernet
+- Dyre-silhuetterne bag naturtal og kort er fjernet, så de ikke konkurrerede med tallene.
+---
+
 ## v1.0.3 — 15. juni 2026
 
 **Ny sektion «Proces & fremdrift» på kommunesider**

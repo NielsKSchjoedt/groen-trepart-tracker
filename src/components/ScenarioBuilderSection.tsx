@@ -1,4 +1,5 @@
 import { AlertTriangle, GitPullRequestArrow, Shield, TrendingUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { HintCallout } from './HintCallout';
 import { InfoTooltip } from './InfoTooltip';
 import { FremskrivningCard } from './fremskrivning/FremskrivningCard';
@@ -6,8 +7,11 @@ import { Co2ProjectionCard } from './fremskrivning/Co2ProjectionCard';
 import { usePillar } from '@/lib/pillars';
 import { formatDanishNumber } from '@/lib/format';
 import { useFirstVisitHint } from '@/hooks/useFirstVisitHint';
-import type { DashboardData } from '@/lib/types';
+import type { DashboardData, ProjectNatureOverlapData } from '@/lib/types';
 import type { FremskrivningPillarId } from '@/lib/fremskrivning';
+import { loadProjectNatureOverlap } from '@/lib/data';
+import { VisPaaKortLink } from '@/components/VisPaaKortLink';
+import { visPaaKortNationalOverlap } from '@/lib/permalink';
 
 interface ScenarioBuilderSectionProps {
   data: DashboardData;
@@ -48,6 +52,17 @@ function NatureStatusCard({ data }: { data: DashboardData }) {
   const gapPct = TARGET_PCT - combined;
   const denmarkKm2 = 42_951;
   const gapKm2 = Math.round((gapPct / 100) * denmarkKm2);
+  const [overlap, setOverlap] = useState<ProjectNatureOverlapData | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadProjectNatureOverlap().then((payload) => {
+      if (!cancelled) setOverlap(payload);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const summary = overlap?.nationalSummary;
 
   return (
     <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
@@ -101,7 +116,7 @@ function NatureStatusCard({ data }: { data: DashboardData }) {
           <div className="absolute top-0 bottom-0 right-0 w-px bg-foreground/30" />
         </div>
         <div className="flex items-baseline justify-between text-[11px] text-muted-foreground">
-          <span>Korrigeret for ~30% overlap mellem Natura 2000 og §3</span>
+          <span>OECD 2024-estimat — ikke vores egen GIS-union af Natura 2000 og §3</span>
           <span className="tabular-nums font-medium">Mål: {TARGET_PCT}%</span>
         </div>
       </div>
@@ -117,6 +132,38 @@ function NatureStatusCard({ data }: { data: DashboardData }) {
         Naturbeskyttelse ændres gennem politiske beslutninger om arealdesignering — ikke via en løbende projektpipeline som de andre delmål.
         Derfor er der ingen fremskrivning eller scenariebygger for dette delmål.
       </p>
+
+      {summary && (
+        <div className="mt-4 rounded-lg border border-border bg-muted/30 px-3 py-3 space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs font-semibold text-foreground">Projekt-overlap med kortlagt natur</p>
+            <VisPaaKortLink href={visPaaKortNationalOverlap()} />
+          </div>
+          <p className="text-sm tabular-nums text-foreground">
+            {formatDanishNumber(summary.withBiodiversityOverlap)} af {formatDanishNumber(summary.naturePipelineWithGeometry)} lavbunds- og skovrejsningsprojekter
+            {' '}har overlap med biodiversitetskortet
+            {' '}({formatDanishNumber(summary.biodiversitetHa)} ha)
+          </p>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Tærskel &gt; {formatDanishNumber(summary.thresholdHa, 1)} ha (uden tærskel: {formatDanishNumber(summary.withBiodiversityOverlapUnthresholded)}).
+            Lavbund: {formatDanishNumber(summary.lavbund.withOverlap)}/{formatDanishNumber(summary.lavbund.projects)} ·
+            skovrejsning: {formatDanishNumber(summary.afforestation.withOverlap)}/{formatDanishNumber(summary.afforestation.projects)}.
+            Også §3 {formatDanishNumber(summary.section3Ha)} ha og Natura 2000 {formatDanishNumber(summary.natura2000Ha)} ha.
+          </p>
+          <InfoTooltip
+            title="Hvad betyder overlap?"
+            content={
+              <>
+                <p>Vi klipper hvert lavbunds- og skovrejsningsprojekt til kommunegrænser og måler overlap med DCE 30 %-biodiversitetskortet, §3 og Natura 2000. Et projekt tæller som «har overlap» når overlap med biodiversitetskortet er over 0,1 ha — så rene randberøringer ikke tæller.</p>
+                <p>Natur er stedsspecifik, i modsætning til 1 ton CO₂: overlap her er ikke en ubetinget god indikator. Projekter lagt hvor der allerede er natur kan ramme eksisterende beskyttelse. MARS holder tilskudsareal ude af §3.</p>
+              </>
+            }
+            source="MARS-geometrier × DCE 30 % / §3 / Natura 2000 (månedlig GIS-kørsel)"
+            size={12}
+            side="right"
+          />
+        </div>
+      )}
     </div>
   );
 }

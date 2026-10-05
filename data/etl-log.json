@@ -21509,6 +21509,276 @@
         "stations": 2882
       },
       "notes": "2882 stations, 2882 with coordinates"
+    },
+    {
+      "timestamp": "2026-09-11T21:11:24.233546+00:00",
+      "source": "mars",
+      "status": "ok",
+      "endpoints": [
+        "https://mars.sgav.dk/api/master-data",
+        "https://mars.sgav.dk/api/status/plans",
+        "https://mars.sgav.dk/api/status/projects",
+        "https://mars.sgav.dk/api/status/vos",
+        "https://mars.sgav.dk/api/status/metadata"
+      ],
+      "records": {
+        "master-data": 1,
+        "plans": 37,
+        "projects": 1669,
+        "vos": 23,
+        "metadata": 1
+      },
+      "notes": "All endpoints OK",
+      "duration_seconds": 2.4
+    },
+    {
+      "timestamp": "2026-09-11T21:11:45.754388+00:00",
+      "source": "dawa",
+      "status": "ok",
+      "endpoints": [
+        "https://api.dataforsyningen.dk/kommuner",
+        "https://api.dataforsyningen.dk/kommuner?format=geojson"
+      ],
+      "records": {
+        "municipalities": 99,
+        "geojson_features": 99
+      },
+      "notes": "99 municipalities, 99 features",
+      "duration_seconds": 21.5
+    },
+    {
+      "timestamp": "2026-09-11T21:11:49.287650+00:00",
+      "source": "miljoegis",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (vandprojekter)"
+      ],
+      "records": {
+        "kla_projektforslag": 79,
+        "kla_projektomraader": 4,
+        "helhedsprojekter_tilsagn2020": 2,
+        "kla_e23_bioprio": 100,
+        "kvaelstofretention": 100,
+        "vaadomraadepotentiale": 100
+      },
+      "notes": "6 layers fetched"
+    },
+    {
+      "timestamp": "2026-09-11T21:11:55.927225+00:00",
+      "source": "dst",
+      "status": "ok",
+      "endpoints": [
+        "https://api.statbank.dk/v1/data"
+      ],
+      "records": {
+        "ARE207": 2100,
+        "SKOV1": 9962,
+        "FOND19": 63,
+        "TILSKUD2": 115
+      },
+      "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+    },
+    {
+      "timestamp": "2026-09-11T21:11:57.408868+00:00",
+      "source": "vanda",
+      "status": "ok",
+      "endpoints": [
+        "https://vandah.miljoeportal.dk/api/stations"
+      ],
+      "records": {
+        "stations": 2882
+      },
+      "notes": "2882 stations, 2882 with coordinates"
+    },
+    {
+      "timestamp": "2026-09-11T21:12:02.748714+00:00",
+      "source": "natura2000",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (natur)"
+      ],
+      "records": {
+        "natura_2000_sites": 250
+      },
+      "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)",
+      "duration_seconds": 5.3
+    },
+    {
+      "timestamp": "2026-09-11T21:15:00.832962+00:00",
+      "source": "markkort-marker-2026",
+      "status": "ok",
+      "endpoints": [
+        "https://geodata.fvm.dk/geoserver/ows"
+      ],
+      "records": {
+        "municipalities": 98,
+        "features_bbox_sum": 1057621
+      },
+      "notes": "Marker_2026 per-kommune bbox fetch (0 errors)",
+      "duration_seconds": 235.8
+    },
+    {
+      "timestamp": "2026-09-11T21:15:35.022212+00:00",
+      "source": "section3",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (natur)"
+      ],
+      "records": {
+        "section3_areas": 186628,
+        "section3_municipalities": 97
+      },
+      "notes": "186,628 §3 areas (skipped — count unchanged)",
+      "duration_seconds": 212.2
+    },
+    {
+      "timestamp": "2026-09-11T21:15:38.945263+00:00",
+      "source": "forest",
+      "status": "ok",
+      "endpoints": [
+        "wfs2-miljoegis.mim.dk (np3basis2020, skovdrift)"
+      ],
+      "records": {
+        "fredskov_parcels": 59822,
+        "skovkort_polygons": 61588
+      },
+      "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons",
+      "duration_seconds": 3.9
+    },
+    {
+      "timestamp": "2026-09-11T21:15:39.819446+00:00",
+      "source": "klimaskovfonden",
+      "status": "ok",
+      "endpoints": [
+        "https://test.admin.gc2.io/ows/klimaskovfonden/public/"
+      ],
+      "records": {
+        "projects": 283
+      },
+      "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)",
+      "duration_seconds": 0.8
+    },
+    {
+      "timestamp": "2026-09-11T21:22:06.380517+00:00",
+      "source": "arealdata-biodiversitet",
+      "status": "ok",
+      "endpoints": [
+        "https://arld-extgeo.miljoeportal.dk/geoserver/ows"
+      ],
+      "records": {
+        "dce_hits": 83579,
+        "dce_fetched": 0,
+        "ku1": 239,
+        "ku2": 239
+      },
+      "notes": "Arealdata WFS. FULL_DCE=False. KU+ audit.",
+      "duration_seconds": 3.0
+    },
+    {
+      "timestamp": "2026-09-11T21:22:09.679970+00:00",
+      "source": "fvm-markkort-vns",
+      "status": "ok",
+      "endpoints": [
+        "https://geodata.fvm.dk/geoserver/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=GB_og_bioordninger:Vand_Natur_og_Skovprojekter_2026&outputFormat=application%2Fjson&srsName=urn:ogc:def:crs:"
+      ],
+      "records": {
+        "vns": 4213,
+        "municipalities_tagged": 83
+      },
+      "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary",
+      "duration_seconds": 3.2
+    },
+    {
+      "timestamp": "2026-09-11T21:23:14.119660+00:00",
+      "source": "fetch_coastal_status",
+      "status": "ok",
+      "endpoints": [
+        "https://wfs2-miljoegis.mim.dk/vp3tilstand2021/ows"
+      ],
+      "records": {
+        "kystvande": 109,
+        "territorial": 14
+      },
+      "notes": "Ecological: {'Ringe': 55, 'Dårlig': 25, 'Moderat': 24, 'God': 5}"
+    },
+    {
+      "timestamp": "2026-09-11T21:23:39.207736+00:00",
+      "source": "section3-by-kommune",
+      "status": "ok",
+      "endpoints": [
+        "https://wfs2-miljoegis.mim.dk/natur/ows"
+      ],
+      "records": {
+        "municipalities": 98,
+        "features_bbox_sum": 327335
+      },
+      "notes": "§3 ais_par3 per-kommune bbox fetch (0 errors)",
+      "duration_seconds": 25.6
+    },
+    {
+      "timestamp": "2026-09-11T21:23:58.758370+00:00",
+      "source": "arealdata-biodiversitet",
+      "status": "ok",
+      "endpoints": [
+        "https://arld-extgeo.miljoeportal.dk/geoserver/ows"
+      ],
+      "records": {
+        "dce_hits": 83579,
+        "dce_fetched": 83579,
+        "ku1": 239,
+        "ku2": 239
+      },
+      "notes": "Arealdata WFS. FULL_DCE=True. KU+ audit.",
+      "duration_seconds": 46.8
+    },
+    {
+      "timestamp": "2026-09-11T21:48:04.265992+00:00",
+      "source": "kommune-benchmark",
+      "status": "ok",
+      "endpoints": [
+        "local spatial overlay build"
+      ],
+      "records": {
+        "municipalities": 98,
+        "b1": 98,
+        "b2": 98,
+        "b3": 98,
+        "b4": 98
+      },
+      "notes": "Sprint 4 B1/B2/B3 + B4 værdi-beskyttelse + national fordelings-simulering",
+      "duration_seconds": 1427.5
+    },
+    {
+      "timestamp": "2026-09-11T21:48:39.319194+00:00",
+      "source": "kommune-oplande",
+      "status": "ok",
+      "endpoints": [
+        "kommuner",
+        "coastal-waters",
+        "catchments"
+      ],
+      "records": {
+        "kommuner": 98,
+        "oplande": 107
+      },
+      "notes": "Sprint 6 kommune × opland crosswalk",
+      "duration_seconds": 6.3
+    },
+    {
+      "timestamp": "2026-09-11T21:49:17.899449+00:00",
+      "source": "kommune-ranking",
+      "status": "ok",
+      "endpoints": [
+        "dashboard-summary",
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "records": {
+        "kommuner": 98
+      },
+      "notes": "Sprint 6 kommune competition ranking",
+      "duration_seconds": 0.0
     }
   ]
 }

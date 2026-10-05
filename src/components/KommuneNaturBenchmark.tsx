@@ -1,6 +1,10 @@
 import { Leaf, MapPinned, Wheat, ShieldCheck, Shield, ExternalLink } from 'lucide-react';
 import type { KommuneBenchmarkData } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
+import { InfoTooltip } from '@/components/InfoTooltip';
+import { VisPaaKortLink } from '@/components/VisPaaKortLink';
+import { visPaaKortKommuneB1, visPaaKortKommuneB3, visPaaKortKommuneB4 } from '@/lib/permalink';
+import { kommuneToSlug } from '@/lib/kommune-slugs';
 
 interface KommuneNaturBenchmarkProps {
   kommuneKode: string;
@@ -37,6 +41,8 @@ export function KommuneNaturBenchmark({
   const b4Context = benchmark.b4
     ? buildContext(benchmark.b4.byKommune, (row) => row.pctVaerdiBeskyttet)
     : null;
+
+  const slug = kommuneToSlug(b1.kommuneNavn);
 
   const plain = variant === 'plain';
 
@@ -82,6 +88,12 @@ export function KommuneNaturBenchmark({
           sub={`${formatHa(b1.dce30Ha)} ha i DCE 30%-laget`}
           context={`Lavest ${formatPct(b1Context.min)}% · højest ${formatPct(b1Context.max)}%`}
           tone="emerald"
+          visPaaKortHref={visPaaKortKommuneB1(slug)}
+          info={{
+            title: 'B1 — kortlagt naturværdi',
+            content: '«Kortlagt naturværdi» er DCE 30 %-kortet (dn:arealreservation_20220928) plus KU prio 1/2 — ikke et separat DCE-naturværdiprodukt. Andelen er kommunens del af det nationale DCE 30 %-areal.',
+            source: 'Arealdata / DCE 30 % + KU prio 1/2',
+          }}
         >
           <MiniBar label="DCE 30%" value={b1.dce30PctOfNational} max={b1Context.max} color="bg-emerald-700" />
           <MiniBar label="KU prio 1" value={b1.kuPrio1PctOfNational} max={Math.max(...Object.values(benchmark.b1.byKommune).map((r) => r.kuPrio1PctOfNational), 1)} color="bg-lime-700" />
@@ -92,8 +104,13 @@ export function KommuneNaturBenchmark({
           label="B2 — Højt+lavt naturpotentiale (marker)"
           value={`${formatPct(b2.hoejtPotentialePct + b2.lavtPotentialePct)}%`}
           sub={`${formatHa(b2.markerTotalHa)} ha marker analyseret`}
-          context="Højt = KU prio 1. Lavt = DCE 30% uden KU prio 1."
+          context="Højt = KU prio 1. Lavt = DCE 30% uden KU prio 1. Markkort 2026 × de to lag."
           tone="amber"
+          info={{
+            title: 'B2 — marker på naturpotentiale',
+            content: 'Markkort 2026 klippet med KU prio 1 (højt) og med DCE 30 % minus KU prio 1 (lavt). Resten er marker uden for de lag.',
+            source: 'Markkort 2026 × KU prio 1 / DCE 30 %',
+          }}
         >
           <StackedPotentialBar high={b2.hoejtPotentialePct} low={b2.lavtPotentialePct} outside={b2.udenforPotentialePct} />
           <div className="grid grid-cols-3 gap-1.5 text-[10px] text-muted-foreground">
@@ -107,9 +124,15 @@ export function KommuneNaturBenchmark({
           icon={<ShieldCheck className="w-4 h-4 text-stone-700" />}
           label="B3 — Natura 2000 der er landbrugsjord"
           value={b3.andelLandbrugIN2000Pct === null ? 'Ingen N2000' : `${formatPct(b3.andelLandbrugIN2000Pct)}%`}
-          sub={`${formatHa(b3.n2000ErLandbrugHa)} ha marker i Natura 2000`}
-          context={`Lavest ${formatPct(b3Context.min)}% · højest ${formatPct(b3Context.max)}%`}
+          sub={`${formatHa(b3.n2000ErLandbrugHa)} ha af ${formatHa(b3.n2000TotalHa)} ha Natura 2000`}
+          context={`Lavest ${formatPct(b3Context.min)}% · højest ${formatPct(b3Context.max)}%. §3 indgår ikke.`}
           tone="stone"
+          visPaaKortHref={visPaaKortKommuneB3(slug)}
+          info={{
+            title: 'B3 — Natura 2000 der dyrkes',
+            content: 'Markkort 2026 ∩ terrestrisk Natura 2000. Nævneren er kun Natura 2000 — §3 indgår ikke. Hovedtallet bruger MARS-afgrødekoder (Afgkode-udelukkelse) når Markkort har koden; ellers alle marker. Snitfladen kan endnu ikke vises som polygonlag; kort-linket tænder Natura 2000 og B3-choropleth.',
+            source: 'Markkort 2026 × terrestrisk Natura 2000 (MARS Afgkode når tilgængelig)',
+          }}
         >
           <MiniBar
             label="Landbrug i N2000"
@@ -131,11 +154,17 @@ export function KommuneNaturBenchmark({
                 : undefined
             }
             tone="emerald"
+            visPaaKortHref={visPaaKortKommuneB4(slug)}
+            info={{
+              title: 'B4 — naturværdi med beskyttelse',
+              content: 'Kortlagt naturværdi er DCE 30 %-kortet. Beskyttelse er Natura 2000 ∪ §3. «Uden for beskyttelse» er DCE minus den union — det mest interessante tal: hvor meget kortlagt naturværdi der stadig ligger uden for §3/N2000.',
+              source: 'DCE 30 % ∩ (Natura 2000 ∪ §3)',
+            }}
           >
             <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Af {formatHa(b4.naturvaerdiHa)} ha kortlagt naturværdi i {b4.kommuneNavn ?? b1.kommuneNavn} ligger{' '}
+              Af {formatHa(b4.naturvaerdiHa)} ha kortlagt naturværdi (DCE 30 %) i {b4.kommuneNavn ?? b1.kommuneNavn} ligger{' '}
               {formatHa(b4.overlapHa)} ha ({formatPct(b4.pctVaerdiBeskyttet)} %) inden for beskyttet natur
-              (Natura 2000/§3).
+              (Natura 2000/§3). <strong>{formatHa(b4.vaerdiUdenBeskyttelseHa)} ha ligger uden for beskyttelse.</strong>
             </p>
             <MiniBar
               label="Andel med beskyttelsesstatus"
@@ -182,9 +211,11 @@ interface BenchmarkBlockProps {
   context?: string;
   tone: 'emerald' | 'amber' | 'stone';
   children: React.ReactNode;
+  visPaaKortHref?: string;
+  info?: { title: string; content: string; source?: string };
 }
 
-function BenchmarkBlock({ icon, label, value, sub, context, tone, children }: BenchmarkBlockProps) {
+function BenchmarkBlock({ icon, label, value, sub, context, tone, children, visPaaKortHref, info }: BenchmarkBlockProps) {
   const toneClass = {
     emerald: 'border-emerald-200/70 bg-white/70',
     amber: 'border-amber-200/70 bg-white/70',
@@ -193,15 +224,21 @@ function BenchmarkBlock({ icon, label, value, sub, context, tone, children }: Be
   return (
     <div className={`rounded-xl border p-3 ${toneClass}`}>
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 min-w-0">
           {icon}
           <p className="text-[11px] font-semibold text-foreground">{label}</p>
+          {info && (
+            <InfoTooltip title={info.title} content={info.content} source={info.source} size={11} side="right" />
+          )}
         </div>
         <p className="text-sm font-black tabular-nums text-foreground">{value}</p>
       </div>
       <p className="text-[10px] text-muted-foreground mt-1">{sub}</p>
       <div className="mt-2 space-y-1.5">{children}</div>
-      {context && <p className="text-[10px] text-muted-foreground mt-2">{context}</p>}
+      <div className="mt-2 flex items-center justify-between gap-2">
+        {context && <p className="text-[10px] text-muted-foreground">{context}</p>}
+        {visPaaKortHref && <VisPaaKortLink href={visPaaKortHref} className="shrink-0" />}
+      </div>
     </div>
   );
 }

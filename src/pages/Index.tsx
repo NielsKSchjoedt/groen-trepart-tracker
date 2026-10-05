@@ -11,6 +11,8 @@ import type { DashboardData, KlimaskovfondenProject, NaturstyrelsenSkovProject }
 import { PillarContext, getPillarConfig, PILLAR_CONFIGS } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import { slugToPillar, pillarToSlug } from '@/lib/slugs';
+import { uniqueByProjectId } from '@/lib/nature-projects';
+import { projectMatchesPillar } from '@/lib/pillar-projects';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
 import { OekonomiOverblik } from '@/components/oekonomi/OekonomiOverblik';
@@ -122,7 +124,7 @@ const Index = () => {
   }, []);
 
   const allProjects = useMemo(
-    () => data?.plans.flatMap((p) => p.projectDetails) ?? [],
+    () => uniqueByProjectId(data?.plans.flatMap((p) => p.projectDetails) ?? []),
     [data],
   );
 
@@ -138,19 +140,12 @@ const Index = () => {
 
   /**
    * MARS projects filtered to those relevant for the active pillar.
-   * Mirrors the logic in ProjectFunnel's computePillarProjects: only
-   * projects with a positive effect in the pillar's key metric are included.
-   * For "nature" all projects are shown; for "co2" the chart is hidden.
+   * Same criteria as the funnel: nature = lavbund + skovrejsning; other pillars
+   * require a positive effect. National lists are unique by project id.
    */
   const pillarProjects = useMemo(() => {
-    const effectField: Record<string, keyof typeof allProjects[0]> = {
-      nitrogen: 'nitrogenT',
-      extraction: 'extractionHa',
-      afforestation: 'afforestationHa',
-    };
-    const field = activePillar ? effectField[activePillar] : undefined;
-    if (!field) return allProjects;
-    return allProjects.filter((p) => ((p as Record<string, unknown>)[field as string] as number) > 0);
+    if (!activePillar || activePillar === 'co2') return allProjects;
+    return allProjects.filter((p) => projectMatchesPillar(p, activePillar));
   }, [allProjects, activePillar]);
 
   /**

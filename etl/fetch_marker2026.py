@@ -114,6 +114,7 @@ def slim_feature(feature: dict[str, Any]) -> dict[str, Any]:
         "properties": {
             "sourceId": feature.get("id") or props.get("id"),
             "marknummer": props.get("marknummer") or props.get("MARKNR") or props.get("marknr"),
+            "Afgkode": props.get("Afgkode") or props.get("afgkode") or props.get("AFGKODE"),
             "area_ha_estimate": _wfs.feature_area_ha(feature),
         },
     }

@@ -30,6 +30,7 @@ import type { FeatureCollection, Geometry } from 'geojson';
 let cachedData: DashboardData | null = null;
 let summaryRaw: Record<string, unknown> | null = null;
 let detailsMerged = false;
+let summaryLoadPromise: Promise<DashboardData> | null = null;
 let cachedLookup: Record<string, string> | null = null;
 let cachedCatchmentsTopo: Topology | null = null;
 let cachedCoastalTopo: Topology | null = null;
@@ -252,6 +253,8 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
     catchments: r.catchments ?? [],
     mitigationMeasures: r.mitigationMeasures ?? [],
     subsidySchemes: r.subsidySchemes ?? [],
+    fieldDatasetConfigurations: r.fieldDatasetConfigurations,
+    marsNature: r.marsNature,
   };
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }
@@ -339,20 +342,37 @@ async function fetchProjectDetails(): Promise<ProjectDetailsPayload> {
 
 export async function loadDashboardData(): Promise<DashboardData> {
   if (cachedData && detailsMerged) return cachedData;
+  if (summaryLoadPromise) return summaryLoadPromise;
 
-  const summaryRes = await fetch('/data/dashboard-summary.json');
-  if (!summaryRes.ok) {
-    const legacy = await fetch('/data/dashboard-data.json');
-    if (!legacy.ok) throw new Error('Dashboard data not found');
-    const raw = await legacy.json();
-    cachedData = normalizeRawData(raw);
-    detailsMerged = true;
+  summaryLoadPromise = (async () => {
+    if (cachedData && detailsMerged) return cachedData;
+
+    const summaryRes = await fetch('/data/dashboard-summary.json');
+    if (!summaryRes.ok) {
+      const legacy = await fetch('/data/dashboard-data.json');
+      if (!legacy.ok) throw new Error('Dashboard data not found');
+      const raw = await legacy.json();
+      cachedData = normalizeRawData(raw);
+      detailsMerged = true;
+      summaryRaw = raw;
+      return cachedData!;
+    }
+
+    const loaded = await summaryRes.json();
+    if (detailsMerged && cachedData) return cachedData;
+    summaryRaw = loaded;
+    if (!cachedData) {
+      cachedData = normalizeRawData(mergeDashboardPayload(summaryRaw, emptyDetailsPayload(summaryRaw)));
+    }
     return cachedData!;
-  }
+  })();
 
-  summaryRaw = await summaryRes.json();
-  cachedData = normalizeRawData(mergeDashboardPayload(summaryRaw, emptyDetailsPayload(summaryRaw)));
-  return cachedData!;
+  try {
+    return await summaryLoadPromise;
+  } catch (err) {
+    summaryLoadPromise = null;
+    throw err;
+  }
 }
 
 /**

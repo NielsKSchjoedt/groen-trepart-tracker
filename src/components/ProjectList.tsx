@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { ChevronDown, ChevronRight, Filter, Search, Droplets, Mountain, Trees } from 'lucide-react';
+import { ChevronDown, ChevronRight, Filter, Search, Droplets, Mountain, Trees, Leaf } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 import type { ProjectDetail, SketchProject, NaturePotential, ProjectNatureOverlapData, SubsidyScheme } from '@/lib/types';
 import { loadProjectGeometries, loadProjectNatureOverlap } from '@/lib/data';
@@ -297,6 +297,14 @@ function ProjectsTab({
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                   <span className={phase.text}>{phase.label}</span>
                   {p.measureName && <span>· {p.measureName}</span>}
+                  {showNatureOverlap && (
+                    <span className="flex items-center gap-0.5">
+                      <Leaf className="w-2.5 h-2.5" />
+                      {overlap && overlap.biodiversitetHa > 0
+                        ? `${formatDanishNumber(overlap.biodiversitetHa, 1)} ha overlap`
+                        : '0 ha overlap'}
+                    </span>
+                  )}
                   {hasMetrics && (
                     <span className="ml-auto flex items-center gap-1.5 flex-shrink-0">
                       {p.nitrogenT > 0 && (

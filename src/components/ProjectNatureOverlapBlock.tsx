@@ -52,8 +52,9 @@ export function ProjectNatureOverlapBlock({ ov, compact = false }: { ov: Project
         )}
       </div>
       <p className={`${textSize} text-muted-foreground leading-snug`}>
-        Hvor projektarealet overlapper kortlagt natur. Det er en <strong>stærk indikator for naturpotentiale</strong> —
-        ikke en garanti for, at naturen reelt forbedres.
+        Hvor projektarealet overlapper kortlagt natur. Overlap er <strong>ikke en ubetinget god indikator</strong> —
+        projekter lagt hvor der allerede er natur kan ramme eksisterende beskyttelse, ikke ny natur.
+        MARS holder tilskudsareal ude af registreret §3.
       </p>
     </div>
   );

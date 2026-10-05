@@ -13,7 +13,6 @@ import { getProjectKey } from '@/lib/project-selection';
 import type { SelectedProject } from '@/lib/project-selection';
 import { StubMapOverlay } from './StubMapOverlay';
 import { MobileBottomSheet } from './MobileBottomSheet';
-import { NatureWatermark } from './NatureWatermark';
 import { BiodivLayers } from './DenmarkMapBiodiv';
 import { decodeNationalMap, applyNationalMapToParams } from '@/lib/permalink/slices/map-national';
 import {
@@ -56,7 +55,7 @@ type MapLayer = 'catchments' | 'coastal' | 'kommuner';
 
 /** Shared caveat for visual project × nature overlap (see ProjectNatureOverlapBlock). */
 const NATURE_OVERLAP_CAVEAT =
-  'Visuelt overlap mellem projektareal og natur er en stærk indikator for naturpotentiale — ikke en garanti for, at naturen reelt forbedres.';
+  'Visuelt overlap mellem projektareal og natur er stedsspecifikt — ikke en ubetinget god indikator for naturpotentiale. Projekter lagt hvor der allerede er natur kan ramme eksisterende beskyttelse.';
 
 /**
  * Read a numeric field from a catchment or plan object by name.
@@ -1623,12 +1622,19 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
   })();
 
   const b4LegendItems = showNatureKommuneBase
-    ? [
-        { color: B4_COLOR_STOPS[3], label: 'Høj andel med §3-/N2000-status' },
-        { color: B4_COLOR_STOPS[2], label: 'Middel' },
-        { color: B4_COLOR_STOPS[0], label: 'Lav' },
-        { color: B4_NO_DATA_COLOR, label: 'Ingen kortlagt naturværdi' },
-      ]
+    ? (() => {
+        const maxPct = Math.max(
+          0,
+          ...Object.values(b4Data?.byKommune ?? {}).map((row) => row.pctVaerdiBeskyttet ?? 0),
+        );
+        const top = maxPct > 0 ? maxPct : 100;
+        return [
+          { color: B4_COLOR_STOPS[3], label: `${formatDanishNumber(top, 0)} %` },
+          { color: B4_COLOR_STOPS[2], label: `${formatDanishNumber(top / 2, 0)} %` },
+          { color: B4_COLOR_STOPS[0], label: '0 %' },
+          { color: B4_NO_DATA_COLOR, label: 'Ingen kortlagt naturværdi' },
+        ];
+      })()
     : [];
 
   // Label for the choropleth scale (varies by pillar and coloring mode).
@@ -1814,20 +1820,6 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-10 relative overflow-hidden">
-      {pillarConfig.watermarks.slice(0, 3).map((animal, i) => {
-        const positions = [
-          'absolute right-2 top-16 opacity-[0.10] hidden lg:block',
-          'absolute left-0 bottom-10 opacity-[0.08] hidden lg:block',
-          'absolute right-1/3 bottom-4 opacity-[0.07] hidden md:block',
-        ];
-        const sizes = [110, 100, 65];
-        return (
-          <div key={`${animal}-${i}`} className={`pointer-events-none transition-opacity duration-300 ${positions[i]}`}>
-            <NatureWatermark animal={animal} size={sizes[i]} />
-          </div>
-        );
-      })}
-
       <div className="mb-5">
         <div className="flex items-center gap-2.5">
           <Map className="w-5 h-5 text-primary" />

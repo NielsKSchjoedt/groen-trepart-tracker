@@ -46,6 +46,11 @@ except ImportError as exc:  # pragma: no cover
     raise SystemExit("Missing spatial deps. Run: mise run setup-spatial") from exc
 
 from spatial_overlay import METRIC_CRS, DEFAULT_SOURCE_CRS, SpatialIndex, iter_kommuner_geojson
+from nature_projects import (
+    NATURE_OVERLAP_THRESHOLD_HA,
+    NATURE_PIPELINE_MEASURES,
+    is_nature_pipeline_measure,
+)
 
 
 def repair_geometry(geom: BaseGeometry) -> BaseGeometry:
@@ -77,8 +82,9 @@ SECTION3_DIR = REPO / "data" / "section3" / "by-kommune"
 OUT = REPO / "data" / "project-nature-overlap.json"
 PUBLIC_OUT = REPO / "public" / "data" / "project-nature-overlap.json"
 
-METHOD_VERSION = "project-overlap-v1"
+METHOD_VERSION = "project-overlap-v2"
 EXCLUDED_DAWA_CODES = {"0411"}  # Christiansø
+OVERLAP_THRESHOLD_HA = 0.1
 
 
 def load_measure_names() -> dict[str, str]:
@@ -185,11 +191,79 @@ def section3_index(kode: str) -> SpatialIndex | None:
     return _section3_cache[kode]
 
 
+def national_overlap_summary(by_project: dict[str, Any], *, threshold_ha: float = NATURE_OVERLAP_THRESHOLD_HA) -> dict[str, Any]:
+    """Aggregate overlap for F5 nature-pipeline projects (unique geoIds)."""
+    pipeline = [p for p in by_project.values() if is_nature_pipeline_measure(p.get("measure"))]
+    unthresholded = [p for p in pipeline if (p.get("biodiversitetHa") or 0) > 0]
+    with_overlap = [p for p in pipeline if (p.get("biodiversitetHa") or 0) > threshold_ha]
+
+    def bucket(measure: str) -> dict[str, Any]:
+        rows = [p for p in pipeline if p.get("measure") == measure]
+        hit = [p for p in rows if (p.get("biodiversitetHa") or 0) > threshold_ha]
+        return {
+            "projects": len(rows),
+            "withOverlap": len(hit),
+            "biodiversitetHa": round(sum(p.get("biodiversitetHa") or 0 for p in rows), 2),
+        }
+
+    return {
+        "thresholdHa": threshold_ha,
+        "naturePipelineMeasures": sorted(NATURE_PIPELINE_MEASURES),
+        "projectsWithGeometry": len(by_project),
+        "naturePipelineWithGeometry": len(pipeline),
+        "withBiodiversityOverlap": len(with_overlap),
+        "withBiodiversityOverlapUnthresholded": len(unthresholded),
+        "withoutBiodiversityOverlap": len(pipeline) - len(with_overlap),
+        "biodiversitetHa": round(sum(p.get("biodiversitetHa") or 0 for p in pipeline), 2),
+        "section3Ha": round(sum(p.get("section3Ha") or 0 for p in pipeline), 2),
+        "natura2000Ha": round(sum(p.get("natura2000Ha") or 0 for p in pipeline), 2),
+        "lavbund": bucket("Lavbundsprojekter"),
+        "afforestation": bucket("Skovrejsning"),
+    }
+
+
+def write_overlap_payload(payload: dict[str, Any]) -> None:
+    for path in (OUT, PUBLIC_OUT):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def summarize_existing() -> None:
+    """Recompute nationalSummary on an existing overlap file (no GIS)."""
+    payload = json.loads(OUT.read_text(encoding="utf-8"))
+    by_project = payload.get("byProject") or {}
+    summary = national_overlap_summary(by_project)
+    meta = payload.setdefault("metadata", {})
+    meta["overlapThresholdHa"] = NATURE_OVERLAP_THRESHOLD_HA
+    meta["note"] = (
+        "Overlap er stedsspecifikt og ikke en ubetinget god indikator: projekter lagt "
+        "hvor der allerede er natur kan være overlap med eksisterende beskyttelse, ikke ny natur. "
+        "MARS holder tilskudsareal ude af §3. Projekter er klippet til kommunegrænser, "
+        "så areal ikke dobbelttælles på tværs af kommuner."
+    )
+    payload["nationalSummary"] = summary
+    write_overlap_payload(payload)
+    print(
+        f"✓ nationalSummary: {summary['withBiodiversityOverlap']}/{summary['naturePipelineWithGeometry']} "
+        f"nature-pipeline projects overlap biodiversity map (> {NATURE_OVERLAP_THRESHOLD_HA} ha); "
+        f"{summary['biodiversitetHa']} ha. Unthresholded: {summary['withBiodiversityOverlapUnthresholded']}."
+    )
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="Only process the first N projects (debug)")
     ap.add_argument("--no-section3", action="store_true", help="Skip §3 overlap (faster debug)")
+    ap.add_argument(
+        "--summarize-only",
+        action="store_true",
+        help="Recompute nationalSummary from the existing overlap JSON (no GIS)",
+    )
     args = ap.parse_args()
+
+    if args.summarize_only:
+        summarize_existing()
+        return
 
     t0 = time.time()
     projects = load_projects()
@@ -290,20 +364,23 @@ def main() -> None:
             "methodVersion": METHOD_VERSION,
             "generatedAt": datetime.now(timezone.utc).isoformat(),
             "headline": "biodiversitetHa = projektareal-overlap med DCE 30 % biodiversitetskort",
-            "note": ("Overlap er en stærk indikator for naturpotentiale, IKKE en garanti for "
-                     "realiseret eller forbedret natur. Projekter er klippet til kommunegrænser, "
-                     "så areal ikke dobbelttælles på tværs af kommuner."),
+            "note": (
+                "Overlap er stedsspecifikt og ikke en ubetinget god indikator: projekter lagt "
+                "hvor der allerede er natur kan være overlap med eksisterende beskyttelse, ikke ny natur. "
+                "MARS holder tilskudsareal ude af §3. Projekter er klippet til kommunegrænser, "
+                "så areal ikke dobbelttælles på tværs af kommuner."
+            ),
             "projectsWithGeometry": len(geoms),
             "projectsWithOverlap": len(by_project),
+            "overlapThresholdHa": NATURE_OVERLAP_THRESHOLD_HA,
             "sources": ["MARS project geometries", "DCE 30 % (Arealdata)", "Natura 2000", "§3 (Miljøportal)"],
         },
+        "nationalSummary": national_overlap_summary(by_project),
         "byProject": by_project,
         "byKommune": by_kommune,
     }
 
-    for path in (OUT, PUBLIC_OUT):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_overlap_payload(payload)
 
     print(f"✓ Done in {time.time() - t0:.0f}s — {len(by_project)} projects with overlap, "
           f"{len(by_kommune)} kommuner. Wrote {OUT.relative_to(REPO)}")

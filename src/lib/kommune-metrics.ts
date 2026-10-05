@@ -278,14 +278,16 @@ export function formatNatureMetricHeadline(
 export const KOMMUNE_PHASES: KommunePhase[] = ['sketch', 'preliminary', 'approved', 'established'];
 
 /**
- * Default phase selection — physically established (anlagt) only.
+ * Default phase selection — the live pipeline minus sketches:
+ * forundersøgelse + godkendt + anlagt.
  *
- * Users can expand the phase filter to include forundersøgelse and godkendt
- * (pipeline view). Sketches remain opt-in.
+ * Sketches remain opt-in. The ranking JSON still stores an established-only
+ * national block (`metadata.rankingPhases`); the UI does not treat that as
+ * the current default — `buildDynamicRanking` recomputes from this set.
  */
-export const DEFAULT_PHASES = new Set<KommunePhase>(['established']);
+export const DEFAULT_PHASES = new Set<KommunePhase>(['preliminary', 'approved', 'established']);
 
-/** True when the phase selection differs from the default (only «anlagt»). */
+/** True when the phase selection differs from the default (pipeline minus skitse). */
 export function phasesDifferFromDefault(selected: Set<KommunePhase>): boolean {
   if (selected.size !== DEFAULT_PHASES.size) return true;
   for (const p of DEFAULT_PHASES) if (!selected.has(p)) return true;

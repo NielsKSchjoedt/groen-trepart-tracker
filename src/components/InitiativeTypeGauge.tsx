@@ -5,7 +5,6 @@ import type { DashboardData, ByInitiatorHa } from '@/lib/types';
 import { usePillar } from '@/lib/pillars';
 import type { PillarId } from '@/lib/pillars';
 import { InfoTooltip } from './InfoTooltip';
-import { NatureWatermark } from './NatureWatermark';
 import { computeInitiatorCounts } from '@/lib/initiator-metrics';
 import type { InitiatorType } from '@/lib/types';
 import type { MetricMode } from '@/lib/metric-mode';
@@ -130,13 +129,6 @@ export function InitiativeTypeGauge({ data, mode = 'area' }: InitiativeTypeGauge
 
   return (
     <section className="w-full max-w-5xl mx-auto px-4 pt-4 pb-10 relative overflow-hidden">
-      <div className="absolute right-8 bottom-8 opacity-[0.08] hidden lg:block pointer-events-none">
-        <NatureWatermark animal="heron" size={110} className="scale-x-[-1]" />
-      </div>
-      <div className="absolute left-4 top-4 opacity-[0.07] hidden md:block pointer-events-none">
-        <NatureWatermark animal="butterfly" size={60} />
-      </div>
-
       <div className="flex items-center gap-2.5 mb-2">
         <Users className="w-5 h-5 text-primary" />
         <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>

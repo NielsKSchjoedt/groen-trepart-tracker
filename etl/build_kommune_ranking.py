@@ -5,7 +5,10 @@ Build Sprint 6 municipality competition ranking dataset.
 Combines dashboard byKommune (MARS phases) with B1/B2/B3 benchmarks into
 `kommune-ranking.json` for the standings UI.
 
-Delivery uses established (anlagt) only by default; KSF + NST included in skov delivery.
+Delivery in this JSON is established (anlagt) only. The live kommune UI default is
+forundersøgelse + godkendt + anlagt (`DEFAULT_PHASES` in src/lib/kommune-metrics.ts);
+`buildDynamicRanking` recomputes from the selected phases and does not treat
+`metadata.rankingPhases` as the current UI default.
 """
 from __future__ import annotations
 
