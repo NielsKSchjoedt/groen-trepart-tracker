@@ -108,7 +108,7 @@ Multifunktionel Arealregistrering — den fælles platform, hvor arealomlægning
 
 - [Aftale om et Grønt Danmark (24. juni 2024, PDF, oem.dk)](https://oem.dk/media/ul2jcmou/aftale-om-et-groent-danmark-24-juni-2024-a.pdf)
 - [Aftale om Implementering af et Grønt Danmark (18. november 2024, PDF, regeringen.dk)](https://regeringen.dk/media/raehl3jj/aftale-om-implementering-af-et-groent-danmark.pdf)
-- [Rammeaftale mellem MGTP og KL om kommunernes opgaver (13. december 2024, PDF, kl.dk)](https://www.kl.dk/media/q4sl0qeo/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf)
+- [Rammeaftale mellem MGTP og KL om kommunernes opgaver (13. december 2024, PDF, kl.dk)](https://mgtp.dk/Media/638803070558170164/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf)
 - [Regeringen og parterne indgår historisk Aftale om et grønt Danmark (regeringen.dk)](https://regeringen.dk/nyheder/2024/regeringen-og-parterne-i-groen-trepart-indgaar-historisk-aftale-om-et-groent-danmark/)
 - [Den Grønne Trepart (sgav.dk)](https://sgav.dk/groen-trepart)
 - [Klimarådet: 2030-målet er ikke længere anskueliggjort (statusrapport 2026)](https://klimaraadet.dk/da/nyhed/klimaraadet-i-sin-aarlige-statusrapport-2030-maalet-er-ikke-laengere-anskueliggjort)

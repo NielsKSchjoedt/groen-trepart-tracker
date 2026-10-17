@@ -198,8 +198,8 @@ export function KommuneDetailProjectsSection({
     <div className="space-y-6">
       {activityCount >= 3 && (
         <KommuneDetailBlock
-          title="Udvikling over tid"
-          intro="Kumulativ opbygning siden trepartsaftalen — MARS-faser plus Klimaskovfonden og Naturstyrelsen hvor datoer findes."
+          title="Projekter efter ansøgningsdato"
+          intro="Hvert projekt står på den dato, det blev søgt, i den fase det har i dag — ikke hvornår det blev godkendt eller anlagt. Plus Klimaskovfonden og Naturstyrelsen, hvor datoer findes."
         >
           <ProjectActivityChart
             projectDetails={projectDetails}

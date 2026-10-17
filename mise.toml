@@ -87,7 +87,7 @@ run = "cd etl && python3 build_kommune_neighbors.py"
 
 [tasks.test-python]
 description = "Python stdlib ETL unit tests (WFS helpers m.m.)"
-run = "cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet -v"
+run = "cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet test_kommune_attribution -v"
 
 [tasks.check]
 description = "Run all checks: lint, typecheck, build, and tests"
@@ -105,7 +105,7 @@ echo "=== 4/5: Frontend tests ==="
 npm run test
 echo
 echo "=== 5/5: Python ETL tests ==="
-cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet -v
+cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet test_kommune_attribution -v
 echo
 echo "=== All checks passed ==="
 """

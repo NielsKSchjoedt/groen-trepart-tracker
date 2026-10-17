@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { KommuneMetrics } from '@/lib/types';
-import { formatDanishNumber } from '@/lib/format';
+import { formatDanishAmount, formatDanishNumber } from '@/lib/format';
 import type { MarsPhaseMetricField } from '@/lib/kommune-metrics';
 import { formatMarsMetricHeadline } from '@/lib/kommune-metrics';
 import { MarsMetricPhaseBreakdown } from '@/components/kommune-detail/MarsMetricPhaseBreakdown';
@@ -53,7 +53,7 @@ export function KommuneMetricCard({
       ) : showSimpleTotal ? (
         <>
           <p className="text-lg font-bold text-foreground tabular-nums leading-tight">
-            {formatDanishNumber(Math.round(value * 10) / 10)}
+            {formatDanishAmount(value)}
             <span className="text-xs font-normal text-muted-foreground ml-1">{unit}</span>
           </p>
           {sub && (

@@ -65,7 +65,7 @@ let cachedKommuneNeighbors: KommuneNeighborsData | null = null;
  * `national.progress.nitrogenAchievedT`). This adapter keeps the
  * component layer stable.
  */
-function normalizeRawData(raw: Record<string, unknown>): DashboardData {
+export function normalizeRawData(raw: Record<string, unknown>): DashboardData {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const r = raw as any;
   const nat = r.national ?? {};
@@ -94,10 +94,10 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
   const afforestationNstCompletedHa = afforestation.supplementary?.nstSkovCompletedHa ?? 0;
   const afforestationNstOngoingHa = afforestation.supplementary?.nstSkovOngoingHa ?? 0;
   const afforestationNstMatchedCount = afforestation.supplementary?.nstSkovMatchedCount ?? 0;
-  const afforestationNstHa =
-    afforestation.supplementary?.nstSkovHa ??
-    afforestationNstCompletedHa + afforestationNstOngoingHa;
-  const afforestationSupplementaryHa = afforestationKsfHa + afforestationNstHa;
+  // "Anlagt" counts only planted forest: Naturstyrelsen's *ongoing* projects (land
+  // bought, planting under way) used to be added here, inflating skov anlagt by
+  // ~2.400 ha. They now enter only the "alle faser" scenario.
+  const afforestationSupplementaryHa = afforestationKsfHa + afforestationNstCompletedHa;
 
   const extractionKsfLavbundHa = extraction.supplementary?.klimaskovfondenLavbundHa ?? 0;
   const extractionKsfLavbundCount = extraction.supplementary?.klimaskovfondenLavbundCount ?? 0;
@@ -130,7 +130,7 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
       (afforestation.marsTotal?.byPhase?.approved?.ha ?? 0) +
       (afforestation.marsTotal?.byPhase?.preliminary?.ha ?? 0),
   );
-  const afforestationAllHa = afforestationAllMarsHa + afforestationSupplementaryHa;
+  const afforestationAllHa = afforestationAllMarsHa + afforestationSupplementaryHa + afforestationNstOngoingHa;
 
   function buildScenario(key: PipelineScenarioKey): PipelineScenarioValues {
     let nT: number;
@@ -235,6 +235,7 @@ function normalizeRawData(raw: Record<string, unknown>): DashboardData {
       klimaraadet: nat.klimaraadet as KlimaraadetData | undefined,
       kf26: nat.kf26 as DashboardData['national']['kf26'],
       byPipelinePhase: nat.byPipelinePhase,
+      projectsHistory: nat.projectsHistory,
       cancelled: nat.cancelled,
       byOwnerOrg: nat.byOwnerOrg,
     },
@@ -275,7 +276,7 @@ interface ProjectDetailsPayload {
 }
 
 /** Merge slim summary rows with drill-down arrays from project-details.json. */
-function mergeDashboardPayload(
+export function mergeDashboardPayload(
   summary: Record<string, unknown>,
   details: ProjectDetailsPayload,
 ): Record<string, unknown> {
@@ -348,15 +349,9 @@ export async function loadDashboardData(): Promise<DashboardData> {
     if (cachedData && detailsMerged) return cachedData;
 
     const summaryRes = await fetch('/data/dashboard-summary.json');
-    if (!summaryRes.ok) {
-      const legacy = await fetch('/data/dashboard-data.json');
-      if (!legacy.ok) throw new Error('Dashboard data not found');
-      const raw = await legacy.json();
-      cachedData = normalizeRawData(raw);
-      detailsMerged = true;
-      summaryRaw = raw;
-      return cachedData!;
-    }
+    // Fail loudly. The old fallback to the monolithic dashboard-data.json served a
+    // file the ETL stopped writing — silently showing stale numbers.
+    if (!summaryRes.ok) throw new Error(`dashboard-summary.json: ${summaryRes.status}`);
 
     const loaded = await summaryRes.json();
     if (detailsMerged && cachedData) return cachedData;

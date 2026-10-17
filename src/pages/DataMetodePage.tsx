@@ -107,8 +107,8 @@ const DATA_SOURCES: DataSourceDef[] = [
     description: 'Beskyttede naturområder under EU\'s habitatdirektiv og fuglebeskyttelsesdirektiv (~250 lokaliteter). Hentes fra MiljøGIS WFS-lag natur:natura_2000_omraader.',
     url: 'https://miljoegis.mim.dk',
     urlLabel: 'miljoegis.mim.dk',
-    disclaimer: 'Marine/terrestrisk opdeling er heuristisk (navnebaseret). Præcis opdeling kræver spatial overlay med kystlinje. Overlap med §3 estimeres konservativt (~30%).',
-    frequency: 'Lokal kørsel (fetch_all.sh)',
+    disclaimer: 'Terrestrisk Natura 2000 beregnes som alle områder skåret med kommunegrænserne (land) i den månedlige rumlige overlay — havet fjernes geometrisk. Overlappet med §3 trækkes ikke fra; det samlede tal (15,3 %) er OECD\'s estimat.',
+    frequency: 'Dagligt (GitHub Actions); terrestrisk andel månedligt',
     dataDir: 'data/natura2000/',
     fetchScript: 'etl/fetch_natura2000.py',
     pillars: ['Natur'],
@@ -119,8 +119,8 @@ const DATA_SOURCES: DataSourceDef[] = [
     description: 'Alle §3-beskyttede naturarealer — heder, moser, enge, strandenge, overdrev, søer (~187.000 polygoner). Hentes pagineret fra natur:ais_par3 (10.000 pr. side).',
     url: 'https://miljoegis.mim.dk',
     urlLabel: 'miljoegis.mim.dk',
-    disclaimer: '§3-arealer overlapper med Natura 2000. Samlet beskyttet areal korrigeres for estimeret overlap (~30%). Kun egenskaber (type + ha) hentes — ikke geometri.',
-    frequency: 'Lokal kørsel (fetch_all.sh)',
+    disclaimer: '§3-arealer overlapper med Natura 2000. Det samlede beskyttede areal (15,3 %) er OECD\'s estimat fra 2024 — vi trækker ikke selv overlappet fra. Kun egenskaber (type + ha) hentes — ikke geometri.',
+    frequency: 'Dagligt (GitHub Actions)',
     dataDir: 'data/section3/',
     fetchScript: 'etl/fetch_section3.py',
     pillars: ['Natur'],
@@ -143,7 +143,7 @@ const DATA_SOURCES: DataSourceDef[] = [
     description: 'Landsdækkende kortlægning under Vand-, Natur- og skovrejsningsordningen (Markkort, GeoServer). Vises som valgfrit vektor-overlay på hovedkortet.',
     url: 'https://fvm.dk/temaer/natur-og-miljoe',
     urlLabel: 'fvm.dk',
-    disclaimer: 'Kommunetælling i resumé bruger DAWA-centroider; overlap med MARS er kun vejledende (ingen spatial join i stdlib-ETL).',
+    disclaimer: 'Kommunetælling i resumé bruger projekternes midtpunkter mod kommunegrænserne; overlap med MARS er kun vejledende (ingen rumlig sammenkøring i den daglige ETL).',
     frequency: 'Dagligt sammen med pipelinen (GitHub Actions / fetch_all.sh)',
     dataDir: 'data/markkort/',
     fetchScript: 'etl/fetch_markkort_natur_projekter.py',
@@ -152,10 +152,10 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: TreePine,
     title: 'Skovdata & Klimaskovfonden',
-    description: 'Fredskov (juridisk baseline, ~60.000 matrikler), digitalt skovkort 2022, og Klimaskovfondens projekter (210 skovrejsningsprojekter, ~2.300 ha) hentet live via WFS.',
+    description: 'Fredskov (juridisk baseline, ~60.000 matrikler), digitalt skovkort 2022, og Klimaskovfondens projekter, hentet dagligt via WFS.',
     url: 'https://klimaskovfonden.dk/vores-standard/register',
     urlLabel: 'klimaskovfonden.dk',
-    disclaimer: 'Klimaskovfonden-data hentes fra WFS (test.admin.gc2.io). Arealer beregnes fra polygongeometri (Shoelace-formel på WGS84). Fredskov er juridisk status, ikke faktisk trædække.',
+    disclaimer: 'Klimaskovfonden-data hentes fra en WFS på et testdomæne (test.admin.gc2.io) — det kan ændres uden varsel. Arealer beregnes fra polygongeometri (Shoelace-formel på WGS84). Fredskov er juridisk status, ikke faktisk trædække.',
     frequency: 'Lokal kørsel (fetch_all.sh)',
     dataDir: 'data/klimaskovfonden/',
     fetchScript: 'etl/fetch_klimaskovfonden.py',
@@ -164,7 +164,7 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: Landmark,
     title: 'Naturstyrelsen — statslig skovrejsning',
-    description: 'Statslige skovrejsningsprojekter matchet fra Naturstyrelsens hjemmeside mod MiljøGIS WFS-geodata (skovdrift-lag). ~30 projekter med polygongeometri, ~4.100 ha.',
+    description: 'Statslige skovrejsningsprojekter matchet fra Naturstyrelsens hjemmeside mod MiljøGIS WFS-geodata (skovdrift-lag). Kun afsluttede projekter tæller som anlagt skov; igangværende vises for sig.',
     url: 'https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/',
     urlLabel: 'naturstyrelsen.dk',
     disclaimer: 'Matching sker på generiske stednavne — ikke alle projekter kan matches til WFS-geometri. Sagsnumre indikerer årstal, men præcise tidsperioder er uklare.',
@@ -176,11 +176,11 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: Scale,
     title: 'Den Grønne Trepart (aftalen)',
-    description: 'Reduktionsmålene fra aftalen om et Grønt Danmark (december 2023) — 12.776 ton N inden 2027, 140.000 ha lavbundsjorder inden 2030, 250.000 ha ny skov inden 2045.',
+    description: 'Reduktionsmålene fra Aftale om et Grønt Danmark (24. juni 2024) — 12.776 ton N inden 2027, 140.000 ha lavbundsjorder inden 2030, 250.000 ha ny skov inden 2045.',
     url: 'https://regeringen.dk/aktuelt/publikationer-og-aftaletekster/aftale-om-et-groent-danmark/',
     urlLabel: 'regeringen.dk',
     disclaimer: 'Politisk aftale — målene kan ændres ved ny lovgivning. Dashboardet bruger de officielle mål som reference.',
-    frequency: 'Statisk (aftale fra dec. 2023)',
+    frequency: 'Statisk (aftale af 24. juni 2024)',
     dataDir: '',
     fetchScript: '',
     pillars: ['Alle søjler'],
@@ -188,7 +188,7 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: MapPin,
     title: 'DAWA (Dataforsyningen)',
-    description: '98 kommuner med metadata, GeoJSON-grænser og reverse geocoding. Bruges til kommunefordeling af projekter og kortvisning.',
+    description: 'Kommunegrænser og -metadata til kort og kommunelister. DAWA blev lukket i 2026; trackeren bruger et fast udtræk fra sidste hentning (11. september 2026). Kommunetal for MARS-projekter kommer fra MARS\' egen kommuneopgørelse.',
     url: 'https://api.dataforsyningen.dk',
     urlLabel: 'api.dataforsyningen.dk',
     disclaimer: 'CC0-licens. Administrative grænser stemmer ikke nødvendigvis overens med miljøgeografiske opdelinger.',
@@ -421,12 +421,12 @@ const METHOD_SECTIONS = [
     ),
   },
   {
-    title: 'Kommunefordeling (punkt-i-polygon)',
+    title: 'Kommunefordeling',
     content: (
       <>
-        <p>Projekter med koordinater (centroider eller geometri) fordeles på kommuner via reverse geocoding fra DAWA API eller punkt-i-polygon test mod kommunepolygoner.</p>
-        <p>Resultater caches i <code>data/geo-kommune-cache.json</code> for at undgå gentagne API-kald. Projekter der falder uden for kommunepolygoner (f.eks. havarealer) får ingen kommunetilknytning.</p>
-        <p>Kilde: <a href={ghLink('etl/spatial_utils.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl/spatial_utils.py</a></p>
+        <p>Kommunetal for MARS-projekter kommer fra MARS&apos; egen kommuneopgørelse. Et projekt, der krydser en kommunegrænse, tæller kun med den del, der ligger i kommunen — samme opgørelse som på MARS&apos; kommunesider. Projektets hovedkommune er den, der har den største andel.</p>
+        <p>Klimaskovfondens og Naturstyrelsens projekter placeres i en kommune ved at teste deres midtpunkt mod de faste kommunegrænser. Punkter lige uden for den forenklede kystlinje knyttes til nærmeste kommune (højst 2 km); punkter på åbent hav får ingen kommune.</p>
+        <p>Kilde: <a href={ghLink('etl/mars_municipality.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl/mars_municipality.py</a> og <a href={ghLink('etl/kommune_lookup.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl/kommune_lookup.py</a></p>
       </>
     ),
   },

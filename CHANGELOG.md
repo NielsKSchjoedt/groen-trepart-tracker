@@ -17,6 +17,39 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.0.5 — 17. oktober 2026
+
+**Tallene følger nu MARS — nationalt og pr. kommune — og flere fejl er rettet**
+
+### Fejlrettelse
+- Projekttragten viste for lidt areal og kvælstof. Projekter, der ligger i flere kystvandoplande, blev kun talt med for ét oplands andel. Fx viste tragten 607 ha anlagt lavbund, mens MARS — og sidens egen overskrift — viste 735 ha, og 68.764 ha i forundersøgelse mod 74.577 ha (5. oktober). Fejlen kom ind med rettelsen i v1.0.4, der fjernede dobbelttælling af de samme projekter. Nu bruges hele projektets effekt, og tragten, fremskrivningen og overskriften viser de samme tal som MARS' nationale oversigt. (Teknisk: national effekt = summen af projektets kommune-afgrænsede rækker i MARS /status/municipality.)
+- 77 MARS-projekter — 13.514 ha lavbund og 842 ton kvælstof — manglede på alle kommunesider og i kommunesammenligningen. Den offentlige adresseservice DAWA, som vi brugte til at finde projekternes kommune, er lukket, og fejlen blev ikke opdaget. Fx stod Stevns med «Ingen data» for lavbund og så ud til at være foran nabokommunerne, selvom kommunen har 747 ha lavbund i forundersøgelse. Desuden blev et projekt, der krydser en kommunegrænse, lagt i én kommune: 29 af 98 kommuner havde lavbundstal, der afveg mere end 25 % fra MARS. Nu bruger vi MARS' egen kommuneopgørelse, hvor kun den del af et projekt, der ligger i kommunen, tæller med — kommunetallene svarer nu til MARS' kommunesider. (Teknisk: /api/status/municipality; byggeriet stopper nu, hvis et projekt mangler kommune.)
+- Den automatiske dataopdatering fejlede hver dag fra 6. oktober 2026, fordi DAWA blev lukket, så tallene på siden stod stille. Kommunegrænserne ligger nu fast i projektet, og ingen del af opdateringen afhænger længere af DAWA. Samtidig stopper en enkelt afbrudt forbindelse til MARS eller Klimaregnskabet ikke længere hele opdateringen.
+- I tabellen over kystvandoplande var antallet af projekter i forundersøgelse og med etableringstilsagn byttet om. Fx viste Vesterhavet, nord 117 projekter i forundersøgelse og 56 godkendt — det rigtige er 56 og 117. Årsagen er, at MARS' datafelter hedder det modsatte af, hvad de indeholder. Rettet, og en test slår nu alarm, hvis MARS ændrer det. (Teknisk: countAssessedProjects = etableringstilsagn, countApprovedProjects = forundersøgelsestilsagn.)
+- «Natura 2000 (terrestrisk)» stod som 18,0 % af landarealet, ved siden af et samlet beskyttet areal på 15,3 % — men en del kan ikke være større end helheden. Vi skelnede mellem land og hav ud fra områdernes navne, så hav blev talt som land (fx Gule Rev, et rev i Nordsøen), mens land i blandede områder blev udeladt. Nu skærer vi alle Natura 2000-områder med kommunegrænserne: 382.061 ha, 8,9 % af landarealet.
+- Klimakortet viste «53 % → 69,8 % (mål 70 %)», som om Danmark lige akkurat misser målet. Klimalovens 70 %-mål måles på nettoudledningen inklusive jord og skov (LULUCF), og sådan når både KF25 (margen ca. 1,5 mio. ton) og KF26-høringsversionen (ca. 0,4 mio. ton) målet. Vi brugte en opgørelse uden LULUCF. Rettet: KF25 giver 72 % i 2030. (Kilde: KF26 del 1 — «nettoudledningerne i 2030 reduceres med ca. 70 pct. … opfyldt med en margen på ca. 0,4 mio. ton».)
+- Grafen over projekterne over tid placerede hvert projekt på den dato, det blev søgt, men i den fase det har i dag. Det fik antallet af anlagte projekter til at se ud til at stå næsten stille (126 i december 2025, 133 i oktober 2026), mens MARS' egen historik viser mere end en fordobling — fra 59 til 133. Grafen er nu omdøbt og forklaret, og MARS' faktiske udvikling står under den.
+- Klimaskovfondens projekter i skovvisningerne var fra marts 2026 (210 projekter, 2.284 ha), mens overskriften brugte den daglige opdatering (280 projekter, 3.119 ha). Nu opdateres begge dagligt.
+- Under «Proces & fremdrift» og «Hvem står bag projekterne?» blev et projekt i flere kystvandoplande talt med én gang pr. opland. Nu tælles det én gang.
+- Kommunesiderne målte kvælstoftempoet mod 2030, mens målet — og forsiden — bruger 2027. Det fik kommunernes kvælstoftempo til at se ca. dobbelt så godt ud. Rettet.
+- Tre beløb i økonomien henviste til et dokument, hvor de ikke står: ~43 mia. kr. (står i aftalen om implementering, 18.11.2024), Novo Nordisk Fondens 10 mia. kr. (står i udmøntningsaftalen med fonden, 7.2.2025) og 740 mio. kr. til jordfordeling (står i rammeaftalen med KL). Hvert beløb henviser nu til sin egen kilde. Arealfonden stod som «≥ 40 mia.»; aftalen siger «omtrent 40 mia.» — rettet.
+- Siden Data & metode skrev stadig, at det beskyttede areal «korrigeres for ~30 % overlap», og daterede aftalen til december 2023. Begge dele er rettet: 15,3 % er OECD's estimat, og aftalen er fra 24. juni 2024.
+- Nogle procenter og små tal på kommunesiderne blev afrundet forkert: 20,49 % blev vist som 21 % ét sted og 20 % et andet, og små mængder som 0,47 ton kvælstof blev vist som 0. Rettet.
+
+### Metodeændring
+- Kvælstoftallet følger nu MARS' nationale opgørelse præcist: permanent ekstensivering (45 ton fra 798 tilsagn), som MARS opgør for sig, er med, og kvælstofeffekt tælles kun i deloplande med et indsatsbehov — som MARS gør. Samlet: 6.220 ton i alle faser, samme tal som MARS' oversigt.
+- «Beskyttet natur der dyrkes» tæller nu kun marker med afgrøder, som MARS selv regner som landbrug, og bruger det korrekte Natura 2000-areal på land (se ovenfor). Nationalt er andelen 31,3 % (før 36,4 %); Viborg 40,6 % (før 56,6 %). (Teknisk: MARS' Afgkode-udelukkelsesliste fra fieldDatasetConfigurations.)
+- «2 % af trepartens klimabidrag (~1,8 mio. ton) er anlagt» blandede to ting: de 1,8 mio. ton er aftalens samlede skøn — inklusiv bl.a. CO₂e-afgiften på husdyr — mens de 2 % er arealet af skov og lavbund. Teksten siger nu, at det er skov- og lavbundsarealet, der er anlagt.
+- Skovrejsning «anlagt» talte Naturstyrelsens igangværende projekter med (ca. 2.400 ha), hvor jorden er købt, men skoven ikke plantet. Nu tæller kun de afsluttede projekter som anlagt, og de igangværende vises for sig. Anlagt skov er nu ca. 5.500 ha (før 7.892 ha).
+- Naturkortet sagde «Står stille». Det kunne vi ikke vide: både udgangspunktet og det aktuelle tal er OECD's estimat fra 2024, så forskellen er altid nul. Kortet siger nu, at tilvæksten endnu ikke kan måles.
+
+### Forbedring
+- Opdateringsmærket siger nu «MARS-data opdateret», fordi de øvrige kilder har egne datoer.
+
+### Dataopdatering
+- Datagrundlaget er opdateret med MARS-udtrækket fra . oktober 2026.
+---
+
 ## v1.0.4 — 5. oktober 2026
 
 **Publicerbar natur- og kommunevisning: unikke projekter, vandmiljø som mål, ærligere overlap**

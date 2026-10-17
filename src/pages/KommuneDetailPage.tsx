@@ -68,6 +68,7 @@ import { hasProcesData } from '@/lib/kommune-proces';
 import { useHashScroll } from '@/lib/permalink/useHashScroll';
 import { parseProjectParam, PROJECT_PARAM } from '@/lib/permalink/slices/project-open';
 import { projectOverlapsKommune } from '@/lib/mars-kommune-overlap';
+import { withNationalEffects } from '@/lib/pillar-projects';
 
 /**
  * Full detail page for a single municipality at `/kommuner/:kommuneSlug`.
@@ -217,7 +218,8 @@ export default function KommuneDetailPage() {
     const all = data.plans.flatMap((p) =>
       p.projectDetails.filter((pd) => projectOverlapsKommune(pd, kommune.kode)),
     );
-    return dedupeByProjectId(all);
+    // One row per project, showing the whole project (plan rows are clipped per opland).
+    return dedupeByProjectId(all).map(withNationalEffects);
   }, [kommune, data]);
 
   const sketchProjects = useMemo(() => {
@@ -225,7 +227,7 @@ export default function KommuneDetailPage() {
     const all = data.plans.flatMap((p) =>
       p.sketchProjects.filter((sk) => projectOverlapsKommune(sk, kommune.kode)),
     );
-    return dedupeByProjectId(all);
+    return dedupeByProjectId(all).map(withNationalEffects);
   }, [kommune, data]);
 
   const allowedMarsGeoIds = useMemo(() => {

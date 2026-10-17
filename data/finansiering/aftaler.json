@@ -1,7 +1,8 @@
 {
   "_meta": {
     "kilde": "Aftale om et Grønt Danmark / Rammeaftale MGTP–KL — egen kildegennemgang",
-    "opdateret": "2026-06-01"
+    "opdateret": "2026-10-17",
+    "kildekontrol": "Hvert beløb er kontrolleret mod det dokument, det henviser til (2026-10-17)."
   },
   "stroemme": [
     {
@@ -12,32 +13,48 @@
       "tone": "green",
       "hero": "~43",
       "heroUnit": "mia. kr.",
-      "heroNote": "samlet politisk aftaleramme (offentlig)",
+      "heroNote": "samlet politisk aftaleramme til opkøb og omlægning af landbrugsjord (offentlig)",
       "who": "Lodsejere & projektejere ansøger",
       "instruments": [
         {
           "label": "Danmarks Grønne Arealfond",
-          "amount": "≥ 40 mia.",
-          "note": "paraplyfond — ligger inde i de ~43 mia. · ~180.000 ha"
+          "amount": "~40 mia.",
+          "note": "paraplyfond — ligger inde i de ~43 mia. · ~180.000 ha",
+          "source": {
+            "label": "Aftale om et Grønt Danmark (24.6.2024)",
+            "url": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf"
+          }
         },
         {
           "label": "Novo Nordisk Fonden",
           "amount": "+ 10 mia.",
           "privat": true,
-          "note": "privat fond · kommer oveni · 10-årig ramme"
+          "note": "privat fond · kommer oveni · 10-årig ramme · heraf ~7,5 mia. til arealomlægning",
+          "source": {
+            "label": "Udmøntningsaftale regeringen–Novo Nordisk Fonden (7.2.2025)",
+            "url": "https://novonordiskfonden.dk/app/uploads/Udmoentning-af-principaftale-mellem-regeringen-og-Novo-Nordisk-Fonden-om-naturgenopretning-af-Danmark.pdf"
+          }
         },
         {
           "label": "Jordfordeling",
           "amount": "+ 740 mio.",
-          "note": "separat virkemiddel · muliggør arealomlægning"
+          "note": "separat virkemiddel · muliggør arealomlægning",
+          "source": {
+            "label": "Rammeaftale MGTP–KL (om Aftale om implementering)",
+            "url": "https://mgtp.dk/Media/638803070558170164/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf"
+          }
         }
       ],
       "listNote": "Arealfonden ligger inde i rammen; Novo (privat) og jordfordeling kommer oveni — listen er ikke en sum.",
       "keyPoint": "Tilskudsfinansieret og frivilligt for lodsejeren. Lavbund er 100 % EU-dækket — både forundersøgelse og etablering — så lodsejeren bærer ikke anlægsomkostningen.",
-      "flow": ["Stat / EU", "tilskud", "projekter"],
+      "flow": [
+        "Stat / EU",
+        "tilskud",
+        "projekter"
+      ],
       "source": {
-        "label": "Aftale om et Grønt Danmark (24.6.2024)",
-        "url": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf"
+        "label": "Aftale om implementering af et Grønt Danmark (18.11.2024)",
+        "url": "https://regeringen.dk/media/raehl3jj/aftale-om-implementering-af-et-groent-danmark.pdf"
       }
     },
     {
@@ -51,16 +68,36 @@
       "heroNote": "2025–2032 · fire bloktilskudspuljer",
       "who": "Kommunerne via bloktilskud",
       "breakdown": [
-        { "label": "Basisbevilling", "amount": 49.0, "note": "alle kommuner · folketalsnøgle" },
-        { "label": "Drift af lokale treparter", "amount": 88.0, "note": "10 tværkommunale samarbejder" },
-        { "label": "Fordeling, kvælstof + CO₂e", "amount": 314.8, "note": "opsøgende projektarbejde · 60/40" },
-        { "label": "Risikopulje", "amount": 10.0, "note": "opgivne EU-projekter · SGAV" }
+        {
+          "label": "Basisbevilling",
+          "amount": 49.0,
+          "note": "alle kommuner · folketalsnøgle"
+        },
+        {
+          "label": "Drift af lokale treparter",
+          "amount": 88.0,
+          "note": "10 tværkommunale samarbejder"
+        },
+        {
+          "label": "Fordeling, kvælstof + CO₂e",
+          "amount": 314.8,
+          "note": "opsøgende projektarbejde · 60/40"
+        },
+        {
+          "label": "Risikopulje",
+          "amount": 10.0,
+          "note": "opgivne EU-projekter · SGAV"
+        }
       ],
       "keyPoint": "Betaler planlægningsmaskineriet — ikke projekterne. Kommunerne selvfinansierer ikke; er kommunen selv projektejer, søger den tilskud på lige fod med private (Strøm A).",
-      "flow": ["Stat", "bloktilskud", "kommuner"],
+      "flow": [
+        "Stat",
+        "bloktilskud",
+        "kommuner"
+      ],
       "source": {
         "label": "Rammeaftale MGTP–KL (13.12.2024), tabel 1",
-        "url": "https://www.kl.dk/media/q4sl0qeo/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf"
+        "url": "https://mgtp.dk/Media/638803070558170164/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf"
       }
     },
     {
@@ -74,11 +111,23 @@
       "who": "Ingen fast modtager udpeget",
       "contextLabel": "Kun midlertidige midler:",
       "context": [
-        { "label": "Naturnationalparker", "amount": "86 mio.", "note": "kun afsat frem til 2030" },
-        { "label": "Pleje af græs- & naturarealer", "amount": "+ 65 mio.", "note": "engangsløft i 2025" }
+        {
+          "label": "Naturnationalparker",
+          "amount": "86 mio.",
+          "note": "kun afsat frem til 2030"
+        },
+        {
+          "label": "Pleje af græs- & naturarealer",
+          "amount": "+ 65 mio.",
+          "note": "engangsløft i 2025"
+        }
       ],
       "keyPoint": "Et strukturelt, tværgående hul. Aftalen forpligter kun parterne til at drøfte permanent driftsfinansiering efter 2030, og lavbund-tilskuddet dækker etablering — ikke den løbende pleje.",
-      "flow": ["Anlagt natur", "✕", "ikke afsat"],
+      "flow": [
+        "Anlagt natur",
+        "✕",
+        "ikke afsat"
+      ],
       "source": {
         "label": "Aftale om et Grønt Danmark — drøftelse efter 2030",
         "url": "https://regeringen.dk/media/ng3b13va/aftale-om-et-groent-danmark.pdf"

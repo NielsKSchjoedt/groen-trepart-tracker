@@ -359,24 +359,27 @@ export function buildEffectDomains(
   const natureCurrentPct = progress.natureProtectedPct;
   const natureGapPoints = natureTarget - NATURE_BASELINE_2024_PCT;
   const natureDeltaPoints = natureCurrentPct - NATURE_BASELINE_2024_PCT;
+  const natureMeasurable = progress.natureProtectedPct !== NATURE_BASELINE_2024_PCT;
   const natureGapProgressPct =
     natureGapPoints > 0 ? Math.max(0, (natureDeltaPoints / natureGapPoints) * 100) : 0;
 
-  // CO₂: trepartens del af reduktionen frem mod 2030 vs. hvor lidt der er leveret.
+  // CO₂: the remaining net reduction 2023→2030 (KF25, incl. LULUCF — the basis of
+  // the 70 % target) and the agreement's own estimated share of it.
   const co2RemainingMt = co2Data
-    ? co2Data.milestones.totalExcl2023 - co2Data.milestones.totalExcl2030
-    : 17.4;
-  // Trepartens klimabidrag kommer fra skov + lavbund. Bjælken viser hele
-  // reduktionen frem mod 2030: resten af økonomien (energi/industri), trepartens
-  // del der mangler, og den lille del treparten reelt har anlagt.
+    ? co2Data.milestones.netEmissions2023 - co2Data.milestones.netEmissions2030
+    : 16.6;
+  // The 1,8 Mt is the WHOLE agreement's estimate (CO₂e-afgift på husdyr, kalkning,
+  // gødning, fodertilsætning, skovrejsning, lavbund, biokul — aftalen s. 30), not
+  // skov + lavbund alone. We cannot measure how much of it is delivered, so the bar
+  // shows the share only; skov/lavbund progress is stated as AREA, never as CO₂.
   const climateProjectAreaGoal = targets.afforestationHa + targets.extractionHa;
   const climateBuildPct =
     climateProjectAreaGoal > 0
       ? ((progress.afforestationAchievedHa + progress.extractionAchievedHa) / climateProjectAreaGoal) * 100
       : 0;
   const trepartShareOfTotalPct = co2RemainingMt > 0 ? (TREPART_CO2_EFFECT_MT_2030 / co2RemainingMt) * 100 : 10;
-  const co2DeliveredOfTotalPct = trepartShareOfTotalPct * (climateBuildPct / 100);
-  const co2RemainingOfTotalPct = Math.max(0, trepartShareOfTotalPct - co2DeliveredOfTotalPct);
+  const co2DeliveredOfTotalPct = 0;
+  const co2RemainingOfTotalPct = Math.max(0, trepartShareOfTotalPct);
   const co2RestOfTotalPct = Math.max(0, 100 - trepartShareOfTotalPct);
 
   const domains: EffectDomain[] = [
@@ -397,17 +400,17 @@ export function buildEffectDomains(
       reframe: {
         kind: 'attribution',
         contextLine: co2Data
-          ? `Danmark samlet: ${formatDanishNumber(co2Data.milestones.reduction2025Pct, 0)}% → ${formatDanishNumber(co2Data.milestones.reduction2030Pct, 1)}% (mål ${formatDanishNumber(co2Data.targets.reductionPct, 0)}% i 2030).`
+          ? `Danmark samlet (nettoudledning): ${formatDanishNumber(co2Data.milestones.reduction2025Pct, 0)} % i 2025 → ${formatDanishNumber(co2Data.milestones.reduction2030Pct, 0)} % i 2030 ifølge KF25 (mål ${formatDanishNumber(co2Data.targets.reductionPct, 0)} %).`
           : 'Danmark samlet målt mod 1990 (mål 70% i 2030).',
         restPct: co2RestOfTotalPct,
         deliveredPct: co2DeliveredOfTotalPct,
         remainingPct: co2RemainingOfTotalPct,
         totalLabel: `i alt ~${formatDanishNumber(Math.round(co2RemainingMt))} mio. ton`,
         headline: formatPctHeadline(climateBuildPct),
-        headlineSub: `af trepartens klimabidrag (~${formatDanishNumber(TREPART_CO2_EFFECT_MT_2030, 1)} mio. ton) er anlagt`,
+        headlineSub: `af skov- og lavbundsarealet er anlagt — to af tiltagene bag aftalens skønnede klimabidrag på ~${formatDanishNumber(TREPART_CO2_EFFECT_MT_2030, 1)} mio. ton i 2030 (der også omfatter bl.a. CO₂e-afgift på husdyr)`,
         verdictLabel: 'Nationalt nær mål',
         caveat:
-          'Landbruget skal nå 55–65% i 2030; KF26 forventer 52%. Klimarådet: væsentlig risiko.',
+          'KF26 (høringsversion): 70 %-målet nås med kun ~0,4 mio. ton margen. Landbruget skal nå 55–65 % i 2030; KF26 forventer 52 %. Klimarådet: væsentlig risiko.',
       },
     },
     {
@@ -458,7 +461,10 @@ export function buildEffectDomains(
       icon: Leaf,
       accent: natureCfg.accentColor,
       means: 'Mere beskyttet, sammenhængende natur hvor arter kan trives.',
-      status: assessGoalStatus(natureGapProgressPct, natureGapProgressPct),
+      // Growth since signing is only measurable once a current figure exists that is
+      // independent of the 2024 baseline. Today both are the same OECD estimate, so a
+      // "stands still" verdict would be true by construction, not measured.
+      status: natureMeasurable ? assessGoalStatus(natureGapProgressPct, natureGapProgressPct) : 'unknown',
       valueText: `~${formatPctHeadline(natureNormalisedPct, 0)}`,
       goalFooter: `MÅL: ${formatDanishNumber(natureTarget, 0)}% BESKYTTET NATUR I ${natureCfg.deadlineYear}`,
       reframe: {
@@ -467,11 +473,16 @@ export function buildEffectDomains(
         currentPct: natureCurrentPct,
         targetPct: natureTarget,
         deadlineYear: natureCfg.deadlineYear,
-        deltaHeadline: `~${formatPctHeadline(natureGapProgressPct, 0)}`,
-        deltaSub: 'af det aftalen skal tilføje siden underskrift',
-        verdictLabel: natureDeltaPoints > 0.05 ? 'Næsten i stå' : 'Står stille',
-        caveat:
-          'Måler juridisk udpegning — ikke om naturen reelt trives.',
+        deltaHeadline: natureMeasurable ? `~${formatPctHeadline(natureGapProgressPct, 0)}` : '—',
+        deltaSub: natureMeasurable
+          ? 'af det aftalen skal tilføje siden underskrift'
+          : 'tilvækst siden underskrift kan endnu ikke måles',
+        verdictLabel: natureMeasurable
+          ? (natureDeltaPoints > 0.05 ? 'Næsten i stå' : 'Står stille')
+          : 'Kan ikke måles endnu',
+        caveat: natureMeasurable
+          ? 'Måler juridisk udpegning — ikke om naturen reelt trives.'
+          : 'Eneste samlede tal er OECD\'s estimat fra 2024 (15,3 %). Der findes endnu ingen opdateret opgørelse at måle tilvæksten mod. Måler juridisk udpegning — ikke om naturen reelt trives.',
       },
     },
   ];

@@ -7,7 +7,7 @@ import type { PillarId } from './pillars';
 import type { KommuneMetric } from './kommune-metrics';
 import type { ProjectPhase } from './phase-config';
 import { buildMarsProjectOverlapByGeoId } from './mars-kommune-overlap';
-import { projectMatchesPillar } from './pillar-projects';
+import { projectMatchesPillar, withNationalEffects } from './pillar-projects';
 
 /** Screen bbox must reach this multiple of dot diameter before switching from dot to polygon. */
 export const MAP_PROJECT_POLYGON_MIN_DOT_FACTOR = 1;
@@ -79,12 +79,13 @@ export function findMarsProjectByGeoId(
   for (const plan of data.plans) {
     for (const sk of plan.sketchProjects) {
       if (sk.geoId === geoId) {
-        return { project: sk, planName: plan.name };
+        return { project: withNationalEffects(sk), planName: plan.name };
       }
     }
     for (const proj of plan.projectDetails) {
       if (proj.geoId === geoId) {
-        return { project: proj, planName: plan.name };
+        // National map: show the whole project, not this plan's clipped share.
+        return { project: withNationalEffects(proj), planName: plan.name };
       }
     }
   }

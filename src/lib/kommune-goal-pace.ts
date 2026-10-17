@@ -24,6 +24,7 @@ import {
 import { paceIdxPhrase, type MetricPaceRatios } from './kommune-ranking';
 import type { IndsatsStatus } from './kommune-indsats-status';
 import type { DashboardData } from './types';
+import { getPillarConfig } from './pillars';
 
 /** National goal-pace context for one effort metric. */
 export interface NationalMetricPace {
@@ -73,7 +74,9 @@ export function computeNationalPace(data: DashboardData): NationalPaceContext {
   const p = data.national.progress;
   const extractionYear = yearOf(t.deadline);
   const forestYear = yearOf(t.forestDeadline);
-  const nitrogenYear = yearOf(t.deadline);
+  // Kvælstof's deadline is 2027 (vandplanlægningsloven; MARS "frem mod 2027"), the
+  // same as on the national page — not the generic 2030 targets.deadline.
+  const nitrogenYear = getPillarConfig('nitrogen').deadlineYear;
   return {
     lavbund: extractionYear != null ? metricPace(p.extractionProgressPct, extractionYear) : null,
     skov: forestYear != null ? metricPace(p.afforestationProgressPct, forestYear) : null,

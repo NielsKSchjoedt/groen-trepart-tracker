@@ -712,7 +712,7 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
                 />
               </div>
               <p className="text-[11px] text-muted-foreground mt-1.5">
-                Administreres uden for MARS — har ikke projektfasedata. Alle projekter er anlagte (frivillige lavbundsprojekter). Data fra Klimaskovfondens WFS.
+                Administreres uden for MARS — har ikke projektfasedata. Frivillige lavbundsprojekter; tælles som anlagte, men Klimaskovfondens data angiver ikke, om de seneste ansøgningsrunder er gennemført. Data fra Klimaskovfondens WFS.
               </p>
             </div>
           </div>
@@ -757,7 +757,7 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
                 />
               </div>
               <p className="text-[11px] text-muted-foreground mt-1.5">
-                Administreres uden for MARS — har ikke projektfasedata. Alle projekter er anlagte (frivillige skovrejsningsprojekter). Data fra Klimaskovfondens WFS.
+                Administreres uden for MARS — har ikke projektfasedata. Frivillige skovrejsningsprojekter; tælles som anlagte, men Klimaskovfondens data angiver ikke plantningsstatus, så de seneste ansøgningsrunder kan være under etablering. Data fra Klimaskovfondens WFS.
               </p>
             </div>
           </div>
@@ -823,7 +823,7 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
                 </div>
               </div>
               <p className="text-[11px] text-muted-foreground mt-1.5">
-                Administreres uden for MARS — har ikke projektfasedata. {formatDanishNumber(nstOngoing.length)} igangværende · {formatDanishNumber(nstCompleted.length)} afsluttede. Data fra MiljøGIS WFS (skovdrift).
+                Administreres uden for MARS — har ikke projektfasedata. {formatDanishNumber(nstOngoing.length)} igangværende ({formatDanishNumber(nstOngoingHa)} ha) · {formatDanishNumber(nstCompleted.length)} afsluttede ({formatDanishNumber(nstCompletedHa)} ha). Kun de afsluttede tæller som anlagt skov. Data fra MiljøGIS WFS (skovdrift).
               </p>
             </div>
           </div>

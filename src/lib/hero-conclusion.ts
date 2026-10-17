@@ -145,11 +145,15 @@ export function buildHeroConclusion(
     );
   }
   if (natur) {
-    const verdict =
-      natur.reframe.kind === 'baseline-gap'
-        ? natur.reframe.verdictLabel.toLowerCase()
-        : 'afventer data';
-    sentences.push(`Den beskyttede natur ${verdict}.`);
+    if (natur.status === 'unknown') {
+      sentences.push('Om der er kommet mere beskyttet natur siden aftalen, kan endnu ikke måles.');
+    } else {
+      const verdict =
+        natur.reframe.kind === 'baseline-gap'
+          ? natur.reframe.verdictLabel.toLowerCase()
+          : 'afventer data';
+      sentences.push(`Den beskyttede natur ${verdict}.`);
+    }
   }
   if (vand) {
     if (vand.reframe.kind === 'ecological-snapshot') {

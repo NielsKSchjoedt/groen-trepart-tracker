@@ -68,6 +68,8 @@ export interface FinansieringStroemInstrument {
   amount: string;
   note?: string;
   privat?: boolean;
+  /** The document that actually states this amount (checked 2026-10-17). */
+  source?: { label: string; url: string };
 }
 
 export interface FinansieringStroemBreakdown {
@@ -256,7 +258,7 @@ export interface PipelineScenarioValues {
  * project data, Klimaskovfonden, and Naturstyrelsen sources.
  *
  * Produced by `etl/build_dashboard_data.py` and stored in
- * `dashboard-data.json → national.byKommune`.
+ * `dashboard-summary.json → national.byKommune`.
  */
 /** Per-phase metric breakdown for a single municipality. */
 export interface KommunePhaseMetrics {
@@ -388,6 +390,8 @@ export interface DashboardData {
     klimaraadet?: KlimaraadetData;
     kf26?: Kf26TrepartData;
     byPipelinePhase?: ByPipelinePhaseRoot;
+    /** MARS's own quarterly phase counts (from 2025-Q3). */
+    projectsHistory?: ProjectsHistoryQuarter[];
     cancelled?: CancelledMetrics;
     byOwnerOrg?: Record<string, { count: number; ha: number; byPipelinePhase: ByPipelinePhaseRoot }>;
   };
@@ -418,6 +422,17 @@ export type PipelinePhaseType =
   | 'cancelled';
 
 export type PipelineMainPhase = Exclude<PipelinePhaseType, 'cancelled'>;
+
+/** One quarter of MARS's /status/projects/history, mapped to phase meaning. */
+export interface ProjectsHistoryQuarter {
+  year: number;
+  quarter: number;
+  /** Forundersøgelsestilsagn (MARS field: totalApprovedProjects). */
+  preliminary: number;
+  /** Etableringstilsagn (MARS field: totalAssessedProjects). */
+  approved: number;
+  established: number;
+}
 
 export interface PipelinePhaseMetricsRow {
   count: number;
@@ -543,14 +558,22 @@ export interface ProjectDetail {
   nitrogenT: number;
   extractionHa: number;
   afforestationHa: number;
+  /**
+   * Whole-project effects on MARS's national basis (Σ of the project's kommune-clipped
+   * MARS rows). `nitrogenT` etc. on a plan row are clipped to that kystvandopland, so
+   * national views must use these. Absent in older data — fall back to the row value.
+   */
+  nationalNitrogenT?: number;
+  nationalExtractionHa?: number;
+  nationalAfforestationHa?: number;
   areaHa: number;
   appliedAt: string;
   lastChanged: string;
-  /** 4-digit municipality code resolved via DAWA reverse geocoding (null if not resolved) */
+  /** Primary kommune: the one holding the largest share of the project in MARS's kommune view. */
   kommuneKode?: string | null;
-  /** Municipality name resolved via DAWA reverse geocoding (null if not resolved) */
+  /** Primary kommune name (see kommuneKode). */
   kommuneNavn?: string | null;
-  /** All kommuner whose boundary intersects the project polygon (for map linking). */
+  /** Every kommune the project touches in MARS's kommune view, largest share first. */
   overlappingKommuneKoder?: string[];
   /** Resolved supplementary geometries (urørt skov, lysåbne arealer, …). */
   supplementaryGeometries?: SupplementaryGeometry[];
@@ -576,6 +599,14 @@ export interface SketchProject {
   nitrogenT: number;
   extractionHa: number;
   afforestationHa: number;
+  /**
+   * Whole-project effects on MARS's national basis (Σ of the project's kommune-clipped
+   * MARS rows). `nitrogenT` etc. on a plan row are clipped to that kystvandopland, so
+   * national views must use these. Absent in older data — fall back to the row value.
+   */
+  nationalNitrogenT?: number;
+  nationalExtractionHa?: number;
+  nationalAfforestationHa?: number;
   areaHa: number;
   /** 4-digit municipality code for primary overlap (largest clipped share). */
   kommuneKode?: string | null;
@@ -685,7 +716,7 @@ export interface KlimaskovfondenProject {
   areaHa: number;
   /** Centroid [lon, lat] */
   centroid: [number, number];
-  /** Municipality name from DAWA reverse geocoding (e.g. "Vejle") */
+  /** Municipality name from a local point-in-polygon lookup (e.g. "Vejle") */
   kommune: string | null;
 }
 
@@ -709,7 +740,7 @@ export interface NaturstyrelsenSkovProject {
   centroid: [number, number] | null;
   /** WFS feature ID (null if not matched) */
   wfsId: string | null;
-  /** Municipality name resolved via DAWA reverse geocoding (null if not geocoded) */
+  /** Municipality name from a local point-in-polygon lookup (null if not located) */
   kommune: string | null;
 }
 
@@ -1146,9 +1177,13 @@ export interface CO2EmissionsData {
     exclLulucf: number[];
     inclLulucf: number[];
   };
+  /** The 70 % target is measured on NET emissions (incl. LULUCF), as KEFM does. */
   targets: {
+    basis?: string;
+    baseline1990Net: number;
+    /** Highest allowed net emission in 2030 (30 % of the 1990 net level). */
+    target2030Net: number;
     baseline1990ExclLulucf: number;
-    target2030ExclLulucf: number;
     reductionPct: number;
   };
   agricultureBreakdown: {
@@ -1170,6 +1205,11 @@ export interface CO2EmissionsData {
     reduction2035Pct: number;
     totalExcl2023: number;
     totalExcl2030: number;
+    /** Net emissions incl. LULUCF — the basis of the 70 % target. */
+    netEmissions2023: number;
+    netEmissions2030: number;
+    /** target2030Net − netEmissions2030; positive = target met with this margin. */
+    margin2030Mt: number;
     agriculture2023: number;
     agriculture2030: number;
     lulucf2023: number;

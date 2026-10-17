@@ -90,6 +90,16 @@ export function StreamCard({ stroem }: StreamCardProps) {
                     {it.note && (
                       <p className="text-[10px] text-muted-foreground">{it.note}</p>
                     )}
+                    {it.source && (
+                      <a
+                        href={it.source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] text-muted-foreground/80 underline decoration-border underline-offset-2 hover:text-foreground"
+                      >
+                        Kilde: {it.source.label}
+                      </a>
+                    )}
                   </div>
                   <span
                     className="shrink-0 font-serif text-sm font-bold whitespace-nowrap"
@@ -189,7 +199,7 @@ export function StreamCard({ stroem }: StreamCardProps) {
         <SourceLine label={stroem.source.label} url={stroem.source.url} accentColor={t.ink} />
         {stroem.id === 'kapacitet' && (
           <p className="mt-2 text-[10px] leading-snug text-muted-foreground">
-            461,8 mio. kr. er vores egen læsning af Rammeaftale MGTP–KL tabel 1 — ikke uafhængigt valideret.
+            461,8 mio. kr. står i Rammeaftale MGTP–KL: «Med den samlede økonomi fordeles 461,8 mio. kr. i 2025-2032 i fire puljer».
           </p>
         )}
       </div>

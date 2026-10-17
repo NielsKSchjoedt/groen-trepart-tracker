@@ -86,7 +86,7 @@ jobs:
           python-version: '3.12'
 
       - name: Python ETL unit tests
-        run: python3 -m unittest test_fetch_biodiversitet test_build_kommune_ranking -v
+        run: python3 -m unittest test_fetch_biodiversitet test_build_kommune_ranking test_kommune_attribution -v
         working-directory: etl
 
   deploy:

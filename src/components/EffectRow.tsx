@@ -105,9 +105,9 @@ function AttributionBody({ r }: { r: Extract<EffectReframe, { kind: 'attribution
         <div className="flex-1" style={{ backgroundColor: TREPART_GREY }} />
       </div>
       <div className="mb-2.5 mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[9px] text-muted-foreground">
-        <LegendDot color={REST_GREY} label="energi & industri" />
-        <LegendDot color={TREPART_GREY} label="treparten mangler" />
-        <LegendDot color={ATTRIBUTION_ACCENT} label="leveret" />
+        <LegendDot color={REST_GREY} label="resten af økonomien" />
+        <LegendDot color={TREPART_GREY} label="aftalens skønnede bidrag" />
+        {delivered > 0 && <LegendDot color={ATTRIBUTION_ACCENT} label="leveret" />}
         <span className="ml-auto">{r.totalLabel}</span>
       </div>
       <div className="flex items-baseline gap-1.5">

@@ -48,8 +48,8 @@ DCE_PATH = BIODIV_DIR / "dce-30-percent.geojson"
 KU1_PATH = BIODIV_DIR / "ku-prio-1.geojson"
 KU2_PATH = BIODIV_DIR / "ku-prio-2.geojson"
 
-METHOD_VERSION = "sprint4-v2"
-B4_METHOD_VERSION = "sprint5-v1"
+METHOD_VERSION = "sprint4-v3"  # v3: Natura 2000 = all sites ∩ land (no name heuristic)
+B4_METHOD_VERSION = "sprint5-v2"  # v2: same Natura 2000 change
 # B4 defaults — adjust here when definitions change
 B4_NATURVAERDI_PATH = DCE_PATH
 B4_BESKYTTET_N2000_PATH = N2000_PATH
@@ -57,21 +57,6 @@ B4_BESKYTTET_SECTION3_DIR = SECTION3_DIR
 SKOV_TARGET_HA = 250_000
 LAVBUND_TARGET_HA = 140_000
 EXCLUDED_DAWA_CODES = {"0411"}  # Christiansø is not one of Denmark's 98 municipalities.
-MARINE_KEYWORDS = [
-    "kattegat",
-    "skagerrak",
-    "storebælt",
-    "lillebælt",
-    "bælt",
-    "øresund",
-    "sund",
-    "havet",
-    "vadehav",
-    "banke",
-    "grund",
-    "nordsøen",
-    "north sea",
-]
 
 
 def file_hash(path: Path) -> str:
@@ -158,20 +143,6 @@ def layer_union(index: SpatialIndex) -> Any:
     return repair_geometry(unary_union(index.gdf.geometry.values))
 
 
-def is_likely_marine_n2000(row: Any) -> bool:
-    """
-    Match the existing Natura 2000 name/area heuristic used in fetch_natura2000.
-
-    @param row - GeoDataFrame row with `n2000_navn` and `shape_area`
-    @returns True when the site is likely marine and should be excluded from B3
-    @example is_likely_marine_n2000(row)
-    """
-
-    name = str(row.get("n2000_navn") or "").lower()
-    area_m2 = float(row.get("shape_area") or row.geometry.area)
-    return any(keyword in name for keyword in MARINE_KEYWORDS) and area_m2 > 100_000_000
-
-
 def section3_manifest_hash() -> str:
     """
     Return a stable hash for the per-kommune §3 cache.
@@ -246,9 +217,15 @@ def geom_area_ha(geom: Any) -> float:
 
 def load_n2000_terrestrial_index() -> SpatialIndex:
     """
-    Load Natura 2000 polygons, excluding likely marine sites.
+    Load ALL Natura 2000 polygons. "Terrestrial" comes from the kommune intersection.
 
-    @returns SpatialIndex containing terrestrial Natura 2000 geometry
+    Every use intersects with kommune polygons, which end at the coastline — so the
+    sea is removed geometrically. The former name-based "likely marine" filter threw
+    away whole sites, including 79.447 ha of land inside mixed land/sea sites
+    (e.g. "Ålborg Bugt, Randers Fjord og Mariager Fjord"), and understated
+    terrestrial Natura 2000 by ~21 % (302.647 vs 382.093 ha, audit 2026-10).
+
+    @returns SpatialIndex containing all Natura 2000 geometry
     @example load_n2000_terrestrial_index().intersect_area(kommune.geometry)
     """
 
@@ -256,8 +233,7 @@ def load_n2000_terrestrial_index() -> SpatialIndex:
     if gdf.crs is None:
         gdf = gdf.set_crs(METRIC_CRS)
     gdf_metric = gdf.to_crs(METRIC_CRS)
-    terrestrial = gdf_metric[~gdf_metric.apply(is_likely_marine_n2000, axis=1)].copy()
-    return SpatialIndex(terrestrial, name="natura2000_terrestrial", source_crs=METRIC_CRS)
+    return SpatialIndex(gdf_metric, name="natura2000_terrestrial", source_crs=METRIC_CRS)
 
 
 def marker_afgkode(feature: dict[str, Any]) -> str:

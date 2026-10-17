@@ -1,4 +1,5 @@
 import type { ChangelogEntry, Plan, ProjectChangelog, ProjectDetail } from '@/lib/types';
+import { withNationalEffects } from '@/lib/pillar-projects';
 
 const MOMENTUM_DAYS = 180;
 const MILEPAELE_COUNT = 5;
@@ -108,11 +109,22 @@ function buildChangelogByProjectId(changelog: ProjectChangelog | null | undefine
   return map;
 }
 
+/**
+ * Every non-cancelled project once. A project in several kystvandoplande appears
+ * once per plan with that plan's clipped share; counting each row inflated kommune
+ * and national phase shares. Keep one entry with whole-project national effects.
+ */
 function collectAllProjects(data: ProjectDetailsFile): ProjectDetail[] {
   const out: ProjectDetail[] = [];
+  const seen = new Set<string>();
   for (const plan of data.plans) {
     for (const project of plan.projectDetails) {
-      if (!isCancelledProject(project)) out.push(project);
+      if (isCancelledProject(project)) continue;
+      if (project.id) {
+        if (seen.has(project.id)) continue;
+        seen.add(project.id);
+      }
+      out.push(withNationalEffects(project));
     }
   }
   return out;

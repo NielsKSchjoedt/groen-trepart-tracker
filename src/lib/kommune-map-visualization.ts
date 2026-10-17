@@ -6,7 +6,7 @@ import type {
   NationalFordelingSimulation,
 } from '@/lib/types';
 import type { KommuneMetric } from '@/lib/kommune-metrics';
-import { formatDanishNumber } from '@/lib/format';
+import { formatDanishAmount, formatDanishNumber } from '@/lib/format';
 
 export type FordelingViewMode = 'actual' | 'simulated' | 'difference';
 
@@ -259,7 +259,7 @@ export function resolveKommuneMapValue(
   return {
     value,
     label: value > 0
-      ? `${formatDanishNumber(Math.round(value * 10) / 10)} ${unit}`
+      ? `${formatDanishAmount(value)} ${unit}`
       : 'Ingen data',
     usesDifferenceScale: false,
     usesSimulationScale: false,

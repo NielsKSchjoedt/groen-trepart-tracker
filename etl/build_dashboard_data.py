@@ -23,6 +23,7 @@ Run via: mise run build-dashboard
 """
 
 import json
+import shutil
 import os
 import time
 from collections import defaultdict
@@ -45,8 +46,21 @@ from mars_pipeline_s2 import (
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE = str(SCRIPT_DIR.parent)
 
-DAWA_REVERSE_URL = "https://api.dataforsyningen.dk/kommuner/reverse"
-DAWA_TIMEOUT_SECONDS = 10
+from kommune_lookup import KommuneLookup  # noqa: E402 — stdlib point-in-polygon (replaces DAWA)
+from mars_municipality import aggregate_by_kommune, name_to_kode, project_attribution  # noqa: E402
+
+DENMARK_LAND_KM2 = 42_951  # Danmarks Statistik land area; denominator for "% af landarealet"
+
+# DAWA (api.dataforsyningen.dk) was shut down in 2026 — every endpoint answers 410 Gone.
+# Kommune lookups are done locally against the committed kommune TopoJSON instead.
+_KOMMUNE_LOOKUP: KommuneLookup | None = None
+
+
+def _kommune_lookup() -> KommuneLookup:
+    global _KOMMUNE_LOOKUP
+    if _KOMMUNE_LOOKUP is None:
+        _KOMMUNE_LOOKUP = KommuneLookup.load()
+    return _KOMMUNE_LOOKUP
 USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 
 # Load core MARS/DAWA sources
@@ -65,6 +79,76 @@ with open(f"{BASE}/data/mars/summary.json") as f:
     summary = json.load(f)
 with open(f"{BASE}/data/dawa/kommuner.json") as f:
     kommuner = json.load(f)
+
+
+def _load_optional_json(path: str):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+
+
+# MARS's own per-kommune view: project rows clipped to each kommune. Source of truth
+# for every kommune figure and for project → kommune attribution (no geocoding).
+municipalities = _load_optional_json(f"{BASE}/data/mars/municipality.json")
+# Permanent ekstensivering is reported outside /status/projects; MARS's national
+# N headline = Σ projects + Σ ekstensivering.
+permanent_ekstensivering = _load_optional_json(f"{BASE}/data/mars/permanent-ekstensivering.json") or []
+# Quarterly phase counts as they actually were (from 2025-Q3).
+projects_history = _load_optional_json(f"{BASE}/data/mars/projects-history.json") or []
+
+FLAT_PROJECTS = {fp.get("projectId"): fp for fp in projects}
+
+# National effect of each project = Σ of its kommune-clipped MARS rows. This applies
+# MARS's indsats rules (e.g. N counts only inside deloplande with a kvælstof need) and
+# reproduces MARS's national overview exactly. The flat /status/projects value is the
+# unclipped original effect (e.g. Vogn Enge: 37,5 t flat, 0 t counted by MARS).
+NATIONAL_EFFECTS: dict[str, dict[str, float]] = {}
+for _m in municipalities or []:
+    for _r in _m.get("projects") or []:
+        _e = NATIONAL_EFFECTS.setdefault(_r["projectId"], {"n": 0.0, "e": 0.0, "a": 0.0})
+        _e["n"] += _r.get("nitrogenReductionT") or 0.0
+        _e["e"] += _r.get("extractionEffortHa") or 0.0
+        _e["a"] += _r.get("afforestationEffortHa") or 0.0
+
+
+def _national_row(fp: dict) -> dict:
+    """Flat project row with effects replaced by MARS's national (kommune-summed) values."""
+    eff = NATIONAL_EFFECTS.get(fp.get("projectId"))
+    if not eff:
+        return fp
+    return {**fp, "nitrogenReductionT": eff["n"], "extractionEffortHa": eff["e"], "afforestationEffortHa": eff["a"]}
+
+
+projects_national = [_national_row(fp) for fp in projects]
+
+# Same for sketches: plan rows are clipped per kystvandopland, so "first occurrence
+# wins" kept only one plan's share of a multi-plan sketch.
+NATIONAL_SKETCH_EFFECTS: dict[str, dict[str, float]] = {}
+for _m in municipalities or []:
+    for _r in _m.get("sketchProjects") or []:
+        _e = NATIONAL_SKETCH_EFFECTS.setdefault(_r["sketchProjectId"], {"n": 0.0, "e": 0.0, "a": 0.0})
+        _e["n"] += _r.get("nitrogenReductionT") or 0.0
+        _e["e"] += _r.get("extractionEffortHa") or 0.0
+        _e["a"] += _r.get("afforestationEffortHa") or 0.0
+
+
+def _national_sketch(sp: dict) -> dict:
+    eff = NATIONAL_SKETCH_EFFECTS.get(sp.get("sketchProjectId"))
+    if not eff:
+        return sp
+    return {**sp, "nitrogenReductionT": eff["n"], "extractionEffortHa": eff["e"], "afforestationEffortHa": eff["a"]}
+
+
+deduped_sketches = [_national_sketch(sp) for sp in deduped_sketches]
+KODE_BY_NAME = name_to_kode(kommuner)
+if municipalities:
+    PROJECT_KOMMUNE, SKETCH_KOMMUNE = project_attribution(municipalities, KODE_BY_NAME)
+    print(f"✓ MARS municipality: {len(municipalities)} kommuner, {len(PROJECT_KOMMUNE)} projects attributed")
+else:
+    PROJECT_KOMMUNE, SKETCH_KOMMUNE = {}, {}
+    print("⚠ data/mars/municipality.json missing — kommune figures fall back to geometry; run fetch_mars.py")
 
 # Load supplementary sources (optional — graceful if missing)
 natura2000_summary = None
@@ -91,12 +175,18 @@ try:
 except FileNotFoundError:
     print("⚠ §3 by_kommune.json not found — run fetch_section3.py first")
 
+# Terrestrial Natura 2000 = all sites ∩ kommune land polygons, from the monthly spatial
+# overlay (B3). The fetcher's name-based marine/land split counted sea as land
+# (Gule Rev, an offshore reef, was "terrestrial") and showed 18 % against a combined
+# N2000 ∪ §3 of 15,3 % — impossible for a union.
 natura2000_by_kommune: dict[str, float] = {}
-try:
-    with open(f"{BASE}/data/natura2000/by_kommune.json") as f:
-        natura2000_by_kommune = json.load(f)
-except FileNotFoundError:
-    print("⚠ Natura 2000 by_kommune.json not found — run fetch_natura2000.py first")
+N2000_TERRESTRIAL_HA: float | None = None
+_b3 = _load_optional_json(f"{BASE}/data/kommune-benchmark/b3-n2000-er-landbrug.json")
+if _b3:
+    natura2000_by_kommune = {k: v.get("n2000TotalHa") or 0.0 for k, v in _b3.get("byKommune", {}).items()}
+    N2000_TERRESTRIAL_HA = (_b3.get("national") or {}).get("n2000TotalHa")
+else:
+    print("⚠ B3 overlay missing — terrestrial Natura 2000 unavailable (run build_kommune_benchmark.py)")
 
 # Per-municipality CO₂ data from Klimaregnskabet (latest year total per capita)
 # Key: kommuneKode ("0101") → total CO₂e in ton (latest year)
@@ -269,26 +359,11 @@ def _compute_polygon_centroid(coords: list[list[float]]) -> tuple[float, float] 
 
 def _reverse_geocode_kommune(lon: float, lat: float) -> dict[str, str] | None:
     """
-    Resolve a WGS84 point to a Danish municipality via DAWA reverse geocoding.
-
-    Returns a dict with 'kode' and 'navn', or None on failure.
-
-    @param lon - Longitude in WGS84
-    @param lat - Latitude in WGS84
-    @returns {'kode': '0461', 'navn': 'Odense'} or None
+    Resolve a WGS84 point to a Danish municipality — locally, no network.
 
     @example _reverse_geocode_kommune(10.388, 55.396)  # → {'kode': '0461', 'navn': 'Odense'}
     """
-    url = f"{DAWA_REVERSE_URL}?x={lon}&y={lat}&srid=4326"
-    req = Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urlopen(req, timeout=DAWA_TIMEOUT_SECONDS) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            if data and data.get("kode") and data.get("navn"):
-                return {"kode": data["kode"], "navn": data["navn"]}
-            return None
-    except Exception:
-        return None
+    return _kommune_lookup().find(lon, lat)
 
 
 GEO_KOMMUNE_CACHE_PATH = f"{BASE}/data/geo-kommune-cache.json"
@@ -328,7 +403,7 @@ def build_geo_id_kommune_lookup() -> dict[str, dict[str, str]]:
         print(f"  All {len(project_geometries)} geoIds already cached — skipping DAWA calls")
         return {geo_id: disk_cache[geo_id] for geo_id in project_geometries if geo_id in disk_cache}
 
-    print(f"  Reverse-geocoding {len(new_ids)} new geoIds via DAWA (~{len(new_ids) // 20}s)...")
+    print(f"  Locating {len(new_ids)} new geoIds in kommune polygons (local)...")
     coord_cache: dict[str, dict[str, str] | None] = {}
 
     for i, geo_id in enumerate(new_ids):
@@ -342,7 +417,6 @@ def build_geo_id_kommune_lookup() -> dict[str, dict[str, str]]:
 
         if cache_key not in coord_cache:
             coord_cache[cache_key] = _reverse_geocode_kommune(lon, lat)
-            time.sleep(0.05)
 
         result = coord_cache[cache_key]
         if result:
@@ -386,7 +460,14 @@ def enrich_project(p):
     scheme = scheme_lookup.get(scheme_id, {})
 
     geo_id = p.get("geoLocationId", "")
-    kommune_data = GEO_ID_KOMMUNE.get(geo_id)
+    pid = p.get("projectId", "")
+    att = PROJECT_KOMMUNE.get(pid)
+    kommune_data = (
+        {"kode": att["primaryKode"], "navn": att["primaryNavn"]} if att else GEO_ID_KOMMUNE.get(geo_id)
+    )
+    # Plan rows are clipped to the kystvandopland (and N to deloplande with a need);
+    # the flat /status/projects row is the whole project — MARS's national basis.
+    flat = _national_row(FLAT_PROJECTS.get(pid, p))
 
     project_type = project_type_from_measure_name(measure.get("name", ""))
     supplementary = slim_supplementary_geometries(p.get("supplementaryGeometries"))
@@ -418,6 +499,12 @@ def enrich_project(p):
         "lastChanged": p.get("lastStateChanged", ""),
         "kommuneKode": kommune_data["kode"] if kommune_data else None,
         "kommuneNavn": kommune_data["navn"] if kommune_data else None,
+        "overlappingKommuneKoder": att["koder"] if att else None,
+        # Unrounded on purpose: MARS counts a project toward an indsats when its effect
+        # is > 0, and some carry only grams of N (< 0,000001 t) — rounding drops them.
+        "nationalNitrogenT": flat.get("nitrogenReductionT", 0) or 0,
+        "nationalExtractionHa": flat.get("extractionEffortHa", 0) or 0,
+        "nationalAfforestationHa": flat.get("afforestationEffortHa", 0) or 0,
         "supplementaryGeometries": supplementary or None,
         "uroertSkovHa": uroert_ha or None,
     }
@@ -432,6 +519,7 @@ def enrich_sketch(s):
     scheme = scheme_lookup.get(scheme_id, {})
 
     project_type = project_type_from_measure_name(measure.get("name", ""))
+    att = SKETCH_KOMMUNE.get(s.get("sketchProjectId", ""))
     return {
         "id": s.get("sketchProjectId", ""),
         "name": s.get("sketchProjectName", "Unavngivet skitse"),
@@ -449,6 +537,20 @@ def enrich_sketch(s):
         "extractionHa": round(s.get("extractionEffortHa", 0) or 0, 2),
         "afforestationHa": round(s.get("afforestationEffortHa", 0) or 0, 2),
         "areaHa": round(s.get("overlappingAreaHa", 0) or 0, 2),
+        **(
+            {"kommuneKode": att["primaryKode"], "kommuneNavn": att["primaryNavn"], "overlappingKommuneKoder": att["koder"]}
+            if att else {}
+        ),
+        **_national_sketch_fields(s),
+    }
+
+
+def _national_sketch_fields(s: dict) -> dict:
+    nat = _national_sketch(s)
+    return {
+        "nationalNitrogenT": nat.get("nitrogenReductionT", 0) or 0,
+        "nationalExtractionHa": nat.get("extractionEffortHa", 0) or 0,
+        "nationalAfforestationHa": nat.get("afforestationEffortHa", 0) or 0,
     }
 
 
@@ -587,11 +689,14 @@ GEO_ID_KOMMUNE.update(build_geo_id_kommune_lookup())
 # ========================================
 # Compute national phase breakdown (5-fase bygning + 3-fase brød til UI)
 # ========================================
-_mars_national = build_by_pipeline_phase(projects, deduped_sketches)
+_mars_national = build_by_pipeline_phase(projects_national, deduped_sketches)
 national_phases = legacy3_merged_from_by_pipeline(_mars_national["byPipelinePhase"])
 national_by_pipeline_phase = _mars_national["byPipelinePhase"]
+_national_n_projects_t = sum(fp.get("nitrogenReductionT", 0) or 0 for fp in projects_national)
+_ekstensivering_t = sum((x.get("nitrogenReductionT") or 0) for x in permanent_ekstensivering)
+NATIONAL_N_GOAL_T = master.get("nitrogenReductionGoalT") or 12776.4
 national_cancelled = _mars_national["cancelled"]
-national_by_owner_org = build_by_owner_org(projects, deduped_sketches, scheme_id_to_owner)
+national_by_owner_org = build_by_owner_org(projects_national, deduped_sketches, scheme_id_to_owner)
 del _mars_national
 
 # ========================================
@@ -615,7 +720,7 @@ dashboard_data = {
         "dawa": {
             "name": "DAWA — Danmarks Adressers Web API",
             "url": "https://api.dataforsyningen.dk",
-            "description": "Official Danish address and administrative boundary data, including municipality boundaries.",
+            "description": "Municipality boundaries and metadata. DAWA was shut down in 2026 (HTTP 410); the tracker uses a static snapshot from the last live fetch (2026-09-11). Kommune figures come from MARS's own per-kommune view.",
             "maintainer": "Klimadatastyrelsen (Danish Agency for Data Supply and Infrastructure)",
             "license": "Public data (Danish public sector open data)",
         },
@@ -701,9 +806,17 @@ dashboard_data = {
             # === NITROGEN ===
             "nitrogen": {
                 "goalT": round(sum(p.get("nitrogenReductionGoalT") or 0 for p in plans), 1),
-                # Total across all phases (what MARS reports as "achieved")
-                "totalT": round(summary["endpoints"]["plans"]["nitrogen_achieved_T"], 1),
-                "totalProgressPct": summary["endpoints"]["plans"]["nitrogen_progress_pct"],
+                # MARS overview basis: Σ flat projects (all formal phases) + permanent
+                # ekstensivering (separate endpoint). The plan sum is clipped per
+                # kystvandopland and is NOT the national headline.
+                "totalT": round(_national_n_projects_t + _ekstensivering_t, 1),
+                "totalProgressPct": round((_national_n_projects_t + _ekstensivering_t) / NATIONAL_N_GOAL_T * 100, 1),
+                "permanentEkstensivering": {
+                    "T": round(_ekstensivering_t, 1),
+                    # MARS counts an entry only where it has an N effect (798 = entries with N > 0).
+                    "count": sum(1 for x in permanent_ekstensivering if (x.get("nitrogenReductionT") or 0) > 0),
+                    "description": "Permanent ekstensivering — rapporteres af MARS uden for projektfaserne",
+                },
                 # Breakdown by phase — only "established" is truly implemented
                 "byPhase": {
                     "established": {
@@ -801,9 +914,10 @@ dashboard_data = {
             "nature": {
                 "targetPct": 20.0,
                 "natura2000": {
-                    "terrestrialHa": round(natura2000_summary["totals"]["terrestrial_area_ha"], 1) if natura2000_summary else None,
-                    "terrestrialPct": round(natura2000_summary["totals"]["terrestrial_pct_of_land"], 2) if natura2000_summary else None,
-                    "marineHa": round(natura2000_summary["totals"]["marine_area_ha"], 1) if natura2000_summary else None,
+                    "terrestrialHa": round(N2000_TERRESTRIAL_HA, 1) if N2000_TERRESTRIAL_HA else None,
+                    "terrestrialPct": round(N2000_TERRESTRIAL_HA / (DENMARK_LAND_KM2 * 100) * 100, 2) if N2000_TERRESTRIAL_HA else None,
+                    "terrestrialMethod": "Alle Natura 2000-områder ∩ kommunegrænser (land) — rumlig overlay",
+                    "totalHa": round(natura2000_summary["totals"]["total_area_ha"], 1) if natura2000_summary else None,
                     "siteCount": natura2000_summary["feature_count"] if natura2000_summary else None,
                     "source": "natura2000",
                 },
@@ -831,8 +945,8 @@ dashboard_data = {
                 "combinedEstimatePct": 15.3,
                 "combinedEstimateSource": "OECD Environmental Performance Reviews: Denmark 2024 (Table 1.1)",
                 "combinedEstimateSourceUrl": "https://doi.org/10.1787/1b480e3a-en",
-                "combinedEstimateDisclaimer": "Natura 2000 (~18%) and §3 (~9.5%) overlap significantly (~30%). The combined 15.3% is an OECD reference estimate. A spatial GIS overlay of actual designation boundaries is needed for the exact figure.",
-                "denmarkLandAreaKm2": 42951,
+                "combinedEstimateDisclaimer": "The combined 15.3% is an OECD 2024 reference estimate, not our own overlay. Terrestrial Natura 2000 (all sites clipped to land) and §3 overlap, so the combined share is smaller than their sum.",
+                "denmarkLandAreaKm2": DENMARK_LAND_KM2,
             },
         },
 
@@ -841,30 +955,47 @@ dashboard_data = {
             "total": summary["endpoints"]["projects"]["total_count"],
             "phases": {
                 "sketches": {
-                    "count": summary["endpoints"]["plans"]["sketch_projects"],
+                    "count": len(deduped_sketches),
                     "description": "Skitse — early concept, not yet formally assessed",
                     "implemented": False,
                 },
+                # Key names kept for the frontend: "assessed" = forundersøgelsestilsagn
+                # (status 6), "approved" = etableringstilsagn (status 10). Counted on the
+                # flat project list so multi-plan projects count once (MARS overview basis).
                 "assessed": {
-                    "count": summary["endpoints"]["plans"]["assessed_projects"],
-                    "description": "Vurderet — formally assessed by authorities",
+                    "count": sum(1 for fp in projects if fp.get("projectStatus") == 6),
+                    "description": "Forundersøgelsestilsagn",
                     "implemented": False,
                 },
                 "approved": {
-                    "count": summary["endpoints"]["plans"]["approved_projects"],
-                    "description": "Godkendt — approved for implementation",
+                    "count": sum(1 for fp in projects if fp.get("projectStatus") == 10),
+                    "description": "Etableringstilsagn — godkendt til anlæg",
                     "implemented": False,
                 },
                 "established": {
-                    "count": summary["endpoints"]["plans"]["established_projects"],
+                    "count": sum(1 for fp in projects if fp.get("projectStatus") == 15),
                     "description": "Anlagt — physically implemented and operational",
                     "implemented": True,
                 },
             },
             "source": "mars",
-            "disclaimer": "Project counts from MARS plan-level aggregation. Only 'established' projects represent actual environmental impact. The pipeline shows progression from concept to implementation.",
+            "disclaimer": "Project counts from the flat MARS project list (each project once). Only 'established' projects represent actual environmental impact.",
         },
         "byPipelinePhase": national_by_pipeline_phase,
+        # MARS's own quarterly phase counts (true history, from 2025-Q3). Field names
+        # mapped to meaning: MARS's "assessed" = etableringstilsagn, "approved" =
+        # forundersøgelsestilsagn (see fetch_mars.py).
+        "projectsHistory": [
+            {
+                "year": h.get("year"),
+                "quarter": h.get("quarter"),
+                "preliminary": h.get("totalApprovedProjects") or 0,
+                "approved": h.get("totalAssessedProjects") or 0,
+                "established": h.get("totalEstablishedProjects") or 0,
+            }
+            for h in projects_history
+            if (h.get("totalApprovedProjects") or h.get("totalAssessedProjects") or h.get("totalEstablishedProjects"))
+        ],
         "cancelled": national_cancelled,
         "byOwnerOrg": national_by_owner_org,
     },
@@ -985,8 +1116,10 @@ for p in plans:
         # Project counts by phase
         "projects": {
             "sketches": p.get("countSketchProjects") or 0,
-            "assessed": p.get("countAssessedProjects") or 0,
-            "approved": p.get("countApprovedProjects") or 0,
+            # MARS's countApprovedProjects = status 6 (forundersøgelse) and
+            # countAssessedProjects = status 10 (etableringstilsagn) — verified 37/37 plans.
+            "assessed": p.get("countApprovedProjects") or 0,
+            "approved": p.get("countAssessedProjects") or 0,
             "established": p.get("countEstablishedProjects") or 0,
             # Also include per-plan project-level breakdown
             "byStatus": {
@@ -1003,11 +1136,8 @@ for p in plans:
     }
     dashboard_data["plans"].append(entry)
 
-# Rebuild national 5-fase pipeline from enriched plans (matches ProjectFunnel / fremskrivning)
-_mars_from_plans = build_by_pipeline_phase_from_enriched_plans(dashboard_data["plans"])
-dashboard_data["national"]["byPipelinePhase"] = _mars_from_plans["byPipelinePhase"]
-dashboard_data["national"]["cancelled"] = _mars_from_plans["cancelled"]
-print("✓ National byPipelinePhase rebuilt from enriched plans (aligned with projektragt)")
+# National 5-fase pipeline stays on the flat project list (built above): plan rows are
+# clipped to each kystvandopland, so summing them undercounts multi-plan projects.
 
 
 # Build slim catchment data (23 entries)
@@ -1029,8 +1159,9 @@ for v in vos:
         # Project counts by phase
         "projects": {
             "sketches": v.get("countSketchProjects") or 0,
-            "assessed": v.get("countAssessedProjects") or 0,
-            "approved": v.get("countApprovedProjects") or 0,
+            # Same MARS naming inversion as plans (verified 23/23 catchments).
+            "assessed": v.get("countApprovedProjects") or 0,
+            "approved": v.get("countAssessedProjects") or 0,
             "established": v.get("countEstablishedProjects") or 0,
         },
         # Detailed project arrays for drill-down (same format as plans)
@@ -1269,6 +1400,8 @@ def apply_geo_overlap_to_mars_projects(data: dict, overlap_lookup: dict[str, dic
     """Attach kommuneKode + overlappingKommuneKoder to every MARS project/sketch."""
 
     def patch(entry: dict) -> None:
+        if entry.get("overlappingKommuneKoder"):
+            return  # already attributed from MARS's own kommune rows
         geo_id = entry.get("geoId") or ""
         att = overlap_lookup.get(geo_id)
         if not att:
@@ -1384,41 +1517,45 @@ def _ensure_kode_entry(by_kode: dict, kode: str, navn: str) -> dict:
     return by_kode[kode]
 
 
-for plan_entry in dashboard_data["plans"]:
-    # --- Formal project details (Forundersøgelse / Godkendt / Anlagt) ---
-    for proj in plan_entry.get("projectDetails", []):
-        if proj.get("isCancelled") or proj.get("pipelinePhase") == "cancelled":
-            continue
-        pipeline_phase = proj.get("pipelinePhase", "preliminary_grant")
-        n = proj.get("nitrogenT", 0) or 0
-        e = proj.get("extractionHa", 0) or 0
-        a = proj.get("afforestationHa", 0) or 0
-        _distribute_project(
-            proj.get("geoId", ""),
-            proj.get("kommuneKode"),
-            proj.get("kommuneNavn"),
-            pipeline_phase,
-            n,
-            e,
-            a,
-        )
+if municipalities:
+    by_kode.update(aggregate_by_kommune(municipalities, KODE_BY_NAME))
+    print("✓ byKommune from MARS /status/municipality (area-clipped, matches MARS)")
+else:
+    for plan_entry in dashboard_data["plans"]:
+        # --- Formal project details (Forundersøgelse / Godkendt / Anlagt) ---
+        for proj in plan_entry.get("projectDetails", []):
+            if proj.get("isCancelled") or proj.get("pipelinePhase") == "cancelled":
+                continue
+            pipeline_phase = proj.get("pipelinePhase", "preliminary_grant")
+            n = proj.get("nitrogenT", 0) or 0
+            e = proj.get("extractionHa", 0) or 0
+            a = proj.get("afforestationHa", 0) or 0
+            _distribute_project(
+                proj.get("geoId", ""),
+                proj.get("kommuneKode"),
+                proj.get("kommuneNavn"),
+                pipeline_phase,
+                n,
+                e,
+                a,
+            )
 
-    # --- Sketch projects (Skitse) — earliest funnel stage ---
-    for sketch in plan_entry.get("sketchProjects", []):
-        geo_id = sketch.get("geoId", "")
-        kommune_data = GEO_ID_KOMMUNE.get(geo_id) if geo_id else None
-        n = sketch.get("nitrogenT", 0) or 0
-        e = sketch.get("extractionHa", 0) or 0
-        a = sketch.get("afforestationHa", 0) or 0
-        _distribute_project(
-            geo_id,
-            kommune_data["kode"] if kommune_data else None,
-            kommune_data["navn"] if kommune_data else None,
-            "sketch",
-            n,
-            e,
-            a,
-        )
+        # --- Sketch projects (Skitse) — earliest funnel stage ---
+        for sketch in plan_entry.get("sketchProjects", []):
+            geo_id = sketch.get("geoId", "")
+            kommune_data = GEO_ID_KOMMUNE.get(geo_id) if geo_id else None
+            n = sketch.get("nitrogenT", 0) or 0
+            e = sketch.get("extractionHa", 0) or 0
+            a = sketch.get("afforestationHa", 0) or 0
+            _distribute_project(
+                geo_id,
+                kommune_data["kode"] if kommune_data else None,
+                kommune_data["navn"] if kommune_data else None,
+                "sketch",
+                n,
+                e,
+                a,
+            )
 
 # --- KSF per-kommune sums ---
 ksf_by_kommune: dict[str, dict[str, float]] = defaultdict(lambda: {"afforestationHa": 0.0, "lavbundHa": 0.0})
@@ -1437,35 +1574,35 @@ if klimaskovfonden_projects:
 # If the saved file predates that feature, fall back to inline geocoding
 # using the centroid coordinates already stored in each project.
 def _dawa_reverse_kommune_navn(lon: float, lat: float) -> str | None:
-    """DAWA reverse geocode — returns municipality name or None."""
-    import urllib.request as _ureq
-    url = f"https://api.dataforsyningen.dk/kommuner/reverse?x={lon}&y={lat}&srid=4326"
-    try:
-        req = _ureq.Request(url, headers={"User-Agent": "TrepartTracker/0.1"})
-        with _ureq.urlopen(req, timeout=8) as resp:
-            return json.loads(resp.read()).get("navn")
-    except Exception:
-        return None
+    """Municipality name for a WGS84 point — local lookup (DAWA is shut down)."""
+    hit = _kommune_lookup().find(lon, lat)
+    return hit["navn"] if hit else None
 
 nst_by_kommune: dict[str, float] = defaultdict(float)
+nst_ongoing_by_kommune: dict[str, float] = defaultdict(float)
 if nst_skov_projects:
     needs_geocode = [p for p in nst_skov_projects if not p.get("kommune") and p.get("centroid") and p.get("areaHa")]
     if needs_geocode:
-        print(f"  ℹ NST projects missing kommune field — inline geocoding {len(needs_geocode)} projects via DAWA...")
+        print(f"  ℹ NST projects missing kommune field — locating {len(needs_geocode)} projects locally...")
         _cache: dict[str, str | None] = {}
         for p in needs_geocode:
             lon, lat = p["centroid"]
             key = f"{lon:.2f},{lat:.2f}"
             if key not in _cache:
                 _cache[key] = _dawa_reverse_kommune_navn(lon, lat)
-                import time as _time; _time.sleep(0.05)
             p["kommune"] = _cache[key]
 
     for np_proj in nst_skov_projects:
         navn = np_proj.get("kommune")
         area = np_proj.get("areaHa") or 0
-        if navn and area:
+        if not (navn and area):
+            continue
+        # Only completed (planted) projects count as anlagt skov; ongoing ones are
+        # land acquired with planting under way.
+        if np_proj.get("status") == "completed":
             nst_by_kommune[navn] += area
+        else:
+            nst_ongoing_by_kommune[navn] += area
 
 # Christiansø (kode 0411) is a tiny autonomous community (~100 residents) returned
 # by DAWA but is NOT one of Denmark's 98 municipalities. Exclude it.
@@ -1520,6 +1657,7 @@ for km in kommuner:
         "afforestationMarsHa": round(afforestation_mars, 1),
         "afforestationKsfHa": round(afforestation_ksf, 1),
         "afforestationNstHa": round(afforestation_nst, 1),
+        "afforestationNstOngoingHa": round(nst_ongoing_by_kommune.get(navn, 0.0), 1),
         "afforestationTotalHa": round(afforestation_mars + afforestation_ksf + afforestation_nst, 1),
         "section3Ha": round(section3_ha, 1),
         "natura2000Ha": round(natura2000_ha, 1),
@@ -1535,6 +1673,19 @@ by_kommune_list.sort(key=lambda x: x["navn"])
 dashboard_data["national"]["byKommune"] = by_kommune_list
 
 print(f"byKommune: {len(by_kommune_list)} kommuner built")
+
+# Integrity: every formal project must land in a kommune. The previous DAWA-based
+# lookup dropped projects silently when the service died; never again.
+if municipalities:
+    _unattributed = [
+        fp.get("projectName") for fp in projects
+        if fp.get("projectStatus") in (6, 10, 15) and fp.get("projectId") not in PROJECT_KOMMUNE
+    ]
+    if _unattributed:
+        raise SystemExit(
+            f"✗ {len(_unattributed)} MARS projects have no kommune in /status/municipality: {_unattributed[:10]}"
+        )
+    print(f"✓ All {len(projects)} MARS projects attributed to a kommune")
 print(f"  With MARS projects:       {sum(1 for k in by_kommune_list if k['projectCount'] > 0)}")
 print(f"  With KSF afforestation:   {sum(1 for k in by_kommune_list if k['afforestationKsfHa'] > 0)}")
 print(f"  With KSF lavbund:         {sum(1 for k in by_kommune_list if k.get('extractionKsfHa', 0) > 0)}")
@@ -1588,6 +1739,21 @@ for filename, payload in OUTPUT_PAIRS:
         with open(out, "w") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
         print(f"Created {out} ({os.path.getsize(out) // 1024} KB)")
+
+# Publish the supplementary forest sources the frontend loads directly. These were
+# committed once (2026-03-14) and never refreshed, so parts of the skov views showed
+# March data while the headline used the daily fetch. Copy them on every build.
+for _src, _dst in (
+    ("data/klimaskovfonden/projects.json", "public/data/klimaskovfonden-projects.json"),
+    ("data/klimaskovfonden/summary.json", "public/data/klimaskovfonden-summary.json"),
+    ("data/naturstyrelsen-skov/projects.json", "public/data/naturstyrelsen-skov-projects.json"),
+    ("data/naturstyrelsen-skov/summary.json", "public/data/naturstyrelsen-skov-summary.json"),
+):
+    if Path(f"{BASE}/{_src}").exists():
+        shutil.copyfile(f"{BASE}/{_src}", f"{BASE}/{_dst}")
+        print(f"Published {_dst}")
+    else:
+        print(f"⚠ {_src} missing — {_dst} not refreshed")
 
 summary_path = f"{BASE}/data/dashboard-summary.json"
 size = os.path.getsize(summary_path)

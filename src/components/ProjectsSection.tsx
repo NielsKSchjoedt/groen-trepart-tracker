@@ -79,7 +79,8 @@ export function ProjectsSection({
           ksfColor={ksfColor}
           nstColor={NST_COLOR}
           height={220}
-          title="Hvordan går det med projekterne over tid?"
+          title="Hvornår blev projekterne søgt — og hvor langt er de nu?"
+          history={data.national.projectsHistory}
           mode={mode}
           marsField={cfg.marsField}
           unit={cfg.unit}

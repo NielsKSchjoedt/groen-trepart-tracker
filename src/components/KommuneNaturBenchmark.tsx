@@ -196,7 +196,9 @@ function buildContext<T>(rows: Record<string, T>, pick: (row: T) => number): { m
 }
 
 function formatPct(value: number): string {
-  return value < 1 && value > 0 ? value.toFixed(1).replace('.', ',') : formatDanishNumber(Math.round(value * 10) / 10);
+  // Round once. Rounding to tenths first and then to whole numbers turned 20,49 %
+  // into "21 %" while the header (rounding once) showed "20 %" for the same value.
+  return value < 1 && value > 0 ? value.toFixed(1).replace('.', ',') : formatDanishNumber(value);
 }
 
 function formatHa(value: number): string {

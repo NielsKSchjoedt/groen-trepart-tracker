@@ -100,7 +100,7 @@ export function mergeStandingsRows(
 /** Format index multiplier for display (e.g. 1,9×). Kept for internal use. */
 export function fmtIdx(value: number | null | undefined): string {
   if (value == null || Number.isNaN(value)) return '—';
-  return `${formatDanishNumber(Math.round(value * 10) / 10)}×`;
+  return `${formatDanishNumber(value, 1)}×`;
 }
 
 /** Format a "gange"-multiplier: integers plain (7), fractions with one decimal (1,9). */

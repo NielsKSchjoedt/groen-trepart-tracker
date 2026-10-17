@@ -46,7 +46,7 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
   afforestation: {
     description: (
       <>
-        <p>Viser skovrejsning fra tre kilder: <strong>MARS</strong> (vandmiljøprojekter med projektfasedata), <strong>Klimaskovfonden</strong> (~210 frivillige projekter, ~2.300 ha), og <strong>Naturstyrelsen</strong> (~30 statslige projekter, ~4.100 ha).</p>
+        <p>Viser skovrejsning fra tre kilder: <strong>MARS</strong> (vandmiljøprojekter med projektfasedata), <strong>Klimaskovfonden</strong> (frivillige projekter) og <strong>Naturstyrelsen</strong> (statslige projekter — kun de afsluttede tæller som anlagt).</p>
         <p>KSF og NST administreres uden for MARS og har ikke projektfasedata. Målet er 250.000 ha ny skov inden 2045.</p>
         <p>KF26 fastholder det politiske 2045-mål, men antager nu 2-3 års forskydning fra tilsagn til faktisk tilplantning. Den modellerede realiseringsprofil løber derfor til 2047.</p>
       </>

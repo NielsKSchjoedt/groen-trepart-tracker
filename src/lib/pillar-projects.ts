@@ -20,6 +20,32 @@ const EFFECT_FIELD: Partial<Record<PillarId, keyof ProjectDetail>> = {
   afforestation: 'afforestationHa',
 };
 
+/**
+ * The project with its effect fields on MARS's national basis.
+ *
+ * Plan rows carry effects clipped to their kystvandopland: a project spanning two
+ * plans appears twice, each row holding only that plan's share (Ølholmbæk: 58 ha
+ * in one plan, 1.291 ha in the other). Deduplicating plan rows therefore kept only
+ * one share and understated the national funnel (lavbund anlagt 607 ha vs MARS 735).
+ * The ETL attaches whole-project national values; use them for every national view.
+ */
+export function withNationalEffects<T extends ProjectDetail | SketchProject>(project: T): T {
+  const p = project as T & {
+    nationalNitrogenT?: number;
+    nationalExtractionHa?: number;
+    nationalAfforestationHa?: number;
+  };
+  if (p.nationalNitrogenT == null && p.nationalExtractionHa == null && p.nationalAfforestationHa == null) {
+    return project;
+  }
+  return {
+    ...project,
+    nitrogenT: p.nationalNitrogenT ?? project.nitrogenT,
+    extractionHa: p.nationalExtractionHa ?? project.extractionHa,
+    afforestationHa: p.nationalAfforestationHa ?? project.afforestationHa,
+  };
+}
+
 export function projectMatchesPillar(
   project: ProjectDetail | SketchProject,
   pillarId: PillarId,
@@ -34,8 +60,9 @@ export function projectMatchesPillar(
 /**
  * Collect pillar-specific projects grouped by pipeline stage.
  *
- * National view deduplicates on project id: 84 MARS projects sit in 2–4
- * coastal plans, and counting nested plan rows would overstate the pipeline.
+ * National view: one entry per project id, with whole-project national effects
+ * (see withNationalEffects). Pillar membership follows MARS's rule — a project counts
+ * toward an indsats when its national effect for that indsats is > 0.
  */
 export function computePillarProjects(data: DashboardData, pillarId: PillarId): PillarProjects {
   const result: PillarProjects = {
@@ -49,12 +76,14 @@ export function computePillarProjects(data: DashboardData, pillarId: PillarId): 
   if (pillarId === 'co2') return result;
 
   for (const plan of data.plans) {
-    for (const sk of plan.sketchProjects) {
+    for (const rawSketch of plan.sketchProjects) {
+      const sk = withNationalEffects(rawSketch);
       if (projectMatchesPillar(sk, pillarId)) {
         result.sketches.push({ ...sk, planName: plan.name });
       }
     }
-    for (const proj of plan.projectDetails) {
+    for (const rawProj of plan.projectDetails) {
+      const proj = withNationalEffects(rawProj);
       if (proj.pipelinePhase === 'cancelled' || proj.isCancelled) continue;
       if (!projectMatchesPillar(proj, pillarId)) continue;
       const stage = proj.pipelinePhase as PipelineMainPhase | undefined;

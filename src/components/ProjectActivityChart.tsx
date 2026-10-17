@@ -3,11 +3,12 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip,
   ResponsiveContainer, CartesianGrid,
 } from 'recharts';
-import type { ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
+import type { ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject, ProjectsHistoryQuarter } from '@/lib/types';
 import type { SeriesColor } from '@/lib/supplement-colors';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR } from '@/lib/supplement-colors';
 import type { MetricMode, PillarMetricConfig } from '@/lib/metric-mode';
 import { PHASE_CONFIGS } from '@/lib/phase-config';
+import { formatDanishNumber } from '@/lib/format';
 import type { ProjectPhase } from '@/lib/phase-config';
 
 /** Minimum number of total data points (across all sources) to render. */
@@ -228,8 +229,14 @@ interface ProjectActivityChartProps {
   nstColor?: SeriesColor;
   /** Chart height in pixels (default: 170) */
   height?: number;
-  /** Section title (default: "Projektaktivitet over tid") */
+  /** Section title (default: "Projekter efter ansøgningsdato") */
   title?: string;
+  /**
+   * MARS's own quarterly phase counts (national only). Shown beside the chart because
+   * the chart cannot show history: it places each project at its application date in
+   * its CURRENT phase.
+   */
+  history?: ProjectsHistoryQuarter[];
   /** Hide built-in uppercase title (when wrapped in KommuneDetailBlock). */
   showTitle?: boolean;
   /** Additional CSS classes on the outer wrapper */
@@ -278,7 +285,8 @@ export function ProjectActivityChart({
   ksfColor,
   nstColor,
   height = 170,
-  title = 'Kumulativ udvikling i projekter over tid',
+  title = 'Projekter efter ansøgningsdato',
+  history,
   showTitle = true,
   className = 'mb-5',
   mode = 'area',
@@ -409,11 +417,33 @@ export function ProjectActivityChart({
         </ResponsiveContainer>
       </div>
       <p className="text-[10px] text-muted-foreground/70 mt-1 px-0.5">
-        Grafen starter ved første observerede data ({formatMonthLabel(startMonth)}).
-        {' '}Den Grønne Trepart blev underskrevet juni 2024.
-        {' '}Skitseprojekter indgår ikke: MARS registrerer ingen dato for dem, så de kan ikke placeres på tidslinjen.
+        Hvert projekt står på den dato, det blev søgt, i den fase det har <strong>i dag</strong>.
+        {' '}Grafen viser derfor ikke, hvornår projekterne blev godkendt eller anlagt.
+        {' '}Grafen starter ved første observerede data ({formatMonthLabel(startMonth)}); Den Grønne Trepart blev underskrevet juni 2024.
+        {' '}Skitseprojekter indgår ikke: MARS registrerer ingen dato for dem.
       </p>
+      {historyLine(history) && (
+        <p className="text-[11px] text-muted-foreground mt-1.5 px-0.5">{historyLine(history)}</p>
+      )}
     </div>
+  );
+}
+
+/**
+ * One sentence on how the phases actually developed, from MARS's quarterly history.
+ *
+ * @example historyLine([{year:2025,quarter:3,established:52,...},{year:2026,quarter:4,established:133,...}])
+ * // "MARS' egen historik: anlagte projekter steg fra 52 (3. kvt. 2025) til 133 (4. kvt. 2026) …"
+ */
+function historyLine(history?: ProjectsHistoryQuarter[]): string | null {
+  if (!history || history.length < 2) return null;
+  const first = history[0];
+  const last = history[history.length - 1];
+  const q = (h: ProjectsHistoryQuarter) => `${h.quarter}. kvt. ${h.year}`;
+  return (
+    `MARS' egen historik: anlagte projekter steg fra ${formatDanishNumber(first.established)} (${q(first)}) ` +
+    `til ${formatDanishNumber(last.established)} (${q(last)}); projekter med etableringstilsagn fra ` +
+    `${formatDanishNumber(first.approved)} til ${formatDanishNumber(last.approved)}.`
   );
 }
 

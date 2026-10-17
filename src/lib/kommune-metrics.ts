@@ -1,6 +1,6 @@
 import type { SeriesColor } from './supplement-colors';
 import { KSF_COLOR_LAVBUND, KSF_COLOR_SKOV, NST_COLOR, SECTION3_COLOR, NATURA2000_COLOR } from './supplement-colors';
-import { formatDanishNumber } from './format';
+import { formatDanishAmount, formatDanishNumber } from './format';
 import { getPhaseConfig } from './phase-config';
 import type { KommuneMetrics, KommuneRankingRow } from './types';
 
@@ -144,7 +144,7 @@ function marsMetricUnit(field: MarsPhaseMetricField): string {
 }
 
 function formatMarsMetricAmount(field: MarsPhaseMetricField, value: number): string {
-  return `${formatDanishNumber(Math.round(value * 10) / 10)} ${marsMetricUnit(field)}`;
+  return `${formatDanishAmount(value)} ${marsMetricUnit(field)}`;
 }
 
 /**
@@ -166,7 +166,7 @@ export function formatMarsMetricHeadline(
 
 /** Format a nature metric value in hectares. */
 export function formatNatureHa(value: number): string {
-  return `${formatDanishNumber(Math.round(value * 10) / 10)} ha`;
+  return `${formatDanishAmount(value)} ha`;
 }
 
 export interface NatureMetricRow {

@@ -35,10 +35,12 @@ export function CO2Section() {
   }
 
   const m = co2.milestones;
-  const gapToTarget = co2.milestones.totalExcl2030 - co2.targets.target2030ExclLulucf;
-  const reductionPct = m.reduction2025Pct;
+  // The climate law's 70 % target is measured on NET emissions (incl. LULUCF) — as in
+  // KF25/KF26. On-track = the projected 2030 net emission is at or below the target
+  // (KEFM's "margen" ≥ 0); comparing 2025's reduction with the 2030 target was wrong.
+  const margin2030 = m.margin2030Mt ?? co2.targets.target2030Net - m.netEmissions2030;
   const targetPct = co2.targets.reductionPct;
-  const onTrack = reductionPct >= targetPct * 0.99;
+  const onTrack = margin2030 >= 0;
 
   // Build chart data — show every 5th year before 2020, then every year from 2020
   const chartData = co2.years
@@ -49,7 +51,7 @@ export function CO2Section() {
       agriculture: co2.sectors.agriculture[i],
       waste: co2.sectors.waste[i],
       lulucf: co2.sectors.lulucf[i],
-      total: co2.totals.exclLulucf[i],
+      total: co2.totals.inclLulucf[i],
       isProjection: year > m.lastHistoricYear,
     }))
     .filter((d) => d.year >= 1990 && (d.year <= 2035));
@@ -67,11 +69,11 @@ export function CO2Section() {
             title="Drivhusgasudledning"
             content={
               <>
-                <p>Viser Danmarks samlede drivhusgasudledning (ekskl. LULUCF) og fremskrivning mod 2030.</p>
+                <p>Viser Danmarks samlede nettoudledning (inkl. LULUCF — jord og skov) og fremskrivning mod 2030. Klimalovens 70 %-mål opgøres på nettoudledningen, som i KEFM's klimafremskrivninger.</p>
                 <p><strong>Reduktion 2025:</strong> Estimeret reduktion ift. 1990-niveau (samme referenceår som forsiden).<br/>
                 <strong>Reduktion 2023:</strong> Sidste faktiske år i KF25-datasættet.<br/>
                 <strong>Reduktion 2030:</strong> detaljeret KF25-fremskrevet reduktion — Klimaloven kræver 70%.</p>
-                <p>KF26-høringsversionen viser en nyere hovedkonklusion: Danmark når kun 2030-målet med ca. 0,4 mio. ton CO₂e margen, mens Klimarådet fortsat vurderer væsentlig risiko.</p>
+                <p>KF25 skønnede målet nået med ca. 1,5 mio. ton CO₂e margen. KF26-høringsversionen viser en nyere hovedkonklusion: Danmark når kun 2030-målet med ca. 0,4 mio. ton CO₂e margen, mens Klimarådet fortsat vurderer væsentlig risiko.</p>
               </>
             }
             source="KF25 detaljerede CRF-data + KF26 hovedkonklusion (KEFM)"
@@ -101,9 +103,9 @@ export function CO2Section() {
             color="#737373"
           />
           <MilestoneStat
-            value={onTrack ? 'Tæt på mål' : `${formatDanishNumber(Math.abs(gapToTarget), 2)} mio. t`}
-            label={onTrack ? 'Nationalt nær mål' : 'Mangler i 2030'}
-            sub={`Mål: ${formatDanishNumber(co2.targets.target2030ExclLulucf, 1)} mio. t (${targetPct} %)`}
+            value={`${onTrack ? '+' : '−'}${formatDanishNumber(Math.abs(margin2030), 1)} mio. t`}
+            label={onTrack ? 'Margen til 70 %-målet i 2030' : 'Mangler i 2030'}
+            sub={`Mål: højst ${formatDanishNumber(co2.targets.target2030Net, 1)} mio. t netto (−${targetPct} %)`}
             color={onTrack ? '#16a34a' : '#eab308'}
           />
         </div>
@@ -126,8 +128,8 @@ export function CO2Section() {
             title="Udledningsgraf"
             content={
               <>
-                <p>Stablede arealer viser udledning pr. sektor (mio. ton CO₂-ækvivalenter, ekskl. LULUCF). Data til venstre for den stiplede linje er historisk; til højre er KF25-fremskrivning.</p>
-                <p>Den mørke linje viser det <strong>faktiske nationale total</strong> (excl. LULUCF) inkl. CCS/kulstoffjernelse der ikke er synlig som separat sektor. Den røde stiplede linje viser 70%-reduktionsmålet.</p>
+                <p>Stablede arealer viser udledning pr. sektor inkl. LULUCF (jord og skov), i mio. ton CO₂-ækvivalenter. Data til venstre for den stiplede linje er historisk; til højre er KF25-fremskrivning.</p>
+                <p>Den mørke linje viser Danmarks <strong>nettoudledning</strong> (inkl. LULUCF og CCS/kulstoffjernelse, der ikke er synlig som separat sektor) — det tal klimalovens 70 %-mål måles på. Den røde stiplede linje viser 70 %-målet.</p>
                 <p>Transport er inkluderet i <strong>energisektoren</strong> efter Danmarks UNFCCC-opgørelsesmetode og er ikke adskilt i KF25-kildetabellerne.</p>
               </>
             }
@@ -181,7 +183,7 @@ export function CO2Section() {
                 label={{ value: 'Fremskrivning →', position: 'top', fontSize: 9, fill: '#a3a3a3' }}
               />
               <ReferenceLine
-                y={co2.targets.target2030ExclLulucf}
+                y={co2.targets.target2030Net}
                 stroke="#dc2626"
                 strokeDasharray="6 3"
                 strokeWidth={1.5}
@@ -219,14 +221,14 @@ export function CO2Section() {
                 fill="url(#co2Waste)"
                 name="Affald"
               />
-              {/* Total line (excl. LULUCF) — includes CCS/negative components not visible in stacked sectors */}
+              {/* Net total (incl. LULUCF) — the 70 % target basis; includes CCS not visible as a sector */}
               <Line
                 type="monotone"
                 dataKey="total"
                 stroke="#1e293b"
                 strokeWidth={1.5}
                 dot={false}
-                name="Total ekskl. LULUCF"
+                name="Nettoudledning (inkl. LULUCF)"
                 legendType="line"
               />
               <Legend

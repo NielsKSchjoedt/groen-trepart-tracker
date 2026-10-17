@@ -80,6 +80,11 @@ def fetch_municipality_year(municipality_code: int, year: int) -> list | None:
     except json.JSONDecodeError as e:
         print(f"    ✗ Invalid JSON: municipality={municipality_code} year={year} — {e}")
         return None
+    except OSError as e:
+        # Read timeouts and dropped connections (TimeoutError, RemoteDisconnected) —
+        # skip this request rather than aborting the whole run.
+        print(f"    ✗ Network error: municipality={municipality_code} year={year} — {e}")
+        return None
 
 
 def load_municipality_codes() -> list[dict]:

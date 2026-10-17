@@ -645,7 +645,7 @@ function KlimaskovfondenTable({ projects }: { projects: KlimaskovfondenProject[]
   return (
     <div>
       <p className="text-sm text-muted-foreground mb-4">
-        {formatDanishNumber(projects.length)} projekter ({formatDanishNumber(skovCount)} skovrejsning, {formatDanishNumber(projects.length - skovCount)} lavbund) — i alt {formatDanishNumber(totalHa)} ha fordelt på {kommuneCount} kommuner. Alle projekter er anlagte (frivillige).
+        {formatDanishNumber(projects.length)} projekter ({formatDanishNumber(skovCount)} skovrejsning, {formatDanishNumber(projects.length - skovCount)} lavbund) — i alt {formatDanishNumber(totalHa)} ha fordelt på {kommuneCount} kommuner. Frivillige projekter; tælles som anlagte, men data angiver ikke plantningsstatus for de seneste runder.
       </p>
 
       <div className="relative mb-4 max-w-sm">

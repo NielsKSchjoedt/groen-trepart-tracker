@@ -39,6 +39,7 @@ import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
 import { StickyNav } from '@/components/StickyNav';
 import { SiteTopBadges } from '@/components/SiteTopBadges';
+import { withNationalEffects } from '@/lib/pillar-projects';
 
 // Heavy components lazy-loaded so they split into separate JS chunks.
 // Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
@@ -124,7 +125,7 @@ const Index = () => {
   }, []);
 
   const allProjects = useMemo(
-    () => uniqueByProjectId(data?.plans.flatMap((p) => p.projectDetails) ?? []),
+    () => uniqueByProjectId(data?.plans.flatMap((p) => p.projectDetails) ?? []).map(withNationalEffects),
     [data],
   );
 
