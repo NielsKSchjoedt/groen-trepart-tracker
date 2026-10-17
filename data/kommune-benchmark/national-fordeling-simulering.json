@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-09-11T21:24:16.721502+00:00",
-    "methodVersion": "sprint4-v2",
+    "generatedAt": "2026-10-17T16:06:30.208347+00:00",
+    "methodVersion": "sprint4-v3",
     "sourceLayers": [
       {
         "name": "DCE 30%",
@@ -25,7 +25,7 @@
       {
         "name": "Natura 2000",
         "path": "data/natura2000/natura_2000_omraader.geojson",
-        "hash": "c78bad51eb59de05"
+        "hash": "453cc0d48c65f85b"
       }
     ],
     "disclaimer": "Dette er en simulering af hvor naturindsatsen ville fordeles, hvis den blev allokeret proportionalt med dokumenteret naturpotentiale. Det er ikke en officiel kommunal fordeling."
@@ -62,11 +62,11 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.056,
       "simulatedSkovHa": 140.0,
-      "actualSkovHa": 45.0,
-      "skovDifferenceHa": 95.0,
+      "actualSkovHa": 45.5,
+      "skovDifferenceHa": 94.5,
       "simulatedLavbundHa": 78.4,
-      "actualLavbundHa": 82.6,
-      "lavbundDifferenceHa": -4.2
+      "actualLavbundHa": 84.6,
+      "lavbundDifferenceHa": -6.2
     },
     "0153": {
       "kommuneNavn": "Brøndby",
@@ -98,8 +98,8 @@
       "actualSkovHa": 0.0,
       "skovDifferenceHa": 50.75,
       "simulatedLavbundHa": 28.42,
-      "actualLavbundHa": 7.0,
-      "lavbundDifferenceHa": 21.42
+      "actualLavbundHa": 7.1,
+      "lavbundDifferenceHa": 21.32
     },
     "0159": {
       "kommuneNavn": "Gladsaxe",
@@ -139,11 +139,11 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.0773,
       "simulatedSkovHa": 193.25,
-      "actualSkovHa": 0.3,
-      "skovDifferenceHa": 192.95,
+      "actualSkovHa": 0.0,
+      "skovDifferenceHa": 193.25,
       "simulatedLavbundHa": 108.22,
-      "actualLavbundHa": 85.6,
-      "lavbundDifferenceHa": 22.62
+      "actualLavbundHa": 68.3,
+      "lavbundDifferenceHa": 39.92
     },
     "0167": {
       "kommuneNavn": "Hvidovre",
@@ -161,11 +161,11 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.11,
       "simulatedSkovHa": 275.0,
-      "actualSkovHa": 198.7,
-      "skovDifferenceHa": 76.3,
+      "actualSkovHa": 197.6,
+      "skovDifferenceHa": 77.4,
       "simulatedLavbundHa": 154.0,
-      "actualLavbundHa": 120.0,
-      "lavbundDifferenceHa": 34.0
+      "actualLavbundHa": 137.3,
+      "lavbundDifferenceHa": 16.7
     },
     "0173": {
       "kommuneNavn": "Lyngby-Taarbæk",
@@ -175,8 +175,8 @@
       "actualSkovHa": 0.0,
       "skovDifferenceHa": 333.5,
       "simulatedLavbundHa": 186.76,
-      "actualLavbundHa": 4.5,
-      "lavbundDifferenceHa": 182.26
+      "actualLavbundHa": 4.4,
+      "lavbundDifferenceHa": 182.36
     },
     "0175": {
       "kommuneNavn": "Rødovre",
@@ -194,11 +194,11 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.0491,
       "simulatedSkovHa": 122.75,
-      "actualSkovHa": 22.9,
-      "skovDifferenceHa": 99.85,
+      "actualSkovHa": 22.5,
+      "skovDifferenceHa": 100.25,
       "simulatedLavbundHa": 68.74,
-      "actualLavbundHa": 51.3,
-      "lavbundDifferenceHa": 17.44
+      "actualLavbundHa": 51.4,
+      "lavbundDifferenceHa": 17.34
     },
     "0185": {
       "kommuneNavn": "Tårnby",
@@ -230,8 +230,8 @@
       "actualSkovHa": 4.5,
       "skovDifferenceHa": 585.5,
       "simulatedLavbundHa": 330.4,
-      "actualLavbundHa": 300.9,
-      "lavbundDifferenceHa": 29.5
+      "actualLavbundHa": 300.5,
+      "lavbundDifferenceHa": 29.9
     },
     "0201": {
       "kommuneNavn": "Allerød",
@@ -263,8 +263,8 @@
       "actualSkovHa": 10.4,
       "skovDifferenceHa": 984.35,
       "simulatedLavbundHa": 557.06,
-      "actualLavbundHa": 101.4,
-      "lavbundDifferenceHa": 455.66
+      "actualLavbundHa": 101.2,
+      "lavbundDifferenceHa": 455.86
     },
     "0219": {
       "kommuneNavn": "Hillerød",
@@ -274,8 +274,8 @@
       "actualSkovHa": 134.2,
       "skovDifferenceHa": 1765.05,
       "simulatedLavbundHa": 1063.58,
-      "actualLavbundHa": 707.1,
-      "lavbundDifferenceHa": 356.48
+      "actualLavbundHa": 706.8,
+      "lavbundDifferenceHa": 356.78
     },
     "0223": {
       "kommuneNavn": "Hørsholm",
@@ -285,8 +285,8 @@
       "actualSkovHa": 8.7,
       "skovDifferenceHa": 218.05,
       "simulatedLavbundHa": 126.98,
-      "actualLavbundHa": 60.4,
-      "lavbundDifferenceHa": 66.58
+      "actualLavbundHa": 60.2,
+      "lavbundDifferenceHa": 66.78
     },
     "0230": {
       "kommuneNavn": "Rudersdal",
@@ -296,19 +296,19 @@
       "actualSkovHa": 5.2,
       "skovDifferenceHa": 679.8,
       "simulatedLavbundHa": 383.6,
-      "actualLavbundHa": 81.2,
-      "lavbundDifferenceHa": 302.4
+      "actualLavbundHa": 81.4,
+      "lavbundDifferenceHa": 302.2
     },
     "0240": {
       "kommuneNavn": "Egedal",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.3242,
       "simulatedSkovHa": 810.5,
-      "actualSkovHa": 168.3,
-      "skovDifferenceHa": 642.2,
+      "actualSkovHa": 168.1,
+      "skovDifferenceHa": 642.4,
       "simulatedLavbundHa": 453.88,
-      "actualLavbundHa": 1707.2,
-      "lavbundDifferenceHa": -1253.32
+      "actualLavbundHa": 1708.2,
+      "lavbundDifferenceHa": -1254.32
     },
     "0250": {
       "kommuneNavn": "Frederikssund",
@@ -318,19 +318,19 @@
       "actualSkovHa": 71.3,
       "skovDifferenceHa": 1320.95,
       "simulatedLavbundHa": 779.66,
-      "actualLavbundHa": 605.2,
-      "lavbundDifferenceHa": 174.46
+      "actualLavbundHa": 606.0,
+      "lavbundDifferenceHa": 173.66
     },
     "0253": {
       "kommuneNavn": "Greve",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.0616,
       "simulatedSkovHa": 154.0,
-      "actualSkovHa": 664.3,
-      "skovDifferenceHa": -510.3,
+      "actualSkovHa": 665.4,
+      "skovDifferenceHa": -511.4,
       "simulatedLavbundHa": 86.24,
-      "actualLavbundHa": 0.1,
-      "lavbundDifferenceHa": 86.14
+      "actualLavbundHa": 0.0,
+      "lavbundDifferenceHa": 86.24
     },
     "0259": {
       "kommuneNavn": "Køge",
@@ -340,8 +340,8 @@
       "actualSkovHa": 117.9,
       "skovDifferenceHa": 1218.85,
       "simulatedLavbundHa": 748.58,
-      "actualLavbundHa": 785.7,
-      "lavbundDifferenceHa": -37.12
+      "actualLavbundHa": 783.1,
+      "lavbundDifferenceHa": -34.52
     },
     "0260": {
       "kommuneNavn": "Halsnæs",
@@ -351,19 +351,19 @@
       "actualSkovHa": 235.3,
       "skovDifferenceHa": 773.95,
       "simulatedLavbundHa": 565.18,
-      "actualLavbundHa": 469.0,
-      "lavbundDifferenceHa": 96.18
+      "actualLavbundHa": 469.5,
+      "lavbundDifferenceHa": 95.68
     },
     "0265": {
       "kommuneNavn": "Roskilde",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.3177,
       "simulatedSkovHa": 794.25,
-      "actualSkovHa": 2191.2,
-      "skovDifferenceHa": -1396.95,
+      "actualSkovHa": 2191.5,
+      "skovDifferenceHa": -1397.25,
       "simulatedLavbundHa": 444.78,
-      "actualLavbundHa": 1040.5,
-      "lavbundDifferenceHa": -595.72
+      "actualLavbundHa": 1036.3,
+      "lavbundDifferenceHa": -591.52
     },
     "0269": {
       "kommuneNavn": "Solrød",
@@ -373,8 +373,8 @@
       "actualSkovHa": 6.0,
       "skovDifferenceHa": 109.25,
       "simulatedLavbundHa": 64.54,
-      "actualLavbundHa": 189.5,
-      "lavbundDifferenceHa": -124.96
+      "actualLavbundHa": 190.0,
+      "lavbundDifferenceHa": -125.46
     },
     "0270": {
       "kommuneNavn": "Gribskov",
@@ -384,8 +384,8 @@
       "actualSkovHa": 18.9,
       "skovDifferenceHa": 2221.35,
       "simulatedLavbundHa": 1254.54,
-      "actualLavbundHa": 409.2,
-      "lavbundDifferenceHa": 845.34
+      "actualLavbundHa": 409.3,
+      "lavbundDifferenceHa": 845.24
     },
     "0306": {
       "kommuneNavn": "Odsherred",
@@ -406,8 +406,8 @@
       "actualSkovHa": 183.7,
       "skovDifferenceHa": 2637.8,
       "simulatedLavbundHa": 1580.04,
-      "actualLavbundHa": 3997.5,
-      "lavbundDifferenceHa": -2417.46
+      "actualLavbundHa": 4460.1,
+      "lavbundDifferenceHa": -2880.06
     },
     "0320": {
       "kommuneNavn": "Faxe",
@@ -417,19 +417,19 @@
       "actualSkovHa": 48.4,
       "skovDifferenceHa": 2005.35,
       "simulatedLavbundHa": 1150.1,
-      "actualLavbundHa": 1913.2,
-      "lavbundDifferenceHa": -763.1
+      "actualLavbundHa": 1931.9,
+      "lavbundDifferenceHa": -781.8
     },
     "0326": {
       "kommuneNavn": "Kalundborg",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 1.2619,
       "simulatedSkovHa": 3154.75,
-      "actualSkovHa": 86.8,
-      "skovDifferenceHa": 3067.95,
+      "actualSkovHa": 88.9,
+      "skovDifferenceHa": 3065.85,
       "simulatedLavbundHa": 1766.66,
-      "actualLavbundHa": 5261.5,
-      "lavbundDifferenceHa": -3494.84
+      "actualLavbundHa": 5259.8,
+      "lavbundDifferenceHa": -3493.14
     },
     "0329": {
       "kommuneNavn": "Ringsted",
@@ -439,8 +439,8 @@
       "actualSkovHa": 313.2,
       "skovDifferenceHa": 1025.05,
       "simulatedLavbundHa": 749.42,
-      "actualLavbundHa": 1846.1,
-      "lavbundDifferenceHa": -1096.68
+      "actualLavbundHa": 1844.3,
+      "lavbundDifferenceHa": -1094.88
     },
     "0330": {
       "kommuneNavn": "Slagelse",
@@ -450,8 +450,8 @@
       "actualSkovHa": 2260.1,
       "skovDifferenceHa": -168.6,
       "simulatedLavbundHa": 1171.24,
-      "actualLavbundHa": 869.1,
-      "lavbundDifferenceHa": 302.14
+      "actualLavbundHa": 816.2,
+      "lavbundDifferenceHa": 355.04
     },
     "0336": {
       "kommuneNavn": "Stevns",
@@ -461,30 +461,30 @@
       "actualSkovHa": 34.5,
       "skovDifferenceHa": 687.0,
       "simulatedLavbundHa": 404.04,
-      "actualLavbundHa": 911.3,
-      "lavbundDifferenceHa": -507.26
+      "actualLavbundHa": 1030.0,
+      "lavbundDifferenceHa": -625.96
     },
     "0340": {
       "kommuneNavn": "Sorø",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.7939,
       "simulatedSkovHa": 1984.75,
-      "actualSkovHa": 114.8,
-      "skovDifferenceHa": 1869.95,
+      "actualSkovHa": 114.7,
+      "skovDifferenceHa": 1870.05,
       "simulatedLavbundHa": 1111.46,
-      "actualLavbundHa": 3636.3,
-      "lavbundDifferenceHa": -2524.84
+      "actualLavbundHa": 4420.0,
+      "lavbundDifferenceHa": -3308.54
     },
     "0350": {
       "kommuneNavn": "Lejre",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.4948,
       "simulatedSkovHa": 1237.0,
-      "actualSkovHa": 134.4,
-      "skovDifferenceHa": 1102.6,
+      "actualSkovHa": 134.5,
+      "skovDifferenceHa": 1102.5,
       "simulatedLavbundHa": 692.72,
-      "actualLavbundHa": 510.4,
-      "lavbundDifferenceHa": 182.32
+      "actualLavbundHa": 511.2,
+      "lavbundDifferenceHa": 181.52
     },
     "0360": {
       "kommuneNavn": "Lolland",
@@ -494,8 +494,8 @@
       "actualSkovHa": 8.7,
       "skovDifferenceHa": 2460.05,
       "simulatedLavbundHa": 1382.5,
-      "actualLavbundHa": 1408.7,
-      "lavbundDifferenceHa": -26.2
+      "actualLavbundHa": 1407.8,
+      "lavbundDifferenceHa": -25.3
     },
     "0370": {
       "kommuneNavn": "Næstved",
@@ -505,8 +505,8 @@
       "actualSkovHa": 263.5,
       "skovDifferenceHa": 2682.0,
       "simulatedLavbundHa": 1649.48,
-      "actualLavbundHa": 2784.7,
-      "lavbundDifferenceHa": -1135.22
+      "actualLavbundHa": 2770.9,
+      "lavbundDifferenceHa": -1121.42
     },
     "0376": {
       "kommuneNavn": "Guldborgsund",
@@ -516,8 +516,8 @@
       "actualSkovHa": 59.8,
       "skovDifferenceHa": 3626.2,
       "simulatedLavbundHa": 2064.16,
-      "actualLavbundHa": 5366.6,
-      "lavbundDifferenceHa": -3302.44
+      "actualLavbundHa": 5222.7,
+      "lavbundDifferenceHa": -3158.54
     },
     "0390": {
       "kommuneNavn": "Vordingborg",
@@ -527,8 +527,8 @@
       "actualSkovHa": 66.2,
       "skovDifferenceHa": 2991.55,
       "simulatedLavbundHa": 1712.34,
-      "actualLavbundHa": 2320.4,
-      "lavbundDifferenceHa": -608.06
+      "actualLavbundHa": 2453.8,
+      "lavbundDifferenceHa": -741.46
     },
     "0400": {
       "kommuneNavn": "Bornholm",
@@ -546,33 +546,33 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.4473,
       "simulatedSkovHa": 1118.25,
-      "actualSkovHa": 836.4,
-      "skovDifferenceHa": 281.85,
+      "actualSkovHa": 836.5,
+      "skovDifferenceHa": 281.75,
       "simulatedLavbundHa": 626.22,
-      "actualLavbundHa": 724.5,
-      "lavbundDifferenceHa": -98.28
+      "actualLavbundHa": 724.4,
+      "lavbundDifferenceHa": -98.18
     },
     "0420": {
       "kommuneNavn": "Assens",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.7739,
       "simulatedSkovHa": 1934.75,
-      "actualSkovHa": 1062.5,
-      "skovDifferenceHa": 872.25,
+      "actualSkovHa": 977.7,
+      "skovDifferenceHa": 957.05,
       "simulatedLavbundHa": 1083.46,
-      "actualLavbundHa": 829.2,
-      "lavbundDifferenceHa": 254.26
+      "actualLavbundHa": 854.3,
+      "lavbundDifferenceHa": 229.16
     },
     "0430": {
       "kommuneNavn": "Faaborg-Midtfyn",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 1.0992,
       "simulatedSkovHa": 2748.0,
-      "actualSkovHa": 306.8,
-      "skovDifferenceHa": 2441.2,
+      "actualSkovHa": 306.7,
+      "skovDifferenceHa": 2441.3,
       "simulatedLavbundHa": 1538.88,
-      "actualLavbundHa": 1692.6,
-      "lavbundDifferenceHa": -153.72
+      "actualLavbundHa": 1662.2,
+      "lavbundDifferenceHa": -123.32
     },
     "0440": {
       "kommuneNavn": "Kerteminde",
@@ -582,8 +582,8 @@
       "actualSkovHa": 89.9,
       "skovDifferenceHa": 472.6,
       "simulatedLavbundHa": 315.0,
-      "actualLavbundHa": 202.8,
-      "lavbundDifferenceHa": 112.2
+      "actualLavbundHa": 202.9,
+      "lavbundDifferenceHa": 112.1
     },
     "0450": {
       "kommuneNavn": "Nyborg",
@@ -593,19 +593,19 @@
       "actualSkovHa": 841.4,
       "skovDifferenceHa": -17.9,
       "simulatedLavbundHa": 461.16,
-      "actualLavbundHa": 273.1,
-      "lavbundDifferenceHa": 188.06
+      "actualLavbundHa": 273.2,
+      "lavbundDifferenceHa": 187.96
     },
     "0461": {
       "kommuneNavn": "Odense",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.4344,
       "simulatedSkovHa": 1086.0,
-      "actualSkovHa": 1531.4,
-      "skovDifferenceHa": -445.4,
+      "actualSkovHa": 1531.5,
+      "skovDifferenceHa": -445.5,
       "simulatedLavbundHa": 608.16,
-      "actualLavbundHa": 830.0,
-      "lavbundDifferenceHa": -221.84
+      "actualLavbundHa": 827.7,
+      "lavbundDifferenceHa": -219.54
     },
     "0479": {
       "kommuneNavn": "Svendborg",
@@ -615,19 +615,19 @@
       "actualSkovHa": 5509.7,
       "skovDifferenceHa": -3884.7,
       "simulatedLavbundHa": 910.0,
-      "actualLavbundHa": 676.7,
-      "lavbundDifferenceHa": 233.3
+      "actualLavbundHa": 677.3,
+      "lavbundDifferenceHa": 232.7
     },
     "0480": {
       "kommuneNavn": "Nordfyns",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.5689,
       "simulatedSkovHa": 1422.25,
-      "actualSkovHa": 5438.6,
-      "skovDifferenceHa": -4016.35,
+      "actualSkovHa": 5523.2,
+      "skovDifferenceHa": -4100.95,
       "simulatedLavbundHa": 796.46,
-      "actualLavbundHa": 674.5,
-      "lavbundDifferenceHa": 121.96
+      "actualLavbundHa": 678.4,
+      "lavbundDifferenceHa": 118.06
     },
     "0482": {
       "kommuneNavn": "Langeland",
@@ -637,8 +637,8 @@
       "actualSkovHa": 71.1,
       "skovDifferenceHa": 1233.15,
       "simulatedLavbundHa": 730.38,
-      "actualLavbundHa": 2799.9,
-      "lavbundDifferenceHa": -2069.52
+      "actualLavbundHa": 2573.1,
+      "lavbundDifferenceHa": -1842.72
     },
     "0492": {
       "kommuneNavn": "Ærø",
@@ -656,11 +656,11 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 1.447,
       "simulatedSkovHa": 3617.5,
-      "actualSkovHa": 725.4,
-      "skovDifferenceHa": 2892.1,
+      "actualSkovHa": 733.1,
+      "skovDifferenceHa": 2884.4,
       "simulatedLavbundHa": 2025.8,
-      "actualLavbundHa": 2963.0,
-      "lavbundDifferenceHa": -937.2
+      "actualLavbundHa": 2939.6,
+      "lavbundDifferenceHa": -913.8
     },
     "0530": {
       "kommuneNavn": "Billund",
@@ -670,19 +670,19 @@
       "actualSkovHa": 151.7,
       "skovDifferenceHa": 3808.05,
       "simulatedLavbundHa": 2217.46,
-      "actualLavbundHa": 5048.6,
-      "lavbundDifferenceHa": -2831.14
+      "actualLavbundHa": 4804.3,
+      "lavbundDifferenceHa": -2586.84
     },
     "0540": {
       "kommuneNavn": "Sønderborg",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.7015,
       "simulatedSkovHa": 1753.75,
-      "actualSkovHa": 32.0,
-      "skovDifferenceHa": 1721.75,
+      "actualSkovHa": 32.1,
+      "skovDifferenceHa": 1721.65,
       "simulatedLavbundHa": 982.1,
-      "actualLavbundHa": 318.0,
-      "lavbundDifferenceHa": 664.1
+      "actualLavbundHa": 357.5,
+      "lavbundDifferenceHa": 624.6
     },
     "0550": {
       "kommuneNavn": "Tønder",
@@ -692,8 +692,8 @@
       "actualSkovHa": 108.8,
       "skovDifferenceHa": 7760.7,
       "simulatedLavbundHa": 4406.92,
-      "actualLavbundHa": 8221.4,
-      "lavbundDifferenceHa": -3814.48
+      "actualLavbundHa": 8321.5,
+      "lavbundDifferenceHa": -3914.58
     },
     "0561": {
       "kommuneNavn": "Esbjerg",
@@ -703,8 +703,8 @@
       "actualSkovHa": 180.6,
       "skovDifferenceHa": 3452.65,
       "simulatedLavbundHa": 2034.62,
-      "actualLavbundHa": 7424.8,
-      "lavbundDifferenceHa": -5390.18
+      "actualLavbundHa": 6159.7,
+      "lavbundDifferenceHa": -4125.08
     },
     "0563": {
       "kommuneNavn": "Fanø",
@@ -722,33 +722,33 @@
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 3.7379,
       "simulatedSkovHa": 9344.75,
-      "actualSkovHa": 353.3,
-      "skovDifferenceHa": 8991.45,
+      "actualSkovHa": 354.6,
+      "skovDifferenceHa": 8990.15,
       "simulatedLavbundHa": 5233.06,
-      "actualLavbundHa": 4107.1,
-      "lavbundDifferenceHa": 1125.96
+      "actualLavbundHa": 4229.8,
+      "lavbundDifferenceHa": 1003.26
     },
     "0575": {
       "kommuneNavn": "Vejen",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 1.4416,
       "simulatedSkovHa": 3604.0,
-      "actualSkovHa": 405.3,
-      "skovDifferenceHa": 3198.7,
+      "actualSkovHa": 414.0,
+      "skovDifferenceHa": 3190.0,
       "simulatedLavbundHa": 2018.24,
-      "actualLavbundHa": 7009.7,
-      "lavbundDifferenceHa": -4991.46
+      "actualLavbundHa": 6476.0,
+      "lavbundDifferenceHa": -4457.76
     },
     "0580": {
       "kommuneNavn": "Aabenraa",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 2.2311,
       "simulatedSkovHa": 5577.75,
-      "actualSkovHa": 572.5,
-      "skovDifferenceHa": 5005.25,
+      "actualSkovHa": 572.3,
+      "skovDifferenceHa": 5005.45,
       "simulatedLavbundHa": 3123.54,
-      "actualLavbundHa": 4634.4,
-      "lavbundDifferenceHa": -1510.86
+      "actualLavbundHa": 4594.5,
+      "lavbundDifferenceHa": -1470.96
     },
     "0607": {
       "kommuneNavn": "Fredericia",
@@ -758,8 +758,8 @@
       "actualSkovHa": 71.8,
       "skovDifferenceHa": 533.2,
       "simulatedLavbundHa": 338.8,
-      "actualLavbundHa": 762.8,
-      "lavbundDifferenceHa": -424.0
+      "actualLavbundHa": 851.4,
+      "lavbundDifferenceHa": -512.6
     },
     "0615": {
       "kommuneNavn": "Horsens",
@@ -769,41 +769,41 @@
       "actualSkovHa": 427.3,
       "skovDifferenceHa": 2438.7,
       "simulatedLavbundHa": 1604.96,
-      "actualLavbundHa": 1449.4,
-      "lavbundDifferenceHa": 155.56
+      "actualLavbundHa": 1726.1,
+      "lavbundDifferenceHa": -121.14
     },
     "0621": {
       "kommuneNavn": "Kolding",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.9661,
       "simulatedSkovHa": 2415.25,
-      "actualSkovHa": 4637.1,
-      "skovDifferenceHa": -2221.85,
+      "actualSkovHa": 4632.5,
+      "skovDifferenceHa": -2217.25,
       "simulatedLavbundHa": 1352.54,
-      "actualLavbundHa": 1789.1,
-      "lavbundDifferenceHa": -436.56
+      "actualLavbundHa": 1749.4,
+      "lavbundDifferenceHa": -396.86
     },
     "0630": {
       "kommuneNavn": "Vejle",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 2.33,
       "simulatedSkovHa": 5825.0,
-      "actualSkovHa": 1518.6,
-      "skovDifferenceHa": 4306.4,
+      "actualSkovHa": 1536.2,
+      "skovDifferenceHa": 4288.8,
       "simulatedLavbundHa": 3262.0,
-      "actualLavbundHa": 2237.2,
-      "lavbundDifferenceHa": 1024.8
+      "actualLavbundHa": 2215.4,
+      "lavbundDifferenceHa": 1046.6
     },
     "0657": {
       "kommuneNavn": "Herning",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 3.6779,
       "simulatedSkovHa": 9194.75,
-      "actualSkovHa": 309.9,
-      "skovDifferenceHa": 8884.85,
+      "actualSkovHa": 313.9,
+      "skovDifferenceHa": 8880.85,
       "simulatedLavbundHa": 5149.06,
-      "actualLavbundHa": 12471.1,
-      "lavbundDifferenceHa": -7322.04
+      "actualLavbundHa": 12528.0,
+      "lavbundDifferenceHa": -7378.94
     },
     "0661": {
       "kommuneNavn": "Holstebro",
@@ -813,19 +813,19 @@
       "actualSkovHa": 162.1,
       "skovDifferenceHa": 5392.9,
       "simulatedLavbundHa": 3110.8,
-      "actualLavbundHa": 6596.9,
-      "lavbundDifferenceHa": -3486.1
+      "actualLavbundHa": 7276.9,
+      "lavbundDifferenceHa": -4166.1
     },
     "0665": {
       "kommuneNavn": "Lemvig",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 1.2575,
       "simulatedSkovHa": 3143.75,
-      "actualSkovHa": 40.6,
-      "skovDifferenceHa": 3103.15,
+      "actualSkovHa": 42.3,
+      "skovDifferenceHa": 3101.45,
       "simulatedLavbundHa": 1760.5,
-      "actualLavbundHa": 1934.0,
-      "lavbundDifferenceHa": -173.5
+      "actualLavbundHa": 1979.3,
+      "lavbundDifferenceHa": -218.8
     },
     "0671": {
       "kommuneNavn": "Struer",
@@ -835,8 +835,8 @@
       "actualSkovHa": 12.6,
       "skovDifferenceHa": 733.4,
       "simulatedLavbundHa": 417.76,
-      "actualLavbundHa": 638.5,
-      "lavbundDifferenceHa": -220.74
+      "actualLavbundHa": 614.1,
+      "lavbundDifferenceHa": -196.34
     },
     "0706": {
       "kommuneNavn": "Syddjurs",
@@ -846,8 +846,8 @@
       "actualSkovHa": 127.3,
       "skovDifferenceHa": 5763.2,
       "simulatedLavbundHa": 3298.68,
-      "actualLavbundHa": 5242.8,
-      "lavbundDifferenceHa": -1944.12
+      "actualLavbundHa": 5404.6,
+      "lavbundDifferenceHa": -2105.92
     },
     "0707": {
       "kommuneNavn": "Norddjurs",
@@ -857,8 +857,8 @@
       "actualSkovHa": 57.0,
       "skovDifferenceHa": 4659.0,
       "simulatedLavbundHa": 2640.96,
-      "actualLavbundHa": 3409.5,
-      "lavbundDifferenceHa": -768.54
+      "actualLavbundHa": 3409.4,
+      "lavbundDifferenceHa": -768.44
     },
     "0710": {
       "kommuneNavn": "Favrskov",
@@ -868,8 +868,8 @@
       "actualSkovHa": 26.1,
       "skovDifferenceHa": 2594.4,
       "simulatedLavbundHa": 1467.48,
-      "actualLavbundHa": 2308.5,
-      "lavbundDifferenceHa": -841.02
+      "actualLavbundHa": 1943.9,
+      "lavbundDifferenceHa": -476.42
     },
     "0727": {
       "kommuneNavn": "Odder",
@@ -879,8 +879,8 @@
       "actualSkovHa": 7.0,
       "skovDifferenceHa": 832.25,
       "simulatedLavbundHa": 469.98,
-      "actualLavbundHa": 565.4,
-      "lavbundDifferenceHa": -95.42
+      "actualLavbundHa": 568.8,
+      "lavbundDifferenceHa": -98.82
     },
     "0730": {
       "kommuneNavn": "Randers",
@@ -890,8 +890,8 @@
       "actualSkovHa": 4001.4,
       "skovDifferenceHa": -661.4,
       "simulatedLavbundHa": 1870.4,
-      "actualLavbundHa": 7710.6,
-      "lavbundDifferenceHa": -5840.2
+      "actualLavbundHa": 7277.3,
+      "lavbundDifferenceHa": -5406.9
     },
     "0740": {
       "kommuneNavn": "Silkeborg",
@@ -901,8 +901,8 @@
       "actualSkovHa": 643.8,
       "skovDifferenceHa": 7433.95,
       "simulatedLavbundHa": 4523.54,
-      "actualLavbundHa": 2912.7,
-      "lavbundDifferenceHa": 1610.84
+      "actualLavbundHa": 3130.5,
+      "lavbundDifferenceHa": 1393.04
     },
     "0741": {
       "kommuneNavn": "Samsø",
@@ -923,19 +923,19 @@
       "actualSkovHa": 214.5,
       "skovDifferenceHa": 3019.25,
       "simulatedLavbundHa": 1810.9,
-      "actualLavbundHa": 2427.4,
-      "lavbundDifferenceHa": -616.5
+      "actualLavbundHa": 2097.3,
+      "lavbundDifferenceHa": -286.4
     },
     "0751": {
       "kommuneNavn": "Aarhus",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.6839,
       "simulatedSkovHa": 1709.75,
-      "actualSkovHa": 959.9,
-      "skovDifferenceHa": 749.85,
+      "actualSkovHa": 959.8,
+      "skovDifferenceHa": 749.95,
       "simulatedLavbundHa": 957.46,
-      "actualLavbundHa": 1126.2,
-      "lavbundDifferenceHa": -168.74
+      "actualLavbundHa": 961.5,
+      "lavbundDifferenceHa": -4.04
     },
     "0756": {
       "kommuneNavn": "Ikast-Brande",
@@ -945,30 +945,30 @@
       "actualSkovHa": 326.6,
       "skovDifferenceHa": 5411.9,
       "simulatedLavbundHa": 3213.56,
-      "actualLavbundHa": 5654.3,
-      "lavbundDifferenceHa": -2440.74
+      "actualLavbundHa": 6299.7,
+      "lavbundDifferenceHa": -3086.14
     },
     "0760": {
       "kommuneNavn": "Ringkøbing-Skjern",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 3.9267,
       "simulatedSkovHa": 9816.75,
-      "actualSkovHa": 226.2,
-      "skovDifferenceHa": 9590.55,
+      "actualSkovHa": 228.2,
+      "skovDifferenceHa": 9588.55,
       "simulatedLavbundHa": 5497.38,
-      "actualLavbundHa": 12804.4,
-      "lavbundDifferenceHa": -7307.02
+      "actualLavbundHa": 10538.1,
+      "lavbundDifferenceHa": -5040.72
     },
     "0766": {
       "kommuneNavn": "Hedensted",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 0.8048,
       "simulatedSkovHa": 2012.0,
-      "actualSkovHa": 941.9,
-      "skovDifferenceHa": 1070.1,
+      "actualSkovHa": 924.4,
+      "skovDifferenceHa": 1087.6,
       "simulatedLavbundHa": 1126.72,
-      "actualLavbundHa": 2461.5,
-      "lavbundDifferenceHa": -1334.78
+      "actualLavbundHa": 2461.2,
+      "lavbundDifferenceHa": -1334.48
     },
     "0773": {
       "kommuneNavn": "Morsø",
@@ -978,8 +978,8 @@
       "actualSkovHa": 39.5,
       "skovDifferenceHa": 1194.0,
       "simulatedLavbundHa": 690.76,
-      "actualLavbundHa": 1539.2,
-      "lavbundDifferenceHa": -848.44
+      "actualLavbundHa": 1442.0,
+      "lavbundDifferenceHa": -751.24
     },
     "0779": {
       "kommuneNavn": "Skive",
@@ -989,8 +989,8 @@
       "actualSkovHa": 116.7,
       "skovDifferenceHa": 3126.55,
       "simulatedLavbundHa": 1816.22,
-      "actualLavbundHa": 7105.3,
-      "lavbundDifferenceHa": -5289.08
+      "actualLavbundHa": 7150.6,
+      "lavbundDifferenceHa": -5334.38
     },
     "0787": {
       "kommuneNavn": "Thisted",
@@ -1000,8 +1000,8 @@
       "actualSkovHa": 681.4,
       "skovDifferenceHa": 9863.6,
       "simulatedLavbundHa": 5905.2,
-      "actualLavbundHa": 9154.9,
-      "lavbundDifferenceHa": -3249.7
+      "actualLavbundHa": 9240.0,
+      "lavbundDifferenceHa": -3334.8
     },
     "0791": {
       "kommuneNavn": "Viborg",
@@ -1011,8 +1011,8 @@
       "actualSkovHa": 1597.3,
       "skovDifferenceHa": 8405.7,
       "simulatedLavbundHa": 5601.68,
-      "actualLavbundHa": 13122.5,
-      "lavbundDifferenceHa": -7520.82
+      "actualLavbundHa": 13311.6,
+      "lavbundDifferenceHa": -7709.92
     },
     "0810": {
       "kommuneNavn": "Brønderslev",
@@ -1022,19 +1022,19 @@
       "actualSkovHa": 38.3,
       "skovDifferenceHa": 3894.45,
       "simulatedLavbundHa": 2202.34,
-      "actualLavbundHa": 8015.3,
-      "lavbundDifferenceHa": -5812.96
+      "actualLavbundHa": 9402.5,
+      "lavbundDifferenceHa": -7200.16
     },
     "0813": {
       "kommuneNavn": "Frederikshavn",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 2.2161,
       "simulatedSkovHa": 5540.25,
-      "actualSkovHa": 12.3,
-      "skovDifferenceHa": 5527.95,
+      "actualSkovHa": 12.4,
+      "skovDifferenceHa": 5527.85,
       "simulatedLavbundHa": 3102.54,
-      "actualLavbundHa": 1385.4,
-      "lavbundDifferenceHa": 1717.14
+      "actualLavbundHa": 1386.5,
+      "lavbundDifferenceHa": 1716.04
     },
     "0820": {
       "kommuneNavn": "Vesthimmerlands",
@@ -1044,8 +1044,8 @@
       "actualSkovHa": 32.9,
       "skovDifferenceHa": 4060.85,
       "simulatedLavbundHa": 2292.5,
-      "actualLavbundHa": 10547.4,
-      "lavbundDifferenceHa": -8254.9
+      "actualLavbundHa": 10534.6,
+      "lavbundDifferenceHa": -8242.1
     },
     "0825": {
       "kommuneNavn": "Læsø",
@@ -1066,30 +1066,30 @@
       "actualSkovHa": 133.3,
       "skovDifferenceHa": 3776.7,
       "simulatedLavbundHa": 2189.6,
-      "actualLavbundHa": 7419.6,
-      "lavbundDifferenceHa": -5230.0
+      "actualLavbundHa": 7816.1,
+      "lavbundDifferenceHa": -5626.5
     },
     "0846": {
       "kommuneNavn": "Mariagerfjord",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 1.633,
       "simulatedSkovHa": 4082.5,
-      "actualSkovHa": 96.3,
-      "skovDifferenceHa": 3986.2,
+      "actualSkovHa": 100.5,
+      "skovDifferenceHa": 3982.0,
       "simulatedLavbundHa": 2286.2,
-      "actualLavbundHa": 7582.2,
-      "lavbundDifferenceHa": -5296.0
+      "actualLavbundHa": 7733.4,
+      "lavbundDifferenceHa": -5447.2
     },
     "0849": {
       "kommuneNavn": "Jammerbugt",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 2.7334,
       "simulatedSkovHa": 6833.5,
-      "actualSkovHa": 202.8,
-      "skovDifferenceHa": 6630.7,
+      "actualSkovHa": 206.5,
+      "skovDifferenceHa": 6627.0,
       "simulatedLavbundHa": 3826.76,
-      "actualLavbundHa": 5650.6,
-      "lavbundDifferenceHa": -1823.84
+      "actualLavbundHa": 4516.8,
+      "lavbundDifferenceHa": -690.04
     },
     "0851": {
       "kommuneNavn": "Aalborg",
@@ -1099,16 +1099,16 @@
       "actualSkovHa": 461.7,
       "skovDifferenceHa": 7404.8,
       "simulatedLavbundHa": 4405.24,
-      "actualLavbundHa": 20987.6,
-      "lavbundDifferenceHa": -16582.36
+      "actualLavbundHa": 22395.3,
+      "lavbundDifferenceHa": -17990.06
     },
     "0860": {
       "kommuneNavn": "Hjørring",
       "basis": "dce30PctOfNational",
       "dce30PctOfNational": 2.27,
       "simulatedSkovHa": 5675.0,
-      "actualSkovHa": 288.3,
-      "skovDifferenceHa": 5386.7,
+      "actualSkovHa": 306.2,
+      "skovDifferenceHa": 5368.8,
       "simulatedLavbundHa": 3178.0,
       "actualLavbundHa": 4422.7,
       "lavbundDifferenceHa": -1244.7

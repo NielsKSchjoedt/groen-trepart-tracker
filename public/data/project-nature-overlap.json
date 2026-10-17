@@ -1,11 +1,11 @@
 {
   "metadata": {
     "methodVersion": "project-overlap-v2",
-    "generatedAt": "2026-09-11T21:49:01.767051+00:00",
+    "generatedAt": "2026-10-17T16:46:58.672331+00:00",
     "headline": "biodiversitetHa = projektareal-overlap med DCE 30 % biodiversitetskort",
     "note": "Overlap er stedsspecifikt og ikke en ubetinget god indikator: projekter lagt hvor der allerede er natur kan være overlap med eksisterende beskyttelse, ikke ny natur. MARS holder tilskudsareal ude af §3. Projekter er klippet til kommunegrænser, så areal ikke dobbelttælles på tværs af kommuner.",
-    "projectsWithGeometry": 1669,
-    "projectsWithOverlap": 1668,
+    "projectsWithGeometry": 1611,
+    "projectsWithOverlap": 1611,
     "overlapThresholdHa": 0.1,
     "sources": [
       "MARS project geometries",
@@ -20,23 +20,23 @@
       "Lavbundsprojekter",
       "Skovrejsning"
     ],
-    "projectsWithGeometry": 1668,
-    "naturePipelineWithGeometry": 918,
-    "withBiodiversityOverlap": 607,
-    "withBiodiversityOverlapUnthresholded": 662,
-    "withoutBiodiversityOverlap": 311,
-    "biodiversitetHa": 66054.66,
-    "section3Ha": 25945.68,
-    "natura2000Ha": 15645.2,
+    "projectsWithGeometry": 1611,
+    "naturePipelineWithGeometry": 916,
+    "withBiodiversityOverlap": 595,
+    "withBiodiversityOverlapUnthresholded": 651,
+    "withoutBiodiversityOverlap": 321,
+    "biodiversitetHa": 68055.45,
+    "section3Ha": 25890.91,
+    "natura2000Ha": 15115.89,
     "lavbund": {
-      "projects": 454,
-      "withOverlap": 452,
-      "biodiversitetHa": 65755.06
+      "projects": 438,
+      "withOverlap": 436,
+      "biodiversitetHa": 67751.34
     },
     "afforestation": {
-      "projects": 464,
-      "withOverlap": 155,
-      "biodiversitetHa": 299.59
+      "projects": 478,
+      "withOverlap": 159,
+      "biodiversitetHa": 304.11
     }
   },
   "byProject": {
@@ -462,28 +462,6 @@
           "projektAreaHa": 72.1942,
           "biodiversitetHa": 70.0482,
           "section3Ha": 17.6595,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "8d22a351-86ee-4ad6-a258-f58379937b29": {
-      "geoId": "8d22a351-86ee-4ad6-a258-f58379937b29",
-      "projectId": "024e524c-39c2-45af-9a57-d74f77594f89",
-      "projectName": "Skive Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.5139,
-      "primaryKommuneKode": "0779",
-      "biodiversitetHa": 0.1283,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0779",
-          "kommuneNavn": "Skive",
-          "projektAreaHa": 0.5139,
-          "biodiversitetHa": 0.1283,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -974,36 +952,6 @@
         }
       ]
     },
-    "4d666ba9-a10e-43dd-a7e1-c30aa71865c2": {
-      "geoId": "4d666ba9-a10e-43dd-a7e1-c30aa71865c2",
-      "projectId": "061ef241-42f7-4a00-8e8f-c22b5058e084",
-      "projectName": "Kolding Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.2474,
-      "primaryKommuneKode": "0621",
-      "biodiversitetHa": 0.7491,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0510",
-          "kommuneNavn": "Haderslev",
-          "projektAreaHa": 0.0009,
-          "biodiversitetHa": 0.0009,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        },
-        {
-          "kode": "0621",
-          "kommuneNavn": "Kolding",
-          "projektAreaHa": 1.2466,
-          "biodiversitetHa": 0.7482,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "d2810a79-1b0c-469e-8797-ebb955dc57d0": {
       "geoId": "d2810a79-1b0c-469e-8797-ebb955dc57d0",
       "projectId": "065df358-7aee-412c-aa70-8b1aec41899a",
@@ -1052,7 +1000,7 @@
       "geoId": "3dd82278-44b3-4397-bfea-0d37d45767f1",
       "projectId": "06706554-4483-41c3-b704-c3e4afd5126f",
       "projectName": "Eltang Vig",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 30.8359,
       "primaryKommuneKode": "0621",
@@ -1139,7 +1087,7 @@
     "28866441-2123-4fda-a1b3-e7f45e0141a7": {
       "geoId": "28866441-2123-4fda-a1b3-e7f45e0141a7",
       "projectId": "0713c169-5716-49e2-a20b-e71b2af3744e",
-      "projectName": "Sperring Sø",
+      "projectName": "Sperring Sø - Realisering",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 232.0599,
@@ -1309,28 +1257,6 @@
           "biodiversitetHa": 110.7655,
           "section3Ha": 0.9908,
           "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "56b88aac-6c18-4dcb-9a42-e2a59efffff8": {
-      "geoId": "56b88aac-6c18-4dcb-9a42-e2a59efffff8",
-      "projectId": "0a03a3aa-b089-4c03-ae35-78f0efea1dc5",
-      "projectName": "Klima-lavbundsprojekt ved Røgbølle Sø",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 72.3323,
-      "primaryKommuneKode": "0376",
-      "biodiversitetHa": 67.5964,
-      "section3Ha": 26.3801,
-      "natura2000Ha": 71.6439,
-      "perKommune": [
-        {
-          "kode": "0376",
-          "kommuneNavn": "Guldborgsund",
-          "projektAreaHa": 72.3323,
-          "biodiversitetHa": 67.5964,
-          "section3Ha": 26.3801,
-          "natura2000Ha": 71.6439
         }
       ]
     },
@@ -1792,28 +1718,6 @@
           "projektAreaHa": 5.888,
           "biodiversitetHa": 3.185,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "caaed134-e3f5-43ae-b43a-a8c019cea35a": {
-      "geoId": "caaed134-e3f5-43ae-b43a-a8c019cea35a",
-      "projectId": "0c9ce535-93e6-4687-8f1f-33f284c840c9",
-      "projectName": "Næs Å",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 33.104,
-      "primaryKommuneKode": "0390",
-      "biodiversitetHa": 30.8201,
-      "section3Ha": 3.4492,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0390",
-          "kommuneNavn": "Vordingborg",
-          "projektAreaHa": 33.104,
-          "biodiversitetHa": 30.8201,
-          "section3Ha": 3.4492,
           "natura2000Ha": 0.0
         }
       ]
@@ -2640,8 +2544,8 @@
         }
       ]
     },
-    "d4d532d3-ba27-4706-94b0-ccd6a81052aa": {
-      "geoId": "d4d532d3-ba27-4706-94b0-ccd6a81052aa",
+    "c4a34938-3193-4067-81d7-6935749e8ebd": {
+      "geoId": "c4a34938-3193-4067-81d7-6935749e8ebd",
       "projectId": "115c943f-44a5-47d1-ac8d-7f650b7a1d52",
       "projectName": "Lille Slemminge enge",
       "measure": "Lavbundsprojekter",
@@ -2904,28 +2808,6 @@
         }
       ]
     },
-    "c7db5e0a-7371-48ee-848a-05ae1f92c3de": {
-      "geoId": "c7db5e0a-7371-48ee-848a-05ae1f92c3de",
-      "projectId": "12ea830a-471c-4e16-b349-2e57a6e1716f",
-      "projectName": "Ørsted Å",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 33.5906,
-      "primaryKommuneKode": "0510",
-      "biodiversitetHa": 33.3674,
-      "section3Ha": 18.6572,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0510",
-          "kommuneNavn": "Haderslev",
-          "projektAreaHa": 33.5906,
-          "biodiversitetHa": 33.3674,
-          "section3Ha": 18.6572,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "d8ae5873-3a11-405e-8d03-7a358c7df15b": {
       "geoId": "d8ae5873-3a11-405e-8d03-7a358c7df15b",
       "projectId": "1332e847-0abc-436e-8046-936ca76e3039",
@@ -2996,28 +2878,6 @@
           "projektAreaHa": 136.4604,
           "biodiversitetHa": 29.9189,
           "section3Ha": 7.994,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "09b29fef-650f-42c7-b1fd-612dc61bceb6": {
-      "geoId": "09b29fef-650f-42c7-b1fd-612dc61bceb6",
-      "projectId": "13ea9f40-536d-41a4-825d-df92ca0f6411",
-      "projectName": "Bornholm Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.6542,
-      "primaryKommuneKode": "0400",
-      "biodiversitetHa": 0.7979,
-      "section3Ha": 0.0001,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0400",
-          "kommuneNavn": "Bornholm",
-          "projektAreaHa": 1.6542,
-          "biodiversitetHa": 0.7979,
-          "section3Ha": 0.0001,
           "natura2000Ha": 0.0
         }
       ]
@@ -3176,28 +3036,6 @@
         }
       ]
     },
-    "f5b33ba6-f88b-469f-bcee-9ca34f31e76c": {
-      "geoId": "f5b33ba6-f88b-469f-bcee-9ca34f31e76c",
-      "projectId": "152cf1ac-b0bc-4abc-82c7-6392bb3ab392",
-      "projectName": "Mariagerfjord Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.508,
-      "primaryKommuneKode": "0846",
-      "biodiversitetHa": 1.0736,
-      "section3Ha": 0.0772,
-      "natura2000Ha": 0.0542,
-      "perKommune": [
-        {
-          "kode": "0846",
-          "kommuneNavn": "Mariagerfjord",
-          "projektAreaHa": 1.508,
-          "biodiversitetHa": 1.0736,
-          "section3Ha": 0.0772,
-          "natura2000Ha": 0.0542
-        }
-      ]
-    },
     "b3345f80-498e-400c-a7ed-14f1f404ec8e": {
       "geoId": "b3345f80-498e-400c-a7ed-14f1f404ec8e",
       "projectId": "15407acc-7df2-48a4-a0f4-8eade15b76a8",
@@ -3272,8 +3110,8 @@
         }
       ]
     },
-    "fd5a3c68-8ba4-44d7-ae97-322545e1fe3f": {
-      "geoId": "fd5a3c68-8ba4-44d7-ae97-322545e1fe3f",
+    "a622bf67-3df5-4d2d-b178-37194d0f23fa": {
+      "geoId": "a622bf67-3df5-4d2d-b178-37194d0f23fa",
       "projectId": "1598704e-794c-4313-a3e9-25c640883d1d",
       "projectName": "Åmosen_Ulkestrup-Undløse",
       "measure": "Lavbundsprojekter",
@@ -3907,8 +3745,8 @@
     "583917df-4cd2-457f-95ec-ab0b13b98ef4": {
       "geoId": "583917df-4cd2-457f-95ec-ab0b13b98ef4",
       "projectId": "19020aad-76cd-4937-9157-c3c0f15ee4eb",
-      "projectName": "Lavbund forprojekt Høvænge",
-      "measure": "Lavbundsprojekter",
+      "projectName": "Høvænge - realisering",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 110.6929,
       "primaryKommuneKode": "0376",
@@ -4083,8 +3921,8 @@
     "1531a1a0-9810-473d-9851-5dcce3f209fa": {
       "geoId": "1531a1a0-9810-473d-9851-5dcce3f209fa",
       "projectId": "1a39bf15-375f-4349-a696-8cb06500cf72",
-      "projectName": "FribrødreÅ_Vest",
-      "measure": "Lavbundsprojekter",
+      "projectName": "Fribrødre Å, Vest - realisering",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 31.2908,
       "primaryKommuneKode": "0376",
@@ -4212,28 +4050,6 @@
         }
       ]
     },
-    "44039323-41b3-4002-97ea-ac2f6548f74c": {
-      "geoId": "44039323-41b3-4002-97ea-ac2f6548f74c",
-      "projectId": "1b659399-4417-4e6e-bf4a-610cfff3d829",
-      "projectName": "Syddjurs Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 12.5989,
-      "primaryKommuneKode": "0706",
-      "biodiversitetHa": 0.7165,
-      "section3Ha": 0.4838,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0706",
-          "kommuneNavn": "Syddjurs",
-          "projektAreaHa": 12.5989,
-          "biodiversitetHa": 0.7165,
-          "section3Ha": 0.4838,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "ae871f49-184d-43e6-a959-10e01677d65d": {
       "geoId": "ae871f49-184d-43e6-a959-10e01677d65d",
       "projectId": "1b866201-9dc4-4723-95c4-ae7e484f4968",
@@ -4300,12 +4116,12 @@
         }
       ]
     },
-    "00293dd4-ad70-44b0-9dd7-2da8b24ca92a": {
-      "geoId": "00293dd4-ad70-44b0-9dd7-2da8b24ca92a",
+    "bd4abfa3-f28a-498e-8b06-34c5bdaa540a": {
+      "geoId": "bd4abfa3-f28a-498e-8b06-34c5bdaa540a",
       "projectId": "1c210adb-e7b0-46ec-bf9f-94d932038d15",
       "projectName": "Skovrejsning Dalbækvej 5, 9750 Østervrå",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 3.2204,
       "primaryKommuneKode": "0813",
       "biodiversitetHa": 0.0,
@@ -4500,6 +4316,28 @@
         }
       ]
     },
+    "a9c004a2-ba5b-46cc-a2d5-242b6d2caacb": {
+      "geoId": "a9c004a2-ba5b-46cc-a2d5-242b6d2caacb",
+      "projectId": "1d7da437-4a37-45d2-84f4-ee03292af39f",
+      "projectName": "Niels og Kirsten, Hyrup Skovvej 12, Toftlund",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 1.5884,
+      "primaryKommuneKode": "0510",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0510",
+          "kommuneNavn": "Haderslev",
+          "projektAreaHa": 1.5884,
+          "biodiversitetHa": 0.0,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "c53731c9-b5d9-45ba-9fcc-5ceeaccd261a": {
       "geoId": "c53731c9-b5d9-45ba-9fcc-5ceeaccd261a",
       "projectId": "1d8036c1-e26d-4c49-aa2d-e38b326d706d",
@@ -4610,28 +4448,6 @@
         }
       ]
     },
-    "1bf8f18c-f496-4315-be2b-399fec04aa9c": {
-      "geoId": "1bf8f18c-f496-4315-be2b-399fec04aa9c",
-      "projectId": "1e3081cc-f23a-4b5a-ab01-0ead458ac6bf",
-      "projectName": "Langeland Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.5132,
-      "primaryKommuneKode": "0482",
-      "biodiversitetHa": 0.0024,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0482",
-          "kommuneNavn": "Langeland",
-          "projektAreaHa": 2.5132,
-          "biodiversitetHa": 0.0024,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "9bb2a8ff-9ff6-493c-91d6-38e94a3de103": {
       "geoId": "9bb2a8ff-9ff6-493c-91d6-38e94a3de103",
       "projectId": "1e43872d-f410-4b41-b017-5b96ca9eb164",
@@ -4650,28 +4466,6 @@
           "projektAreaHa": 7.6648,
           "biodiversitetHa": 0.0052,
           "section3Ha": 0.0062,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "34f38544-c4f5-408c-8207-bb74137a8e2a": {
-      "geoId": "34f38544-c4f5-408c-8207-bb74137a8e2a",
-      "projectId": "1e5c4d39-8133-4433-9218-38094b5bf9b2",
-      "projectName": "Assens Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.479,
-      "primaryKommuneKode": "0420",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0420",
-          "kommuneNavn": "Assens",
-          "projektAreaHa": 2.479,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -4698,11 +4492,33 @@
         }
       ]
     },
+    "c3a61517-005d-42c7-90d9-bc093d8c2d82": {
+      "geoId": "c3a61517-005d-42c7-90d9-bc093d8c2d82",
+      "projectId": "1ede5795-4ec5-4b39-ad42-23f9afcd6cce",
+      "projectName": "Claus og Lone, Gammelbyvej 46, Vejen",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 1.0083,
+      "primaryKommuneKode": "0575",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0575",
+          "kommuneNavn": "Vejen",
+          "projektAreaHa": 1.0083,
+          "biodiversitetHa": 0.0,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "96168948-da6c-4d24-a4d1-aac44500dc1c": {
       "geoId": "96168948-da6c-4d24-a4d1-aac44500dc1c",
       "projectId": "1ee085c0-be74-4cca-92d0-196f187387bc",
       "projectName": "Lavbund forprojekt Herridslev",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 95.7866,
       "primaryKommuneKode": "0376",
@@ -5176,8 +4992,8 @@
         }
       ]
     },
-    "73d7e919-2f02-42e3-ab3f-929d2333be46": {
-      "geoId": "73d7e919-2f02-42e3-ab3f-929d2333be46",
+    "dcb1f6f1-47ef-4fef-b8f5-79403ae4f293": {
+      "geoId": "dcb1f6f1-47ef-4fef-b8f5-79403ae4f293",
       "projectId": "216bca93-586d-4fab-9f0a-3dad88cd8861",
       "projectName": "Lavbund forprojekt Ravnstrup",
       "measure": "Lavbundsprojekter",
@@ -5330,28 +5146,6 @@
         }
       ]
     },
-    "b93705e8-2ca0-4d02-bcfc-46771a9e9d88": {
-      "geoId": "b93705e8-2ca0-4d02-bcfc-46771a9e9d88",
-      "projectId": "21f0c787-bd8a-47bc-944f-d3b9761f0789",
-      "projectName": "Kalundborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 10.6368,
-      "primaryKommuneKode": "0326",
-      "biodiversitetHa": 0.1234,
-      "section3Ha": 0.0456,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0326",
-          "kommuneNavn": "Kalundborg",
-          "projektAreaHa": 10.6368,
-          "biodiversitetHa": 0.1234,
-          "section3Ha": 0.0456,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "0d2e11b9-172a-4880-bace-3bab1c7905b2": {
       "geoId": "0d2e11b9-172a-4880-bace-3bab1c7905b2",
       "projectId": "22367809-8263-4950-a64d-a9679dee0dab",
@@ -5421,7 +5215,7 @@
     "4b3a5e45-c4d2-4ec0-82b8-f3b34715dbbe": {
       "geoId": "4b3a5e45-c4d2-4ec0-82b8-f3b34715dbbe",
       "projectId": "226fb315-8401-40c9-a9ac-9a21231ad5e4",
-      "projectName": "Sdr. Vejrup F2023",
+      "projectName": "Sdr. Vejrup R2026",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 80.8525,
@@ -5562,6 +5356,28 @@
           "projektAreaHa": 48.9783,
           "biodiversitetHa": 35.1715,
           "section3Ha": 0.2105,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "ed8cd6e6-02e6-400f-8a40-6bb616b16e66": {
+      "geoId": "ed8cd6e6-02e6-400f-8a40-6bb616b16e66",
+      "projectId": "2423cfe5-c788-4433-b7e4-1f9c2d779bcc",
+      "projectName": "Nørbæk Klima-Lavbund",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 44.3647,
+      "primaryKommuneKode": "0740",
+      "biodiversitetHa": 43.9587,
+      "section3Ha": 39.8541,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0740",
+          "kommuneNavn": "Silkeborg",
+          "projektAreaHa": 44.3647,
+          "biodiversitetHa": 43.9587,
+          "section3Ha": 39.8541,
           "natura2000Ha": 0.0
         }
       ]
@@ -5764,46 +5580,24 @@
         }
       ]
     },
-    "ec1170a8-e280-4f3e-97e2-f52b3fb9c48b": {
-      "geoId": "ec1170a8-e280-4f3e-97e2-f52b3fb9c48b",
-      "projectId": "25621359-a4a0-4127-a8d1-bdab6088605f",
-      "projectName": "Grimstrup F2023",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 284.3442,
-      "primaryKommuneKode": "0561",
-      "biodiversitetHa": 259.2757,
-      "section3Ha": 18.6359,
-      "natura2000Ha": 0.0531,
-      "perKommune": [
-        {
-          "kode": "0561",
-          "kommuneNavn": "Esbjerg",
-          "projektAreaHa": 284.3442,
-          "biodiversitetHa": 259.2757,
-          "section3Ha": 18.6359,
-          "natura2000Ha": 0.0531
-        }
-      ]
-    },
-    "0e837242-269a-4fe9-ac51-d9629ebc116c": {
-      "geoId": "0e837242-269a-4fe9-ac51-d9629ebc116c",
+    "ee589b79-8b71-493a-b291-f004f40c5aa5": {
+      "geoId": "ee589b79-8b71-493a-b291-f004f40c5aa5",
       "projectId": "2597725d-8a15-4f76-9529-6509b7d14b03",
       "projectName": "Assensbølle-Stensbo Realisering 2025",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 51.6649,
+      "status": 10,
+      "projektAreaHa": 51.4368,
       "primaryKommuneKode": "0420",
-      "biodiversitetHa": 18.5948,
-      "section3Ha": 1.3105,
+      "biodiversitetHa": 18.8714,
+      "section3Ha": 1.2611,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0420",
           "kommuneNavn": "Assens",
-          "projektAreaHa": 51.6649,
-          "biodiversitetHa": 18.5948,
-          "section3Ha": 1.3105,
+          "projektAreaHa": 51.4368,
+          "biodiversitetHa": 18.8714,
+          "section3Ha": 1.2611,
           "natura2000Ha": 0.0
         }
       ]
@@ -5874,25 +5668,25 @@
         }
       ]
     },
-    "436353fb-1263-4854-8a7c-15b21a50d36f": {
-      "geoId": "436353fb-1263-4854-8a7c-15b21a50d36f",
-      "projectId": "268f2b6c-ada4-4969-b930-5eb88bbc5a45",
-      "projectName": "Læsø Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.726,
-      "primaryKommuneKode": "0825",
-      "biodiversitetHa": 2.726,
-      "section3Ha": 0.0,
-      "natura2000Ha": 2.726,
+    "b78b86a4-6c65-4ff3-b62d-e2f868c41c5a": {
+      "geoId": "b78b86a4-6c65-4ff3-b62d-e2f868c41c5a",
+      "projectId": "2666a544-0aa2-456d-9a8a-c5030edd5f29",
+      "projectName": "Dob Enge",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 388.5124,
+      "primaryKommuneKode": "0760",
+      "biodiversitetHa": 132.4031,
+      "section3Ha": 8.5261,
+      "natura2000Ha": 343.7323,
       "perKommune": [
         {
-          "kode": "0825",
-          "kommuneNavn": "Læsø",
-          "projektAreaHa": 2.726,
-          "biodiversitetHa": 2.726,
-          "section3Ha": 0.0,
-          "natura2000Ha": 2.726
+          "kode": "0760",
+          "kommuneNavn": "Ringkøbing-Skjern",
+          "projektAreaHa": 388.5124,
+          "biodiversitetHa": 132.4031,
+          "section3Ha": 8.5261,
+          "natura2000Ha": 343.7323
         }
       ]
     },
@@ -5984,28 +5778,6 @@
         }
       ]
     },
-    "2b06b76a-5a97-42ba-8767-d8f50636ad40": {
-      "geoId": "2b06b76a-5a97-42ba-8767-d8f50636ad40",
-      "projectId": "27c8e6e7-5e73-41e0-84cf-a0559e3bb593",
-      "projectName": "Kannebæk Klima-lavbundsprojekt",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 10.0038,
-      "primaryKommuneKode": "0575",
-      "biodiversitetHa": 8.4877,
-      "section3Ha": 1.2457,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0575",
-          "kommuneNavn": "Vejen",
-          "projektAreaHa": 10.0038,
-          "biodiversitetHa": 8.4877,
-          "section3Ha": 1.2457,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "e1370cbc-396b-4a6e-9afb-3d695645e499": {
       "geoId": "e1370cbc-396b-4a6e-9afb-3d695645e499",
       "projectId": "27f15e5d-8f15-47b4-91a9-2d4859d8f453",
@@ -6050,12 +5822,12 @@
         }
       ]
     },
-    "e6f0e677-570a-440c-a5c9-76f709bd88f6": {
-      "geoId": "e6f0e677-570a-440c-a5c9-76f709bd88f6",
+    "c07fab6d-353d-410d-bdd0-15ef5d1c7132": {
+      "geoId": "c07fab6d-353d-410d-bdd0-15ef5d1c7132",
       "projectId": "2827cab9-857a-4c3b-84f6-c44e56054c80",
       "projectName": "Jan Carlson",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 16.6835,
       "primaryKommuneKode": "0707",
       "biodiversitetHa": 16.4715,
@@ -6251,8 +6023,8 @@
     "f4fa1b0e-1db9-40cb-9e55-dea09423443e": {
       "geoId": "f4fa1b0e-1db9-40cb-9e55-dea09423443e",
       "projectId": "28af3c0c-116c-464b-8ebd-a337a973061b",
-      "projectName": "FribrødreÅ_Nord",
-      "measure": "Lavbundsprojekter",
+      "projectName": "Fribrødre Å, Nord - realisering",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 38.0936,
       "primaryKommuneKode": "0376",
@@ -6270,8 +6042,8 @@
         }
       ]
     },
-    "e1b13fbd-6253-44e4-9e9c-ea3421e20266": {
-      "geoId": "e1b13fbd-6253-44e4-9e9c-ea3421e20266",
+    "e1966969-4ea5-40dc-9867-3a36371d9605": {
+      "geoId": "e1966969-4ea5-40dc-9867-3a36371d9605",
       "projectId": "292d844c-33c6-436b-b00f-7834dcf96691",
       "projectName": "Privat Skovrejsning",
       "measure": "Skovrejsning",
@@ -6366,28 +6138,6 @@
         }
       ]
     },
-    "ff7599eb-4de2-41d6-8cdb-9f291c5a0d78": {
-      "geoId": "ff7599eb-4de2-41d6-8cdb-9f291c5a0d78",
-      "projectId": "29661305-2b90-4280-8a25-95878ac3887f",
-      "projectName": "Stevns Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.1685,
-      "primaryKommuneKode": "0336",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0336",
-          "kommuneNavn": "Stevns",
-          "projektAreaHa": 3.1685,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "6ec0a4d5-96a9-47ed-ab5f-e06a1acf7f75": {
       "geoId": "6ec0a4d5-96a9-47ed-ab5f-e06a1acf7f75",
       "projectId": "296f1274-df95-476e-9f35-14b1e3eface0",
@@ -6449,28 +6199,6 @@
           "kommuneNavn": "Horsens",
           "projektAreaHa": 15.3679,
           "biodiversitetHa": 0.07,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "e472eb58-b37c-458c-9c5b-d1850a5f0743": {
-      "geoId": "e472eb58-b37c-458c-9c5b-d1850a5f0743",
-      "projectId": "2998a506-8669-4490-bd15-a1a77f624d2a",
-      "projectName": "Aabenraa Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.2998,
-      "primaryKommuneKode": "0580",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0580",
-          "kommuneNavn": "Aabenraa",
-          "projektAreaHa": 3.2998,
-          "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -6649,6 +6377,28 @@
           "biodiversitetHa": 39.4929,
           "section3Ha": 0.0,
           "natura2000Ha": 14.104
+        }
+      ]
+    },
+    "3babd133-70eb-4bf0-afe1-9d0451c1cf9b": {
+      "geoId": "3babd133-70eb-4bf0-afe1-9d0451c1cf9b",
+      "projectId": "2ae4a9bf-646e-45a6-8c0f-bcb12a39469c",
+      "projectName": "Holme-Røjkær",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 620.9243,
+      "primaryKommuneKode": "0661",
+      "biodiversitetHa": 498.3799,
+      "section3Ha": 15.408,
+      "natura2000Ha": 215.2123,
+      "perKommune": [
+        {
+          "kode": "0661",
+          "kommuneNavn": "Holstebro",
+          "projektAreaHa": 620.9243,
+          "biodiversitetHa": 498.3799,
+          "section3Ha": 15.408,
+          "natura2000Ha": 215.2123
         }
       ]
     },
@@ -6976,8 +6726,8 @@
         }
       ]
     },
-    "abcdc125-41d0-4317-a5f1-17ab13e843fb": {
-      "geoId": "abcdc125-41d0-4317-a5f1-17ab13e843fb",
+    "34bfbccf-e105-420e-bbb4-e4e715c105ce": {
+      "geoId": "34bfbccf-e105-420e-bbb4-e4e715c105ce",
       "projectId": "2e639e9d-c739-49c3-9d55-58347cfe9d7c",
       "projectName": "Saksvad Bæk",
       "measure": "Lavbundsprojekter",
@@ -7156,7 +6906,7 @@
       "geoId": "9614ff1c-8a4f-4649-907b-a0c1c3879b8f",
       "projectId": "2f9e7054-5714-40ee-9563-61d636fb1895",
       "projectName": "Ørsted-Bjørnemose forundersøgelse 2024",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 50.8251,
       "primaryKommuneKode": "0420",
@@ -7434,28 +7184,6 @@
         }
       ]
     },
-    "9ccbf47d-5fe1-4b0f-8572-abf6c3fb7f47": {
-      "geoId": "9ccbf47d-5fe1-4b0f-8572-abf6c3fb7f47",
-      "projectId": "311f686c-bb96-41bb-976d-a743eea8929f",
-      "projectName": "Kerteminde Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.0728,
-      "primaryKommuneKode": "0440",
-      "biodiversitetHa": 2.0669,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0440",
-          "kommuneNavn": "Kerteminde",
-          "projektAreaHa": 2.0728,
-          "biodiversitetHa": 2.0669,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "4cf7d60f-089c-4eee-9684-91b2c7e2ae30": {
       "geoId": "4cf7d60f-089c-4eee-9684-91b2c7e2ae30",
       "projectId": "31404c70-1669-4b9e-97ec-6bc70bb35b07",
@@ -7564,7 +7292,7 @@
       "geoId": "1e98a618-b136-4b70-aab4-cae1e4729318",
       "projectId": "31d140d7-4ada-4b96-aa5e-bd74dc0940e8",
       "projectName": "Lavbund forprojekt Handermelle",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 200.6303,
       "primaryKommuneKode": "0376",
@@ -7806,6 +7534,28 @@
           "projektAreaHa": 139.2338,
           "biodiversitetHa": 37.8752,
           "section3Ha": 30.7939,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "ed5b66aa-e835-4920-9f69-04cb1080f523": {
+      "geoId": "ed5b66aa-e835-4920-9f69-04cb1080f523",
+      "projectId": "33c84d89-4dd4-46b2-bb3f-6272e8f40906",
+      "projectName": "Skovrejsning Møllevej 5, 4460 Snertinge",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 2.0363,
+      "primaryKommuneKode": "0326",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.6372,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0326",
+          "kommuneNavn": "Kalundborg",
+          "projektAreaHa": 2.0363,
+          "biodiversitetHa": 0.0,
+          "section3Ha": 0.6372,
           "natura2000Ha": 0.0
         }
       ]
@@ -8376,6 +8126,28 @@
         }
       ]
     },
+    "4fe68bb4-ca57-493d-b5d1-dd457e7fa975": {
+      "geoId": "4fe68bb4-ca57-493d-b5d1-dd457e7fa975",
+      "projectId": "37e383f7-1f14-45e2-a367-75f1bcb8632e",
+      "projectName": "Hansted Å",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 128.4833,
+      "primaryKommuneKode": "0615",
+      "biodiversitetHa": 104.5362,
+      "section3Ha": 76.745,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0615",
+          "kommuneNavn": "Horsens",
+          "projektAreaHa": 128.4833,
+          "biodiversitetHa": 104.5362,
+          "section3Ha": 76.745,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "98b0cb7d-5d5b-4487-9f7a-7274a6ce542f": {
       "geoId": "98b0cb7d-5d5b-4487-9f7a-7274a6ce542f",
       "projectId": "37e4527a-2216-4da6-8465-829b7b6a88eb",
@@ -8640,12 +8412,12 @@
         }
       ]
     },
-    "9f20d7fe-b2b9-42e1-9659-d531f151a803": {
-      "geoId": "9f20d7fe-b2b9-42e1-9659-d531f151a803",
+    "e0c6f5ae-2787-4299-bb70-0d2b59d00baf": {
+      "geoId": "e0c6f5ae-2787-4299-bb70-0d2b59d00baf",
       "projectId": "396f5827-91eb-4120-90f1-1826e2da4272",
       "projectName": "Grydsbæk vådområde",
       "measure": "Kvælstofvådområder",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 12.4134,
       "primaryKommuneKode": "0665",
       "biodiversitetHa": 11.1071,
@@ -8768,28 +8540,6 @@
           "projektAreaHa": 0.3463,
           "biodiversitetHa": 0.2535,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "1a23b4b3-f843-4439-bd38-25427421731c": {
-      "geoId": "1a23b4b3-f843-4439-bd38-25427421731c",
-      "projectId": "3a33730a-2fd1-4e91-8f4a-4e6b8d004404",
-      "projectName": "Hillerød Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 7.9682,
-      "primaryKommuneKode": "0219",
-      "biodiversitetHa": 5.1967,
-      "section3Ha": 0.5724,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0219",
-          "kommuneNavn": "Hillerød",
-          "projektAreaHa": 7.9682,
-          "biodiversitetHa": 5.1967,
-          "section3Ha": 0.5724,
           "natura2000Ha": 0.0
         }
       ]
@@ -9044,28 +8794,6 @@
         }
       ]
     },
-    "6bb88139-7270-49dc-a42f-5c792ada19d5": {
-      "geoId": "6bb88139-7270-49dc-a42f-5c792ada19d5",
-      "projectId": "3c02986f-688f-48f0-8f92-37d1908ee82a",
-      "projectName": "Vordingborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 5.3052,
-      "primaryKommuneKode": "0390",
-      "biodiversitetHa": 4.9867,
-      "section3Ha": 0.1039,
-      "natura2000Ha": 4.9781,
-      "perKommune": [
-        {
-          "kode": "0390",
-          "kommuneNavn": "Vordingborg",
-          "projektAreaHa": 5.3052,
-          "biodiversitetHa": 4.9867,
-          "section3Ha": 0.1039,
-          "natura2000Ha": 4.9781
-        }
-      ]
-    },
     "7c38e4ca-c965-4ef5-955f-340fe8f46e3c": {
       "geoId": "7c38e4ca-c965-4ef5-955f-340fe8f46e3c",
       "projectId": "3c02c567-2dd7-4a53-961f-6f8d5516d6a0",
@@ -9083,28 +8811,6 @@
           "kommuneNavn": "Skanderborg",
           "projektAreaHa": 6.752,
           "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "d812e245-379c-4303-b84a-cc3a0206c87f": {
-      "geoId": "d812e245-379c-4303-b84a-cc3a0206c87f",
-      "projectId": "3c405b64-d996-42b3-a270-b5d2f06194d4",
-      "projectName": "Næstved Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.8353,
-      "primaryKommuneKode": "0370",
-      "biodiversitetHa": 0.0124,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0370",
-          "kommuneNavn": "Næstved",
-          "projektAreaHa": 1.8353,
-          "biodiversitetHa": 0.0124,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -9264,13 +8970,13 @@
         }
       ]
     },
-    "f9f90ad6-ea25-44f0-b2d2-57f7375bc5b1": {
-      "geoId": "f9f90ad6-ea25-44f0-b2d2-57f7375bc5b1",
+    "c69233ed-be1c-47a6-9153-fe0d4a68ef77": {
+      "geoId": "c69233ed-be1c-47a6-9153-fe0d4a68ef77",
       "projectId": "3d1aa5c2-31be-4aec-9d35-17cfdc978b98",
       "projectName": "Privat Skovrejsning",
       "measure": "Skovrejsning",
       "status": 15,
-      "projektAreaHa": 2.1591,
+      "projektAreaHa": 2.096,
       "primaryKommuneKode": "0550",
       "biodiversitetHa": 0.0,
       "section3Ha": 0.0,
@@ -9279,7 +8985,7 @@
         {
           "kode": "0550",
           "kommuneNavn": "Tønder",
-          "projektAreaHa": 2.1591,
+          "projektAreaHa": 2.096,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -9357,28 +9063,6 @@
           "biodiversitetHa": 274.2489,
           "section3Ha": 149.2854,
           "natura2000Ha": 0.0626
-        }
-      ]
-    },
-    "7e15c211-0028-4f20-955c-1d0859266fa9": {
-      "geoId": "7e15c211-0028-4f20-955c-1d0859266fa9",
-      "projectId": "3dc3d86c-396b-4507-b73f-8a81839b6e9e",
-      "projectName": "Odder Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.4432,
-      "primaryKommuneKode": "0727",
-      "biodiversitetHa": 0.3691,
-      "section3Ha": 0.0963,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0727",
-          "kommuneNavn": "Odder",
-          "projektAreaHa": 0.4432,
-          "biodiversitetHa": 0.3691,
-          "section3Ha": 0.0963,
-          "natura2000Ha": 0.0
         }
       ]
     },
@@ -9509,6 +9193,28 @@
           "kommuneNavn": "Horsens",
           "projektAreaHa": 8.6749,
           "biodiversitetHa": 0.0337,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "1bc13b5e-7b58-47c4-a90f-f2c1bab4e9b9": {
+      "geoId": "1bc13b5e-7b58-47c4-a90f-f2c1bab4e9b9",
+      "projectId": "3ece8f7d-5e36-4194-ae0f-74723ec18f5c",
+      "projectName": "Tranekærvej 82",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 1.8724,
+      "primaryKommuneKode": "0849",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0849",
+          "kommuneNavn": "Jammerbugt",
+          "projektAreaHa": 1.8724,
+          "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -9648,28 +9354,6 @@
           "kode": "0766",
           "kommuneNavn": "Hedensted",
           "projektAreaHa": 0.9257,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "78bf1fac-6954-427a-bb2f-8d17b74ed3cd": {
-      "geoId": "78bf1fac-6954-427a-bb2f-8d17b74ed3cd",
-      "projectId": "3f4016e5-d475-455c-86ca-2b3bf1f72652",
-      "projectName": "Vejen Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.3486,
-      "primaryKommuneKode": "0575",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0575",
-          "kommuneNavn": "Vejen",
-          "projektAreaHa": 0.3486,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -9896,12 +9580,12 @@
         }
       ]
     },
-    "a24f26b8-ce97-448a-9f71-f836556fa30c": {
-      "geoId": "a24f26b8-ce97-448a-9f71-f836556fa30c",
+    "b363887a-a54a-4d3b-b51e-c59c4017d32a": {
+      "geoId": "b363887a-a54a-4d3b-b51e-c59c4017d32a",
       "projectId": "40cd1418-b384-43af-b04f-d01accf87279",
       "projectName": "Asmindrup 21",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 4.2434,
       "primaryKommuneKode": "0326",
       "biodiversitetHa": 0.0,
@@ -9962,50 +9646,6 @@
         }
       ]
     },
-    "1aa08553-fa75-4a0f-b723-188e87bd16bd": {
-      "geoId": "1aa08553-fa75-4a0f-b723-188e87bd16bd",
-      "projectId": "41670bd2-0189-459a-80d6-abf736a659f4",
-      "projectName": "Brønderslev Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.0024,
-      "primaryKommuneKode": "0810",
-      "biodiversitetHa": 0.0024,
-      "section3Ha": 0.0005,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0810",
-          "kommuneNavn": "Brønderslev",
-          "projektAreaHa": 0.0024,
-          "biodiversitetHa": 0.0024,
-          "section3Ha": 0.0005,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "b0857051-1674-4c63-aba2-1ee22ee01d02": {
-      "geoId": "b0857051-1674-4c63-aba2-1ee22ee01d02",
-      "projectId": "41d3759e-7005-4897-be3c-d3aa12c3c51e",
-      "projectName": "Solrød Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 4.9328,
-      "primaryKommuneKode": "0269",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0269",
-          "kommuneNavn": "Solrød",
-          "projektAreaHa": 4.9328,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "b0356f6a-1605-4ad5-9e62-7511b5fc8cca": {
       "geoId": "b0356f6a-1605-4ad5-9e62-7511b5fc8cca",
       "projectId": "41e1a228-4f3b-43e1-8951-b4fa3a03fa9d",
@@ -10050,12 +9690,12 @@
         }
       ]
     },
-    "daaac4cf-33ba-44e2-a8a8-e3be6583589a": {
-      "geoId": "daaac4cf-33ba-44e2-a8a8-e3be6583589a",
+    "de9fbc69-26bf-4012-8f1f-04d236c24874": {
+      "geoId": "de9fbc69-26bf-4012-8f1f-04d236c24874",
       "projectId": "4221ec4c-4c90-45f8-89f1-f3690d5efa59",
       "projectName": "Østervangsvej 32",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 2.6367,
       "primaryKommuneKode": "0810",
       "biodiversitetHa": 0.6259,
@@ -10112,28 +9752,6 @@
           "projektAreaHa": 2.2766,
           "biodiversitetHa": 0.4807,
           "section3Ha": 0.0052,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "fe06a6d4-554f-4a55-97da-3607085e1fd1": {
-      "geoId": "fe06a6d4-554f-4a55-97da-3607085e1fd1",
-      "projectId": "43ece675-1cd1-4652-8d56-05dd8753574b",
-      "projectName": "Silkeborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.536,
-      "primaryKommuneKode": "0740",
-      "biodiversitetHa": 1.687,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0740",
-          "kommuneNavn": "Silkeborg",
-          "projektAreaHa": 2.536,
-          "biodiversitetHa": 1.687,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -10204,28 +9822,6 @@
         }
       ]
     },
-    "4208e5e8-f654-455b-be94-a219b9d72aac": {
-      "geoId": "4208e5e8-f654-455b-be94-a219b9d72aac",
-      "projectId": "444f9611-d2a2-40c4-8a1b-c4b740218433",
-      "projectName": "Odense Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.6572,
-      "primaryKommuneKode": "0461",
-      "biodiversitetHa": 2.6572,
-      "section3Ha": 0.0676,
-      "natura2000Ha": 0.6886,
-      "perKommune": [
-        {
-          "kode": "0461",
-          "kommuneNavn": "Odense",
-          "projektAreaHa": 2.6572,
-          "biodiversitetHa": 2.6572,
-          "section3Ha": 0.0676,
-          "natura2000Ha": 0.6886
-        }
-      ]
-    },
     "0c109732-b784-49c1-b026-21d39e78696e": {
       "geoId": "0c109732-b784-49c1-b026-21d39e78696e",
       "projectId": "445778a8-98d1-43b2-bb82-0ca079a9c40c",
@@ -10266,36 +9862,6 @@
           "projektAreaHa": 1.9167,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "55fba322-b0e6-446b-8ce8-88ee5ef1d37e": {
-      "geoId": "55fba322-b0e6-446b-8ce8-88ee5ef1d37e",
-      "projectId": "4463c74d-e80d-48e1-b550-4adf92d88c92",
-      "projectName": "Bisserup Storemose",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 39.3405,
-      "primaryKommuneKode": "0330",
-      "biodiversitetHa": 37.6422,
-      "section3Ha": 0.0273,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0330",
-          "kommuneNavn": "Slagelse",
-          "projektAreaHa": 25.8636,
-          "biodiversitetHa": 24.8189,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        },
-        {
-          "kode": "0370",
-          "kommuneNavn": "Næstved",
-          "projektAreaHa": 13.4769,
-          "biodiversitetHa": 12.8233,
-          "section3Ha": 0.0273,
           "natura2000Ha": 0.0
         }
       ]
@@ -10646,10 +10212,40 @@
         }
       ]
     },
+    "14101f9b-c7dd-4dd0-8398-ea6f4848fc74": {
+      "geoId": "14101f9b-c7dd-4dd0-8398-ea6f4848fc74",
+      "projectId": "468e44f3-1081-45cd-8db6-f2542c584acc",
+      "projectName": "Lavbund - Lyngbygaard Å",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 114.5287,
+      "primaryKommuneKode": "0746",
+      "biodiversitetHa": 89.4856,
+      "section3Ha": 8.8724,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0740",
+          "kommuneNavn": "Silkeborg",
+          "projektAreaHa": 10.5187,
+          "biodiversitetHa": 9.4124,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        },
+        {
+          "kode": "0746",
+          "kommuneNavn": "Skanderborg",
+          "projektAreaHa": 104.01,
+          "biodiversitetHa": 80.0732,
+          "section3Ha": 8.8724,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "fe33e807-35aa-4bf0-9bfc-608688b2d79a": {
       "geoId": "fe33e807-35aa-4bf0-9bfc-608688b2d79a",
       "projectId": "46c24eaa-8b1d-4659-8dd4-991e5b04413c",
-      "projectName": "lavbund",
+      "projectName": "Lavbund v. steensgaard forundersøgelsestilsagn",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 22.8863,
@@ -10918,24 +10514,24 @@
         }
       ]
     },
-    "174a47bb-cb68-460d-90a6-de54fc6d99b8": {
-      "geoId": "174a47bb-cb68-460d-90a6-de54fc6d99b8",
+    "f235b0da-3b84-4965-9e5b-467860e6dbab": {
+      "geoId": "f235b0da-3b84-4965-9e5b-467860e6dbab",
       "projectId": "48aa4bb2-8cd0-4847-9bf4-69acb0fa517f",
       "projectName": "Brende Å Ålund 2024",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 20.0902,
+      "status": 10,
+      "projektAreaHa": 11.871,
       "primaryKommuneKode": "0420",
-      "biodiversitetHa": 13.5905,
-      "section3Ha": 2.0384,
+      "biodiversitetHa": 8.5364,
+      "section3Ha": 0.054,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0420",
           "kommuneNavn": "Assens",
-          "projektAreaHa": 20.0902,
-          "biodiversitetHa": 13.5905,
-          "section3Ha": 2.0384,
+          "projektAreaHa": 11.871,
+          "biodiversitetHa": 8.5364,
+          "section3Ha": 0.054,
           "natura2000Ha": 0.0
         }
       ]
@@ -11443,8 +11039,8 @@
     "457585be-8d9b-4bff-8e77-3c10877395f9": {
       "geoId": "457585be-8d9b-4bff-8e77-3c10877395f9",
       "projectId": "4d0ef970-0a4c-401c-ba1e-5b7744ff3079",
-      "projectName": "Skiveren Nord og Kjelstrup grøft",
-      "measure": "Lavbundsprojekter",
+      "projectName": "Skiveren Nord og Kjelstrup grøft - Realisering",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 103.4276,
       "primaryKommuneKode": "0787",
@@ -11502,28 +11098,6 @@
           "projektAreaHa": 20.5173,
           "biodiversitetHa": 8.8359,
           "section3Ha": 1.5314,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "793f1529-12c4-41f5-95d7-a3e11d30d5db": {
-      "geoId": "793f1529-12c4-41f5-95d7-a3e11d30d5db",
-      "projectId": "4d5ccd3c-defb-40f5-a0f6-68958c5e478c",
-      "projectName": "Helsingør Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 11.2954,
-      "primaryKommuneKode": "0217",
-      "biodiversitetHa": 8.5587,
-      "section3Ha": 0.0278,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0217",
-          "kommuneNavn": "Helsingør",
-          "projektAreaHa": 11.2954,
-          "biodiversitetHa": 8.5587,
-          "section3Ha": 0.0278,
           "natura2000Ha": 0.0
         }
       ]
@@ -11616,50 +11190,6 @@
         }
       ]
     },
-    "005a7e12-8a55-4a7b-a73a-3dd76fbda817": {
-      "geoId": "005a7e12-8a55-4a7b-a73a-3dd76fbda817",
-      "projectId": "4dcefd69-b960-47cd-9a8f-811d0571c18b",
-      "projectName": "Aarhus Kommnue Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.2605,
-      "primaryKommuneKode": "0751",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0751",
-          "kommuneNavn": "Aarhus",
-          "projektAreaHa": 1.2605,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "ab06ae8c-65ec-4d3f-a7aa-62f28152afc3": {
-      "geoId": "ab06ae8c-65ec-4d3f-a7aa-62f28152afc3",
-      "projectId": "4df10f52-2dab-4b7d-8235-d7bcb80a6491",
-      "projectName": "Gribskov Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.6507,
-      "primaryKommuneKode": "0270",
-      "biodiversitetHa": 0.9638,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0270",
-          "kommuneNavn": "Gribskov",
-          "projektAreaHa": 2.6507,
-          "biodiversitetHa": 0.9638,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "da812ecc-e0d5-4708-bafc-33965b7f2113": {
       "geoId": "da812ecc-e0d5-4708-bafc-33965b7f2113",
       "projectId": "4e03143d-4451-4643-b24a-dd04e5f5c039",
@@ -11700,28 +11230,6 @@
           "projektAreaHa": 4.8956,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "dd4102a7-fcaa-4f3d-b9a4-e94fe3ca1264": {
-      "geoId": "dd4102a7-fcaa-4f3d-b9a4-e94fe3ca1264",
-      "projectId": "4e12fd67-18f4-4ac1-834f-1a9e0a616167",
-      "projectName": "Bykær Bæk",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 35.3362,
-      "primaryKommuneKode": "0510",
-      "biodiversitetHa": 33.0657,
-      "section3Ha": 24.6207,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0510",
-          "kommuneNavn": "Haderslev",
-          "projektAreaHa": 35.3362,
-          "biodiversitetHa": 33.0657,
-          "section3Ha": 24.6207,
           "natura2000Ha": 0.0
         }
       ]
@@ -12078,12 +11586,12 @@
         }
       ]
     },
-    "1d77fd5f-a41e-4ecf-bd0c-f1c9bb55820f": {
-      "geoId": "1d77fd5f-a41e-4ecf-bd0c-f1c9bb55820f",
+    "382ef877-3636-4ac4-9202-93e5438ec11d": {
+      "geoId": "382ef877-3636-4ac4-9202-93e5438ec11d",
       "projectId": "4fd87f0e-aecc-4fa6-b239-507bbf26b4e1",
       "projectName": "Aabys minivådområde",
       "measure": "Minivådområder",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 0.2067,
       "primaryKommuneKode": "0479",
       "biodiversitetHa": 0.0825,
@@ -12214,7 +11722,7 @@
       "geoId": "97f02f1f-20a0-40e1-9ec2-490fa151a67e",
       "projectId": "507ec9b6-f4d0-4d77-9515-e3bf30b0a49c",
       "projectName": "Hanstholm Kær",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 27.9885,
       "primaryKommuneKode": "0773",
@@ -12229,28 +11737,6 @@
           "biodiversitetHa": 27.9063,
           "section3Ha": 23.0533,
           "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "d3a73df2-29c2-48e5-b9a2-f29470200620": {
-      "geoId": "d3a73df2-29c2-48e5-b9a2-f29470200620",
-      "projectId": "509330f7-5149-4fba-911a-971049fa67aa",
-      "projectName": "Slagelse Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.6259,
-      "primaryKommuneKode": "0330",
-      "biodiversitetHa": 0.0134,
-      "section3Ha": 0.006,
-      "natura2000Ha": 0.6259,
-      "perKommune": [
-        {
-          "kode": "0330",
-          "kommuneNavn": "Slagelse",
-          "projektAreaHa": 0.6259,
-          "biodiversitetHa": 0.0134,
-          "section3Ha": 0.006,
-          "natura2000Ha": 0.6259
         }
       ]
     },
@@ -12350,42 +11836,42 @@
         }
       ]
     },
-    "4533c862-72f5-4056-b716-a9d6ff1a1d6a": {
-      "geoId": "4533c862-72f5-4056-b716-a9d6ff1a1d6a",
+    "7ad8c02b-0329-4e5a-9b90-3e209f21770c": {
+      "geoId": "7ad8c02b-0329-4e5a-9b90-3e209f21770c",
       "projectId": "512272b2-2813-4bf0-84d3-e3fb95360d76",
       "projectName": "Lindet",
       "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 693.9063,
+      "status": 10,
+      "projektAreaHa": 622.5251,
       "primaryKommuneKode": "0550",
-      "biodiversitetHa": 545.6395,
-      "section3Ha": 124.2101,
-      "natura2000Ha": 54.0533,
+      "biodiversitetHa": 511.8338,
+      "section3Ha": 123.4261,
+      "natura2000Ha": 48.5693,
       "perKommune": [
         {
           "kode": "0510",
           "kommuneNavn": "Haderslev",
-          "projektAreaHa": 142.4881,
-          "biodiversitetHa": 107.8888,
-          "section3Ha": 79.728,
+          "projektAreaHa": 152.591,
+          "biodiversitetHa": 110.1974,
+          "section3Ha": 79.7414,
           "natura2000Ha": 0.0007
         },
         {
           "kode": "0550",
           "kommuneNavn": "Tønder",
-          "projektAreaHa": 551.4181,
-          "biodiversitetHa": 437.7507,
-          "section3Ha": 44.4821,
-          "natura2000Ha": 54.0526
+          "projektAreaHa": 469.9342,
+          "biodiversitetHa": 401.6364,
+          "section3Ha": 43.6847,
+          "natura2000Ha": 48.5686
         }
       ]
     },
-    "245997be-1f17-4c43-823f-abb56221a5fd": {
-      "geoId": "245997be-1f17-4c43-823f-abb56221a5fd",
+    "8505d652-7546-4089-86ef-14a0bfcd1018": {
+      "geoId": "8505d652-7546-4089-86ef-14a0bfcd1018",
       "projectId": "5133b279-8321-4699-875f-5043eec7a916",
       "projectName": "Kirsebærmosen",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 208.1742,
       "primaryKommuneKode": "0657",
       "biodiversitetHa": 180.8119,
@@ -12476,12 +11962,12 @@
         }
       ]
     },
-    "ec7d853a-6bb5-446c-a546-4da9a04df413": {
-      "geoId": "ec7d853a-6bb5-446c-a546-4da9a04df413",
+    "d5cd07d9-830f-4484-937b-1743dab0c198": {
+      "geoId": "d5cd07d9-830f-4484-937b-1743dab0c198",
       "projectId": "51eb63be-2810-43bd-85af-5a2145bcb3f6",
       "projectName": "Tranemosen",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 175.2715,
       "primaryKommuneKode": "0326",
       "biodiversitetHa": 150.0214,
@@ -12630,46 +12116,46 @@
         }
       ]
     },
-    "5f24864d-4dd8-4a29-9c35-44f62e5ec184": {
-      "geoId": "5f24864d-4dd8-4a29-9c35-44f62e5ec184",
+    "fd410f60-4f0d-4152-82fb-71a6a784ff99": {
+      "geoId": "fd410f60-4f0d-4152-82fb-71a6a784ff99",
       "projectId": "5344173d-172c-4831-882a-a46124508bd1",
       "projectName": "Arreskov Sø",
       "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 44.377,
+      "status": 10,
+      "projektAreaHa": 41.5274,
       "primaryKommuneKode": "0430",
-      "biodiversitetHa": 37.8936,
-      "section3Ha": 21.6414,
-      "natura2000Ha": 24.7661,
+      "biodiversitetHa": 37.0706,
+      "section3Ha": 20.9372,
+      "natura2000Ha": 24.0336,
       "perKommune": [
         {
           "kode": "0430",
           "kommuneNavn": "Faaborg-Midtfyn",
-          "projektAreaHa": 44.377,
-          "biodiversitetHa": 37.8936,
-          "section3Ha": 21.6414,
-          "natura2000Ha": 24.7661
+          "projektAreaHa": 41.5274,
+          "biodiversitetHa": 37.0706,
+          "section3Ha": 20.9372,
+          "natura2000Ha": 24.0336
         }
       ]
     },
-    "99fe6306-7b4a-4fc9-a2f8-0e19b2c41022": {
-      "geoId": "99fe6306-7b4a-4fc9-a2f8-0e19b2c41022",
-      "projectId": "53464f50-26dd-400e-b72f-42611f9c3fe1",
-      "projectName": "Struer Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.9904,
-      "primaryKommuneKode": "0671",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
+    "d71c7458-493b-4ae5-86c6-e0d7d3022c75": {
+      "geoId": "d71c7458-493b-4ae5-86c6-e0d7d3022c75",
+      "projectId": "5389b725-c41a-477c-8df5-1e6646c1a81c",
+      "projectName": "Stensby",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 29.159,
+      "primaryKommuneKode": "0480",
+      "biodiversitetHa": 10.01,
+      "section3Ha": 0.6249,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
-          "kode": "0671",
-          "kommuneNavn": "Struer",
-          "projektAreaHa": 0.9904,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
+          "kode": "0480",
+          "kommuneNavn": "Nordfyns",
+          "projektAreaHa": 29.159,
+          "biodiversitetHa": 10.01,
+          "section3Ha": 0.6249,
           "natura2000Ha": 0.0
         }
       ]
@@ -13174,12 +12660,12 @@
         }
       ]
     },
-    "9dc6e4e6-3872-48d1-8a45-17234a3d822d": {
-      "geoId": "9dc6e4e6-3872-48d1-8a45-17234a3d822d",
+    "0cdb4463-b4d8-479f-a640-10b5cc65de0c": {
+      "geoId": "0cdb4463-b4d8-479f-a640-10b5cc65de0c",
       "projectId": "578a6665-06b1-423f-8737-2c5ba702bf8a",
       "projectName": "Kvælstofvådområde Geels Å Nord (etablering)",
       "measure": "Kvælstofvådområder",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 56.0239,
       "primaryKommuneKode": "0461",
       "biodiversitetHa": 37.2389,
@@ -13333,6 +12819,28 @@
           "biodiversitetHa": 26.4972,
           "section3Ha": 18.5311,
           "natura2000Ha": 17.6768
+        }
+      ]
+    },
+    "377ac0f8-4f7c-4b9d-9953-44c1ef1a72dd": {
+      "geoId": "377ac0f8-4f7c-4b9d-9953-44c1ef1a72dd",
+      "projectId": "586de08b-1d0e-4169-b84b-5653a0fb8b8f",
+      "projectName": "Gungerne",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 120.6568,
+      "primaryKommuneKode": "0706",
+      "biodiversitetHa": 89.4626,
+      "section3Ha": 6.4133,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0706",
+          "kommuneNavn": "Syddjurs",
+          "projektAreaHa": 120.6568,
+          "biodiversitetHa": 89.4626,
+          "section3Ha": 6.4133,
+          "natura2000Ha": 0.0
         }
       ]
     },
@@ -13616,25 +13124,25 @@
         }
       ]
     },
-    "406bcb99-39dc-400d-af0a-f7b60a72a0b4": {
-      "geoId": "406bcb99-39dc-400d-af0a-f7b60a72a0b4",
+    "7a3e0e2d-42f8-465d-bc8f-0994a49f9db6": {
+      "geoId": "7a3e0e2d-42f8-465d-bc8f-0994a49f9db6",
       "projectId": "5a3caccb-90f2-4225-82e8-4c033b77692c",
       "projectName": "Sjørring Kær",
       "measure": "Lavbundsprojekter",
       "status": 6,
-      "projektAreaHa": 82.2695,
+      "projektAreaHa": 88.2866,
       "primaryKommuneKode": "0791",
-      "biodiversitetHa": 77.2499,
-      "section3Ha": 15.9696,
-      "natura2000Ha": 0.0858,
+      "biodiversitetHa": 77.7682,
+      "section3Ha": 16.0133,
+      "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0791",
           "kommuneNavn": "Viborg",
-          "projektAreaHa": 82.2695,
-          "biodiversitetHa": 77.2499,
-          "section3Ha": 15.9696,
-          "natura2000Ha": 0.0858
+          "projektAreaHa": 88.2866,
+          "biodiversitetHa": 77.7682,
+          "section3Ha": 16.0133,
+          "natura2000Ha": 0.0
         }
       ]
     },
@@ -13817,7 +13325,7 @@
     "fd0e18f9-6771-4a75-94bf-83e3f2818247": {
       "geoId": "fd0e18f9-6771-4a75-94bf-83e3f2818247",
       "projectId": "5b3bccb6-01f1-4793-804b-d10c3a91691a",
-      "projectName": "lavbund",
+      "projectName": "Andemose lavbund med tilsagn",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 33.1069,
@@ -13936,7 +13444,7 @@
       "geoId": "59c6356d-c0dd-4796-bc31-6b24bff8051a",
       "projectId": "5c512e9d-ddb0-4979-91f7-250f52c868d4",
       "projectName": "Spang Enge",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 137.3913,
       "primaryKommuneKode": "0773",
@@ -14410,12 +13918,12 @@
         }
       ]
     },
-    "b3ea698a-6559-4046-a131-776b6f0dd826": {
-      "geoId": "b3ea698a-6559-4046-a131-776b6f0dd826",
+    "a09571a9-e60a-42f0-8dd3-98a8a9e11881": {
+      "geoId": "a09571a9-e60a-42f0-8dd3-98a8a9e11881",
       "projectId": "5f465017-bb51-4398-838e-550507dd8131",
       "projectName": "Korup Sø",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 184.0151,
       "primaryKommuneKode": "0706",
       "biodiversitetHa": 183.9651,
@@ -14428,6 +13936,28 @@
           "projektAreaHa": 184.0151,
           "biodiversitetHa": 183.9651,
           "section3Ha": 20.6063,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "1c62fcdc-6328-4505-8f88-26dc2284555b": {
+      "geoId": "1c62fcdc-6328-4505-8f88-26dc2284555b",
+      "projectId": "5f6c935b-338f-4387-8749-9cf8fdf9714d",
+      "projectName": "Lindeballe Bæk",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 604.5589,
+      "primaryKommuneKode": "0630",
+      "biodiversitetHa": 118.4078,
+      "section3Ha": 36.2623,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0630",
+          "kommuneNavn": "Vejle",
+          "projektAreaHa": 604.5589,
+          "biodiversitetHa": 118.4078,
+          "section3Ha": 36.2623,
           "natura2000Ha": 0.0
         }
       ]
@@ -14828,28 +14358,6 @@
         }
       ]
     },
-    "a02c9015-8a54-41b1-8cd7-0ed3712ea1dc": {
-      "geoId": "a02c9015-8a54-41b1-8cd7-0ed3712ea1dc",
-      "projectId": "65131303-96f1-4ed1-a1ea-4868f8c6e872",
-      "projectName": "Geddeholme grøft",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 119.7769,
-      "primaryKommuneKode": "0390",
-      "biodiversitetHa": 79.007,
-      "section3Ha": 12.4876,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0390",
-          "kommuneNavn": "Vordingborg",
-          "projektAreaHa": 119.7769,
-          "biodiversitetHa": 79.007,
-          "section3Ha": 12.4876,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "08286d08-1da1-4219-a903-1bb83e9c4fb1": {
       "geoId": "08286d08-1da1-4219-a903-1bb83e9c4fb1",
       "projectId": "654e1f52-0de9-470d-a7c6-7af535a9adf7",
@@ -14872,12 +14380,12 @@
         }
       ]
     },
-    "774dd863-bb44-4dd6-908f-3c095d902d52": {
-      "geoId": "774dd863-bb44-4dd6-908f-3c095d902d52",
+    "aeb59ac7-cc41-4f69-a709-23e701c33695": {
+      "geoId": "aeb59ac7-cc41-4f69-a709-23e701c33695",
       "projectId": "6558b575-07c6-4fc4-a117-a8eaf2b29336",
       "projectName": "St. Lyngby Mose",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 85.5117,
       "primaryKommuneKode": "0219",
       "biodiversitetHa": 79.4817,
@@ -15072,28 +14580,6 @@
         }
       ]
     },
-    "f37f0110-e29d-4aa8-a3c0-9282ee0b82db": {
-      "geoId": "f37f0110-e29d-4aa8-a3c0-9282ee0b82db",
-      "projectId": "6688be35-e169-413a-9c19-d7fb04933f37",
-      "projectName": "Egedal Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.9882,
-      "primaryKommuneKode": "0240",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0240",
-          "kommuneNavn": "Egedal",
-          "projektAreaHa": 3.9882,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "48225abf-72b4-41b6-8019-799ae936e25d": {
       "geoId": "48225abf-72b4-41b6-8019-799ae936e25d",
       "projectId": "66a08782-f0ed-44fa-974d-21d1ad57399a",
@@ -15266,6 +14752,28 @@
           "projektAreaHa": 11.5188,
           "biodiversitetHa": 11.5166,
           "section3Ha": 6.4541,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "f133b207-22fd-43f6-9974-011a51379cca": {
+      "geoId": "f133b207-22fd-43f6-9974-011a51379cca",
+      "projectId": "682b32ec-ea2d-4b65-8c2c-6c01dcd39e9f",
+      "projectName": "Barup Sø - realisering",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 75.5716,
+      "primaryKommuneKode": "0376",
+      "biodiversitetHa": 73.2849,
+      "section3Ha": 57.6686,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0376",
+          "kommuneNavn": "Guldborgsund",
+          "projektAreaHa": 75.5716,
+          "biodiversitetHa": 73.2849,
+          "section3Ha": 57.6686,
           "natura2000Ha": 0.0
         }
       ]
@@ -15580,33 +15088,33 @@
         }
       ]
     },
-    "1d2dbca8-b78a-4db5-8b37-aa0c8189e3b3": {
-      "geoId": "1d2dbca8-b78a-4db5-8b37-aa0c8189e3b3",
+    "84e47941-26d4-439e-8419-b00caa6a7c44": {
+      "geoId": "84e47941-26d4-439e-8419-b00caa6a7c44",
       "projectId": "6a323bd6-f4e1-4e70-ac50-524bb6f03bb5",
-      "projectName": "Verup Sandlyng Mose",
+      "projectName": "Store Åmose Syd",
       "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 812.7858,
+      "status": 10,
+      "projektAreaHa": 1065.1281,
       "primaryKommuneKode": "0340",
-      "biodiversitetHa": 796.939,
-      "section3Ha": 219.2605,
-      "natura2000Ha": 785.6779,
+      "biodiversitetHa": 1037.8184,
+      "section3Ha": 194.659,
+      "natura2000Ha": 963.8459,
       "perKommune": [
         {
           "kode": "0316",
           "kommuneNavn": "Holbæk",
-          "projektAreaHa": 1.5673,
-          "biodiversitetHa": 1.5673,
-          "section3Ha": 0.2905,
-          "natura2000Ha": 1.5673
+          "projektAreaHa": 4.5961,
+          "biodiversitetHa": 4.5956,
+          "section3Ha": 0.4246,
+          "natura2000Ha": 4.4122
         },
         {
           "kode": "0340",
           "kommuneNavn": "Sorø",
-          "projektAreaHa": 811.2185,
-          "biodiversitetHa": 795.3717,
-          "section3Ha": 218.97,
-          "natura2000Ha": 784.1106
+          "projektAreaHa": 1060.532,
+          "biodiversitetHa": 1033.2228,
+          "section3Ha": 194.2344,
+          "natura2000Ha": 959.4337
         }
       ]
     },
@@ -15654,8 +15162,8 @@
         }
       ]
     },
-    "a1a5c15c-4661-4a2b-a7d9-db4a976e181e": {
-      "geoId": "a1a5c15c-4661-4a2b-a7d9-db4a976e181e",
+    "606d3300-77ad-43bc-915e-6818cd3bbfab": {
+      "geoId": "606d3300-77ad-43bc-915e-6818cd3bbfab",
       "projectId": "6a7e2c49-bd25-4910-8f55-f7951700fcc5",
       "projectName": "Søvig Nord",
       "measure": "Kvælstofvådområder",
@@ -15739,28 +15247,6 @@
           "biodiversitetHa": 24.7827,
           "section3Ha": 22.1127,
           "natura2000Ha": 23.1461
-        }
-      ]
-    },
-    "2918b744-6387-4c45-8997-b08b300dbf72": {
-      "geoId": "2918b744-6387-4c45-8997-b08b300dbf72",
-      "projectId": "6a9a3188-17c2-462a-9954-ebe0b4be0b00",
-      "projectName": "Fredericia Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.344,
-      "primaryKommuneKode": "0607",
-      "biodiversitetHa": 2.2478,
-      "section3Ha": 0.0982,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0607",
-          "kommuneNavn": "Fredericia",
-          "projektAreaHa": 2.344,
-          "biodiversitetHa": 2.2478,
-          "section3Ha": 0.0982,
-          "natura2000Ha": 0.0
         }
       ]
     },
@@ -16072,28 +15558,6 @@
         }
       ]
     },
-    "213c9754-580d-4ebd-a6c4-d28def7a261f": {
-      "geoId": "213c9754-580d-4ebd-a6c4-d28def7a261f",
-      "projectId": "6c54de24-d1a1-4199-8588-8ab669e0f45c",
-      "projectName": "Frederikssund Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.9567,
-      "primaryKommuneKode": "0250",
-      "biodiversitetHa": 1.9129,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0250",
-          "kommuneNavn": "Frederikssund",
-          "projektAreaHa": 1.9567,
-          "biodiversitetHa": 1.9129,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "d93c302d-3271-482b-9eb2-8748dce2dc97": {
       "geoId": "d93c302d-3271-482b-9eb2-8748dce2dc97",
       "projectId": "6c846f5b-fc32-4e60-bbca-64815326f632",
@@ -16226,12 +15690,12 @@
         }
       ]
     },
-    "66e128a6-ecab-4116-a253-dd53485b185e": {
-      "geoId": "66e128a6-ecab-4116-a253-dd53485b185e",
+    "d7650b10-0070-4ee5-a997-c774dc374237": {
+      "geoId": "d7650b10-0070-4ee5-a997-c774dc374237",
       "projectId": "6d0f608f-d2d9-45d9-a51e-c7c1e987c18b",
       "projectName": "Dybdalsvej 19",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 7.2438,
       "primaryKommuneKode": "0791",
       "biodiversitetHa": 2.1803,
@@ -16454,28 +15918,6 @@
         }
       ]
     },
-    "5a1bacfe-6c1c-46b8-b4bd-5951eea84cdd": {
-      "geoId": "5a1bacfe-6c1c-46b8-b4bd-5951eea84cdd",
-      "projectId": "6eb7b831-9c0a-48e2-8abe-6298bfb237ea",
-      "projectName": "Projektgraense",
-      "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 11.2715,
-      "primaryKommuneKode": "0440",
-      "biodiversitetHa": 1.7992,
-      "section3Ha": 0.1626,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0440",
-          "kommuneNavn": "Kerteminde",
-          "projektAreaHa": 11.2669,
-          "biodiversitetHa": 1.7992,
-          "section3Ha": 0.1626,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "8627b9d1-dab1-4b31-8b9e-f7fc0c210a52": {
       "geoId": "8627b9d1-dab1-4b31-8b9e-f7fc0c210a52",
       "projectId": "6eeecb64-6ef0-4699-a416-d8d62c6fd4b7",
@@ -16602,28 +16044,6 @@
           "kode": "0530",
           "kommuneNavn": "Billund",
           "projektAreaHa": 3.4961,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "1d84c706-71d5-4200-840f-d4bd380e362e": {
-      "geoId": "1d84c706-71d5-4200-840f-d4bd380e362e",
-      "projectId": "7025ad0d-60e9-448c-90e4-d82c4e4c63e9",
-      "projectName": "Samsø Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.8545,
-      "primaryKommuneKode": "0741",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0741",
-          "kommuneNavn": "Samsø",
-          "projektAreaHa": 0.8545,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -16784,12 +16204,12 @@
         }
       ]
     },
-    "a1446bb4-4725-4c4c-be70-4e0938d7b4a6": {
-      "geoId": "a1446bb4-4725-4c4c-be70-4e0938d7b4a6",
+    "c6980ef0-1e2e-4cca-b95b-16ba89e7fd4b": {
+      "geoId": "c6980ef0-1e2e-4cca-b95b-16ba89e7fd4b",
       "projectId": "71488841-7f29-4a84-8bff-fbe626f143c2",
       "projectName": "Mølleskovvej 1, Haslev",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 3.6792,
       "primaryKommuneKode": "0320",
       "biodiversitetHa": 0.0,
@@ -16872,28 +16292,6 @@
         }
       ]
     },
-    "570f3cac-ad94-4775-930a-ddc20f45e098": {
-      "geoId": "570f3cac-ad94-4775-930a-ddc20f45e098",
-      "projectId": "71f5ee1b-bab3-4ea5-999b-747e52e0025f",
-      "projectName": "Hedensted Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 4.9659,
-      "primaryKommuneKode": "0766",
-      "biodiversitetHa": 0.64,
-      "section3Ha": 0.8811,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0766",
-          "kommuneNavn": "Hedensted",
-          "projektAreaHa": 4.9659,
-          "biodiversitetHa": 0.64,
-          "section3Ha": 0.8811,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "153e7a4f-ae20-49e4-9f82-b4b043fca17b": {
       "geoId": "153e7a4f-ae20-49e4-9f82-b4b043fca17b",
       "projectId": "7221870c-8d97-4d5a-827e-d2dc2ad6ba19",
@@ -16942,6 +16340,28 @@
           "projektAreaHa": 204.9875,
           "biodiversitetHa": 157.0558,
           "section3Ha": 26.5854,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "3bd85053-0fd8-44dc-81ee-7cb599557e38": {
+      "geoId": "3bd85053-0fd8-44dc-81ee-7cb599557e38",
+      "projectId": "728282ae-a80f-4541-af28-7365cbe7c508",
+      "projectName": "Jens Erik Kjær, Kulsviervej 14, Gram",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 3.365,
+      "primaryKommuneKode": "0510",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0510",
+          "kommuneNavn": "Haderslev",
+          "projektAreaHa": 3.365,
+          "biodiversitetHa": 0.0,
+          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -17130,25 +16550,25 @@
         }
       ]
     },
-    "3fd3c392-7e5e-4456-8eec-c3240bb75282": {
-      "geoId": "3fd3c392-7e5e-4456-8eec-c3240bb75282",
+    "52354ff2-50e7-417f-b603-68a666ef5ade": {
+      "geoId": "52354ff2-50e7-417f-b603-68a666ef5ade",
       "projectId": "740ded76-e506-4b43-b0d1-04a79b1e6606",
       "projectName": "Forundersøgelse af muligt lavbundsprojekt ved Tvede å´s udløb i Randers fjord",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 103.8229,
+      "status": 10,
+      "projektAreaHa": 123.09,
       "primaryKommuneKode": "0730",
-      "biodiversitetHa": 99.8067,
-      "section3Ha": 1.8905,
-      "natura2000Ha": 70.5431,
+      "biodiversitetHa": 114.8417,
+      "section3Ha": 10.6268,
+      "natura2000Ha": 83.9248,
       "perKommune": [
         {
           "kode": "0730",
           "kommuneNavn": "Randers",
-          "projektAreaHa": 103.8229,
-          "biodiversitetHa": 99.8067,
-          "section3Ha": 1.8905,
-          "natura2000Ha": 70.5431
+          "projektAreaHa": 122.0886,
+          "biodiversitetHa": 114.8417,
+          "section3Ha": 10.6268,
+          "natura2000Ha": 83.9248
         }
       ]
     },
@@ -17240,25 +16660,25 @@
         }
       ]
     },
-    "4934935b-3596-45d9-b1bc-96b5da37421e": {
-      "geoId": "4934935b-3596-45d9-b1bc-96b5da37421e",
+    "3155bea7-403d-4cf2-b195-8929e87162ca": {
+      "geoId": "3155bea7-403d-4cf2-b195-8929e87162ca",
       "projectId": "75a2979e-747d-4a52-982d-b609eee88c47",
       "projectName": "Støttrup Bæk",
       "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 15.013,
+      "status": 10,
+      "projektAreaHa": 14.2322,
       "primaryKommuneKode": "0846",
-      "biodiversitetHa": 14.3625,
-      "section3Ha": 11.0049,
-      "natura2000Ha": 10.9303,
+      "biodiversitetHa": 13.9759,
+      "section3Ha": 12.0082,
+      "natura2000Ha": 9.5647,
       "perKommune": [
         {
           "kode": "0846",
           "kommuneNavn": "Mariagerfjord",
-          "projektAreaHa": 15.013,
-          "biodiversitetHa": 14.3625,
-          "section3Ha": 11.0049,
-          "natura2000Ha": 10.9303
+          "projektAreaHa": 14.2322,
+          "biodiversitetHa": 13.9759,
+          "section3Ha": 12.0082,
+          "natura2000Ha": 9.5647
         }
       ]
     },
@@ -17668,41 +17088,33 @@
         }
       ]
     },
-    "93f33f3a-ce14-4af5-963e-2785976cee76": {
-      "geoId": "93f33f3a-ce14-4af5-963e-2785976cee76",
-      "projectId": "782c3388-adcf-4d1e-99d2-1fad1d5fedc1",
-      "projectName": "Tilløb til Ribe Østerå",
+    "748bee17-8bfe-4e22-9966-a6ed9d977581": {
+      "geoId": "748bee17-8bfe-4e22-9966-a6ed9d977581",
+      "projectId": "782c21b6-aa9b-4372-be5e-e92e12d9d4c8",
+      "projectName": "Vandet Mose",
       "measure": "Lavbundsprojekter",
       "status": 6,
-      "projektAreaHa": 879.8802,
-      "primaryKommuneKode": "0575",
-      "biodiversitetHa": 476.9943,
-      "section3Ha": 287.4077,
-      "natura2000Ha": 50.5236,
+      "projektAreaHa": 368.8982,
+      "primaryKommuneKode": "0791",
+      "biodiversitetHa": 182.3013,
+      "section3Ha": 74.6131,
+      "natura2000Ha": 0.0,
       "perKommune": [
         {
-          "kode": "0510",
-          "kommuneNavn": "Haderslev",
-          "projektAreaHa": 322.9911,
-          "biodiversitetHa": 271.3237,
-          "section3Ha": 176.3031,
-          "natura2000Ha": 40.8176
+          "kode": "0740",
+          "kommuneNavn": "Silkeborg",
+          "projektAreaHa": 162.9359,
+          "biodiversitetHa": 98.8031,
+          "section3Ha": 51.8906,
+          "natura2000Ha": 0.0
         },
         {
-          "kode": "0561",
-          "kommuneNavn": "Esbjerg",
-          "projektAreaHa": 102.4114,
-          "biodiversitetHa": 70.0496,
-          "section3Ha": 34.0278,
-          "natura2000Ha": 6.7119
-        },
-        {
-          "kode": "0575",
-          "kommuneNavn": "Vejen",
-          "projektAreaHa": 454.4777,
-          "biodiversitetHa": 135.621,
-          "section3Ha": 77.0768,
-          "natura2000Ha": 2.9941
+          "kode": "0791",
+          "kommuneNavn": "Viborg",
+          "projektAreaHa": 205.9623,
+          "biodiversitetHa": 83.4982,
+          "section3Ha": 22.7225,
+          "natura2000Ha": 0.0
         }
       ]
     },
@@ -18036,6 +17448,28 @@
         }
       ]
     },
+    "1622ae78-0dac-414a-8c02-a70f5aaf5c29": {
+      "geoId": "1622ae78-0dac-414a-8c02-a70f5aaf5c29",
+      "projectId": "7b3f687d-3316-4793-add1-b8dec1f02552",
+      "projectName": "Hemmet Bæk og Skuldbøl Enge",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 1086.5365,
+      "primaryKommuneKode": "0760",
+      "biodiversitetHa": 526.9603,
+      "section3Ha": 139.1888,
+      "natura2000Ha": 3.2248,
+      "perKommune": [
+        {
+          "kode": "0760",
+          "kommuneNavn": "Ringkøbing-Skjern",
+          "projektAreaHa": 1086.5365,
+          "biodiversitetHa": 526.9603,
+          "section3Ha": 139.1888,
+          "natura2000Ha": 3.2248
+        }
+      ]
+    },
     "3aa50055-f138-4e9f-83ea-4a0e31d9da15": {
       "geoId": "3aa50055-f138-4e9f-83ea-4a0e31d9da15",
       "projectId": "7b520aab-15c7-4edf-a71f-c13fa434ebb4",
@@ -18194,28 +17628,6 @@
           "projektAreaHa": 27.6147,
           "biodiversitetHa": 21.8587,
           "section3Ha": 10.7912,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "a7fb63fb-aa5d-4b3e-967d-60bcb3d77670": {
-      "geoId": "a7fb63fb-aa5d-4b3e-967d-60bcb3d77670",
-      "projectId": "7c57c340-dd89-409b-be8e-eb45bc5638d0",
-      "projectName": "Furesø Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.4622,
-      "primaryKommuneKode": "0190",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0190",
-          "kommuneNavn": "Furesø",
-          "projektAreaHa": 0.4622,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -18382,22 +17794,22 @@
         }
       ]
     },
-    "c571c5cf-d00a-4e0f-bc10-bc5ac57e6d2c": {
-      "geoId": "c571c5cf-d00a-4e0f-bc10-bc5ac57e6d2c",
-      "projectId": "7d63c8f1-c6aa-4aeb-a88f-971ad1fd5e74",
-      "projectName": "Roskilde Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
+    "21219eb1-56b4-4455-85bf-1babe57ece2e": {
+      "geoId": "21219eb1-56b4-4455-85bf-1babe57ece2e",
+      "projectId": "7d643bd7-afcd-4cc1-ae3d-44a19a7d0784",
+      "projectName": "Flytkærhus Skov",
+      "measure": "Skovrejsning",
       "status": 10,
-      "projektAreaHa": 2.5752,
-      "primaryKommuneKode": "0265",
+      "projektAreaHa": 1.7616,
+      "primaryKommuneKode": "0665",
       "biodiversitetHa": 0.0,
       "section3Ha": 0.0,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
-          "kode": "0265",
-          "kommuneNavn": "Roskilde",
-          "projektAreaHa": 2.5752,
+          "kode": "0665",
+          "kommuneNavn": "Lemvig",
+          "projektAreaHa": 1.7616,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -18554,28 +17966,6 @@
           "projektAreaHa": 9.8412,
           "biodiversitetHa": 7.6544,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "d4940af2-65ec-4369-981c-b6fe6404f684": {
-      "geoId": "d4940af2-65ec-4369-981c-b6fe6404f684",
-      "projectId": "7ec42cd4-c752-4e24-a5b9-8b48061326b2",
-      "projectName": "Faaborg-Midtfyn Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 4.6483,
-      "primaryKommuneKode": "0430",
-      "biodiversitetHa": 1.8768,
-      "section3Ha": 0.6024,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0430",
-          "kommuneNavn": "Faaborg-Midtfyn",
-          "projektAreaHa": 4.6483,
-          "biodiversitetHa": 1.8768,
-          "section3Ha": 0.6024,
           "natura2000Ha": 0.0
         }
       ]
@@ -18840,6 +18230,28 @@
           "projektAreaHa": 60.9947,
           "biodiversitetHa": 43.231,
           "section3Ha": 18.3612,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "4e3bf101-c19e-4a30-9f54-2242bdb60d97": {
+      "geoId": "4e3bf101-c19e-4a30-9f54-2242bdb60d97",
+      "projectId": "80e0d731-5758-4cac-bf88-e7621f7043af",
+      "projectName": "Skovrejsning Houtvedbakken 7a",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 4.1494,
+      "primaryKommuneKode": "0846",
+      "biodiversitetHa": 0.3235,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0846",
+          "kommuneNavn": "Mariagerfjord",
+          "projektAreaHa": 4.1494,
+          "biodiversitetHa": 0.3235,
+          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -19146,28 +18558,6 @@
         }
       ]
     },
-    "9d7d604b-f60a-4e95-bd36-273f32a9089a": {
-      "geoId": "9d7d604b-f60a-4e95-bd36-273f32a9089a",
-      "projectId": "848455be-a847-4cfb-9c64-4d9ee6071ca0",
-      "projectName": "Hørsholm Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.506,
-      "primaryKommuneKode": "0223",
-      "biodiversitetHa": 2.2618,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0223",
-          "kommuneNavn": "Hørsholm",
-          "projektAreaHa": 2.506,
-          "biodiversitetHa": 2.2618,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "764a8d74-50e9-42a7-92d9-917aaa5a591a": {
       "geoId": "764a8d74-50e9-42a7-92d9-917aaa5a591a",
       "projectId": "8484c62a-6b4e-4945-893c-47a303d3e25d",
@@ -19208,28 +18598,6 @@
           "projektAreaHa": 0.6252,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "93772de3-c114-4ea2-88b9-214cc728107b": {
-      "geoId": "93772de3-c114-4ea2-88b9-214cc728107b",
-      "projectId": "84a5ee6c-ab0f-49a9-a2f0-ea7b8a3620a9",
-      "projectName": "Langemose_a",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 66.5406,
-      "primaryKommuneKode": "0390",
-      "biodiversitetHa": 61.0434,
-      "section3Ha": 3.6393,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0390",
-          "kommuneNavn": "Vordingborg",
-          "projektAreaHa": 66.5406,
-          "biodiversitetHa": 61.0434,
-          "section3Ha": 3.6393,
           "natura2000Ha": 0.0
         }
       ]
@@ -19391,7 +18759,7 @@
     "d05f2225-c337-454e-9a72-45e370d7cff9": {
       "geoId": "d05f2225-c337-454e-9a72-45e370d7cff9",
       "projectId": "861049f0-960b-4416-888d-c81361c1a8bb",
-      "projectName": "Visby Kvælstofvådområdeprojekt, forundersøg",
+      "projectName": "Visby Kvælstofvådområdeprojekt",
       "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 184.52,
@@ -19564,12 +18932,12 @@
         }
       ]
     },
-    "4166d514-f271-44eb-8342-13923503c53b": {
-      "geoId": "4166d514-f271-44eb-8342-13923503c53b",
+    "992e5347-0c03-421a-b5ba-b32c72102835": {
+      "geoId": "992e5347-0c03-421a-b5ba-b32c72102835",
       "projectId": "87b3abe3-e014-4de1-870b-46d974956065",
       "projectName": "Kurt Qvist - Skovrejsning F26",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 1.5447,
       "primaryKommuneKode": "0791",
       "biodiversitetHa": 0.0,
@@ -19894,12 +19262,12 @@
         }
       ]
     },
-    "09fc8447-c59e-4681-bb90-f5d8867bd5b5": {
-      "geoId": "09fc8447-c59e-4681-bb90-f5d8867bd5b5",
+    "e7e8c64e-05a9-4c93-bea8-0d849620adef": {
+      "geoId": "e7e8c64e-05a9-4c93-bea8-0d849620adef",
       "projectId": "89b242e5-5d98-41f9-b1a5-c6c99d814640",
       "projectName": "Pumpestation Nord",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
+      "measure": "Kvælstofvådområder",
+      "status": 10,
       "projektAreaHa": 1108.6043,
       "primaryKommuneKode": "0760",
       "biodiversitetHa": 634.1529,
@@ -20026,28 +19394,6 @@
         }
       ]
     },
-    "6ddef051-bea0-4b4f-b0df-d7b49581e578": {
-      "geoId": "6ddef051-bea0-4b4f-b0df-d7b49581e578",
-      "projectId": "8ab46cb8-f505-4fd3-bb85-f229ddbe5c7d",
-      "projectName": "Vejle Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 10.4126,
-      "primaryKommuneKode": "0630",
-      "biodiversitetHa": 0.2365,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0630",
-          "kommuneNavn": "Vejle",
-          "projektAreaHa": 10.4126,
-          "biodiversitetHa": 0.2365,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "0493f914-4d1b-4825-a7e8-10f7ab2ea3e9": {
       "geoId": "0493f914-4d1b-4825-a7e8-10f7ab2ea3e9",
       "projectId": "8abbf8fe-4010-43d4-9a05-868a71e1207c",
@@ -20125,8 +19471,8 @@
     "7311823a-7bc5-44d1-9b72-76e7100c79ca": {
       "geoId": "7311823a-7bc5-44d1-9b72-76e7100c79ca",
       "projectId": "8addce7c-f5d5-4cf4-bcd0-f78917c15ef2",
-      "projectName": "Sortsø_Hestehave",
-      "measure": "Lavbundsprojekter",
+      "projectName": "Sortsø Hestehave - Realisering",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 76.5054,
       "primaryKommuneKode": "0376",
@@ -20170,28 +19516,6 @@
           "projektAreaHa": 21.5493,
           "biodiversitetHa": 1.3793,
           "section3Ha": 0.6011,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "85c22439-c8b2-429c-8eb8-dcaaffc191d7": {
-      "geoId": "85c22439-c8b2-429c-8eb8-dcaaffc191d7",
-      "projectId": "8b094517-9013-427e-9927-36d800843129",
-      "projectName": "Varde Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.8746,
-      "primaryKommuneKode": "0573",
-      "biodiversitetHa": 1.4074,
-      "section3Ha": 0.0169,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0573",
-          "kommuneNavn": "Varde",
-          "projektAreaHa": 1.8746,
-          "biodiversitetHa": 1.4074,
-          "section3Ha": 0.0169,
           "natura2000Ha": 0.0
         }
       ]
@@ -20328,12 +19652,12 @@
         }
       ]
     },
-    "264802a1-3edc-4454-a9cb-77069ba8bca6": {
-      "geoId": "264802a1-3edc-4454-a9cb-77069ba8bca6",
+    "5635fd86-1706-455a-97cf-9f50eaa08b8e": {
+      "geoId": "5635fd86-1706-455a-97cf-9f50eaa08b8e",
       "projectId": "8c1591d7-1238-46b0-95c1-423aeca3bd97",
       "projectName": "Solbjerg Kær",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 91.8089,
       "primaryKommuneKode": "0773",
       "biodiversitetHa": 81.3881,
@@ -20493,7 +19817,7 @@
     "87000a34-09a3-4958-8354-4f8947db8e8c": {
       "geoId": "87000a34-09a3-4958-8354-4f8947db8e8c",
       "projectId": "8d8e0815-7240-427f-be96-896bfa826c09",
-      "projectName": "Stagstrup Å - Engkær Lavbundsprojekt",
+      "projectName": "Engkær Lavbundsprojekt",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 36.4901,
@@ -20784,28 +20108,6 @@
         }
       ]
     },
-    "4744b634-ab16-4148-8414-2868a2cc6cc1": {
-      "geoId": "4744b634-ab16-4148-8414-2868a2cc6cc1",
-      "projectId": "8ff00a0c-2053-4113-a659-4b5b5c7ba422",
-      "projectName": "Skanderborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.8223,
-      "primaryKommuneKode": "0746",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0746",
-          "kommuneNavn": "Skanderborg",
-          "projektAreaHa": 3.8223,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "9782286c-3413-499f-9c66-b047bf635ae8": {
       "geoId": "9782286c-3413-499f-9c66-b047bf635ae8",
       "projectId": "8ff1eaee-7a5a-4cac-bcf1-6abe420d9852",
@@ -20920,28 +20222,6 @@
           "projektAreaHa": 31.2955,
           "biodiversitetHa": 14.7604,
           "section3Ha": 5.4122,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "c229327d-0f3b-4149-96f7-3d4caf9963b4": {
-      "geoId": "c229327d-0f3b-4149-96f7-3d4caf9963b4",
-      "projectId": "90a2ecd1-2958-4ead-89b5-6f52b169b8dc",
-      "projectName": "Fredensborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.1478,
-      "primaryKommuneKode": "0210",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0210",
-          "kommuneNavn": "Fredensborg",
-          "projektAreaHa": 3.1478,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -21200,28 +20480,6 @@
           "projektAreaHa": 32.8193,
           "biodiversitetHa": 19.1593,
           "section3Ha": 0.9767,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "ef8f751b-ea20-47f5-92d6-635e11ce76e1": {
-      "geoId": "ef8f751b-ea20-47f5-92d6-635e11ce76e1",
-      "projectId": "92e1aac7-317b-460f-a243-aed8892243c7",
-      "projectName": "Sønderborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.862,
-      "primaryKommuneKode": "0540",
-      "biodiversitetHa": 3.7616,
-      "section3Ha": 0.0569,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0540",
-          "kommuneNavn": "Sønderborg",
-          "projektAreaHa": 3.862,
-          "biodiversitetHa": 3.7616,
-          "section3Ha": 0.0569,
           "natura2000Ha": 0.0
         }
       ]
@@ -21515,7 +20773,7 @@
     "25278850-703f-49fe-9747-321203d67c25": {
       "geoId": "25278850-703f-49fe-9747-321203d67c25",
       "projectId": "94ec6b93-787c-4556-99c3-8e64be467391",
-      "projectName": "Damsbo forundersøgelse 2025",
+      "projectName": "Damsbo",
       "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 15.4659,
@@ -21661,28 +20919,6 @@
           "kommuneNavn": "Herning",
           "projektAreaHa": 4.4739,
           "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "a7e9f53f-9e4a-468a-8a62-bdf7c8d9fa26": {
-      "geoId": "a7e9f53f-9e4a-468a-8a62-bdf7c8d9fa26",
-      "projectId": "9543b459-d70d-438c-a2b6-50776e4ea9bf",
-      "projectName": "Højstrup Klima-lavbundsprojekt",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 18.3813,
-      "primaryKommuneKode": "0330",
-      "biodiversitetHa": 14.2776,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0330",
-          "kommuneNavn": "Slagelse",
-          "projektAreaHa": 18.3813,
-          "biodiversitetHa": 14.2776,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -22036,28 +21272,6 @@
         }
       ]
     },
-    "51f37461-ff62-4d85-8038-eab569f032a2": {
-      "geoId": "51f37461-ff62-4d85-8038-eab569f032a2",
-      "projectId": "9778f303-cfee-4213-a678-d69c661d9b46",
-      "projectName": "Odsherred Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 17.9076,
-      "primaryKommuneKode": "0306",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0306",
-          "kommuneNavn": "Odsherred",
-          "projektAreaHa": 17.9076,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "8139c87b-87e0-47a4-813e-d969d4e34f6d": {
       "geoId": "8139c87b-87e0-47a4-813e-d969d4e34f6d",
       "projectId": "97a24116-a963-49de-a7ec-c62abb3c08cc",
@@ -22110,12 +21324,12 @@
         }
       ]
     },
-    "6081304b-d1c1-4e67-a28f-45dcc6833639": {
-      "geoId": "6081304b-d1c1-4e67-a28f-45dcc6833639",
+    "02b5570c-0958-4c03-82cd-6e479effcbde": {
+      "geoId": "02b5570c-0958-4c03-82cd-6e479effcbde",
       "projectId": "97d3232b-baa4-4146-9336-5de4e931c633",
       "projectName": "Skovrejsning Kronholmsvej 61",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 2.4985,
       "primaryKommuneKode": "0860",
       "biodiversitetHa": 0.0,
@@ -22150,50 +21364,6 @@
           "projektAreaHa": 264.4072,
           "biodiversitetHa": 34.5717,
           "section3Ha": 11.2087,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "3b57a458-da2e-4eff-9a2f-590da1a46bfb": {
-      "geoId": "3b57a458-da2e-4eff-9a2f-590da1a46bfb",
-      "projectId": "97f2490f-d22c-4c18-af5a-a957fab1ab49",
-      "projectName": "Faxe Ådal ved Borreshoved",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 42.5155,
-      "primaryKommuneKode": "0320",
-      "biodiversitetHa": 39.4607,
-      "section3Ha": 13.9484,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0320",
-          "kommuneNavn": "Faxe",
-          "projektAreaHa": 42.5155,
-          "biodiversitetHa": 39.4607,
-          "section3Ha": 13.9484,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "1adb0d78-0cb2-4ccc-990a-36f1df22f147": {
-      "geoId": "1adb0d78-0cb2-4ccc-990a-36f1df22f147",
-      "projectId": "97fa5b43-f6c1-4f2b-9085-aa3d665a01bc",
-      "projectName": "Haderslev Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.3993,
-      "primaryKommuneKode": "0510",
-      "biodiversitetHa": 2.6602,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0510",
-          "kommuneNavn": "Haderslev",
-          "projektAreaHa": 3.3993,
-          "biodiversitetHa": 2.6602,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -22392,28 +21562,6 @@
           "projektAreaHa": 15.7602,
           "biodiversitetHa": 15.5177,
           "section3Ha": 11.8646,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "e4c24ca8-86a4-4195-b37e-f0e7f75e0fa3": {
-      "geoId": "e4c24ca8-86a4-4195-b37e-f0e7f75e0fa3",
-      "projectId": "99e666bf-86af-4c09-adc6-73490242d48a",
-      "projectName": "Jammerbugt Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 7.9445,
-      "primaryKommuneKode": "0849",
-      "biodiversitetHa": 7.7283,
-      "section3Ha": 1.4578,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0849",
-          "kommuneNavn": "Jammerbugt",
-          "projektAreaHa": 7.9445,
-          "biodiversitetHa": 7.7283,
-          "section3Ha": 1.4578,
           "natura2000Ha": 0.0
         }
       ]
@@ -23212,28 +22360,6 @@
         }
       ]
     },
-    "c0b7ef54-ab49-48a9-8702-1eb3ae71d2af": {
-      "geoId": "c0b7ef54-ab49-48a9-8702-1eb3ae71d2af",
-      "projectId": "9e22e4c4-ff0f-44ae-93aa-7444ec5f620b",
-      "projectName": "Favrskov Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.7405,
-      "primaryKommuneKode": "0710",
-      "biodiversitetHa": 0.718,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0710",
-          "kommuneNavn": "Favrskov",
-          "projektAreaHa": 3.7405,
-          "biodiversitetHa": 0.718,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "82ab812c-a259-4300-9566-6188c750ed11": {
       "geoId": "82ab812c-a259-4300-9566-6188c750ed11",
       "projectId": "9e7f2c0c-1e68-4511-8e07-ca35d0639608",
@@ -23322,32 +22448,32 @@
         }
       ]
     },
-    "8da16e97-8f5b-4134-892b-63fb6d1152b9": {
-      "geoId": "8da16e97-8f5b-4134-892b-63fb6d1152b9",
+    "a6be70ec-bcba-498b-8fd2-d7f7c5b1d792": {
+      "geoId": "a6be70ec-bcba-498b-8fd2-d7f7c5b1d792",
       "projectId": "9f879475-955b-474f-84d2-3e22738d7f3f",
       "projectName": "Saltø Å ved Hårslev",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 98.3905,
+      "status": 10,
+      "projektAreaHa": 90.4884,
       "primaryKommuneKode": "0370",
-      "biodiversitetHa": 4.1687,
-      "section3Ha": 1.5364,
+      "biodiversitetHa": 4.5604,
+      "section3Ha": 1.5627,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0330",
           "kommuneNavn": "Slagelse",
-          "projektAreaHa": 17.361,
-          "biodiversitetHa": 2.6413,
-          "section3Ha": 1.4995,
+          "projektAreaHa": 15.6999,
+          "biodiversitetHa": 2.6762,
+          "section3Ha": 1.516,
           "natura2000Ha": 0.0
         },
         {
           "kode": "0370",
           "kommuneNavn": "Næstved",
-          "projektAreaHa": 81.0294,
-          "biodiversitetHa": 1.5274,
-          "section3Ha": 0.0369,
+          "projektAreaHa": 74.7884,
+          "biodiversitetHa": 1.8842,
+          "section3Ha": 0.0467,
           "natura2000Ha": 0.0
         }
       ]
@@ -23756,23 +22882,23 @@
         }
       ]
     },
-    "e2d0996a-a4ef-4a49-8e49-eed33fc68aa4": {
-      "geoId": "e2d0996a-a4ef-4a49-8e49-eed33fc68aa4",
+    "c9260fc3-f8e4-4e6a-aed5-ca79b63d93e7": {
+      "geoId": "c9260fc3-f8e4-4e6a-aed5-ca79b63d93e7",
       "projectId": "a2ec3a05-38b4-4898-a3bf-5ef603046c58",
       "projectName": "Privat Skovrejsning",
       "measure": "Skovrejsning",
       "status": 15,
-      "projektAreaHa": 1.4072,
+      "projektAreaHa": 1.3584,
       "primaryKommuneKode": "0580",
-      "biodiversitetHa": 0.8932,
+      "biodiversitetHa": 0.8519,
       "section3Ha": 0.0,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0580",
           "kommuneNavn": "Aabenraa",
-          "projektAreaHa": 1.4072,
-          "biodiversitetHa": 0.8932,
+          "projektAreaHa": 1.3584,
+          "biodiversitetHa": 0.8519,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -23932,8 +23058,8 @@
         }
       ]
     },
-    "5c95baa3-9dbb-4593-8768-22bf2e0407de": {
-      "geoId": "5c95baa3-9dbb-4593-8768-22bf2e0407de",
+    "8ecf23d5-b9dc-4e09-b394-2a4e3849b5d3": {
+      "geoId": "8ecf23d5-b9dc-4e09-b394-2a4e3849b5d3",
       "projectId": "a42a9854-4bac-43d6-a832-24047531af2b",
       "projectName": "Privat Skovrejsning",
       "measure": "Skovrejsning",
@@ -24130,8 +23256,8 @@
         }
       ]
     },
-    "ca1b3274-f296-4b66-8c61-5b8ffb289f0e": {
-      "geoId": "ca1b3274-f296-4b66-8c61-5b8ffb289f0e",
+    "1709f990-9814-4ae2-ab0a-55d8a32aa455": {
+      "geoId": "1709f990-9814-4ae2-ab0a-55d8a32aa455",
       "projectId": "a5948cc1-c8c4-4281-a393-2f26e40ee637",
       "projectName": "Tollestrup Mose",
       "measure": "Lavbundsprojekter",
@@ -24490,12 +23616,12 @@
         }
       ]
     },
-    "1158515b-7759-4d42-9dba-958b79c4ebe2": {
-      "geoId": "1158515b-7759-4d42-9dba-958b79c4ebe2",
+    "b0bae9f5-fbdc-48dd-95b3-be8bc80a9260": {
+      "geoId": "b0bae9f5-fbdc-48dd-95b3-be8bc80a9260",
       "projectId": "a9e4303a-92e6-46f1-8455-2eeb6591c877",
       "projectName": "REA lavbundsprojekt ved Tværkærgrøften",
       "measure": "Lavbundsprojekter",
-      "status": 6,
+      "status": 10,
       "projektAreaHa": 26.878,
       "primaryKommuneKode": "0730",
       "biodiversitetHa": 25.7986,
@@ -24754,12 +23880,12 @@
         }
       ]
     },
-    "8fecf704-3601-45ab-a827-b5dc1d0b3b3c": {
-      "geoId": "8fecf704-3601-45ab-a827-b5dc1d0b3b3c",
+    "a0740b15-5ba8-4287-9633-4622afa6b6ba": {
+      "geoId": "a0740b15-5ba8-4287-9633-4622afa6b6ba",
       "projectId": "abb40b80-13f3-4b3c-a8cf-a7164b961032",
       "projectName": "Præsteengen Gamtofte",
       "measure": "Kvælstofvådområder",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 3.4452,
       "primaryKommuneKode": "0420",
       "biodiversitetHa": 0.0,
@@ -24974,6 +24100,36 @@
         }
       ]
     },
+    "f418e8fc-fa99-4653-92ed-5055eb83a66d": {
+      "geoId": "f418e8fc-fa99-4653-92ed-5055eb83a66d",
+      "projectId": "acbedbd5-b81f-4e91-86a0-5397fccdd9bf",
+      "projectName": "Skibsted Å",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 672.6885,
+      "primaryKommuneKode": "0840",
+      "biodiversitetHa": 650.8945,
+      "section3Ha": 122.542,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0840",
+          "kommuneNavn": "Rebild",
+          "projektAreaHa": 359.9163,
+          "biodiversitetHa": 346.0267,
+          "section3Ha": 88.9455,
+          "natura2000Ha": 0.0
+        },
+        {
+          "kode": "0851",
+          "kommuneNavn": "Aalborg",
+          "projektAreaHa": 312.7721,
+          "biodiversitetHa": 304.8678,
+          "section3Ha": 33.5965,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "1188503a-0d7a-4db4-8a73-c2cd96d86a2d": {
       "geoId": "1188503a-0d7a-4db4-8a73-c2cd96d86a2d",
       "projectId": "ace45471-0e26-47cf-8c16-0faff0ce68db",
@@ -25070,8 +24226,8 @@
         }
       ]
     },
-    "5594dca5-ab5c-424f-b320-14c78851c47a": {
-      "geoId": "5594dca5-ab5c-424f-b320-14c78851c47a",
+    "f4b2aa55-b31b-4a99-8526-b9b63936c484": {
+      "geoId": "f4b2aa55-b31b-4a99-8526-b9b63936c484",
       "projectId": "ade7944a-9828-470e-b875-b77375abe854",
       "projectName": "Lavbundsprojekt Ørum-Ajstrup Mose",
       "measure": "Lavbundsprojekter",
@@ -25276,12 +24432,12 @@
         }
       ]
     },
-    "dc06fda6-d620-425d-83d4-85f6011412dc": {
-      "geoId": "dc06fda6-d620-425d-83d4-85f6011412dc",
+    "d103d22e-5691-4f94-94a2-fdf97946183d": {
+      "geoId": "d103d22e-5691-4f94-94a2-fdf97946183d",
       "projectId": "af797a66-6f75-42d1-83ff-f354ba4aa71d",
       "projectName": "Mosevej Aarup realisering 2024",
       "measure": "Kvælstofvådområder",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 18.1463,
       "primaryKommuneKode": "0420",
       "biodiversitetHa": 13.973,
@@ -25386,25 +24542,25 @@
         }
       ]
     },
-    "3612576f-91d4-4c5f-baea-839d128598a7": {
-      "geoId": "3612576f-91d4-4c5f-baea-839d128598a7",
+    "ab4d8478-7f9b-401f-bfef-2283f99a7ed0": {
+      "geoId": "ab4d8478-7f9b-401f-bfef-2283f99a7ed0",
       "projectId": "b04f33dc-f321-4034-8b65-0b859721f16d",
       "projectName": "Sigsgaard Mark",
       "measure": "Lavbundsprojekter",
       "status": 6,
-      "projektAreaHa": 391.008,
+      "projektAreaHa": 1777.1542,
       "primaryKommuneKode": "0851",
-      "biodiversitetHa": 390.6045,
-      "section3Ha": 72.5715,
-      "natura2000Ha": 76.6935,
+      "biodiversitetHa": 1734.9751,
+      "section3Ha": 201.6785,
+      "natura2000Ha": 73.3264,
       "perKommune": [
         {
           "kode": "0851",
           "kommuneNavn": "Aalborg",
-          "projektAreaHa": 391.008,
-          "biodiversitetHa": 390.6045,
-          "section3Ha": 72.5715,
-          "natura2000Ha": 76.6935
+          "projektAreaHa": 1777.1542,
+          "biodiversitetHa": 1734.9751,
+          "section3Ha": 201.6785,
+          "natura2000Ha": 73.3264
         }
       ]
     },
@@ -25498,28 +24654,6 @@
           "kode": "0630",
           "kommuneNavn": "Vejle",
           "projektAreaHa": 2.7185,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "9f7a7837-217a-4eb7-9cb7-935b9e7f211e": {
-      "geoId": "9f7a7837-217a-4eb7-9cb7-935b9e7f211e",
-      "projectId": "b10cede8-f935-4628-85de-112510e52f34",
-      "projectName": "Sorø Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.0614,
-      "primaryKommuneKode": "0340",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0340",
-          "kommuneNavn": "Sorø",
-          "projektAreaHa": 1.0614,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -25982,8 +25116,8 @@
         }
       ]
     },
-    "44934dca-ae37-47ad-b082-024ca266c924": {
-      "geoId": "44934dca-ae37-47ad-b082-024ca266c924",
+    "a2821c0b-102b-4563-b74c-d6f784655b8f": {
+      "geoId": "a2821c0b-102b-4563-b74c-d6f784655b8f",
       "projectId": "b3ae0e2d-d725-46fa-9588-d03d65c7110e",
       "projectName": "Elsehoved Lavbund",
       "measure": "Lavbundsprojekter",
@@ -26170,6 +25304,28 @@
           "projektAreaHa": 2.0995,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "d9db7143-6f72-43c5-b6b0-4ee16e5ba5da": {
+      "geoId": "d9db7143-6f72-43c5-b6b0-4ee16e5ba5da",
+      "projectId": "b520c25e-ce22-4b59-a486-cf54b55ae295",
+      "projectName": "Gammelby Bæk",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 192.3854,
+      "primaryKommuneKode": "0630",
+      "biodiversitetHa": 10.4059,
+      "section3Ha": 1.5594,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0630",
+          "kommuneNavn": "Vejle",
+          "projektAreaHa": 192.3854,
+          "biodiversitetHa": 10.4059,
+          "section3Ha": 1.5594,
           "natura2000Ha": 0.0
         }
       ]
@@ -26394,6 +25550,36 @@
         }
       ]
     },
+    "65ae1e72-9478-4f2c-8bb3-69567973eee3": {
+      "geoId": "65ae1e72-9478-4f2c-8bb3-69567973eee3",
+      "projectId": "b788710d-5076-4fee-b3d0-4a8b7e6b9bf8",
+      "projectName": "Eskemose-Vanløse",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 994.6886,
+      "primaryKommuneKode": "0340",
+      "biodiversitetHa": 601.1569,
+      "section3Ha": 138.491,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0316",
+          "kommuneNavn": "Holbæk",
+          "projektAreaHa": 460.9885,
+          "biodiversitetHa": 238.5986,
+          "section3Ha": 51.0806,
+          "natura2000Ha": 0.0
+        },
+        {
+          "kode": "0340",
+          "kommuneNavn": "Sorø",
+          "projektAreaHa": 533.7001,
+          "biodiversitetHa": 362.5583,
+          "section3Ha": 87.4104,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "7f32ec9e-25aa-4b46-8943-45dfc8249cad": {
       "geoId": "7f32ec9e-25aa-4b46-8943-45dfc8249cad",
       "projectId": "b795a25f-b399-4a1a-ac4e-7047fefc432e",
@@ -26597,28 +25783,6 @@
           "biodiversitetHa": 1.6543,
           "section3Ha": 0.0,
           "natura2000Ha": 1.0244
-        }
-      ]
-    },
-    "28b6ef1c-e675-43ed-9acc-0939e3d481ab": {
-      "geoId": "28b6ef1c-e675-43ed-9acc-0939e3d481ab",
-      "projectId": "b9065a0b-4ae0-49a1-ab0c-ac4027b1cb98",
-      "projectName": "Viborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.4759,
-      "primaryKommuneKode": "0791",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0791",
-          "kommuneNavn": "Viborg",
-          "projektAreaHa": 1.4759,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
         }
       ]
     },
@@ -26886,8 +26050,8 @@
         }
       ]
     },
-    "28035721-58c7-4991-a482-462b017aa68f": {
-      "geoId": "28035721-58c7-4991-a482-462b017aa68f",
+    "e73b9f52-f270-4986-8d0f-ec01b2243527": {
+      "geoId": "e73b9f52-f270-4986-8d0f-ec01b2243527",
       "projectId": "bab9b5ed-4031-4d7a-b925-3e6f67105ab3",
       "projectName": "Nielsstrup Enge",
       "measure": "Lavbundsprojekter",
@@ -26926,28 +26090,6 @@
           "projektAreaHa": 7.2496,
           "biodiversitetHa": 1.3728,
           "section3Ha": 1.0387,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "0146dfe3-a951-462d-9b42-6da19fe13a31": {
-      "geoId": "0146dfe3-a951-462d-9b42-6da19fe13a31",
-      "projectId": "bad96dc7-6387-41f2-97a2-f81f54576d62",
-      "projectName": "Herning Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 5.1698,
-      "primaryKommuneKode": "0657",
-      "biodiversitetHa": 3.7333,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0657",
-          "kommuneNavn": "Herning",
-          "projektAreaHa": 5.1698,
-          "biodiversitetHa": 3.7333,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -27026,28 +26168,6 @@
         }
       ]
     },
-    "3cc22a35-97e1-4036-93e6-ff3557f2c428": {
-      "geoId": "3cc22a35-97e1-4036-93e6-ff3557f2c428",
-      "projectId": "bb128478-3f85-46bc-916c-f035711a5495",
-      "projectName": "Holstebro Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 4.1539,
-      "primaryKommuneKode": "0661",
-      "biodiversitetHa": 4.1539,
-      "section3Ha": 1.5875,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0661",
-          "kommuneNavn": "Holstebro",
-          "projektAreaHa": 4.1539,
-          "biodiversitetHa": 4.1539,
-          "section3Ha": 1.5875,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "1d0da394-4594-4bb9-8a1b-5206b269f910": {
       "geoId": "1d0da394-4594-4bb9-8a1b-5206b269f910",
       "projectId": "bb136206-4a96-453c-97db-60884490496d",
@@ -27067,28 +26187,6 @@
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "40db5147-e338-4f78-a720-2c8f83d23b1c": {
-      "geoId": "40db5147-e338-4f78-a720-2c8f83d23b1c",
-      "projectId": "bb22805f-991f-4c6c-83db-265e36b64afb",
-      "projectName": "Vesthimmerland Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.7594,
-      "primaryKommuneKode": "0820",
-      "biodiversitetHa": 0.7293,
-      "section3Ha": 0.0146,
-      "natura2000Ha": 1.681,
-      "perKommune": [
-        {
-          "kode": "0820",
-          "kommuneNavn": "Vesthimmerlands",
-          "projektAreaHa": 1.7594,
-          "biodiversitetHa": 0.7293,
-          "section3Ha": 0.0146,
-          "natura2000Ha": 1.681
         }
       ]
     },
@@ -27250,28 +26348,6 @@
           "projektAreaHa": 5.0011,
           "biodiversitetHa": 0.0329,
           "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "17dfb7db-6cd4-441b-99fd-8c228b7cabf1": {
-      "geoId": "17dfb7db-6cd4-441b-99fd-8c228b7cabf1",
-      "projectId": "bc492e5a-24a1-4f88-8dcf-3c688913c69e",
-      "projectName": "Køge Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 6.2747,
-      "primaryKommuneKode": "0259",
-      "biodiversitetHa": 2.8802,
-      "section3Ha": 0.0554,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0259",
-          "kommuneNavn": "Køge",
-          "projektAreaHa": 6.2747,
-          "biodiversitetHa": 2.8802,
-          "section3Ha": 0.0554,
           "natura2000Ha": 0.0
         }
       ]
@@ -27468,6 +26544,28 @@
         }
       ]
     },
+    "7e90ba8d-107e-4ca6-a905-d87c793eaac0": {
+      "geoId": "7e90ba8d-107e-4ca6-a905-d87c793eaac0",
+      "projectId": "bd6dd668-8d3e-4035-ab24-9d0b0861a097",
+      "projectName": "Hørsted Mose",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 84.8986,
+      "primaryKommuneKode": "0787",
+      "biodiversitetHa": 64.5178,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0787",
+          "kommuneNavn": "Thisted",
+          "projektAreaHa": 84.8986,
+          "biodiversitetHa": 64.5178,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "e1bcda3d-f3e1-4700-84c4-ca3217eb5b67": {
       "geoId": "e1bcda3d-f3e1-4700-84c4-ca3217eb5b67",
       "projectId": "bd7af6f5-390d-4cc2-9e88-387e942cbc24",
@@ -27644,12 +26742,12 @@
         }
       ]
     },
-    "d4e30d8a-e313-4aa5-af3d-9355f428b684": {
-      "geoId": "d4e30d8a-e313-4aa5-af3d-9355f428b684",
+    "8e247ab4-af9b-4c5e-96c0-40236ee929f3": {
+      "geoId": "8e247ab4-af9b-4c5e-96c0-40236ee929f3",
       "projectId": "be2a9bd9-6f82-4c25-9589-e81d9716b344",
       "projectName": "Tingvejen 425 - Skov 1",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 5.2375,
       "primaryKommuneKode": "0530",
       "biodiversitetHa": 0.0,
@@ -27710,6 +26808,28 @@
         }
       ]
     },
+    "ab30b419-7d0e-4291-b15d-ad2b99a2e729": {
+      "geoId": "ab30b419-7d0e-4291-b15d-ad2b99a2e729",
+      "projectId": "be6cccfa-45e3-4dc8-b93d-a9bd932ac3d9",
+      "projectName": "CRN-Fjelstrupvej 19 6920  Videbæk",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 1.8886,
+      "primaryKommuneKode": "0760",
+      "biodiversitetHa": 0.0012,
+      "section3Ha": 0.0062,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0760",
+          "kommuneNavn": "Ringkøbing-Skjern",
+          "projektAreaHa": 1.8886,
+          "biodiversitetHa": 0.0012,
+          "section3Ha": 0.0062,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "b1592571-df29-418f-9834-a719f89372cd": {
       "geoId": "b1592571-df29-418f-9834-a719f89372cd",
       "projectId": "bf1367f8-4921-4121-b876-508d5b4efbdb",
@@ -27729,6 +26849,28 @@
           "biodiversitetHa": 10.4928,
           "section3Ha": 6.6482,
           "natura2000Ha": 11.9029
+        }
+      ]
+    },
+    "43fe50ed-c8c4-4e71-b6b0-1998fc6b11f5": {
+      "geoId": "43fe50ed-c8c4-4e71-b6b0-1998fc6b11f5",
+      "projectId": "bf22ceed-7b87-4181-9d36-fdf9570d5099",
+      "projectName": "Carsten Petersen, Sommerstedvej 22, Sommersted",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 2.0058,
+      "primaryKommuneKode": "0510",
+      "biodiversitetHa": 0.5747,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0510",
+          "kommuneNavn": "Haderslev",
+          "projektAreaHa": 2.0058,
+          "biodiversitetHa": 0.5747,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
         }
       ]
     },
@@ -27776,8 +26918,8 @@
         }
       ]
     },
-    "c7c573d0-0826-43c6-a7b2-f7ba315a1adf": {
-      "geoId": "c7c573d0-0826-43c6-a7b2-f7ba315a1adf",
+    "af1a7f29-7fa6-4aeb-b945-7f61ef59b16e": {
+      "geoId": "af1a7f29-7fa6-4aeb-b945-7f61ef59b16e",
       "projectId": "bf7846d6-a7b8-418e-bde6-e30f69ca4576",
       "projectName": "Privat Skovrejsning",
       "measure": "Skovrejsning",
@@ -27864,12 +27006,12 @@
         }
       ]
     },
-    "c949dec8-c29e-4c14-9cb4-24f9c9e80a96": {
-      "geoId": "c949dec8-c29e-4c14-9cb4-24f9c9e80a96",
+    "791f9030-9a38-449d-9a86-962d362203d6": {
+      "geoId": "791f9030-9a38-449d-9a86-962d362203d6",
       "projectId": "c0364dbf-d2a0-46b5-be0c-814e337254d3",
       "projectName": "Fårup Plantage",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 5.5267,
       "primaryKommuneKode": "0730",
       "biodiversitetHa": 1.9646,
@@ -28026,8 +27168,8 @@
         }
       ]
     },
-    "72f652fb-eb5a-4c8e-b5b1-d5019a485cd3": {
-      "geoId": "72f652fb-eb5a-4c8e-b5b1-d5019a485cd3",
+    "de6ce47a-ca02-4472-b62d-1888b9b19e46": {
+      "geoId": "de6ce47a-ca02-4472-b62d-1888b9b19e46",
       "projectId": "c152b131-0188-4971-92d4-6b80903243f9",
       "projectName": "Stensbækken",
       "measure": "Kvælstofvådområder",
@@ -28044,50 +27186,6 @@
           "projektAreaHa": 27.3327,
           "biodiversitetHa": 27.0336,
           "section3Ha": 14.9418,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "ca3ce4fa-4468-4c1c-bc5e-2301b7a20963": {
-      "geoId": "ca3ce4fa-4468-4c1c-bc5e-2301b7a20963",
-      "projectId": "c1673167-6e73-4a2a-9525-45d825044841",
-      "projectName": "Lejre Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.0815,
-      "primaryKommuneKode": "0350",
-      "biodiversitetHa": 0.0002,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0350",
-          "kommuneNavn": "Lejre",
-          "projektAreaHa": 1.0815,
-          "biodiversitetHa": 0.0002,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "488b43ed-8462-48b0-a12c-c0a7434c7944": {
-      "geoId": "488b43ed-8462-48b0-a12c-c0a7434c7944",
-      "projectId": "c16fdbcc-b4da-4ae4-a38f-4da8563ab003",
-      "projectName": "Ringsted Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.9754,
-      "primaryKommuneKode": "0329",
-      "biodiversitetHa": 0.1233,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0329",
-          "kommuneNavn": "Ringsted",
-          "projektAreaHa": 0.9754,
-          "biodiversitetHa": 0.1233,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -28307,6 +27405,28 @@
           "kommuneNavn": "Lemvig",
           "projektAreaHa": 12.7427,
           "biodiversitetHa": 0.3726,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "4030f827-2f21-484f-b5ee-9f5c93a81577": {
+      "geoId": "4030f827-2f21-484f-b5ee-9f5c93a81577",
+      "projectId": "c2821e1d-c595-4426-bf6b-46459869c968",
+      "projectName": "Lønstrupvej 97",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 3.9808,
+      "primaryKommuneKode": "0860",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0860",
+          "kommuneNavn": "Hjørring",
+          "projektAreaHa": 3.9808,
+          "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -28844,7 +27964,7 @@
       "geoId": "a3e335c2-cb82-453c-82cb-cce2796d1769",
       "projectId": "c57fc1e7-76b0-4319-bf71-5b181e565655",
       "projectName": "Vestervig å",
-      "measure": "Lavbundsprojekter",
+      "measure": "Kvælstofvådområder",
       "status": 6,
       "projektAreaHa": 89.6846,
       "primaryKommuneKode": "0787",
@@ -28887,7 +28007,7 @@
     "f7bd6b7f-085b-4587-bc67-28dca2188604": {
       "geoId": "f7bd6b7f-085b-4587-bc67-28dca2188604",
       "projectId": "c58bf370-0a33-479a-87d0-4c955ef99038",
-      "projectName": "Filskov vest",
+      "projectName": "Etablering af lavbundsprojekt ved Filskov",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 185.4407,
@@ -28972,28 +28092,6 @@
         }
       ]
     },
-    "322d0e84-87cd-4a7e-bfae-9092eb7f06ce": {
-      "geoId": "322d0e84-87cd-4a7e-bfae-9092eb7f06ce",
-      "projectId": "c5d2deaa-21c2-41c7-863e-02a185ac5ee1",
-      "projectName": "Svendborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 4.4158,
-      "primaryKommuneKode": "0479",
-      "biodiversitetHa": 4.4158,
-      "section3Ha": 0.0,
-      "natura2000Ha": 4.4158,
-      "perKommune": [
-        {
-          "kode": "0479",
-          "kommuneNavn": "Svendborg",
-          "projektAreaHa": 4.4158,
-          "biodiversitetHa": 4.4158,
-          "section3Ha": 0.0,
-          "natura2000Ha": 4.4158
-        }
-      ]
-    },
     "8e28befa-0d1d-4e19-b068-29ee09505734": {
       "geoId": "8e28befa-0d1d-4e19-b068-29ee09505734",
       "projectId": "c5d9a5ff-0a53-449f-89ae-f18f10191e56",
@@ -29033,28 +28131,6 @@
           "kommuneNavn": "Haderslev",
           "projektAreaHa": 0.4079,
           "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "1f4dab19-fef3-4228-b43c-73a4e6ae69e2": {
-      "geoId": "1f4dab19-fef3-4228-b43c-73a4e6ae69e2",
-      "projectId": "c5fc43eb-bdbf-4e6c-9c78-4aa5ed4a71d7",
-      "projectName": "Billund Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.5067,
-      "primaryKommuneKode": "0530",
-      "biodiversitetHa": 2.5067,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0530",
-          "kommuneNavn": "Billund",
-          "projektAreaHa": 2.5067,
-          "biodiversitetHa": 2.5067,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -29340,28 +28416,6 @@
         }
       ]
     },
-    "e8fdbf41-0812-4838-b6ad-980e88da414f": {
-      "geoId": "e8fdbf41-0812-4838-b6ad-980e88da414f",
-      "projectId": "c7be7d5e-3cc5-4a0e-b76f-f09553584d62",
-      "projectName": "Tønder Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.5907,
-      "primaryKommuneKode": "0550",
-      "biodiversitetHa": 2.5907,
-      "section3Ha": 2.5893,
-      "natura2000Ha": 2.5907,
-      "perKommune": [
-        {
-          "kode": "0550",
-          "kommuneNavn": "Tønder",
-          "projektAreaHa": 2.5907,
-          "biodiversitetHa": 2.5907,
-          "section3Ha": 2.5893,
-          "natura2000Ha": 2.5907
-        }
-      ]
-    },
     "4a7cb856-f1f8-4b7d-bf2a-f4aaf450fafb": {
       "geoId": "4a7cb856-f1f8-4b7d-bf2a-f4aaf450fafb",
       "projectId": "c7bf7591-54c6-4379-a758-03f6f7f1ca95",
@@ -29450,50 +28504,6 @@
         }
       ]
     },
-    "810d7c2a-c488-4084-b2e1-9966ff067dba": {
-      "geoId": "810d7c2a-c488-4084-b2e1-9966ff067dba",
-      "projectId": "c86e8358-81c8-492b-a05a-fb37c36d58f2",
-      "projectName": "Hjørring Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.3025,
-      "primaryKommuneKode": "0860",
-      "biodiversitetHa": 1.3025,
-      "section3Ha": 0.0022,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0860",
-          "kommuneNavn": "Hjørring",
-          "projektAreaHa": 1.3025,
-          "biodiversitetHa": 1.3025,
-          "section3Ha": 0.0022,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "75dc68fb-a2b3-40ad-90cc-3703719b188a": {
-      "geoId": "75dc68fb-a2b3-40ad-90cc-3703719b188a",
-      "projectId": "c8eefc9a-912b-427b-8ce5-d3d69fa1489d",
-      "projectName": "Holbæk Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 6.9592,
-      "primaryKommuneKode": "0316",
-      "biodiversitetHa": 6.9592,
-      "section3Ha": 0.0,
-      "natura2000Ha": 1.2872,
-      "perKommune": [
-        {
-          "kode": "0316",
-          "kommuneNavn": "Holbæk",
-          "projektAreaHa": 6.9592,
-          "biodiversitetHa": 6.9592,
-          "section3Ha": 0.0,
-          "natura2000Ha": 1.2872
-        }
-      ]
-    },
     "f7759b95-d18f-4cb8-a162-a6b6da7c5aab": {
       "geoId": "f7759b95-d18f-4cb8-a162-a6b6da7c5aab",
       "projectId": "c97b6acf-f5df-447e-b721-7ba093731435",
@@ -29512,28 +28522,6 @@
           "projektAreaHa": 484.8016,
           "biodiversitetHa": 460.8956,
           "section3Ha": 14.6966,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "7fa2c2a1-9c43-438f-89cb-758a8bc70508": {
-      "geoId": "7fa2c2a1-9c43-438f-89cb-758a8bc70508",
-      "projectId": "c9b7303c-b0a4-4ca2-9286-b075e23049fa",
-      "projectName": "Ringkøbing-Skjern Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.7072,
-      "primaryKommuneKode": "0760",
-      "biodiversitetHa": 0.6429,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0760",
-          "kommuneNavn": "Ringkøbing-Skjern",
-          "projektAreaHa": 0.7072,
-          "biodiversitetHa": 0.6429,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -29670,6 +28658,36 @@
         }
       ]
     },
+    "43d4091c-824c-4a79-8fe6-6a88a3563de3": {
+      "geoId": "43d4091c-824c-4a79-8fe6-6a88a3563de3",
+      "projectId": "ca416f53-cdd1-4f10-a01c-82892539c722",
+      "projectName": "Spangs Å",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 107.118,
+      "primaryKommuneKode": "0510",
+      "biodiversitetHa": 94.7799,
+      "section3Ha": 39.392,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0510",
+          "kommuneNavn": "Haderslev",
+          "projektAreaHa": 63.8763,
+          "biodiversitetHa": 58.3945,
+          "section3Ha": 11.9223,
+          "natura2000Ha": 0.0
+        },
+        {
+          "kode": "0621",
+          "kommuneNavn": "Kolding",
+          "projektAreaHa": 43.2418,
+          "biodiversitetHa": 36.3854,
+          "section3Ha": 27.4697,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "2ff4fd83-b048-494b-aa70-ecaa68caa1f3": {
       "geoId": "2ff4fd83-b048-494b-aa70-ecaa68caa1f3",
       "projectId": "ca7e20fc-5925-4402-a1b6-b6380175b1ac",
@@ -29697,36 +28715,6 @@
           "biodiversitetHa": 112.1276,
           "section3Ha": 21.8586,
           "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "fc44c85a-4c38-47b4-b693-1e106862ace6": {
-      "geoId": "fc44c85a-4c38-47b4-b693-1e106862ace6",
-      "projectId": "ca85bd3f-3aa7-403d-a172-b848c328d53b",
-      "projectName": "Esbjerg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 50.9536,
-      "primaryKommuneKode": "0561",
-      "biodiversitetHa": 34.0034,
-      "section3Ha": 2.0103,
-      "natura2000Ha": 0.2838,
-      "perKommune": [
-        {
-          "kode": "0510",
-          "kommuneNavn": "Haderslev",
-          "projektAreaHa": 0.1959,
-          "biodiversitetHa": 0.1959,
-          "section3Ha": 0.0861,
-          "natura2000Ha": 0.1023
-        },
-        {
-          "kode": "0561",
-          "kommuneNavn": "Esbjerg",
-          "projektAreaHa": 50.7577,
-          "biodiversitetHa": 33.8075,
-          "section3Ha": 1.9242,
-          "natura2000Ha": 0.1815
         }
       ]
     },
@@ -29768,6 +28756,36 @@
         }
       ]
     },
+    "0376cf38-4dfb-4bcf-ac01-de7973732b59": {
+      "geoId": "0376cf38-4dfb-4bcf-ac01-de7973732b59",
+      "projectId": "caa709bc-bd6d-4005-afbb-40e7af27811a",
+      "projectName": "Søbygård Lavbundsprojekt",
+      "measure": "Forundersøgelse VLP",
+      "status": 6,
+      "projektAreaHa": 183.9457,
+      "primaryKommuneKode": "0710",
+      "biodiversitetHa": 172.6374,
+      "section3Ha": 94.4323,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0710",
+          "kommuneNavn": "Favrskov",
+          "projektAreaHa": 182.6062,
+          "biodiversitetHa": 171.2979,
+          "section3Ha": 93.6799,
+          "natura2000Ha": 0.0
+        },
+        {
+          "kode": "0740",
+          "kommuneNavn": "Silkeborg",
+          "projektAreaHa": 1.3395,
+          "biodiversitetHa": 1.3395,
+          "section3Ha": 0.7524,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "78402b07-1a78-459d-bd26-a618952864cf": {
       "geoId": "78402b07-1a78-459d-bd26-a618952864cf",
       "projectId": "cab53490-d7f2-4e72-bef5-289d051473fe",
@@ -29785,28 +28803,6 @@
           "kommuneNavn": "Thisted",
           "projektAreaHa": 36.5317,
           "biodiversitetHa": 35.1719,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "b43d614b-ce1c-49f5-9a66-b80567d9a9b6": {
-      "geoId": "b43d614b-ce1c-49f5-9a66-b80567d9a9b6",
-      "projectId": "cabeb478-a21e-4b51-b11b-2c0c978f6713",
-      "projectName": "Halsnæs Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.0815,
-      "primaryKommuneKode": "0260",
-      "biodiversitetHa": 0.3355,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0260",
-          "kommuneNavn": "Halsnæs",
-          "projektAreaHa": 1.0815,
-          "biodiversitetHa": 0.3355,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -30098,28 +29094,6 @@
         }
       ]
     },
-    "a4b90827-41ab-4c50-bcd6-2c4dc7685918": {
-      "geoId": "a4b90827-41ab-4c50-bcd6-2c4dc7685918",
-      "projectId": "cc58ab01-392c-4678-92d0-5d52ed536d6e",
-      "projectName": "Frederikshavn Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 5.8947,
-      "primaryKommuneKode": "0813",
-      "biodiversitetHa": 1.5015,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0813",
-          "kommuneNavn": "Frederikshavn",
-          "projektAreaHa": 5.8947,
-          "biodiversitetHa": 1.5015,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "620a0eda-292b-44c8-bfab-652113c38584": {
       "geoId": "620a0eda-292b-44c8-bfab-652113c38584",
       "projectId": "cc862cbb-929f-4ae5-a49e-abf3e4249725",
@@ -30257,28 +29231,6 @@
           "biodiversitetHa": 1.4885,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "6db0b90f-22af-45cc-90e3-b2982febd4ac": {
-      "geoId": "6db0b90f-22af-45cc-90e3-b2982febd4ac",
-      "projectId": "cda995d3-36e1-4ec9-b00c-aa663ca27989",
-      "projectName": "Lolland Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 11.193,
-      "primaryKommuneKode": "0360",
-      "biodiversitetHa": 2.2261,
-      "section3Ha": 0.0617,
-      "natura2000Ha": 11.193,
-      "perKommune": [
-        {
-          "kode": "0360",
-          "kommuneNavn": "Lolland",
-          "projektAreaHa": 11.193,
-          "biodiversitetHa": 2.2261,
-          "section3Ha": 0.0617,
-          "natura2000Ha": 11.193
         }
       ]
     },
@@ -30532,28 +29484,6 @@
         }
       ]
     },
-    "eb007c89-7e36-45a0-9300-4202e7df1232": {
-      "geoId": "eb007c89-7e36-45a0-9300-4202e7df1232",
-      "projectId": "cf068207-8fba-4ab5-b396-4e8ef445f739",
-      "projectName": "Thisted Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.8916,
-      "primaryKommuneKode": "0787",
-      "biodiversitetHa": 1.8916,
-      "section3Ha": 0.0074,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0787",
-          "kommuneNavn": "Thisted",
-          "projektAreaHa": 1.8916,
-          "biodiversitetHa": 1.8916,
-          "section3Ha": 0.0074,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "34c8059e-a265-4883-83bb-488e170ab539": {
       "geoId": "34c8059e-a265-4883-83bb-488e170ab539",
       "projectId": "cf1c0bc6-896b-4f49-ac6e-a2ab63091031",
@@ -30661,6 +29591,28 @@
           "biodiversitetHa": 21.6879,
           "section3Ha": 17.5382,
           "natura2000Ha": 19.2505
+        }
+      ]
+    },
+    "e0f8cdd5-cc24-4be1-9a1c-bb207049c856": {
+      "geoId": "e0f8cdd5-cc24-4be1-9a1c-bb207049c856",
+      "projectId": "cf72022b-1f7e-45a7-87dd-0c4f040f8a57",
+      "projectName": "Volsgård Nyskov - B. Lauridsen",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 4.0426,
+      "primaryKommuneKode": "0657",
+      "biodiversitetHa": 1.9389,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0657",
+          "kommuneNavn": "Herning",
+          "projektAreaHa": 4.0426,
+          "biodiversitetHa": 1.9389,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
         }
       ]
     },
@@ -31164,28 +30116,6 @@
         }
       ]
     },
-    "44e142ac-7620-4fce-8d30-0aec43782bfb": {
-      "geoId": "44e142ac-7620-4fce-8d30-0aec43782bfb",
-      "projectId": "d25bab4a-9ca3-4d39-b6f6-f050928a5c38",
-      "projectName": "Middelfart Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.6811,
-      "primaryKommuneKode": "0410",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0410",
-          "kommuneNavn": "Middelfart",
-          "projektAreaHa": 1.6811,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "6ae2db9a-fe39-4cbb-8634-4a3eb500375b": {
       "geoId": "6ae2db9a-fe39-4cbb-8634-4a3eb500375b",
       "projectId": "d2a9bdf1-4756-490a-b7fc-c4fb0438506d",
@@ -31326,28 +30256,6 @@
         }
       ]
     },
-    "6066a08d-cd50-4802-9015-4dccf125e006": {
-      "geoId": "6066a08d-cd50-4802-9015-4dccf125e006",
-      "projectId": "d37f7dd4-536a-4b16-9c73-66945ff0fbbb",
-      "projectName": "Lemvig Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.9435,
-      "primaryKommuneKode": "0665",
-      "biodiversitetHa": 0.6242,
-      "section3Ha": 0.1087,
-      "natura2000Ha": 0.0051,
-      "perKommune": [
-        {
-          "kode": "0665",
-          "kommuneNavn": "Lemvig",
-          "projektAreaHa": 1.9435,
-          "biodiversitetHa": 0.6242,
-          "section3Ha": 0.1087,
-          "natura2000Ha": 0.0051
-        }
-      ]
-    },
     "17c3e4e5-c7b2-48f9-bc87-d69e4b1ce6d3": {
       "geoId": "17c3e4e5-c7b2-48f9-bc87-d69e4b1ce6d3",
       "projectId": "d3e7a73e-61ef-42de-a621-d78fa292e0e6",
@@ -31366,28 +30274,6 @@
           "projektAreaHa": 54.4991,
           "biodiversitetHa": 47.2411,
           "section3Ha": 5.7259,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "04b5fbc8-0d9f-4bf2-bc7e-2395a6345557": {
-      "geoId": "04b5fbc8-0d9f-4bf2-bc7e-2395a6345557",
-      "projectId": "d3e9ff4e-c1a6-4c3f-9d50-ef5e1060f655",
-      "projectName": "Randers Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.3525,
-      "primaryKommuneKode": "0730",
-      "biodiversitetHa": 1.3249,
-      "section3Ha": 0.0456,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0730",
-          "kommuneNavn": "Randers",
-          "projektAreaHa": 3.3525,
-          "biodiversitetHa": 1.3249,
-          "section3Ha": 0.0456,
           "natura2000Ha": 0.0
         }
       ]
@@ -31664,28 +30550,6 @@
         }
       ]
     },
-    "fedc27e4-9d6f-499b-925f-bbc57dc86036": {
-      "geoId": "fedc27e4-9d6f-499b-925f-bbc57dc86036",
-      "projectId": "d4f84af0-3de8-4b6f-8a85-3f3d7e5e02c5",
-      "projectName": "Rebild Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.8198,
-      "primaryKommuneKode": "0840",
-      "biodiversitetHa": 3.8198,
-      "section3Ha": 0.023,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0840",
-          "kommuneNavn": "Rebild",
-          "projektAreaHa": 3.8198,
-          "biodiversitetHa": 3.8198,
-          "section3Ha": 0.023,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "52a5807d-291b-4e7a-9737-d03c8ede2550": {
       "geoId": "52a5807d-291b-4e7a-9737-d03c8ede2550",
       "projectId": "d58db470-5108-4b2d-984b-5fecbaf96d99",
@@ -31708,12 +30572,12 @@
         }
       ]
     },
-    "799bffee-8e34-4c51-8c2f-81fccb4b67a9": {
-      "geoId": "799bffee-8e34-4c51-8c2f-81fccb4b67a9",
+    "59e9bd2f-0b31-4ed4-a2cd-e9b0ed8d62d6": {
+      "geoId": "59e9bd2f-0b31-4ed4-a2cd-e9b0ed8d62d6",
       "projectId": "d5b63ae1-403f-47af-8a54-bbc2c341432e",
       "projectName": "Dybdal 3",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 2.6442,
       "primaryKommuneKode": "0791",
       "biodiversitetHa": 0.0,
@@ -32062,28 +30926,6 @@
         }
       ]
     },
-    "587e649d-6009-48e4-807f-482d2e5c9cb7": {
-      "geoId": "587e649d-6009-48e4-807f-482d2e5c9cb7",
-      "projectId": "d764a461-9c98-4511-83d0-b0d4b9ea9c4d",
-      "projectName": "Aalborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 2.8077,
-      "primaryKommuneKode": "0851",
-      "biodiversitetHa": 0.6249,
-      "section3Ha": 0.3042,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0851",
-          "kommuneNavn": "Aalborg",
-          "projektAreaHa": 2.8077,
-          "biodiversitetHa": 0.6249,
-          "section3Ha": 0.3042,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "4d85e050-6b28-4c3d-b7b3-db9e10a44147": {
       "geoId": "4d85e050-6b28-4c3d-b7b3-db9e10a44147",
       "projectId": "d78020a4-32eb-4ba0-8cfb-1fa306581b50",
@@ -32366,28 +31208,6 @@
           "projektAreaHa": 81.1026,
           "biodiversitetHa": 72.1113,
           "section3Ha": 17.9033,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "20f56a62-7706-4d17-8803-957cd568d9ae": {
-      "geoId": "20f56a62-7706-4d17-8803-957cd568d9ae",
-      "projectId": "d9b71652-b65b-44d2-b351-04b86e6d1814",
-      "projectName": "Nyborg Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.2743,
-      "primaryKommuneKode": "0450",
-      "biodiversitetHa": 0.063,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0450",
-          "kommuneNavn": "Nyborg",
-          "projektAreaHa": 3.2743,
-          "biodiversitetHa": 0.063,
-          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -32752,24 +31572,24 @@
         }
       ]
     },
-    "1e90db0d-2d8e-4f22-ab65-f619a2ac585e": {
-      "geoId": "1e90db0d-2d8e-4f22-ab65-f619a2ac585e",
+    "7505fb03-30c7-4355-9c03-b86c2692e12e": {
+      "geoId": "7505fb03-30c7-4355-9c03-b86c2692e12e",
       "projectId": "dd409d36-fb2c-44a0-9518-dc42deefa1e5",
       "projectName": "Hindevad",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 4.3557,
+      "status": 10,
+      "projektAreaHa": 3.1951,
       "primaryKommuneKode": "0480",
       "biodiversitetHa": 0.25,
-      "section3Ha": 0.5855,
+      "section3Ha": 0.5839,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0480",
           "kommuneNavn": "Nordfyns",
-          "projektAreaHa": 4.3557,
+          "projektAreaHa": 3.1951,
           "biodiversitetHa": 0.25,
-          "section3Ha": 0.5855,
+          "section3Ha": 0.5839,
           "natura2000Ha": 0.0
         }
       ]
@@ -32857,6 +31677,28 @@
           "kommuneNavn": "Sorø",
           "projektAreaHa": 2.8472,
           "biodiversitetHa": 0.0,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "68c21e59-5d17-4b75-affd-afa0559dac9e": {
+      "geoId": "68c21e59-5d17-4b75-affd-afa0559dac9e",
+      "projectId": "dea08081-756c-4818-8b3d-dc96ca377c52",
+      "projectName": "Hedevej 9",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 11.5562,
+      "primaryKommuneKode": "0860",
+      "biodiversitetHa": 1.72,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0860",
+          "kommuneNavn": "Hjørring",
+          "projektAreaHa": 11.5562,
+          "biodiversitetHa": 1.72,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
@@ -33019,7 +31861,7 @@
     "e441eaf4-6af3-41b1-ba85-2f2e2d43bc0b": {
       "geoId": "e441eaf4-6af3-41b1-ba85-2f2e2d43bc0b",
       "projectId": "dfcc3d59-aa06-4776-8162-3a0b62283d21",
-      "projectName": "St. Vejleå Klima-lavbundsprojekt",
+      "projectName": "St. Vejleå lavbund_etableringsprojekt",
       "measure": "Lavbundsprojekter",
       "status": 6,
       "projektAreaHa": 72.5652,
@@ -33046,25 +31888,25 @@
         }
       ]
     },
-    "a4e7c578-5736-45a0-85bd-742865f3df95": {
-      "geoId": "a4e7c578-5736-45a0-85bd-742865f3df95",
+    "a0cc804c-11e8-46a1-9a91-752e644ae055": {
+      "geoId": "a0cc804c-11e8-46a1-9a91-752e644ae055",
       "projectId": "dff3a719-c34b-4e22-9a59-baccdffafcfe",
       "projectName": "Sakskøbing Å",
       "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 362.4021,
+      "status": 10,
+      "projektAreaHa": 214.6473,
       "primaryKommuneKode": "0376",
-      "biodiversitetHa": 304.3693,
-      "section3Ha": 82.3709,
-      "natura2000Ha": 18.7978,
+      "biodiversitetHa": 184.1093,
+      "section3Ha": 52.1677,
+      "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0376",
           "kommuneNavn": "Guldborgsund",
-          "projektAreaHa": 362.4021,
-          "biodiversitetHa": 304.3693,
-          "section3Ha": 82.3709,
-          "natura2000Ha": 18.7978
+          "projektAreaHa": 214.6473,
+          "biodiversitetHa": 184.1093,
+          "section3Ha": 52.1677,
+          "natura2000Ha": 0.0
         }
       ]
     },
@@ -33362,28 +32204,6 @@
         }
       ]
     },
-    "f8e2b030-d6cb-427d-b70a-561ac6f705ac": {
-      "geoId": "f8e2b030-d6cb-427d-b70a-561ac6f705ac",
-      "projectId": "e1e0272e-fabf-4cf1-aa21-8df4ab8dd0e6",
-      "projectName": "Ikast-Brande Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.3848,
-      "primaryKommuneKode": "0756",
-      "biodiversitetHa": 3.3848,
-      "section3Ha": 0.1306,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0756",
-          "kommuneNavn": "Ikast-Brande",
-          "projektAreaHa": 3.3848,
-          "biodiversitetHa": 3.3848,
-          "section3Ha": 0.1306,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "1f60bc9a-0ef5-4bac-906c-2b0cfee22c48": {
       "geoId": "1f60bc9a-0ef5-4bac-906c-2b0cfee22c48",
       "projectId": "e20bfb16-f229-46a0-a84d-49c236b20867",
@@ -33494,6 +32314,28 @@
         }
       ]
     },
+    "825072e5-51c9-47cc-8665-ed822197804a": {
+      "geoId": "825072e5-51c9-47cc-8665-ed822197804a",
+      "projectId": "e2eb5149-edbe-4657-86cc-ef6ebaba549a",
+      "projectName": "NAJO - Frøstrupvej 170, 6830 Nørre Nebel",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 1.3044,
+      "primaryKommuneKode": "0573",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0573",
+          "kommuneNavn": "Varde",
+          "projektAreaHa": 1.3044,
+          "biodiversitetHa": 0.0,
+          "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "673ea545-59d8-443f-a877-a7da80a04d73": {
       "geoId": "673ea545-59d8-443f-a877-a7da80a04d73",
       "projectId": "e2eb7f6d-9b46-49fb-bca5-fc4681f84727",
@@ -33582,8 +32424,38 @@
         }
       ]
     },
-    "0dec3da1-b648-4519-a795-0fcfd25de7ff": {
-      "geoId": "0dec3da1-b648-4519-a795-0fcfd25de7ff",
+    "aa92b671-0d9e-4df7-9c33-6b071c9932c9": {
+      "geoId": "aa92b671-0d9e-4df7-9c33-6b071c9932c9",
+      "projectId": "e3d80b92-c3d9-48fa-a247-d864bee8e565",
+      "projectName": "Karstoft Å",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 526.5695,
+      "primaryKommuneKode": "0630",
+      "biodiversitetHa": 440.5209,
+      "section3Ha": 159.0487,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0630",
+          "kommuneNavn": "Vejle",
+          "projektAreaHa": 361.2323,
+          "biodiversitetHa": 301.0768,
+          "section3Ha": 130.4546,
+          "natura2000Ha": 0.0
+        },
+        {
+          "kode": "0756",
+          "kommuneNavn": "Ikast-Brande",
+          "projektAreaHa": 165.3373,
+          "biodiversitetHa": 139.4441,
+          "section3Ha": 28.5941,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "dc0e7c8c-c8de-45a7-9b93-ec586ea71212": {
+      "geoId": "dc0e7c8c-c8de-45a7-9b93-ec586ea71212",
       "projectId": "e4a26e7f-7213-4fa4-930c-4e16449828e7",
       "projectName": "Strandbjerggaard",
       "measure": "Kvælstofvådområder",
@@ -33763,6 +32635,28 @@
           "biodiversitetHa": 6.2603,
           "section3Ha": 6.805,
           "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "738d7ecd-586f-43bf-8737-f82f73ba668e": {
+      "geoId": "738d7ecd-586f-43bf-8737-f82f73ba668e",
+      "projectId": "e5e29fb8-28c6-4f85-93bc-c783041e87b5",
+      "projectName": "Røddinge Sø",
+      "measure": "Lavbundsprojekter",
+      "status": 6,
+      "projektAreaHa": 348.9007,
+      "primaryKommuneKode": "0390",
+      "biodiversitetHa": 224.2016,
+      "section3Ha": 34.3255,
+      "natura2000Ha": 5.9148,
+      "perKommune": [
+        {
+          "kode": "0390",
+          "kommuneNavn": "Vordingborg",
+          "projektAreaHa": 348.8998,
+          "biodiversitetHa": 224.2016,
+          "section3Ha": 34.3255,
+          "natura2000Ha": 5.9148
         }
       ]
     },
@@ -34030,24 +32924,24 @@
         }
       ]
     },
-    "667dacad-6335-4302-aa9a-4d106e113196": {
-      "geoId": "667dacad-6335-4302-aa9a-4d106e113196",
+    "01330a12-726d-414b-b73c-4c13966b05fa": {
+      "geoId": "01330a12-726d-414b-b73c-4c13966b05fa",
       "projectId": "e81c87ed-03f4-49a5-baaf-7bed30bdda71",
       "projectName": "Tobøl-Bobøl Bæk",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 43.9747,
+      "status": 10,
+      "projektAreaHa": 12.9451,
       "primaryKommuneKode": "0575",
-      "biodiversitetHa": 12.302,
-      "section3Ha": 5.1723,
+      "biodiversitetHa": 5.8772,
+      "section3Ha": 2.0651,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0575",
           "kommuneNavn": "Vejen",
-          "projektAreaHa": 43.9747,
-          "biodiversitetHa": 12.302,
-          "section3Ha": 5.1723,
+          "projektAreaHa": 12.9451,
+          "biodiversitetHa": 5.8772,
+          "section3Ha": 2.0651,
           "natura2000Ha": 0.0
         }
       ]
@@ -34404,28 +33298,6 @@
         }
       ]
     },
-    "f87117fd-baa7-4717-814f-c45a926ca472": {
-      "geoId": "f87117fd-baa7-4717-814f-c45a926ca472",
-      "projectId": "ea0df4cc-6ba7-4fa4-ba9c-417046d55a3f",
-      "projectName": "Faxe Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 3.4654,
-      "primaryKommuneKode": "0320",
-      "biodiversitetHa": 3.4646,
-      "section3Ha": 0.0161,
-      "natura2000Ha": 0.0002,
-      "perKommune": [
-        {
-          "kode": "0320",
-          "kommuneNavn": "Faxe",
-          "projektAreaHa": 3.4654,
-          "biodiversitetHa": 3.4646,
-          "section3Ha": 0.0161,
-          "natura2000Ha": 0.0002
-        }
-      ]
-    },
     "55972123-e2d7-4d7f-81b2-2489ef70a5da": {
       "geoId": "55972123-e2d7-4d7f-81b2-2489ef70a5da",
       "projectId": "ea2bb17e-819b-4288-b535-14622f9597f9",
@@ -34558,6 +33430,28 @@
         }
       ]
     },
+    "53f526c2-71e6-4df2-b141-be9e1d8a5c8b": {
+      "geoId": "53f526c2-71e6-4df2-b141-be9e1d8a5c8b",
+      "projectId": "eaba5cd5-7903-4b8f-bc0c-f059a8f32e99",
+      "projectName": "Omme Å Øst",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 522.1603,
+      "primaryKommuneKode": "0630",
+      "biodiversitetHa": 215.4706,
+      "section3Ha": 54.3088,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0630",
+          "kommuneNavn": "Vejle",
+          "projektAreaHa": 522.1603,
+          "biodiversitetHa": 215.4706,
+          "section3Ha": 54.3088,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
     "c061d6c8-643b-40ab-ab13-dec182d2cc1a": {
       "geoId": "c061d6c8-643b-40ab-ab13-dec182d2cc1a",
       "projectId": "eb110d70-8387-4cdc-8014-2a5f55025fa4",
@@ -34618,28 +33512,6 @@
           "kode": "0657",
           "kommuneNavn": "Herning",
           "projektAreaHa": 1.6592,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "2efda789-85c9-45d5-a650-f1906cb6f849": {
-      "geoId": "2efda789-85c9-45d5-a650-f1906cb6f849",
-      "projectId": "eb861a70-bb1c-4061-9900-eabcfcd6f4d9",
-      "projectName": "Ærø Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 0.757,
-      "primaryKommuneKode": "0492",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0492",
-          "kommuneNavn": "Ærø",
-          "projektAreaHa": 0.757,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -34709,28 +33581,6 @@
           "biodiversitetHa": 96.3254,
           "section3Ha": 43.453,
           "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "a5e96d86-9773-47e5-a61b-2cf892a5c06f": {
-      "geoId": "a5e96d86-9773-47e5-a61b-2cf892a5c06f",
-      "projectId": "ec1784ad-8d5d-490b-ac19-01eb4ed85dc9",
-      "projectName": "Guldborgsund Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 4.9851,
-      "primaryKommuneKode": "0376",
-      "biodiversitetHa": 2.9349,
-      "section3Ha": 0.0,
-      "natura2000Ha": 4.9848,
-      "perKommune": [
-        {
-          "kode": "0376",
-          "kommuneNavn": "Guldborgsund",
-          "projektAreaHa": 4.9851,
-          "biodiversitetHa": 2.9349,
-          "section3Ha": 0.0,
-          "natura2000Ha": 4.9848
         }
       ]
     },
@@ -34804,6 +33654,28 @@
           "projektAreaHa": 281.9226,
           "biodiversitetHa": 279.4769,
           "section3Ha": 193.3522,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "e979b662-88af-489d-9832-b0b93bf66a39": {
+      "geoId": "e979b662-88af-489d-9832-b0b93bf66a39",
+      "projectId": "ec663e83-a0e9-472c-9c66-19efafef25cb",
+      "projectName": "Skovrejsning Mosevej 9",
+      "measure": "Skovrejsning",
+      "status": 10,
+      "projektAreaHa": 1.8057,
+      "primaryKommuneKode": "0849",
+      "biodiversitetHa": 0.0,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "perKommune": [
+        {
+          "kode": "0849",
+          "kommuneNavn": "Jammerbugt",
+          "projektAreaHa": 1.8057,
+          "biodiversitetHa": 0.0,
+          "section3Ha": 0.0,
           "natura2000Ha": 0.0
         }
       ]
@@ -34892,28 +33764,6 @@
           "projektAreaHa": 24.0593,
           "biodiversitetHa": 8.609,
           "section3Ha": 0.6733,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "51a299d7-58cf-40a1-bd53-448cedb5f958": {
-      "geoId": "51a299d7-58cf-40a1-bd53-448cedb5f958",
-      "projectId": "edc4006d-6c94-44c5-aed8-8c4d736486ac",
-      "projectName": "Filskov midt",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 66.8727,
-      "primaryKommuneKode": "0530",
-      "biodiversitetHa": 54.0112,
-      "section3Ha": 0.0014,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0530",
-          "kommuneNavn": "Billund",
-          "projektAreaHa": 66.8727,
-          "biodiversitetHa": 54.0112,
-          "section3Ha": 0.0014,
           "natura2000Ha": 0.0
         }
       ]
@@ -35360,28 +34210,6 @@
         }
       ]
     },
-    "d5362814-949b-4be7-bdc4-fcc6e65b1ded": {
-      "geoId": "d5362814-949b-4be7-bdc4-fcc6e65b1ded",
-      "projectId": "f1dd966d-d3a6-4eea-b0fd-698918f43109",
-      "projectName": "Bildsø Enghave",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 10.0512,
-      "primaryKommuneKode": "0330",
-      "biodiversitetHa": 9.8928,
-      "section3Ha": 7.5533,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0330",
-          "kommuneNavn": "Slagelse",
-          "projektAreaHa": 10.0512,
-          "biodiversitetHa": 9.8928,
-          "section3Ha": 7.5533,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "df0b53dc-23f8-43ab-9fbe-19747767c930": {
       "geoId": "df0b53dc-23f8-43ab-9fbe-19747767c930",
       "projectId": "f1f9e6c7-d85d-48ed-9e56-9616b625cf08",
@@ -35558,8 +34386,8 @@
         }
       ]
     },
-    "15184633-bbc2-43e3-864c-ec94f8799a6a": {
-      "geoId": "15184633-bbc2-43e3-864c-ec94f8799a6a",
+    "40efd788-7f22-4348-98f0-42a7711e36a6": {
+      "geoId": "40efd788-7f22-4348-98f0-42a7711e36a6",
       "projectId": "f381b37a-4f6c-4199-9efb-259ee99d41d0",
       "projectName": "Privat Skovrejsning",
       "measure": "Skovrejsning",
@@ -35646,24 +34474,24 @@
         }
       ]
     },
-    "fc2a76ca-9dc3-47c1-be62-4c85c8cf6bb9": {
-      "geoId": "fc2a76ca-9dc3-47c1-be62-4c85c8cf6bb9",
+    "a61a895c-d007-4e05-aa46-cc9d1b134f48": {
+      "geoId": "a61a895c-d007-4e05-aa46-cc9d1b134f48",
       "projectId": "f3c89568-e13b-470f-ad19-867fa2596759",
       "projectName": "Skindersmose",
       "measure": "Kvælstofvådområder",
-      "status": 6,
-      "projektAreaHa": 36.4982,
+      "status": 10,
+      "projektAreaHa": 54.8382,
       "primaryKommuneKode": "0779",
-      "biodiversitetHa": 19.0702,
-      "section3Ha": 0.1506,
+      "biodiversitetHa": 22.299,
+      "section3Ha": 2.0273,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0779",
           "kommuneNavn": "Skive",
-          "projektAreaHa": 36.4982,
-          "biodiversitetHa": 19.0702,
-          "section3Ha": 0.1506,
+          "projektAreaHa": 54.8382,
+          "biodiversitetHa": 22.299,
+          "section3Ha": 2.0273,
           "natura2000Ha": 0.0
         }
       ]
@@ -35706,28 +34534,6 @@
           "kode": "0630",
           "kommuneNavn": "Vejle",
           "projektAreaHa": 6.1707,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
-    "488ffee0-dba8-4404-ada1-a11d55e9a391": {
-      "geoId": "488ffee0-dba8-4404-ada1-a11d55e9a391",
-      "projectId": "f40d36a7-f444-40e2-bca6-157ac2ed788d",
-      "projectName": "Nordfyns Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 5.2066,
-      "primaryKommuneKode": "0480",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0480",
-          "kommuneNavn": "Nordfyns",
-          "projektAreaHa": 5.2066,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
           "natura2000Ha": 0.0
@@ -35778,28 +34584,6 @@
         }
       ]
     },
-    "444bd862-1a47-4647-b365-f6254ceac122": {
-      "geoId": "444bd862-1a47-4647-b365-f6254ceac122",
-      "projectId": "f4ff1b34-639e-48d7-8a21-c9553ba7e288",
-      "projectName": "Tæbring enge",
-      "measure": "Lavbundsprojekter",
-      "status": 6,
-      "projektAreaHa": 97.2812,
-      "primaryKommuneKode": "0773",
-      "biodiversitetHa": 71.7517,
-      "section3Ha": 28.1644,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0773",
-          "kommuneNavn": "Morsø",
-          "projektAreaHa": 97.2812,
-          "biodiversitetHa": 71.7517,
-          "section3Ha": 28.1644,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "913c686b-1f28-4294-911a-9c6d07e30861": {
       "geoId": "913c686b-1f28-4294-911a-9c6d07e30861",
       "projectId": "f514e6a9-43fa-4dac-a86d-66259c3241fe",
@@ -35818,6 +34602,36 @@
           "projektAreaHa": 4.0097,
           "biodiversitetHa": 0.0,
           "section3Ha": 0.0,
+          "natura2000Ha": 0.0
+        }
+      ]
+    },
+    "bfbf43f2-473e-4989-8c18-307184e3bd76": {
+      "geoId": "bfbf43f2-473e-4989-8c18-307184e3bd76",
+      "projectId": "f5165e8b-f373-4560-a3fc-431ca8a1ec30",
+      "projectName": "Kastrup Tiset Enge",
+      "measure": "Kvælstofvådområder",
+      "status": 6,
+      "projektAreaHa": 5619.1705,
+      "primaryKommuneKode": "0510",
+      "biodiversitetHa": 2126.8745,
+      "section3Ha": 90.9033,
+      "natura2000Ha": 47.8879,
+      "perKommune": [
+        {
+          "kode": "0510",
+          "kommuneNavn": "Haderslev",
+          "projektAreaHa": 3464.5815,
+          "biodiversitetHa": 1468.5112,
+          "section3Ha": 76.8664,
+          "natura2000Ha": 47.8879
+        },
+        {
+          "kode": "0550",
+          "kommuneNavn": "Tønder",
+          "projektAreaHa": 2154.5889,
+          "biodiversitetHa": 658.3633,
+          "section3Ha": 14.0369,
           "natura2000Ha": 0.0
         }
       ]
@@ -36108,41 +34922,41 @@
         }
       ]
     },
-    "7b0960ac-6714-4fbf-80dc-32a095193fcb": {
-      "geoId": "7b0960ac-6714-4fbf-80dc-32a095193fcb",
+    "36641003-aca9-4b3b-9a3b-9c9fab640323": {
+      "geoId": "36641003-aca9-4b3b-9a3b-9c9fab640323",
       "projectId": "f6f4cf3b-64ae-406e-acb0-555cdeb7fb7e",
       "projectName": "Tryggevælde og Stevns Å",
       "measure": "Lavbundsprojekter",
       "status": 6,
-      "projektAreaHa": 833.2564,
+      "projektAreaHa": 1006.2837,
       "primaryKommuneKode": "0336",
-      "biodiversitetHa": 694.1674,
-      "section3Ha": 418.3953,
-      "natura2000Ha": 346.3582,
+      "biodiversitetHa": 751.3975,
+      "section3Ha": 434.5941,
+      "natura2000Ha": 353.7946,
       "perKommune": [
         {
           "kode": "0259",
           "kommuneNavn": "Køge",
-          "projektAreaHa": 21.7929,
-          "biodiversitetHa": 17.9583,
-          "section3Ha": 6.4527,
-          "natura2000Ha": 5.3882
+          "projektAreaHa": 18.9572,
+          "biodiversitetHa": 18.251,
+          "section3Ha": 6.3435,
+          "natura2000Ha": 4.941
         },
         {
           "kode": "0320",
           "kommuneNavn": "Faxe",
-          "projektAreaHa": 177.432,
-          "biodiversitetHa": 134.0295,
-          "section3Ha": 41.0414,
+          "projektAreaHa": 242.8168,
+          "biodiversitetHa": 136.4277,
+          "section3Ha": 41.0287,
           "natura2000Ha": 0.156
         },
         {
           "kode": "0336",
           "kommuneNavn": "Stevns",
-          "projektAreaHa": 634.0315,
-          "biodiversitetHa": 542.1796,
-          "section3Ha": 370.9012,
-          "natura2000Ha": 340.814
+          "projektAreaHa": 744.1651,
+          "biodiversitetHa": 596.7188,
+          "section3Ha": 387.2219,
+          "natura2000Ha": 348.6976
         }
       ]
     },
@@ -37050,50 +35864,6 @@
         }
       ]
     },
-    "4c37896b-d072-4d58-abd0-858604d80c12": {
-      "geoId": "4c37896b-d072-4d58-abd0-858604d80c12",
-      "projectId": "fc3ed2fb-366b-4e4d-afc6-1b349746fadc",
-      "projectName": "Horsens Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 9.1585,
-      "primaryKommuneKode": "0615",
-      "biodiversitetHa": 9.1585,
-      "section3Ha": 0.0456,
-      "natura2000Ha": 9.1585,
-      "perKommune": [
-        {
-          "kode": "0615",
-          "kommuneNavn": "Horsens",
-          "projektAreaHa": 9.1585,
-          "biodiversitetHa": 9.1585,
-          "section3Ha": 0.0456,
-          "natura2000Ha": 9.1585
-        }
-      ]
-    },
-    "af1f0627-29e9-48b8-819a-302a82f8088b": {
-      "geoId": "af1f0627-29e9-48b8-819a-302a82f8088b",
-      "projectId": "fc42f31d-5ed8-4f5f-8deb-13c982016986",
-      "projectName": "Morsø Kommune Permanent ekstensivering",
-      "measure": "Ekstensivering",
-      "status": 10,
-      "projektAreaHa": 1.8713,
-      "primaryKommuneKode": "0773",
-      "biodiversitetHa": 0.0,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "perKommune": [
-        {
-          "kode": "0773",
-          "kommuneNavn": "Morsø",
-          "projektAreaHa": 1.8713,
-          "biodiversitetHa": 0.0,
-          "section3Ha": 0.0,
-          "natura2000Ha": 0.0
-        }
-      ]
-    },
     "8a04c262-aa72-4ab4-88b3-a4e19487c544": {
       "geoId": "8a04c262-aa72-4ab4-88b3-a4e19487c544",
       "projectId": "fc5c7b9d-0d61-476d-9f8b-8bea259e00e1",
@@ -37116,24 +35886,24 @@
         }
       ]
     },
-    "d00ce6ff-d483-447f-9b34-59193d022175": {
-      "geoId": "d00ce6ff-d483-447f-9b34-59193d022175",
+    "91db89fa-70cb-4aa9-a96a-858cccaeb038": {
+      "geoId": "91db89fa-70cb-4aa9-a96a-858cccaeb038",
       "projectId": "fc72e5b9-9c07-4d3e-a1be-bf97c989396e",
       "projectName": "Ørting og Randlev Moser",
       "measure": "Lavbundsprojekter",
       "status": 10,
-      "projektAreaHa": 115.2143,
+      "projektAreaHa": 117.0435,
       "primaryKommuneKode": "0727",
-      "biodiversitetHa": 112.7081,
-      "section3Ha": 48.8001,
+      "biodiversitetHa": 113.6802,
+      "section3Ha": 49.1648,
       "natura2000Ha": 0.0,
       "perKommune": [
         {
           "kode": "0727",
           "kommuneNavn": "Odder",
-          "projektAreaHa": 115.2143,
-          "biodiversitetHa": 112.7081,
-          "section3Ha": 48.8001,
+          "projektAreaHa": 117.0435,
+          "biodiversitetHa": 113.6802,
+          "section3Ha": 49.1648,
           "natura2000Ha": 0.0
         }
       ]
@@ -37336,12 +36106,12 @@
         }
       ]
     },
-    "f12e51aa-f5aa-482f-9cce-ff578b470b8d": {
-      "geoId": "f12e51aa-f5aa-482f-9cce-ff578b470b8d",
+    "2ce79100-e529-4019-b530-6288e8c3fc94": {
+      "geoId": "2ce79100-e529-4019-b530-6288e8c3fc94",
       "projectId": "fd2c1cd0-d664-4c45-ab15-b0f1ccd38206",
       "projectName": "Nabevej 14",
       "measure": "Skovrejsning",
-      "status": 10,
+      "status": 15,
       "projektAreaHa": 4.1033,
       "primaryKommuneKode": "0791",
       "biodiversitetHa": 0.0,
@@ -37788,331 +36558,315 @@
   "byKommune": {
     "0410": {
       "kommuneNavn": "Middelfart",
-      "projektAreaHa": 453.44,
+      "projektAreaHa": 451.76,
       "biodiversitetHa": 186.97,
       "section3Ha": 117.26,
       "natura2000Ha": 26.02,
-      "antalProjekter": 43
+      "antalProjekter": 42
     },
     "0621": {
       "kommuneNavn": "Kolding",
-      "projektAreaHa": 1287.75,
-      "biodiversitetHa": 927.61,
-      "section3Ha": 299.79,
+      "projektAreaHa": 1329.74,
+      "biodiversitetHa": 963.25,
+      "section3Ha": 327.26,
       "natura2000Ha": 240.71,
       "antalProjekter": 62
     },
     "0479": {
       "kommuneNavn": "Svendborg",
-      "projektAreaHa": 983.06,
-      "biodiversitetHa": 337.11,
+      "projektAreaHa": 978.65,
+      "biodiversitetHa": 332.7,
       "section3Ha": 49.01,
-      "natura2000Ha": 96.22,
-      "antalProjekter": 23
+      "natura2000Ha": 91.8,
+      "antalProjekter": 22
     },
     "0575": {
       "kommuneNavn": "Vejen",
-      "projektAreaHa": 3880.81,
-      "biodiversitetHa": 2455.12,
-      "section3Ha": 1484.02,
-      "natura2000Ha": 491.22,
-      "antalProjekter": 41
+      "projektAreaHa": 3385.96,
+      "biodiversitetHa": 2304.58,
+      "section3Ha": 1402.59,
+      "natura2000Ha": 488.23,
+      "antalProjekter": 39
     },
     "0751": {
       "kommuneNavn": "Aarhus",
-      "projektAreaHa": 679.95,
+      "projektAreaHa": 678.69,
       "biodiversitetHa": 461.48,
       "section3Ha": 164.12,
       "natura2000Ha": 0.0,
-      "antalProjekter": 25
+      "antalProjekter": 24
     },
     "0791": {
       "kommuneNavn": "Viborg",
-      "projektAreaHa": 8083.54,
-      "biodiversitetHa": 7174.99,
-      "section3Ha": 3075.86,
-      "natura2000Ha": 5631.0,
+      "projektAreaHa": 8294.05,
+      "biodiversitetHa": 7259.01,
+      "section3Ha": 3098.62,
+      "natura2000Ha": 5630.91,
       "antalProjekter": 75
     },
     "0550": {
       "kommuneNavn": "Tønder",
-      "projektAreaHa": 4124.15,
-      "biodiversitetHa": 3279.15,
-      "section3Ha": 196.17,
-      "natura2000Ha": 97.15,
+      "projektAreaHa": 6194.6,
+      "biodiversitetHa": 3898.81,
+      "section3Ha": 206.82,
+      "natura2000Ha": 89.07,
       "antalProjekter": 31
     },
     "0851": {
       "kommuneNavn": "Aalborg",
-      "projektAreaHa": 4539.67,
-      "biodiversitetHa": 4007.28,
-      "section3Ha": 1330.41,
-      "natura2000Ha": 515.4,
+      "projektAreaHa": 6235.78,
+      "biodiversitetHa": 5655.9,
+      "section3Ha": 1492.81,
+      "natura2000Ha": 512.03,
       "antalProjekter": 25
     },
     "0760": {
       "kommuneNavn": "Ringkøbing-Skjern",
-      "projektAreaHa": 4355.62,
-      "biodiversitetHa": 2605.54,
-      "section3Ha": 487.69,
-      "natura2000Ha": 452.08,
-      "antalProjekter": 43
+      "projektAreaHa": 5831.85,
+      "biodiversitetHa": 3264.27,
+      "section3Ha": 635.42,
+      "natura2000Ha": 799.03,
+      "antalProjekter": 45
     },
     "0316": {
       "kommuneNavn": "Holbæk",
-      "projektAreaHa": 2645.92,
-      "biodiversitetHa": 2225.21,
-      "section3Ha": 537.17,
-      "natura2000Ha": 877.62,
+      "projektAreaHa": 3102.98,
+      "biodiversitetHa": 2459.88,
+      "section3Ha": 588.38,
+      "natura2000Ha": 879.18,
       "antalProjekter": 21
     },
     "0766": {
       "kommuneNavn": "Hedensted",
-      "projektAreaHa": 2524.09,
-      "biodiversitetHa": 1955.64,
-      "section3Ha": 1311.78,
+      "projektAreaHa": 2519.12,
+      "biodiversitetHa": 1955.0,
+      "section3Ha": 1310.9,
       "natura2000Ha": 1216.5,
-      "antalProjekter": 59
+      "antalProjekter": 58
     },
     "0580": {
       "kommuneNavn": "Aabenraa",
-      "projektAreaHa": 726.77,
-      "biodiversitetHa": 542.26,
+      "projektAreaHa": 723.42,
+      "biodiversitetHa": 542.22,
       "section3Ha": 175.41,
       "natura2000Ha": 33.74,
-      "antalProjekter": 32
+      "antalProjekter": 31
     },
     "0376": {
       "kommuneNavn": "Guldborgsund",
-      "projektAreaHa": 5448.84,
-      "biodiversitetHa": 3317.59,
-      "section3Ha": 1558.42,
-      "natura2000Ha": 1902.13,
-      "antalProjekter": 71
+      "projektAreaHa": 5299.33,
+      "biodiversitetHa": 3200.08,
+      "section3Ha": 1559.5,
+      "natura2000Ha": 1806.7,
+      "antalProjekter": 70
     },
     "0482": {
       "kommuneNavn": "Langeland",
-      "projektAreaHa": 728.04,
-      "biodiversitetHa": 459.51,
+      "projektAreaHa": 725.52,
+      "biodiversitetHa": 459.5,
       "section3Ha": 139.66,
       "natura2000Ha": 37.07,
-      "antalProjekter": 21
+      "antalProjekter": 20
     },
     "0360": {
       "kommuneNavn": "Lolland",
-      "projektAreaHa": 195.63,
-      "biodiversitetHa": 159.78,
-      "section3Ha": 36.98,
-      "natura2000Ha": 54.98,
-      "antalProjekter": 12
+      "projektAreaHa": 184.44,
+      "biodiversitetHa": 157.55,
+      "section3Ha": 36.92,
+      "natura2000Ha": 43.79,
+      "antalProjekter": 11
     },
     "0573": {
       "kommuneNavn": "Varde",
-      "projektAreaHa": 2800.33,
-      "biodiversitetHa": 2065.63,
-      "section3Ha": 1231.65,
+      "projektAreaHa": 2799.76,
+      "biodiversitetHa": 2064.22,
+      "section3Ha": 1231.64,
       "natura2000Ha": 7.77,
       "antalProjekter": 48
     },
     "0440": {
       "kommuneNavn": "Kerteminde",
-      "projektAreaHa": 998.53,
-      "biodiversitetHa": 166.85,
-      "section3Ha": 78.37,
+      "projektAreaHa": 985.19,
+      "biodiversitetHa": 162.99,
+      "section3Ha": 78.21,
       "natura2000Ha": 46.3,
-      "antalProjekter": 25
+      "antalProjekter": 23
     },
     "0665": {
       "kommuneNavn": "Lemvig",
-      "projektAreaHa": 3183.73,
-      "biodiversitetHa": 1851.8,
-      "section3Ha": 714.85,
-      "natura2000Ha": 1242.32,
+      "projektAreaHa": 3183.55,
+      "biodiversitetHa": 1851.18,
+      "section3Ha": 714.75,
+      "natura2000Ha": 1242.31,
       "antalProjekter": 30
     },
     "0671": {
       "kommuneNavn": "Struer",
-      "projektAreaHa": 632.75,
+      "projektAreaHa": 631.76,
       "biodiversitetHa": 302.68,
       "section3Ha": 47.02,
       "natura2000Ha": 1.92,
-      "antalProjekter": 20
-    },
-    "0779": {
-      "kommuneNavn": "Skive",
-      "projektAreaHa": 3514.38,
-      "biodiversitetHa": 2827.46,
-      "section3Ha": 1166.22,
-      "natura2000Ha": 610.21,
-      "antalProjekter": 37
+      "antalProjekter": 19
     },
     "0727": {
       "kommuneNavn": "Odder",
-      "projektAreaHa": 434.66,
-      "biodiversitetHa": 257.0,
-      "section3Ha": 113.17,
+      "projektAreaHa": 436.04,
+      "biodiversitetHa": 257.6,
+      "section3Ha": 113.44,
       "natura2000Ha": 107.6,
-      "antalProjekter": 18
+      "antalProjekter": 17
     },
     "0480": {
       "kommuneNavn": "Nordfyns",
-      "projektAreaHa": 886.96,
-      "biodiversitetHa": 174.01,
-      "section3Ha": 65.19,
+      "projektAreaHa": 909.75,
+      "biodiversitetHa": 184.02,
+      "section3Ha": 65.81,
       "natura2000Ha": 58.06,
       "antalProjekter": 19
     },
     "0860": {
       "kommuneNavn": "Hjørring",
-      "projektAreaHa": 2969.0,
-      "biodiversitetHa": 2585.55,
+      "projektAreaHa": 2983.24,
+      "biodiversitetHa": 2585.97,
       "section3Ha": 1296.57,
       "natura2000Ha": 19.25,
-      "antalProjekter": 20
+      "antalProjekter": 21
     },
     "0615": {
       "kommuneNavn": "Horsens",
-      "projektAreaHa": 1467.58,
-      "biodiversitetHa": 617.37,
-      "section3Ha": 288.11,
-      "natura2000Ha": 51.96,
+      "projektAreaHa": 1586.9,
+      "biodiversitetHa": 712.75,
+      "section3Ha": 364.81,
+      "natura2000Ha": 42.8,
       "antalProjekter": 28
     },
     "0661": {
       "kommuneNavn": "Holstebro",
-      "projektAreaHa": 2564.66,
-      "biodiversitetHa": 2101.69,
-      "section3Ha": 236.87,
-      "natura2000Ha": 389.75,
+      "projektAreaHa": 3181.43,
+      "biodiversitetHa": 2595.92,
+      "section3Ha": 250.69,
+      "natura2000Ha": 604.96,
       "antalProjekter": 37
     },
     "0820": {
       "kommuneNavn": "Vesthimmerlands",
-      "projektAreaHa": 6454.92,
-      "biodiversitetHa": 5040.08,
-      "section3Ha": 3076.14,
-      "natura2000Ha": 1222.76,
-      "antalProjekter": 27
+      "projektAreaHa": 6453.16,
+      "biodiversitetHa": 5039.35,
+      "section3Ha": 3076.13,
+      "natura2000Ha": 1221.08,
+      "antalProjekter": 26
     },
     "0326": {
       "kommuneNavn": "Kalundborg",
-      "projektAreaHa": 2138.01,
-      "biodiversitetHa": 1747.99,
-      "section3Ha": 670.09,
+      "projektAreaHa": 2129.41,
+      "biodiversitetHa": 1747.87,
+      "section3Ha": 670.68,
       "natura2000Ha": 808.54,
       "antalProjekter": 14
     },
     "0510": {
       "kommuneNavn": "Haderslev",
-      "projektAreaHa": 2560.0,
-      "biodiversitetHa": 1731.92,
-      "section3Ha": 866.29,
-      "natura2000Ha": 338.16,
-      "antalProjekter": 48
+      "projektAreaHa": 5710.01,
+      "biodiversitetHa": 2921.09,
+      "section3Ha": 735.42,
+      "natura2000Ha": 345.13,
+      "antalProjekter": 47
     },
     "0561": {
       "kommuneNavn": "Esbjerg",
-      "projektAreaHa": 9272.19,
-      "biodiversitetHa": 5278.83,
-      "section3Ha": 1650.59,
-      "natura2000Ha": 2872.96,
-      "antalProjekter": 32
+      "projektAreaHa": 8834.68,
+      "biodiversitetHa": 4915.7,
+      "section3Ha": 1596.0,
+      "natura2000Ha": 2866.01,
+      "antalProjekter": 29
     },
     "0350": {
       "kommuneNavn": "Lejre",
-      "projektAreaHa": 295.56,
+      "projektAreaHa": 294.48,
       "biodiversitetHa": 227.77,
       "section3Ha": 92.25,
       "natura2000Ha": 10.95,
-      "antalProjekter": 14
+      "antalProjekter": 13
     },
     "0306": {
       "kommuneNavn": "Odsherred",
-      "projektAreaHa": 187.99,
+      "projektAreaHa": 170.09,
       "biodiversitetHa": 157.67,
       "section3Ha": 11.75,
       "natura2000Ha": 0.0,
-      "antalProjekter": 6
+      "antalProjekter": 5
     },
     "0330": {
       "kommuneNavn": "Slagelse",
-      "projektAreaHa": 682.88,
-      "biodiversitetHa": 340.13,
-      "section3Ha": 113.49,
-      "natura2000Ha": 22.51,
-      "antalProjekter": 27
+      "projektAreaHa": 626.29,
+      "biodiversitetHa": 291.17,
+      "section3Ha": 105.94,
+      "natura2000Ha": 21.89,
+      "antalProjekter": 23
     },
     "0630": {
       "kommuneNavn": "Vejle",
-      "projektAreaHa": 1902.96,
-      "biodiversitetHa": 743.61,
-      "section3Ha": 265.85,
+      "projektAreaHa": 3572.88,
+      "biodiversitetHa": 1388.73,
+      "section3Ha": 488.44,
       "natura2000Ha": 124.21,
-      "antalProjekter": 63
+      "antalProjekter": 66
     },
     "0787": {
       "kommuneNavn": "Thisted",
-      "projektAreaHa": 3814.18,
-      "biodiversitetHa": 2739.27,
+      "projektAreaHa": 3897.19,
+      "biodiversitetHa": 2801.89,
       "section3Ha": 1021.28,
       "natura2000Ha": 316.97,
       "antalProjekter": 45
     },
     "0706": {
       "kommuneNavn": "Syddjurs",
-      "projektAreaHa": 1926.9,
-      "biodiversitetHa": 1716.63,
-      "section3Ha": 358.18,
+      "projektAreaHa": 2034.96,
+      "biodiversitetHa": 1805.38,
+      "section3Ha": 364.11,
       "natura2000Ha": 0.0,
       "antalProjekter": 15
     },
     "0773": {
       "kommuneNavn": "Morsø",
-      "projektAreaHa": 2300.54,
-      "biodiversitetHa": 1254.21,
-      "section3Ha": 564.43,
+      "projektAreaHa": 2201.39,
+      "biodiversitetHa": 1182.46,
+      "section3Ha": 536.26,
       "natura2000Ha": 86.75,
-      "antalProjekter": 42
+      "antalProjekter": 40
     },
     "0657": {
       "kommuneNavn": "Herning",
-      "projektAreaHa": 1372.59,
-      "biodiversitetHa": 1053.36,
+      "projektAreaHa": 1371.46,
+      "biodiversitetHa": 1051.56,
       "section3Ha": 204.9,
       "natura2000Ha": 46.43,
       "antalProjekter": 27
     },
     "0492": {
       "kommuneNavn": "Ærø",
-      "projektAreaHa": 44.51,
+      "projektAreaHa": 43.76,
       "biodiversitetHa": 26.11,
       "section3Ha": 17.41,
       "natura2000Ha": 0.0,
-      "antalProjekter": 3
+      "antalProjekter": 2
     },
     "0450": {
       "kommuneNavn": "Nyborg",
-      "projektAreaHa": 207.59,
-      "biodiversitetHa": 104.12,
+      "projektAreaHa": 204.32,
+      "biodiversitetHa": 104.06,
       "section3Ha": 33.23,
       "natura2000Ha": 0.0,
-      "antalProjekter": 20
-    },
-    "0390": {
-      "kommuneNavn": "Vordingborg",
-      "projektAreaHa": 1888.63,
-      "biodiversitetHa": 1220.53,
-      "section3Ha": 156.31,
-      "natura2000Ha": 99.08,
-      "antalProjekter": 33
+      "antalProjekter": 19
     },
     "0530": {
       "kommuneNavn": "Billund",
-      "projektAreaHa": 1528.41,
-      "biodiversitetHa": 1131.99,
+      "projektAreaHa": 1459.03,
+      "biodiversitetHa": 1075.47,
       "section3Ha": 301.77,
       "natura2000Ha": 0.0,
-      "antalProjekter": 38
+      "antalProjekter": 36
     },
     "0707": {
       "kommuneNavn": "Norddjurs",
@@ -38124,203 +36878,195 @@
     },
     "0430": {
       "kommuneNavn": "Faaborg-Midtfyn",
-      "projektAreaHa": 636.41,
-      "biodiversitetHa": 306.85,
-      "section3Ha": 167.47,
-      "natura2000Ha": 140.26,
-      "antalProjekter": 25
+      "projektAreaHa": 628.91,
+      "biodiversitetHa": 304.15,
+      "section3Ha": 166.16,
+      "natura2000Ha": 139.53,
+      "antalProjekter": 24
     },
     "0329": {
       "kommuneNavn": "Ringsted",
-      "projektAreaHa": 1029.92,
-      "biodiversitetHa": 834.82,
+      "projektAreaHa": 1028.94,
+      "biodiversitetHa": 834.7,
       "section3Ha": 336.38,
       "natura2000Ha": 0.76,
-      "antalProjekter": 19
+      "antalProjekter": 18
+    },
+    "0390": {
+      "kommuneNavn": "Vordingborg",
+      "projektAreaHa": 2012.8,
+      "biodiversitetHa": 1268.88,
+      "section3Ha": 170.96,
+      "natura2000Ha": 100.02,
+      "antalProjekter": 30
     },
     "0740": {
       "kommuneNavn": "Silkeborg",
-      "projektAreaHa": 598.5,
-      "biodiversitetHa": 395.22,
-      "section3Ha": 187.47,
+      "projektAreaHa": 815.13,
+      "biodiversitetHa": 547.04,
+      "section3Ha": 279.96,
       "natura2000Ha": 0.0,
-      "antalProjekter": 16
+      "antalProjekter": 19
     },
     "0756": {
       "kommuneNavn": "Ikast-Brande",
-      "projektAreaHa": 3722.8,
-      "biodiversitetHa": 2813.19,
-      "section3Ha": 719.13,
+      "projektAreaHa": 3884.75,
+      "biodiversitetHa": 2949.25,
+      "section3Ha": 747.6,
       "natura2000Ha": 21.2,
       "antalProjekter": 35
     },
+    "0779": {
+      "kommuneNavn": "Skive",
+      "projektAreaHa": 3532.21,
+      "biodiversitetHa": 2830.56,
+      "section3Ha": 1168.09,
+      "natura2000Ha": 610.21,
+      "antalProjekter": 36
+    },
     "0420": {
       "kommuneNavn": "Assens",
-      "projektAreaHa": 1972.82,
-      "biodiversitetHa": 1024.35,
-      "section3Ha": 452.74,
+      "projektAreaHa": 1961.89,
+      "biodiversitetHa": 1019.58,
+      "section3Ha": 450.7,
       "natura2000Ha": 308.15,
-      "antalProjekter": 52
+      "antalProjekter": 51
     },
     "0840": {
       "kommuneNavn": "Rebild",
-      "projektAreaHa": 2135.44,
-      "biodiversitetHa": 1518.24,
-      "section3Ha": 641.6,
+      "projektAreaHa": 2491.54,
+      "biodiversitetHa": 1860.45,
+      "section3Ha": 730.53,
       "natura2000Ha": 10.26,
       "antalProjekter": 22
     },
     "0710": {
       "kommuneNavn": "Favrskov",
-      "projektAreaHa": 877.09,
-      "biodiversitetHa": 777.22,
-      "section3Ha": 249.73,
+      "projektAreaHa": 1055.95,
+      "biodiversitetHa": 947.8,
+      "section3Ha": 343.41,
       "natura2000Ha": 0.0,
       "antalProjekter": 17
     },
     "0846": {
       "kommuneNavn": "Mariagerfjord",
-      "projektAreaHa": 1672.37,
-      "biodiversitetHa": 1148.84,
-      "section3Ha": 605.41,
-      "natura2000Ha": 1037.6,
+      "projektAreaHa": 1674.23,
+      "biodiversitetHa": 1147.71,
+      "section3Ha": 606.33,
+      "natura2000Ha": 1036.18,
       "antalProjekter": 25
     },
     "0540": {
       "kommuneNavn": "Sønderborg",
-      "projektAreaHa": 467.33,
-      "biodiversitetHa": 349.33,
-      "section3Ha": 161.24,
+      "projektAreaHa": 463.47,
+      "biodiversitetHa": 345.57,
+      "section3Ha": 161.18,
       "natura2000Ha": 0.0,
-      "antalProjekter": 21
+      "antalProjekter": 20
     },
     "0461": {
       "kommuneNavn": "Odense",
-      "projektAreaHa": 2205.1,
-      "biodiversitetHa": 698.6,
-      "section3Ha": 308.12,
-      "natura2000Ha": 172.44,
-      "antalProjekter": 22
-    },
-    "0400": {
-      "kommuneNavn": "Bornholm",
-      "projektAreaHa": 6.39,
-      "biodiversitetHa": 0.84,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "antalProjekter": 4
+      "projektAreaHa": 2202.44,
+      "biodiversitetHa": 695.94,
+      "section3Ha": 308.05,
+      "natura2000Ha": 171.75,
+      "antalProjekter": 21
     },
     "0730": {
       "kommuneNavn": "Randers",
-      "projektAreaHa": 3590.97,
-      "biodiversitetHa": 3153.12,
-      "section3Ha": 1327.45,
-      "natura2000Ha": 1046.63,
-      "antalProjekter": 27
+      "projektAreaHa": 3605.89,
+      "biodiversitetHa": 3166.83,
+      "section3Ha": 1336.14,
+      "natura2000Ha": 1060.01,
+      "antalProjekter": 26
     },
     "0265": {
       "kommuneNavn": "Roskilde",
-      "projektAreaHa": 599.79,
+      "projektAreaHa": 597.22,
       "biodiversitetHa": 519.74,
       "section3Ha": 201.45,
       "natura2000Ha": 6.09,
-      "antalProjekter": 7
+      "antalProjekter": 6
     },
     "0340": {
       "kommuneNavn": "Sorø",
-      "projektAreaHa": 1373.09,
-      "biodiversitetHa": 1256.62,
-      "section3Ha": 292.75,
-      "natura2000Ha": 1019.03,
+      "projektAreaHa": 2155.05,
+      "biodiversitetHa": 1857.03,
+      "section3Ha": 355.43,
+      "natura2000Ha": 1194.35,
       "antalProjekter": 14
     },
     "0370": {
       "kommuneNavn": "Næstved",
-      "projektAreaHa": 589.67,
-      "biodiversitetHa": 374.75,
-      "section3Ha": 143.38,
+      "projektAreaHa": 568.12,
+      "biodiversitetHa": 362.27,
+      "section3Ha": 143.36,
       "natura2000Ha": 28.55,
-      "antalProjekter": 18
+      "antalProjekter": 16
     },
     "0810": {
       "kommuneNavn": "Brønderslev",
-      "projektAreaHa": 1178.15,
-      "biodiversitetHa": 1039.27,
+      "projektAreaHa": 1178.14,
+      "biodiversitetHa": 1039.26,
       "section3Ha": 506.12,
       "natura2000Ha": 39.57,
-      "antalProjekter": 19
+      "antalProjekter": 18
     },
     "0813": {
       "kommuneNavn": "Frederikshavn",
-      "projektAreaHa": 198.77,
-      "biodiversitetHa": 149.48,
+      "projektAreaHa": 192.88,
+      "biodiversitetHa": 147.97,
       "section3Ha": 68.5,
       "natura2000Ha": 54.54,
-      "antalProjekter": 8
+      "antalProjekter": 7
     },
     "0240": {
       "kommuneNavn": "Egedal",
-      "projektAreaHa": 1384.94,
+      "projektAreaHa": 1380.95,
       "biodiversitetHa": 1214.29,
       "section3Ha": 564.42,
       "natura2000Ha": 0.0,
-      "antalProjekter": 6
+      "antalProjekter": 5
     },
     "0849": {
       "kommuneNavn": "Jammerbugt",
-      "projektAreaHa": 1233.85,
-      "biodiversitetHa": 960.03,
-      "section3Ha": 537.0,
+      "projektAreaHa": 1229.59,
+      "biodiversitetHa": 952.3,
+      "section3Ha": 535.54,
       "natura2000Ha": 241.71,
-      "antalProjekter": 16
+      "antalProjekter": 17
     },
     "0746": {
       "kommuneNavn": "Skanderborg",
-      "projektAreaHa": 732.16,
-      "biodiversitetHa": 509.16,
-      "section3Ha": 186.89,
+      "projektAreaHa": 832.34,
+      "biodiversitetHa": 589.23,
+      "section3Ha": 195.76,
       "natura2000Ha": 0.0,
       "antalProjekter": 11
     },
     "0607": {
       "kommuneNavn": "Fredericia",
-      "projektAreaHa": 316.58,
-      "biodiversitetHa": 125.41,
-      "section3Ha": 82.72,
+      "projektAreaHa": 314.24,
+      "biodiversitetHa": 123.16,
+      "section3Ha": 82.62,
       "natura2000Ha": 0.0,
-      "antalProjekter": 10
+      "antalProjekter": 9
     },
     "0270": {
       "kommuneNavn": "Gribskov",
-      "projektAreaHa": 611.62,
-      "biodiversitetHa": 454.03,
+      "projektAreaHa": 608.97,
+      "biodiversitetHa": 453.06,
       "section3Ha": 14.77,
       "natura2000Ha": 0.0,
-      "antalProjekter": 7
-    },
-    "0825": {
-      "kommuneNavn": "Læsø",
-      "projektAreaHa": 12.49,
-      "biodiversitetHa": 6.61,
-      "section3Ha": 0.0,
-      "natura2000Ha": 2.73,
-      "antalProjekter": 2
-    },
-    "0336": {
-      "kommuneNavn": "Stevns",
-      "projektAreaHa": 639.57,
-      "biodiversitetHa": 542.18,
-      "section3Ha": 370.9,
-      "natura2000Ha": 340.81,
-      "antalProjekter": 3
+      "antalProjekter": 6
     },
     "0320": {
       "kommuneNavn": "Faxe",
-      "projektAreaHa": 583.6,
-      "biodiversitetHa": 479.06,
-      "section3Ha": 103.81,
+      "projektAreaHa": 603.0,
+      "biodiversitetHa": 438.54,
+      "section3Ha": 89.84,
       "natura2000Ha": 86.17,
-      "antalProjekter": 8
+      "antalProjekter": 6
     },
     "0201": {
       "kommuneNavn": "Allerød",
@@ -38330,37 +37076,21 @@
       "natura2000Ha": 0.0,
       "antalProjekter": 2
     },
-    "0219": {
-      "kommuneNavn": "Hillerød",
-      "projektAreaHa": 160.6,
-      "biodiversitetHa": 90.02,
-      "section3Ha": 20.66,
+    "0825": {
+      "kommuneNavn": "Læsø",
+      "projektAreaHa": 9.76,
+      "biodiversitetHa": 3.88,
+      "section3Ha": 0.0,
       "natura2000Ha": 0.0,
-      "antalProjekter": 5
-    },
-    "0269": {
-      "kommuneNavn": "Solrød",
-      "projektAreaHa": 96.78,
-      "biodiversitetHa": 84.74,
-      "section3Ha": 60.89,
-      "natura2000Ha": 0.25,
-      "antalProjekter": 2
+      "antalProjekter": 1
     },
     "0250": {
       "kommuneNavn": "Frederikssund",
-      "projektAreaHa": 374.35,
-      "biodiversitetHa": 308.79,
+      "projektAreaHa": 372.39,
+      "biodiversitetHa": 306.88,
       "section3Ha": 113.92,
       "natura2000Ha": 0.0,
-      "antalProjekter": 10
-    },
-    "0217": {
-      "kommuneNavn": "Helsingør",
-      "projektAreaHa": 14.86,
-      "biodiversitetHa": 9.33,
-      "section3Ha": 0.03,
-      "natura2000Ha": 0.0,
-      "antalProjekter": 2
+      "antalProjekter": 9
     },
     "0253": {
       "kommuneNavn": "Greve",
@@ -38369,6 +37099,22 @@
       "section3Ha": 0.0,
       "natura2000Ha": 0.0,
       "antalProjekter": 1
+    },
+    "0400": {
+      "kommuneNavn": "Bornholm",
+      "projektAreaHa": 4.74,
+      "biodiversitetHa": 0.04,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "antalProjekter": 3
+    },
+    "0219": {
+      "kommuneNavn": "Hillerød",
+      "projektAreaHa": 152.64,
+      "biodiversitetHa": 84.83,
+      "section3Ha": 20.09,
+      "natura2000Ha": 0.0,
+      "antalProjekter": 4
     },
     "0169": {
       "kommuneNavn": "Høje-Taastrup",
@@ -38380,51 +37126,43 @@
     },
     "0260": {
       "kommuneNavn": "Halsnæs",
-      "projektAreaHa": 1.29,
-      "biodiversitetHa": 0.54,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "antalProjekter": 2
-    },
-    "0741": {
-      "kommuneNavn": "Samsø",
-      "projektAreaHa": 0.85,
-      "biodiversitetHa": 0.0,
+      "projektAreaHa": 0.21,
+      "biodiversitetHa": 0.21,
       "section3Ha": 0.0,
       "natura2000Ha": 0.0,
       "antalProjekter": 1
     },
     "0190": {
       "kommuneNavn": "Furesø",
-      "projektAreaHa": 44.88,
+      "projektAreaHa": 44.42,
       "biodiversitetHa": 44.34,
       "section3Ha": 0.0,
       "natura2000Ha": 0.0,
-      "antalProjekter": 2
-    },
-    "0223": {
-      "kommuneNavn": "Hørsholm",
-      "projektAreaHa": 11.02,
-      "biodiversitetHa": 5.73,
-      "section3Ha": 0.0,
-      "natura2000Ha": 0.0,
-      "antalProjekter": 2
-    },
-    "0210": {
-      "kommuneNavn": "Fredensborg",
-      "projektAreaHa": 249.56,
-      "biodiversitetHa": 228.07,
-      "section3Ha": 19.09,
-      "natura2000Ha": 0.0,
-      "antalProjekter": 2
+      "antalProjekter": 1
     },
     "0259": {
       "kommuneNavn": "Køge",
-      "projektAreaHa": 66.32,
-      "biodiversitetHa": 33.11,
-      "section3Ha": 12.28,
-      "natura2000Ha": 9.74,
-      "antalProjekter": 6
+      "projektAreaHa": 57.21,
+      "biodiversitetHa": 30.52,
+      "section3Ha": 12.12,
+      "natura2000Ha": 9.29,
+      "antalProjekter": 5
+    },
+    "0269": {
+      "kommuneNavn": "Solrød",
+      "projektAreaHa": 91.85,
+      "biodiversitetHa": 84.74,
+      "section3Ha": 60.89,
+      "natura2000Ha": 0.25,
+      "antalProjekter": 1
+    },
+    "0223": {
+      "kommuneNavn": "Hørsholm",
+      "projektAreaHa": 8.52,
+      "biodiversitetHa": 3.47,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "antalProjekter": 1
     },
     "0151": {
       "kommuneNavn": "Ballerup",
@@ -38434,11 +37172,35 @@
       "natura2000Ha": 0.0,
       "antalProjekter": 1
     },
+    "0217": {
+      "kommuneNavn": "Helsingør",
+      "projektAreaHa": 3.57,
+      "biodiversitetHa": 0.77,
+      "section3Ha": 0.0,
+      "natura2000Ha": 0.0,
+      "antalProjekter": 1
+    },
+    "0336": {
+      "kommuneNavn": "Stevns",
+      "projektAreaHa": 746.53,
+      "biodiversitetHa": 596.72,
+      "section3Ha": 387.22,
+      "natura2000Ha": 348.7,
+      "antalProjekter": 2
+    },
     "0165": {
       "kommuneNavn": "Albertslund",
       "projektAreaHa": 41.87,
       "biodiversitetHa": 36.92,
       "section3Ha": 3.67,
+      "natura2000Ha": 0.0,
+      "antalProjekter": 1
+    },
+    "0210": {
+      "kommuneNavn": "Fredensborg",
+      "projektAreaHa": 246.41,
+      "biodiversitetHa": 228.07,
+      "section3Ha": 19.09,
       "natura2000Ha": 0.0,
       "antalProjekter": 1
     }

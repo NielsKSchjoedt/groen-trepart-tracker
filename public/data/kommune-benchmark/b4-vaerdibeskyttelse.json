@@ -1,6 +1,6 @@
 {
-  "methodVersion": "sprint5-v1",
-  "generatedAt": "2026-09-11T21:24:16.721502+00:00",
+  "methodVersion": "sprint5-v2",
+  "generatedAt": "2026-10-17T16:06:30.208347+00:00",
   "sources": [
     {
       "name": "DCE 30%",
@@ -10,7 +10,7 @@
     {
       "name": "Natura 2000",
       "path": "data/natura2000/natura_2000_omraader.geojson",
-      "hash": "c78bad51eb59de05"
+      "hash": "453cc0d48c65f85b"
     },
     {
       "name": "§3 bes_naturtyper",
@@ -21,10 +21,10 @@
   "disclaimer": "§3 er tilstandsbeskyttelse (må ikke ændres uden dispensation), ikke en garanti for god naturtilstand. DCE 30 % er ét fagligt værdimål blandt flere. Arealer har §3-/Natura 2000-status — ikke en vurdering af, om naturen er velbeskyttet.",
   "national": {
     "naturvaerdiHa": 1278601.5538,
-    "beskyttetHa": 561855.8248,
-    "overlapHa": 513157.9717,
-    "vaerdiUdenBeskyttelseHa": 765443.5821,
-    "pctVaerdiBeskyttet": 40.1343
+    "beskyttetHa": 610560.3995,
+    "overlapHa": 537255.1859,
+    "vaerdiUdenBeskyttelseHa": 741346.3679,
+    "pctVaerdiBeskyttet": 42.019
   },
   "byKommune": {
     "0101": {
@@ -302,10 +302,10 @@
     "0320": {
       "kommuneNavn": "Faxe",
       "naturvaerdiHa": 10504.2897,
-      "beskyttetHa": 1997.3831,
-      "overlapHa": 1745.4515,
-      "vaerdiUdenBeskyttelseHa": 8758.8382,
-      "pctVaerdiBeskyttet": 16.6166
+      "beskyttetHa": 2553.8652,
+      "overlapHa": 2291.1907,
+      "vaerdiUdenBeskyttelseHa": 8213.099,
+      "pctVaerdiBeskyttet": 21.812
     },
     "0326": {
       "kommuneNavn": "Kalundborg",
@@ -326,10 +326,10 @@
     "0330": {
       "kommuneNavn": "Slagelse",
       "naturvaerdiHa": 10696.7949,
-      "beskyttetHa": 2597.4157,
-      "overlapHa": 2476.3423,
-      "vaerdiUdenBeskyttelseHa": 8220.4526,
-      "pctVaerdiBeskyttet": 23.1503
+      "beskyttetHa": 5894.4196,
+      "overlapHa": 3475.7864,
+      "vaerdiUdenBeskyttelseHa": 7221.0085,
+      "pctVaerdiBeskyttet": 32.4937
     },
     "0336": {
       "kommuneNavn": "Stevns",
@@ -358,34 +358,34 @@
     "0360": {
       "kommuneNavn": "Lolland",
       "naturvaerdiHa": 12626.1897,
-      "beskyttetHa": 5128.2845,
-      "overlapHa": 4143.1423,
-      "vaerdiUdenBeskyttelseHa": 8483.0474,
-      "pctVaerdiBeskyttet": 32.8139
+      "beskyttetHa": 7204.6071,
+      "overlapHa": 5039.1667,
+      "vaerdiUdenBeskyttelseHa": 7587.023,
+      "pctVaerdiBeskyttet": 39.9104
     },
     "0370": {
       "kommuneNavn": "Næstved",
       "naturvaerdiHa": 15064.8887,
-      "beskyttetHa": 5873.079,
-      "overlapHa": 4946.3835,
-      "vaerdiUdenBeskyttelseHa": 10118.5052,
-      "pctVaerdiBeskyttet": 32.8339
+      "beskyttetHa": 6402.1046,
+      "overlapHa": 5270.2379,
+      "vaerdiUdenBeskyttelseHa": 9794.6508,
+      "pctVaerdiBeskyttet": 34.9836
     },
     "0376": {
       "kommuneNavn": "Guldborgsund",
       "naturvaerdiHa": 18852.2773,
-      "beskyttetHa": 5757.1683,
-      "overlapHa": 5080.8475,
-      "vaerdiUdenBeskyttelseHa": 13771.4298,
-      "pctVaerdiBeskyttet": 26.9508
+      "beskyttetHa": 10881.1446,
+      "overlapHa": 7013.9371,
+      "vaerdiUdenBeskyttelseHa": 11838.3402,
+      "pctVaerdiBeskyttet": 37.2047
     },
     "0390": {
       "kommuneNavn": "Vordingborg",
       "naturvaerdiHa": 15638.335,
-      "beskyttetHa": 5180.0338,
-      "overlapHa": 4884.6856,
-      "vaerdiUdenBeskyttelseHa": 10753.6494,
-      "pctVaerdiBeskyttet": 31.2353
+      "beskyttetHa": 9074.5871,
+      "overlapHa": 6674.6842,
+      "vaerdiUdenBeskyttelseHa": 8963.6508,
+      "pctVaerdiBeskyttet": 42.6816
     },
     "0400": {
       "kommuneNavn": "Bornholm",
@@ -398,26 +398,26 @@
     "0410": {
       "kommuneNavn": "Middelfart",
       "naturvaerdiHa": 5718.5877,
-      "beskyttetHa": 2237.0247,
-      "overlapHa": 1995.9576,
-      "vaerdiUdenBeskyttelseHa": 3722.6301,
-      "pctVaerdiBeskyttet": 34.903
+      "beskyttetHa": 4772.4604,
+      "overlapHa": 2725.1269,
+      "vaerdiUdenBeskyttelseHa": 2993.4608,
+      "pctVaerdiBeskyttet": 47.6538
     },
     "0420": {
       "kommuneNavn": "Assens",
       "naturvaerdiHa": 9895.3047,
-      "beskyttetHa": 3728.6775,
-      "overlapHa": 3518.9987,
-      "vaerdiUdenBeskyttelseHa": 6376.306,
-      "pctVaerdiBeskyttet": 35.5623
+      "beskyttetHa": 4432.5653,
+      "overlapHa": 3777.5828,
+      "vaerdiUdenBeskyttelseHa": 6117.7219,
+      "pctVaerdiBeskyttet": 38.1755
     },
     "0430": {
       "kommuneNavn": "Faaborg-Midtfyn",
       "naturvaerdiHa": 14053.7943,
-      "beskyttetHa": 7080.5555,
-      "overlapHa": 6245.2539,
-      "vaerdiUdenBeskyttelseHa": 7808.5404,
-      "pctVaerdiBeskyttet": 44.4382
+      "beskyttetHa": 7081.7854,
+      "overlapHa": 6245.2668,
+      "vaerdiUdenBeskyttelseHa": 7808.5275,
+      "pctVaerdiBeskyttet": 44.4383
     },
     "0440": {
       "kommuneNavn": "Kerteminde",
@@ -430,10 +430,10 @@
     "0450": {
       "kommuneNavn": "Nyborg",
       "naturvaerdiHa": 4211.2943,
-      "beskyttetHa": 1671.6467,
-      "overlapHa": 1580.9174,
-      "vaerdiUdenBeskyttelseHa": 2630.3769,
-      "pctVaerdiBeskyttet": 37.5399
+      "beskyttetHa": 1709.75,
+      "overlapHa": 1583.0909,
+      "vaerdiUdenBeskyttelseHa": 2628.2034,
+      "pctVaerdiBeskyttet": 37.5916
     },
     "0461": {
       "kommuneNavn": "Odense",
@@ -446,42 +446,42 @@
     "0479": {
       "kommuneNavn": "Svendborg",
       "naturvaerdiHa": 8310.3027,
-      "beskyttetHa": 3166.4239,
-      "overlapHa": 2306.1985,
-      "vaerdiUdenBeskyttelseHa": 6004.1042,
-      "pctVaerdiBeskyttet": 27.7511
+      "beskyttetHa": 3172.7154,
+      "overlapHa": 2311.9016,
+      "vaerdiUdenBeskyttelseHa": 5998.4011,
+      "pctVaerdiBeskyttet": 27.8197
     },
     "0480": {
       "kommuneNavn": "Nordfyns",
       "naturvaerdiHa": 7274.4297,
-      "beskyttetHa": 2907.8534,
-      "overlapHa": 2603.4368,
-      "vaerdiUdenBeskyttelseHa": 4670.9929,
-      "pctVaerdiBeskyttet": 35.7889
+      "beskyttetHa": 5296.9587,
+      "overlapHa": 3551.1342,
+      "vaerdiUdenBeskyttelseHa": 3723.2955,
+      "pctVaerdiBeskyttet": 48.8167
     },
     "0482": {
       "kommuneNavn": "Langeland",
       "naturvaerdiHa": 6670.9564,
-      "beskyttetHa": 6147.0573,
-      "overlapHa": 3256.3128,
-      "vaerdiUdenBeskyttelseHa": 3414.6436,
-      "pctVaerdiBeskyttet": 48.8133
+      "beskyttetHa": 6147.2437,
+      "overlapHa": 3256.3252,
+      "vaerdiUdenBeskyttelseHa": 3414.6312,
+      "pctVaerdiBeskyttet": 48.8135
     },
     "0492": {
       "kommuneNavn": "Ærø",
       "naturvaerdiHa": 1815.6208,
-      "beskyttetHa": 2295.9237,
-      "overlapHa": 1345.5699,
-      "vaerdiUdenBeskyttelseHa": 470.0509,
-      "pctVaerdiBeskyttet": 74.1107
+      "beskyttetHa": 2296.0563,
+      "overlapHa": 1345.6105,
+      "vaerdiUdenBeskyttelseHa": 470.0103,
+      "pctVaerdiBeskyttet": 74.113
     },
     "0510": {
       "kommuneNavn": "Haderslev",
       "naturvaerdiHa": 18501.7192,
-      "beskyttetHa": 6257.7589,
-      "overlapHa": 5796.9179,
-      "vaerdiUdenBeskyttelseHa": 12704.8013,
-      "pctVaerdiBeskyttet": 31.3318
+      "beskyttetHa": 7686.508,
+      "overlapHa": 6230.462,
+      "vaerdiUdenBeskyttelseHa": 12271.2572,
+      "pctVaerdiBeskyttet": 33.675
     },
     "0530": {
       "kommuneNavn": "Billund",
@@ -494,58 +494,58 @@
     "0540": {
       "kommuneNavn": "Sønderborg",
       "naturvaerdiHa": 8969.2955,
-      "beskyttetHa": 3838.7135,
-      "overlapHa": 3681.5487,
-      "vaerdiUdenBeskyttelseHa": 5287.7468,
-      "pctVaerdiBeskyttet": 41.0461
+      "beskyttetHa": 3840.3219,
+      "overlapHa": 3681.8965,
+      "vaerdiUdenBeskyttelseHa": 5287.399,
+      "pctVaerdiBeskyttet": 41.05
     },
     "0550": {
       "kommuneNavn": "Tønder",
       "naturvaerdiHa": 40248.0113,
-      "beskyttetHa": 13886.887,
-      "overlapHa": 13229.0062,
-      "vaerdiUdenBeskyttelseHa": 27019.0051,
-      "pctVaerdiBeskyttet": 32.8687
+      "beskyttetHa": 24392.035,
+      "overlapHa": 19149.1031,
+      "vaerdiUdenBeskyttelseHa": 21098.9082,
+      "pctVaerdiBeskyttet": 47.5778
     },
     "0561": {
       "kommuneNavn": "Esbjerg",
       "naturvaerdiHa": 18582.2358,
-      "beskyttetHa": 6046.81,
-      "overlapHa": 5644.4894,
-      "vaerdiUdenBeskyttelseHa": 12937.7464,
-      "pctVaerdiBeskyttet": 30.3757
+      "beskyttetHa": 11596.0896,
+      "overlapHa": 9193.5501,
+      "vaerdiUdenBeskyttelseHa": 9388.6857,
+      "pctVaerdiBeskyttet": 49.4749
     },
     "0563": {
       "kommuneNavn": "Fanø",
       "naturvaerdiHa": 5201.5243,
-      "beskyttetHa": 3131.4221,
-      "overlapHa": 3084.9848,
-      "vaerdiUdenBeskyttelseHa": 2116.5395,
-      "pctVaerdiBeskyttet": 59.3092
+      "beskyttetHa": 5817.9481,
+      "overlapHa": 4872.7808,
+      "vaerdiUdenBeskyttelseHa": 328.7435,
+      "pctVaerdiBeskyttet": 93.6799
     },
     "0573": {
       "kommuneNavn": "Varde",
       "naturvaerdiHa": 47792.8382,
-      "beskyttetHa": 29072.9311,
-      "overlapHa": 27487.7539,
-      "vaerdiUdenBeskyttelseHa": 20305.0843,
-      "pctVaerdiBeskyttet": 57.5144
+      "beskyttetHa": 29978.5724,
+      "overlapHa": 28042.8987,
+      "vaerdiUdenBeskyttelseHa": 19749.9395,
+      "pctVaerdiBeskyttet": 58.6759
     },
     "0575": {
       "kommuneNavn": "Vejen",
       "naturvaerdiHa": 18432.6847,
-      "beskyttetHa": 5587.7312,
-      "overlapHa": 5238.208,
-      "vaerdiUdenBeskyttelseHa": 13194.4767,
-      "pctVaerdiBeskyttet": 28.418
+      "beskyttetHa": 5588.0811,
+      "overlapHa": 5238.548,
+      "vaerdiUdenBeskyttelseHa": 13194.1367,
+      "pctVaerdiBeskyttet": 28.4199
     },
     "0580": {
       "kommuneNavn": "Aabenraa",
       "naturvaerdiHa": 28526.7891,
-      "beskyttetHa": 8444.9168,
-      "overlapHa": 7978.9869,
-      "vaerdiUdenBeskyttelseHa": 20547.8022,
-      "pctVaerdiBeskyttet": 27.9702
+      "beskyttetHa": 9505.7577,
+      "overlapHa": 8353.041,
+      "vaerdiUdenBeskyttelseHa": 20173.7481,
+      "pctVaerdiBeskyttet": 29.2814
     },
     "0607": {
       "kommuneNavn": "Fredericia",
@@ -558,18 +558,18 @@
     "0615": {
       "kommuneNavn": "Horsens",
       "naturvaerdiHa": 14657.9845,
-      "beskyttetHa": 5192.7822,
-      "overlapHa": 4998.5898,
-      "vaerdiUdenBeskyttelseHa": 9659.3947,
-      "pctVaerdiBeskyttet": 34.1015
+      "beskyttetHa": 6181.6604,
+      "overlapHa": 5306.5026,
+      "vaerdiUdenBeskyttelseHa": 9351.4819,
+      "pctVaerdiBeskyttet": 36.2021
     },
     "0621": {
       "kommuneNavn": "Kolding",
       "naturvaerdiHa": 12352.4359,
-      "beskyttetHa": 2870.7975,
-      "overlapHa": 2721.1531,
-      "vaerdiUdenBeskyttelseHa": 9631.2828,
-      "pctVaerdiBeskyttet": 22.0293
+      "beskyttetHa": 4049.8798,
+      "overlapHa": 3650.0169,
+      "vaerdiUdenBeskyttelseHa": 8702.419,
+      "pctVaerdiBeskyttet": 29.549
     },
     "0630": {
       "kommuneNavn": "Vejle",
@@ -622,10 +622,10 @@
     "0707": {
       "kommuneNavn": "Norddjurs",
       "naturvaerdiHa": 24119.2821,
-      "beskyttetHa": 6706.0353,
-      "overlapHa": 5720.8195,
-      "vaerdiUdenBeskyttelseHa": 18398.4626,
-      "pctVaerdiBeskyttet": 23.7189
+      "beskyttetHa": 6946.7565,
+      "overlapHa": 5916.6978,
+      "vaerdiUdenBeskyttelseHa": 18202.5843,
+      "pctVaerdiBeskyttet": 24.531
     },
     "0710": {
       "kommuneNavn": "Favrskov",
@@ -638,10 +638,10 @@
     "0727": {
       "kommuneNavn": "Odder",
       "naturvaerdiHa": 4292.4843,
-      "beskyttetHa": 1062.7844,
-      "overlapHa": 996.4216,
-      "vaerdiUdenBeskyttelseHa": 3296.0627,
-      "pctVaerdiBeskyttet": 23.2132
+      "beskyttetHa": 2448.7766,
+      "overlapHa": 1368.215,
+      "vaerdiUdenBeskyttelseHa": 2924.2693,
+      "pctVaerdiBeskyttet": 31.8747
     },
     "0730": {
       "kommuneNavn": "Randers",
@@ -702,10 +702,10 @@
     "0766": {
       "kommuneNavn": "Hedensted",
       "naturvaerdiHa": 10289.9871,
-      "beskyttetHa": 5692.6997,
-      "overlapHa": 4913.6209,
-      "vaerdiUdenBeskyttelseHa": 5376.3662,
-      "pctVaerdiBeskyttet": 47.7515
+      "beskyttetHa": 6001.0345,
+      "overlapHa": 4964.6595,
+      "vaerdiUdenBeskyttelseHa": 5325.3276,
+      "pctVaerdiBeskyttet": 48.2475
     },
     "0773": {
       "kommuneNavn": "Morsø",
@@ -750,10 +750,10 @@
     "0813": {
       "kommuneNavn": "Frederikshavn",
       "naturvaerdiHa": 28335.0912,
-      "beskyttetHa": 19342.338,
-      "overlapHa": 17753.3923,
-      "vaerdiUdenBeskyttelseHa": 10581.6989,
-      "pctVaerdiBeskyttet": 62.6551
+      "beskyttetHa": 19539.201,
+      "overlapHa": 17910.553,
+      "vaerdiUdenBeskyttelseHa": 10424.5382,
+      "pctVaerdiBeskyttet": 63.2098
     },
     "0820": {
       "kommuneNavn": "Vesthimmerlands",
@@ -766,10 +766,10 @@
     "0825": {
       "kommuneNavn": "Læsø",
       "naturvaerdiHa": 10351.9519,
-      "beskyttetHa": 5174.2962,
-      "overlapHa": 5131.3693,
-      "vaerdiUdenBeskyttelseHa": 5220.5826,
-      "pctVaerdiBeskyttet": 49.5691
+      "beskyttetHa": 6261.5142,
+      "overlapHa": 6159.2696,
+      "vaerdiUdenBeskyttelseHa": 4192.6823,
+      "pctVaerdiBeskyttet": 59.4986
     },
     "0840": {
       "kommuneNavn": "Rebild",
@@ -806,10 +806,10 @@
     "0860": {
       "kommuneNavn": "Hjørring",
       "naturvaerdiHa": 29024.1292,
-      "beskyttetHa": 11788.2831,
-      "overlapHa": 11271.5664,
-      "vaerdiUdenBeskyttelseHa": 17752.5628,
-      "pctVaerdiBeskyttet": 38.8352
+      "beskyttetHa": 11815.8886,
+      "overlapHa": 11276.3047,
+      "vaerdiUdenBeskyttelseHa": 17747.8245,
+      "pctVaerdiBeskyttet": 38.8515
     }
   }
 }

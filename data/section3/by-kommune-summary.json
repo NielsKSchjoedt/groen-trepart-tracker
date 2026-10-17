@@ -1,19 +1,19 @@
 {
-  "fetchedAt": "2026-09-11T21:23:39.207074+00:00",
+  "fetchedAt": "2026-10-05T20:14:14.826671+00:00",
   "source": "https://wfs2-miljoegis.mim.dk/natur/ows",
   "layer": "natur:ais_par3",
   "manifestHash": "980b378d029e2707",
   "municipalities": 98,
   "featureSum": 327335,
   "bytes": 190486980,
-  "durationSeconds": 25.6,
+  "durationSeconds": 2.4,
   "workers": 6,
   "errors": [],
   "byKommune": [
     {
       "kode": "0101",
       "navn": "København",
-      "status": "fetched",
+      "status": "cached",
       "features": 198,
       "bytes": 197379,
       "hash": "08e4386e40f91604"
@@ -21,7 +21,7 @@
     {
       "kode": "0147",
       "navn": "Frederiksberg",
-      "status": "fetched",
+      "status": "cached",
       "features": 4,
       "bytes": 2383,
       "hash": "ecbccc5ad643014c"
@@ -29,7 +29,7 @@
     {
       "kode": "0151",
       "navn": "Ballerup",
-      "status": "fetched",
+      "status": "cached",
       "features": 631,
       "bytes": 369469,
       "hash": "01f99d6e4f3e3bb5"
@@ -37,7 +37,7 @@
     {
       "kode": "0153",
       "navn": "Brøndby",
-      "status": "fetched",
+      "status": "cached",
       "features": 64,
       "bytes": 43575,
       "hash": "b2005d8f38ed7ec0"
@@ -45,7 +45,7 @@
     {
       "kode": "0155",
       "navn": "Dragør",
-      "status": "fetched",
+      "status": "cached",
       "features": 73,
       "bytes": 75669,
       "hash": "5937a69851095a3c"
@@ -53,7 +53,7 @@
     {
       "kode": "0157",
       "navn": "Gentofte",
-      "status": "fetched",
+      "status": "cached",
       "features": 126,
       "bytes": 85532,
       "hash": "8a507ca184b82ddd"
@@ -61,7 +61,7 @@
     {
       "kode": "0159",
       "navn": "Gladsaxe",
-      "status": "fetched",
+      "status": "cached",
       "features": 206,
       "bytes": 127897,
       "hash": "1464739675cb38b5"
@@ -69,7 +69,7 @@
     {
       "kode": "0161",
       "navn": "Glostrup",
-      "status": "fetched",
+      "status": "cached",
       "features": 50,
       "bytes": 27162,
       "hash": "54269ff840abed86"
@@ -77,7 +77,7 @@
     {
       "kode": "0163",
       "navn": "Herlev",
-      "status": "fetched",
+      "status": "cached",
       "features": 188,
       "bytes": 96790,
       "hash": "33d905b07db6c4ab"
@@ -85,7 +85,7 @@
     {
       "kode": "0165",
       "navn": "Albertslund",
-      "status": "fetched",
+      "status": "cached",
       "features": 112,
       "bytes": 61396,
       "hash": "1ac747582895a251"
@@ -93,7 +93,7 @@
     {
       "kode": "0167",
       "navn": "Hvidovre",
-      "status": "fetched",
+      "status": "cached",
       "features": 47,
       "bytes": 35049,
       "hash": "90bbfc817ad69e5b"
@@ -101,7 +101,7 @@
     {
       "kode": "0169",
       "navn": "Høje-Taastrup",
-      "status": "fetched",
+      "status": "cached",
       "features": 795,
       "bytes": 420369,
       "hash": "6b7e67af6f19e2cf"
@@ -109,7 +109,7 @@
     {
       "kode": "0173",
       "navn": "Lyngby-Taarbæk",
-      "status": "fetched",
+      "status": "cached",
       "features": 286,
       "bytes": 213035,
       "hash": "60e7b35bb048dcb3"
@@ -117,7 +117,7 @@
     {
       "kode": "0175",
       "navn": "Rødovre",
-      "status": "fetched",
+      "status": "cached",
       "features": 32,
       "bytes": 20269,
       "hash": "09d1690841aea145"
@@ -125,7 +125,7 @@
     {
       "kode": "0183",
       "navn": "Ishøj",
-      "status": "fetched",
+      "status": "cached",
       "features": 228,
       "bytes": 102143,
       "hash": "4032519651f9e196"
@@ -133,7 +133,7 @@
     {
       "kode": "0185",
       "navn": "Tårnby",
-      "status": "fetched",
+      "status": "cached",
       "features": 280,
       "bytes": 213762,
       "hash": "74ceab2c7370521b"
@@ -141,7 +141,7 @@
     {
       "kode": "0187",
       "navn": "Vallensbæk",
-      "status": "fetched",
+      "status": "cached",
       "features": 35,
       "bytes": 29247,
       "hash": "67d7b069ff363f65"
@@ -149,7 +149,7 @@
     {
       "kode": "0190",
       "navn": "Furesø",
-      "status": "fetched",
+      "status": "cached",
       "features": 1000,
       "bytes": 552657,
       "hash": "19edd03dece405db"
@@ -157,7 +157,7 @@
     {
       "kode": "0201",
       "navn": "Allerød",
-      "status": "fetched",
+      "status": "cached",
       "features": 1123,
       "bytes": 538445,
       "hash": "c2b95c1b62fa600b"
@@ -165,7 +165,7 @@
     {
       "kode": "0210",
       "navn": "Fredensborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 1488,
       "bytes": 683156,
       "hash": "af258153f68dc4a0"
@@ -173,7 +173,7 @@
     {
       "kode": "0217",
       "navn": "Helsingør",
-      "status": "fetched",
+      "status": "cached",
       "features": 1121,
       "bytes": 534830,
       "hash": "70d76e10a4fd91de"
@@ -181,7 +181,7 @@
     {
       "kode": "0219",
       "navn": "Hillerød",
-      "status": "fetched",
+      "status": "cached",
       "features": 2281,
       "bytes": 1138906,
       "hash": "e24fea1dbdfa3ae6"
@@ -189,7 +189,7 @@
     {
       "kode": "0223",
       "navn": "Hørsholm",
-      "status": "fetched",
+      "status": "cached",
       "features": 544,
       "bytes": 251788,
       "hash": "6c9eb0bc9613e134"
@@ -197,7 +197,7 @@
     {
       "kode": "0230",
       "navn": "Rudersdal",
-      "status": "fetched",
+      "status": "cached",
       "features": 793,
       "bytes": 440833,
       "hash": "050b68329b7a3c30"
@@ -205,7 +205,7 @@
     {
       "kode": "0240",
       "navn": "Egedal",
-      "status": "fetched",
+      "status": "cached",
       "features": 1789,
       "bytes": 1013287,
       "hash": "f88cbedc67c377eb"
@@ -213,7 +213,7 @@
     {
       "kode": "0250",
       "navn": "Frederikssund",
-      "status": "fetched",
+      "status": "cached",
       "features": 2927,
       "bytes": 1637121,
       "hash": "d721280ecb452191"
@@ -221,7 +221,7 @@
     {
       "kode": "0253",
       "navn": "Greve",
-      "status": "fetched",
+      "status": "cached",
       "features": 443,
       "bytes": 163713,
       "hash": "af07eb7d800f0a47"
@@ -229,7 +229,7 @@
     {
       "kode": "0259",
       "navn": "Køge",
-      "status": "fetched",
+      "status": "cached",
       "features": 2018,
       "bytes": 691247,
       "hash": "df0b4e47a6dec2f9"
@@ -237,7 +237,7 @@
     {
       "kode": "0260",
       "navn": "Halsnæs",
-      "status": "fetched",
+      "status": "cached",
       "features": 1172,
       "bytes": 733138,
       "hash": "77d7fc67a7e9a42f"
@@ -245,7 +245,7 @@
     {
       "kode": "0265",
       "navn": "Roskilde",
-      "status": "fetched",
+      "status": "cached",
       "features": 2655,
       "bytes": 1347738,
       "hash": "cb7bcc9557f2587f"
@@ -253,7 +253,7 @@
     {
       "kode": "0269",
       "navn": "Solrød",
-      "status": "fetched",
+      "status": "cached",
       "features": 197,
       "bytes": 81416,
       "hash": "ddba8285331e5a63"
@@ -261,7 +261,7 @@
     {
       "kode": "0270",
       "navn": "Gribskov",
-      "status": "fetched",
+      "status": "cached",
       "features": 2091,
       "bytes": 1080090,
       "hash": "3e253d95c0299d00"
@@ -269,7 +269,7 @@
     {
       "kode": "0306",
       "navn": "Odsherred",
-      "status": "fetched",
+      "status": "cached",
       "features": 2647,
       "bytes": 1252020,
       "hash": "80470bcb5dd9edbe"
@@ -277,7 +277,7 @@
     {
       "kode": "0316",
       "navn": "Holbæk",
-      "status": "fetched",
+      "status": "cached",
       "features": 7550,
       "bytes": 3280170,
       "hash": "cbd698dfb7efbd29"
@@ -285,7 +285,7 @@
     {
       "kode": "0320",
       "navn": "Faxe",
-      "status": "fetched",
+      "status": "cached",
       "features": 2592,
       "bytes": 1065132,
       "hash": "00cbeb3cfd563b5e"
@@ -293,7 +293,7 @@
     {
       "kode": "0326",
       "navn": "Kalundborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 6000,
       "bytes": 2794520,
       "hash": "1b95679fdd853576"
@@ -301,7 +301,7 @@
     {
       "kode": "0329",
       "navn": "Ringsted",
-      "status": "fetched",
+      "status": "cached",
       "features": 3450,
       "bytes": 1452655,
       "hash": "08e4045a3597fcab"
@@ -309,7 +309,7 @@
     {
       "kode": "0330",
       "navn": "Slagelse",
-      "status": "fetched",
+      "status": "cached",
       "features": 5282,
       "bytes": 2367792,
       "hash": "d677c82b5bbe5dd7"
@@ -317,7 +317,7 @@
     {
       "kode": "0336",
       "navn": "Stevns",
-      "status": "fetched",
+      "status": "cached",
       "features": 696,
       "bytes": 247748,
       "hash": "7f17d53c25c6ae61"
@@ -325,7 +325,7 @@
     {
       "kode": "0340",
       "navn": "Sorø",
-      "status": "fetched",
+      "status": "cached",
       "features": 4679,
       "bytes": 2039628,
       "hash": "bd284a64cd3deea2"
@@ -333,7 +333,7 @@
     {
       "kode": "0350",
       "navn": "Lejre",
-      "status": "fetched",
+      "status": "cached",
       "features": 2663,
       "bytes": 1271068,
       "hash": "7c95e7750e9c6bc2"
@@ -341,7 +341,7 @@
     {
       "kode": "0360",
       "navn": "Lolland",
-      "status": "fetched",
+      "status": "cached",
       "features": 834,
       "bytes": 626136,
       "hash": "f20d0027e77040d9"
@@ -349,7 +349,7 @@
     {
       "kode": "0370",
       "navn": "Næstved",
-      "status": "fetched",
+      "status": "cached",
       "features": 4614,
       "bytes": 2097125,
       "hash": "faae8b7918fb9500"
@@ -357,7 +357,7 @@
     {
       "kode": "0376",
       "navn": "Guldborgsund",
-      "status": "fetched",
+      "status": "cached",
       "features": 1240,
       "bytes": 962938,
       "hash": "9e5fc4c659768a57"
@@ -365,7 +365,7 @@
     {
       "kode": "0390",
       "navn": "Vordingborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 1322,
       "bytes": 953462,
       "hash": "03bf81a291c446bc"
@@ -373,7 +373,7 @@
     {
       "kode": "0400",
       "navn": "Bornholm",
-      "status": "fetched",
+      "status": "cached",
       "features": 3491,
       "bytes": 1679082,
       "hash": "120abe52190fa530"
@@ -381,7 +381,7 @@
     {
       "kode": "0410",
       "navn": "Middelfart",
-      "status": "fetched",
+      "status": "cached",
       "features": 2569,
       "bytes": 1901542,
       "hash": "8d4894287412c347"
@@ -389,7 +389,7 @@
     {
       "kode": "0420",
       "navn": "Assens",
-      "status": "fetched",
+      "status": "cached",
       "features": 5270,
       "bytes": 3840939,
       "hash": "66d48245fd50b1a3"
@@ -397,7 +397,7 @@
     {
       "kode": "0430",
       "navn": "Faaborg-Midtfyn",
-      "status": "fetched",
+      "status": "cached",
       "features": 6115,
       "bytes": 4476887,
       "hash": "8c64c9765f0f82c6"
@@ -405,7 +405,7 @@
     {
       "kode": "0440",
       "navn": "Kerteminde",
-      "status": "fetched",
+      "status": "cached",
       "features": 1590,
       "bytes": 1358898,
       "hash": "2edc5fc9029a24bf"
@@ -413,7 +413,7 @@
     {
       "kode": "0450",
       "navn": "Nyborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 2023,
       "bytes": 1653503,
       "hash": "57fe1338ff2253b8"
@@ -421,7 +421,7 @@
     {
       "kode": "0461",
       "navn": "Odense",
-      "status": "fetched",
+      "status": "cached",
       "features": 2308,
       "bytes": 1683757,
       "hash": "331690bf55729372"
@@ -429,7 +429,7 @@
     {
       "kode": "0479",
       "navn": "Svendborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 3325,
       "bytes": 2294524,
       "hash": "428177663100a87a"
@@ -437,7 +437,7 @@
     {
       "kode": "0480",
       "navn": "Nordfyns",
-      "status": "fetched",
+      "status": "cached",
       "features": 3227,
       "bytes": 2498859,
       "hash": "7007056a21cae823"
@@ -445,7 +445,7 @@
     {
       "kode": "0482",
       "navn": "Langeland",
-      "status": "fetched",
+      "status": "cached",
       "features": 2801,
       "bytes": 2101124,
       "hash": "395cfe352212d4fc"
@@ -453,7 +453,7 @@
     {
       "kode": "0492",
       "navn": "Ærø",
-      "status": "fetched",
+      "status": "cached",
       "features": 556,
       "bytes": 592528,
       "hash": "2af602cd0cf20c35"
@@ -461,7 +461,7 @@
     {
       "kode": "0510",
       "navn": "Haderslev",
-      "status": "fetched",
+      "status": "cached",
       "features": 5058,
       "bytes": 2129560,
       "hash": "c933cae5c939af69"
@@ -469,7 +469,7 @@
     {
       "kode": "0530",
       "navn": "Billund",
-      "status": "fetched",
+      "status": "cached",
       "features": 3703,
       "bytes": 2983941,
       "hash": "3efec2ff354a5924"
@@ -477,7 +477,7 @@
     {
       "kode": "0540",
       "navn": "Sønderborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 2136,
       "bytes": 1039443,
       "hash": "e6c4a28caa5e9d88"
@@ -485,7 +485,7 @@
     {
       "kode": "0550",
       "navn": "Tønder",
-      "status": "fetched",
+      "status": "cached",
       "features": 5049,
       "bytes": 1996294,
       "hash": "4f2f62ed88878237"
@@ -493,7 +493,7 @@
     {
       "kode": "0561",
       "navn": "Esbjerg",
-      "status": "fetched",
+      "status": "cached",
       "features": 4288,
       "bytes": 4322011,
       "hash": "ad5f6d17b9d7337d"
@@ -501,7 +501,7 @@
     {
       "kode": "0563",
       "navn": "Fanø",
-      "status": "fetched",
+      "status": "cached",
       "features": 590,
       "bytes": 1030310,
       "hash": "aecc0ebb3fc4169e"
@@ -509,7 +509,7 @@
     {
       "kode": "0573",
       "navn": "Varde",
-      "status": "fetched",
+      "status": "cached",
       "features": 8306,
       "bytes": 7587346,
       "hash": "07278a0acb91bb6e"
@@ -517,7 +517,7 @@
     {
       "kode": "0575",
       "navn": "Vejen",
-      "status": "fetched",
+      "status": "cached",
       "features": 4211,
       "bytes": 3097571,
       "hash": "99e66bd2540b029b"
@@ -525,7 +525,7 @@
     {
       "kode": "0580",
       "navn": "Aabenraa",
-      "status": "fetched",
+      "status": "cached",
       "features": 4021,
       "bytes": 2093185,
       "hash": "1c19236caee33051"
@@ -533,7 +533,7 @@
     {
       "kode": "0607",
       "navn": "Fredericia",
-      "status": "fetched",
+      "status": "cached",
       "features": 478,
       "bytes": 285613,
       "hash": "d83256153c73a78b"
@@ -541,7 +541,7 @@
     {
       "kode": "0615",
       "navn": "Horsens",
-      "status": "fetched",
+      "status": "cached",
       "features": 5063,
       "bytes": 2913699,
       "hash": "0e8c27630b28f32f"
@@ -549,7 +549,7 @@
     {
       "kode": "0621",
       "navn": "Kolding",
-      "status": "fetched",
+      "status": "cached",
       "features": 2632,
       "bytes": 1290108,
       "hash": "224abde5fbe0e114"
@@ -557,7 +557,7 @@
     {
       "kode": "0630",
       "navn": "Vejle",
-      "status": "fetched",
+      "status": "cached",
       "features": 4874,
       "bytes": 2657217,
       "hash": "3e69824a20251d80"
@@ -565,7 +565,7 @@
     {
       "kode": "0657",
       "navn": "Herning",
-      "status": "fetched",
+      "status": "cached",
       "features": 11557,
       "bytes": 6365061,
       "hash": "f337ea751bd37351"
@@ -573,7 +573,7 @@
     {
       "kode": "0661",
       "navn": "Holstebro",
-      "status": "fetched",
+      "status": "cached",
       "features": 7703,
       "bytes": 3582697,
       "hash": "e09f8d5db4d04090"
@@ -581,7 +581,7 @@
     {
       "kode": "0665",
       "navn": "Lemvig",
-      "status": "fetched",
+      "status": "cached",
       "features": 3436,
       "bytes": 1621913,
       "hash": "e3423d211302d7ec"
@@ -589,7 +589,7 @@
     {
       "kode": "0671",
       "navn": "Struer",
-      "status": "fetched",
+      "status": "cached",
       "features": 1711,
       "bytes": 799933,
       "hash": "8d0fb20c5e336aaf"
@@ -597,7 +597,7 @@
     {
       "kode": "0706",
       "navn": "Syddjurs",
-      "status": "fetched",
+      "status": "cached",
       "features": 5114,
       "bytes": 3056581,
       "hash": "1ec5e9940e77a1eb"
@@ -605,7 +605,7 @@
     {
       "kode": "0707",
       "navn": "Norddjurs",
-      "status": "fetched",
+      "status": "cached",
       "features": 4715,
       "bytes": 2947038,
       "hash": "a585ad76fcba4c13"
@@ -613,7 +613,7 @@
     {
       "kode": "0710",
       "navn": "Favrskov",
-      "status": "fetched",
+      "status": "cached",
       "features": 4837,
       "bytes": 3017394,
       "hash": "cc23edfe9ef735a6"
@@ -621,7 +621,7 @@
     {
       "kode": "0727",
       "navn": "Odder",
-      "status": "fetched",
+      "status": "cached",
       "features": 859,
       "bytes": 504642,
       "hash": "28a8a491b831d8f4"
@@ -629,7 +629,7 @@
     {
       "kode": "0730",
       "navn": "Randers",
-      "status": "fetched",
+      "status": "cached",
       "features": 5547,
       "bytes": 3559432,
       "hash": "feeb9025089e19ec"
@@ -637,7 +637,7 @@
     {
       "kode": "0740",
       "navn": "Silkeborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 7564,
       "bytes": 4513756,
       "hash": "e6096d5ff248cd27"
@@ -645,7 +645,7 @@
     {
       "kode": "0741",
       "navn": "Samsø",
-      "status": "fetched",
+      "status": "cached",
       "features": 582,
       "bytes": 384920,
       "hash": "69f252224f546afb"
@@ -653,7 +653,7 @@
     {
       "kode": "0746",
       "navn": "Skanderborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 3859,
       "bytes": 2576557,
       "hash": "4e9d72fd6dd83340"
@@ -661,7 +661,7 @@
     {
       "kode": "0751",
       "navn": "Aarhus",
-      "status": "fetched",
+      "status": "cached",
       "features": 3384,
       "bytes": 2250205,
       "hash": "a9978bac1711beed"
@@ -669,7 +669,7 @@
     {
       "kode": "0756",
       "navn": "Ikast-Brande",
-      "status": "fetched",
+      "status": "cached",
       "features": 7184,
       "bytes": 4278340,
       "hash": "14d6063fb87c4288"
@@ -677,7 +677,7 @@
     {
       "kode": "0760",
       "navn": "Ringkøbing-Skjern",
-      "status": "fetched",
+      "status": "cached",
       "features": 8617,
       "bytes": 5570400,
       "hash": "b416b5f826f5255f"
@@ -685,7 +685,7 @@
     {
       "kode": "0766",
       "navn": "Hedensted",
-      "status": "fetched",
+      "status": "cached",
       "features": 2376,
       "bytes": 1192992,
       "hash": "ec27e5a2f2b3b8ad"
@@ -693,7 +693,7 @@
     {
       "kode": "0773",
       "navn": "Morsø",
-      "status": "fetched",
+      "status": "cached",
       "features": 2658,
       "bytes": 1572204,
       "hash": "ef619a8e969d6a87"
@@ -701,7 +701,7 @@
     {
       "kode": "0779",
       "navn": "Skive",
-      "status": "fetched",
+      "status": "cached",
       "features": 4752,
       "bytes": 2676158,
       "hash": "5e5c872ebf7b3f70"
@@ -709,7 +709,7 @@
     {
       "kode": "0787",
       "navn": "Thisted",
-      "status": "fetched",
+      "status": "cached",
       "features": 6605,
       "bytes": 4170015,
       "hash": "1d0b108bcc3d4d46"
@@ -717,7 +717,7 @@
     {
       "kode": "0791",
       "navn": "Viborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 12278,
       "bytes": 6535500,
       "hash": "eeae583872d910c6"
@@ -725,7 +725,7 @@
     {
       "kode": "0810",
       "navn": "Brønderslev",
-      "status": "fetched",
+      "status": "cached",
       "features": 7758,
       "bytes": 4117297,
       "hash": "1e19d4b39141db2b"
@@ -733,7 +733,7 @@
     {
       "kode": "0813",
       "navn": "Frederikshavn",
-      "status": "fetched",
+      "status": "cached",
       "features": 9435,
       "bytes": 5379468,
       "hash": "9ee3f9547bc2aa6b"
@@ -741,7 +741,7 @@
     {
       "kode": "0820",
       "navn": "Vesthimmerlands",
-      "status": "fetched",
+      "status": "cached",
       "features": 6509,
       "bytes": 3654087,
       "hash": "aceee35209f9cc40"
@@ -749,7 +749,7 @@
     {
       "kode": "0825",
       "navn": "Læsø",
-      "status": "fetched",
+      "status": "cached",
       "features": 594,
       "bytes": 578573,
       "hash": "c04871452800a34d"
@@ -757,7 +757,7 @@
     {
       "kode": "0840",
       "navn": "Rebild",
-      "status": "fetched",
+      "status": "cached",
       "features": 9038,
       "bytes": 4814474,
       "hash": "60cb102f8c4039de"
@@ -765,7 +765,7 @@
     {
       "kode": "0846",
       "navn": "Mariagerfjord",
-      "status": "fetched",
+      "status": "cached",
       "features": 9148,
       "bytes": 4965084,
       "hash": "4bfd4833d4745425"
@@ -773,7 +773,7 @@
     {
       "kode": "0849",
       "navn": "Jammerbugt",
-      "status": "fetched",
+      "status": "cached",
       "features": 5296,
       "bytes": 2995129,
       "hash": "1898ffdd1e270ab4"
@@ -781,7 +781,7 @@
     {
       "kode": "0851",
       "navn": "Aalborg",
-      "status": "fetched",
+      "status": "cached",
       "features": 11595,
       "bytes": 6171785,
       "hash": "0a5a8ad4bfb2a241"
@@ -789,7 +789,7 @@
     {
       "kode": "0860",
       "navn": "Hjørring",
-      "status": "fetched",
+      "status": "cached",
       "features": 10374,
       "bytes": 5707519,
       "hash": "761afce3ddf66251"
