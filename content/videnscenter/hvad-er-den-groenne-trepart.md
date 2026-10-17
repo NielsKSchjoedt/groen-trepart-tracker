@@ -14,7 +14,7 @@ Denne side forklarer baggrunden: hvad aftalen er, hvordan den blev til, hvem den
 
 ## Hvad er det helt kort?
 
-Kernen i aftalen er **frivillig arealomlægning**: landbrugsjord tages ud af drift og omlægges til for eksempel skov, vådområder eller ekstensiveret natur. Det er tænkt som hovedmotoren til at nå aftalens mål. Samlet er ambitionen, at mindst 400.000 hektar landbrugsjord ikke længere skal dyrkes intensivt, men i stedet blive til skov, vådområder og natur — heraf 250.000 hektar ny skov og op til 140.000 hektar udtaget lavbundsjord.
+Kernen i aftalen er **frivillig arealomlægning**: landbrugsjord tages ud af drift og omlægges til for eksempel skov, vådområder eller ekstensiveret natur. Det er tænkt som hovedmotoren til at nå aftalens mål. Samlet er ambitionen, at omkring 390.000 hektar landbrugsjord ikke længere skal dyrkes intensivt, men i stedet blive til skov, vådområder og natur — heraf 250.000 hektar ny skov og op til 140.000 hektar udtaget lavbundsjord.
 
 Aftalen er økonomisk understøttet med en samlet politisk ramme på omkring **43 milliarder kroner**, hvoraf hovedparten er samlet i Danmarks Grønne Arealfond.
 

@@ -41,6 +41,13 @@ export function Footer({ fetchedAt }: FooterProps) {
               >
                 MARS (Multifunktionel ArealRegistrering)
               </a>
+              , Danmarks Miljøportal, DAWA m.fl. —{' '}
+              <Link
+                to="/data-og-metode#datakilder"
+                className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
+              >
+                se alle datakilder
+              </Link>
             </p>
             <p>Sidst opdateret: {formatted}</p>
           </div>
@@ -109,7 +116,14 @@ export function Footer({ fetchedAt }: FooterProps) {
 
           <p>
             Grøn Trepart Tracker er et uafhængigt, non-profit open source-projekt. Ingen kommercielle
-            interesser, ingen finansiering fra organisationer eller myndigheder.
+            interesser, ingen finansiering fra organisationer eller myndigheder. Siden er bygget med
+            omfattende brug af AI —{' '}
+            <Link
+              to="/data-og-metode#ai"
+              className="underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
+            >
+              sådan bruger vi AI
+            </Link>.
           </p>
 
           <p>

@@ -89,8 +89,9 @@ function IndexView({ sections }: { sections: Map<string, VidenscenterArticle[]> 
           Baggrund om Den Grønne Trepart
         </h1>
         <p className="text-muted-foreground leading-relaxed">
-          Neutrale baggrundsartikler om aftalen, dens mål, virkemidlerne og hvordan trackeren måler
-          fremdrift. Skrevet ud fra offentlige kilder for at gøre tallene i trackeren forståelige.
+          Baggrundsartikler om aftalen, dens mål, virkemidlerne og hvordan trackeren måler fremdrift.
+          Skrevet med hjælp fra AI ud fra offentlige kilder for at gøre tallene i trackeren
+          forståelige. Hvor vi vurderer noget, står det som en vurdering.
         </p>
       </header>
 
@@ -148,9 +149,19 @@ function ArticleView({ article }: { article: VidenscenterArticle }) {
       </article>
 
       <p className="text-xs text-muted-foreground mt-6 leading-relaxed">
-        Skrevet af Grøn Trepart Tracker ud fra offentlige kilder. Kilder er angivet nederst i
-        artiklen. Indholdet er neutralt baggrundsstof — vurderinger af fremdrift fremgår af selve
-        trackeren.
+        Skrevet med hjælp fra AI ud fra offentlige kilder, som er angivet nederst i artiklen. Teksten
+        er ikke fagligt gennemgået linje for linje, så der kan være fejl. Tallene i trackeren og de
+        oprindelige kilder gælder.{' '}
+        <Link to="/data-og-metode#ai" className="text-primary hover:underline">Sådan bruger vi AI</Link>
+        {' · '}
+        <a
+          href="https://github.com/NielsKSchjoedt/groen-trepart-tracker/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          Meld en fejl
+        </a>
       </p>
     </>
   );

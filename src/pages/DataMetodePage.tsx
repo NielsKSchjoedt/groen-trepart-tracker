@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Database, ExternalLink, ChevronDown, ChevronRight, RefreshCw,
   Shield, Leaf, TreePine, Landmark, Scale, FileCode2, AlertTriangle,
-  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History, Sprout, MapPinned,
+  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History, Sprout, MapPinned, Bot,
 } from 'lucide-react';
 import { changelog, CHANGE_TYPE_LABELS, type ChangeType } from '@/lib/changelog';
 import { Link } from 'react-router-dom';
@@ -347,7 +347,7 @@ const METHOD_SECTIONS = [
           <li><strong>Skov:</strong> det politiske mål er stadig 250.000 ha inden 2045. KF26 antager 2-3 års forskydning mellem tilsagn og tilplantning, så den modellerede realiseringsprofil løber til 2047.</li>
           <li><strong>Kvælstof:</strong> trackeren bruger fortsat MARS-målet for kollektive virkemidler. KF26 omtaler også 9.600 ton N efter den nye kvælstofregulering; det er en anden definition og vises ikke som erstatning uden særskilt dokumentation.</li>
         </ul>
-        <p>KF26 er i offentlig høring frem til 12. juni 2026, og endelig version forventes i september 2026. Tallene ligger struktureret i <code>data/kf26/trepart.json</code>.</p>
+        <p>Trackeren bruger høringsversionen af KF26 fra 12. maj 2026. Tallene opdateres, når den endelige version er offentliggjort. De ligger struktureret i <code>data/kf26/trepart.json</code>.</p>
       </>
     ),
   },
@@ -628,6 +628,7 @@ export default function DataMetodePage() {
             { href: '#soejler', label: 'Søjler & dataflow' },
             { href: '#biodiversitet', label: 'Biodiversitet' },
             { href: '#kommune-ranking', label: 'Kommune-rangliste' },
+            { href: '#ai', label: 'Brug af AI' },
             { href: '#kvalitet', label: 'Kvalitet' },
             { href: '#opdatering', label: 'Opdatering' },
             { href: '#metode', label: 'Metode' },
@@ -830,7 +831,7 @@ export default function DataMetodePage() {
             ))}
           </div>
           <p className="mb-4 rounded-lg border border-amber-200/60 bg-amber-50 px-3 py-2 text-xs text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-100">
-            Sprint 3-beslutning: DCE D1 kører som hits-only i daglig ETL (<code>FULL_DCE=0</code>). Den fulde fil materialiseres manuelt/periodisk, når filstørrelse og køretid er dokumenteret stabile nok til CI.
+            DCE D1 kører i den daglige datakørsel kun med træffere (<code>FULL_DCE=0</code>). Den fulde fil materialiseres manuelt/periodisk, når filstørrelse og køretid er dokumenteret stabile nok til CI.
           </p>
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Faglige rapporter og metodegrundlag
@@ -918,6 +919,61 @@ export default function DataMetodePage() {
           </p>
         </section>
 
+        {/* ========== Brug af AI ========== */}
+        <section id="ai">
+          <SectionHeader icon={Bot} title="Sådan bruger vi AI" />
+          <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+            Trackeren er bygget med omfattende hjælp fra AI. Her er, hvad det betyder for det, du læser.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Hvad AI er brugt til</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Kildekode, datascripts, tekster på siden og udkast til artiklerne i{' '}
+                <Link to="/videnscenter" className="text-primary hover:underline">videnscentret</Link>{' '}
+                er skrevet med hjælp fra AI-værktøjer (Claude).
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Tallene kommer ikke fra AI</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Tal, grafer, kort og ranglister beregnes af åben kode ud fra offentlige data som MARS.
+                Ingen sprogmodel finder på eller retter tal. Du kan følge hvert tal tilbage til kilden
+                via <a href="#datakilder" className="text-primary hover:underline">datakilderne</a>.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Vurderingerne er faste regler</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Formuleringer som "på sporet" og "når målet" laves af faste regler i koden, ikke af en
+                sprogmodel. Grænserne er valgt af os og kan ses i{' '}
+                <a href={ghLink('src/lib/projections.ts')} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">fremskrivningen</a>{' '}
+                og{' '}
+                <a href={ghLink('src/lib/kommune-indsats-status.ts')} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">kommunestatus</a>.
+                Er du uenig i en grænse, er det en rimelig uenighed.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Teksterne er ikke fagligt gennemgået</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Teksterne er ikke gennemgået linje for linje af en fagperson, og der kan være fejl,
+                især i baggrundsartiklerne. Står en tekst i modstrid med tallene i trackeren eller
+                med de oprindelige kilder, er det tallene og kilderne, der gælder.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+            Har du fundet en fejl?{' '}
+            <a href={`${REPO_URL}/issues`} target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Meld den på GitHub</a>.
+            Vi retter den og skriver åbent i{' '}
+            <a href="#aendringslog" className="text-primary hover:underline">ændringsloggen</a>, hvad der var forkert.
+            {' '}Baggrund, kildekode og hele projektets historik ligger åbent på{' '}
+            <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub</a>.
+          </p>
+        </section>
+
         {/* ========== 5. Datakvalitet og begrænsninger ========== */}
         <section id="kvalitet">
           <SectionHeader icon={AlertTriangle} title="Datakvalitet og begrænsninger" />
@@ -957,7 +1013,7 @@ export default function DataMetodePage() {
             <div className="p-5 rounded-xl bg-card border border-border">
               <p className="text-sm font-semibold text-foreground mb-2">Automatisk (GitHub Actions)</p>
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                Daglig kørsel kl. 06:00 UTC (08:00 dansk tid). Henter data fra
+                Daglig kørsel kl. 06:00 UTC (kl. 7 eller 8 dansk tid, afhængigt af sommertid). Henter data fra
                 MARS, DAWA, MiljøGIS, Danmarks Statistik og VanDa. Bygger dashboard-JSON
                 og committer ændringer til git automatisk.
               </p>

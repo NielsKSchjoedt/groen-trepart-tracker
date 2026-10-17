@@ -38,6 +38,16 @@ Disse tre ting — kærligheden til dansk natur, troen på open source som demok
 
 Grøn Trepart Tracker er et non-profit, filantropisk projekt. Det er ikke finansieret af nogen organisation, virksomhed eller myndighed, og der er ingen kommercielle interesser bag. Open source betyder, at al kode er åben — non-profit betyder, at der heller ikke er nogen, der tjener penge på det. Projektet eksisterer udelukkende for at skabe transparens om den grønne omstilling i Danmark.
 
+## Brug af AI
+
+Trackeren er bygget med omfattende hjælp fra AI (Claude): kildekode, datascripts, tekster på siden og udkast til artiklerne i videnscentret.
+
+- **Tallene kommer ikke fra AI.** Tal, grafer, kort og ranglister beregnes af åben kode ud fra offentlige data.
+- **Vurderingerne er faste regler.** Formuleringer som "på sporet" kommer fra tærskler i koden (`src/lib/projections.ts`, `src/lib/kommune-indsats-status.ts`), ikke fra en sprogmodel.
+- **Teksterne er ikke fagligt gennemgået linje for linje.** Der kan være fejl. Tallene og de oprindelige kilder gælder. Fejl meldes som [issues](https://github.com/NielsKSchjoedt/groen-trepart-tracker/issues) og rettes åbent i ændringsloggen.
+
+Commits lavet med AI-hjælp markeres med traileren `Assisted-by:`. Se også [Sådan bruger vi AI](https://treparttracker.dk/data-og-metode#ai) på sitet.
+
 ## Centrale mål
 
 
@@ -130,7 +140,7 @@ Alle opgaver er defineret i `mise.toml` og køres med `mise run <opgave>`:
 
 ## Datapipeline
 
-Data hentes dagligt af en GitHub Actions workflow (`.github/workflows/fetch-data.yml`, kører kl. 06:00 UTC) og committes til repoen. Alle Python-fetchere bruger kun standardbiblioteket — ingen pip-afhængigheder.
+Data hentes dagligt af en GitHub Actions workflow (`.github/workflows/fetch-data.yml`, kører kl. 06:00 UTC, dvs. kl. 7 eller 8 dansk tid) og committes til repoen. Alle Python-fetchere bruger kun standardbiblioteket — ingen pip-afhængigheder.
 
 1. **Hent** — Python-scripts trækker fra offentlige API'er (MARS, DAWA, MiljøGIS, Danmarks Statistik, KEFM)
 2. **Gem** — Rå JSON/Excel-svar lægges i `data/` og committes til git

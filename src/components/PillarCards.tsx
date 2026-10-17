@@ -28,7 +28,7 @@ const PILLAR_INFO: Record<PillarId, { description: React.ReactNode; source: stri
     description: (
       <>
         <p>Viser den samlede kvælstofreduktion opnået via kollektive virkemidler (vådområder, lavbundsarealer, minivådområder m.fl.) registreret i MARS.</p>
-        <p>Målet på 12.776 ton N/år dækker kollektive virkemidler. Det samlede politiske mål fra Den Grønne Trepart er 13.780 ton N/år inkl. øvrig regulering (bedriftskvoter m.m.) der ikke spores i MARS.</p>
+        <p>Målet på 12.776 ton N/år dækker kollektive virkemidler. Det samlede politiske mål fra Den Grønne Trepart er 13.800 ton N/år inkl. øvrig regulering (bedriftskvoter m.m.) der ikke spores i MARS.</p>
       </>
     ),
     source: 'MARS API (Miljøstyrelsen) — kun anlagte projekter',

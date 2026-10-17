@@ -86,7 +86,7 @@ function main() {
   const payload = {
     generated: new Date().toISOString(),
     count: articles.length,
-    note: 'Originale baggrundsartikler skrevet af Grøn Trepart Tracker ud fra offentlige kilder.',
+    note: 'Baggrundsartikler skrevet med hjælp fra AI ud fra offentlige kilder. Ikke fagligt gennemgået linje for linje.',
     articles,
   };
   fs.writeFileSync(OUT_PATH, JSON.stringify(payload, null, 2), 'utf8');

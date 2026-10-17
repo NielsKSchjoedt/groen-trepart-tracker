@@ -1,5 +1,32 @@
 [
   {
+    "version": "v1.0.6",
+    "date": "2026-10-17",
+    "summary": "Åben oplysning om brug af AI og fem rettede modstridigheder",
+    "changes": [
+      {
+        "type": "improvement",
+        "description": "Siden fortæller nu åbent, hvordan den er lavet med AI. Et nyt afsnit på Data og metode forklarer, hvad AI er brugt til (kode og tekster), at tallene ikke kommer fra en sprogmodel men fra åben kode og offentlige data, at vurderinger som «på sporet» er faste regler i koden, og at teksterne ikke er fagligt gennemgået linje for linje. Footeren og videnscentret linker dertil, og der er et link til at melde fejl."
+      },
+      {
+        "type": "fix",
+        "description": "Videnscentret kaldte artiklerne «neutrale baggrundsartikler», selvom de også indeholder vurderinger, og nævnte ikke, at de er skrevet med hjælp fra AI. Nu står det, at artiklerne er skrevet med AI ud fra offentlige kilder, ikke er fagligt gennemgået linje for linje, og at vurderinger står som vurderinger."
+      },
+      {
+        "type": "fix",
+        "description": "Kvælstofkortet angav det samlede politiske mål som 13.780 ton N/år, mens resten af siden siger 13.800 ton. Rettet til 13.800 ton."
+      },
+      {
+        "type": "fix",
+        "description": "Artiklen «Hvad er Den Grønne Trepart?» skrev «mindst 400.000 hektar», men de to delmål i samme sætning (250.000 ha skov og 140.000 ha lavbund) giver 390.000 ha. Rettet til «omkring 390.000 hektar»."
+      },
+      {
+        "type": "fix",
+        "description": "Metodesiden skrev, at KF26 var i høring frem til 12. juni 2026, og at den endelige version kom i september 2026 — begge datoer er passeret. Nu står der, at trackeren bruger høringsversionen fra 12. maj 2026 og opdateres, når den endelige version er ude. Desuden stod den daglige opdatering som «08:00 dansk tid», hvilket kun gælder om sommeren (nu: kl. 7 eller 8), og et internt arbejdsord («Sprint 3-beslutning») er fjernet fra teksten."
+      }
+    ]
+  },
+  {
     "version": "v1.0.5",
     "date": "2026-10-17",
     "summary": "Tallene følger nu MARS — nationalt og pr. kommune — og flere fejl er rettet",
