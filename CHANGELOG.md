@@ -17,26 +17,15 @@ Kommende ændringer noteres her løbende.
 
 ---
 
-## v1.0.6 — 17. oktober 2026
+## v1.0.0 — 18. oktober 2026
 
-**Åben oplysning om brug af AI og fem rettede modstridigheder**
-
-### Fejlrettelse
-- Videnscentret kaldte artiklerne «neutrale baggrundsartikler», selvom de også indeholder vurderinger, og nævnte ikke, at de er skrevet med hjælp fra AI. Nu står det, at artiklerne er skrevet med AI ud fra offentlige kilder, ikke er fagligt gennemgået linje for linje, og at vurderinger står som vurderinger.
-- Kvælstofkortet angav det samlede politiske mål som 13.780 ton N/år, mens resten af siden siger 13.800 ton. Rettet til 13.800 ton.
-- Artiklen «Hvad er Den Grønne Trepart?» skrev «mindst 400.000 hektar», men de to delmål i samme sætning (250.000 ha skov og 140.000 ha lavbund) giver 390.000 ha. Rettet til «omkring 390.000 hektar».
-- Metodesiden skrev, at KF26 var i høring frem til 12. juni 2026, og at den endelige version kom i september 2026 — begge datoer er passeret. Nu står der, at trackeren bruger høringsversionen fra 12. maj 2026 og opdateres, når den endelige version er ude. Desuden stod den daglige opdatering som «08:00 dansk tid», hvilket kun gælder om sommeren (nu: kl. 7 eller 8), og et internt arbejdsord («Sprint 3-beslutning») er fjernet fra teksten.
-
-### Forbedring
-- Siden fortæller nu åbent, hvordan den er lavet med AI. Et nyt afsnit på Data og metode forklarer, hvad AI er brugt til (kode og tekster), at tallene ikke kommer fra en sprogmodel men fra åben kode og offentlige data, at vurderinger som «på sporet» er faste regler i koden, og at teksterne ikke er fagligt gennemgået linje for linje. Footeren og videnscentret linker dertil, og der er et link til at melde fejl.
----
-
-## v1.0.5 — 17. oktober 2026
-
-**Tallene følger nu MARS — nationalt og pr. kommune — og flere fejl er rettet**
+**Version 1.0: indsats adskilt fra effekt, tal der følger MARS, kommune-rangliste og nyt videnscenter**
 
 ### Fejlrettelse
-- Projekttragten viste for lidt areal og kvælstof. Projekter, der ligger i flere kystvandoplande, blev kun talt med for ét oplands andel. Fx viste tragten 607 ha anlagt lavbund, mens MARS — og sidens egen overskrift — viste 735 ha, og 68.764 ha i forundersøgelse mod 74.577 ha (5. oktober). Fejlen kom ind med rettelsen i v1.0.4, der fjernede dobbelttælling af de samme projekter. Nu bruges hele projektets effekt, og tragten, fremskrivningen og overskriften viser de samme tal som MARS' nationale oversigt. (Teknisk: national effekt = summen af projektets kommune-afgrænsede rækker i MARS /status/municipality.)
+- Femfase-pipelinen viste de samme projekttal for kvælstof, lavbund og skov, selv om delmålene ikke har de samme projekter. Rettet, så hvert delmål kun tæller projekter med positiv effekt for netop det delmål.
+- Links til tilskudsordninger på projektdetaljerne kunne føre til sider, der ikke længere findes (404), fordi Landbrugsstyrelsens tilskudssider er flyttet til Styrelsen for Grøn Arealomlægning og Vandmiljø. Linkene peger nu de rigtige steder hen, og tomme pladsholder-links vises ikke længere.
+- Det samme MARS-projekt kunne optræde to gange i kommunelisten, når det indgår i flere kystvandgruppeplaner — det gav dobbeltvisning og forhindrede fold-ud. Listen viser nu ét projekt pr. fysisk projekt, og fold-ud virker stabilt.
+- Naturpipelinen talte kvælstofvådområder med som naturprojekter. De er taget ud. Naturindsatsen er nu lavbund plus al skovrejsning — med en særskilt opgørelse af 27,98 ha dokumenteret urørt skov. Overlap med eksisterende natur vises som stedspecifikt, ikke som et ubetinget plus.
 - 77 MARS-projekter — 13.514 ha lavbund og 842 ton kvælstof — manglede på alle kommunesider og i kommunesammenligningen. Den offentlige adresseservice DAWA, som vi brugte til at finde projekternes kommune, er lukket, og fejlen blev ikke opdaget. Fx stod Stevns med «Ingen data» for lavbund og så ud til at være foran nabokommunerne, selvom kommunen har 747 ha lavbund i forundersøgelse. Desuden blev et projekt, der krydser en kommunegrænse, lagt i én kommune: 29 af 98 kommuner havde lavbundstal, der afveg mere end 25 % fra MARS. Nu bruger vi MARS' egen kommuneopgørelse, hvor kun den del af et projekt, der ligger i kommunen, tæller med — kommunetallene svarer nu til MARS' kommunesider. (Teknisk: /api/status/municipality; byggeriet stopper nu, hvis et projekt mangler kommune.)
 - Den automatiske dataopdatering fejlede hver dag fra 6. oktober 2026, fordi DAWA blev lukket, så tallene på siden stod stille. Kommunegrænserne ligger nu fast i projektet, og ingen del af opdateringen afhænger længere af DAWA. Samtidig stopper en enkelt afbrudt forbindelse til MARS eller Klimaregnskabet ikke længere hele opdateringen.
 - I tabellen over kystvandoplande var antallet af projekter i forundersøgelse og med etableringstilsagn byttet om. Fx viste Vesterhavet, nord 117 projekter i forundersøgelse og 56 godkendt — det rigtige er 56 og 117. Årsagen er, at MARS' datafelter hedder det modsatte af, hvad de indeholder. Rettet, og en test slår nu alarm, hvis MARS ændrer det. (Teknisk: countAssessedProjects = etableringstilsagn, countApprovedProjects = forundersøgelsestilsagn.)
@@ -44,131 +33,11 @@ Kommende ændringer noteres her løbende.
 - Klimakortet viste «53 % → 69,8 % (mål 70 %)», som om Danmark lige akkurat misser målet. Klimalovens 70 %-mål måles på nettoudledningen inklusive jord og skov (LULUCF), og sådan når både KF25 (margen ca. 1,5 mio. ton) og KF26-høringsversionen (ca. 0,4 mio. ton) målet. Vi brugte en opgørelse uden LULUCF. Rettet: KF25 giver 72 % i 2030. (Kilde: KF26 del 1 — «nettoudledningerne i 2030 reduceres med ca. 70 pct. … opfyldt med en margen på ca. 0,4 mio. ton».)
 - Grafen over projekterne over tid placerede hvert projekt på den dato, det blev søgt, men i den fase det har i dag. Det fik antallet af anlagte projekter til at se ud til at stå næsten stille (126 i december 2025, 133 i oktober 2026), mens MARS' egen historik viser mere end en fordobling — fra 59 til 133. Grafen er nu omdøbt og forklaret, og MARS' faktiske udvikling står under den.
 - Klimaskovfondens projekter i skovvisningerne var fra marts 2026 (210 projekter, 2.284 ha), mens overskriften brugte den daglige opdatering (280 projekter, 3.119 ha). Nu opdateres begge dagligt.
-- Under «Proces & fremdrift» og «Hvem står bag projekterne?» blev et projekt i flere kystvandoplande talt med én gang pr. opland. Nu tælles det én gang.
 - Kommunesiderne målte kvælstoftempoet mod 2030, mens målet — og forsiden — bruger 2027. Det fik kommunernes kvælstoftempo til at se ca. dobbelt så godt ud. Rettet.
-- Tre beløb i økonomien henviste til et dokument, hvor de ikke står: ~43 mia. kr. (står i aftalen om implementering, 18.11.2024), Novo Nordisk Fondens 10 mia. kr. (står i udmøntningsaftalen med fonden, 7.2.2025) og 740 mio. kr. til jordfordeling (står i rammeaftalen med KL). Hvert beløb henviser nu til sin egen kilde. Arealfonden stod som «≥ 40 mia.»; aftalen siger «omtrent 40 mia.» — rettet.
-- Siden Data & metode skrev stadig, at det beskyttede areal «korrigeres for ~30 % overlap», og daterede aftalen til december 2023. Begge dele er rettet: 15,3 % er OECD's estimat, og aftalen er fra 24. juni 2024.
 - Nogle procenter og små tal på kommunesiderne blev afrundet forkert: 20,49 % blev vist som 21 % ét sted og 20 % et andet, og små mængder som 0,47 ton kvælstof blev vist som 0. Rettet.
-
-### Metodeændring
-- Kvælstoftallet følger nu MARS' nationale opgørelse præcist: permanent ekstensivering (45 ton fra 798 tilsagn), som MARS opgør for sig, er med, og kvælstofeffekt tælles kun i deloplande med et indsatsbehov — som MARS gør. Samlet: 6.220 ton i alle faser, samme tal som MARS' oversigt.
-- «Beskyttet natur der dyrkes» tæller nu kun marker med afgrøder, som MARS selv regner som landbrug, og bruger det korrekte Natura 2000-areal på land (se ovenfor). Nationalt er andelen 31,3 % (før 36,4 %); Viborg 40,6 % (før 56,6 %). (Teknisk: MARS' Afgkode-udelukkelsesliste fra fieldDatasetConfigurations.)
-- «2 % af trepartens klimabidrag (~1,8 mio. ton) er anlagt» blandede to ting: de 1,8 mio. ton er aftalens samlede skøn — inklusiv bl.a. CO₂e-afgiften på husdyr — mens de 2 % er arealet af skov og lavbund. Teksten siger nu, at det er skov- og lavbundsarealet, der er anlagt.
-- Skovrejsning «anlagt» talte Naturstyrelsens igangværende projekter med (ca. 2.400 ha), hvor jorden er købt, men skoven ikke plantet. Nu tæller kun de afsluttede projekter som anlagt, og de igangværende vises for sig. Anlagt skov er nu ca. 5.500 ha (før 7.892 ha).
-- Naturkortet sagde «Står stille». Det kunne vi ikke vide: både udgangspunktet og det aktuelle tal er OECD's estimat fra 2024, så forskellen er altid nul. Kortet siger nu, at tilvæksten endnu ikke kan måles.
-
-### Forbedring
-- Opdateringsmærket siger nu «MARS-data opdateret», fordi de øvrige kilder har egne datoer.
-
-### Dataopdatering
-- Datagrundlaget er opdateret med MARS-udtrækket fra . oktober 2026.
----
-
-## v1.0.4 — 5. oktober 2026
-
-**Publicerbar natur- og kommunevisning: unikke projekter, vandmiljø som mål, ærligere overlap**
-
-### Fejlrettelse
-- Naturpipelinen talte kvælstofvådområder med som naturprojekter. De er taget ud. Naturindsatsen er nu lavbund plus al skovrejsning — med en særskilt opgørelse af 27,98 ha dokumenteret urørt skov. Overlap med eksisterende natur vises som stedspecifikt, ikke som et ubetinget plus.
-- Tal for beskyttet natur stod som «korrigeret for ca. 30 % overlap». 15,3 % er OECD's estimat fra 2024 — ikke en GIS-union af vores egne kortlag. Teksten siger det nu.
-- På kommunekortet kunne projektpanelet skubbe kortet i højden, så man mistede overblikket (typisk når man åbnede et skovrejsningsprojekt). Panelet scroller nu inden for kortets højde.
-
-### Metodeændring
-- Naturpipelinen talte det samme projekt flere gange, når det lå i flere kystvandoplande. Nu tælles hvert projekt kun én gang. Lige nu er der 1.605 unikke MARS-projekter, og 912 af dem er lavbund eller skovrejsning. (Teknisk: deduplikering på projekt-id i computePillarProjects.)
-- På kommunesiderne talte standardvisningen kun anlagte projekter. Nu tæller forundersøgelse, godkendt og anlagt med — skitser gør det stadig ikke. Ranglisten og kortet følger det samme fasefilter.
-- Vandmiljø stod som «ikke målsat». Det er et retligt mål: god økologisk tilstand i alle 109 kystvande senest 22. december 2027 (lov om vandplanlægning § 7 stk. 2 nr. 2 og § 10 stk. 3). Trepartens kvælstof-tons er nødvendige, men ikke nok til god tilstand. Trackeren påstår ikke, at målet er udskudt ét år til 2028.
-
-### Forbedring
-- Fra nøgletal og kommune-benchmarks kan man åbne kortet med de rigtige lag tændt — naturpotentiale, Natura 2000 eller §3 — i fuld skærm.
-- Projektlisten viser overlap med naturpotentiale i hektar, eller «0 ha overlap», så man ikke skal åbne hvert projekt for at se det.
-- Kommunekortets farveskala har tal (procent eller hektar) i stedet for kun «høj / middel / lav». En kort forklaring under kortet siger, hvad farven måler.
-- På den enkelte kommuneside kan man skifte kommune i overskriften uden at gå tilbage til listen. Adressen og filtrene følger med.
-- «Det vi vil gøre» og «Det vi vil opnå» har fået en sætning hver, så forskellen mellem indsats og effekt er tydelig uden at åbne mere.
-- Økonomien viser de tre pengestrømme i samme enhed — cirka 43, 0,46 og 0 mia. kr. — så det er synligt, at der er mange penge til at lave projekter, få til at implementere og ingen til at drifte. 461,8 mio. kr. til kapacitet er vores læsning af Rammeaftale MGTP–KL tabel 1, ikke et uafhængigt tjekket tal.
-
-### Dataopdatering
-- Datagrundlaget er opdateret med det daglige MARS-udtræk fra 5. oktober 2026 (fusioneret fra main).
-
-### Fjernet
-- Dyre-silhuetterne bag naturtal og kort er fjernet, så de ikke konkurrerede med tallene.
----
-
-## v1.0.3 — 15. juni 2026
-
-**Ny sektion «Proces & fremdrift» på kommunesider**
-
-### Ny funktion
-- Kommunesider har fået en ny sektion «Proces & fremdrift» der viser hvor langt kommunens MARS-projekter er i faserne — sammenlignet med naboer i samme lokale trepart og med landsgennemsnittet. Sektionen viser fasefordeling i hektar, momentum de seneste 6 måneder (både antal projekter og hektar), median tid i forundersøgelse, seneste milepæle og en nabosammenligning med dropdown. En forbeholds-boks forklarer at tilsagn gives af SGAV — ikke kommunen — og at projektantal og hektar kan pege hver sin vej.
-
-### Forbedring
-- Når du vælger et delmål fra kortet på forsiden, bliver du på kortsektionen — URL'en får et kort-anker (#kort), så siden ikke hopper tilbage til toppen.
-- På forsiden ligger et kortafsnit mellem delmålskortene og økonomien — med Danmarkskortet sløret i baggrunden og delmålsprikkerne ovenpå, som på kommuneoversigten. Vælg et delmål for at gå videre til projekter, kort og fremskrivninger.
-- På kommuneoversigten vises delmålene som farvede prikker direkte på kortet, når du endnu ikke har valgt et indsatsområde. Når du vælger, skifter visningen til den kompakte menu med fasefilter og kortindstillinger.
-- Teksten under «Kort sagt» på forsiden er opdelt i korte afsnit og punktliste, så den er nemmere at skimme. Vandmiljø nævnes nu på samme overordnede niveau som de øvrige effekter — uden det konkrete antal kystvande i god tilstand.
-- I nabosammenligningen under «Proces & fremdrift» vises grænsenaboer (fælles kommunegrænse) først i dropdownen — ikke trepart-naboer fra samme vandoplandsplan. Horsens og Samsø kan dele trepart med Odense uden at være grænsenaboer; de ligger nu under «Øvrige kommuner». Gennemsnitsbjælken hedder «Trepart-naboer gns.» for at skille de to begreber ad.
-- «Den fulde liste» har fået den samme filterrække som ranglisten (område, Mod målet / Ift. ansvar / Absolut og Projektfaser) — så du kan ændre visning uden at scrolle tilbage til toppen.
-- Knapper og vælgere i kontrolrækker (rangliste, kort, projekter og projektliste) har fået samme størrelse og valgt-stil — grøn markering på segmenter og ens trigger-knapper til dropdowns som Projektfaser og Kortvisning.
-- Kortkontrollerne på kommuneoversigten og enkelt-kommunesider bruger nu den kompakte menu på alle skærmstørrelser: indsatsområde-dropdown, Projektfaser og Kortvisning — i stedet for mange rækker med pill-knapper og tilvalg-toggles.
----
-
-## v1.0.2 — 14. juni 2026
-
-**Versionsnummer og «ny version»-meddelelse øverst på siden**
-
-### Fejlrettelse
-- Kortvisning-knappen på kommune-kortet viste en lille prik som aktiv-indikator. Den viser nu et tydeligt tal (som Projektfaser) — fx «1» når et tilvalg som Klimaskovfonden er slået til.
-- Faseprofilen «Hvor langt er kommunen i faserne?» viste 0 % i alle bjælker for kommuner der kun har skitseprojekter (fx Vallensbæk). Nu står der i stedet tydeligt at al indsats endnu ligger i skitsefase — med hektar — indtil projekter kommer i de formelle faser.
-- Sektionsmenuen øverst på mobil (Målene, Projekter, Geografi …) gav vandret overflow på små skærme. Den kan nu scrolles inde i baren uden at siden bliver bredere.
-- Filtre-knappen på kommunelisten viste ingen tæller, når kun «anlagt» var valgt — selv om det er standard, er det stadig ét aktivt fasevalg. Knappen viser nu altid antallet af valgte faser (fx «1»).
-- I fremskrivningen sprang eksterne kilder (Klimaskovfonden, Naturstyrelsen m.fl.) tilbage til «tændt», når man slukkede dem alle — det var en fejl i link-kodningen. Slukket-tilstand holdes nu, og forskellen mellem tændt og slukket er tydeligere visuelt. Tomme fremskrivnings-links ser også pænere ud i adresselinjen (`?frem=ingen#fremskrivning` i stedet for `?frem=#fremskrivning`).
-- Hintet «Vælg et delmål for at dykke ned i detaljerne» kunne ikke lukkes med X-knappen på forsiden. Rettet — lukning gemmes som ved andre hints.
-- På kommunesider forsvandt metrik-, fase- og kildetoggles, når man åbnede kortet i fuld skærm. Filtrene følger nu med ind i fuldskærmsvisningen — samme adfærd som på det nationale kort.
-- På enkeltkommunesider forsvandt «Alle kommuner»-linket, når man scrollede ned ad siden. Det ligger nu også i den sticky navigationsbjælke, så du altid kan gå tilbage til kommunelisten.
-
-### Ny funktion
-- Når du scroller gennem siden, opdateres adresselinjen automatisk med sektionens anker (fx #oekonomi), så du kan dele præcis hvor du er. De grønne kapiteloverskrifter og sektionslinks i navigationsbjælken viser et lille link-ikon, når du holder musen over — klik for at kopiere linket til sektionen.
-- Øverst på siden vises nu et diskret versionsnummer (link til ændringsloggen) og — ved nye udgivelser — en lille «Ny version»-meddelelse med overskrift, dato og link til at læse mere. Meddelelsen kan lukkes og vises ikke igen, før næste version.
-- Enkeltkommunesider har nu samme kapitelnavigation som oversigten: Status, Kort og Projekter med ankerlinks, sticky sektionsbjælke og delbare #status / #kort / #projekter-URL'er.
-- Kommunekortenes Lag-knap viser nu de samme baggrundskort som på det nationale kort (kystvande, markudledning, biodiversitets-WMS, §3 m.fl.). MARS-projekter følger fasefilteret; Klimaskovfonden og Naturstyrelsen tændes via tilvalg-knapperne — ikke i Lag-panelet, så du ikke møder det samme valg to steder. Valget gemmes i linket (`overlag=`).
-
-### Forbedring
-- Sitemap (sitemap.xml) dækker nu alle offentlige sider automatisk — inkl. forsiden, alle 98 kommuner og videnscenter-artikler — med seneste opdateringsdato. Tidligere manglede forsiden, og kommune-URL'er skulle vedligeholdes manuelt.
-- Feedback-knappen nederst til venstre har fået tydeligere tekst: «Fejl, feedback eller ønsker» — ikke kun fejlrapportering.
-- Nøgletal-kortet for beskyttet natur viser nu opdeling som de øvrige mål: §3, Natura 2000, DCE 30 %-potentiale og MARS-projekters overlap med naturpotentiale — med overskrift som «1.499 ha beskyttet (65 ha naturpotentiale)» når begge dele findes.
-- Nøgletal-kort for kvælstof, lavbund og skov viser nu «0 ton N anlagt (318 ton N i proces)» — tydelig skelnen mellem det der er fysisk anlagt og det der stadig er i pipeline. Skov tæller KSF/NST med under anlagt.
-- MARS-fasefordelingen under nøgletal vises nu inde i hvert mål-kort (kvælstof, lavbund, skov) — i stedet for én fælles liste nederst.
-- Kortene kan nu zoomes et niveau tættere ind — både det nationale kort, kommunekortet og projektkortene — så enkeltprojekter og små kommuner er nemmere at se i detaljer.
-- Vandmiljø-kortet under Effekt siger nu kort, at det er hovedeffekten af kvælstofindsatsen — og badge «Hovedeffekt af kvælstof» i stedet for «Ikke målsat».
-- Mål-kortene på forsiden viser nu «tid gået» (med ur) og «anlagt» (med spade) ved de to bjælker — tydeligere end bare «tid».
-- Ranglistekortene vender nu med en lille 3D-flip-animation, når du trykker «Hvordan virker det?» — og tilbage igen med «Rangliste».
-- På enkelt-kommunesiden er det tydeligere hvad der er mål (Lavbund, Skov, Kvælstof) og hvad der er status: målet står i gråt, status vises med pil op / midt / ned i stedet for farvet baggrund.
-- På kommunekort og nationalt kort ligger fasefilter nu på samme linje som grundkort og «Vis som». Supplerende kilder (Klimaskovfonden, Naturstyrelsen) er skiftet til enkle af/på-kontakter — samme type som kortlagene i Lag-panelet.
-- «Sådan virker tallene» er flyttet ud af fasefilteret. Hver ranglistekort (lavbund, skov, kvælstof, natur, CO₂) har nu et vend-knap i hjørnet — tryk for at se hvordan netop den liste beregnes, og «Rangliste» for at vende tilbage.
-- Fasefilteret på kort (nationalt kort, kommunekort og enkelt-kommune) er nu samlet i en kompakt «Fasefilter»-knap med tæller — samme mønster som på ranglisten. Supplerende kilder (Klimaskovfonden, Naturstyrelsen) står for sig i en egen boks.
-- MARS-projekter på kortet forbliver som prikker længere, når du zoomer ind. Hvert projekt skifter først til den rigtige form, når formen på skærmen er mindst lige så stor som prikken — så små projekter undgår at blive til næsten-usynlige firkanter for tidligt.
-- På en enkelt kommuneside kan du nu skifte kortvisning direkte på siden — samme metrik, faser, supplerende kilder og kortkontroller (grundkort, absolut/ift. ansvar) som på oversigten over alle kommuner. Du behøver ikke gå tilbage til listen for at ændre visningen.
-- Fasefilteret (anlagt, godkendt, forundersøgelse) findes nu også direkte i kontrolbjælken over ranglisterne — ikke kun ved kortet. Valget gælder rangliste, kort og den fulde kommuneliste på én gang.
-- På kommuneoversigten og enkeltkommunesider skifter siden ikke længere baggrundsfarve, når du vælger et kort-mål — det var kun kortet, der ændrede sig. Delmål-linkene (Kvælstof, Lavbund m.fl.) er fjernet fra den sticky topbjælke på kommunesider; brug National/Kommuner-skifteren for at gå tilbage til landsoversigten.
-- Filterbjælken over ranglisten (område, fase, levering) hænger kun fast under scroll på mobil — på desktop scroller den med siden som resten af indholdet.
-- Kommune-siderne har fået flere springpunkter i navigationsbjælken. Oversigten over alle kommuner starter med en kort «Oversigt»-sektion og har derefter Ranglister, Kort og Den fulde liste. På enkeltkommunesider er det lange «Projekter»-afsnit opdelt i Nøgletal, Faseprofil, Natur & opland, CO₂ og Projekter — så du kan hoppe direkte til det, du leder efter.
----
-
-## v1.0.1 — 14. juni 2026
-
-**Delbare links genskaber hele visningen — sektion, kort, projekter og kommune-rangliste**
-
-### Ny funktion
-- Du kan nu kopiere et link, der genskaber præcis den visning du ser: hvilken sektion du er scrollet til, kortets lag og faser, fuld skærm, antal vs. areal, fremskrivningens stadievalg, kommune-ranglistens sortering — og åbne projekter (MARS, Klimaskovfonden, Naturstyrelsen). Brug «Kopiér link» i navigationsbjælken, på kortet, i fremskrivningen og på kommunesiderne. Eksisterende links med ?projekt=mars:… og ?lag=… virker stadig.
----
-
-## v1.0.0 — 14. juni 2026
-
-**Stor relancering (1.0): indsats adskilt fra effekt, ny vidensbank, kommune-rangliste med detaljesider og kort med projekterne i front**
-
-### Fejlrettelse
-- Femfase-pipelinen viste de samme projekttal for kvælstof, lavbund og skov, selv om delmålene ikke har de samme projekter. Rettet, så hvert delmål kun tæller projekter med positiv effekt for netop det delmål.
-- Links til tilskudsordninger på projektdetaljerne kunne føre til sider, der ikke længere findes (404), fordi Landbrugsstyrelsens tilskudssider er flyttet til Styrelsen for Grøn Arealomlægning og Vandmiljø. Linkene peger nu de rigtige steder hen, og tomme pladsholder-links vises ikke længere.
-- Det samme MARS-projekt kunne optræde to gange i kommunelisten, når det indgår i flere kystvandgruppeplaner — det gav dobbeltvisning og forhindrede fold-ud. Listen viser nu ét projekt pr. fysisk projekt, og fold-ud virker stabilt.
+- Kvælstofkortet angav det samlede politiske mål som 13.780 ton N/år, mens resten af siden siger 13.800 ton. Rettet til 13.800 ton.
+- Beskyttet natur stod som «korrigeret for ca. 30 % overlap» mellem Natura 2000 og §3, og Data & metode daterede aftalen til december 2023. 15,3 % er OECD's estimat fra 2024 — ikke en beregning af overlap i vores egne kortlag — og aftalen er fra 24. juni 2024. Begge dele er rettet.
+- Data & metode skrev, at den daglige opdatering sker «08:00 dansk tid», hvilket kun gælder om sommeren. Nu står der kl. 7 eller 8.
 
 ### Metodeændring
 - «Tid gået siden aftalen» og alle fremskrivninger regner nu fra underskriftsdatoen 24. juni 2024 — ikke 1. januar 2024 — så det matcher sidens egen tekst om, hvornår aftalen blev indgået.
@@ -180,6 +49,12 @@ Kommende ændringer noteres her løbende.
 - Status-tærsklerne i fremskrivningen er strammet, så «Tæt på målet» først bruges fra 80 % af målet og «Delvis dækning» fra 50 %. Tidligere kunne der stå «Tæt på målet» allerede ved 16–64 %, selv om langt det meste manglede.
 - Data til dashboardet deles ved den daglige opdatering i en let oversigtsfil og en separat fil med projektdetaljer, så de vigtigste tal og kort kan vises hurtigere.
 - Projekttragt og fremskrivning dækker nu forvaltningens fulde fem-fase-model (skitse → tilsagn → færdig forundersøgelse → etableringstilsagn → anlagt) med frafald undervejs — hvor v1 kun havde en grov tredeling. Det giver et mere præcist billede af, hvor projekterne reelt står i forløbet.
+- På kommunesiderne talte standardvisningen kun anlagte projekter. Nu tæller forundersøgelse, godkendt og anlagt med — skitser gør det stadig ikke. Ranglisten og kortet følger det samme fasefilter.
+- Vandmiljø vises som et mål med en frist, fordi det er et retligt mål: god økologisk tilstand i alle 109 kystvande senest 22. december 2027 (lov om vandplanlægning § 7 stk. 2 nr. 2 og § 10 stk. 3). Trepartens kvælstof-tons er nødvendige, men ikke nok til god tilstand. Trackeren påstår ikke, at målet er udskudt ét år til 2028.
+- Kvælstoftallet følger nu MARS' nationale opgørelse præcist: permanent ekstensivering (45 ton fra 798 tilsagn), som MARS opgør for sig, er med, og kvælstofeffekt tælles kun i deloplande med et indsatsbehov — som MARS gør. Samlet: 6.220 ton i alle faser, samme tal som MARS' oversigt.
+- «Beskyttet natur der dyrkes» tæller kun marker med afgrøder, som MARS selv regner som landbrug, og bruger det korrekte Natura 2000-areal på land (se nedenfor). Nationalt er andelen 31,3 %; i Viborg 40,6 %. (Teknisk: MARS' Afgkode-udelukkelsesliste fra fieldDatasetConfigurations.)
+- Skovrejsning «anlagt» tæller kun Naturstyrelsens afsluttede projekter. Igangværende projekter (ca. 2.400 ha), hvor jorden er købt, men skoven ikke plantet, vises for sig. Anlagt skov er ca. 5.500 ha.
+- Projekttragten, fremskrivningen og overskriften viser nu de samme tal som MARS' nationale oversigt. Et projekt, der ligger i flere kystvandoplande, tælles én gang og med hele sin effekt. Lige nu er der 1.605 unikke MARS-projekter, og 912 af dem er lavbund eller skovrejsning. (Teknisk: national effekt = summen af projektets kommune-afgrænsede rækker i MARS /status/municipality.)
 
 ### Ny funktion
 - Forsiden viser nu to ærlige hovedtal i stedet for ét sammenvejet gennemsnit: Indsats (hvad treparten faktisk anlægger — skovrejsning, lavbundsarealer og kvælstofvådområder) og Effekt (klima, vandmiljø og natur). De to blandes aldrig sammen, så CO₂ og beskyttet natur ikke længere trækker det samlede tal kunstigt op — og det bliver tydeligt, at selve anlægsarbejdet stadig er i en meget tidlig fase.
@@ -195,6 +70,12 @@ Kommende ændringer noteres her løbende.
 - Biodiversitets- og omlægningskort kan slås til på Danmarkskortet: gennemsigtige lag fra Arealdata (WMS) og polygoner for Vand, natur & skov 2026 fra Fødevareministeriet.
 - De geografiske kort kan nu åbnes i fuld skærm — med lagvælger, grundkort og signaturforklaring bevaret, så du kan udforske kortet uden at miste kontekst.
 - Nyt økonomiafsnit «Er der penge nok til at nå målene?», som ikke fandtes før. Det skelner mellem projekttilskud (ca. 43 mia. kr.), kommunal planlægningskapacitet (461,8 mio. kr.) og det uafsatte hul til drift efter anlæg. På forsiden ses det samlede overblik over de to pengestrømme; på delmålssiderne ses økonomien for det valgte tema med realisering, satser og kilder.
+- Du kan nu kopiere et link, der genskaber præcis den visning du ser: hvilken sektion du er scrollet til, kortets lag og faser, fuld skærm, antal vs. areal, fremskrivningens stadievalg, kommune-ranglistens sortering — og åbne projekter (MARS, Klimaskovfonden, Naturstyrelsen). Brug «Kopiér link» i navigationsbjælken, på kortet, i fremskrivningen og på kommunesiderne. Eksisterende links med ?projekt=mars:… og ?lag=… virker stadig.
+- Når du scroller gennem siden, opdateres adresselinjen automatisk med sektionens anker (fx #oekonomi), så du kan dele præcis hvor du er. De grønne kapiteloverskrifter og sektionslinks i navigationsbjælken viser et lille link-ikon, når du holder musen over — klik for at kopiere linket til sektionen.
+- Øverst på siden vises nu et diskret versionsnummer (link til ændringsloggen) og — ved nye udgivelser — en lille «Ny version»-meddelelse med overskrift, dato og link til at læse mere. Meddelelsen kan lukkes og vises ikke igen, før næste version.
+- Enkeltkommunesider har nu samme kapitelnavigation som oversigten: Status, Kort og Projekter med ankerlinks, sticky sektionsbjælke og delbare #status / #kort / #projekter-URL'er.
+- Kommunekortenes Lag-knap viser nu de samme baggrundskort som på det nationale kort (kystvande, markudledning, biodiversitets-WMS, §3 m.fl.). MARS-projekter følger fasefilteret; Klimaskovfonden og Naturstyrelsen tændes via tilvalg-knapperne — ikke i Lag-panelet, så du ikke møder det samme valg to steder. Valget gemmes i linket (`overlag=`).
+- Kommunesider har fået en ny sektion «Proces & fremdrift» der viser hvor langt kommunens MARS-projekter er i faserne — sammenlignet med naboer i samme lokale trepart og med landsgennemsnittet. Sektionen viser fasefordeling i hektar, momentum de seneste 6 måneder (både antal projekter og hektar), median tid i forundersøgelse, seneste milepæle og en nabosammenligning med dropdown. En forbeholds-boks forklarer at tilsagn gives af SGAV — ikke kommunen — og at projektantal og hektar kan pege hver sin vej.
 
 ### Forbedring
 - Forsiden er bygget op som et sammenhængende forløb, hvor hvert afsnit svarer på ét spørgsmål: Når vi målet? → Hvordan måles det? → Forstå projekterne → Har vi råd? → Når vi det i tide? → Hvor sker det? En bjælke i toppen viser, hvilket afsnit du er i, mens du scroller.
@@ -202,12 +83,50 @@ Kommende ændringer noteres her løbende.
 - Vandmiljø-kortet viser nu kystvandenes økologiske tilstand (VP3) — fx hvor mange af de 109 kystvande der har god tilstand — i stedet for kun at vise fremskridt mod kvælstof-målet. Delmåls-sektionen har fået overskriften «De fem delmål», og vandmiljø er markeret som en effekt af kvælstofindsatsen.
 - Siden indlæser hurtigere, fordi de tunge projektlister hentes separat efter de vigtigste tal og kort er vist. Titler og beskrivelser er skrevet om, så det er tydeligere i Google, hvad siden handler om, og kommunesider viser kommunens navn i titlen.
 - Klimaskovfondens skovprojekter vises i lys lilla, så de ikke forveksles med anlagte MARS-projekter, og Naturstyrelsen i mørkere violet — ens på kort, i projekttragten og i graferne.
+- Sitemap (sitemap.xml) dækker nu alle offentlige sider automatisk — inkl. forsiden, alle 98 kommuner og videnscenter-artikler — med seneste opdateringsdato. Tidligere manglede forsiden, og kommune-URL'er skulle vedligeholdes manuelt.
+- Feedback-knappen nederst til venstre har fået tydeligere tekst: «Fejl, feedback eller ønsker» — ikke kun fejlrapportering.
+- Nøgletal-kortet for beskyttet natur viser nu opdeling som de øvrige mål: §3, Natura 2000, DCE 30 %-potentiale og MARS-projekters overlap med naturpotentiale — med overskrift som «1.499 ha beskyttet (65 ha naturpotentiale)» når begge dele findes.
+- Nøgletal-kort for kvælstof, lavbund og skov viser nu «0 ton N anlagt (318 ton N i proces)» — tydelig skelnen mellem det der er fysisk anlagt og det der stadig er i pipeline. Skov tæller KSF/NST med under anlagt.
+- MARS-fasefordelingen under nøgletal vises nu inde i hvert mål-kort (kvælstof, lavbund, skov) — i stedet for én fælles liste nederst.
+- Kortene kan nu zoomes et niveau tættere ind — både det nationale kort, kommunekortet og projektkortene — så enkeltprojekter og små kommuner er nemmere at se i detaljer.
+- Mål-kortene på forsiden viser nu «tid gået» (med ur) og «anlagt» (med spade) ved de to bjælker — tydeligere end bare «tid».
+- Ranglistekortene vender nu med en lille 3D-flip-animation, når du trykker «Hvordan virker det?» — og tilbage igen med «Rangliste».
+- På enkelt-kommunesiden er det tydeligere hvad der er mål (Lavbund, Skov, Kvælstof) og hvad der er status: målet står i gråt, status vises med pil op / midt / ned i stedet for farvet baggrund.
+- På kommunekort og nationalt kort ligger fasefilter nu på samme linje som grundkort og «Vis som». Supplerende kilder (Klimaskovfonden, Naturstyrelsen) er skiftet til enkle af/på-kontakter — samme type som kortlagene i Lag-panelet.
+- «Sådan virker tallene» er flyttet ud af fasefilteret. Hver ranglistekort (lavbund, skov, kvælstof, natur, CO₂) har nu et vend-knap i hjørnet — tryk for at se hvordan netop den liste beregnes, og «Rangliste» for at vende tilbage.
+- Fasefilteret på kort (nationalt kort, kommunekort og enkelt-kommune) er nu samlet i en kompakt «Fasefilter»-knap med tæller — samme mønster som på ranglisten. Supplerende kilder (Klimaskovfonden, Naturstyrelsen) står for sig i en egen boks.
+- MARS-projekter på kortet forbliver som prikker længere, når du zoomer ind. Hvert projekt skifter først til den rigtige form, når formen på skærmen er mindst lige så stor som prikken — så små projekter undgår at blive til næsten-usynlige firkanter for tidligt.
+- På en enkelt kommuneside kan du nu skifte kortvisning direkte på siden — samme metrik, faser, supplerende kilder og kortkontroller (grundkort, absolut/ift. ansvar) som på oversigten over alle kommuner. Du behøver ikke gå tilbage til listen for at ændre visningen.
+- Fasefilteret (anlagt, godkendt, forundersøgelse) findes nu også direkte i kontrolbjælken over ranglisterne — ikke kun ved kortet. Valget gælder rangliste, kort og den fulde kommuneliste på én gang.
+- På kommuneoversigten og enkeltkommunesider skifter siden ikke længere baggrundsfarve, når du vælger et kort-mål — det var kun kortet, der ændrede sig. Delmål-linkene (Kvælstof, Lavbund m.fl.) er fjernet fra den sticky topbjælke på kommunesider; brug National/Kommuner-skifteren for at gå tilbage til landsoversigten.
+- Filterbjælken over ranglisten (område, fase, levering) hænger kun fast under scroll på mobil — på desktop scroller den med siden som resten af indholdet.
+- Kommune-siderne har fået flere springpunkter i navigationsbjælken. Oversigten over alle kommuner starter med en kort «Oversigt»-sektion og har derefter Ranglister, Kort og Den fulde liste. På enkeltkommunesider er det lange «Projekter»-afsnit opdelt i Nøgletal, Faseprofil, Natur & opland, CO₂ og Projekter — så du kan hoppe direkte til det, du leder efter.
+- Når du vælger et delmål fra kortet på forsiden, bliver du på kortsektionen — URL'en får et kort-anker (#kort), så siden ikke hopper tilbage til toppen.
+- På forsiden ligger et kortafsnit mellem delmålskortene og økonomien — med Danmarkskortet sløret i baggrunden og delmålsprikkerne ovenpå, som på kommuneoversigten. Vælg et delmål for at gå videre til projekter, kort og fremskrivninger.
+- På kommuneoversigten vises delmålene som farvede prikker direkte på kortet, når du endnu ikke har valgt et indsatsområde. Når du vælger, skifter visningen til den kompakte menu med fasefilter og kortindstillinger.
+- Teksten under «Kort sagt» på forsiden er opdelt i korte afsnit og punktliste, så den er nemmere at skimme. Vandmiljø nævnes nu på samme overordnede niveau som de øvrige effekter — uden det konkrete antal kystvande i god tilstand.
+- I nabosammenligningen under «Proces & fremdrift» vises grænsenaboer (fælles kommunegrænse) først i dropdownen — ikke trepart-naboer fra samme vandoplandsplan. Horsens og Samsø kan dele trepart med Odense uden at være grænsenaboer; de ligger nu under «Øvrige kommuner». Gennemsnitsbjælken hedder «Trepart-naboer gns.» for at skille de to begreber ad.
+- «Den fulde liste» har fået den samme filterrække som ranglisten (område, Mod målet / Ift. ansvar / Absolut og Projektfaser) — så du kan ændre visning uden at scrolle tilbage til toppen.
+- Knapper og vælgere i kontrolrækker (rangliste, kort, projekter og projektliste) har fået samme størrelse og valgt-stil — grøn markering på segmenter og ens trigger-knapper til dropdowns som Projektfaser og Kortvisning.
+- Kortkontrollerne på kommuneoversigten og enkelt-kommunesider bruger nu den kompakte menu på alle skærmstørrelser: indsatsområde-dropdown, Projektfaser og Kortvisning — i stedet for mange rækker med pill-knapper og tilvalg-toggles.
+- Fra nøgletal og kommune-benchmarks kan man åbne kortet med de rigtige lag tændt — naturpotentiale, Natura 2000 eller §3 — i fuld skærm.
+- Projektlisten viser overlap med naturpotentiale i hektar, eller «0 ha overlap», så man ikke skal åbne hvert projekt for at se det.
+- Kommunekortets farveskala har tal (procent eller hektar) i stedet for kun «høj / middel / lav». En kort forklaring under kortet siger, hvad farven måler.
+- På den enkelte kommuneside kan man skifte kommune i overskriften uden at gå tilbage til listen. Adressen og filtrene følger med.
+- «Det vi vil gøre» og «Det vi vil opnå» har fået en sætning hver, så forskellen mellem indsats og effekt er tydelig uden at åbne mere.
+- Økonomien viser de tre pengestrømme i samme enhed — cirka 43, 0,46 og 0 mia. kr. — så det er synligt, at der er mange penge til at lave projekter, få til at implementere og ingen til at drifte. 461,8 mio. kr. til kapacitet er vores læsning af Rammeaftale MGTP–KL tabel 1, ikke et uafhængigt tjekket tal.
+- Opdateringsmærket siger nu «MARS-data opdateret», fordi de øvrige kilder har egne datoer.
+- Siden fortæller nu åbent, hvordan den er lavet med AI. Et nyt afsnit på Data og metode forklarer, hvad AI er brugt til (kode og tekster), at tallene ikke kommer fra en sprogmodel men fra åben kode og offentlige data, at vurderinger som «på sporet» er faste regler i koden, og at teksterne ikke er fagligt gennemgået linje for linje. Footeren og videnscentret linker dertil, og der er et link til at melde fejl.
 
 ### Dataopdatering
 - KF26's høringsmateriale for lavbund og skov er lagt ind sammen med Klimarådets baggrundsnotat om trepartens arealmål: bl.a. 71.100 ha kulstofrig lavbund under udtagning (december 2025) og rådets risikovurdering — ca. 20.000 ha realiseret ved den nuværende afgift på 40 kr./ton mod ca. 70.000 ha ved rådets anbefalede 125 kr./ton.
 - Finansieringstal og kilder er opdateret med de primære aftale-PDF'er og den kommunale ramme på 461,8 mio. kr. (2025–2032) fra rammeaftalen mellem Ministeriet for Grøn Trepart og KL. Novo Nordisk Fondens 10 mia. kr. vises som tværgående privat fond, ikke som et natur-delbudget.
 - Markkort 2026 og biodiversitetslag fra Arealdata hentes nu i en separat månedlig spatial datakørsel, adskilt fra den daglige opdatering, så de tunge GIS-beregninger kører isoleret.
 - Natura 2000 og §3-beskyttet natur tegnes nu fra lokale, forenklede polygoner i stedet for live WMS, så områderne er synlige ved nationalt zoom. Fuldopløsnings-data bruges stadig i overlap-beregningerne.
+- Datagrundlaget er opdateret med MARS-udtrækket fra 17. oktober 2026.
+
+### Fjernet
+- Dyre-silhuetterne bag naturtal og kort er fjernet, så de ikke konkurrerede med tallene.
 ---
 
 ## v0.9.6 — 26. april 2026
