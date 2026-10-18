@@ -8,7 +8,7 @@ summary: Hvilken myndighed der står bag hvert trin i et projekts vej fra skitse
 
 # Hvem behandler og godkender projekterne?
 
-Et udtagnings- eller skovrejsningsprojekt passerer flere myndigheder, før det er anlagt. Det er en udbredt misforståelse, at kommunen behandler og godkender projekterne. Kommunen er én aktør blandt flere — men den myndighed, der reelt behandler ansøgningerne og giver tilsagn undervejs i faserne, er **Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV)** under Ministeriet for Grøn Trepart.
+Et udtagnings- eller skovrejsningsprojekt passerer flere myndigheder, før det er anlagt. Det er en udbredt misforståelse, at kommunen behandler og godkender projekterne. Kommunen er én aktør blandt flere — men den myndighed, der reelt behandler ansøgningerne og giver tilsagn undervejs i faserne, er for tilskudsprojekter **Styrelsen for Grøn Arealomlægning og Vandmiljø (SGAV)** under Ministeriet for Natur og Dyrevelfærd (indtil juni 2026 Ministeriet for Grøn Trepart). Naturstyrelsens egne statslige projekter og Klimaskovfondens frivillige skovprojekter følger ikke dette tilsagnsforløb.
 
 Det hjælper at skelne mellem tre spor, der løber ved siden af hinanden:
 
@@ -18,9 +18,9 @@ Det hjælper at skelne mellem tre spor, der løber ved siden af hinanden:
 
 ## Plan-sporet: verificering og principvedtagelse
 
-Den lokale trepart udarbejder omlægningsplanen i MARS. SGAV foretager **faglig verificering** af planen — altså om de indarbejdede projekter og skitser samlet indfrier målene for kvælstof, lavbund, skov og natur. Derefter **principvedtager** hver kommunalbestyrelse den del af planen, der ligger inden for kommunegrænsen.
+Den lokale trepart udarbejder omlægningsplanen i MARS. SGAV foretager **faglig verificering** af planen: om den leverer den nødvendige kvælstofeffekt i de kystvandgrupper, den dækker, og hvor stor en andel af lavbundsmålet den bidrager med. Skov- og naturprojekter opgøres kun i antal og areal til national status. Derefter **principvedtager** hver kommunalbestyrelse den del af planen, der ligger inden for kommunegrænsen.
 
-Det er vigtigt at forstå, at principvedtagelsen *ikke* er en godkendelse af de enkelte projekter. Den er en politisk tilkendegivelse af planen som helhed og af, at kommunen vil gå i dialog med lodsejerne om at undersøge realisering. Plan-sporet sker som udgangspunkt én gang (ultimo 2025), hvorefter planen løbende ajourføres af den lokale trepart.
+Det er vigtigt at forstå, at principvedtagelsen *ikke* er en godkendelse af de enkelte projekter. Den er en politisk tilkendegivelse af planen som helhed og af, at kommunen vil gå i dialog med lodsejerne om at undersøge realisering. Kommunalbestyrelserne principvedtog planerne i december 2025; siden ajourføres de løbende af den lokale trepart.
 
 ## Projekt-sporet: tilsagn fase for fase
 
@@ -28,11 +28,11 @@ Det enkelte projekt bevæger sig gennem de faser, trackeren viser. For hver fase
 
 **Skitse** — Tegnes ind i MARS' planlægningsmodul af den lokale trepart, kommunen eller en lodsejer/rådgiver. Der er ingen statslig godkendelse på dette trin; skitsen indgår blot i omlægningsplanen som et muligt projekt.
 
-**Forundersøgelsestilsagn (Forundersøgelse)** — Projektejeren (typisk kommunen eller Naturstyrelsen, for visse virkemidler en lodsejer) ansøger via MARS' ansøgningsmodul. **SGAV** behandler ansøgningen og giver tilsagn om tilskud til forundersøgelse. Forundersøgelsen har en teknisk del (giver projektet de tilsigtede effekter, og hvilke myndighedstilladelser kræves) og en ejendomsmæssig del (er lodsejerne interesserede).
+**Forundersøgelsestilsagn (Forundersøgelse)** — Projektejeren (typisk kommunen eller Naturstyrelsen, for visse virkemidler en lodsejer) starter ansøgningen i MARS' ansøgningsmodul, som sender videre til det relevante ansøgningssystem. **SGAV** behandler ansøgningen og giver tilsagn om tilskud til forundersøgelse. Forundersøgelsen har en teknisk del (giver projektet de tilsigtede effekter, og hvilke myndighedstilladelser kræves) og en ejendomsmæssig del (er lodsejerne interesserede).
 
 **Gennemført forundersøgelse** — De to forundersøgelsesrapporter foreligger og indgår i ansøgningen om etablering. Den tekniske rapport peger her på de nødvendige tilladelser, der skal indhentes i tilladelses-sporet.
 
-**Etableringstilsagn (Godkendt)** — Projektejeren ansøger — igen via MARS — om tilskud til selve etableringen. **SGAV** behandler og giver etableringstilsagn. "Godkendt" i trackeren betyder altså, at SGAV har givet etableringstilsagn — ikke at kommunen har godkendt noget.
+**Etableringstilsagn (Godkendt)** — Projektejeren ansøger — igen med indgang i MARS og videre til fx Tast selv eller F2-selvbetjening — om tilskud til selve etableringen. (Skovrejsning har ingen forundersøgelsesfase.) **SGAV** behandler og giver etableringstilsagn. "Godkendt" i trackeren betyder altså, at SGAV har givet etableringstilsagn — ikke at kommunen har godkendt noget.
 
 **Anlagt** — Projektejeren (kommunen eller Naturstyrelsen) gennemfører det fysiske anlæg. **SGAV** foretager statslige opkøb, salg af projektjord og jordfordeling, hvor det er nødvendigt for gennemførelsen, og forestår slutudbetaling. Selve realiseringen afhænger af lodsejernes frivillige tilslutning.
 
@@ -50,7 +50,7 @@ Ansvaret for det enkelte projekt ("projektejeren") varierer og fremgår i tracke
 - **Naturstyrelsen** — projektejer for statslige projekter, signaturprojekter og dele af skovrejsningen samt jordopkøb.
 - **Lodsejer/privat** — kan selv ansøge, fx ved skovrejsning og ekstensivering.
 
-I trackerens data bærer hvert projekt en ordning fra enten SGAV, LBST (Landbrugsstyrelsen) eller NST (Naturstyrelsen). SGAV og LBST hører begge under Ministeriet for Grøn Trepart, og tilsagnsmyndigheden for trepartens udtagnings- og skovordninger er reelt samlet i SGAV-familien. I foråret 2026 samles klima-lavbunds-, kvælstofvådområde- og vand- og klimaprojekter i én ny ordning, Vådområder og lavbundsprojekter (VLP), med én indgang.
+I trackerens data bærer hvert projekt en ordning fra SGAV, NST (Naturstyrelsen) eller — for privat skovrejsning — en ældre LBST-betegnelse fra den tidligere Landbrugsstyrelse, hvis tilskudsopgaver i dag ligger i SGAV. Tilsagnsmyndigheden for trepartens udtagnings- og skovordninger er dermed samlet i SGAV. I 2026 er vand- og klimaprojekter samt klima-lavbunds- og kvælstofvådområdeprojekter videreført i én samlet ordning, Vådområder og lavbundsprojekter (VLP), med én indgang via MARS.
 
 ## Hvad er klart dokumenteret — og hvad er ikke
 
@@ -64,6 +64,8 @@ Plan-sporet er klart beskrevet på SGAV's sider, inkl. navngivne bilag om verifi
 ## Kilder
 
 - Styrelsen for Grøn Arealomlægning og Vandmiljø: [Omlægningsplaner](https://sgav.dk/groen-trepart/lokale-treparter/omlaegningsplaner) og [MARS](https://sgav.dk/groen-trepart/lokale-treparter/mars).
-- Styrelsen for Grøn Arealomlægning og Vandmiljø: [Lavbundsprojekter](https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter) (tilsagn, forundersøgelse, jordfordeling, BEK nr. 13/2025).
+- Styrelsen for Grøn Arealomlægning og Vandmiljø: [Lavbundsprojekter](https://sgavmst.dk/tilskud/tilskud-til-vand-og-klimaprojekter/lavbundsprojekter) (tilsagn, forundersøgelse, jordfordeling, BEK nr. 13/2025, gældende for ansøgningsrunderne 2024–2025).
 - Bekendtgørelse nr. 852/2010 om kommunalbestyrelsens beføjelser ved genopretning af vådområder.
 - Rammeaftale mellem Ministeriet for Grøn Trepart og KL om kommunernes opgaver i omlægningsindsatsen.
+- Ministeriet for Grøn Trepart og KL: [Procesplan for principvedtagelse af omlægningsplaner i 2025 (PDF, viborg.dk)](https://viborg.dk/media/zh5n1j4l/bilag-e-procesplan-for-principvedtagelse-af-omlaegningsplaner-i-2025-1.pdf).
+- [Faktaark om Vådområder og lavbundsprojekter (VLP) 2026 (PDF)](https://lbst.dk/Media/639190094770924449/VLP%20faktaark%202026_opdateret.pdf).

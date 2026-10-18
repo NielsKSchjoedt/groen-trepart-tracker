@@ -16,15 +16,15 @@ Korte, neutrale forklaringer på de begreber og forkortelser, der går igen i af
 
 **Arealomlægning** — At tage landbrugsjord ud af drift og omlægge den til natur, skov eller vådområde. Hovedmidlet i Den Grønne Trepart.
 
-**Basisudvaskningsgrænse** — En grænse i den nye kvælstofregulering for, hvor meget kvælstof der må tabes fra rodzonen til fx grundvandet.
+**Basisudvaskningsgrænse** — Den første af to grænser i den nye kvælstofregulering fra 2027: hvor meget kvælstof der må udvaskes fra rodzonen. Den beskytter grundvand og natur, erstatter de tidligere krav om efterafgrøder og giver ikke tilskud. Den anden grænse er udledningskvoten til kystvandene.
 
-**Delopland (kystvand-delopland)** — En underinddeling af et kystvandområde. Indsatsbehovet for kvælstof er fordelt på ca. 108 deloplande.
+**Delopland (kystvand-delopland)** — Et delvandopland: det landareal, der afvander til en bestemt del af kystvandet. Indsatsbehovet for kvælstof er fordelt på 108 deloplande, samlet i 37 kystvandgrupper.
 
 **Ekstensivering** — At tage landbrugsareal ud af intensiv drift. Kan være midlertidig eller permanent.
 
 **Forundersøgelse** — Faglig undersøgelse af, om et projekt kan lade sig gøre, før der gives tilsagn til anlæg.
 
-**Fredskovspligt** — En varig forpligtelse efter skovloven om, at et areal altid skal være skov. Al ny skov under aftalen pålægges fredskovspligt.
+**Fredskovspligt** — En varig forpligtelse efter skovloven om, at et areal altid skal være skov. Det er et vilkår for tilskud til privat skovrejsning under aftalen.
 
 **Hensigtserklæring** — En tilkendegivelse i MARS om, at et areal ønskes vådlagt i fremtiden, så effekten kan medregnes i kvælstofreguleringen.
 
@@ -56,7 +56,7 @@ Korte, neutrale forklaringer på de begreber og forkortelser, der går igen i af
 
 **CO₂ / drivhusgasser** — Klimagasser; reduktion er et af aftalens mål.
 
-**DCE** — Nationalt Center for Miljø og Energi, Aarhus Universitet. Står for faglig overvågning (NOVANA).
+**DCE** — Nationalt Center for Miljø og Energi, Aarhus Universitet. Har sammen med GEUS den faglige rolle i overvågningsprogrammet NOVANA, som Miljøstyrelsen har ansvaret for.
 
 **GEUS** — De Nationale Geologiske Undersøgelser for Danmark og Grønland. Overvåger geologi og grundvand.
 
@@ -66,15 +66,15 @@ Korte, neutrale forklaringer på de begreber og forkortelser, der går igen i af
 
 **MARS** — Multifunktionel Arealregistrering. Den online platform, der samler de arealbaserede indsatser ét sted, og trackerens primære datakilde.
 
-**MGTP** — Ministeriet for Grøn Trepart. Oprettet i 2024, har det politiske ansvar.
+**MGTP** — Ministeriet for Grøn Trepart. Oprettet i august 2024; omdøbt til Ministeriet for Natur og Dyrevelfærd ved regeringsdannelsen 3. juni 2026, som nu har det politiske ansvar. Forkortelsen MGTP bruges stadig i mange dokumenter.
 
-**NOVANA** — Nationalt Overvågningsprogram for Vandmiljø og Natur.
+**NOVANA** — Det nationale program for overvågning af vandmiljøet og naturen.
 
-**SGAV** — Styrelsen for Grøn Arealomlægning og Vandmiljø. Styrelsen under MGTP, der står for den praktiske gennemførelse.
+**SGAV** — Styrelsen for Grøn Arealomlægning og Vandmiljø. Styrelsen under Ministeriet for Natur og Dyrevelfærd (tidligere MGTP), der står for den praktiske gennemførelse.
 
 **VP3** — Vandområdeplanerne 2021–2027, Danmarks implementering af EU's vandrammedirektiv.
 
-**Vandrammedirektivet** — EU-direktiv (2000/60/EF), der kræver "god økologisk tilstand" i alle vandområder.
+**Vandrammedirektivet** — EU-direktiv (2000/60/EF), der som udgangspunkt kræver "god tilstand" i alle vandområder (for overfladevand: god økologisk og kemisk tilstand), med mulighed for undtagelser og fristforlængelser.
 
 ## Relaterede artikler
 

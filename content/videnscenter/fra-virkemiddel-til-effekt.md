@@ -16,11 +16,11 @@ Virkemidlerne i arealomlægningen virker ikke hver for sig på ét mål. Det sam
 |-------------|:---:|:---:|:---:|
 | Skovrejsning | ● | ● | ●● |
 | Lavbundsprojekter | ●● | ● | ● |
-| Kvælstofvådområder | – | ●● | ● |
+| Kvælstofvådområder | ● | ●● | ● |
 | Minivådområder | – | ●● | – |
 | Ekstensivering | ● | ● | ● |
 
-**●● = primært formål · ● = bidrager · – = ikke et væsentligt bidrag.** Oversigten er vejledende og bygger på beskrivelserne af virkemidlerne i MARS. Minivådområder bidrager desuden til at reducere fosfor.
+**●● = primært formål · ● = bidrager · – = ikke et væsentligt bidrag.** Oversigten er vejledende og bygger på beskrivelserne af virkemidlerne i MARS. Kvælstofvådområder bidrager til klima, når de ligger på kulstofrig lavbund. Minivådområder bidrager desuden til at reducere fosfor.
 
 ## Hvad oversigten viser
 
@@ -30,7 +30,7 @@ Det er baggrunden for, at registreringen hedder *Multifunktionel* Arealregistrer
 
 ## Effektlaget er forsinket
 
-De tre effektdomæner — klima, vandmiljø og natur — er det lag, hvor data er svagest og mest forsinket, og hvor resultatet mindst entydigt kan tilskrives trepartens egen indsats alene. Effekten i naturen indtræder ofte år efter, at et areal er anlagt, og påvirkes også af forhold uden for arealomlægningen (fx den generelle udvikling i energisektoren for klimaets vedkommende). Derfor opgøres effekt flere steder som en *beregnet* effekt af projekterne snarere end en direkte måling.
+De tre effektdomæner — klima, vandmiljø og natur — er det lag, hvor data er svagest og mest forsinket, og hvor resultatet mindst entydigt kan tilskrives trepartens egen indsats alene. Effekterne indtræder ofte år efter, at et areal er anlagt, og påvirkes af forhold uden for arealomlægningen (for klimaets vedkommende fx udviklingen i energisektoren). Derfor opgøres effekt flere steder som en *beregnet* effekt af projekterne snarere end en direkte måling.
 
 Denne skelnen mellem det, der bygges, og den effekt, der opnås, er uddybet i [Mål, virkemidler og effekt](/videnscenter/maal-virkemidler-og-effekt) og [Sådan måler vi fremdrift](/videnscenter/saadan-maaler-vi). De enkelte virkemidler er beskrevet i [Virkemidlerne](/videnscenter/virkemidler).
 

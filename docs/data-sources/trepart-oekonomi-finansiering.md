@@ -89,8 +89,9 @@ med private — det ligger i strøm A, ikke i de 461,8 mio.
 DN's centrale økonomi-pointe (april 2026) var, at der mangler finansiering til
 *driftsfasen* efter et areal er anlagt. Dette holder mod primærkilderne:
 
-- Aftalen forpligter kun parterne til at **drøfte** permanent driftsfinansiering
-  **efter 2030** — der er ikke afsat varige driftsmidler.
+- Der er ikke afsat varige driftsmidler til de nye arealer. Den eneste
+  forpligtelse til at **drøfte** driftsfinansiering **efter 2030** gælder
+  naturnationalparkerne (implementeringsaftalen, note 1 til finansieringstabellen).
 - For naturnationalparker er der kun afsat 86 mio. kr. **frem til 2030**.
 - Lavbund-tilskuddet dækker **etablering**, ikke løbende drift/pleje.
 - En mindre pulje til pleje af græs- og naturarealer fik 65 mio. kr. ekstra i 2025.

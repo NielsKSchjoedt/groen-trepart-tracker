@@ -10,7 +10,7 @@ summary: 250.000 hektar ny skov frem mod 2045, heraf 100.000 hektar urørt skov 
 
 ## Hvad er målet?
 
-Der skal rejses **250.000 hektar ny skov** på landsplan frem mod **2045**. Heraf skal **100.000 hektar** være urørt skov, og af disse skal **20.000 hektar** rejses som statsskov. Al ny skov under aftalen pålægges fredskovspligt — en varig forpligtelse efter skovloven om, at arealet altid skal være skov.
+Der skal rejses **250.000 hektar ny skov** på landsplan frem mod **2045**. Heraf skal **100.000 hektar** være urørt skov, og af disse skal **20.000 hektar** rejses som statsskov. Det er et vilkår for tilskud til privat skovrejsning, at arealet pålægges fredskovspligt — en varig forpligtelse efter skovloven om, at arealet altid skal være skov.
 
 Ny skov bidrager til flere af aftalens formål på én gang: den binder kulstof, beskytter grundvand og drikkevand, skaber natur og biodiversitet (især den urørte skov) og reducerer kvælstofudvaskningen, fordi skov drives uden gødning og pesticider.
 
@@ -35,8 +35,8 @@ Skovrejsning er multifunktionel og peger ind i flere mål: **naturmålet** (mere
 ## Hvad bør man være opmærksom på?
 
 - **Fristen er 2045 — langt ude i fremtiden.** Skovmålet er det mål, der rækker længst frem. Det betyder, at fremdriften i de første år nødvendigvis er lille i forhold til slutmålet, og at en simpel "andel nået"-procent kan være misvisende så tidligt i forløbet.
-- **Tilsagn er ikke det samme som skov.** Skov registreres typisk som rejst nogle år efter, at der er givet tilsagn. Modelleringen i de officielle klimafremskrivninger antager, at skov plantes 2–3 år efter tilsagn, hvilket forskyder, hvornår effekten reelt tæller.
-- **Fagligt rådgivende organer peger på risiko.** Klimarådet har i sin statusrapport for 2026 fremhævet, at hugst og forsinket skovrejsning truer målene i treparten, og at der er stor risiko for, at skovmålet ikke nås. Det er en uafhængig faglig vurdering, ikke en konklusion fra trackeren.
+- **Tilsagn er ikke det samme som skov.** Skov registreres typisk som rejst nogle år efter, at der er givet tilsagn. Modelleringen i de officielle klimafremskrivninger antager, at privat skov realiseres 1–3 år efter tilsagn og statsskov ca. 2 år efter tilsagn, hvilket forskyder, hvornår effekten reelt tæller.
+- **Fagligt rådgivende organer peger på risiko.** Klimarådet vurderede i statusrapporten fra februar 2026, at der er væsentlig risiko for, at skovrejsningsmålet ikke nås: der var givet meget få etableringstilsagn, og tilskuddet til urørt skov dækker ikke tabet ved omlægningen. Rådet peger desuden på, at øget hugst svækker skovenes CO₂-optag. Det er en uafhængig faglig vurdering, ikke en konklusion fra trackeren.
 
 ## Relaterede artikler
 
@@ -51,4 +51,5 @@ Skovrejsning er multifunktionel og peger ind i flere mål: **naturmålet** (mere
 - [Skov (sgav.dk)](https://sgav.dk/groen-trepart/lokale-treparter/vandomraadeplaner-kvaelstofindsats-og-lavbundsjorder/skov)
 - [Tilskud til skov- og naturprojekter — skovrejsning (sgavmst.dk)](https://sgavmst.dk/tilskud/tilskud-til-skov-og-naturprojekter/skovrejsning)
 - [Aftale om et Grønt Danmark (PDF, oem.dk)](https://oem.dk/media/ul2jcmou/aftale-om-et-groent-danmark-24-juni-2024-a.pdf)
-- [Klimarådet: 2030-målet er ikke længere anskueliggjort (statusrapport 2026)](https://klimaraadet.dk/da/nyhed/klimaraadet-i-sin-aarlige-statusrapport-2030-maalet-er-ikke-laengere-anskueliggjort)
+- [Klimarådets statusrapport 2026](https://klimaraadet.dk/da/rapport/statusrapport-2026)
+- [Klimarådet: Baggrundsnotat om implementering af trepartens arealmål (PDF)](https://klimaraadet.dk/sites/default/files/node/field_files/Baggrundsnotat%20om%20implementering%20af%20trepartens%20arealm%C3%A5l.pdf)

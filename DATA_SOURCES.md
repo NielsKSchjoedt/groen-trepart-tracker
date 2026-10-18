@@ -54,8 +54,8 @@ This page documents all data sources, their licenses, and the attribution requir
 adskilte pengestrømme: (A) projektfinansiering via tilskudsordninger (Danmarks
 Grønne Arealfond ≥40 mia., samlet ramme ~43 mia., Novo 10 mia., jordfordeling ~740
 mio.) og (B) kommunal administrativ kapacitet (461,8 mio. kr. 2025–2032, fordelt i
-fire bloktilskudspuljer). Plus det dokumenterede drift-/plejehul (permanent drift
-først *drøftet* efter 2030).
+fire bloktilskudspuljer). Plus det dokumenterede drift-/plejehul (ingen varige
+driftsmidler; kun naturnationalparkernes drift skal *drøftes* efter 2030).
 
 **Kilder**:
 - Rammeaftale MGTP–KL (13.12.2024) — kommunal økonomi, tabel 1: [kl.dk](https://www.kl.dk/media/q4sl0qeo/rammeaftale-mellem-ministeriet-for-groen-trepart-og-kl-om-kommunernes-opgaver-i-omlaegningsindsatsen-i-medfoer-af-aftale-om-et-groent-danmark-og-aftale-om-implementering-af-et-groent-danmark.pdf)

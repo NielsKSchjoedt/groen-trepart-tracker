@@ -20,7 +20,7 @@ Projekter i MARS bevæger sig typisk gennem disse stadier:
 4. **Tilsagn til udtagning** — der er givet etableringstilsagn (projektet er godkendt til anlæg).
 5. **Gennemført / anlagt** — projektet er fysisk gennemført og i drift.
 
-Mange projekter falder fra undervejs: en forundersøgelse fører ikke nødvendigvis til et anlæg. For lavbunds- og vådområdeprojekter tager vejen fra forundersøgelse til færdigt anlæg ofte fire til syv år på grund af undersøgelser, tilladelser, dialog med lodsejere og selve anlægsfasen.
+Mange projekter falder fra undervejs: en forundersøgelse fører ikke nødvendigvis til et anlæg. Et lavbundsprojekt tager ifølge Klimarådet ofte fire til syv år fra tilsagn til færdigt anlæg på grund af undersøgelser, tilladelser, dialog med lodsejere og selve anlægsfasen.
 
 ## "Anlagt" er den ærlige målestreg
 
@@ -30,9 +30,11 @@ Når trackeren skriver, at noget er "ført ud i virkeligheden", menes der projek
 
 For nogle mål — særligt kvælstof — opgøres fremdrift som den *beregnede* effekt af projekterne (fx forventet kvælstoftilbageholdelse), ikke som en direkte måling af tilstanden i fjorden. Det er et vilkår ved data: effekten i miljøet indtræder forsinket og er svær at henføre præcist til det enkelte projekt. Trackeren gengiver derfor de officielle, modelberegnede tal og gør opmærksom på, at de er beregnede.
 
-## Konservative valg
+## Tallene følger MARS
 
-Hvor der er tvivl, tæller trackeren forsigtigt og underdriver hellere end at overdrive. Ukendte projektstatusser placeres i den tidligste fase, og overlap mellem datakilder håndteres med forsigtige antagelser. Princippet er, at et tal hellere må være lidt for lavt end for højt.
+Trackeren følger MARS' egne opgørelser — både nationalt og pr. kommune. I kommunetallene tæller kun den del af et projekt, der ligger i kommunen, som i MARS' kommuneopdeling. Et projekt, der ligger i flere kystvandoplande, tælles én gang, og kvælstofeffekt tælles kun i deloplande med et indsatsbehov, som MARS gør. Skovtallene supplerer MARS med Klimaskovfonden og Naturstyrelsen; kun afsluttede skovprojekter tæller som anlagt.
+
+Tid regnes fra aftalens indgåelse 24. juni 2024. Statusmærkerne i fremskrivningen er stramme: «Tæt på målet» bruges først fra 80 % af målet og «Delvis dækning» fra 50 %. Projekter med en status, trackeren ikke kan genkende, placeres i den tidligste formelle fase (tilsagn til forundersøgelse) — aldrig som godkendt eller anlagt.
 
 ## Relaterede artikler
 
@@ -44,4 +46,5 @@ Hvor der er tvivl, tæller trackeren forsigtigt og underdriver hellere end at ov
 
 - [MARS – status (mars.sgav.dk)](https://mars.sgav.dk/status/nationaltindblik)
 - [Lavbundsindsatsen (mars.sgav.dk)](https://mars.sgav.dk/status/lavbundsindsatsen)
+- [Klimarådet: Baggrundsnotat om implementering af trepartens arealmål (PDF)](https://klimaraadet.dk/sites/default/files/node/field_files/Baggrundsnotat%20om%20implementering%20af%20trepartens%20arealm%C3%A5l.pdf)
 - Se også trackerens side om data og metode samt projektets åbne kildekode.

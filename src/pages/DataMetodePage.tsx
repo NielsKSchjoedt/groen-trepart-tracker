@@ -243,8 +243,8 @@ const QUALITY_ITEMS: QualityItem[] = [
     severity: 'medium',
   },
   {
-    title: 'Natura 2000 / §3-overlap er estimeret',
-    description: 'Natura 2000 og §3-beskyttede arealer overlapper betydeligt. Overlappet estimeres konservativt til ~30%, men det reelle overlap varierer pr. region og kræver spatial union-beregning (GIS) for præcis opgørelse.',
+    title: 'Samlet beskyttet natur er et estimat',
+    description: 'Natura 2000 og §3-beskyttede arealer overlapper betydeligt. Det samlede tal på 15,3 % er OECD\'s estimat fra 2024 — trackeren laver ikke selv en samlet GIS-beregning af overlappet, og det reelle overlap varierer pr. region.',
     severity: 'medium',
   },
   {

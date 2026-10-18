@@ -10,7 +10,7 @@ summary: Reduktion af kvælstof til fjorde og kystvande med 13.800 ton om året 
 
 ## Hvad er målet?
 
-Udledningen af kvælstof til fjorde og kystvande skal reduceres med **13.800 ton om året**. Det fremgår af Aftale om Implementering af et Grønt Danmark og er forankret i vandområdeplanerne. Tidsrammen knytter sig til 2027 og frem, hvor den nye kvælstofregulering træder i kraft.
+Udledningen af kvælstof til fjorde og kystvande skal reduceres med ca. **13.800 ton om året** (aftaleteksten siger 13.780 ton, med forbehold for tekniske korrektioner). Det fremgår af Aftale om Implementering af et Grønt Danmark og er forankret i vandområdeplanerne. Fristen er 2027, vandrammedirektivets frist, hvor mindst 2/3 af vandområderne forventes at være i mål; de øvrige indsatser skal være sat i gang i 2027 og realiseret senest i 2030.
 
 Kvælstof er den primære årsag til iltsvind i mange danske fjorde og kystvande. Når der løber for meget kvælstof ud, gror vandet til med alger, der efterfølgende nedbrydes og bruger ilten op. Reduktionen skal hjælpe Danmark mod "god økologisk tilstand" efter EU's vandrammedirektiv.
 
@@ -22,7 +22,7 @@ Et centralt punkt: kvælstof følger *vandets vej*, ikke kommunegrænser. Effekt
 
 ## Hvordan opnås det?
 
-Reduktionen på 13.800 ton skal nås ad flere veje. En del forventes opnået via EU's landbrugspolitik (CAP) og en del via spildevandsindsatsen. Den resterende, største del — omkring **12.776 ton** — skal løftes gennem trepartens egen indsats: frivillig arealomlægning og en ny markregulering.
+Reduktionen på 13.800 ton skal nås ad flere veje. En mindre del forventes opnået via generelle effekter af EU's landbrugspolitik (CAP). Resten — i MARS opgjort til ca. **12.776 ton** — skal løftes gennem de lokale treparters omlægningsplaner: vådområder, lavbund, skov og andre former for frivillig arealomlægning. Den nye markregulering er sikkerhedsnettet, hvis omlægningen ikke rækker.
 
 Indsatsen hviler på to ben, der spiller tæt sammen:
 
@@ -31,9 +31,9 @@ Indsatsen hviler på to ben, der spiller tæt sammen:
 
 ## Virkemidler og effekt
 
-Kvælstofeffekten skabes primært af **kvælstofvådområder** og **minivådområder**, men også af **lavbundsprojekter**, **skovrejsning** og **ekstensivering** bidrager. De enkelte virkemidler er beskrevet i [Virkemidlerne](/videnscenter/virkemidler).
+Kvælstofeffekten i omlægningsplanerne skabes primært af **kvælstofvådområder** og **lavbundsprojekter** — tilsammen omkring 98 % af den beregnede effekt i MARS-projekterne. **Minivådområder**, **skovrejsning** og **ekstensivering** bidrager med mindre mængder. De enkelte virkemidler er beskrevet i [Virkemidlerne](/videnscenter/virkemidler).
 
-Det er værd at skelne mellem *virkemidlet* (det fysiske anlæg, der bygges) og *effekten* (den beregnede kvælstofreduktion, anlægget giver). Et vådområde er anlagt på et bestemt tidspunkt, men den fulde beregnede effekt kan medregnes efter en trappemodel. Trackeren viser derfor både, hvad der er anlagt, og hvilken beregnet effekt det giver.
+Det er værd at skelne mellem *virkemidlet* (det fysiske anlæg, der bygges) og *effekten* (den beregnede kvælstofreduktion, anlægget giver). Effekten er beregnet, ikke målt, og et anlæg giver først sin fulde effekt, når det er etableret. (I selve reguleringen gav en særlig "trappemodel" i 2026 mulighed for at medregne planlagte vådområders effekt fra det tidspunkt, arealet blev ekstensiveret.) Trackeren viser derfor både, hvad der er anlagt, og hvilken beregnet effekt det giver.
 
 ## Hvordan påvirker det de andre mål?
 
@@ -41,11 +41,11 @@ Kvælstofvirkemidlerne er sjældent rene kvælstofvirkemidler. Et lavbundsprojek
 
 ## Hvad bør man være opmærksom på?
 
-Kvælstofmålet er det bedst funderede af de fem mål, men der er nogle forhold, man bør kende — alle baseret på de officielle kilder:
+Kvælstofmålet er det mål, hvor datagrundlaget i MARS er mest udbygget, men der er nogle forhold, man bør kende — alle baseret på de officielle kilder:
 
 - **Det er en beregnet effekt, ikke en måling i fjorden.** Den fremdrift, der opgøres, er den *modelberegnede* effekt af projekterne, ikke en direkte måling af kvælstof i vandet. Tilstanden i fjorden påvirkes også af vejr, tidligere års udledninger og forhold uden for arealomlægningen, og effekten indtræder forsinket.
 - **Tilstanden i kystvandene er fortsat langt fra målet.** Uafhængigt af trepartens fremdrift har myndighedernes overvågning vist, at kun et fåtal af de danske kystvande er i god økologisk tilstand. Reduktionen er et middel til at nærme sig den tilstand, ikke et bevis for, at den er nået.
-- **Hovedmotoren er frivillig.** Om de 12.776 ton nås via omlægning afhænger af, hvor mange lodsejere der frivilligt søger. Markreguleringen er sikkerhedsnettet, hvis den frivillige indsats ikke rækker — fastlæggelsen af reguleringen for 2027 sker på baggrund af en status midt i 2026.
+- **Hovedmotoren er frivillig.** Om de 12.776 ton nås via omlægning afhænger af, hvor mange lodsejere der frivilligt søger. Markreguleringen er sikkerhedsnettet, hvis den frivillige indsats ikke rækker — arealomlægningen blev gjort op i foråret 2026 og indgår i de udledningsgrænser for 2027, som er meldt ud til landbrugerne i efteråret 2026.
 
 ## Relaterede artikler
 

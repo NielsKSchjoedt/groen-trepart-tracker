@@ -30,9 +30,9 @@ Mindre anlæg — bassiner eller søer — der leder landbrugets drænvand igenn
 
 Landbrugsarealer omlægges til ny skov. Skoven etableres uden gødning og pesticider og bidrager til klima, rent drikkevand, natur og lavere kvælstofudledning. Skov rejst som urørt skov har et særligt fokus på biodiversitet.
 
-## Øvrige
+## Fosforvådområder og ådale — og øvrige
 
-En samlekategori for indsatser, der ikke falder under ovenstående — fx fosforvådområder og restaurering af ådale.
+MARS registrerer desuden **fosforvådområder og ådale** som selvstændig kategori samt **øvrige** for indsatser, der ikke falder under ovenstående.
 
 ## Hvordan de bidrager til målene
 
@@ -40,20 +40,20 @@ En samlekategori for indsatser, der ikke falder under ovenstående — fx fosfor
 |-------------|:---:|:---:|:---:|
 | Lavbundsprojekter | Primært | Ja | Ja |
 | Skovrejsning | Ja | Ja | Primært |
-| Kvælstofvådområder | – | Primært | Ja |
+| Kvælstofvådområder | Ja (på kulstofrig jord) | Primært | Ja |
 | Minivådområder | – | Primært (+ fosfor) | – |
 | Ekstensivering (permanent) | Ja | Ja | Ja |
 
-Tabellen er vejledende og bygger på beskrivelserne i MARS. Sammenhængen mellem virkemiddel og mål er uddybet i [Mål, virkemidler og effekt](/videnscenter/maal-virkemidler-og-effekt).
+Tabellen er vejledende og bygger på beskrivelserne i MARS. Vådområder på kulstofrig lavbund tæller også med i udtagningsindsatsen og dermed i klimaeffekten. Sammenhængen mellem virkemiddel og mål er uddybet i [Mål, virkemidler og effekt](/videnscenter/maal-virkemidler-og-effekt).
 
 ## Pengene bag virkemidlerne
 
 Trepartsøkonomien er ikke ét samlet budget. Pengene løber i **to adskilte strømme**:
 
-- **Projekttilskud** — stat og EU finansierer selve lavbunds-, vådområde-, skov- og naturprojekterne. Lodsejere og projektejere ansøger; kommunerne selvfinansierer ikke projekterne, når de er projektejer.
-- **Kommunal kapacitet** — en statslig pulje på 461,8 mio. kr. (2025–2032) til kommunernes planlægning, lokale treparter og opsøgende arbejde via bloktilskud.
+- **Projekttilskud** — stat og EU finansierer selve lavbunds-, vådområde-, skov- og naturprojekterne, suppleret af Novo Nordisk Fondens 10 mia. kr. som tværgående privat bidrag. Lodsejere og projektejere ansøger; kommunerne selvfinansierer ikke projekterne, når de er projektejer.
+- **Kommunal kapacitet** — en statslig pulje på 461,8 mio. kr. (2025–2032) til kommunernes planlægning, lokale treparter og opsøgende arbejde — dels via bloktilskud, dels direkte til de lokale treparter og en risikopulje hos SGAV.
 
-**Drift og pleje** efter anlæg er et tredje, tværgående tema: aftalen forpligter kun parterne til at drøfte permanent driftsfinansiering **efter 2030**, og lavbund-tilskud dækker etablering — ikke den løbende pleje år efter år.
+**Drift og pleje** efter anlæg er et tredje, tværgående tema: aftalerne afsætter ikke varige midler til drift og pleje af de nye arealer. Kun for naturnationalparkerne har aftalepartierne forpligtet sig til at drøfte driftsfinansiering **efter 2030**, og lavbund-tilskud dækker etablering — ikke den løbende pleje år efter år.
 
 ## Relaterede artikler
 
