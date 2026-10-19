@@ -31,8 +31,9 @@ Grøn Trepart Tracker. The project tracks Denmark's progress on the Green Tripar
    be able to trace any number back to its origin.
 
 4. **Conservative defaults** — When in doubt, undercount rather than overcount. Unknown MARS status
-   codes map to "preliminary". Overlap between Natura 2000 and §3 areas uses a conservative 30%
-   estimate. Marine/terrestrial classification is heuristic and documented as such.
+   codes map to "preliminary". Cancelled MARS states also get phase "preliminary" in the legacy
+   3-bucket field, so every aggregation must skip `isCancelled` projects explicitly. Total protected
+   nature is OECD's 2024 estimate (15,3 %); we do not compute our own Natura 2000/§3 overlap.
 
 5. **Never republish crawled prose** — Raw text crawled from external pages (SGAV, MARS status
    prose, ministry sites, news) is background material for *us and AI agents during development*.

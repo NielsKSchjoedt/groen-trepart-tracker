@@ -93,6 +93,10 @@ def compute_by_initiator_ha(plan_entries: list) -> dict:
 
     for plan in plan_entries:
         for proj in plan.get("projectDetails", []):
+            # Cancelled projects carry phase "preliminary" (legacy_enrich_phase),
+            # so skip them explicitly or they would inflate forundersøgelse.
+            if proj.get("isCancelled") or proj.get("pipelinePhase") == "cancelled":
+                continue
             phase = proj.get("phase", "")
             if phase not in ("preliminary", "approved", "established"):
                 continue
