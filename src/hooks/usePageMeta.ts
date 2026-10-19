@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const BASE_URL = 'https://treparttracker.dk';
-const SITE_TITLE = 'Den Grønne Trepart — Er vi på sporet?';
+export const SITE_TITLE = 'Den Grønne Trepart Tracker & Kort — Er vi på sporet?';
 
 interface PageMetaOptions {
   /** Short page-specific title, e.g. "Kvælstof". Will be combined with SITE_TITLE. */
@@ -13,7 +13,7 @@ interface PageMetaOptions {
 }
 
 const DEFAULT_DESCRIPTION =
-  'Dashboard der følger implementeringen af Danmarks Grønne Trepart-aftale. ' +
+  'Kort og status over implementeringen af Danmarks Grønne Trepart-aftale. ' +
   'Kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og beskyttet natur.';
 
 /**

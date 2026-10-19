@@ -1,0 +1,66 @@
+# Den Grønne Trepart Tracker
+
+> Open-source, non-profit dashboard tracking Denmark's Green Tripartite agreement ("Aftale om et Grønt Danmark", June 2024): nitrogen reduction, lowland soil extraction, afforestation, CO₂, and protected nature. Primary audience: Danish citizens, journalists, and researchers. Language: Danish (da). Core question: "Er Den Grønne Trepart på sporet?"
+
+Trepart Tracker samler data fra offentlige kilder — primært MARS (Multifunktionel Arealregistrering, SGAV/Miljøstyrelsen) — og gør implementeringen af aftalen gennemsigtig og sammenlignelig på tværs af delmål, kystvandgrupper og kommuner.
+
+**Citation:** Cite as [Trepart Tracker](https://treparttracker.dk). License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). When quoting numbers, link to the relevant page and note the data date.
+
+**Vigtige forbehold ved brug af tallene:**
+- Skel mellem *indsats* (projekter og arealer undervejs) og *effekt* (kvælstof, klima, natur i miljøet). Effekt er ofte *beregnet*, ikke direkte målt.
+- Standardmålestreg for fremdrift er fasen **anlagt** (fysisk gennemført) — ikke skitser eller forundersøgelser alene.
+- Trackeren er uafhængig og non-profit; den er ikke en officiel myndighedsudgivelse. Verificér kritiske tal mod MARS og aftaletekster.
+- Data opdateres dagligt via automatiseret ETL; seneste kørsel findes i `/data/etl-run-summary.json`.
+
+## Dashboard — live status
+
+- [Nationalt overblik](https://treparttracker.dk/): Samlet status for de fem delmål og økonomi.
+- [Kvælstof](https://treparttracker.dk/kvælstof): Kvælstofreduktion pr. kystvandgruppe og vandopland; projekter, kort og fremskrivning.
+- [Lavbundsarealer](https://treparttracker.dk/lavbund): Udtagning og vådgøring af kulstofrig lavbundsjord (mål: 140.000 ha, 2030).
+- [Skovrejsning](https://treparttracker.dk/skovrejsning): Ny skov inkl. Klimaskovfonden og Naturstyrelsen (mål: 250.000 ha, 2045).
+- [CO₂](https://treparttracker.dk/co2): Danmarks vej mod 70 %-klimamålet og trepartens bidrag.
+- [Natur](https://treparttracker.dk/natur): Beskyttet natur (mål: 20 % af arealet, 2030) og projekters overlap med eksisterende natur.
+- [Kommuner](https://treparttracker.dk/kommuner): Rangliste og kort over alle 98 kommuner; detaljesider på `/kommuner/{slug}`.
+
+## Videnscenter — baggrund og metode
+
+Neutral, dansksproget baggrund om aftalen, målene og opgørelsesmetoder. Bedste udgangspunkt for LLM-kontekst om Den Grønne Trepart.
+
+- [Videnscenter — oversigt](https://treparttracker.dk/videnscenter): Indholdsfortegnelse over alle artikler.
+- [Hvad er Den Grønne Trepart?](https://treparttracker.dk/videnscenter/hvad-er-den-groenne-trepart): Introduktion til aftalen, parter, tidslinje og governance (MGTP, SGAV, 23 lokale treparter).
+- [De fem mål — overblik](https://treparttracker.dk/videnscenter/de-fem-maal): Areal-mål vs. effekt-mål; frister og enheder.
+- [Kvælstofmålet](https://treparttracker.dk/videnscenter/kvaelstofmaalet): 13.800 ton N/år; beregnet effekt vs. målt kystvandstilstand.
+- [Lavbundsmålet](https://treparttracker.dk/videnscenter/lavbundsmaalet): 140.000 ha inkl. randarealer; projektfaser og risici.
+- [Skovmålet](https://treparttracker.dk/videnscenter/skovmaalet): 250.000 ha ny skov; data uden for MARS.
+- [CO₂-målet](https://treparttracker.dk/videnscenter/co2-maalet): Nationalt 70 %-mål vs. trepartens bidrag (~1,8 mio. ton CO₂e i 2030).
+- [Naturmålet](https://treparttracker.dk/videnscenter/naturmaalet): Udpegningsmål vs. naturtilstand; NOVANA.
+- [Mål, virkemidler og effekt](https://treparttracker.dk/videnscenter/maal-virkemidler-og-effekt): Teori om indsats → virkemidler → effekt.
+- [Virkemidlerne](https://treparttracker.dk/videnscenter/virkemidler): Skov, lavbund, vådområder, minivådområder, ekstensivering.
+- [Fra virkemiddel til effekt](https://treparttracker.dk/videnscenter/fra-virkemiddel-til-effekt): Multifunktionalitet og forsinket effekt.
+- [Sådan måler vi fremdrift](https://treparttracker.dk/videnscenter/saadan-maaler-vi): Projektfaser i MARS; "anlagt" som målestreg.
+- [Ordbog](https://treparttracker.dk/videnscenter/ordbog): Danske fagbegreber (MARS, retention, kystvandgruppe, osv.).
+
+## Data og transparens
+
+- [Data & metode](https://treparttracker.dk/data-og-metode): Datakilder, beregningsmetoder, kendte begrænsninger og ændringslog.
+
+## Maskinlæsbare data (JSON)
+
+Alle filer opdateres af ETL-pipeline og serveres statisk fra `/data/`.
+
+- [dashboard-data.json](https://treparttracker.dk/data/dashboard-data.json): Hoveddatasæt — national og geografisk opdeling af alle delmål.
+- [dashboard-summary.json](https://treparttracker.dk/data/dashboard-summary.json): Kompakt national opsummering med datakilde-proveniens.
+- [videnscenter/articles.json](https://treparttracker.dk/data/videnscenter/articles.json): Alle videnscenter-artikler som JSON (fuld markdown-body).
+- [etl-run-summary.json](https://treparttracker.dk/data/etl-run-summary.json): Seneste ETL-kørsel, kildestatus og tidsstempler.
+- [project-details.json](https://treparttracker.dk/data/project-details.json): Enkeltprojekter fra MARS med fase, areal og geografi.
+- [kommune-benchmark/kommune-ranking.json](https://treparttracker.dk/data/kommune-benchmark/kommune-ranking.json): Kommunal rangliste og indsatsmetrics.
+
+## Open source
+
+- [GitHub — groen-trepart-tracker](https://github.com/NielsKSchjoedt/groen-trepart-tracker): Kildekode, ETL-pipeline, dokumentation og CHANGELOG.md.
+- [Primær datakilde — MARS](https://mars.sgav.dk): Officiel projektregistrering (SGAV/Miljøstyrelsen). Trackeren er afledt af MARS og supplerende åbne API'er.
+
+## Optional
+
+- [Sitemap](https://treparttracker.dk/sitemap.xml): Alle 98 kommunesider og videnscenter-URL'er.
+- [robots.txt](https://treparttracker.dk/robots.txt): Crawler-politik (Allow: /).

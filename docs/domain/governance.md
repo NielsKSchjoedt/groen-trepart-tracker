@@ -44,7 +44,7 @@ Key responsibilities:
 
 ## MARS as monitoring backbone
 
-MARS (Multifunktionel ArealRegistrering System) calculates three core effects per project:
+MARS (Multifunktionel Arealregistrering) calculates three core effects per project:
 - **Nitrogen effect** (tonnes N) — hydrologially correct, per sub-catchment
 - **Lowland extraction area** (ha) — based on Kulstof2022 overlap logic
 - **Afforestation area** (ha) — including "urørt skov" (untouched forest)

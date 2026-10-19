@@ -25,7 +25,16 @@ OUT_DATA = BASE / "data" / "etl-run-summary.json"
 OUT_PUBLIC = BASE / "public" / "data" / "etl-run-summary.json"
 
 # Sources that run in the daily GitHub Actions workflow (used for overall status).
-DAILY_SOURCES = {"mars", "dawa", "miljoegis", "dst", "vanda", "klimaregnskab"}
+DAILY_SOURCES = {
+    "mars",
+    "dawa",
+    "miljoegis",
+    "dst",
+    "vanda",
+    "klimaregnskab",
+    "arealdata-biodiversitet",
+    "fvm-markkort-vns",
+}
 
 KEEP_DAYS = 30
 
@@ -40,6 +49,18 @@ def _key_records(source: str, records: dict) -> dict:
         return {"stations": records["stations"]} if "stations" in records else {}
     if source == "klimaregnskab":
         return {"municipalities": records["municipalities"]} if "municipalities" in records else {}
+    if source == "arealdata-biodiversitet":
+        return {
+            k: records[k]
+            for k in ("ku1", "ku2", "dce_hits", "dce_fetched")
+            if k in records
+        }
+    if source == "fvm-markkort-vns":
+        return {
+            k: records[k]
+            for k in ("vns", "municipalities_tagged")
+            if k in records
+        }
     return {}
 
 

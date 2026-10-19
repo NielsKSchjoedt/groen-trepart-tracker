@@ -90,15 +90,15 @@ export function MobileBottomSheet({ onClose, children }: MobileBottomSheetProps)
     <>
       {/* Backdrop — tapping closes the sheet */}
       <div
-        className="md:hidden fixed inset-0 z-[199] bg-black transition-opacity duration-300"
+        className="md:hidden fixed inset-0 z-[1990] bg-black transition-opacity duration-300"
         style={{ opacity: backdropOpacity }}
         onClick={dismiss}
         aria-hidden="true"
       />
 
-      {/* Sheet */}
+      {/* Sheet — above map legends (z-500) and below centered modals (z-2000+) */}
       <div
-        className="md:hidden fixed inset-x-0 bottom-0 z-[200] rounded-t-2xl bg-background border-t border-x border-border shadow-2xl overflow-hidden"
+        className="md:hidden fixed inset-x-0 bottom-0 z-[2000] rounded-t-2xl bg-background border-t border-x border-border shadow-2xl overflow-hidden"
         style={{
           transform: sheetTransform,
           // Disable transition while the user is actively dragging so the

@@ -4,6 +4,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { X, Droplets, Mountain, Trees, Maximize2 } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
+import {
+  BASEMAP_TILE_MAX_ZOOM,
+  PROJECT_OVERLAY_FIT_MAX_ZOOM,
+  PROJECT_OVERLAY_MAX_ZOOM,
+} from '@/lib/map-zoom';
 
 export interface ProjectMapInfo {
   name: string;
@@ -68,11 +73,12 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
       touchZoom: true,
       boxZoom: true,
       keyboard: true,
+      maxZoom: PROJECT_OVERLAY_MAX_ZOOM,
     });
 
     // Light basemap
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19,
+      maxZoom: BASEMAP_TILE_MAX_ZOOM,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
     }).addTo(map);
 
@@ -95,7 +101,7 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
 
     // Fit to polygon bounds
     const bounds = polygon.getBounds();
-    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
+    map.fitBounds(bounds, { padding: [60, 60], maxZoom: PROJECT_OVERLAY_FIT_MAX_ZOOM });
 
     mapRef.current = map;
 

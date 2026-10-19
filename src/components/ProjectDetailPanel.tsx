@@ -2,29 +2,72 @@ import { X, Trees, ExternalLink, MapPin, Calendar, Ruler, Tag, Building2 } from 
 import { formatDanishNumber } from '@/lib/format';
 import type { SelectedProject } from '@/lib/project-selection';
 import { KSF_COLOR_SKOV, KSF_COLOR_LAVBUND, NST_COLOR } from '@/lib/supplement-colors';
+import type { KlimaskovfondenProject, NaturstyrelsenSkovProject, ProjectNatureOverlap, SubsidyScheme } from '@/lib/types';
+import { MarsProjectDetailContent, MarsProjectStickyHeader } from '@/components/MarsProjectDetailContent';
 
 interface ProjectDetailPanelProps {
   project: SelectedProject;
   /** Name of the coastal/catchment feature the project sits in */
   featureName?: string;
+  /** Polygon ring for MARS mini-map (optional). */
+  coordinates?: [number, number][];
+  /** Subsidy scheme catalogue for MARS scheme prose. */
+  schemes?: SubsidyScheme[];
+  /** Nature overlap data for MARS projects (nature pillar). */
+  natureOverlap?: ProjectNatureOverlap | null;
+  showNatureOverlap?: boolean;
   onClose: () => void;
 }
 
 /**
- * Side panel shown when a circle marker (KSF or NST project) is clicked
- * on the map. Mirrors the layout of DetailPanel / CoastalWaterDetailPanel
- * for visual consistency.
- *
- * @example <ProjectDetailPanel project={selected} onClose={close} />
+ * Side panel shown when a map marker (MARS, KSF, or NST project) is clicked.
  */
-export function ProjectDetailPanel({ project, featureName, onClose }: ProjectDetailPanelProps) {
+export function ProjectDetailPanel({
+  project,
+  featureName,
+  coordinates,
+  schemes,
+  natureOverlap,
+  showNatureOverlap = false,
+  onClose,
+}: ProjectDetailPanelProps) {
   if (project.source === 'klimaskovfonden') {
     return <KsfPanel project={project.project} featureName={featureName} onClose={onClose} />;
   }
-  return <NstPanel project={project.project} featureName={featureName} onClose={onClose} />;
+  if (project.source === 'naturstyrelsen') {
+    return <NstPanel project={project.project} featureName={featureName} onClose={onClose} />;
+  }
+
+  const scheme = project.project.schemeId
+    ? schemes?.find((s) => s.id === project.project.schemeId)
+    : undefined;
+
+  return (
+    <div className="bg-background border-l border-border h-full">
+      <MarsProjectStickyHeader
+        project={project.project}
+        planName={project.planName}
+        variant="panel"
+        onClose={onClose}
+      />
+      <div className="px-6 pb-6 pt-4">
+        <MarsProjectDetailContent
+          project={project.project}
+          planName={project.planName}
+          featureName={featureName}
+          variant="panel"
+          scheme={scheme}
+          coordinates={coordinates}
+          natureOverlap={natureOverlap}
+          showNatureOverlap={showNatureOverlap}
+          hideHeader
+          showMarsFooter
+        />
+      </div>
+    </div>
+  );
 }
 
-/** Detail row used by both panel variants. */
 function InfoRow({ icon: Icon, label, children }: { icon: typeof Trees; label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-3 py-2.5 border-b border-border/50 last:border-0">
@@ -37,7 +80,6 @@ function InfoRow({ icon: Icon, label, children }: { icon: typeof Trees; label: s
   );
 }
 
-/** Source badge with color. */
 function SourceBadge({ source, isSkov = true }: { source: 'klimaskovfonden' | 'naturstyrelsen'; isSkov?: boolean }) {
   const config = source === 'klimaskovfonden'
     ? { label: 'Klimaskovfonden', color: isSkov ? KSF_COLOR_SKOV.text : KSF_COLOR_LAVBUND.text, bg: isSkov ? KSF_COLOR_SKOV.bg : KSF_COLOR_LAVBUND.bg }
@@ -52,7 +94,6 @@ function SourceBadge({ source, isSkov = true }: { source: 'klimaskovfonden' | 'n
   );
 }
 
-/** Status badge with contextual color. */
 function StatusBadge({ label, variant }: { label: string; variant: 'green' | 'blue' | 'amber' | 'gray' }) {
   const colors = {
     green: { color: '#15803d', bg: '#15803d15' },
@@ -113,7 +154,7 @@ function KsfPanel({ project, featureName, onClose }: { project: KlimaskovfondenP
       <div className="rounded-lg bg-muted/50 p-4 text-xs text-muted-foreground leading-relaxed">
         <p className="mb-2">
           <strong>Klimaskovfonden</strong> er en privat fond der rejser skov og udtager lavbundsjorde
-          med frivillige lodsejere. Projekterne bidrager til Den Grønne Trepartsaftales skovrejsnings-
+          med frivillige lodsejere. Projekterne bidrager til Den Grønne Treparts skovrejsnings-
           og lavbundsmål.
         </p>
         <p>Arealet er beregnet fra polygongeometri i Klimaskovfondens WFS-tjeneste.</p>
@@ -179,7 +220,7 @@ function NstPanel({ project, featureName, onClose }: { project: NaturstyrelsenSk
       <div className="rounded-lg bg-muted/50 p-4 text-xs text-muted-foreground leading-relaxed">
         <p className="mb-2">
           <strong>Naturstyrelsen</strong> varetager statslig skovrejsning på offentligt ejede arealer.
-          Projekterne er en del af den nationale skovrejsningsindsats under Den Grønne Trepartsaftale.
+          Projekterne er en del af den nationale skovrejsningsindsats under Den Grønne Trepart.
         </p>
         <p>Arealet er beregnet fra polygongeometri i MiljøGIS WFS (Naturstyrelsens arealoversigt).</p>
       </div>

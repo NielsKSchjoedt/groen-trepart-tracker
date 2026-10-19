@@ -29,12 +29,22 @@ from etl_log import log_etl_run
 
 # Configuration
 MARS_BASE = "https://mars.sgav.dk/api"
+_THIS_YEAR = datetime.now(timezone.utc).year
+
 ENDPOINTS = {
     "master-data": "/master-data",
     "plans": "/status/plans",
     "projects": "/status/projects",
     "vos": "/status/vos",
     "metadata": "/status/metadata",
+    # Per-kommune aggregates with area-clipped project rows — MARS's own kommune view.
+    # Source of truth for every kommune figure (replaces our DAWA reverse geocoding).
+    "municipality": "/status/municipality",
+    # Permanent ekstensivering is reported separately from /status/projects;
+    # MARS's national N headline = Σ projects + Σ this endpoint.
+    "permanent-ekstensivering": "/status/permanent-ekstensivering",
+    # Quarterly phase counts as they actually were (MARS keeps history from 2025-Q3).
+    "projects-history": f"/status/projects/history?fromYear=2024&fromQuarter=1&toYear={_THIS_YEAR}&toQuarter=4",
 }
 
 # Output directory (relative to repo root)
@@ -117,9 +127,14 @@ def compute_summary(data: dict) -> dict:
         plans = data["plans"]
         total_goal = sum(p.get("nitrogenReductionGoalT", 0) or 0 for p in plans)
         total_achieved = sum(p.get("totalNitrogenReductionT", 0) or 0 for p in plans)
+        # MARS names these counts counter-intuitively (verified on all 37 plans and
+        # against /status/projects/history): countAssessedProjects = status 10
+        # (etableringstilsagn), countApprovedProjects = status 6 (forundersøgelsestilsagn).
+        # Map to their meaning here so nothing downstream inherits the inversion.
+        # NB: plan-level counts double-count projects that span several plans.
         total_established = sum(p.get("countEstablishedProjects", 0) or 0 for p in plans)
-        total_approved = sum(p.get("countApprovedProjects", 0) or 0 for p in plans)
-        total_assessed = sum(p.get("countAssessedProjects", 0) or 0 for p in plans)
+        total_establishment_grant = sum(p.get("countAssessedProjects", 0) or 0 for p in plans)
+        total_preliminary_grant = sum(p.get("countApprovedProjects", 0) or 0 for p in plans)
         total_sketch = sum(p.get("countSketchProjects", 0) or 0 for p in plans)
         progress_pct = round(total_achieved / total_goal * 100, 1) if total_goal > 0 else 0
         summary["endpoints"]["plans"] = {
@@ -128,8 +143,8 @@ def compute_summary(data: dict) -> dict:
             "nitrogen_achieved_T": round(total_achieved, 3),
             "nitrogen_progress_pct": progress_pct,
             "established_projects": total_established,
-            "approved_projects": total_approved,
-            "assessed_projects": total_assessed,
+            "establishment_grant_projects": total_establishment_grant,
+            "preliminary_grant_projects": total_preliminary_grant,
             "sketch_projects": total_sketch,
         }
 
@@ -198,7 +213,7 @@ def main():
     if "plans" in summary["endpoints"]:
         p = summary["endpoints"]["plans"]
         print(f"  Nitrogen reduction: {p['nitrogen_achieved_T']:,.1f} T of {p['nitrogen_goal_T']:,.1f} T ({p['nitrogen_progress_pct']}%)")
-        print(f"  Projects: {p['established_projects']} completed, {p['approved_projects']} approved, {p['assessed_projects']} assessed, {p['sketch_projects']} sketch")
+        print(f"  Plan rows: {p['established_projects']} anlagt, {p['establishment_grant_projects']} etableringstilsagn, {p['preliminary_grant_projects']} forundersøgelse, {p['sketch_projects']} skitser")
     if "projects" in summary["endpoints"]:
         print(f"  Individual projects tracked: {summary['endpoints']['projects']['total_count']}")
     if errors:

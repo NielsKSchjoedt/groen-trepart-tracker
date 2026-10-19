@@ -9,10 +9,11 @@
  *   - ProjectDetailPanel source badges
  *
  * KSF (Klimaskovfonden) uses two palettes:
- *   - GREEN  for Skovrejsning (afforestation pillar)
+ *   - LIGHT PURPLE for Skovrejsning (afforestation pillar) — distinct from MARS
+ *     "Anlagt" emerald (#10b981) and NST deep violet (#7c3aed)
  *   - ORANGE for Lavbund (extraction pillar)
  *
- * NST (Naturstyrelsen) uses PURPLE throughout to avoid collision with the
+ * NST (Naturstyrelsen) uses deep violet throughout to avoid collision with the
  * "Godkendt" MARS phase blue (#3b82f6).
  */
 
@@ -31,14 +32,14 @@ export interface SeriesColor {
   activeClass: string;
 }
 
-/** Klimaskovfonden — Skovrejsning (afforestation, green) */
+/** Klimaskovfonden — Skovrejsning (afforestation, light purple) */
 export const KSF_COLOR_SKOV: SeriesColor = {
-  stroke:      '#22c55e',  // bright green — matches funnel bar
-  fill:        '#f0fdf4',
-  text:        '#15803d',  // darker for text/icons
-  bg:          '#22c55e15',
-  borderClass: 'border-green-500',
-  activeClass: 'border-green-500 bg-green-50 text-green-800',
+  stroke:      '#c084fc',  // purple-400 — lighter than NST, distinct from MARS anlagt
+  fill:        '#faf5ff',
+  text:        '#9333ea',  // purple-600 for text/icons
+  bg:          '#c084fc18',
+  borderClass: 'border-purple-400',
+  activeClass: 'border-purple-400 bg-purple-50 text-purple-800',
 };
 
 /** Klimaskovfonden — Lavbund (extraction, orange) */

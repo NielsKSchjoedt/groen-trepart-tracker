@@ -233,7 +233,7 @@ export function KommuneTable({ metrics, activeMetric, selectedKode, onSelect }: 
                 <ColHeader
                   {...colSortProps}
                   col="extractionHa"
-                  label="Udtagning"
+                  label="Lavbund"
                   tooltip="Areal (ha) af kulstofrige lavbundsjorde udtaget fra omdrift — fra MARS-projekter. Filtreres med fasevælgeren ovenfor."
                   tooltipSource="MARS API (Miljøstyrelsen)"
                 />

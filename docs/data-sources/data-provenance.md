@@ -39,18 +39,16 @@ Most fetchers use Python stdlib only. Two exceptions: `build_co2_data.py` requir
 - `/api/status/vos` — 23 vandopland (main catchment) aggregations
 - `/api/status/metadata` — national goals and plan definitions
 
-**Phase classification**: MARS projects have a `projectStatus` integer that maps to lifecycle phases:
-- **6** → `preliminary` (Forundersøgelsestilsagn — preliminary investigation granted)
-- **10** → `approved` (Etableringstilsagn — approved for construction)
-- **15** → `established` (Anlagt — actually built and operational)
-- All other statuses → `preliminary` (conservative default)
+**Phase classification (two layers)**:
+1. **Sprint 2 — full MARS / DN pipeline** (`etl/mars_pipeline_s2.py`, exposed as `national.byPipelinePhase` in `dashboard-data.json`): all official `stateNr` values in `master-data` map to five main stages (`sketch` with sub-states kladde/ansøgt, `preliminary_grant`, `preliminary_done`, `establishment_grant`, `established`) plus a **cancelled** sidecar. Sketch-only rows come from `plans[].sketchProjects` (deduplicated by `sketchProjectId` for national totals).
+2. **Legacy 3-bucket** (unchanged for charts that still use it): the same build rolls those five stages into `preliminary` (sketch + forundersøgelse before etableringstilsagn), `approved` (etableringstilsagn), and `established` (anlagt). Older copy may still list only 6/10/15; the ETL now uses the full map.
 
 **Key disclaimer**: The vast majority of reported nitrogen reduction is in the preliminary phase. As of the latest data:
 - Established (actually built): ~26 T (0.8% of pipeline)
 - Approved (not yet built): ~581 T (16.8%)
 - Preliminary (investigation only): ~3,238 T (82.4%)
 
-**Maintainer**: Miljøstyrelsen / Danmarks Miljøportal
+**Maintainer**: SGAV
 
 ### 2. DAWA API (api.dataforsyningen.dk)
 
@@ -142,6 +140,11 @@ Most fetchers use Python stdlib only. Two exceptions: `build_co2_data.py` requir
 
 **Registry**: The full Klimaregister (with CO₂ estimates, status, validators) is at [klimaskovfonden.dk/vores-standard/register](https://klimaskovfonden.dk/vores-standard/register) — Power BI dashboard, not API-accessible. The WFS only provides geometry, case number, year, and type.
 
+**Data freshness** (confirmed via correspondence with Klimaskovfonden, 24. marts 2026):
+- WFS-data opdateres minimum ved hver ansøgningsrunde — i praksis ca. **4 gange om året**
+- Klimaregisteret (Power BI) opdateres oftere og viser projektfaser
+- Samlet areal fra WFS bekræftet: **2.918 ha** (pr. 24. marts 2026)
+
 **Note**: Historical snapshots exist as separate layers (`_marts_2025`, `_april_2025`). The main layer is the current/live dataset.
 
 ---
@@ -230,10 +233,10 @@ The `dashboard-data.json` includes a `sources` object with full provenance for e
 {
   "sources": {
     "mars": {
-      "name": "MARS — Miljøstyrelsens Arealregister",
+      "name": "MARS — Multifunktionel Arealregistrering",
       "url": "https://mars.sgav.dk",
       "description": "...",
-      "maintainer": "Miljøstyrelsen / Danmarks Miljøportal",
+      "maintainer": "SGAV",
       "license": "CC0-like (PSI-loven)",
       "disclaimer": "...",
       "fetchedAt": "2026-03-11T..."

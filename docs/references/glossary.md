@@ -41,13 +41,13 @@
 | DAWA | Danmarks Adresser og Web API | Address and geographic API |
 | DVFI | Dansk Vandløbs Fauna Index | Danish stream fauna quality index |
 | GEUS | De Nationale Geologiske Undersøgelser for Danmark og Grønland | Geological Survey of Denmark and Greenland |
-| MARS | Miljø- og ArealRegistrerings Systemet | Environment and Area Registration System |
+| MARS | Multifunktionel Arealregistrering | Multifunctional Area Registration |
 | MFS | Miljøfarlige stoffer | Environmentally hazardous substances |
 | NOVANA | Nationalt Overvågningsprogram for Vandmiljø og Natur | National monitoring programme for water and nature |
 | NKM | National Kvælstofmodel | National Nitrogen Model |
 | PFA | Partnerskabet for Fond for Arealudtagning | Partnership for the Fund for Land Retirement |
 | PFAS | Per- and polyfluoroalkyl substances | Persistent chemical contaminants |
-| SGAV | Sekretariatet for Den Grønne Arealomlægning af Vådområder | Secretariat for the Green Area Transformation |
+| SGAV | Styrelsen for Grøn Arealomlægning og Vandmiljø | Agency for Green Land Conversion and the Aquatic Environment |
 | TFA | Trifluoroacetic acid | PFAS compound increasingly found in groundwater |
 | VP2 | Vandplan periode 2 (2015–2021) | Second Water Framework Directive plan period |
 | VP3 | Vandplan periode 3 (2021–2027) | Third Water Framework Directive plan period |

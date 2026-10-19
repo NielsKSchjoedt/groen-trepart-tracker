@@ -7,13 +7,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { BugReportFab } from "./components/BugReportFab";
+import { RouteParamSanitizer } from "./components/RouteParamSanitizer";
 
 // Heavy KommunePage (Leaflet choropleth) in its own chunk to keep the
 // main bundle lean. Leaflet is already a dependency but the choropleth
 // layer uses a separate GeoJSON file (~400 KB).
 const KommunePage = lazy(() => import("./pages/KommunePage"));
+const KommuneDetailPage = lazy(() => import("./pages/KommuneDetailPage"));
 
 const DataMetodePage = lazy(() => import("./pages/DataMetodePage"));
+const VidenscenterPage = lazy(() => import("./pages/VidenscenterPage"));
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,8 @@ const queryClient = new QueryClient();
  *   /co2                     → CO₂ emissions pillar
  *   /natur                   → Protected nature pillar
  *   /data-og-metode           → Data sources, methodology, transparency
+ *   /videnscenter             → Knowledge center (SGAV background articles)
+ *   /videnscenter/:articleSlug → Single article
  *   /kommuner                → Municipality overview (choropleth + table)
  *   /kommuner/:kommuneSlug   → Deep-linked kommune detail
  *
@@ -40,6 +45,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <RouteParamSanitizer />
         <BugReportFab />
         <Routes>
           {/* Root: overview landing — no pillar pre-selected */}
@@ -51,6 +57,24 @@ const App = () => (
             element={
               <Suspense fallback={null}>
                 <DataMetodePage />
+              </Suspense>
+            }
+          />
+
+          {/* Videnscenter — SGAV background articles for SEO */}
+          <Route
+            path="/videnscenter"
+            element={
+              <Suspense fallback={null}>
+                <VidenscenterPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/videnscenter/:articleSlug"
+            element={
+              <Suspense fallback={null}>
+                <VidenscenterPage />
               </Suspense>
             }
           />
@@ -68,7 +92,7 @@ const App = () => (
             path="/kommuner/:kommuneSlug"
             element={
               <Suspense fallback={null}>
-                <KommunePage />
+                <KommuneDetailPage />
               </Suspense>
             }
           />

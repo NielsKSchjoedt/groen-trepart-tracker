@@ -35,6 +35,7 @@ from urllib.error import URLError, HTTPError
 from urllib.parse import quote
 
 from etl_log import log_etl_run
+from kommune_lookup import find_kommune
 
 # Configuration
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -43,7 +44,6 @@ DATA_DIR = REPO_ROOT / "data" / "klimaskovfonden"
 
 WFS_BASE = "https://test.admin.gc2.io/ows/klimaskovfonden/public/"
 LAYER = "klimaskovfonden:public.klimaskovfondens_projekter"
-DAWA_REVERSE_URL = "https://api.dataforsyningen.dk/kommuner/reverse"
 USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 TIMEOUT_SECONDS = 60
 DAWA_TIMEOUT_SECONDS = 10
@@ -112,22 +112,13 @@ def compute_centroid(coords: list[tuple[float, float]]) -> tuple[float, float]:
 
 def reverse_geocode_kommune(lon: float, lat: float) -> str | None:
     """
-    Resolve a WGS84 point to a Danish municipality name via DAWA reverse geocoding.
+    Kommune name for a WGS84 point — offline lookup in the committed kommune
+    polygons (DAWA's reverse geocoder was shut down in 2026, HTTP 410).
 
-    Returns the municipality name (e.g. "Vejle Kommune") or None on failure.
-    Uses Dataforsyningen's free, unauthenticated API.
-
-    Example call:
-        reverse_geocode_kommune(9.358, 55.733)  # → "Kolding Kommune"
+    @example reverse_geocode_kommune(9.358, 55.733)  # → "Vejle"
     """
-    url = f"{DAWA_REVERSE_URL}?x={lon}&y={lat}&srid=4326"
-    req = Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urlopen(req, timeout=DAWA_TIMEOUT_SECONDS) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            return data.get("navn")
-    except Exception:
-        return None
+    hit = find_kommune(lon, lat)
+    return hit["navn"] if hit else None
 
 
 GEOCODE_CACHE_PATH = DATA_DIR / "geocode-cache.json"
@@ -155,7 +146,7 @@ def reverse_geocode_batch(features: list[dict]) -> dict[str, str]:
     """
     Batch reverse-geocode all feature centroids to municipality names.
 
-    Loads a persisted disk cache so only new/unseen coordinates hit the DAWA API.
+    Results are cached on disk; lookups are local (no network).
     Deduplicates nearby points (rounded to 2 decimal places) to minimize API calls.
 
     @param features - List of parsed feature dicts with 'centroid' [lon, lat]
@@ -171,12 +162,12 @@ def reverse_geocode_batch(features: list[dict]) -> dict[str, str]:
         if lon == 0 and lat == 0:
             continue
 
-        cache_key = f"{lon:.2f},{lat:.2f}"
+        # Exact lookup per point: the old ~1 km rounded key let neighbours across
+        # a kommune border share one answer. The local lookup is microseconds.
+        cache_key = f"{lon:.6f},{lat:.6f}"
         if cache_key not in cache:
-            kommune = reverse_geocode_kommune(lon, lat)
-            cache[cache_key] = kommune
+            cache[cache_key] = reverse_geocode_kommune(lon, lat)
             api_calls += 1
-            time.sleep(0.05)
 
         if cache[cache_key]:
             result[feat["sagsnummer"]] = cache[cache_key]

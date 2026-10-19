@@ -29,6 +29,7 @@ Format: { "<geoLocationId>": [[lng,lat], [lng,lat], ...], ... }
 """
 
 import argparse
+import http.client
 import json
 import math
 import re
@@ -280,7 +281,9 @@ def fetch_geometry(geo_id: str) -> str | None:
         with urlopen(req, timeout=TIMEOUT_SECONDS) as response:
             data = json.loads(response.read())
             return data.get("geometryWkt")
-    except (HTTPError, URLError, json.JSONDecodeError):
+    # OSError covers dropped connections (http.client.RemoteDisconnected), resets and
+    # socket timeouts — one flaky request must not abort the whole (resumable) run.
+    except (HTTPError, URLError, json.JSONDecodeError, OSError, http.client.HTTPException):
         return None
 
 
