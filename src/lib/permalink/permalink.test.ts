@@ -71,9 +71,9 @@ describe('permalink', () => {
     const parsed = parseViewState({
       pathname: '/lavbund',
       search: '?unknown=foo&faser=not-a-phase',
-      hash: '#oekonomi',
+      hash: '#fremskrivning',
     });
-    expect(parsed.section).toBe('oekonomi');
+    expect(parsed.section).toBe('fremskrivning');
     expect(phasesEqual(parsed.mapNational.phases, DEFAULT_NATIONAL_MAP.phases)).toBe(true);
   });
 
@@ -152,8 +152,8 @@ describe('permalink', () => {
   });
 
   it('builds section permalink with hash and without fane alias', () => {
-    const url = buildSectionPermalink('oekonomi', 'https://example.test/skovrejsning?frem=anlagt&fane=projekter');
-    expect(url).toBe('https://example.test/skovrejsning?frem=anlagt#oekonomi');
+    const url = buildSectionPermalink('fremskrivning', 'https://example.test/skovrejsning?frem=anlagt&fane=projekter');
+    expect(url).toBe('https://example.test/skovrejsning?frem=anlagt#fremskrivning');
   });
 
   it('strips national and list params from kommune detail URLs', () => {

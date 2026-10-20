@@ -13,7 +13,6 @@ function renderCard(ui: ReactElement) {
 function minimalDashboard(): DashboardData {
   return {
     fetchedAt: '2026-06-01T00:00:00Z',
-    driftFinansiering: undefined,
     national: {
       targets: {
         nitrogenReductionT: 12776,

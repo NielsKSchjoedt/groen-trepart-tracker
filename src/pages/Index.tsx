@@ -15,17 +15,12 @@ import { uniqueByProjectId } from '@/lib/nature-projects';
 import { projectMatchesPillar } from '@/lib/pillar-projects';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { HeroSection } from '@/components/HeroSection';
-import { OekonomiOverblik } from '@/components/oekonomi/OekonomiOverblik';
-import { OekonomiDelmaal } from '@/components/oekonomi/OekonomiDelmaal';
-import { OekonomiFootnote } from '@/components/oekonomi/OekonomiFootnote';
 import { ChapterSection } from '@/components/ChapterSection';
 import {
   getGeografiIntro,
   getChapters,
   getExtraHashScrollIds,
   getPillarMapPickHash,
-  OEKONOMI_CHAPTER,
-  OEKONOMI_INTRO,
   PROJEKTER_CHAPTER,
   FREMSKRIVNING_CHAPTER,
   GEOGRAFI_CHAPTER,
@@ -191,25 +186,9 @@ const Index = () => {
 
           {/* The "delmaal" chapter (de fem løfter) now lives inside HeroSection. */}
 
-          {/* Overview: delmål-valg → økonomi */}
+          {/* Overview: delmål-valg */}
           {!pillarSelected && (
-            <>
-              <DelmaalVaelgKort data={data} onSelect={selectPillarFromMapPick} />
-
-              <ChapterSection
-                id={OEKONOMI_CHAPTER.id}
-                eyebrow={OEKONOMI_CHAPTER.eyebrow}
-                question={OEKONOMI_CHAPTER.question}
-                intro={OEKONOMI_INTRO}
-                className="pb-16"
-              >
-                <OekonomiOverblik budget={data.national.budgetData} />
-                <OekonomiFootnote
-                  kilde={data.national.budgetData?._meta.kilde}
-                  opdateret={data.national.budgetData?._meta.opdateret}
-                />
-              </ChapterSection>
-            </>
+            <DelmaalVaelgKort data={data} onSelect={selectPillarFromMapPick} />
           )}
 
           {/* Pillar narrative — chapters appear once a delmål is selected */}
@@ -284,22 +263,6 @@ const Index = () => {
                   <ScenarioBuilderSection data={data} />
                 </ChapterSection>
               )}
-
-              {/* Chapter: Har vi råd til det? — budget */}
-              <ChapterSection
-                id={OEKONOMI_CHAPTER.id}
-                eyebrow={OEKONOMI_CHAPTER.eyebrow}
-                question={OEKONOMI_CHAPTER.question}
-                accentColor={config.accentColor}
-                intro={`${OEKONOMI_INTRO} Nedenfor kan du også se finansiering for det delmål, du har valgt.`}
-              >
-                <OekonomiOverblik budget={data.national.budgetData} />
-                <OekonomiDelmaal budget={data.national.budgetData} />
-                <OekonomiFootnote
-                  kilde={data.national.budgetData?._meta.kilde}
-                  opdateret={data.national.budgetData?._meta.opdateret}
-                />
-              </ChapterSection>
 
               <DataSourceSection fetchedAt={data.fetchedAt} />
             </>

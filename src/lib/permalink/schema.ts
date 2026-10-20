@@ -34,7 +34,7 @@
  *
  * Hash sections: `status`, `kort`, `projekter`. Legacy `?fane=projekter` → `#projekter`.
  *
- * @example /lavbund#oekonomi
+ * @example /lavbund#fremskrivning
  * @example /natur#geografi?overlag=section3,natura2000&fuldskaerm=1
  * @example /skovrejsning#geografi?faser=anlagt,foru&overlag=ksf,nst
  * @example /kommuner?sort=skov&visning=ansvar

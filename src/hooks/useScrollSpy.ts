@@ -24,7 +24,7 @@ export interface ScrollSpyState {
  * @returns The active chapter id and the page scroll progress (0–1)
  *
  * @example
- * const { activeId, progress } = useScrollSpy(['delmaal', 'projekter', 'oekonomi']);
+ * const { activeId, progress } = useScrollSpy(['delmaal', 'projekter', 'fremskrivning']);
  */
 export function useScrollSpy(ids: string[], offset = 96): ScrollSpyState {
   const [activeId, setActiveId] = useState<string | null>(ids[0] ?? null);

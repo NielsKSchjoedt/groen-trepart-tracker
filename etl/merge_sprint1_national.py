@@ -171,27 +171,6 @@ def main() -> int:
     except FileNotFoundError:
         pass
 
-    try:
-        with open(f"{BASE}/data/finansiering/aftaler.json", encoding="utf-8") as f:
-            bud = json.load(f)
-        prog = national["progress"]
-        _ext_e = prog["extraction"]["byPhase"]["established"]["ha"]
-        _ksf_lb = prog["extraction"].get("supplementary", {}).get("klimaskovfondenLavbundHa", 0) or 0
-        _aff_e = prog["afforestation"]["marsTotal"]["byPhase"]["established"]["ha"]
-        _ksf_s = prog["afforestation"].get("supplementary", {}).get("klimaskovfondenHa", 0) or 0
-        _nst_s = prog["afforestation"].get("supplementary", {}).get("nstSkovHa", 0) or 0
-        _n_est = prog["nitrogen"]["byPhase"]["established"]["T"]
-        for _cat in bud.get("kategorier", []):
-            if _cat.get("id") == "lavbund-udtagning":
-                _cat["realiseringHa"] = round(float(_ext_e) + float(_ksf_lb), 1)
-            elif _cat.get("id") == "skov":
-                _cat["realiseringHa"] = round(float(_aff_e) + float(_ksf_s) + float(_nst_s), 1)
-            elif _cat.get("id") == "kvaelstof":
-                _cat["realiseringTonN"] = round(float(_n_est), 1)
-        national["budgetData"] = bud
-    except FileNotFoundError:
-        pass
-
     for p in SUMMARY_PATHS:
         try:
             os.makedirs(os.path.dirname(p), exist_ok=True)

@@ -19,7 +19,7 @@ const OVERVIEW_MAP_INTRO =
 
 /**
  * Map pick section on the national overview — same shell as the kommune kort
- * (blurred map + delmål dots), placed between hero and økonomi.
+ * (blurred map + delmål dots), placed below the hero.
  */
 export function DelmaalVaelgKort({ data, onSelect }: DelmaalVaelgKortProps) {
   const [kommunerGeo, setKommunerGeo] = useState<FeatureCollection<Geometry> | null>(null);

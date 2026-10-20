@@ -1051,16 +1051,6 @@ dashboard_data = {
 
     "fieldDatasetConfigurations": slim_field_dataset_configurations(),
     "marsNature": build_mars_nature_summary(),
-
-    "driftFinansiering": {
-        "afsat": False,
-        "status": "ikke_afsat",
-        "label": "Drift-finansiering er ikke afsat",
-        "sources": [
-            "Aftale om et Grønt Danmark (drøftelse efter 2030)",
-            "Rammeaftale MGTP–KL",
-        ],
-    },
 }
 
 # ========================================
@@ -1302,7 +1292,7 @@ try:
 except FileNotFoundError:
     print("⚠ data/kf26/trepart.json not found — skipping national.kf26")
 
-# Klimarådet + budget (Sprint 1) — pass-through with optional ETL fields
+# Klimarådet (Sprint 1) — pass-through with optional ETL fields
 try:
     with open(f"{BASE}/data/klimaraadet/statusrapport-2026.json", encoding="utf-8") as f:
         _klim = json.load(f)
@@ -1317,27 +1307,6 @@ try:
     }
 except FileNotFoundError:
     print("⚠ data/klimaraadet/statusrapport-2026.json not found — skipping national.klimaraadet")
-
-try:
-    with open(f"{BASE}/data/finansiering/aftaler.json", encoding="utf-8") as f:
-        _bud = json.load(f)
-    _prog = dashboard_data["national"]["progress"]
-    _ext_e = _prog["extraction"]["byPhase"]["established"]["ha"]
-    _ksf_lb = _prog["extraction"].get("supplementary", {}).get("klimaskovfondenLavbundHa", 0) or 0
-    _aff_e = _prog["afforestation"]["marsTotal"]["byPhase"]["established"]["ha"]
-    _ksf_s = _prog["afforestation"].get("supplementary", {}).get("klimaskovfondenHa", 0) or 0
-    _nst_s = _prog["afforestation"].get("supplementary", {}).get("nstSkovHa", 0) or 0
-    _n_est = _prog["nitrogen"]["byPhase"]["established"]["T"]
-    for _cat in _bud.get("kategorier", []):
-        if _cat.get("id") == "lavbund-udtagning":
-            _cat["realiseringHa"] = round(float(_ext_e) + float(_ksf_lb), 1)
-        elif _cat.get("id") == "skov":
-            _cat["realiseringHa"] = round(float(_aff_e) + float(_ksf_s) + float(_nst_s), 1)
-        elif _cat.get("id") == "kvaelstof":
-            _cat["realiseringTonN"] = round(float(_n_est), 1)
-    dashboard_data["national"]["budgetData"] = _bud
-except FileNotFoundError:
-    print("⚠ data/finansiering/aftaler.json not found — skipping national.budgetData")
 
 # ========================================
 # Build byKommune aggregation

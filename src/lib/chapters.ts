@@ -24,19 +24,6 @@ export const DELMAAL_CHAPTER: Chapter = {
   question: 'Hvor langt er vi nået?',
 };
 
-/** Chapter shown in both overview and every pillar view: financing. */
-export const OEKONOMI_CHAPTER: Chapter = {
-  id: 'oekonomi',
-  navLabel: 'Økonomi',
-  eyebrow: 'Forstå hvor pengene skal komme fra',
-  question: 'Er der penge nok til at nå målene?',
-};
-
-/** Lead copy for the økonomi chapter — shared by overview and pillar views. */
-export const OEKONOMI_INTRO =
-  'Aftalen er bakket op af milliarder — men trepartsøkonomien er ikke ét tal. ' +
-  'Pengene løber i to adskilte strømme, og en tredje regning, driften, er endnu ikke afsat.';
-
 export const PROJEKTER_CHAPTER: Chapter = {
   id: 'projekter',
   navLabel: 'Projekter',
@@ -107,26 +94,25 @@ export const CO2DATA_CHAPTER: Chapter = {
 /**
  * Build the ordered chapter list for the active context.
  *
- * - Overview (no pillar): kun de to letvægtskapitler (løfter + økonomi).
- * - CO₂: løfter → CO₂-data → økonomi (ingen projekt-pipeline eller kort).
- * - Øvrige delmål: løfter → projekter → geografi → fremskrivning → økonomi.
+ * - Overview (no pillar): kun løfterne.
+ * - CO₂: løfter → CO₂-data (ingen projekt-pipeline eller kort).
+ * - Øvrige delmål: løfter → projekter → geografi → fremskrivning.
  *
  * @param activePillar - Active pillar id, or null on the overview page
- * @example getChapters('extraction') // [delmaal, projekter, geografi, fremskrivning, oekonomi]
+ * @example getChapters('extraction') // [delmaal, projekter, geografi, fremskrivning]
  */
 export function getChapters(activePillar: PillarId | null): Chapter[] {
   if (activePillar === null) {
-    return [DELMAAL_CHAPTER, OEKONOMI_CHAPTER];
+    return [DELMAAL_CHAPTER];
   }
   if (activePillar === 'co2') {
-    return [DELMAAL_CHAPTER, CO2DATA_CHAPTER, OEKONOMI_CHAPTER];
+    return [DELMAAL_CHAPTER, CO2DATA_CHAPTER];
   }
   return [
     DELMAAL_CHAPTER,
     PROJEKTER_CHAPTER,
     GEOGRAFI_CHAPTER,
     FREMSKRIVNING_CHAPTER,
-    OEKONOMI_CHAPTER,
   ];
 }
 

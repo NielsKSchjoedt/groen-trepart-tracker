@@ -15,7 +15,7 @@ import type { PillarId } from './pillars';
 
 export type PipelineScenarioKey = 'established' | 'approved' | 'preliminary' | 'all';
 
-// --- Sprint 1: initiator breakdown, budget, Klimarådet (ETL + UI) ---
+// --- Sprint 1: initiator breakdown, Klimarådet (ETL + UI) ---
 
 export type InitiatorType = 'state' | 'municipal' | 'private';
 
@@ -44,85 +44,6 @@ export interface ByInitiatorHa {
   afforestation: InitiatorBreakdown;
   nitrogen: InitiatorBreakdown;
   byPhase: Record<InitiatorPhase, ByInitiatorByPhaseEntry>;
-}
-
-export interface FinansieringKilde {
-  kildeNavn: string;
-  kildeUrl?: string;
-  beloebMioKr: number;
-  /** Defaults to true. Set false for sub-budgets already included in an umbrella line. */
-  includeInTotal?: boolean;
-  arealMaalHa?: number;
-  periode?: string;
-  deadlineYear?: number;
-  noter?: string;
-}
-
-export interface FinansieringSatser {
-  [key: string]: number | string | undefined;
-  noter?: string;
-}
-
-export interface FinansieringStroemInstrument {
-  label: string;
-  amount: string;
-  note?: string;
-  privat?: boolean;
-  /** The document that actually states this amount (checked 2026-10-17). */
-  source?: { label: string; url: string };
-}
-
-export interface FinansieringStroemBreakdown {
-  label: string;
-  amount: number;
-  note?: string;
-}
-
-export interface FinansieringStroemContext {
-  label: string;
-  amount: string;
-  note?: string;
-}
-
-export interface FinansieringStroem {
-  id: 'anlaeg' | 'kapacitet' | 'drift';
-  kicker: string;
-  title: string;
-  subtitle?: string;
-  tone: 'green' | 'teal' | 'red';
-  hero: string;
-  heroUnit?: string;
-  heroNote: string;
-  who: string;
-  instruments?: FinansieringStroemInstrument[];
-  breakdown?: FinansieringStroemBreakdown[];
-  context?: FinansieringStroemContext[];
-  keyPoint: string;
-  flow: [string, string, string];
-  source: { label: string; url?: string };
-  listNote?: string;
-  contextLabel?: string;
-}
-
-export interface FinansieringKategori {
-  id: string;
-  kategori: 'lavbund' | 'kvaelstof' | 'skovrejsning' | 'natur' | 'co2';
-  label: string;
-  kilder: FinansieringKilde[];
-  satser?: FinansieringSatser;
-  driftFinansieringMioKr: number | null;
-  /** Optional badge for delmål detail (e.g. EU coverage) */
-  badge?: string;
-  /** ETL: established ha (lavbund+KSF or skov total) / areal where applicable */
-  realiseringHa?: number;
-  realiseringTonN?: number;
-}
-
-export interface BudgetData {
-  _meta: { kilde: string; opdateret: string };
-  /** Lag 1 — tværgående pengestrømme (anlæg, kapacitet, drift) */
-  stroemme?: FinansieringStroem[];
-  kategorier: FinansieringKategori[];
 }
 
 export type KlimaraadetRisiko = 'Lav' | 'Moderat' | 'Væsentlig' | 'Høj';
@@ -330,7 +251,6 @@ export interface KommuneMetrics {
 
 export interface DashboardData {
   fetchedAt: string;
-  driftFinansiering?: DriftFinansiering;
   national: {
     targets: {
       nitrogenReductionT: number;
@@ -386,7 +306,6 @@ export interface DashboardData {
     /** Per-kommune aggregated metrics — 98 entries, one per Danish municipality */
     byKommune: KommuneMetrics[];
     byInitiatorHa?: ByInitiatorHa;
-    budgetData?: BudgetData;
     klimaraadet?: KlimaraadetData;
     kf26?: Kf26TrepartData;
     byPipelinePhase?: ByPipelinePhaseRoot;
@@ -395,7 +314,6 @@ export interface DashboardData {
     cancelled?: CancelledMetrics;
     byOwnerOrg?: Record<string, { count: number; ha: number; byPipelinePhase: ByPipelinePhaseRoot }>;
   };
-  driftFinansiering?: DriftFinansiering;
   plans: Plan[];
   catchments: Catchment[];
   mitigationMeasures: MitigationMeasure[];
@@ -480,13 +398,6 @@ export interface VandNaturSkovProjekt {
 }
 
 export type OwnerOrgKey = 'NST' | 'SGAV' | 'LBST' | 'unknown';
-
-export interface DriftFinansiering {
-  afsat: boolean;
-  status: string;
-  label: string;
-  sources: string[];
-}
 
 export interface Plan {
   id: string;

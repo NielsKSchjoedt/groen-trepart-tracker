@@ -12,7 +12,6 @@ import type {
   KlimaregnskabData,
   EtlRunSummary,
   ByInitiatorHa,
-  BudgetData,
   KlimaraadetData,
   VandNaturSkovProjekt,
   KommuneBenchmarkData,
@@ -177,7 +176,6 @@ export function normalizeRawData(raw: Record<string, unknown>): DashboardData {
 
   return {
     fetchedAt: r.fetchedAt ?? r.builtAt ?? '',
-    driftFinansiering: r.driftFinansiering as DashboardData['driftFinansiering'],
     national: {
       targets: {
         nitrogenReductionT: nat.targets?.nitrogenReductionT ?? 0,
@@ -231,7 +229,6 @@ export function normalizeRawData(raw: Record<string, unknown>): DashboardData {
       },
       byKommune: (nat.byKommune ?? []) as any[],
       byInitiatorHa: nat.byInitiatorHa as ByInitiatorHa | undefined,
-      budgetData: nat.budgetData as BudgetData | undefined,
       klimaraadet: nat.klimaraadet as KlimaraadetData | undefined,
       kf26: nat.kf26 as DashboardData['national']['kf26'],
       byPipelinePhase: nat.byPipelinePhase,

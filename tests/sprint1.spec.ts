@@ -1,13 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Sprint 1 — UI', () => {
-  test('forsiden viser budget-kapacitet med drift-pill', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.getByRole('heading', { name: 'Budget & kapacitet' })).toBeVisible();
-    const drift = page.getByText('Drift-finansiering: Ikke afsat');
-    await expect(drift.first()).toBeVisible();
-  });
-
   test('Klimarådet-badge på lavbund-pille', async ({ page }) => {
     await page.goto('/');
     // Delmålskort: undgå de mindre statusknapper; vælg hovedkortet med ramme
