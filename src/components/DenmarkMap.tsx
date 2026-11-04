@@ -36,7 +36,7 @@ import {
   findMarsProjectByGeoId,
 } from '@/lib/map-projects';
 import { Map, MousePointerClick } from 'lucide-react';
-import { BASEMAP_TILE_MAX_ZOOM, CHOROPLETH_MAP_MAX_ZOOM, CHOROPLETH_MAP_MIN_ZOOM } from '@/lib/map-zoom';
+import { BASEMAP_ATTRIBUTION, BASEMAP_TILE_MAX_NATIVE_ZOOM, BASEMAP_TILE_MAX_ZOOM, BASEMAP_TILE_URL, CHOROPLETH_MAP_MAX_ZOOM, CHOROPLETH_MAP_MIN_ZOOM } from '@/lib/map-zoom';
 import { MapSwitchToggle } from './MapSwitchToggle';
 import { InfoTooltip } from './InfoTooltip';
 import { ControlBarInlineField, ControlBarSegmented } from '@/components/ControlBar';
@@ -741,9 +741,10 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       scrollWheelZoom: true,
       zoomControl: true,
     });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    L.tileLayer(BASEMAP_TILE_URL, {
+      attribution: BASEMAP_ATTRIBUTION,
       maxZoom: BASEMAP_TILE_MAX_ZOOM,
+      maxNativeZoom: BASEMAP_TILE_MAX_NATIVE_ZOOM,
     }).addTo(map);
     mapRef.current = map;
     setLeafletMap(map);
@@ -1535,7 +1536,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
 
     // Biodiversitet (Arealdata WMS + VNS 2026)
     if (!isStub) {
-      const biodivRows: LayerRow[] = BIODIV_WMS_LAYERS.map((b) => ({
+      const biodivRows: LayerRow[] = BIODIV_WMS_LAYERS.filter((b) => !b.unavailable).map((b) => ({
         id: `bio-${b.id}`,
         label: b.label,
         sublabel: b.sublabel,

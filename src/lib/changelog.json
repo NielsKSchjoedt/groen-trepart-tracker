@@ -1,7 +1,7 @@
 [
   {
     "version": "v1.0.0",
-    "date": "2026-10-18",
+    "date": "2026-11-04",
     "summary": "Version 1.0: indsats adskilt fra effekt, tal der følger MARS, kommune-rangliste og nyt videnscenter",
     "changes": [
       {
@@ -374,7 +374,19 @@
       },
       {
         "type": "data",
-        "description": "Datagrundlaget er opdateret med MARS-udtrækket fra 17. oktober 2026."
+        "description": "Datagrundlaget er opdateret med MARS-udtrækket og de øvrige datakilder fra 4. november 2026."
+      },
+      {
+        "type": "fix",
+        "description": "Baggrundskortet under alle kort viste teksten «API KEY REQUIRED» hen over Danmark, fordi kortleverandøren CARTO er begyndt at kræve en adgangsnøgle. Kortene bruger nu i stedet Esris lysegrå grundkort, som ikke kræver nøgle. Det gælder også den nuværende udgave af siden. (Teknisk: L.tileLayer skiftet fra basemaps.cartocdn.com til Esri World Light Gray Canvas.)"
+      },
+      {
+        "type": "fix",
+        "description": "På kvælstof-siden skete der ingenting, når man slog kortlag som Markudledning eller Kystvande til i «Lag»-menuen — knappen sprang straks tilbage. Fejlen skyldtes bogstavet «æ» i sidens adresse og ramte kun kvælstof-siden. Rettet, så lagene nu tændes og slukkes som på de andre sider. (Teknisk: resolveRouteContext afkoder nu den procent-kodede sti /kv%C3%A6lstof.)"
+      },
+      {
+        "type": "removed",
+        "description": "Kortlaget «Prioriterede naturarealer (30 %)» er midlertidigt fjernet fra «Lag»-menuen. Danmarks Miljøportal udstiller ikke længere laget, så det viste ingenting, når man slog det til. Det kommer tilbage, hvis Miljøportalen genudgiver det. (Teknisk: Arealdata-navnerummet biodiversitetsindsatsen svarer LayerNotDefined.)"
       }
     ]
   },

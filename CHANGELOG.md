@@ -17,7 +17,7 @@ Kommende ændringer noteres her løbende.
 
 ---
 
-## v1.0.0 — 18. oktober 2026
+## v1.0.0 — 4. november 2026
 
 **Version 1.0: indsats adskilt fra effekt, tal der følger MARS, kommune-rangliste og nyt videnscenter**
 
@@ -38,6 +38,8 @@ Kommende ændringer noteres her løbende.
 - Kvælstofkortet angav det samlede politiske mål som 13.780 ton N/år, mens resten af siden siger 13.800 ton. Rettet til 13.800 ton.
 - Beskyttet natur stod som «korrigeret for ca. 30 % overlap» mellem Natura 2000 og §3, og Data & metode daterede aftalen til december 2023. 15,3 % er OECD's estimat fra 2024 — ikke en beregning af overlap i vores egne kortlag — og aftalen er fra 24. juni 2024. Begge dele er rettet.
 - Data & metode skrev, at den daglige opdatering sker «08:00 dansk tid», hvilket kun gælder om sommeren. Nu står der kl. 7 eller 8.
+- Baggrundskortet under alle kort viste teksten «API KEY REQUIRED» hen over Danmark, fordi kortleverandøren CARTO er begyndt at kræve en adgangsnøgle. Kortene bruger nu i stedet Esris lysegrå grundkort, som ikke kræver nøgle. Det gælder også den nuværende udgave af siden. (Teknisk: L.tileLayer skiftet fra basemaps.cartocdn.com til Esri World Light Gray Canvas.)
+- På kvælstof-siden skete der ingenting, når man slog kortlag som Markudledning eller Kystvande til i «Lag»-menuen — knappen sprang straks tilbage. Fejlen skyldtes bogstavet «æ» i sidens adresse og ramte kun kvælstof-siden. Rettet, så lagene nu tændes og slukkes som på de andre sider. (Teknisk: resolveRouteContext afkoder nu den procent-kodede sti /kv%C3%A6lstof.)
 
 ### Metodeændring
 - «Tid gået siden aftalen» og alle fremskrivninger regner nu fra underskriftsdatoen 24. juni 2024 — ikke 1. januar 2024 — så det matcher sidens egen tekst om, hvornår aftalen blev indgået.
@@ -121,10 +123,11 @@ Kommende ændringer noteres her løbende.
 - KF26's høringsmateriale for lavbund og skov er lagt ind sammen med Klimarådets baggrundsnotat om trepartens arealmål: bl.a. 71.100 ha kulstofrig lavbund under udtagning (december 2025) og rådets risikovurdering — ca. 20.000 ha realiseret ved den nuværende afgift på 40 kr./ton mod ca. 70.000 ha ved rådets anbefalede 125 kr./ton.
 - Markkort 2026 og biodiversitetslag fra Arealdata hentes nu i en separat månedlig spatial datakørsel, adskilt fra den daglige opdatering, så de tunge GIS-beregninger kører isoleret.
 - Natura 2000 og §3-beskyttet natur tegnes nu fra lokale, forenklede polygoner i stedet for live WMS, så områderne er synlige ved nationalt zoom. Fuldopløsnings-data bruges stadig i overlap-beregningerne.
-- Datagrundlaget er opdateret med MARS-udtrækket fra 17. oktober 2026.
+- Datagrundlaget er opdateret med MARS-udtrækket og de øvrige datakilder fra 4. november 2026.
 
 ### Fjernet
 - Dyre-silhuetterne bag naturtal og kort er fjernet, så de ikke konkurrerede med tallene.
+- Kortlaget «Prioriterede naturarealer (30 %)» er midlertidigt fjernet fra «Lag»-menuen. Danmarks Miljøportal udstiller ikke længere laget, så det viste ingenting, når man slog det til. Det kommer tilbage, hvis Miljøportalen genudgiver det. (Teknisk: Arealdata-navnerummet biodiversitetsindsatsen svarer LayerNotDefined.)
 ---
 
 ## v0.9.6 — 26. april 2026

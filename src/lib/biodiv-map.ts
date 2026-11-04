@@ -22,6 +22,12 @@ export const BIODIV_WMS_LAYERS = [
     layer: 'biodiversitetsindsatsen:maalretning_af_biodiversitetsindsatsen',
     /** WMS fill #6b826f at 65 % opacity over white — matches perceived map colour. */
     legendColor: '#9faea1',
+    /**
+     * Hidden from the layer panels: Miljøportalen removed the
+     * `biodiversitetsindsatsen` namespace (GetMap → LayerNotDefined, Nov 2026).
+     * Flip back once the layer is served again.
+     */
+    unavailable: true,
   },
 ] as const;
 

@@ -11,12 +11,22 @@ import { decodeStandings, applyStandingsToParams } from './slices/standings';
 import { decodeKommuneMap, applyKommuneMapToParams } from './slices/map-kommune';
 import { sanitizeSearchParamsForRoute } from './route-params';
 
+/** Browsers report non-ASCII paths percent-encoded (`/kv%C3%A6lstof`). */
+function decodePathname(pathname: string): string {
+  try {
+    return decodeURIComponent(pathname);
+  } catch {
+    return pathname;
+  }
+}
+
 export function resolveRouteContext(pathname: string): RouteContext {
   if (pathname === '/') return { kind: 'overview', pathname };
   if (pathname === '/kommuner') return { kind: 'kommune-list', pathname };
   if (/^\/kommuner\/[^/]+/.test(pathname)) return { kind: 'kommune-detail', pathname };
   const pillarSlugs = ['kvælstof', 'lavbund', 'skovrejsning', 'co2', 'natur'];
-  if (pillarSlugs.some((s) => pathname === `/${s}`)) {
+  const decoded = decodePathname(pathname);
+  if (pillarSlugs.some((s) => decoded === `/${s}`)) {
     return { kind: 'pillar', pathname };
   }
   return { kind: 'other', pathname };

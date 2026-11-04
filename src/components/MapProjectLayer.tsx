@@ -52,6 +52,8 @@ export function MapProjectLayer({
 
   useEffect(() => {
     if (!map || !enabled || !geometries) return;
+    // A map torn down by its parent (map.remove()) has no panes left to project against.
+    if (!map.getPane('mapPane')) return;
 
     const withGeom = projects.filter((p) => {
       const ring = geometries[p.geoId];

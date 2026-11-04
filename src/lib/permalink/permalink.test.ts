@@ -9,6 +9,13 @@ import {
 } from './route-params';
 
 describe('permalink', () => {
+  it('treats the percent-encoded kvælstof path as a pillar route', () => {
+    expect(resolveRouteContext('/kv%C3%A6lstof').kind).toBe('pillar');
+    const params = new URLSearchParams('overlag=markudledning');
+    const clean = sanitizeSearchParamsForRoute(params, resolveRouteContext('/kv%C3%A6lstof'));
+    expect(clean.get('overlag')).toBe('markudledning');
+  });
+
   it('round-trips national map state with defaults omitted', () => {
     const state = {
       mapNational: {

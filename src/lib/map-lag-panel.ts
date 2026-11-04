@@ -87,7 +87,7 @@ export function buildMapLagLayerGroups({
     });
   }
 
-  const biodivRows: LayerGroup['rows'] = BIODIV_WMS_LAYERS.map((b) => ({
+  const biodivRows: LayerGroup['rows'] = BIODIV_WMS_LAYERS.filter((b) => !b.unavailable).map((b) => ({
     id: `bio-${b.id}`,
     label: b.label,
     sublabel: b.sublabel,

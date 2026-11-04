@@ -15,7 +15,10 @@ import { collectMapProjects, kommuneMetricToPillar, filterMapProjectsByKommune, 
 import { MapProjectLayer } from '@/components/MapProjectLayer';
 import 'leaflet/dist/leaflet.css';
 import {
+  BASEMAP_ATTRIBUTION,
+  BASEMAP_TILE_MAX_NATIVE_ZOOM,
   BASEMAP_TILE_MAX_ZOOM,
+  BASEMAP_TILE_URL,
   CHOROPLETH_MAP_MAX_ZOOM,
   CHOROPLETH_MAP_MIN_ZOOM,
   KOMMUNE_FOCUS_MAX_ZOOM,
@@ -181,9 +184,10 @@ export function KommuneMap({
       zoomControl: true,
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    L.tileLayer(BASEMAP_TILE_URL, {
+      attribution: BASEMAP_ATTRIBUTION,
       maxZoom: BASEMAP_TILE_MAX_ZOOM,
+      maxNativeZoom: BASEMAP_TILE_MAX_NATIVE_ZOOM,
     }).addTo(map);
 
     mapRef.current = map;

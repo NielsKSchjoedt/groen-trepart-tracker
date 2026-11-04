@@ -5,7 +5,10 @@ import 'leaflet/dist/leaflet.css';
 import { X, Droplets, Mountain, Trees, Maximize2 } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
 import {
+  BASEMAP_ATTRIBUTION,
+  BASEMAP_TILE_MAX_NATIVE_ZOOM,
   BASEMAP_TILE_MAX_ZOOM,
+  BASEMAP_TILE_URL,
   PROJECT_OVERLAY_FIT_MAX_ZOOM,
   PROJECT_OVERLAY_MAX_ZOOM,
 } from '@/lib/map-zoom';
@@ -77,9 +80,10 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
     });
 
     // Light basemap
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    L.tileLayer(BASEMAP_TILE_URL, {
       maxZoom: BASEMAP_TILE_MAX_ZOOM,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      maxNativeZoom: BASEMAP_TILE_MAX_NATIVE_ZOOM,
+      attribution: BASEMAP_ATTRIBUTION,
     }).addTo(map);
 
     // Draw the project polygon
