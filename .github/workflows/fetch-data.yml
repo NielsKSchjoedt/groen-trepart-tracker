@@ -213,7 +213,7 @@ jobs:
     if: needs.etl.outputs.changed == 'true'
     runs-on: ubuntu-latest
     permissions:
-      actions: read
+      actions: write
       contents: write
       pull-requests: write
     steps:
@@ -266,3 +266,27 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge "$BRANCH" --squash --auto --delete-branch
+
+      # The auto-merge above is performed as GITHUB_TOKEN, and pushes made by
+      # GITHUB_TOKEN don't trigger ci.yml — so without this step the merged
+      # data never reaches production. workflow_dispatch is the one event
+      # GITHUB_TOKEN may trigger, so wait for the merge and dispatch CI on main.
+      - name: Deploy once merged
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for i in $(seq 1 60); do
+            STATE=$(gh pr view "$BRANCH" --json state --jq .state)
+            echo "PR state: $STATE"
+            if [ "$STATE" = "MERGED" ]; then
+              gh workflow run ci.yml --ref main
+              exit 0
+            fi
+            if [ "$STATE" = "CLOSED" ]; then
+              echo "::error::Data PR was closed without merging"
+              exit 1
+            fi
+            sleep 30
+          done
+          echo "::error::Data PR did not merge within 30 minutes; production not redeployed"
+          exit 1
