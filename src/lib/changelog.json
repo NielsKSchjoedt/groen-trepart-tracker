@@ -395,6 +395,10 @@
       {
         "type": "improvement",
         "description": "Når du holder musen over et areal i kortlaget «Vand, natur & skov», ser du nu ikke kun projektets navn, men også areal, hvilket EU-direktiv projektet hører under, projektår og sagsnummer. Datakilden (FVM Markkort) har ikke et link til de enkelte projekter."
+      },
+      {
+        "type": "fix",
+        "description": "Sidens ikon (det lille billede i browserfanen, på Googles søgeresultater, som bogmærke på mobilen og i link-forhåndsvisninger) viste stadig det gamle spire-logo flere steder, selvom browserfanen viste det nye blad. Kun én af ikonfilerne var blevet opdateret. Nu viser alle steder det samme blad-ikon. Google og andre tjenester kan være et stykke tid om at hente det nye ikon. (Teknisk: favicon.ico, PNG-ikoner og apple-touch-icon gendannet fra favicon.svg; versionsparameter på ikon-URL'erne.)"
       }
     ]
   },
