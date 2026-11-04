@@ -117,6 +117,8 @@ interface MetricPickerProps {
   onChange: (metric: KommuneMetric) => void;
   /** Always use dropdown (detail page / narrow layouts). */
   compact?: boolean;
+  /** Stretch the dropdown trigger to the row width (default) or size it to its label. */
+  fullWidth?: boolean;
 }
 
 /**
@@ -125,7 +127,7 @@ interface MetricPickerProps {
  *
  * On mobile, pills collapse into a compact dropdown to save vertical space.
  */
-export function MetricPicker({ activeMetric, onChange, compact = false }: MetricPickerProps) {
+export function MetricPicker({ activeMetric, onChange, compact = false, fullWidth = true }: MetricPickerProps) {
   const [open, setOpen] = useState(false);
   const activeHasNoData = activeMetric !== null && METRIC_NO_DATA.has(activeMetric);
   const disclaimer = activeHasNoData ? NO_DATA_DISCLAIMERS[activeMetric!] : null;
@@ -144,7 +146,16 @@ export function MetricPicker({ activeMetric, onChange, compact = false }: Metric
           <PopoverTrigger asChild>
             <ControlBarTrigger
               aria-label="Vælg indsatsområde"
-              fullWidth
+              fullWidth={fullWidth}
+              className={activeOption && !activeHasNoData ? 'font-semibold' : undefined}
+              style={
+                activeOption && !activeHasNoData
+                  ? {
+                      borderColor: `color-mix(in srgb, ${activeOption.color} 45%, transparent)`,
+                      backgroundColor: `color-mix(in srgb, ${activeOption.color} 8%, var(--card, white))`,
+                    }
+                  : undefined
+              }
             >
               {activeOption ? (
                 <>

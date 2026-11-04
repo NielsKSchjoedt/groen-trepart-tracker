@@ -31,6 +31,7 @@ Kommende ændringer noteres her løbende.
 
 ### Forbedring
 - Tallene på ranglisterne viser nu, hvor stor en del af kommunens egen andel af målet der er godkendt eller anlagt (fx «54 % af kommunens andel») i stedet for et indeks som «7 gange forventet». «Mod målet» sætter samme andel over for, hvor meget af tiden til fristen der er gået, og landets tempo regnes nu på de samme faser som kommunernes.
+- På kommunesiderne var valget af delmål til kortet en grå rullemenu, der var svær at få øje på. Nu vælger du delmålet med farvede knapper direkte på kortet, og når et delmål er valgt, står det som en lille farvet knap over kortet.
 
 ### Fjernet
 - Ranglisterne for beskyttet natur og CO₂ er fjernet. De målte tilstande, ikke trepart-indsats, og afhang mest af geografi og energiforsyning — Læsø stod fx som bedst på CO₂ med negativ udledning. Begge vises stadig på kortet og kommunesiderne.

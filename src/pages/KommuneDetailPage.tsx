@@ -461,15 +461,19 @@ export default function KommuneDetailPage() {
               phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet og i nøgletal. Standard er godkendt og anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan slås til."
               supplementSources={supplementSources}
               onSupplementsChange={setActiveSupplements}
+              onMetricChange={handleMetricChange}
+              metricPickHint={`Kortet fremhæver ${kommune.navn} og farvelægger kommunerne efter det valgte delmål.`}
               filterControls={
+                // Before a choice the map itself shows the delmål buttons; afterwards a
+                // compact, colour-keyed dropdown lets the reader switch.
+                activeMetric !== null ? (
                 <>
-                  <div className="w-full">
-                    <MetricPicker
-                      activeMetric={activeMetric}
-                      onChange={handleMetricChange}
-                      compact
-                    />
-                  </div>
+                  <MetricPicker
+                    activeMetric={activeMetric}
+                    onChange={handleMetricChange}
+                    compact
+                    fullWidth={false}
+                  />
 
                   {activeMetric === 'co2' && (
                     <MetricDisclaimer>
@@ -486,6 +490,7 @@ export default function KommuneDetailPage() {
                     </MetricDisclaimer>
                   )}
                 </>
+                ) : undefined
               }
             />
           </div>

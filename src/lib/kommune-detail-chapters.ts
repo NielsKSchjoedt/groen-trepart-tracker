@@ -55,7 +55,7 @@ export const KOMMUNE_DETAIL_STATUS_INTRO =
   'Lavbund, skov og kvælstof — hvor stor en del af kommunens egen andel af hvert mål der er godkendt eller anlagt, og om det er i det tempo, fristen kræver.';
 
 export const KOMMUNE_DETAIL_KORT_INTRO =
-  'Vælg indsatsområde, fasefilter og supplerende kilder. Kortet fremhæver den valgte kommune — klik en nabokommune for at skifte.';
+  'Vælg et delmål på kortet. Kortet fremhæver kommunen — klik en nabokommune for at skifte.';
 
 export const KOMMUNE_DETAIL_NOEGLETAL_INTRO =
   'Samlet registreret indsats på tværs af indsatsområder — uafhængigt af hvilken metrik du har valgt på kortet.';
