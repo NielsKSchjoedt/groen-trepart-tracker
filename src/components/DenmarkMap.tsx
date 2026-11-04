@@ -26,6 +26,12 @@ import { clearGeoPanels, PROJECT_PARAM } from '@/lib/permalink/slices/panels';
 import { MapLayersPanel, type LayerGroup, type LayerRow } from './MapLayersPanel';
 import { PhaseFilterPopover } from './PhaseFilterPopover';
 import { BIODIV_WMS_LAYERS, type BiodivWmsId } from '@/lib/biodiv-map';
+import {
+  DRIKKEVAND_LEGEND,
+  KULSTOF_LAVBUND_LEGEND,
+  MARKUDLEDNING_LEGEND,
+  type WmsLegendClass,
+} from '@/lib/map-overlay-wms';
 import { usePillar } from '@/lib/pillars';
 import { getMapLayerHints } from '@/lib/chapters';
 import type { Plan, Catchment, DashboardData, CoastalWaterStatusData, CoastalWaterEntry, KlimaskovfondenProject, NaturstyrelsenSkovProject, KommuneBenchmarkB4Data, ProjectNatureOverlapData } from '@/lib/types';
@@ -166,6 +172,23 @@ const AREALEDITERING_WMS_BASE = 'https://arealeditering-dist-geo.miljoeportal.dk
 /** Sequential green scale for B4 kommune choropleth (darker = higher protected share). */
 const B4_COLOR_STOPS = ['#f0fdf4', '#86efac', '#16a34a', '#052e16'] as const;
 const B4_NO_DATA_COLOR = 'hsl(0 0% 92%)';
+
+/** Legend rows for a server-styled WMS layer, drawn at the layer's map opacity. */
+function WmsLegendRows({ classes, opacity }: { classes: readonly WmsLegendClass[]; opacity: number }) {
+  return (
+    <div className="space-y-0.5">
+      {classes.map((c) => (
+        <div key={c.label} className="flex items-center gap-1.5">
+          <span
+            className="h-2.5 w-2.5 shrink-0 rounded-sm border border-black/10"
+            style={{ backgroundColor: c.color, opacity }}
+          />
+          <span>{c.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function lerpHex(a: string, b: string, t: number): string {
   const parse = (hex: string) => [
@@ -1499,7 +1522,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         label: 'Markudledning',
         sublabel: 'Hvor meget kvælstof marken bidrager til kystvandene',
         source: 'SEGES · Danmarks Miljøportal',
-        color: '#b5832a',
+        color: '#3283ED',
         checked: showMarkudledning,
         onChange: setShowMarkudledning,
       });
@@ -1508,7 +1531,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         label: 'Drikkevandsinteresser',
         sublabel: 'Områder med (særlige) drikkevandsinteresser, OD/OSD (Miljøstyrelsen)',
         source: 'Miljøstyrelsen · Danmarks Miljøportal',
-        color: '#2563eb',
+        color: '#00C5FF',
         swatchVariant: 'area' as const,
         checked: showDrikkevand,
         onChange: setShowDrikkevand,
@@ -1525,7 +1548,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
             label: 'Kulstofrige lavbundsjorder',
             sublabel: 'Organogene jorder 6-12 % / >12 % kulstof (DCA 2024)',
             source: 'DCA 2024 · Danmarks Miljøportal',
-            color: '#7c4a1e',
+            color: '#af6320',
             swatchVariant: 'area' as const,
             checked: showKulstof,
             onChange: setShowKulstof,
@@ -1990,29 +2013,31 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
                 )}
                 {showMarkudledningLegend && (
                   <div>
-                    <div className="font-semibold text-foreground/80 mb-1">Markudledning — potentiel N-udledning</div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2.5 w-12 rounded-sm border border-border" style={{ background: 'linear-gradient(to right, #efe3c8, #b5832a, #7a5512)' }} />
-                      <span>Lav → høj</span>
+                    <div className="font-semibold text-foreground/80 mb-1">Markudledning — kvælstof fra marken</div>
+                    <div className="flex h-2.5 w-full max-w-[11rem] overflow-hidden rounded-sm border border-border" style={{ opacity: 0.65 }}>
+                      {MARKUDLEDNING_LEGEND.map((c) => (
+                        <span key={c.label} className="flex-1" style={{ backgroundColor: c.color }} title={c.label} />
+                      ))}
                     </div>
+                    <div className="flex w-full max-w-[11rem] justify-between mt-0.5">
+                      <span>{MARKUDLEDNING_LEGEND[0].label}</span>
+                      <span>{MARKUDLEDNING_LEGEND[MARKUDLEDNING_LEGEND.length - 1].label}</span>
+                    </div>
+                    <p className="text-[9px] text-muted-foreground/90 leading-snug mt-0.5">
+                      Markens udledning i forhold til gennemsnittet (SEGES' klasser)
+                    </p>
                   </div>
                 )}
                 {showDrikkevandLegend && (
                   <div>
                     <div className="font-semibold text-foreground/80 mb-1">Drikkevandsinteresser</div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2.5 w-2.5 rounded-sm border border-border" style={{ backgroundColor: '#2563eb' }} />
-                      <span>OD/OSD-områder (Miljøstyrelsen)</span>
-                    </div>
+                    <WmsLegendRows classes={DRIKKEVAND_LEGEND} opacity={0.6} />
                   </div>
                 )}
                 {showKulstofLegend && (
                   <div>
                     <div className="font-semibold text-foreground/80 mb-1">Kulstofrige lavbundsjorder</div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2.5 w-12 rounded-sm border border-border" style={{ background: 'linear-gradient(to right, #c4a574, #7c4a1e, #4a2a0e)' }} />
-                      <span>6–12 % → &gt;12 % kulstof</span>
-                    </div>
+                    <WmsLegendRows classes={KULSTOF_LAVBUND_LEGEND} opacity={0.6} />
                   </div>
                 )}
                 {showBeskyttetNaturLegend && (

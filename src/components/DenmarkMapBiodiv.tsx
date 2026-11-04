@@ -3,6 +3,35 @@ import L from 'leaflet';
 import type { Feature, FeatureCollection, Geometry } from 'geojson';
 import { AREALDATA_WMS_BASE, BIODIV_WMS_LAYERS, type BiodivWmsId } from '@/lib/biodiv-map';
 import { loadVandNaturSkovProjekter } from '@/lib/data';
+import { formatDanishNumber } from '@/lib/format';
+
+/** Slimmed Markkort properties written by etl/fetch_markkort_natur_projekter.py. */
+interface VnsProps {
+  proj?: string;
+  ha?: number | null;
+  tag?: string | null;
+  dir?: string | null;
+  y0?: number | null;
+  y1?: number | null;
+}
+
+const escapeHtml = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+
+/** Tooltip with every field Markkort gives per project (it has no per-project link). */
+function vnsTooltipHtml(props: VnsProps): string {
+  const lines = [`<strong>${escapeHtml(props.proj || 'Vand/Natur/Skov-projekt')}</strong>`];
+  const facts: string[] = [];
+  if (typeof props.ha === 'number') facts.push(`${formatDanishNumber(props.ha, 1)} ha`);
+  if (props.dir) facts.push(escapeHtml(props.dir));
+  if (facts.length) lines.push(facts.join(' · '));
+  if (props.y0) {
+    lines.push(props.y1 && props.y1 !== props.y0 ? `Projektår ${props.y0}–${props.y1}` : `Projektår ${props.y0}`);
+  }
+  if (props.tag) lines.push(`Sagsnr. ${escapeHtml(props.tag)}`);
+  lines.push('<span style="opacity:.7">Kilde: FVM Markkort</span>');
+  return lines.join('<br>');
+}
 
 interface BiodivLayersProps {
   map: L.Map | null;
@@ -91,9 +120,7 @@ export function BiodivLayers({ map, isStub, bioActive, vnsOn }: BiodivLayersProp
           fillOpacity: 0.28,
         },
         onEachFeature: (feature: Feature, layer) => {
-          const p = (feature.properties ?? {}) as { proj?: string; ha?: number; tag?: string };
-          const t = p.proj ? p.proj : 'Vand/Natur/Skov 2026';
-          layer.bindTooltip(t, { sticky: true, className: 'map-tooltip' });
+          layer.bindTooltip(vnsTooltipHtml(feature.properties ?? {}), { sticky: true, className: 'map-tooltip' });
         },
       });
       gl.addTo(map);

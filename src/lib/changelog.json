@@ -387,6 +387,14 @@
       {
         "type": "removed",
         "description": "Kortlaget «Prioriterede naturarealer (30 %)» er midlertidigt fjernet fra «Lag»-menuen. Danmarks Miljøportal udstiller ikke længere laget, så det viste ingenting, når man slog det til. Det kommer tilbage, hvis Miljøportalen genudgiver det. (Teknisk: Arealdata-navnerummet biodiversitetsindsatsen svarer LayerNotDefined.)"
+      },
+      {
+        "type": "fix",
+        "description": "Farveforklaringen til kortlagene Markudledning, Drikkevandsinteresser og Kulstofrige lavbundsjorder passede ikke til farverne på kortet. Markudledning blev fx vist som en brun skala fra lav til høj, selvom kortet tegner grønne til blå klasser. Forklaringerne viser nu de samme klasser og farver som Miljøportalens egne kort. (Teknisk: farver hentet fra lagenes GetLegendGraphic.)"
+      },
+      {
+        "type": "improvement",
+        "description": "Når du holder musen over et areal i kortlaget «Vand, natur & skov», ser du nu ikke kun projektets navn, men også areal, hvilket EU-direktiv projektet hører under, projektår og sagsnummer. Datakilden (FVM Markkort) har ikke et link til de enkelte projekter."
       }
     ]
   },
