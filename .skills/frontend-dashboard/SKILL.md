@@ -15,60 +15,101 @@ This skill codifies the UI patterns, component conventions, and display policies
 Trepart Tracker frontend. The dashboard is a public-facing, open-source tool for tracking Denmark's
 environmental progress — every design decision should serve transparency and clarity.
 
+When this file and the code disagree, the code wins — then fix this file.
+
 ## Tech Stack
 
-- **React 18** + **TypeScript 5.8** (strict mode)
-- **Vite 5** for dev/build
-- **Tailwind CSS 3.4** for styling (utility-first, no custom CSS files)
-- **shadcn/ui** (Radix primitives) for base components — Button, Card, Tabs, Dialog, etc.
+- **React 19** + **TypeScript 5.8** — note the app tsconfig is *not* strict (`strict: false`,
+  `strictNullChecks: false`, `noImplicitAny: false`); write null-safe code anyway
+- **Vite 8** for dev/build (dev server on port 8080)
+- **Tailwind CSS 4** — CSS-first config: theme tokens live in `src/index.css` (`@theme inline`),
+  there is no `tailwind.config.*`. Utility classes only, no custom CSS classes
+- **shadcn/ui** (Radix primitives) in `src/components/ui/` for base components
+- **react-router-dom 7** for routing
 - **lucide-react** for icons (consistent line-icon style throughout)
-- **recharts** for charts and data visualization
-- **Leaflet** + **react-leaflet** for maps
-- **TopoJSON** for geographic boundary data (simplified for web)
+- **recharts 3** for charts and data visualization
+- **Leaflet** + **react-leaflet 5** for maps; **TopoJSON** for boundaries
+- **Vitest 4** for tests (`npm test`); tests sit next to the code as `*.test.ts(x)`
 
-TypeScript compilation: `npx tsc --noEmit` — must pass clean before any PR.
+Before any PR: `npm run typecheck` (`tsc --noEmit`), `npm run lint` and `npm test` must pass.
+
+## Page Structure
+
+| Route | Page | What it is |
+|-------|------|------------|
+| `/` | `Index.tsx` | National overview — no pillar pre-selected |
+| `/:pillarSlug` | `Index.tsx` | Same page with one delmål selected (`/kvælstof`, `/lavbund`, …) |
+| `/kommuner` | `KommunePage.tsx` | Kommune ranking + map |
+| `/kommuner/:kommuneSlug` | `KommuneDetailPage.tsx` | One kommune (sections `#status`, `#kort`, `#projekter`) |
+| `/videnscenter`, `/videnscenter/:articleSlug` | `VidenscenterPage.tsx` | Curated background articles from `content/videnscenter/` |
+| `/data-og-metode` | `DataMetodePage.tsx` | Sources, quality and method (anchors `#datakilder`, `#kvalitet`, `#metode`, `#soejler`) |
+
+`Index.tsx` renders, top to bottom: `StickyNav` → `HeroSection` → `DelmaalVaelgKort` (pick a
+delmål) → the pillar chapters (`ChapterSection` with ids from `src/lib/chapters.ts`:
+`delmaal`, `projekter`, `fremskrivning`, `geografi`, `co2`) → `DataSourceSection` → `Footer`.
+
+### The hero: indsats vs. effekt (`src/lib/model.ts`)
+
+Since v1.0 the front page separates two layers and never mixes them:
+
+- **Indsats** — the three virkemidler treparten builds: skov, lavbund and kvælstof-vådområder
+  (`buildMeasures`, rendered by `IndsatsRow`). Progress counts **anlagt only**.
+- **Effekt** — klima, vandmiljø and natur (`buildEffectDomains`, rendered by `EffectRow`). Each
+  effect has its own honest framing (`EffectReframe`: baseline-gap for natur, attribution for CO₂,
+  ecological snapshot for kystvande).
+
+`FlowConnectors` draws which virkemidler feed which effects. **Effects are never summed into one
+number** — they are delayed and partly driven by things outside the agreement.
 
 ## The Pillar System
 
-The dashboard is organized around 5 environmental pillars. The pillar system is the backbone of the
-UI architecture — understand it before touching any component.
+The dashboard is organized around 5 pillars (delmål). Understand the pillar system before touching
+any component.
 
 ### Pillar Configuration (`src/lib/pillars.ts`)
 
 ```typescript
 type PillarId = 'nitrogen' | 'extraction' | 'afforestation' | 'co2' | 'nature';
 
-// Each pillar has:
 interface PillarConfig {
   id: PillarId;
-  label: string;          // Danish display name (e.g., "Kvælstof")
-  target: number | null;  // National target value
-  unit: string;           // Unit label (e.g., "ton N/år")
-  deadlineYear: number;   // Target year
-  hasData: boolean;       // Whether ETL pipeline provides data
-  hasGeoBreakdown: boolean; // Whether map view is available
-  accentColor: string;    // Hex color for this pillar
-  watermarkAnimal: string; // Nature illustration ("eel", "hedgehog", etc.)
-  // ... more fields
+  label: string;            // Danish display name, e.g. "Kvælstof"
+  description: string;
+  target: number | null;    // National target value
+  unit: string;             // e.g. "ton N/år", "ha", "% reduktion"
+  deadlineYear: number;     // Authoritative per-pillar deadline — do not use targets.deadline
+  hasData: boolean;
+  hasGeoBreakdown: boolean; // Whether map coloring is available
+  hasMultipleLayers: boolean;
+  defaultLayer: 'catchments' | 'coastal';
+  accentColor: string;
+  catchmentDataField: string;
+  planDataField: string;
+  stubMessage?: string;
+  backgroundTint: string;
+  watermarks: Animal[];     // Legacy — not rendered, see "Nature watermarks"
 }
 ```
 
-**Active pillar state** is managed via `PillarContext` and the `usePillar()` hook. Components that
-need to know which pillar is selected import `usePillar()` — they don't pass pillar IDs as props
-through the tree.
+**Active pillar state** is managed via `PillarContext` and the `usePillar()` hook
+(`{ activePillar, setActivePillar, config }`). `activePillar` is `null` on `/`. Components read it
+from context instead of passing pillar IDs down the tree.
 
-### Pillar-Specific Details
+### Pillar Details
 
-| Pillar | Target | Deadline | Color | Data Status |
-|--------|--------|----------|-------|-------------|
-| Kvælstof (Nitrogen) | 13,780 ton N/år | 2027 | `#0d9488` (teal) | ✅ Full data |
-| Lavbundsarealer (Extraction) | 140,000 ha | 2030 | `#b45309` (amber) | ✅ Full data |
-| Skovrejsning (Afforestation) | 250,000 ha | 2045 | `#15803d` (green) | ✅ Full data |
-| CO₂ | 1,800,000 ton CO₂e/år | 2030 | `#6366f1` (indigo) | ❌ No data yet |
-| Natur (Nature) | null (20% target) | 2030 | `#7c3aed` (violet) | ✅ Partial |
+| Pillar | Slug | Target | Deadline | Color |
+|--------|------|--------|----------|-------|
+| Kvælstof (nitrogen) | `/kvælstof` | 12.776 ton N/år | 2027 | `#0d9488` (teal) |
+| Lavbundsarealer (extraction) | `/lavbund` | 140.000 ha | 2030 | `#a16207` (amber) |
+| Skovrejsning (afforestation) | `/skovrejsning` | 250.000 ha | 2045 | `#15803d` (green) |
+| CO₂ | `/co2` | 70 % reduktion | 2030 | `#737373` (grey) |
+| Beskyttet natur (nature) | `/natur` | 20 % beskyttet | 2030 | `#16a34a` (green) |
 
-Pillars without data (`hasData: false`) display stub/placeholder content. The CO₂ pillar currently
-has no data source — it shows a "data kommer snart" message.
+All five have `hasData: true`. CO₂ has no geographic breakdown (`stubMessage` explains this on the
+map). Natur has no firm project deadline, so it gets no countdown.
+
+Skovrejsning combines MARS with Klimaskovfonden and Naturstyrelsen projects (supplementary
+sources) — always say so when showing a skov figure.
 
 ---
 
@@ -76,52 +117,78 @@ has no data source — it shows a "data kommer snart" message.
 
 ### Phase-Aware Metrics (Non-Negotiable)
 
-Whenever displaying progress data from MARS, the phase breakdown must be visible or accessible.
-The user should never see a single "27% complete" without understanding that most of that is from
-projects still in investigation.
+Progress counts only **anlagt** (established) projects. Whenever MARS pipeline data is shown, the
+phase breakdown must be visible or one click away. Never show a single "75 % complete" without
+making clear that most of it is forundersøgelse or tilsagn.
 
-**Patterns for showing phases:**
-- **Progress bars**: Use stacked segments (established → approved → preliminary) with distinct
-  visual treatment. Established is solid, approved is medium opacity, preliminary is low opacity.
-- **Metric cards**: Show the headline number but include a subtitle or tooltip breaking it down.
-- **Tables**: Include phase columns or a phase filter.
+- Phase labels, colors and icons come from **`src/lib/phase-config.ts`** — the single source of
+  truth. Do not hard-code phase colors in components.
+- Phase order: skitse → forundersøgelse → etableringstilsagn → anlagt.
+- **Stacked bars**: anlagt solid, tilsagn medium, forundersøgelse light.
+- **Metric cards**: headline number + subtitle or tooltip with the breakdown.
+- **Tables**: phase columns or a phase filter (`PhaseFilter`, `PhaseFilterPopover`).
 
 ### Source Attribution (Non-Negotiable)
 
-Every data visualization must be traceable to its source. The `DataSourceSection` component at the
-bottom of the page provides the detailed breakdown, but individual sections should also carry
-lightweight attribution.
+Every number must be traceable to its source and method. Use `InfoTooltip`
+(`src/components/InfoTooltip.tsx`) next to headline numbers:
 
-**Pattern — disclaimer rendering:**
 ```tsx
-{disclaimer && (
-  <p className="text-[11px] text-amber-700/70 dark:text-amber-400/60 leading-relaxed italic flex gap-1.5">
-    <AlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
-    <span>{disclaimer}</span>
-  </p>
-)}
+<InfoTooltip
+  title="Hvad viser tallet?"
+  content={<p>…plain-Danish explanation…</p>}
+  source="MARS · Miljøstyrelsen"
+  methodLink="#kvalitet"              // anchor on /data-og-metode
+  articleLink="saadan-maaler-vi"      // slug in /videnscenter
+/>
 ```
 
-Use amber tones for caveats/disclaimers, not red (which implies error).
+`DataSourceSection` at the bottom of the page carries the full source list.
 
-### Data Source Cards
+Caveats use amber, not red (red implies error):
 
-Follow the `DataSourceSection.tsx` pattern for source cards:
 ```tsx
-<div className="bg-card rounded-xl border border-border p-5 hover:shadow-md transition-shadow flex flex-col">
-  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-    <SourceIcon className="w-4.5 h-4.5 text-primary" />
-  </div>
-  <h3 className="text-sm font-bold text-foreground mb-1.5">{title}</h3>
-  <p className="text-xs text-muted-foreground leading-relaxed mb-2">{description}</p>
-  {/* Disclaimer in amber */}
-  <a href={url} target="_blank" rel="noopener noreferrer"
-     className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 mt-auto">
-    <ExternalLink className="w-3 h-3" />
-    {urlLabel}
-  </a>
-</div>
+<p className="text-[11px] text-amber-700/90 leading-relaxed italic flex gap-1.5">
+  <AlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+  <span>{disclaimer}</span>
+</p>
 ```
+
+### Klimarådet
+
+Where Klimarådet's status report assesses a delmål, show `KlimaraadetBadge` with the risk rating;
+the data is in `data.national.klimaraadet`.
+
+### Economy
+
+The økonomi/finansiering section was taken out of v1.0. Do not reintroduce money figures on the
+front page or pillar pages without a deliberate decision.
+
+---
+
+## Data Loading
+
+Data lives in `public/data/` and is fetched at runtime, not bundled. Loaders in `src/lib/data.ts`
+cache at module level:
+
+- `loadDashboardData()` fetches **`dashboard-summary.json`** and normalizes it
+  (`normalizeRawData`). It **fails loudly** if the file is missing — there is no fallback to the
+  old `dashboard-data.json`, which the ETL no longer writes.
+- `ensureDashboardProjectDetails()` lazily merges the ~10 MB `project-details.json`; call it only
+  where project-level detail is needed, after the KPIs have rendered.
+- Separate loaders exist for geometry, CO₂, coastal water status, Klimaskovfonden, Naturstyrelsen,
+  kommune ranking/benchmark and more — reuse them rather than calling `fetch` directly.
+
+Normalized national figures:
+
+- `data.national.progress` — anlagt figures (`extractionAchievedHa`, `nitrogenAchievedT`, …).
+- `data.national.pipelineScenarios` — cumulative scenarios `established` ⊂ `approved` ⊂
+  `preliminary` ⊂ `all`. Use these instead of re-adding phases yourself.
+- Time and pace helpers (`timeElapsedPct`, `projectEndPct`, `AGREEMENT_START`) are in
+  `src/lib/projections.ts`. The agreement start is 24 June 2024.
+
+`src/lib/national-consistency.test.ts` checks that the funnel, the fremskrivning and the headline
+numbers agree on the live snapshot. Keep it passing.
 
 ---
 
@@ -132,19 +199,22 @@ Follow the `DataSourceSection.tsx` pattern for source cards:
 ```
 src/
 ├── components/
-│   ├── ui/          # shadcn/ui base components (don't modify these)
-│   ├── HeroSection.tsx
-│   ├── PillarCards.tsx
-│   ├── DenmarkMap.tsx
-│   └── ...
+│   ├── ui/                 # shadcn/ui base components (don't modify)
+│   ├── fremskrivning/      # Fremskrivning card and charts
+│   ├── kommune-*/          # Kommune detail, map and standings
+│   └── *.tsx               # Page sections (HeroSection, IndsatsRow, DenmarkMap, …)
+├── hooks/                  # usePageMeta, useScrollSpy, useFirstVisitHint, …
 ├── lib/
-│   ├── pillars.ts   # Pillar configs + context
-│   ├── types.ts     # TypeScript interfaces for dashboard data
-│   ├── data.ts      # Data loading utilities (with caching)
-│   ├── format.ts    # Number/date formatting helpers
-│   └── utils.ts     # General utilities
+│   ├── pillars.ts          # Pillar configs + context
+│   ├── model.ts            # Indsats/effekt model for the hero
+│   ├── phase-config.ts     # Canonical MARS phases
+│   ├── chapters.ts         # Section ids and headings
+│   ├── permalink/          # Shareable URL state
+│   ├── types.ts            # Dashboard data types
+│   ├── data.ts             # Data loaders (with caching)
+│   ├── projections.ts      # Time elapsed, pace, goal status
+│   └── format.ts           # Danish number/date formatting
 └── pages/
-    └── Index.tsx     # Main page layout
 ```
 
 ### Naming Conventions
@@ -152,39 +222,26 @@ src/
 - Components: PascalCase files and exports (`HeroSection.tsx`, `export function HeroSection()`)
 - Utilities/hooks: camelCase (`usePillar`, `loadDashboardData`)
 - Types: PascalCase interfaces (`DashboardData`, `Plan`, `Catchment`)
-- CSS classes: Tailwind utilities only — no custom CSS classes
+- Files in `src/lib/` use kebab-case (`phase-config.ts`, `kommune-ranking.ts`)
 
-### Data Loading Pattern
+### Number Formatting
 
-Data is loaded via utility functions in `src/lib/data.ts` that cache at the module level:
-
-```typescript
-let dashboardDataCache: DashboardData | null = null;
-
-export async function loadDashboardData(): Promise<DashboardData> {
-  if (dashboardDataCache) return dashboardDataCache;
-  const resp = await fetch('/data/dashboard-data.json');
-  dashboardDataCache = await resp.json();
-  return dashboardDataCache;
-}
-```
-
-Data files live in `public/data/` and are fetched at runtime — not bundled.
+Use `src/lib/format.ts`: `formatDanishNumber` (da-DK, dot thousands, comma decimals) and
+`formatDanishAmount` (one decimal below 10, so small real values never show as 0). For
+percentages on cards use `formatPctHeadline` in `model.ts` (`"< 1%"` for small positive values).
 
 ### Typography
 
-Headers use the `Fraunces` serif font:
-```tsx
-<h2 style={{ fontFamily: "'Fraunces', serif" }}>Section Title</h2>
-```
+- Headings: **Fraunces** serif, set inline: `style={{ fontFamily: "'Fraunces', serif" }}`
+- Body: **Manrope** (set globally in `src/index.css`)
 
-Body text uses the system default (Tailwind's `font-sans`).
+Both are loaded from Google Fonts in `src/index.css`.
 
 ### Nature watermarks
 
-Do **not** add `NatureWatermark` animal silhouettes back into the dashboard.
-They were removed after user feedback that they cluttered the numbers.
-Keep decorative treatment to simple Lucide icons at very low opacity if needed.
+Do **not** render `NatureWatermark` animal silhouettes. They were removed after user feedback
+that they cluttered the numbers. The component file and the `watermarks` field in `pillars.ts`
+are legacy leftovers. Keep decorative treatment to simple Lucide icons at very low opacity.
 
 ---
 
@@ -192,7 +249,6 @@ Keep decorative treatment to simple Lucide icons at very low opacity if needed.
 
 The dashboard UI is in **Danish**. All user-facing text must be in Danish:
 - "Kvælstofreduktion" not "Nitrogen reduction"
-- "Fremskridt" not "Progress"
 - "Anlagt" not "Established"
 - "Forundersøgelsestilsagn" not "Preliminary investigation"
 
@@ -212,158 +268,108 @@ Common Danish terms:
 
 ## Responsive Design
 
-The dashboard targets three breakpoints:
-- **Mobile** (`sm:`): Single column, simplified charts, hidden watermarks
-- **Tablet** (`md:`): Two-column grid for cards, basic watermarks
-- **Desktop** (`lg:` / `xl:`): Full layout with map, all watermarks, detailed tables
+- **Mobile** (default): single column, simplified charts
+- **Tablet** (`md:`): two-column card grids
+- **Desktop** (`lg:` / `xl:`): full layout with map and detailed tables
 
-Map interactions are touch-friendly. Charts use responsive containers.
-
----
+No horizontal page scroll at 375 px. Map interactions must be touch-friendly; `MobileBottomSheet`
+replaces side panels on small screens.
 
 ## Dark Mode
 
-The project uses Tailwind's dark mode with CSS variables. Use semantic color classes:
+Tailwind's `dark:` variant is class-based (`@custom-variant dark (&:is(.dark *))`), and nothing
+currently sets the `.dark` class — the site renders in light mode only. Still use semantic color
+classes so a dark theme stays possible:
 - `text-foreground` / `text-muted-foreground` (not `text-black` / `text-gray-500`)
 - `bg-card` / `bg-muted` (not `bg-white` / `bg-gray-100`)
 - `border-border` (not `border-gray-200`)
 
-Dark mode overrides use the `dark:` prefix: `dark:text-amber-400/60`.
-
 ---
 
----
+## URLs, Permalinks & SEO
 
-## URL Structure & SEO
+### Routes
 
-### URL Design Principles
+Pillar slugs map to IDs in **`src/lib/slugs.ts`** (`PILLAR_SLUGS`, `slugToPillar`). Danish words
+in every URL segment for SEO. `/` is the overview; it does **not** redirect to a pillar.
 
-The site uses path-based pillar routing combined with query params for sub-state.
-Danish words are used in all URL segments to maximise SEO relevance for Danish queries.
+### Permalink state (`src/lib/permalink/`)
 
-### Pillar Routes
+All shareable view state goes through the permalink module — never read or write ad-hoc query
+params in a component. `src/lib/permalink/schema.ts` is the source of truth for every key.
 
-| Pillar | Path | Internal ID |
-|--------|------|-------------|
-| Kvælstof (nitrogen) | `/kvælstof` | `nitrogen` |
-| Lavbundsarealer (extraction) | `/lavbund` | `extraction` |
-| Skovrejsning (afforestation) | `/skovrejsning` | `afforestation` |
-| CO₂ | `/co2` | `co2` |
-| Beskyttet natur | `/natur` | `nature` |
+Structure: `{path}#{section}?{query}`. The hash is the scroll section (chapter id); query params
+are omitted when they equal the default.
 
-`/` redirects to `/kvælstof` (the default, data-richest pillar).
-
-The slug ↔ pillar ID mapping lives in **`src/lib/slugs.ts`**.
-The routes are declared in **`src/App.tsx`** as `/:pillarSlug`.
-`Index.tsx` reads the slug via `useParams()` and derives `activePillar`.
-
-### Query Parameters
-
-Sub-state that should survive a page share is encoded as query params.
-Pillar navigation (`navigate('/skovrejsning')`) intentionally drops all params so each
-pillar view starts clean.
-
-| Param | Component | Meaning | Example |
-|-------|-----------|---------|---------|
-| `lag` | DenmarkMap | Map layer — `kyst` = coastal sub-catchments | `?lag=kyst` |
-| `opland` | DenmarkMap | Open catchment detail panel (value = `nameNormalized`) | `?opland=bornholm` |
-| `plan` | DenmarkMap | Open coastal plan detail panel (value = plan `id`) | `?plan=23` |
-| `kystvand` | DenmarkMap | Open water-body quality panel (value = water body name) | `?kystvand=Odense+Fjord` |
-| `vandplan` | DataTable | Expand a table row (value = plan `id`) | `?vandplan=23` |
-
-All components use `useSearchParams()` from react-router-dom. Use the functional
-update form to avoid race conditions:
-```typescript
-setSearchParams((prev) => {
-  const next = new URLSearchParams(prev);
-  next.set('opland', catchment.nameNormalized);
-  return next;
-});
-```
-
-### Shareable URL Examples
+Main keys on national pages: `kort`, `overlag`, `faser`, `fuldskaerm`, `projektenhed`, `frem`,
+`projekt` (`mars:<id>`, `ksf:<id>`, `nst:<id>`), plus panel ids `opland`, `plan`, `kystvand`,
+`vandplan`. Kommune list: `sort`, `visning`, `region`. Legacy keys (`lag`, `bio`, `vns`, `fane`)
+are decoded for old links but never written.
 
 ```
-/kvælstof                                    → Nitrogen overview
-/kvælstof?lag=kyst                           → Nitrogen, coastal layer
-/kvælstof?opland=bornholm                    → Nitrogen, Bornholm catchment panel open
-/kvælstof?plan=23                            → Nitrogen, coastal plan 23 panel open
-/kvælstof?vandplan=23                        → Nitrogen, plan 23 expanded in table
-/lavbund?opland=randers-fjord                → Extraction, specific catchment panel
+/lavbund#fremskrivning
+/natur#geografi?overlag=section3,natura2000&fuldskaerm=1
+/skovrejsning#geografi?faser=anlagt,foru&overlag=ksf,nst
+/kommuner?sort=skov&visning=ansvar
+/kommuner/aalborg#projekter
 ```
 
-### Cloudflare Pages SPA Routing
+`RouteParamSanitizer` strips params that don't belong on the current route.
 
-`public/_redirects` contains a single catch-all rule:
-```
-/*  /index.html  200
-```
-This serves `index.html` for every path (200, not 301/302), letting React Router
-handle routing client-side. **Without this file, navigating directly to `/skovrejsning`
-would return a 404 from Cloudflare.**
+### Sharing
 
-### SEO Implementation
+- `CopyLinkButton` (permalink module) — "Kopiér link" in `StickyNav`, `ProjectsSection`, the
+  fremskrivning card and the kommune standings. Copies the full current view state.
+- `ShareButton` — copy / X / LinkedIn popover, shown in the hero when a pillar is selected.
 
-**`index.html`** (static defaults — read by social scrapers at share time):
-- Full OG tags: `og:title`, `og:description`, `og:url`, `og:image`, `og:locale`, `og:site_name`
-- Twitter card tags
-- JSON-LD structured data: `WebSite` + `Dataset` schemas
-- `<link rel="canonical">` pointing to `/kvælstof`
+### SEO
 
-**`src/hooks/usePageMeta.ts`** (dynamic updates — read by Googlebot after JS execution):
-- Updates `document.title`, `meta[name="description"]`, OG tags, and canonical link
-  based on the active pillar
-- Called once in `Index.tsx` with pillar-specific titles and descriptions
-
-**`public/sitemap.xml`**: Generated by `npm run build-sitemap` (`scripts/build-sitemap.mjs`).
-Lists every public route: national oversigt (`/`), all 5 pillar URLs, data & metode,
-kommuneoversigt, all 98 kommune detail pages (from `dashboard-summary.json`), and
-videnscenter index + articles (from `articles.json`). Includes `<lastmod>` from data
-build timestamps and article file dates. Runs automatically in `npm run build` after
-`build-content`.
-
-**`public/robots.txt`**: `Allow: /` + `Sitemap:` directive pointing to sitemap.xml.
+- **`index.html`**: static OG/Twitter tags and JSON-LD (`WebSite` + `Dataset`) read by social
+  scrapers. The static `<link rel="canonical">` and `og:url` point to the front page
+  (`https://treparttracker.dk/`) — the same value `usePageMeta` sets for `/`.
+- **`src/hooks/usePageMeta.ts`**: per-page title, description, OG tags and canonical; called by
+  `Index`, `KommunePage`, `KommuneDetailPage` and `VidenscenterPage`.
+- **`public/sitemap.xml`**: generated by `npm run build-sitemap` (`scripts/build-sitemap.mjs`) —
+  overview, 5 pillars, data & metode, `/kommuner`, all 98 kommune pages and videnscenter articles,
+  with `<lastmod>`. Runs as part of `npm run build`.
+- **`public/robots.txt`**: `Allow: /` + sitemap.
+- **`public/_redirects`**: `/* /index.html 200` so Cloudflare Pages serves the SPA on deep links.
 
 ### Adding a New Pillar (URL checklist)
 
-1. Add slug to `PILLAR_SLUGS` in `src/lib/slugs.ts`
-2. Add matching entry to `PILLARS` in `scripts/build-sitemap.mjs`
-3. Add pillar description to `PILLAR_DESCRIPTIONS` in `src/pages/Index.tsx`
-4. Run `npm run build-sitemap` (or full `npm run build`)
+1. Add the config to `PILLAR_CONFIGS` in `src/lib/pillars.ts`
+2. Add the slug to `PILLAR_SLUGS` in `src/lib/slugs.ts` and to the slug list in
+   `src/lib/permalink/compose.ts` (`resolveRouteContext`)
+3. Add the pillar to `PILLARS` in `scripts/build-sitemap.mjs`
+4. Add a description to `PILLAR_DESCRIPTIONS` in `src/pages/Index.tsx`
 5. Update the JSON-LD `keywords` in `index.html` if relevant
-
-### Share Button
-
-`src/components/ShareButton.tsx` renders a pill button in the HeroSection that opens
-a small popover with three options: copy URL, share on X, share on LinkedIn.
-It reads `window.location.href` directly so the shared URL always reflects the current
-pillar and all active query params.
 
 ---
 
 ## Adding a New Dashboard Section
 
-When adding a new visualization or section:
-
 1. **Create the component** in `src/components/` following existing patterns
 2. **Use `usePillar()`** if the section is pillar-specific
-3. **Load data** via `src/lib/data.ts` utilities
-4. **Include source attribution** — at minimum a small disclaimer text; ideally link to the source
-5. **Show phase breakdown** if the data has phases
-6. **Test dark mode** — check both themes
-7. **Test responsive** — verify mobile, tablet, desktop
-8. **Run TypeScript check**: `npx tsc --noEmit`
+3. **Load data** via `src/lib/data.ts` loaders
+4. **Attribute the source** — `InfoTooltip` with source + method link at minimum
+5. **Show the phase breakdown** if the data has phases (via `phase-config.ts`)
+6. **Register a chapter** in `src/lib/chapters.ts` if it should be linkable by hash
+7. **Put shareable state in the permalink module**, not in ad-hoc query params
+8. **Test responsive** at 375 px and desktop
+9. **Update the changelog** (`src/lib/changelog.json`, then `mise run changelog`) if users will see it
+10. **Run** `npm run typecheck`, `npm run lint` and `npm test`
 
 ---
 
 ## TypeScript Types
 
-The main types are in `src/lib/types.ts`. Note that these types may lag behind changes to
-`dashboard-data.json` — if you've updated the ETL pipeline to add new fields, update the types too.
+The main types are in `src/lib/types.ts`. `DashboardData` is the **normalized** shape produced by
+`normalizeRawData`, not the raw JSON — if the ETL adds a field to `dashboard-summary.json`, add it
+to the raw handling in `data.ts` and to the types.
 
 Key interfaces:
-- `DashboardData` — top-level dashboard JSON structure
+- `DashboardData` — normalized dashboard data
 - `Plan` — a coastal water group plan (37 total)
 - `Catchment` — a VP3 catchment area (23 total)
-- `ProjectCounts` — project count breakdown
-- `MitigationMeasure` — individual mitigation measure/project type
+- `PipelineScenarioValues` — cumulative phase scenario per pillar
+- `KommuneMetrics` — per-kommune aggregates
