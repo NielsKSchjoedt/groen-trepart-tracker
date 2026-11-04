@@ -9,7 +9,9 @@ interface InitiatorCounts {
   private: number;
 }
 
-const EFFECT_FIELD: Partial<Record<PillarId, string>> = {
+type EffectField = 'nitrogenT' | 'extractionHa' | 'afforestationHa';
+
+const EFFECT_FIELD: Partial<Record<PillarId, EffectField>> = {
   nitrogen: 'nitrogenT',
   extraction: 'extractionHa',
   afforestation: 'afforestationHa',
@@ -32,7 +34,7 @@ export function computeInitiatorCounts(
       if (rawProj.id) seen.add(rawProj.id);
       const proj = withNationalEffects(rawProj);
       const hasEffect =
-        !effectField || ((proj as Record<string, unknown>)[effectField] as number) > 0;
+        !effectField || proj[effectField] > 0;
       if (hasEffect) {
         counts[classifyInitiator(proj.schemeOrg, proj.schemeName)]++;
       }
@@ -43,7 +45,7 @@ export function computeInitiatorCounts(
       if (rawSketch.id) seen.add(rawSketch.id);
       const sketch = withNationalEffects(rawSketch);
       const hasEffect =
-        !effectField || ((sketch as Record<string, unknown>)[effectField] as number) > 0;
+        !effectField || sketch[effectField] > 0;
       if (hasEffect) {
         counts[classifyInitiator(sketch.schemeOrg, sketch.schemeName)]++;
       }

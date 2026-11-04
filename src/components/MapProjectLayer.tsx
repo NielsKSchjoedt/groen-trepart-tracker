@@ -3,6 +3,7 @@
  */
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
+import type { Feature, Polygon } from 'geojson';
 import type { ProjectNatureOverlapData } from '@/lib/types';
 import type { PillarId } from '@/lib/pillars';
 import type { ProjectPhase } from '@/lib/phase-config';
@@ -108,12 +109,13 @@ export function MapProjectLayer({
       };
 
       if (usePolygon) {
+        const feature: Feature<Polygon> = {
+          type: 'Feature',
+          properties: {},
+          geometry: { type: 'Polygon', coordinates: [ring] },
+        };
         layer = L.geoJSON(
-          {
-            type: 'Feature',
-            properties: {},
-            geometry: { type: 'Polygon', coordinates: [ring] },
-          },
+          feature,
           {
             pane: paneName,
             style: {

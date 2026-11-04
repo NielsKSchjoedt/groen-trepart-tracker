@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, type ReactElement } from 'react';
 import { loadProjectChangelog } from '@/lib/data';
 import type { ProjectChangelog, ChangelogEntry } from '@/lib/types';
 import { formatDanishNumber } from '@/lib/format';
@@ -29,7 +29,7 @@ function shortDateDa(dateStr: string): string {
 
 /** Effect icon for a changelog entry based on which pillar it affects */
 function EffectBadges({ entry }: { entry: ChangelogEntry }) {
-  const badges: JSX.Element[] = [];
+  const badges: ReactElement[] = [];
   if (entry.nitrogenT && entry.nitrogenT > 0) {
     badges.push(
       <span key="n" className="inline-flex items-center gap-0.5 text-[10px] text-teal-700">

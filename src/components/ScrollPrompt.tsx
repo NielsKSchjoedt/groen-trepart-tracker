@@ -71,7 +71,7 @@ function useRotatingItem<T>(
 ): [T, boolean] {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     const tick = () => {

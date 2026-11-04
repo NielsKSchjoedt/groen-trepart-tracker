@@ -123,7 +123,9 @@ function ColHeader({
     >
       <span className="flex items-center gap-1">
         {noData && (
-          <AlertTriangle className="w-3 h-3 text-amber-400 flex-shrink-0" strokeWidth={2.5} title="Data ikke tilgængeligt på kommuneniveau" />
+          <span className="inline-flex flex-shrink-0" title="Data ikke tilgængeligt på kommuneniveau" role="img" aria-label="Data ikke tilgængeligt på kommuneniveau">
+            <AlertTriangle className="w-3 h-3 text-amber-400" strokeWidth={2.5} aria-hidden="true" />
+          </span>
         )}
         {label}
         {tooltip && (
