@@ -143,6 +143,40 @@
   animation: hint-float 2s ease-in-out infinite;
 }
 
+/* Hero flow band: static track + bulge gliding top → bottom (pathLength=100).
+   Offset must shift by exactly dasharray period (9+91) so the loop has no jump. */
+@keyframes flow-bulge-down {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.flow-path-bulge {
+  stroke-dasharray: 9 91;
+  stroke-dashoffset: 100;
+  animation: flow-bulge-down var(--flow-bulge-dur, 2.6s) linear infinite;
+  opacity: var(--flow-bulge-o, 0.7);
+}
+
+.flow-path-bulge--idle {
+  --flow-bulge-dur: 3.4s;
+  --flow-bulge-o: 0.55;
+}
+
+.flow-path-bulge--active {
+  --flow-bulge-dur: 2.2s;
+  --flow-bulge-o: 0.95;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-path-bulge {
+    display: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

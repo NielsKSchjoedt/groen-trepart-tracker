@@ -20,6 +20,12 @@ interface InfoTooltipProps {
    * link is rendered at the bottom of the popover.
    */
   methodLink?: string;
+  /**
+   * Optional Videnscenter article slug (e.g. "de-fem-maal"). When provided,
+   * a "Videnscenter" link is rendered pointing to /videnscenter/{slug} —
+   * the curated, neutral background article that explains this concept.
+   */
+  articleLink?: string;
   /** Size of the info icon in pixels (default: 14) */
   size?: number;
   /** Extra className on the trigger button */
@@ -61,6 +67,7 @@ export function InfoTooltip({
   title,
   source,
   methodLink,
+  articleLink,
   size = 14,
   className = '',
   side = 'top',
@@ -91,23 +98,35 @@ export function InfoTooltip({
           <p className="font-semibold text-foreground text-[13px] mb-1.5">{title}</p>
         )}
         <div className="text-muted-foreground space-y-1.5">{content}</div>
-        {(source || methodLink) && (
-          <div className="mt-2 pt-1.5 border-t border-border/50 flex items-center justify-between gap-2">
+        {(source || methodLink || articleLink) && (
+          <div className="mt-2 pt-1.5 border-t border-border/50 flex items-center justify-between gap-2 flex-wrap">
             {source && (
               <p className="text-[10px] text-muted-foreground/70 italic">
                 Kilde: {source}
               </p>
             )}
-            {methodLink && (
-              <Link
-                to={`/data-og-metode${methodLink}`}
-                onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-1 text-[10px] font-medium text-primary hover:text-primary/80 transition-colors whitespace-nowrap ml-auto"
-              >
-                <BookOpen className="w-2.5 h-2.5" />
-                Læs mere
-              </Link>
-            )}
+            <span className="inline-flex items-center gap-3 ml-auto">
+              {articleLink && (
+                <Link
+                  to={`/videnscenter/${articleLink}`}
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-1 text-[10px] font-medium text-primary hover:text-primary/80 transition-colors whitespace-nowrap"
+                >
+                  <BookOpen className="w-2.5 h-2.5" />
+                  Videnscenter
+                </Link>
+              )}
+              {methodLink && (
+                <Link
+                  to={`/data-og-metode${methodLink}`}
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-1 text-[10px] font-medium text-primary hover:text-primary/80 transition-colors whitespace-nowrap"
+                >
+                  <BookOpen className="w-2.5 h-2.5" />
+                  Data & metode
+                </Link>
+              )}
+            </span>
           </div>
         )}
       </PopoverContent>

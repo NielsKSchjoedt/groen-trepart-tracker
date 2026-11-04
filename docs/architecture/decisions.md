@@ -92,7 +92,7 @@ Git-backed data files for core metrics + lightweight server for spatial queries.
 
 ## ADR-004: Frontend Framework — Plain HTML + Chart.js
 
-**Status**: Decided (March 2026)
+**Status**: Superseded (see ADR-006)
 
 **Decision**: Plain HTML + vanilla JavaScript + Chart.js (from CDN). No build step, no framework, no bundler.
 
@@ -126,13 +126,13 @@ Git-backed data files for core metrics + lightweight server for spatial queries.
 
 **Options evaluated**:
 - **GitHub Actions with Python scripts** ← Selected
-- Dagster / Prefect (orchestration, observability, retry logic) — overkill for 2 data sources
+- Dagster / Prefect (orchestration, observability, retry logic) — overkill for 2 data sources (the pipeline has since grown to a larger ETL with ~8+ fetchers and dedicated build steps)
 - Custom Node.js scripts with cron — adds Node.js dependency
 - dbt for transformation layer — designed for SQL warehouses, not REST API ingestion
 
 **Rationale**:
 1. **Free and git-native**: GitHub Actions is free for public repos, runs are logged, and data commits create automatic version history.
-2. **Simple**: Two Python scripts (`fetch_mars.py`, `fetch_dawa.py`) with zero external dependencies (stdlib `urllib` + `json` only).
+2. **Simple**: Two Python scripts (`fetch_mars.py`, `fetch_dawa.py`) with zero external dependencies (stdlib `urllib` + `json` only). *(Update: the pipeline has since grown to a larger set of fetchers and build steps — see `etl/` and `etl/fetch_all.sh` — but the stdlib-first, git-native principle still holds.)*
 3. **Transparent**: Every data update is a git commit with a clear message and diff, visible to anyone.
 4. **Reliable enough**: Daily cron schedule, manual dispatch for ad-hoc updates, simple retry logic (GitHub Actions retries by default).
 
@@ -142,3 +142,11 @@ Git-backed data files for core metrics + lightweight server for spatial queries.
 - `etl/assemble_data.py` — fallback for sandboxed environments (browser-extracted data)
 - `etl/fetch_all.sh` — orchestration script
 - `.github/workflows/fetch-data.yml` — scheduled GitHub Actions workflow
+
+## ADR-006: Migrated to React + Vite + TypeScript (supersedes ADR-004)
+
+**Status**: Decided
+
+**Decision**: Replace the single-file `site/index.html` + Chart.js approach with a React + Vite + TypeScript single-page application living in `src/`.
+
+**Rationale**: The richer interactive UI — Leaflet maps with toggleable layers, multiple chart types, drill-down panels, and multi-page routing — outgrew what a single static HTML file could maintainably support. A component model with a typed data layer gives reusable UI pieces, compile-time safety against malformed data, and a far better developer experience as the dashboard's complexity grows. The original "data in git, no backend" principle (ADR-001) is preserved: Vite still builds a static site that consumes the committed JSON/GeoJSON data files.

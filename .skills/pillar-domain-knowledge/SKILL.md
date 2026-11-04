@@ -19,7 +19,7 @@ behind the data is just as important as the technical implementation.
 
 ## The Green Tripartite Agreement (Grøn Trepart)
 
-In December 2023, the Danish government signed the Green Tripartite Agreement — a landmark deal
+On 24 June 2024, the Danish government signed the Green Tripartite Agreement — a landmark deal
 between the government, agricultural organizations, and environmental groups. It commits Denmark to
 significant environmental targets across 5 pillars, primarily to meet EU Water Framework Directive
 requirements and national climate goals.
@@ -212,7 +212,7 @@ The rest is aspirational. The phase breakdown is the single most important featu
 ## Acronyms & References
 
 - **VP3** — Vandområdeplan 3 (Water Area Plan, 3rd cycle, 2021-2027)
-- **MARS** — Miljøstyrelsens Arealregister (Environmental Protection Agency's Area Register)
+- **MARS** — Multifunktionel Arealregistrering (Multifunctional Area Registration; built and run by SGAV)
 - **NOVANA** — Det Nationale Overvågningsprogram for Vandmiljø og Natur (national monitoring program)
 - **NKMv2025** — Nitrogen calculation model, version 2025
 - **DST** — Danmarks Statistik

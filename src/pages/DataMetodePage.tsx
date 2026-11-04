@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Database, ExternalLink, ChevronDown, ChevronRight, RefreshCw,
   Shield, Leaf, TreePine, Landmark, Scale, FileCode2, AlertTriangle,
-  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History,
+  BookOpen, GitBranch, Clock, Eye, Beaker, MapPin, History, Sprout, MapPinned, Bot,
 } from 'lucide-react';
 import { changelog, CHANGE_TYPE_LABELS, type ChangeType } from '@/lib/changelog';
 import { Link } from 'react-router-dom';
@@ -107,8 +107,8 @@ const DATA_SOURCES: DataSourceDef[] = [
     description: 'Beskyttede naturområder under EU\'s habitatdirektiv og fuglebeskyttelsesdirektiv (~250 lokaliteter). Hentes fra MiljøGIS WFS-lag natur:natura_2000_omraader.',
     url: 'https://miljoegis.mim.dk',
     urlLabel: 'miljoegis.mim.dk',
-    disclaimer: 'Marine/terrestrisk opdeling er heuristisk (navnebaseret). Præcis opdeling kræver spatial overlay med kystlinje. Overlap med §3 estimeres konservativt (~30%).',
-    frequency: 'Lokal kørsel (fetch_all.sh)',
+    disclaimer: 'Terrestrisk Natura 2000 beregnes som alle områder skåret med kommunegrænserne (land) i den månedlige rumlige overlay — havet fjernes geometrisk. Overlappet med §3 trækkes ikke fra; det samlede tal (15,3 %) er OECD\'s estimat.',
+    frequency: 'Dagligt (GitHub Actions); terrestrisk andel månedligt',
     dataDir: 'data/natura2000/',
     fetchScript: 'etl/fetch_natura2000.py',
     pillars: ['Natur'],
@@ -119,19 +119,43 @@ const DATA_SOURCES: DataSourceDef[] = [
     description: 'Alle §3-beskyttede naturarealer — heder, moser, enge, strandenge, overdrev, søer (~187.000 polygoner). Hentes pagineret fra natur:ais_par3 (10.000 pr. side).',
     url: 'https://miljoegis.mim.dk',
     urlLabel: 'miljoegis.mim.dk',
-    disclaimer: '§3-arealer overlapper med Natura 2000. Samlet beskyttet areal korrigeres for estimeret overlap (~30%). Kun egenskaber (type + ha) hentes — ikke geometri.',
-    frequency: 'Lokal kørsel (fetch_all.sh)',
+    disclaimer: '§3-arealer overlapper med Natura 2000. Det samlede beskyttede areal (15,3 %) er OECD\'s estimat fra 2024 — vi trækker ikke selv overlappet fra. Kun egenskaber (type + ha) hentes — ikke geometri.',
+    frequency: 'Dagligt (GitHub Actions)',
     dataDir: 'data/section3/',
     fetchScript: 'etl/fetch_section3.py',
     pillars: ['Natur'],
   },
   {
+    icon: Sprout,
+    title: 'Arealdata — biodiversitet (WMS/WFS)',
+    description: 'Kort: WMS-lag for målretning 30% (Biodiversitetsrådet) fra Danmarks Miljøportal, samt markudledningskortet (SEGES, kvælstof), drikkevandsinteresser (GRUKOS) og kulstofrige lavbundsjorder (DCA 2024) som overlays på hovedkortet under de relevante delmål. Rå WFS-udtræk (bl.a. DCE-forekomster og KU+ CMEC-områder) gemmes under data/ som revisionsgrundlag; standardkørsel hopper over den fulde 83k-polygon-fil (FULL_DCE=0).',
+    url: 'https://miljoeportal.dk/da/Land/Areal-og-jord/Arealdata',
+    urlLabel: 'miljoeportal.dk (Arealdata)',
+    disclaimer: 'WMS er billedfliser med serverside-legend; de erstatter ikke juridisk matrikel- eller forvaltningsdata. Sammenlign med fagkyndig tolkning.',
+    frequency: 'Dagligt (GitHub Actions) for KU; fuld DCE efter behov',
+    dataDir: 'data/arealdata-biodiversitet/',
+    fetchScript: 'etl/fetch_arealdata_biodiversitet.py',
+    pillars: ['Natur', 'Kort'],
+  },
+  {
+    icon: MapPinned,
+    title: 'FVM — Vand, natur & skov 2026',
+    description: 'Landsdækkende kortlægning under Vand-, Natur- og skovrejsningsordningen (Markkort, GeoServer). Vises som valgfrit vektor-overlay på hovedkortet.',
+    url: 'https://fvm.dk/temaer/natur-og-miljoe',
+    urlLabel: 'fvm.dk',
+    disclaimer: 'Kommunetælling i resumé bruger projekternes midtpunkter mod kommunegrænserne; overlap med MARS er kun vejledende (ingen rumlig sammenkøring i den daglige ETL).',
+    frequency: 'Dagligt sammen med pipelinen (GitHub Actions / fetch_all.sh)',
+    dataDir: 'data/markkort/',
+    fetchScript: 'etl/fetch_markkort_natur_projekter.py',
+    pillars: ['Natur', 'Kort'],
+  },
+  {
     icon: TreePine,
     title: 'Skovdata & Klimaskovfonden',
-    description: 'Fredskov (juridisk baseline, ~60.000 matrikler), digitalt skovkort 2022, og Klimaskovfondens projekter (210 skovrejsningsprojekter, ~2.300 ha) hentet live via WFS.',
+    description: 'Fredskov (juridisk baseline, ~60.000 matrikler), digitalt skovkort 2022, og Klimaskovfondens projekter, hentet dagligt via WFS.',
     url: 'https://klimaskovfonden.dk/vores-standard/register',
     urlLabel: 'klimaskovfonden.dk',
-    disclaimer: 'Klimaskovfonden-data hentes fra WFS (test.admin.gc2.io). Arealer beregnes fra polygongeometri (Shoelace-formel på WGS84). Fredskov er juridisk status, ikke faktisk trædække.',
+    disclaimer: 'Klimaskovfonden-data hentes fra en WFS på et testdomæne (test.admin.gc2.io) — det kan ændres uden varsel. Arealer beregnes fra polygongeometri (Shoelace-formel på WGS84). Fredskov er juridisk status, ikke faktisk trædække.',
     frequency: 'Lokal kørsel (fetch_all.sh)',
     dataDir: 'data/klimaskovfonden/',
     fetchScript: 'etl/fetch_klimaskovfonden.py',
@@ -140,7 +164,7 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: Landmark,
     title: 'Naturstyrelsen — statslig skovrejsning',
-    description: 'Statslige skovrejsningsprojekter matchet fra Naturstyrelsens hjemmeside mod MiljøGIS WFS-geodata (skovdrift-lag). ~30 projekter med polygongeometri, ~4.100 ha.',
+    description: 'Statslige skovrejsningsprojekter matchet fra Naturstyrelsens hjemmeside mod MiljøGIS WFS-geodata (skovdrift-lag). Kun afsluttede projekter tæller som anlagt skov; igangværende vises for sig.',
     url: 'https://naturstyrelsen.dk/ny-natur/skovrejsning/skovrejsningsprojekter/',
     urlLabel: 'naturstyrelsen.dk',
     disclaimer: 'Matching sker på generiske stednavne — ikke alle projekter kan matches til WFS-geometri. Sagsnumre indikerer årstal, men præcise tidsperioder er uklare.',
@@ -152,11 +176,11 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: Scale,
     title: 'Den Grønne Trepart (aftalen)',
-    description: 'Reduktionsmålene fra aftalen om et Grønt Danmark (december 2023) — 12.776 ton N inden 2027, 140.000 ha lavbundsjorder inden 2030, 250.000 ha ny skov inden 2045.',
+    description: 'Reduktionsmålene fra Aftale om et Grønt Danmark (24. juni 2024) — 12.776 ton N inden 2027, 140.000 ha lavbundsjorder inden 2030, 250.000 ha ny skov inden 2045.',
     url: 'https://regeringen.dk/aktuelt/publikationer-og-aftaletekster/aftale-om-et-groent-danmark/',
     urlLabel: 'regeringen.dk',
     disclaimer: 'Politisk aftale — målene kan ændres ved ny lovgivning. Dashboardet bruger de officielle mål som reference.',
-    frequency: 'Statisk (aftale fra dec. 2023)',
+    frequency: 'Statisk (aftale af 24. juni 2024)',
     dataDir: '',
     fetchScript: '',
     pillars: ['Alle søjler'],
@@ -164,7 +188,7 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: MapPin,
     title: 'DAWA (Dataforsyningen)',
-    description: '98 kommuner med metadata, GeoJSON-grænser og reverse geocoding. Bruges til kommunefordeling af projekter og kortvisning.',
+    description: 'Kommunegrænser og -metadata til kort og kommunelister. DAWA blev lukket i 2026; trackeren bruger et fast udtræk fra sidste hentning (11. september 2026). Kommunetal for MARS-projekter kommer fra MARS\' egen kommuneopgørelse.',
     url: 'https://api.dataforsyningen.dk',
     urlLabel: 'api.dataforsyningen.dk',
     disclaimer: 'CC0-licens. Administrative grænser stemmer ikke nødvendigvis overens med miljøgeografiske opdelinger.',
@@ -219,8 +243,8 @@ const QUALITY_ITEMS: QualityItem[] = [
     severity: 'medium',
   },
   {
-    title: 'Natura 2000 / §3-overlap er estimeret',
-    description: 'Natura 2000 og §3-beskyttede arealer overlapper betydeligt. Overlappet estimeres konservativt til ~30%, men det reelle overlap varierer pr. region og kræver spatial union-beregning (GIS) for præcis opgørelse.',
+    title: 'Samlet beskyttet natur er et estimat',
+    description: 'Natura 2000 og §3-beskyttede arealer overlapper betydeligt. Det samlede tal på 15,3 % er OECD\'s estimat fra 2024 — trackeren laver ikke selv en samlet GIS-beregning af overlappet, og det reelle overlap varierer pr. region.',
     severity: 'medium',
   },
   {
@@ -264,11 +288,11 @@ interface PillarSourceRow {
 }
 
 const PILLAR_MATRIX: PillarSourceRow[] = [
-  { pillar: 'Kvælstof', accentColor: '#0d9488', sources: ['MARS API'], metric: 'Ton N reduceret (mål: 12.776 T)' },
-  { pillar: 'Lavbund', accentColor: '#a16207', sources: ['MARS API', 'Klimaskovfonden'], metric: 'Hektar udtaget (mål: 140.000 ha)' },
+  { pillar: 'Kvælstof', accentColor: '#0d9488', sources: ['MARS API', 'Miljøportal WMS (markudledning, drikkevand)'], metric: 'Ton N reduceret (mål: 12.776 T)' },
+  { pillar: 'Lavbund', accentColor: '#a16207', sources: ['MARS API', 'Klimaskovfonden', 'Miljøportal WMS (kulstofrig lavbund)'], metric: 'Hektar udtaget (mål: 140.000 ha)' },
   { pillar: 'Skovrejsning', accentColor: '#15803d', sources: ['MARS API', 'Klimaskovfonden', 'Naturstyrelsen', 'Fredskov WFS'], metric: 'Hektar ny skov (mål: 250.000 ha)' },
   { pillar: 'CO₂', accentColor: '#737373', sources: ['KF25 (Energistyrelsen)'], metric: '% reduktion ift. 1990 (mål: 70%)' },
-  { pillar: 'Natur', accentColor: '#7c3aed', sources: ['Natura 2000 WFS', '§3 WFS'], metric: '% beskyttet landareal (mål: 20%)' },
+  { pillar: 'Natur', accentColor: '#7c3aed', sources: ['Natura 2000 WFS', '§3 WFS', 'Arealdata WMS', 'FVM VNS 2026'], metric: '% beskyttet landareal (mål: 20%)' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -280,14 +304,25 @@ const METHOD_SECTIONS = [
     title: 'Faseklassificering (MARS projectStatus)',
     content: (
       <>
-        <p>MARS-projekter har et numerisk <code>projectStatus</code>-felt der mappes til livscyklusfaser:</p>
+        <p>MARS-projekter har et numerisk <code>projectStatus</code>-felt der mappes til DN's fem administrative hovedfaser:</p>
         <ul className="list-disc pl-5 space-y-1">
-          <li><strong>6</strong> → <code>preliminary</code> (Forundersøgelsestilsagn — foreløbig undersøgelse)</li>
-          <li><strong>10</strong> → <code>approved</code> (Etableringstilsagn — godkendt til anlæg)</li>
-          <li><strong>15</strong> → <code>established</code> (Anlagt — fysisk gennemført)</li>
-          <li>Alle andre → <code>preliminary</code> (konservativ default)</li>
+          <li><strong>1-2</strong> → <code>sketch</code> (skitse: kladde/ansøgt)</li>
+          <li><strong>6, 20</strong> → <code>preliminary_grant</code> (tilsagn til forundersøgelse)</li>
+          <li><strong>32, 50, 51</strong> → <code>preliminary_done</code> (gennemført forundersøgelse)</li>
+          <li><strong>9, 10, 11, 21, 31, 52, 53, 54</strong> → <code>establishment_grant</code> (tilsagn til udtagning/anlæg)</li>
+          <li><strong>15, 18</strong> → <code>established</code> (gennemført/anlagt)</li>
+          <li><strong>3, 5, 16, 17</strong> → <code>cancelled</code> (frafald som side-metrik)</li>
         </ul>
-        <p>Denne klassificering er defineret i <a href={ghLink('etl/build_dashboard_data.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">build_dashboard_data.py</a> og bruges konsekvent i hele dashboardet.</p>
+        <p>Den fulde mapping er defineret i <a href={ghLink('etl/mars_pipeline_s2.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">mars_pipeline_s2.py</a>. Den øverste projektpipeline viser denne femfase-model; effekt/areal-bjælken nedenunder bruger de samme faser, men vægter dem i ton N eller hektar.</p>
+      </>
+    ),
+  },
+  {
+    title: 'Forvaltningsplanstatus for naturprojekter',
+    content: (
+      <>
+        <p>For naturprojekter er det ikke nok, at et areal er udtaget eller tilplantet — den varige naturværdi afhænger også af, om der er en efterfølgende forvaltningsplan for arealet, der sikrer løbende pleje og beskyttelse. MARS har ikke et felt, der dokumenterer, om en sådan forvaltningsplan er på plads.</p>
+        <p>Derfor markerer dashboardet relevante natur-/skovprojekter med <code>forvaltningsplanStatus: "unknown"</code> og viser det som et datagap i projektpipelinen, ikke som manglende fremskridt.</p>
       </>
     ),
   },
@@ -297,23 +332,55 @@ const METHOD_SECTIONS = [
       <>
         <p>For kvælstof, lavbund og skovrejsning beregnes en lineær fremskrivning baseret på forholdet mellem tid brugt og fremskridt gjort:</p>
         <p className="font-mono bg-muted/50 rounded-lg p-3 text-xs">projectedPct = actualPct / timeElapsedFraction(deadlineYear)</p>
-        <p>Tidsbrøken beregnes fra aftalens start (januar 2024) til deadline (f.eks. 2027 for kvælstof). For CO₂ bruges Energistyrelsens KF25-klimafremskrivning i stedet for lineær ekstrapolation.</p>
+        <p>Tidsbrøken beregnes fra aftalens start (januar 2024) til deadline (f.eks. 2027 for kvælstof). For CO₂ bruges Energistyrelsens detaljerede KF25-klimafremskrivning i stedet for lineær ekstrapolation, mens KF26's nye hovedkonklusion vises som metode- og risikonote.</p>
         <p>Kilde: <a href={ghLink('src/lib/projections.ts')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">src/lib/projections.ts</a></p>
       </>
     ),
   },
   {
-    title: 'Scenarievælger (pipeline-scenarier)',
+    title: 'KF26: politiske mål vs. modelhorisonter',
     content: (
       <>
-        <p>Dashboardet tilbyder fire scenarier for hvad der tælles som "opnået":</p>
+        <p>KF26-høringsversionen fra 12. maj 2026 ændrer ikke de politiske mål i aftalen, men den præciserer hvornår effekterne antages realiseret i klimafremskrivningen.</p>
         <ul className="list-disc pl-5 space-y-1">
-          <li><strong>Kun anlagte</strong> — konservativt; kun projekter der er fysisk gennemført</li>
-          <li><strong>+ Godkendte</strong> — inkluderer projekter med etableringstilsagn</li>
-          <li><strong>+ Forundersøgte</strong> — inkluderer alle med forundersøgelsestilsagn</li>
-          <li><strong>Hele pipeline</strong> — al registreret aktivitet</li>
+          <li><strong>Lavbund:</strong> det politiske mål er stadig 140.000 ha i 2030. KF26 modellerer 140.000 ha projektareal frem mod 2032 og ca. 70.000 ha kulstofrig landbrugsjord frem mod 2033.</li>
+          <li><strong>Skov:</strong> det politiske mål er stadig 250.000 ha inden 2045. KF26 antager 2-3 års forskydning mellem tilsagn og tilplantning, så den modellerede realiseringsprofil løber til 2047.</li>
+          <li><strong>Kvælstof:</strong> trackeren bruger fortsat MARS-målet for kollektive virkemidler. KF26 omtaler også 9.600 ton N efter den nye kvælstofregulering; det er en anden definition og vises ikke som erstatning uden særskilt dokumentation.</li>
         </ul>
-        <p>Hvert scenarie genberegner fremskrivningen så brugeren kan se, hvordan billedet ændrer sig hvis flere projekter realiseres.</p>
+        <p>Trackeren bruger høringsversionen af KF26 fra 12. maj 2026. Tallene opdateres, når den endelige version er offentliggjort. De ligger struktureret i <code>data/kf26/trepart.json</code>.</p>
+      </>
+    ),
+  },
+  {
+    title: 'Fremskrivning (kurs og rækkevidde)',
+    content: (
+      <>
+        <p>Fremskrivningskortet viser to ting på én gang:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Kurs</strong> — lineær ekstrapolation af det faktiske realiseringstempo siden trepartsaftalen (24. juni 2024) til deadline</li>
+          <li><strong>Rækkevidde</strong> — summen af de pipeline-stadier brugeren tror bliver realiseret, fremskrevet som om de gennemføres jævnt fra datagrundlagets snapshot-dato til deadline</li>
+        </ul>
+        <p>Fire uafhængige toggles (gennemførte, godkendte, forundersøgelse, skitser) lader dig bygge et scenarie. Gennemførte er låst og tæller altid med. Skitser er inkluderet som valgfrit lag med lav visuel vægt (opacity).</p>
+        <p>Tempo-beregningen sammenligner nuværende realiseringstempo med det tempo, der skal til for at nå målet til tiden. Kilde: <code>src/lib/fremskrivning/</code></p>
+      </>
+    ),
+  },
+  {
+    title: 'Vandmiljø som retligt mål (vandrammedirektivet)',
+    content: (
+      <>
+        <p>
+          God økologisk tilstand i alle 109 kystvande er et retligt mål — ikke et treparts-delmål
+          med egne hektar. Fristen er senest 22. december 2027 efter lov om vandplanlægning § 7
+          stk. 2 nr. 2 og § 10 stk. 3 (LBK nr. 126 af 26. januar 2017). BEK nr. 1670 af 8. december 2025
+          udmønter de gældende vandområdeplaner. Fristforlængelse kan gives for det enkelte
+          vandområde efter §§ 10–11 — det er ikke det samme som en politisk udskydelse af hele målet.
+        </p>
+        <p>
+          Treparten leverer tons kvælstof via kollektive virkemidler. De tons er nødvendige, men
+          ikke tilstrækkelige til god økologisk tilstand. Trackeren påstår ikke, at målet er
+          udskudt ét år til 2028.
+        </p>
       </>
     ),
   },
@@ -321,9 +388,16 @@ const METHOD_SECTIONS = [
     title: 'Overlap-korrektion for beskyttet natur',
     content: (
       <>
-        <p>Natura 2000 og §3-beskyttede arealer overlapper. Det totale beskyttede areal beregnes som:</p>
-        <p className="font-mono bg-muted/50 rounded-lg p-3 text-xs">total = natura2000_terrestrisk + §3_total × (1 - overlapFaktor)</p>
-        <p>Overlapfaktoren er sat til ~30% baseret på erfaringstal. En præcis beregning ville kræve spatial union af alle polygoner — en tung GIS-operation der ikke er implementeret endnu.</p>
+        <p>
+          Natura 2000 og §3-beskyttede arealer overlapper. Det nationale tal 15,3 % beskyttet
+          natur er <strong>OECD 2024-estimatet</strong> — ikke en GIS-union af vores egne kortlag.
+          Vi har ikke beregnet en landsdækkende spatial union af alle naturpolygoner.
+        </p>
+        <p>
+          Projekt-overlap med naturpotentiale er et andet tal: MARS-projekter klippet med
+          DCE 30 % (tærskel &gt; 0,1 ha). Overlap er stedspecifikt og ikke automatisk «godt»
+          på samme måde som 1 ton CO₂.
+        </p>
       </>
     ),
   },
@@ -337,12 +411,22 @@ const METHOD_SECTIONS = [
     ),
   },
   {
-    title: 'Kommunefordeling (punkt-i-polygon)',
+    title: 'Biodiversitet på hovedkortet (WMS, valgfri vektor)',
     content: (
       <>
-        <p>Projekter med koordinater (centroider eller geometri) fordeles på kommuner via reverse geocoding fra DAWA API eller punkt-i-polygon test mod kommunepolygoner.</p>
-        <p>Resultater caches i <code>data/geo-kommune-cache.json</code> for at undgå gentagne API-kald. Projekter der falder uden for kommunepolygoner (f.eks. havarealer) får ingen kommunetilknytning.</p>
-        <p>Kilde: <a href={ghLink('etl/spatial_utils.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl/spatial_utils.py</a></p>
+        <p>Under <a href="#biodiversitet" className="underline decoration-primary/30">Biodiversitet</a> kan du tænde WMS-laget for målretning 30% (Biodiversitetsrådet) og et separat FVM-vektorlag. Under Kvælstof-målet kan du desuden tænde markudledningskortet (SEGES) og drikkevandsinteresser (GRUKOS). Under Lavbund-målet kan du tænde kulstofrige lavbundsjorder (DCA 2024) — det lag anmodes i EPSG:25832 via proj4leaflet, mens kortet forbliver i Web Mercator. WMS lægger gennemsigtige fliser oven på landkortet; de er beregnet til overblik, ikke som juridisk dokumentation.</p>
+        <p className="text-xs text-muted-foreground/90 italic">Indeholder data, som benyttes i henhold til vilkår for brug af danske offentlige data (Danmarks Miljøportal).</p>
+        <p>De rå dataspor i <code>data/arealdata-biodiversitet/</code> afspejler typisk: (1) DCE-forekomster, (2) KU+ CMEC-prioritering i to niveauer. Se næste afsnit for nøglepublikationer.</p>
+      </>
+    ),
+  },
+  {
+    title: 'Kommunefordeling',
+    content: (
+      <>
+        <p>Kommunetal for MARS-projekter kommer fra MARS&apos; egen kommuneopgørelse. Et projekt, der krydser en kommunegrænse, tæller kun med den del, der ligger i kommunen — samme opgørelse som på MARS&apos; kommunesider. Projektets hovedkommune er den, der har den største andel.</p>
+        <p>Klimaskovfondens og Naturstyrelsens projekter placeres i en kommune ved at teste deres midtpunkt mod de faste kommunegrænser. Punkter lige uden for den forenklede kystlinje knyttes til nærmeste kommune (højst 2 km); punkter på åbent hav får ingen kommune.</p>
+        <p>Kilde: <a href={ghLink('etl/mars_municipality.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl/mars_municipality.py</a> og <a href={ghLink('etl/kommune_lookup.py')} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/30 hover:text-foreground">etl/kommune_lookup.py</a></p>
       </>
     ),
   },
@@ -377,12 +461,14 @@ const STATUS_LABEL: Record<string, string> = {
   error:   'Fejl',
 };
 const SOURCE_DISPLAY: Record<string, string> = {
-  mars:          'MARS',
-  dawa:          'DAWA',
-  miljoegis:     'MiljøGIS',
-  dst:           'DST',
-  vanda:         'VanDa',
-  klimaregnskab: 'Klimaregnskab',
+  mars:                      'MARS',
+  dawa:                      'DAWA',
+  miljoegis:                 'MiljøGIS',
+  dst:                       'DST',
+  vanda:                     'VanDa',
+  klimaregnskab:             'Klimaregnskab',
+  'arealdata-biodiversitet': 'Arealdata bio',
+  'fvm-markkort-vns':        'FVM VNS',
 };
 
 /**
@@ -540,6 +626,9 @@ export default function DataMetodePage() {
             { href: '#datakilder', label: 'Datakilder' },
             { href: '#pipeline', label: 'Pipeline' },
             { href: '#soejler', label: 'Søjler & dataflow' },
+            { href: '#biodiversitet', label: 'Biodiversitet' },
+            { href: '#kommune-ranking', label: 'Kommune-rangliste' },
+            { href: '#ai', label: 'Brug af AI' },
             { href: '#kvalitet', label: 'Kvalitet' },
             { href: '#opdatering', label: 'Opdatering' },
             { href: '#metode', label: 'Metode' },
@@ -718,6 +807,173 @@ export default function DataMetodePage() {
           </div>
         </section>
 
+        {/* ========== 4b. Biodiversitet: spor og nøgledokumenter ========== */}
+        <section id="biodiversitet">
+          <SectionHeader icon={Sprout} title="Biodiversitet — spor og nøgledokumenter" />
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            Sammen med den beskyttede natur-måling bruger hovedkortet et <strong>tretrins læsebenchmark</strong>: <strong>EU/ danske råværdier</strong> (arternes og levestederne forekomst i DCE),
+            <strong> national prioritering</strong> (KU+ CMEC, to polygonlag), og <strong>udlægningskort</strong> (målretning 30% som WMS).
+            Tallene i dashboardet ændrer sig ikke herfra — det er kort- og gennemsigtighedslag. Brug nedenstående offentlige kilder som baggrund læsning.
+          </p>
+          <div className="mb-4 grid gap-2 text-xs sm:grid-cols-3">
+            {[
+              ['1', 'Rå naturforekomster', 'DCE-laget tælles i standardkørsel; fuld 83k-polygonfil er manuel (FULL_DCE=1).'],
+              ['2', 'National prioritering', 'KU+ CMEC-prioritet 1 og 2 hentes som revisionsdata hver dag.'],
+              ['3', 'Kortvisning', 'Arealdata WMS + FVM VNS-polygons vises på hovedkortet uden at ændre KPI-tal.'],
+            ].map(([step, title, desc]) => (
+              <div key={step} className="rounded-xl border border-border/60 bg-card p-3">
+                <div className="mb-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">
+                  {step}
+                </div>
+                <div className="font-semibold text-foreground">{title}</div>
+                <div className="mt-1 text-muted-foreground">{desc}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mb-4 rounded-lg border border-amber-200/60 bg-amber-50 px-3 py-2 text-xs text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-100">
+            DCE D1 kører i den daglige datakørsel kun med træffere (<code>FULL_DCE=0</code>). Den fulde fil materialiseres manuelt/periodisk, når filstørrelse og køretid er dokumenteret stabile nok til CI.
+          </p>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Faglige rapporter og metodegrundlag
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground leading-relaxed">
+            <li>
+              <a href="https://dce2.au.dk/pub/SR507.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">DCE SR507 — Potentiale for 30 % beskyttet natur (PDF)</a>
+              {' — '}grundlag for DCE-sporet i tretrins-benchmarken.
+            </li>
+            <li>
+              <a href="https://macroecology.ku.dk/pdf-files/reports-and-publications/Mere__bedre_og_st_rre_natur_i_Danmark_2024.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">CMEC/KU — Mere, bedre og større natur i Danmark 2024 (PDF)</a>
+              {' — '}grundlag for KU+ CMEC-prioritet 1 og 2.
+            </li>
+            <li>
+              <a href="https://www.biodiversitetsraadet.dk/viden/notat-store-sammenhaengende-naturomraader-2" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitetsrådet — Store sammenhængende naturområder (2024)</a>
+              {' — '}fagligt grundlag for at prioritere store, sammenhængende naturområder.
+            </li>
+            <li>
+              <a href="https://dce2.au.dk/pub/SR544.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">DCE SR544 — Prioritering ved udtagning (PDF)</a>
+              {' — '}reference for natur- og lavbundsprioritering.
+            </li>
+            <li>
+              <a href="https://www.biodiversitetsraadet.dk/pdf/2023/12/Aarsrapport-Biodiversitetsraadet-2023.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Biodiversitetsrådet — Årsrapport 2023 (PDF)</a>
+              {' — '}baggrund for diskussionen om hvor meget natur der reelt er beskyttet.
+            </li>
+          </ul>
+          <p className="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Operative data- og aftalekilder
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground leading-relaxed">
+            <li>
+              <a href="https://miljoeportal.dk/da/Land/Areal-og-jord/Arealdata" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Arealdata (Miljøportal)</a>
+              {' — '}WMS/WFS for biodiversitets- og omlægningskort, herunder TRANSFORM- og indsats-WMS.
+            </li>
+            <li>
+              <a href="https://fvm.dk/temaer/natur-og-miljoe" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">FVM — natur og landdistrikter</a>
+              {' — '}Vand, natur & skov-ordninger, herunder kortdækningen vi henter som GeoJSON.
+            </li>
+            <li>
+              <a href="https://oem.dk/media/ul2jcmou/aftale-om-et-groent-danmark-24-juni-2024-a.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Aftale om et grønt Danmark (PDF)</a>
+              {' — '}politisk ramme for natur-, lavbunds- og skovmål.
+            </li>
+            <li>
+              <a href="https://regeringen.dk/media/raehl3jj/aftale-om-implementering-af-et-groent-danmark.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Aftale om implementering af et grønt Danmark (PDF)</a>
+              {' — '}implementeringsrammen for omlægningsindsatsen.
+            </li>
+          </ul>
+        </section>
+
+        {/* ========== Kommune-rangliste (Sprint 6) ========== */}
+        <section id="kommune-ranking">
+          <SectionHeader icon={MapPin} title="Sådan rangerer vi kommuner" />
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            Kommunesiden viser fire <strong>parallelle</strong> ranglister — ikke ét samlet naturtal.
+            Formålet er at måle, om en kommune leverer indsats <em>i forhold til sit faglige ansvar</em>,
+            ikke om den er stor nok til at vinde på rå hektar.
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground mb-4">
+            <li>
+              <strong>Ansvar</strong> — andel af nationalt naturpotentiale (DCE 30 % fra Arealdata om biodiversitet).
+              Det er et fagligt stand-in, fordi der ikke findes en officiel kommunal fordeling af naturmålet.
+            </li>
+            <li>
+              <strong>Levering</strong> — andel af national realiseret udtagning, skov og kvælstof fra MARS-projekter
+              i faserne forundersøgelse, godkendt og anlagt. Skitser tæller ikke med.
+            </li>
+            <li>
+              <strong>Index (×)</strong> — levering ÷ ansvar. Over 1,0× betyder, at kommunen leverer mere end
+              dens andel af naturpotentialet tilsiger.
+            </li>
+            <li>
+              <strong>Naturkvalitet</strong> — B3: andel af Natura 2000-arealer, der reelt er landbrugsjord
+              (&quot;udpeget ≠ beskyttet&quot;). Nævneren er kun Natura 2000 — §3 indgår ikke. Hovedtallet
+              bruger MARS-afgrødekoder (Afgkode-udelukkelse) når Markkort har koden. Høj procent = stort
+              forbedringspotentiale, ikke en skammeliste.
+            </li>
+            <li>
+              <strong>Oplande</strong> — spatial overlap mellem kommuner og kystvandsoplande (VP3) viser,
+              at kvælstofmålet er geografisk forankret, mens naturmålet ikke er det.
+            </li>
+          </ul>
+          <p className="text-xs text-muted-foreground">
+            Data: <code>kommune-ranking.json</code> og <code>kommune-oplande.json</code> (bygget månedligt
+            sammen med øvrige kommune-benchmarks). Vi bruger ikke DNI (naturindikator.dk) — ingen åben API.
+          </p>
+        </section>
+
+        {/* ========== Brug af AI ========== */}
+        <section id="ai">
+          <SectionHeader icon={Bot} title="Sådan bruger vi AI" />
+          <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+            Trackeren er bygget med omfattende hjælp fra AI. Her er, hvad det betyder for det, du læser.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Hvad AI er brugt til</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Kildekode, datascripts, tekster på siden og udkast til artiklerne i{' '}
+                <Link to="/videnscenter" className="text-primary hover:underline">videnscentret</Link>{' '}
+                er skrevet med hjælp fra AI-værktøjer (Claude).
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Tallene kommer ikke fra AI</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Tal, grafer, kort og ranglister beregnes af åben kode ud fra offentlige data som MARS.
+                Ingen sprogmodel finder på eller retter tal. Du kan følge hvert tal tilbage til kilden
+                via <a href="#datakilder" className="text-primary hover:underline">datakilderne</a>.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Vurderingerne er faste regler</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Formuleringer som "på sporet" og "når målet" laves af faste regler i koden, ikke af en
+                sprogmodel. Grænserne er valgt af os og kan ses i{' '}
+                <a href={ghLink('src/lib/projections.ts')} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">fremskrivningen</a>{' '}
+                og{' '}
+                <a href={ghLink('src/lib/kommune-indsats-status.ts')} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">kommunestatus</a>.
+                Er du uenig i en grænse, er det en rimelig uenighed.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-card border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-1">Teksterne er ikke fagligt gennemgået</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Teksterne er ikke gennemgået linje for linje af en fagperson, og der kan være fejl,
+                især i baggrundsartiklerne. Står en tekst i modstrid med tallene i trackeren eller
+                med de oprindelige kilder, er det tallene og kilderne, der gælder.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+            Har du fundet en fejl?{' '}
+            <a href={`${REPO_URL}/issues`} target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">Meld den på GitHub</a>.
+            Vi retter den og skriver åbent i{' '}
+            <a href="#aendringslog" className="text-primary hover:underline">ændringsloggen</a>, hvad der var forkert.
+            {' '}Baggrund, kildekode og hele projektets historik ligger åbent på{' '}
+            <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub</a>.
+          </p>
+        </section>
+
         {/* ========== 5. Datakvalitet og begrænsninger ========== */}
         <section id="kvalitet">
           <SectionHeader icon={AlertTriangle} title="Datakvalitet og begrænsninger" />
@@ -757,7 +1013,7 @@ export default function DataMetodePage() {
             <div className="p-5 rounded-xl bg-card border border-border">
               <p className="text-sm font-semibold text-foreground mb-2">Automatisk (GitHub Actions)</p>
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                Daglig kørsel kl. 06:00 UTC (08:00 dansk tid). Henter data fra
+                Daglig kørsel kl. 06:00 UTC (kl. 7 eller 8 dansk tid, afhængigt af sommertid). Henter data fra
                 MARS, DAWA, MiljøGIS, Danmarks Statistik og VanDa. Bygger dashboard-JSON
                 og committer ændringer til git automatisk.
               </p>

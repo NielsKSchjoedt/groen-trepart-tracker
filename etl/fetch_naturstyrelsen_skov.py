@@ -25,10 +25,10 @@ import time
 import urllib.request
 from datetime import datetime
 from urllib.request import urlopen, Request
+from kommune_lookup import find_kommune
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'data', 'naturstyrelsen-skov')
 
-DAWA_REVERSE_URL = "https://api.dataforsyningen.dk/kommuner/reverse"
 DAWA_TIMEOUT_SECONDS = 10
 USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 
@@ -109,25 +109,13 @@ KNOWN_PROJECTS = [
 
 def reverse_geocode_kommune(lon: float, lat: float) -> str | None:
     """
-    Resolve a WGS84 point to a Danish municipality name via DAWA reverse geocoding.
+    Kommune name for a WGS84 point — offline lookup in the committed kommune
+    polygons (DAWA's reverse geocoder was shut down in 2026, HTTP 410).
 
-    Returns the municipality name (e.g. "Vejle") or None on failure.
-    Uses Dataforsyningen's free, unauthenticated API.
-
-    @param lon - Longitude in WGS84
-    @param lat - Latitude in WGS84
-    @returns Municipality name or None
-
-    @example reverse_geocode_kommune(9.358, 55.733)  # → "Kolding"
+    @example reverse_geocode_kommune(9.358, 55.733)  # → "Vejle"
     """
-    url = f"{DAWA_REVERSE_URL}?x={lon}&y={lat}&srid=4326"
-    req = Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urlopen(req, timeout=DAWA_TIMEOUT_SECONDS) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            return data.get("navn")
-    except Exception:
-        return None
+    hit = find_kommune(lon, lat)
+    return hit["navn"] if hit else None
 
 
 GEOCODE_CACHE_PATH = os.path.join(OUT_DIR, "geocode-cache.json")
@@ -155,7 +143,7 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
     """
     Add a `kommune` field to each project that has a centroid via DAWA reverse geocoding.
 
-    Loads a persisted disk cache so only new/unseen coordinates hit the DAWA API.
+    Results are cached on disk; lookups are local (no network).
     Projects without a centroid receive `kommune: null`.
 
     @param projects - List of matched project dicts with optional 'centroid' [lon, lat]
@@ -175,12 +163,12 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
             continue
 
         lon, lat = centroid
-        cache_key = f"{lon:.2f},{lat:.2f}"
+        # Exact lookup per point (the old ~1 km rounded key could cross borders).
+        cache_key = f"{lon:.6f},{lat:.6f}"
 
         if cache_key not in cache:
             cache[cache_key] = reverse_geocode_kommune(lon, lat)
             api_calls += 1
-            time.sleep(0.05)
 
         proj["kommune"] = cache[cache_key]
         geocoded += 1

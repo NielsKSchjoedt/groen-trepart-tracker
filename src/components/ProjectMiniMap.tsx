@@ -1,6 +1,14 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Maximize2 } from 'lucide-react';
+import {
+  BASEMAP_ATTRIBUTION,
+  BASEMAP_TILE_MAX_NATIVE_ZOOM,
+  BASEMAP_TILE_MAX_ZOOM,
+  BASEMAP_TILE_URL,
+  PROJECT_MINI_MAP_FIT_MAX_ZOOM,
+  PROJECT_MINI_MAP_MAX_ZOOM,
+} from '@/lib/map-zoom';
 
 interface ProjectMiniMapProps {
   /** Polygon ring as [[lng, lat], [lng, lat], ...] */
@@ -41,11 +49,14 @@ export function ProjectMiniMap({ coordinates, height = 180, onClick }: ProjectMi
       touchZoom: false,
       boxZoom: false,
       keyboard: false,
+      maxZoom: PROJECT_MINI_MAP_MAX_ZOOM,
     });
 
     // Light basemap (same as main map)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 18,
+    L.tileLayer(BASEMAP_TILE_URL, {
+      maxZoom: BASEMAP_TILE_MAX_ZOOM,
+      maxNativeZoom: BASEMAP_TILE_MAX_NATIVE_ZOOM,
+      attribution: BASEMAP_ATTRIBUTION,
     }).addTo(map);
 
     // Draw the project polygon
@@ -58,7 +69,7 @@ export function ProjectMiniMap({ coordinates, height = 180, onClick }: ProjectMi
 
     // Fit to polygon bounds with some padding
     const bounds = polygon.getBounds();
-    map.fitBounds(bounds, { padding: [20, 20], maxZoom: 15 });
+    map.fitBounds(bounds, { padding: [20, 20], maxZoom: PROJECT_MINI_MAP_FIT_MAX_ZOOM });
 
     mapRef.current = map;
 

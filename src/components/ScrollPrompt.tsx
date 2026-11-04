@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { ChevronDown, TreePine, Map, Droplets, Target, Waves, Layers, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { usePillar } from '@/lib/pillars';
 
 const SCROLL_HIDE_THRESHOLD = 350;
 const APPEAR_DELAY_MS = 1500;
@@ -23,6 +24,34 @@ const ROTATING_MESSAGES: readonly RotatingItem[] = [
   { icon: Waves, text: 'Se hvordan de 37 kystvandoplande klarer sig mod deres mål' },
   { icon: Layers, text: 'Dyk ned i projektpipelinen — fra skitse til færdigt anlæg' },
 ];
+
+const PILLAR_MESSAGES: Record<string, readonly RotatingItem[]> = {
+  nitrogen: [
+    { icon: Target, text: 'Find ud af om kvælstofreduktionen i dit vandopland er på sporet' },
+    { icon: Waves, text: 'Se hvordan de 37 kystvandoplande klarer sig mod deres mål' },
+    { icon: Layers, text: 'Dyk ned i kvælstofpipelinen — fra skitse til færdigt anlæg' },
+    { icon: Map, text: 'Sammenlign kommunernes fremskridt på Danmarkskortet', navigateTo: '/kommuner?metric=kvælstof' },
+  ],
+  extraction: [
+    { icon: Droplets, text: 'Udforsk konkrete vådområder og lavbundsprojekter' },
+    { icon: Layers, text: 'Se lavbundspipelinen fra skitse til anlagt projekt' },
+    { icon: Map, text: 'Sammenlign kommunernes lavbundsindsats', navigateTo: '/kommuner?metric=lavbund' },
+  ],
+  afforestation: [
+    { icon: TreePine, text: 'Se hvilke skovrejsningsprojekter der er startet nær dig' },
+    { icon: Layers, text: 'Se skovrejsningspipelinen fra skitse til plantet skov' },
+    { icon: Map, text: 'Sammenlign kommunernes skovrejsning', navigateTo: '/kommuner?metric=skovrejsning' },
+  ],
+  nature: [
+    { icon: Map, text: 'Se kommunernes naturpotentiale og beskyttede natur', navigateTo: '/kommuner?metric=natur' },
+    { icon: Layers, text: 'Dyk ned i natur- og biodiversitetslagene på kortet' },
+    { icon: TreePine, text: 'Se det faglige fordelingsgrundlag for skov og lavbund' },
+  ],
+  co2: [
+    { icon: Map, text: 'Se kommunernes CO₂-data og lokale profil', navigateTo: '/kommuner?metric=co2' },
+    { icon: Target, text: 'Læs fremskrivningen mod Danmarks 70-procentsmål' },
+  ],
+};
 
 /**
  * Hook that cycles through an array of items with a crossfade effect.
@@ -59,7 +88,7 @@ function useRotatingItem<T>(
     };
   }, [items.length, interval, fadeDuration]);
 
-  return [items[index], visible];
+  return [items[index % items.length], visible];
 }
 
 /**
@@ -79,11 +108,16 @@ function useRotatingItem<T>(
  * @example <ScrollPrompt />
  */
 export function ScrollPrompt() {
+  const { activePillar } = usePillar();
   const [scrolledPast, setScrolledPast] = useState(false);
   const [appeared, setAppeared] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const messages = useMemo(
+    () => (activePillar ? (PILLAR_MESSAGES[activePillar] ?? ROTATING_MESSAGES) : ROTATING_MESSAGES),
+    [activePillar],
+  );
   const [current, messageVisible] = useRotatingItem(
-    ROTATING_MESSAGES,
+    messages,
     ROTATE_INTERVAL_MS,
     FADE_DURATION_MS,
   );

@@ -28,23 +28,46 @@ docs/
 │   ├── overview.md            # Political agreement, targets, timeline
 │   ├── governance.md          # 23 local tripartites, SGAV, MGTP hierarchy
 │   ├── metrics-taxonomy.md    # 4-layer metric model (governance → outcomes)
-│   └── geographic-model.md    # Catchments, coastal water groups, municipalities
+│   ├── geographic-model.md    # Catchments, coastal water groups, municipalities
+│   └── theory-of-change.md    # Means vs. ends: virkemidler, mechanism, effects
 ├── data-sources/              # Where data comes from
 │   ├── mars-platform.md       # MARS modules, access levels, export options
 │   ├── miljoeportal-apis.md   # Danmarks Miljøportal, WFS/WMS, REST APIs
 │   ├── novana-monitoring.md   # Scientific monitoring programme
 │   ├── geographic-data.md     # DAGI, DAWA, GeoDanmark, Dataforsyningen
 │   ├── data-gaps.md           # Known barriers, PDF-locked data, access issues
-│   └── investigation-results.md # Live probe results from March 2026
+│   ├── investigation-results.md # Live probe results from March 2026
+│   └── trepart-oekonomi-finansiering.md # Financing: project funding vs. municipal capacity
 ├── architecture/              # How we build it
 │   ├── decisions.md           # Architecture decision records
 │   ├── data-model.md          # PostgreSQL/PostGIS schema proposal
 │   ├── harvesting-strategy.md # 3-track ETL pipeline approach
-│   └── automation-assessment.md # What can/cannot be automated
+│   ├── automation-assessment.md # What can/cannot be automated
+│   └── etl-pipeline.md        # How fetchers/builders/workflows fit together
 └── references/                # Quick-lookup resources
     ├── urls.md                # All key URLs by category
     └── glossary.md            # Danish/English terms, acronyms
 ```
+
+**Other top-level locations (not in `docs/`):**
+
+- `content/videnscenter/` — curated, original, neutral public articles rendered at `/videnscenter` (in git, shipped).
+- `.cursor/memory-bank/crawled-content/` — raw crawls of external pages (SGAV, MARS prose). Agent background only; gitignored; never rendered or committed.
+- `data/` → `public/data/` — structured data from APIs (ETL output).
+- `tmp/` — **temporary dev resources**: assets, screenshots, scratch data, debug dumps, and working walkthroughs/audit notes (e.g. `AUDIT-WALKTHROUGH.md`). Gitignored except its README, so it's a safe scratch space that won't be committed or shipped. Put short-lived files here instead of the repo root.
+
+See **Agent skills** below — especially `etl-data-sources` for the Content Placement Policy.
+
+## Agent skills
+
+Cursor agent skills live in `.skills/`. **Read the relevant skill before working in that area** — they encode project-specific policies that are not obvious from the code alone.
+
+| Skill | Path | Use when |
+|---|---|---|
+| **ETL & data sources** | `.skills/etl-data-sources/SKILL.md` | `etl/` scripts, `data/`, API fetchers, `build_dashboard_data.py`, data quality, provenance, phase-aware metrics, Content Placement Policy |
+| **Frontend & dashboard** | `.skills/frontend-dashboard/SKILL.md` | `src/` React components, Tailwind styling, charts, maps, pillar cards, fremskrivning UI, videnscenter pages |
+| **Pillar domain knowledge** | `.skills/pillar-domain-knowledge/SKILL.md` | Grøn Trepart policy context, the five pillars, targets, governance (SGAV, MGTP, kystvandgrupper), Danish terminology, interpreting metrics |
+| **Learning loop** | `.skills/learning-loop/SKILL.md` | New domain insights, corrections, data-source discoveries; capturing to `docs/Learnings.md` and consolidating into `docs/` |
 
 ## Development conventions
 
@@ -130,26 +153,13 @@ Then run `mise run changelog` — CHANGELOG.md is generated automatically. No ne
 
 Dokumentation af fejl er ikke pinligt — det er kernen i produktets troværdighed. Dette projekt eksisterer for at skabe gennemsigtighed om Den Grønne Treparts implementering. Den gennemsigtighed gælder også vores egne fejl. Korrektioner dokumenteres med **mindst samme prominens** som nye funktioner. Hvis en fejl opdages af en ekstern bruger, journalist eller forsker, skal det fremgå tydeligt af ændringsloggen.
 
-## Current phase
+## Current state
 
-**Phase 0: Knowledge Foundation** ✅ Complete — 17 structured docs (1,637 lines) synthesized from 3 AI research sessions.
+The tracker is a React + Vite + TypeScript single-page app (`src/`) backed by a Python ETL pipeline (`etl/`) that writes JSON/GeoJSON into `data/` → `public/data/`. Data is committed to git and the site is a static build deployed via Cloudflare Pages. A daily GitHub Actions job refreshes the API-sourced data; a separate monthly `spatial-overlay.yml` job runs the heavier GeoPandas-based spatial builds (kommune-benchmark, project × nature overlap).
 
-**Phase 1: Data Source Validation** ✅ Complete (March 2026). Key findings:
-- ✅ **MARS REST API**: Public, unauthenticated JSON API discovered via browser DevTools. 6 working endpoints returning project data, plans, catchment aggregations, and master data. **This was the critical breakthrough** — MARS went from "THE blocker" to "the primary data source."
-- ✅ MiljøGIS WFS: public, working GeoServer, returns GeoJSON with project geometries
-- ✅ DAWA API: public, no auth, returns municipality data with boundaries
-- ✅ Danmarks Statistik API: public, no auth, ready to use
-- ✅ VanDa API: documented REST + Swagger, needs OAuth2 registration
-- ⚠️ MARS GeoServer: requires authenticated session (not blocking — project data available via REST)
-- ❌ MARS Planning Module: login-only, requires negotiation with SGAV
+The primary data source is the public **MARS REST API** (Multifunktionel Arealregistrering, built by SGAV), supplemented by DAWA, Danmarks Miljøportal (WFS/WMS), Klimaregnskabet, Arealdata, FVM Markkort, KF25/KF26 and Klimarådet. See `DATA_SOURCES.md` for the full inventory and `docs/data-sources/` for per-source notes. The ETL scripts live in `etl/`; `mise.toml` defines the build tasks (`mise run all`, `mise run build-dashboard`, the spatial builds, etc.).
 
-**Phase 2: ETL Pipeline & Data Collection** ✅ Complete (March 2026). Built automated data fetchers:
-- `etl/fetch_mars.py` — fetches 5 MARS API endpoints (plans, projects, vos, metadata, master-data)
-- `etl/fetch_dawa.py` — fetches DAWA municipality data + GeoJSON boundaries
-- `etl/fetch_klimaregnskab.py` — fetches per-municipality CO₂ data from Klimaregnskabet API (requires API key)
-- `etl/build_klimaregnskab_data.py` — transforms raw CO₂ data to dashboard format
-- `etl/assemble_data.py` — fallback assembler for sandboxed environments
-- `.github/workflows/fetch-data.yml` — daily scheduled GitHub Actions at 06:00 UTC
+Key user-facing areas: the national overview (`/`) with the indsats/effekt split and the five delmål; per-delmål deep dives (projekter → fremskrivning → økonomi → geografi); the kommune ranking (`/kommuner`) and detail pages (`/kommuner/:slug`); the videnscenter (`/videnscenter`); and the Data & metode page.
 
 ## API keys and secrets
 
@@ -166,30 +176,6 @@ cp .env.example .env
 ```
 
 To add to GitHub Actions: Settings → Secrets and variables → Actions → New repository secret → name `KLIMAREGNSKAB_API_KEY`.
-
-**Key real data extracted** (March 2026):
-- National nitrogen reduction: 3,433 T total pipeline (all phases incl. preliminary). Actually established (built): ~26 T. Goal: 12,769.5 T (sum of 37 plan targets; master-data reports rounded national figure of 12,776 T).
-- 1,164 projects: 80 established, 634 approved, 450 in preliminary study, 5,260+ sketches
-- 37 coastal water group plans with per-group progress breakdowns
-- 23 catchment areas with nitrogen, extraction, and afforestation metrics
-- 98 municipalities with geographic center coordinates
-
-**Phase 3: Dashboard / Static Site** ✅ v1 Complete (March 2026).
-- `site/index.html` — single-file dashboard, plain HTML + Chart.js (CDN), zero build step
-- KPI cards: nitrogen progress, project counts, deadline countdown
-- Project pipeline visualization (sketch → forundersøgelse → godkendt → anlagt)
-- Interactive stacked bar charts for 37 kystvandgrupper and 23 vandoplande
-- Sortable data tables with mini progress bars
-- Subsidy scheme reference table (17 ordninger)
-- Fully responsive, Danish-language, accessible
-- ADR-004 decided: Plain HTML + Chart.js. ADR-005 decided: GitHub Actions + Python.
-
-**Next**:
-- Push to GitHub and deploy to GitHub Pages
-- Add Leaflet map with municipality overlay (GeoJSON data already available)
-- Add historical data tracking (git-committed time series)
-- Investigate MiljøGIS WFS integration for project geometries
-- Register for VanDa API OAuth2 access
 
 ## Learning loop
 
