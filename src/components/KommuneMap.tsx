@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { escapeHtml } from '@/lib/html';
 import L from 'leaflet';
 import type { FeatureCollection, Geometry, Feature } from 'geojson';
 import type { KommuneBenchmarkData, KommuneMetrics, KommuneRankingData, NationalFordelingSimulation, DashboardData, ProjectNatureOverlapData } from '@/lib/types';
@@ -264,7 +265,7 @@ export function KommuneMap({
         const resolved = resolveKommuneMapValue(kode ?? '', km, visualContextRef.current);
 
         path.bindTooltip(
-          `<strong>${navn}</strong><br/>${resolved.label}`,
+          `<strong>${escapeHtml(navn)}</strong><br/>${escapeHtml(resolved.label)}`,
           { sticky: true, className: 'map-tooltip' },
         );
 

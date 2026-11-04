@@ -4,6 +4,7 @@ import type { Feature, FeatureCollection, Geometry } from 'geojson';
 import { AREALDATA_WMS_BASE, BIODIV_WMS_LAYERS, type BiodivWmsId } from '@/lib/biodiv-map';
 import { loadVandNaturSkovProjekter } from '@/lib/data';
 import { formatDanishNumber } from '@/lib/format';
+import { escapeHtml } from '@/lib/html';
 
 /** Slimmed Markkort properties written by etl/fetch_markkort_natur_projekter.py. */
 interface VnsProps {
@@ -14,9 +15,6 @@ interface VnsProps {
   y0?: number | null;
   y1?: number | null;
 }
-
-const escapeHtml = (s: string) =>
-  s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 /** Tooltip with every field Markkort gives per project (it has no per-project link). */
 function vnsTooltipHtml(props: VnsProps): string {

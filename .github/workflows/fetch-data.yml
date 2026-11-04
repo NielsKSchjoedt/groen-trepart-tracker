@@ -5,6 +5,11 @@ on:
     # Run daily at 06:00 UTC (08:00 Danish time)
     - cron: '0 6 * * *'
   workflow_dispatch: # Allow manual trigger
+    inputs:
+      skip_plausibility:
+        description: 'Spring plausibilitetstjekket over (kun når et stort fald i tallene er ægte)'
+        type: boolean
+        default: false
 
 jobs:
   # ETL runs in its own job so the workflow can finish successfully and **save
@@ -193,6 +198,14 @@ jobs:
       - name: Build ETL run summary
         run: python3 build_etl_summary.py
         working-directory: etl
+
+      # The data PR is approved, merged and deployed without a human, so stop here
+      # if a headline figure collapses (e.g. an upstream API answering empty).
+      - name: Check data plausibility
+        run: python3 check_data_plausibility.py
+        working-directory: etl
+        env:
+          SKIP_PLAUSIBILITY: ${{ inputs.skip_plausibility }}
 
       - name: Check for changes
         id: changes

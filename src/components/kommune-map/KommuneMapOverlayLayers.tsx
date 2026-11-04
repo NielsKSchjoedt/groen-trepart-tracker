@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { escapeHtml } from '@/lib/html';
 import L from 'leaflet';
 import type { FeatureCollection, Geometry } from 'geojson';
 import type { KommuneMetric, SupplementSource } from '@/lib/kommune-metrics';
@@ -69,9 +70,9 @@ function addKsfMarkers(
       : Math.round(proj.areaHa).toLocaleString('da-DK');
     const typeLabel = isSkov ? 'Skovrejsning' : 'Lavbundsprojekt';
     const statusLabel = isSkov ? 'Anlagt (frivillig skovrejsning)' : 'Anlagt (lavbundsudtag)';
-    const kommuneStr = proj.kommune ? ` · ${proj.kommune}` : '';
+    const kommuneStr = proj.kommune ? ` · ${escapeHtml(proj.kommune)}` : '';
     marker.bindTooltip(
-      `<strong>Klimaskovfonden ${proj.sagsnummer}</strong><br/>${typeLabel} · ${areaStr} ha${kommuneStr} · ${proj.aargang}<br/><span style="opacity:0.7">${statusLabel}</span>`,
+      `<strong>Klimaskovfonden ${escapeHtml(proj.sagsnummer)}</strong><br/>${typeLabel} · ${areaStr} ha${kommuneStr} · ${escapeHtml(proj.aargang)}<br/><span style="opacity:0.7">${statusLabel}</span>`,
       { sticky: true, className: 'map-tooltip' },
     );
 
@@ -120,10 +121,10 @@ function addNstMarkers(
         : Math.round(area).toLocaleString('da-DK')
       : 'ukendt';
     const statusLabel = proj.status === 'ongoing' ? 'Igangværende' : 'Afsluttet';
-    const districtStr = proj.district ? ` · ${proj.district}` : '';
+    const districtStr = proj.district ? ` · ${escapeHtml(proj.district)}` : '';
 
     marker.bindTooltip(
-      `<strong>${proj.name}</strong><br/>Naturstyrelsen${districtStr} · ${areaStr} ha<br/><span style="opacity:0.7">${statusLabel}</span>`,
+      `<strong>${escapeHtml(proj.name)}</strong><br/>Naturstyrelsen${districtStr} · ${areaStr} ha<br/><span style="opacity:0.7">${statusLabel}</span>`,
       { sticky: true, className: 'map-tooltip' },
     );
 
@@ -267,7 +268,7 @@ export function KommuneMapOverlayLayers({
         const name = feature.properties?.ov_navn || 'Ukendt';
         const ecoStatus = feature.properties?.eco_status || 'Ukendt';
         const path = featureLayer as L.Path;
-        path.bindTooltip(`${name}: ${ecoStatus} tilstand`, {
+        path.bindTooltip(`${escapeHtml(name)}: ${escapeHtml(ecoStatus)} tilstand`, {
           sticky: true,
           className: 'map-tooltip',
         });

@@ -17,6 +17,17 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.1.1 — 4. november 2026
+
+**Sikkerhed: navne fra eksterne kilder kan ikke længere indsætte kode på kortet, og forkerte data stopper før de går live**
+
+### Fejlrettelse
+- Navne på projekter fra MARS, Klimaskovfonden og Naturstyrelsen blev vist i kortets hover-bokse uden at blive renset. Et projektnavn med skjult kode kunne derfor have kørt kode på siden. Det er ikke sket — ingen af de nuværende data indeholder kode — men muligheden er lukket, og siden har fået en sikkerhedspolitik (Content-Security-Policy), der kun tillader sidens egne scripts. (Teknisk: escapeHtml i alle Leaflet-tooltips; public/_headers.)
+
+### Forbedring
+- Den daglige dataopdatering går automatisk live. Nu tjekkes det først, om tallene er plausible: falder antallet af projekter eller et af hovedtallene for kvælstof, lavbund eller skov mistænkeligt meget, stopper opdateringen, og et menneske skal se på den, før den går live. (Teknisk: etl/check_data_plausibility.py i fetch-data-workflowet.)
+---
+
 ## v1.1.0 — 4. november 2026
 
 **Kommune-ranglisterne bygget om: hver kommune måles nu mod sin egen andel af målet og på det, der er besluttet eller anlagt**

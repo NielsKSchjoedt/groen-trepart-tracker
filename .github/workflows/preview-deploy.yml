@@ -28,10 +28,16 @@ jobs:
       ref: ${{ steps.meta.outputs.ref }}
       should_deploy: ${{ steps.meta.outputs.should_deploy }}
     steps:
+      # Branch names are attacker-controlled text: pass them through env (never as
+      # an expression inside the script) and reduce them to a safe charset before
+      # they reach any shell or the wrangler command line.
       - id: meta
+        env:
+          RAW_BRANCH: ${{ github.event.pull_request.head.ref || github.event.inputs.branch || github.ref_name }}
+          RAW_REF: ${{ github.event.pull_request.head.sha || github.event.inputs.branch || github.ref }}
         run: |
-          BRANCH="${{ github.event.pull_request.head.ref || github.event.inputs.branch || github.ref_name }}"
-          REF="${{ github.event.pull_request.head.sha || github.event.inputs.branch || github.ref }}"
+          BRANCH=$(printf '%s' "$RAW_BRANCH" | tr -c 'A-Za-z0-9._/-' '-')
+          REF=$(printf '%s' "$RAW_REF" | tr -c 'A-Za-z0-9._/-' '-')
 
           if [ "$BRANCH" = "main" ]; then
             echo "should_deploy=false" >> "$GITHUB_OUTPUT"
@@ -80,11 +86,12 @@ jobs:
         env:
           ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
           DEPLOY_URL: ${{ steps.deploy.outputs.deployment-url }}
+          PREVIEW_BRANCH: ${{ needs.resolve.outputs.branch }}
         run: |
           URL="${ALIAS_URL:-$DEPLOY_URL}"
           echo "### Preview deployet" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Branch:** \`${{ needs.resolve.outputs.branch }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Branch:** \`${PREVIEW_BRANCH}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "**URL:** $URL" >> "$GITHUB_STEP_SUMMARY"
 

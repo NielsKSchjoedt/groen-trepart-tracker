@@ -2,6 +2,7 @@
  * Headless tier-1 MARS project renderer for Leaflet maps (dots / polygons by on-screen size).
  */
 import { useEffect, useState } from 'react';
+import { escapeHtml } from '@/lib/html';
 import L from 'leaflet';
 import type { Feature, Polygon } from 'geojson';
 import type { ProjectNatureOverlapData } from '@/lib/types';
@@ -79,8 +80,8 @@ export function MapProjectLayer({
       const dotRadius = projectMarkerRadius(proj.areaHa, maxArea);
       const usePolygon = shouldRenderProjectPolygon(map, ring, dotRadius);
 
-      const tooltipLines = [`<strong>${proj.name}</strong>`, phaseCfg.label];
-      if (proj.measureName) tooltipLines.push(proj.measureName);
+      const tooltipLines = [`<strong>${escapeHtml(proj.name)}</strong>`, phaseCfg.label];
+      if (proj.measureName) tooltipLines.push(escapeHtml(proj.measureName));
       const areaStr = proj.areaHa < 10
         ? formatDanishNumber(proj.areaHa, 1)
         : formatDanishNumber(Math.round(proj.areaHa), 0);
