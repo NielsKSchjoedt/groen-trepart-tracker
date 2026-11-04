@@ -1,18 +1,19 @@
 import { useMemo, useState } from 'react';
-import { Mountain, Trees, Droplets, Leaf, Factory } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Mountain, Trees, Droplets } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import {
   BOARDS,
-  activeOptionId,
   boardLensKey,
   buildBoardEntries,
+  unrankedCount,
   type BoardContext,
   type BoardDef,
   type BoardEntry,
   type BoardKey,
 } from '@/lib/kommune-boards';
-import type { StandingsLensKey } from '@/lib/kommune-ranking';
-import { InfoTooltip } from '@/components/InfoTooltip';
+import { MIN_ANSVAR_PCT, type StandingsLensKey } from '@/lib/kommune-ranking';
+import { formatDanishNumber } from '@/lib/format';
 import { BoardExplainerPanel } from '@/components/kommune-standings/BoardExplainerPanel';
 import { MEDAL_COLORS } from './heatmap';
 
@@ -21,10 +22,10 @@ interface KommuneMiniBoardsProps {
   region: string;
   selectedKode: string | null;
   onSelect: (kode: string) => void;
-  /** Sort the master table by a levering-board axis (only fired by global boards). */
+  /** Sort the master table by a board's axis. */
   onSortAxis: (key: StandingsLensKey) => void;
   activeSortKey: StandingsLensKey | 'leveretHa';
-  /** DN disclaimer — shown on the natur board explainer back. */
+  /** No official kommune split exists — shown on every board's explainer back. */
   disclaimer?: string;
 }
 
@@ -32,8 +33,6 @@ const BOARD_ICONS: Record<BoardKey, LucideIcon> = {
   lavbund: Mountain,
   skov: Trees,
   kvaelstof: Droplets,
-  natur: Leaf,
-  co2: Factory,
 };
 
 const PODIUM_COUNT = 10;
@@ -54,58 +53,31 @@ export function KommuneMiniBoards({
   activeSortKey,
   disclaimer,
 }: KommuneMiniBoardsProps) {
-  const virkemidler = BOARDS.filter((b) => b.kind === 'levering');
-  const effekter = BOARDS.filter((b) => b.kind === 'status');
-
-  const board = (def: BoardDef) => (
-    <MiniBoard
-      key={def.key}
-      def={def}
-      ctx={ctx}
-      region={region}
-      selectedKode={selectedKode}
-      onSelect={onSelect}
-      onSortAxis={onSortAxis}
-      isActiveSort={boardLensKey(def.key) != null && activeSortKey === boardLensKey(def.key)}
-      disclaimer={def.key === 'natur' ? disclaimer : undefined}
-    />
-  );
-
   return (
-    <div className="space-y-5">
-      <section>
-        <GroupHeading label="Virkemidler" hint="Indsats kommunen selv leverer — målt ift. ansvar" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-          {virkemidler.map(board)}
-        </div>
-      </section>
-
-      <section>
-        <GroupHeading label="Effekter" hint="Aktuel tilstand i kommunen — ikke direkte Trepart-levering" />
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-          {effekter.map((def) => (
-            <div key={def.key} className="w-full sm:w-[calc(50%-0.375rem)] xl:w-[calc(33.333%-0.5rem)]">
-              {board(def)}
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
-/** Labelled divider separating the virkemidler and effekter board groups. */
-function GroupHeading({ label, hint }: { label: string; hint: string }) {
-  return (
-    <div className="flex items-center gap-2.5 mb-2.5 px-1">
-      <span
-        className="text-xs font-bold uppercase tracking-wide text-foreground flex-shrink-0"
-        style={{ fontFamily: "'Fraunces', serif" }}
-      >
-        {label}
-      </span>
-      <span className="text-[11px] text-muted-foreground flex-shrink min-w-0 truncate hidden sm:block">{hint}</span>
-      <div className="flex-1 h-px bg-border/60" />
+    <div className="space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+        {BOARDS.map((def) => (
+          <MiniBoard
+            key={def.key}
+            def={def}
+            ctx={ctx}
+            region={region}
+            selectedKode={selectedKode}
+            onSelect={onSelect}
+            onSortAxis={onSortAxis}
+            isActiveSort={activeSortKey === boardLensKey(def.key)}
+            disclaimer={disclaimer}
+          />
+        ))}
+      </div>
+      <p className="px-1 text-[11px] text-muted-foreground leading-relaxed">
+        Beskyttet natur og CO₂ rangeres ikke: de viser en tilstand i kommunen, ikke Trepart-indsats, og afhænger
+        mest af geografi og energiforsyning. Se dem på{' '}
+        <Link to="#geografi" className="underline underline-offset-2 hover:text-foreground">
+          kortet
+        </Link>{' '}
+        og på den enkelte kommunes side.
+      </p>
     </div>
   );
 }
@@ -130,13 +102,12 @@ function MiniBoard({
   disclaimer?: string;
 }) {
   const [flipped, setFlipped] = useState(false);
-  const [localOption, setLocalOption] = useState(def.options[0].id);
-  const optionId = activeOptionId(def, ctx.globalMode, localOption);
-  const option = def.options.find((o) => o.id === optionId) ?? def.options[0];
+  const option = def.options.find((o) => o.id === ctx.globalMode) ?? def.options[0];
   const Icon = BOARD_ICONS[def.key];
   const lensKey = boardLensKey(def.key);
 
-  const entries = useMemo(() => buildBoardEntries(def, optionId, ctx), [def, optionId, ctx]);
+  const entries = useMemo(() => buildBoardEntries(def, ctx.globalMode, ctx), [def, ctx]);
+  const unranked = useMemo(() => unrankedCount(def, ctx), [def, ctx]);
   const visible = useMemo(() => {
     const filtered = region === 'Alle regioner' ? entries : entries.filter((e) => e.region === region);
     return filtered.slice(0, PODIUM_COUNT);
@@ -146,128 +117,49 @@ function MiniBoard({
   const podiumOrder = [podium[1], podium[0], podium[2]].filter(Boolean) as BoardEntry[];
   const rest = visible.slice(3, PODIUM_COUNT);
 
-  const headerInner = (
-    <>
-      <span
-        className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0"
-        style={{ backgroundColor: tint(def.tone, 0.7) }}
-      >
-        <Icon style={{ color: def.tone, width: 18, height: 18 }} strokeWidth={2.2} />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="flex items-center gap-1.5">
-          <span
-            className="text-sm font-bold leading-tight"
-            style={{ color: ink(def.tone), fontFamily: "'Fraunces', serif" }}
-          >
-            {def.label}
-          </span>
-          {def.kind === 'status' && (
-            <span
-              className="text-[9px] font-semibold uppercase tracking-wide rounded px-1 py-px"
-              style={{ color: def.tone, backgroundColor: tint(def.tone, 0.78) }}
-            >
-              status
-            </span>
-          )}
-        </span>
-        <span className="block text-[10px] leading-tight truncate" style={{ color: def.tone }}>
-          {option.sub}
-        </span>
-      </span>
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          setFlipped(true);
-        }}
-        className="rounded-md border border-border/50 bg-background/70 px-2 py-1 text-[10px] font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors cursor-pointer flex-shrink-0 leading-tight"
-        aria-label={`Hvordan virker ${def.label.toLowerCase()}-ranglisten?`}
-      >
-        Hvordan virker det?
-      </button>
-    </>
-  );
-
   const cardBorder = isActiveSort ? 'border-primary/50 ring-1 ring-primary/20' : 'border-border';
 
   const rankingFace = (
     <div className="flex flex-col [backface-visibility:hidden]" aria-hidden={flipped}>
-      {/* Branded header — delmål colour + icon. Levering-boards sort the master table on click. */}
-      {def.global && lensKey ? (
+      {/* Branded header — delmål colour + icon. The title sorts the master table;
+          the explainer button sits beside it (buttons must not nest). */}
+      <div
+        className="flex items-center gap-2.5 px-3 py-2.5 transition-[filter] hover:brightness-[0.97]"
+        style={{ backgroundColor: tint(def.tone, 0.88) }}
+      >
         <button
           type="button"
           onClick={() => onSortAxis(lensKey)}
-          className="flex items-center gap-2.5 px-3 py-2.5 text-left transition-[filter] cursor-pointer hover:brightness-[0.97]"
-          style={{ backgroundColor: tint(def.tone, 0.88) }}
+          className="flex flex-1 min-w-0 items-center gap-2.5 text-left cursor-pointer"
           title={`Sortér den fulde liste efter ${def.full.toLowerCase()}`}
         >
-          {headerInner}
+          <span
+            className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0"
+            style={{ backgroundColor: tint(def.tone, 0.7) }}
+          >
+            <Icon style={{ color: def.tone, width: 18, height: 18 }} strokeWidth={2.2} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span
+              className="block text-sm font-bold leading-tight"
+              style={{ color: ink(def.tone), fontFamily: "'Fraunces', serif" }}
+            >
+              {def.label}
+            </span>
+            <span className="block text-[10px] leading-tight truncate" style={{ color: def.tone }}>
+              {option.sub}
+            </span>
+          </span>
         </button>
-      ) : (
-        <div
-          className="flex items-center gap-2.5 px-3 py-2.5"
-          style={{ backgroundColor: tint(def.tone, 0.88) }}
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          className="rounded-md border border-border/50 bg-background/70 px-2 py-1 text-[10px] font-medium text-muted-foreground hover:text-foreground hover:bg-background transition-colors cursor-pointer flex-shrink-0 leading-tight"
+          aria-label={`Hvordan virker ${def.label.toLowerCase()}-ranglisten?`}
         >
-          {headerInner}
-        </div>
-      )}
-
-      {/* Per-board måleenhed toggle — status boards only (levering follows the global toggle) */}
-      {!def.global && def.options.length > 1 && (
-        <div
-          className="flex items-center gap-1 px-3 py-2 border-b border-border/60"
-          role="group"
-          aria-label={`Måleenhed for ${def.label}`}
-        >
-          {def.options.map((o) => {
-            const active = o.id === optionId;
-            return (
-              <button
-                key={o.id}
-                type="button"
-                onClick={() => setLocalOption(o.id)}
-                aria-pressed={active}
-                className="flex-1 rounded-md px-2 py-1 text-[11px] font-semibold transition-colors cursor-pointer"
-                style={
-                  active
-                    ? { backgroundColor: tint(def.tone, 0.82), color: ink(def.tone) }
-                    : { color: 'var(--muted-foreground)' }
-                }
-              >
-                {o.label}
-              </button>
-            );
-          })}
-          <InfoTooltip
-            title={`${def.label} — måleenheder`}
-            content={
-              <>
-                {def.options.map((o) => (
-                  <div key={o.id} className="space-y-1">
-                    <p>
-                      <strong>{o.label}</strong> — {o.desc}
-                    </p>
-                    {o.formula.kind === 'ratio' ? (
-                      <p className="text-foreground">
-                        <span className="font-medium">Beregnet:</span> ({o.formula.top}) ÷ ({o.formula.bottom}) — {o.formula.result}
-                      </p>
-                    ) : (
-                      <p className="text-foreground">
-                        <span className="font-medium">Beregnet:</span> {o.formula.expr} — {o.formula.result}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </>
-            }
-            source={def.source}
-            size={13}
-            side="bottom"
-            align="end"
-          />
-        </div>
-      )}
+          Hvordan virker det?
+        </button>
+      </div>
 
       {/* Podium — top 3 */}
       {podiumOrder.length > 0 ? (
@@ -344,6 +236,12 @@ function MiniBoard({
             );
           })}
         </ul>
+      )}
+
+      {unranked > 0 && (
+        <p className="px-3 py-1.5 border-t border-border/60 text-[10px] text-muted-foreground">
+          {unranked} kommuner rangeres ikke: under {formatDanishNumber(MIN_ANSVAR_PCT, 1)} % af målet eller intet krav.
+        </p>
       )}
     </div>
   );

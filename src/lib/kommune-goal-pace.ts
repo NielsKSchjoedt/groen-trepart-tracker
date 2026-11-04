@@ -1,20 +1,18 @@
 /**
  * Goal-pace lens ("Mod målet") for the three Grøn Trepart effort metrics.
  *
- * The existing "Ift. ansvar" index measures a kommune's share of what the
- * country has ALREADY delivered, divided by its share of national potential.
- * By construction the potential-weighted national average is always 1,0× — so
- * that index can never tell you whether the country is on pace for 2030.
+ * Each kommune's index is the share of its OWN part of the national goal that is
+ * delivered in the selected phases (see `buildDynamicRanking`). The goal-pace
+ * index compares that share with the share of the time to the deadline that has
+ * passed:
  *
- * This module adds the missing axis: how the kommune's delivery compares to the
- * *tempo* its share of the 2030 goal requires by now. The two stories share a
- * denominator, so the relationship is a single per-metric scalar:
+ *   paceIndex_i = shareOfAnsvar_i ÷ time elapsed fraction
  *
- *   paceIndex_i = peerIndex_i × (national progress fraction ÷ time elapsed fraction)
+ * so the per-metric scalar is simply 1 ÷ time elapsed. 1,0× = exactly on the
+ * trajectory its share of the goal needs; below 1,0× = behind the clock.
  *
- * i.e. each kommune's "Ift. ansvar" multiplier scaled by the nation's pace
- * ratio for that metric. 1,0× = exactly on the trajectory needed; below 1,0×
- * = behind the clock no matter how well the kommune ranks against its peers.
+ * The national banner uses the same phases as the ranking, so the kommune tempi
+ * and the national tempo are always computed on one basis.
  */
 import {
   assessGoalStatus,
@@ -23,12 +21,12 @@ import {
 } from './projections';
 import { paceIdxPhrase, type MetricPaceRatios } from './kommune-ranking';
 import type { IndsatsStatus } from './kommune-indsats-status';
-import type { DashboardData } from './types';
+import type { DashboardData, KommuneRankingData } from './types';
 import { getPillarConfig } from './pillars';
 
 /** National goal-pace context for one effort metric. */
 export interface NationalMetricPace {
-  /** Current national progress toward the 2030 goal (0–100). */
+  /** National delivery in the selected phases as a share of the goal (0–100). */
   progressPct: number;
   /** Projected end progress at deadline if current pace holds (0–100, capped). */
   projectedPct: number;
@@ -64,32 +62,42 @@ function metricPace(progressPct: number, deadlineYear: number): NationalMetricPa
   };
 }
 
-/**
- * Derive the national goal-pace context for all three effort metrics from the
- * dashboard's national targets + progress. Returns null per metric when the
- * deadline year is unparseable.
- */
-export function computeNationalPace(data: DashboardData): NationalPaceContext {
-  const t = data.national.targets;
-  const p = data.national.progress;
-  const extractionYear = yearOf(t.deadline);
-  const forestYear = yearOf(t.forestDeadline);
-  // Kvælstof's deadline is 2027 (vandplanlægningsloven; MARS "frem mod 2027"), the
-  // same as on the national page — not the generic 2030 targets.deadline.
-  const nitrogenYear = getPillarConfig('nitrogen').deadlineYear;
+/** Deadline year per effort metric. Kvælstof is 2027 (vandplanlægningsloven). */
+function deadlines(data: DashboardData) {
   return {
-    lavbund: extractionYear != null ? metricPace(p.extractionProgressPct, extractionYear) : null,
-    skov: forestYear != null ? metricPace(p.afforestationProgressPct, forestYear) : null,
-    kvaelstof: nitrogenYear != null ? metricPace(p.nitrogenProgressPct, nitrogenYear) : null,
+    lavbund: yearOf(data.national.targets.deadline),
+    skov: yearOf(data.national.targets.forestDeadline),
+    kvaelstof: getPillarConfig('nitrogen').deadlineYear,
   };
 }
 
-/** Extract the per-metric pace scalars that scale a peer index into a pace index. */
-export function paceRatiosOf(ctx: NationalPaceContext): MetricPaceRatios {
+/**
+ * National goal-pace for all three effort metrics, computed from the national
+ * delivery in the ranking (i.e. the phases the user selected) against the goals.
+ */
+export function computeNationalPace(
+  data: DashboardData,
+  ranking: KommuneRankingData,
+): NationalPaceContext {
+  const t = data.national.targets;
+  const n = ranking.national;
+  const d = deadlines(data);
+  const pct = (delivered: number, goal: number) => (goal > 0 ? (delivered / goal) * 100 : 0);
   return {
-    idxLavbund: ctx.lavbund?.paceRatio ?? null,
-    idxSkov: ctx.skov?.paceRatio ?? null,
-    idxKvaelstof: ctx.kvaelstof?.paceRatio ?? null,
+    lavbund: d.lavbund != null ? metricPace(pct(n.deliveryExtractionHa, t.extractionHa), d.lavbund) : null,
+    skov: d.skov != null ? metricPace(pct(n.deliverySkovHa, t.afforestationHa), d.skov) : null,
+    kvaelstof: d.kvaelstof != null ? metricPace(pct(n.deliveryKvaelstofT, t.nitrogenReductionT), d.kvaelstof) : null,
+  };
+}
+
+/** Per-metric scalar turning a share-of-ansvar into a goal-pace index (1 ÷ time elapsed). */
+export function paceRatiosOf(data: DashboardData): MetricPaceRatios {
+  const d = deadlines(data);
+  const inv = (year: number | null) => (year != null ? 1 / timeElapsedFraction(year) : null);
+  return {
+    idxLavbund: inv(d.lavbund),
+    idxSkov: inv(d.skov),
+    idxKvaelstof: inv(d.kvaelstof),
   };
 }
 
@@ -99,8 +107,8 @@ export function paceRatiosOf(ctx: NationalPaceContext): MetricPaceRatios {
  * "Bagud" — that the peer lens avoids, so the two stories never blur.
  */
 export function paceStatusOf(idx: number | null): IndsatsStatus {
-  if (idx == null) return { kind: 'none', word: 'Ingen data', detail: '' };
-  if (idx <= 0) return { kind: 'under', word: 'Ikke begyndt', detail: '' };
+  if (idx == null) return { kind: 'none', word: 'Ingen andel af målet', detail: '' };
+  if (idx <= 0) return { kind: 'under', word: 'Intet endnu', detail: 'Intet godkendt eller anlagt' };
   const detail = paceIdxPhrase(idx);
   if (idx >= 1.15) return { kind: 'over', word: 'Foran tempo', detail };
   if (idx >= 0.85) return { kind: 'on', word: 'På sporet', detail };

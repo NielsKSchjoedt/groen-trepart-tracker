@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { ChevronDown, ChevronUp, ChevronsUpDown, Search, X } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
-import { InfoTooltip } from '@/components/InfoTooltip';
 import {
   STANDINGS_LENSES,
+  ansvarUnitsForAxis,
+  paceIdx,
   standingsCell,
   standingsBarPct,
   type MetricPaceRatios,
@@ -83,14 +84,6 @@ export function KommuneMasterTable({
             <tr className="border-b border-border bg-muted/40">
               <th scope="col" className="w-10 px-2 py-2.5 text-xs font-semibold text-muted-foreground text-center">#</th>
               <th scope="col" className="px-3 py-2.5 text-xs font-semibold text-muted-foreground text-left">Kommune</th>
-              <th scope="col" className="px-2 py-2.5 text-xs font-semibold text-muted-foreground text-right w-16">
-                <InfoTooltip
-                  title="Ansvar"
-                  content="Kommunens andel af nationalt naturpotentiale (DCE 30 %). Stand-in for fagligt ansvar — ikke en politisk forpligtelse."
-                  size={11}
-                />
-                {' '}Ansvar
-              </th>
               {STANDINGS_LENSES.map((l) => (
                 <th
                   key={l.key}
@@ -110,13 +103,15 @@ export function KommuneMasterTable({
           <tbody>
             {visibleRows.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-muted-foreground text-sm">
+                <td colSpan={4} className="px-4 py-10 text-center text-muted-foreground text-sm">
                   {q ? 'Ingen kommuner matcher søgningen.' : 'Ingen kommuner i den valgte region.'}
                 </td>
               </tr>
             )}
             {visibleRows.map((km) => {
               const isSelected = km.kode === selectedKode;
+              // Kommuner not ranked on the sort axis (too small a part of the goal) get no position.
+              const ranked = sortKey === 'leveretHa' || standingsCell(km, sortKey, mode, paceRatios).sort >= 0;
               return (
                 <tr
                   key={km.kode}
@@ -139,12 +134,12 @@ export function KommuneMasterTable({
                     <span
                       className="text-xs font-bold tabular-nums"
                       style={
-                        km.pos <= 3
+                        ranked && km.pos <= 3
                           ? { color: MEDAL_COLORS[km.pos - 1] }
                           : { color: 'var(--muted-foreground)' }
                       }
                     >
-                      {km.pos}
+                      {ranked ? km.pos : '—'}
                     </span>
                   </td>
                   <td className="px-3 py-2">
@@ -155,15 +150,23 @@ export function KommuneMasterTable({
                       {km.region.replace('Region ', '')}
                     </p>
                   </td>
-                  <td className="px-2 py-2 text-right text-xs tabular-nums text-muted-foreground">
-                    {formatDanishNumber(km.ansvarPct, 1)}%
-                  </td>
                   {STANDINGS_LENSES.map((l) => {
                     const c = standingsCell(km, l.key, mode, paceRatios);
                     const hot = sortKey === l.key;
                     const barW = standingsBarPct(km, l.key, mode, maxByLens[l.key] ?? 1, paceRatios);
+                    // Green when the kommune is at or above the tempo its part of the goal needs.
+                    const onPace = (paceIdx(km[l.key], paceRatios?.[l.key] ?? null) ?? 0) >= 1;
+                    const ansvar = ansvarUnitsForAxis(km, l.key);
                     return (
-                      <td key={l.key} className="px-2 py-2">
+                      <td
+                        key={l.key}
+                        className="px-2 py-2"
+                        title={
+                          c.sort < 0
+                            ? c.phrase
+                            : `${c.phrase} · kommunens andel: ${formatDanishNumber(Math.round(ansvar))} ${l.key === 'idxKvaelstof' ? 't' : 'ha'}`
+                        }
+                      >
                         <div className="w-full flex flex-col items-center gap-1">
                           <span
                             className="text-xs font-bold tabular-nums"
@@ -171,7 +174,7 @@ export function KommuneMasterTable({
                               fontFamily: "'Fraunces', serif",
                               color: c.behov
                                 ? l.tone
-                                : c.idx != null && c.idx >= 1
+                                : onPace
                                   ? 'hsl(152 50% 30%)'
                                   : 'hsl(30 12% 48%)',
                             }}
@@ -213,10 +216,13 @@ function TableLegend() {
     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2.5 border-b border-border bg-muted/30 text-[11px] text-muted-foreground">
       <span className="font-semibold text-foreground">Sådan læses tallene:</span>
       <span>
-        <strong className="text-emerald-800 dark:text-emerald-400">7 gange</strong> = leverer syv gange mere end forventet
+        <strong className="text-foreground">34 %</strong> = 34 % af kommunens egen andel af målet er godkendt eller anlagt
       </span>
       <span>
-        <strong className="text-stone-600 dark:text-stone-400">som forv.</strong> = på niveau med det forventede
+        <strong className="text-emerald-800 dark:text-emerald-400">grøn</strong> = i det tempo, fristen kræver
+      </span>
+      <span>
+        <strong className="text-stone-600 dark:text-stone-400">—</strong> = for lille andel af målet til at rangere
       </span>
     </div>
   );

@@ -52,7 +52,7 @@ export const KOMMUNE_DETAIL_PROJEKTER_CHAPTER: Chapter = {
 };
 
 export const KOMMUNE_DETAIL_STATUS_INTRO =
-  'Tre leveringsmål — lavbund, skov og kvælstof — målt ift. ansvar mod kommunens andel af nationalt naturpotentiale. 1,0× = som forventet; højere = leverer mere end ansvaret tilsiger.';
+  'Lavbund, skov og kvælstof — hvor stor en del af kommunens egen andel af hvert mål der er godkendt eller anlagt, og om det er i det tempo, fristen kræver.';
 
 export const KOMMUNE_DETAIL_KORT_INTRO =
   'Vælg indsatsområde, fasefilter og supplerende kilder. Kortet fremhæver den valgte kommune — klik en nabokommune for at skifte.';

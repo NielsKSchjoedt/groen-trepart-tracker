@@ -4,7 +4,7 @@ export const KOMMUNE_RANGLISTE_CHAPTER: Chapter = {
   id: 'rangliste',
   navLabel: 'Ranglister',
   eyebrow: 'Kommunerne, mål for mål',
-  question: 'Fem mål. Fem ranglister.',
+  question: 'Tre mål. Tre ranglister.',
 };
 
 export const KOMMUNE_GEOGRAFI_CHAPTER: Chapter = {
@@ -23,10 +23,10 @@ export const KOMMUNE_LISTE_CHAPTER: Chapter = {
 };
 
 export const KOMMUNE_RANGLISTE_INTRO =
-  'Tre leveringsmål — lavbund, skov og kvælstof — målt ift. ansvar, ikke rå hektar. Standardvisning: forundersøgelse + godkendt + anlagt (ikke skitse). Skov inkluderer MARS + KSF + NST.';
+  'Lavbund, skov og kvælstof — målt på, hvor stor en del af kommunens egen andel af målet der er godkendt eller anlagt. Forundersøgelser og skitser tæller ikke med som standard; de kan slås til under projektfaser.';
 
 export const KOMMUNE_GEOGRAFI_INTRO =
-  'Vælg et indsatsområde og fasefilter (standard: forundersøgelse + godkendt + anlagt). Klik en kommune på kortet for at dykke ned i den enkelte kommune.';
+  'Vælg et indsatsområde og fasefilter (standard: godkendt + anlagt). Klik en kommune på kortet for at dykke ned i den enkelte kommune.';
 
 export const KOMMUNE_LISTE_INTRO =
   'Alle 98 kommuner på lavbund, skov og kvælstof på én gang. Samme filtre som ranglisten ovenfor — område, måleenhed og projektfaser. Klik en kolonne for at sortere, søg din egen kommune, eller klik en række for detaljer.';

@@ -2,13 +2,15 @@
 """
 Build Sprint 6 municipality competition ranking dataset.
 
-Combines dashboard byKommune (MARS phases) with B1/B2/B3 benchmarks into
-`kommune-ranking.json` for the standings UI.
+Combines dashboard byKommune (MARS phases) with the per-goal kommune ansvar
+(kommune-ansvar.json) and the B1/B2/B3 benchmarks into `kommune-ranking.json`
+for the standings UI.
 
-Delivery in this JSON is established (anlagt) only. The live kommune UI default is
-forundersøgelse + godkendt + anlagt (`DEFAULT_PHASES` in src/lib/kommune-metrics.ts);
-`buildDynamicRanking` recomputes from the selected phases and does not treat
-`metadata.rankingPhases` as the current UI default.
+Each goal is ranked on how much of the kommune's OWN share of the goal is
+delivered (idx* = delivered ÷ ansvar, as a fraction), so a kommune with little
+farmland is not compared on raw hectares with Viborg. Delivery here is godkendt +
+anlagt, matching the UI default (`DEFAULT_PHASES` in src/lib/kommune-metrics.ts);
+`buildDynamicRanking` recomputes delivery from whatever phases the user selects.
 """
 from __future__ import annotations
 
@@ -30,12 +32,13 @@ DASHBOARD_SUMMARY = REPO / "data" / "dashboard-summary.json"
 B1_PATH = REPO / "data" / "kommune-benchmark" / "b1-andel-nationalt-naturpotentiale.json"
 B2_PATH = REPO / "data" / "kommune-benchmark" / "b2-marker-i-naturpotentiale.json"
 B3_PATH = REPO / "data" / "kommune-benchmark" / "b3-n2000-er-landbrug.json"
+ANSVAR_PATH = REPO / "data" / "kommune-benchmark" / "kommune-ansvar.json"
 PROJECT_OVERLAP_PATH = REPO / "data" / "project-nature-overlap.json"
 OUT_DIR = REPO / "data" / "kommune-benchmark"
 PUBLIC_OUT_DIR = REPO / "public" / "data" / "kommune-benchmark"
 
-METHOD_VERSION = "sprint6-v2"
-RANKING_PHASES = ("established",)
+METHOD_VERSION = "ansvar-v1"
+RANKING_PHASES = ("approved", "established")
 EXCLUDED_KODER = {"0411"}
 
 
@@ -55,11 +58,14 @@ def _phase_sum(km: dict[str, Any], field: str) -> float:
 
 
 def _skov_delivery_ha(km: dict[str, Any]) -> float:
-    """MARS skov (phase-filtered) + Klimaskovfonden + Naturstyrelsen."""
+    """MARS skov (phase-filtered) + Klimaskovfonden from the agreement year on.
+
+    Naturstyrelsen's state forests are left out: the source carries no planting
+    date, and several "completed" ones were planted decades before the agreement.
+    """
     mars = _phase_sum(km, "afforestationHa")
-    ksf = float(km.get("afforestationKsfHa", 0) or 0)
-    nst = float(km.get("afforestationNstHa", 0) or 0)
-    return mars + ksf + nst
+    ksf = float(km.get("afforestationKsfSinceAgreementHa", 0) or 0)
+    return mars + ksf
 
 
 def _safe_ratio(num: float, denom: float) -> float | None:
@@ -87,11 +93,14 @@ def build() -> dict[str, int]:
     for path in (B1_PATH, B2_PATH, B3_PATH):
         if not path.exists():
             raise SystemExit(f"Missing {path} — run build_kommune_benchmark.py first")
+    if not ANSVAR_PATH.exists():
+        raise SystemExit(f"Missing {ANSVAR_PATH} — run build_kommune_ansvar.py first")
 
     dashboard = json.loads(DASHBOARD_SUMMARY.read_text(encoding="utf-8"))
     b1 = json.loads(B1_PATH.read_text(encoding="utf-8"))
     b2 = json.loads(B2_PATH.read_text(encoding="utf-8"))
     b3 = json.loads(B3_PATH.read_text(encoding="utf-8"))
+    ansvar_by = json.loads(ANSVAR_PATH.read_text(encoding="utf-8"))["byKommune"]
 
     kommuner: list[dict[str, Any]] = dashboard["national"]["byKommune"]
     b1_by = b1["byKommune"]
@@ -151,10 +160,11 @@ def build() -> dict[str, int]:
         b1_row = b1_by.get(kode)
         b2_row = b2_by.get(kode)
         b3_row = b3_by.get(kode)
-        if not b1_row or not b2_row or not b3_row:
+        ans = ansvar_by.get(kode)
+        if not b1_row or not b2_row or not b3_row or not ans:
             continue
 
-        ansvar = float(b1_row.get("dce30PctOfNational", 0) or 0)
+        naturpotentiale_pct = float(b1_row.get("dce30PctOfNational", 0) or 0)
         lev_ext = _safe_ratio(d["deliveryExtractionHa"], nat_extraction)
         lev_ext_pct = round(lev_ext * 100, 4) if lev_ext is not None else None
         lev_skov = _safe_ratio(d["deliverySkovHa"], nat_skov)
@@ -162,10 +172,11 @@ def build() -> dict[str, int]:
         lev_n = _safe_ratio(d["deliveryKvaelstofT"], nat_n)
         lev_n_pct = round(lev_n * 100, 4) if lev_n is not None else None
 
-        def idx(levering_pct: float | None) -> float | None:
-            if levering_pct is None or ansvar <= 0:
+        def share_of_ansvar(delivered: float, ansvar_units: float) -> float | None:
+            """Fraction of the kommune's own share of the goal that is delivered."""
+            if ansvar_units <= 0:
                 return None
-            return round(levering_pct / ansvar, 4)
+            return round(delivered / ansvar_units, 4)
 
         gap = b3_row.get("andelLandbrugIN2000Pct")
         gap_f = float(gap) if gap is not None else None
@@ -176,15 +187,21 @@ def build() -> dict[str, int]:
             "kode": kode,
             "kommuneNavn": d["navn"],
             "region": d["region"],
-            "ansvarPct": round(ansvar, 4),
+            "ansvarPct": round(naturpotentiale_pct, 4),
+            "ansvarLavbundHa": ans["ansvarLavbundHa"],
+            "ansvarLavbundPct": ans["ansvarLavbundPct"],
+            "ansvarSkovHa": ans["ansvarSkovHa"],
+            "ansvarSkovPct": ans["ansvarSkovPct"],
+            "ansvarKvaelstofT": ans["ansvarKvaelstofT"],
+            "ansvarKvaelstofPct": ans["ansvarKvaelstofPct"],
             "ansvarKuPrio1Pct": round(float(b1_row.get("kuPrio1PctOfNational", 0) or 0), 4),
             "ansvarKuPrio2Pct": round(float(b1_row.get("kuPrio2PctOfNational", 0) or 0), 4),
             "leveringUdtagningPct": lev_ext_pct,
             "leveringSkovPct": lev_skov_pct,
             "leveringKvaelstofPct": lev_n_pct,
-            "idxLavbund": idx(lev_ext_pct),
-            "idxSkov": idx(lev_skov_pct),
-            "idxKvaelstof": idx(lev_n_pct),
+            "idxLavbund": share_of_ansvar(d["deliveryExtractionHa"], ans["ansvarLavbundHa"]),
+            "idxSkov": share_of_ansvar(d["deliverySkovHa"], ans["ansvarSkovHa"]),
+            "idxKvaelstof": share_of_ansvar(d["deliveryKvaelstofT"], ans["ansvarKvaelstofT"]),
             "kvalitetGapPct": round(gap_f, 2) if gap_f is not None else None,
             "markerHoejtPotentialePct": round(float(b2_row.get("hoejtPotentialePct", 0) or 0), 2),
             "projektNaturBiodiversitetHa": round(float(ov.get("biodiversitetHa", 0) or 0), 2),
@@ -247,18 +264,20 @@ def build() -> dict[str, int]:
             "generatedAt": datetime.now(timezone.utc).isoformat(),
             "methodVersion": METHOD_VERSION,
             "rankingPhases": list(RANKING_PHASES),
-            "ansvarBasis": "dce30PctOfNational",
+            "ansvarBasis": "kommune-ansvar.json (MARS-planernes mål fordelt efter landbrug og kulstofjord)",
             "sources": [
                 str(DASHBOARD_SUMMARY.relative_to(REPO)),
+                str(ANSVAR_PATH.relative_to(REPO)),
                 str(B1_PATH.relative_to(REPO)),
                 str(B2_PATH.relative_to(REPO)),
                 str(B3_PATH.relative_to(REPO)),
             ],
             "disclaimer": (
-                "Der findes ingen officiel kommunal fordeling af naturmålet. "
-                "Ranglisten bruger naturpotentiale (DCE 30 %) som fagligt stand-in for ansvar — "
-                "ikke en politisk forpligtelse. Standardvisning: kun anlagt (established). "
-                "Skov-levering inkluderer MARS + Klimaskovfonden + Naturstyrelsen. Skitser tæller ikke med."
+                "Der findes ingen officiel kommunal fordeling af målene. Kommunens ansvar er "
+                "MARS-planernes kvælstofmål og lavbundspotentiale fordelt efter hvor landbrugsjorden "
+                "og den dyrkede kulstofrige jord ligger, og skovmålet efter landbrugsareal — en faglig "
+                "fordeling, ikke en politisk forpligtelse. Levering: godkendt + anlagt. Skov: MARS + "
+                "Klimaskovfonden fra 2024; Naturstyrelsens skove tælles ikke (ingen plantedato)."
             ),
         },
         "national": national,

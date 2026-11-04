@@ -6,19 +6,23 @@ function safeRatio(num: number, denom: number): number | null {
   return Math.round((num / denom) * 10_000) / 10_000;
 }
 
-function idx(leveringPct: number | null, ansvar: number): number | null {
-  if (leveringPct == null || ansvar <= 0) return null;
-  return Math.round((leveringPct / ansvar) * 10_000) / 10_000;
-}
-
-/** MARS skov (phase-filtered) + KSF + NST — matches ranking ETL. */
-function skovDeliveryHa(km: KommuneMetrics, marsHa: number): number {
-  return marsHa + (km.afforestationKsfHa ?? 0) + (km.afforestationNstHa ?? 0);
+/** Share of the kommune's own part of the goal that is delivered (null = no part). */
+function shareOfAnsvar(delivered: number, ansvarUnits: number): number | null {
+  if (ansvarUnits <= 0) return null;
+  return Math.round((delivered / ansvarUnits) * 10_000) / 10_000;
 }
 
 /**
- * Recompute delivery shares and indices from phase-filtered kommune metrics.
- * Ansvar (DCE 30 %) stays from the precomputed ranking JSON.
+ * MARS skov (phase-filtered) + Klimaskovfonden from 2024 — matches ranking ETL.
+ * Naturstyrelsen's state forests carry no planting date, so they are left out.
+ */
+function skovDeliveryHa(km: KommuneMetrics, marsHa: number): number {
+  return marsHa + (km.afforestationKsfSinceAgreementHa ?? 0);
+}
+
+/**
+ * Recompute delivery and each kommune's share of its own ansvar from the
+ * phase-filtered kommune metrics. Ansvar stays from the precomputed ranking JSON.
  */
 export function buildDynamicRanking(
   base: KommuneRankingData,
@@ -40,7 +44,6 @@ export function buildDynamicRanking(
     const ext = km?.extractionHa ?? 0;
     const skov = km ? skovDeliveryHa(km, km.afforestationMarsHa ?? 0) : 0;
     const nT = km?.nitrogenT ?? 0;
-    const ansvar = row.ansvarPct;
 
     const levExtPct = safeRatio(ext, natExt);
     const levSkovPct = safeRatio(skov, natSkov);
@@ -59,9 +62,9 @@ export function buildDynamicRanking(
       leveringUdtagningPct: levExtPct100,
       leveringSkovPct: levSkovPct100,
       leveringKvaelstofPct: levNPct100,
-      idxLavbund: idx(levExtPct100, ansvar),
-      idxSkov: idx(levSkovPct100, ansvar),
-      idxKvaelstof: idx(levNPct100, ansvar),
+      idxLavbund: shareOfAnsvar(ext, row.ansvarLavbundHa),
+      idxSkov: shareOfAnsvar(skov, row.ansvarSkovHa),
+      idxKvaelstof: shareOfAnsvar(nT, row.ansvarKvaelstofT),
     };
   });
 

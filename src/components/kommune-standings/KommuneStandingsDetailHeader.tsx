@@ -1,18 +1,21 @@
 import type { KommuneRankingData, KommuneRankingRow, KommuneBenchmarkB3Row } from '@/lib/types';
 import {
+  ansvarUnitsForAxis,
   haForAxis,
+  isRankable,
+  notRankablePhrase,
   paceIdx,
-  rankOnAxis,
   type MetricPaceRatios,
   type StandingsLensKey,
   type StandingsMode,
 } from '@/lib/kommune-ranking';
+import { timeElapsedFraction } from '@/lib/projections';
 import { formatDanishNumber } from '@/lib/format';
 import type { KommunePhase } from '@/lib/kommune-metrics';
 import { ControlBarSegmented } from '@/components/ControlBar';
 import { InfoTooltip } from '@/components/InfoTooltip';
 import { PhaseFilterPopover } from '@/components/PhaseFilterPopover';
-import { BAR_COLOR, FORVENTET_NIVEAU_NOTE, INDSATS_MAAL, statusOf } from '@/lib/kommune-indsats-status';
+import { ANSVAR_NOTE, BAR_COLOR, INDSATS_MAAL, statusOf } from '@/lib/kommune-indsats-status';
 import {
   paceStatusOf,
   type NationalMetricPace,
@@ -33,7 +36,7 @@ interface KommuneStandingsDetailHeaderProps {
    * Optional måleenhed + projektfase controls. When `onModeChange`,
    * `selectedPhases` and `onPhasesChange` are all provided, a control row is
    * rendered and the bars follow the chosen mode — full parity with the
-   * rangliste. When omitted, the section is read-only at Ift. ansvar.
+   * rangliste. When omitted, the section is read-only at Andel af ansvar.
    */
   mode?: StandingsMode;
   onModeChange?: (m: StandingsMode) => void;
@@ -48,10 +51,9 @@ interface KommuneStandingsDetailHeaderProps {
 }
 
 /**
- * The "forventet" baseline (index = 1,0×) sits at a fixed point on every track
- * so the three goals are directly comparable and the marker means the same
- * thing everywhere. The track tops out at 2,5× — higher values cap the bar but
- * keep their precise figure in the label.
+ * Goal-pace tracks put the "on pace" mark (1,0×) at a fixed point so the three
+ * goals are directly comparable. The track tops out at 2,5× — higher values cap
+ * the bar but keep their precise figure in the label.
  */
 const TRACK_MAX_IDX = 2.5;
 const BASELINE_PCT = 40;
@@ -61,9 +63,16 @@ function fillPct(idx: number | null): number {
   return Math.min((idx / TRACK_MAX_IDX) * 100, 100);
 }
 
-/** Count of kommuner with a non-null index on this axis (rangliste denominator). */
-function idxDataCount(ranking: KommuneRankingData, key: StandingsLensKey): number {
-  return ranking.kommuner.reduce((n, k) => n + (k[key] != null ? 1 : 0), 0);
+/** Kommuner ranked on this axis (the rangliste denominator). */
+function rankableCount(ranking: KommuneRankingData, key: StandingsLensKey): number {
+  return ranking.kommuner.reduce((n, k) => n + (isRankable(k, key) ? 1 : 0), 0);
+}
+
+/** 1-based rank among rankable kommuner (ties share the better rank). */
+function rankAmongRankable(ranking: KommuneRankingData, row: KommuneRankingRow, key: StandingsLensKey): number | null {
+  if (!isRankable(row, key)) return null;
+  const v = row[key]!;
+  return ranking.kommuner.reduce((n, k) => n + (isRankable(k, key) && k[key]! > v ? 1 : 0), 0) + 1;
 }
 
 /** Count of kommuner with a positive absolute delivery on this axis. */
@@ -75,7 +84,8 @@ function absDataCount(ranking: KommuneRankingData, key: StandingsLensKey): numbe
  * Naturindsats breakdown for the kommune detail panel.
  *
  * Three effort goals (lavbund, skov, kvælstof) are shown against a visible
- * "forventet" baseline (Ift. ansvar) or as raw hectares/tons (Absolut).
+ * share of the kommune's own part of each goal, as goal pace, or as raw
+ * hectares/tons (Absolut).
  * Naturkvalitet is deliberately separated below — it measures a *need*, not
  * project progress, and is not a Grøn Trepart target, so the måleenhed toggle
  * does not affect it.
@@ -103,7 +113,7 @@ export function KommuneStandingsDetailHeader({
     if (key === 'idxKvaelstof') return nationalPace.kvaelstof;
     return nationalPace.lavbund;
   };
-  const modeLabel = isAbs ? 'absolut' : isMaal ? 'mod målet' : 'ift. forventet';
+  const modeLabel = isAbs ? 'absolut' : isMaal ? 'mod målet' : 'andel af ansvar';
 
   return (
     <div className={embedded ? '' : 'mb-5 pb-5 border-b border-border'}>
@@ -124,7 +134,7 @@ export function KommuneStandingsDetailHeader({
               title="Sådan læses søjlerne (mod målet)"
               content={
                 <>
-                  <p>Det er den samme “ift. ansvar”-søjle, skaleret med landets tempo mod målet: (kommunens × ift. ansvar) × (landets fremdrift ÷ tid forløbet).</p>
+                  <p>Andelen af kommunens ansvar, der er godkendt eller anlagt, divideret med den andel af tiden frem til fristen, der er gået.</p>
                   <p className="text-foreground">1,0× = på sporet mod fristen. Stregen på søjlen markerer 1,0×.</p>
                 </>
               }
@@ -134,15 +144,15 @@ export function KommuneStandingsDetailHeader({
           </>
         ) : (
           <>
-            Alle tre mål måles mod kommunens andel af nationalt naturpotentiale
-            ({formatDanishNumber(row.ansvarPct, 1)}% af landet). 1,0× = som forventet.
-            Tryk (i) ved hver linje for den præcise beregning.
+            Kommunens <strong className="text-foreground">egen andel af hvert mål</strong> afhænger af, hvor meget
+            landbrugsjord og kulstofrig jord den har, og af kravene i dens vandoplande. Stregen viser, hvor langt
+            kommunen burde være nu. Tryk (i) ved hver linje for den præcise beregning.
             <InfoTooltip
               title="Sådan læses søjlerne"
               content={
                 <>
-                  <p>Hver søjle viser kommunens levering som et indeks mod dens forventede niveau. {FORVENTET_NIVEAU_NOTE}</p>
-                  <p>Forventet niveau er et fagligt stand-in for forventet bidrag — ikke en politisk forpligtelse. Alle tre mål bruger kommunens andel af nationalt naturpotentiale (DCE 30 %) som nævner.</p>
+                  <p>{ANSVAR_NOTE}</p>
+                  <p>Der findes ingen officiel kommunal fordeling af målene. Andelen er en faglig fordeling af MARS-oplandenes mål — ikke en politisk forpligtelse.</p>
                 </>
               }
               size={11}
@@ -157,8 +167,8 @@ export function KommuneStandingsDetailHeader({
           <ControlBarSegmented
             value={mode}
             options={[
+              { value: 'relativ', label: 'Andel af ansvar' },
               { value: 'maal', label: 'Mod målet' },
-              { value: 'relativ', label: 'Ift. ansvar' },
               { value: 'absolut', label: 'Absolut' },
             ]}
             onChange={(v) => onModeChange!(v)}
@@ -168,7 +178,7 @@ export function KommuneStandingsDetailHeader({
           <PhaseFilterPopover
             selected={selectedPhases!}
             onChange={onPhasesChange!}
-            tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i kommunens tal. Standard er forundersøgelse, godkendt og anlagt — skitser tæller aldrig med."
+            tooltipContent="Vælg hvilke MARS-projektfaser der tæller med i kommunens tal. Standard er godkendt og anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan slås til."
           />
         </div>
       )}
@@ -207,7 +217,7 @@ export function KommuneStandingsDetailHeader({
                     side="right"
                   />
                   <span className="ml-auto text-sm font-bold tabular-nums text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
-                    {hasData ? `${formatDanishNumber(Math.round(ha))} ${m.absUnit}` : 'Ingen data'}
+                    {`${formatDanishNumber(Math.round(ha))} ${m.absUnit}`}
                   </span>
                 </div>
 
@@ -225,13 +235,26 @@ export function KommuneStandingsDetailHeader({
             );
           }
 
+          const rankable = isRankable(row, m.key);
+          if (!rankable) {
+            return (
+              <div key={m.key}>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ backgroundColor: m.tone }} />
+                  <span className="text-xs font-semibold text-foreground">{m.label}</span>
+                  <span className="ml-auto text-[11px] text-muted-foreground">{notRankablePhrase(row, m.key)}</span>
+                </div>
+                <div className="h-2.5 rounded-full bg-muted" />
+              </div>
+            );
+          }
+
           if (isMaal) {
-            const peer = row[m.key];
-            const pIdx = paceIdx(peer, paceRatios?.[m.key] ?? null);
+            const share = row[m.key];
+            const pIdx = paceIdx(share, paceRatios?.[m.key] ?? null);
             const status = paceStatusOf(pIdx);
-            const hasData = pIdx != null;
-            const rank = hasData ? rankOnAxis(ranking, row.kode, m.key) : null;
-            const withData = idxDataCount(ranking, m.key);
+            const rank = rankAmongRankable(ranking, row, m.key);
+            const withData = rankableCount(ranking, m.key);
             const nat = paceForKey(m.key);
             return (
               <div key={m.key}>
@@ -243,9 +266,9 @@ export function KommuneStandingsDetailHeader({
                     content={
                       <>
                         <p>{m.explain}</p>
-                        <p className="text-foreground">Kommunens levering ift. ansvar × landets tempo mod målet. 1,0× = på sporet mod fristen.</p>
+                        <p className="text-foreground">Andel af kommunens ansvar ÷ andel af tiden til fristen, der er gået. 1,0× = på sporet mod fristen.</p>
                         {nat && (
-                          <p>Landet samlet: {formatDanishNumber(Math.round(nat.progressPct), 0)}% af målet nået, {formatDanishNumber(Math.round(nat.paceRatio * 100), 0)}% af nødvendigt tempo.</p>
+                          <p>Landet samlet i de valgte faser: {formatDanishNumber(Math.round(nat.progressPct), 0)} % af målet, {formatDanishNumber(Math.round(nat.paceRatio * 100), 0)} % af nødvendigt tempo.</p>
                         )}
                       </>
                     }
@@ -279,11 +302,14 @@ export function KommuneStandingsDetailHeader({
             );
           }
 
-          const idx = row[m.key];
-          const status = statusOf(idx);
-          const hasData = idx != null;
-          const rank = hasData ? rankOnAxis(ranking, row.kode, m.key) : null;
-          const withData = idxDataCount(ranking, m.key);
+          const share = row[m.key];
+          const status = statusOf(share, paceRatios?.[m.key] ?? null);
+          const rank = rankAmongRankable(ranking, row, m.key);
+          const withData = rankableCount(ranking, m.key);
+          const deadline = paceForKey(m.key)?.deadlineYear;
+          // Where the kommune should be by now if it is to reach its part by the deadline.
+          const expectedPct = deadline ? Math.min(timeElapsedFraction(deadline) * 100, 100) : null;
+          const units = ansvarUnitsForAxis(row, m.key);
           return (
             <div key={m.key}>
               <div className="flex items-center gap-2 mb-1.5">
@@ -298,7 +324,11 @@ export function KommuneStandingsDetailHeader({
                     <>
                       <p>{m.explain}</p>
                       <p className="text-foreground">{m.formula}</p>
-                      <p>{FORVENTET_NIVEAU_NOTE}</p>
+                      <p>
+                        Kommunens andel: {formatDanishNumber(Math.round(units))} {m.absUnit}. Godkendt eller anlagt:{' '}
+                        {formatDanishNumber(Math.round(haForAxis(row, m.key)))} {m.absUnit}.
+                      </p>
+                      <p>{ANSVAR_NOTE}</p>
                     </>
                   }
                   source={m.source}
@@ -310,17 +340,20 @@ export function KommuneStandingsDetailHeader({
                 </span>
               </div>
 
-              {/* Track with fixed "forventet" baseline marker */}
+              {/* Track = the kommune's whole part of the goal; marker = where it should be by now */}
               <div className="relative h-2.5 rounded-full bg-muted overflow-visible">
                 <div
                   className="absolute inset-y-0 left-0 rounded-full transition-all"
-                  style={{ width: `${fillPct(idx)}%`, backgroundColor: BAR_COLOR[status.kind] }}
+                  style={{ width: `${Math.min((share ?? 0) * 100, 100)}%`, backgroundColor: BAR_COLOR[status.kind] }}
                 />
-                <span
-                  className="absolute -top-0.5 -bottom-0.5 w-0.5 bg-foreground/70 rounded"
-                  style={{ left: `${BASELINE_PCT}%` }}
-                  aria-hidden="true"
-                />
+                {expectedPct != null && (
+                  <span
+                    className="absolute -top-0.5 -bottom-0.5 w-0.5 bg-foreground/70 rounded"
+                    style={{ left: `${expectedPct}%` }}
+                    title={`Burde være ${Math.round(expectedPct)} % nu`}
+                    aria-hidden="true"
+                  />
+                )}
               </div>
 
               <p className="text-[10px] text-muted-foreground mt-1">
@@ -337,7 +370,7 @@ export function KommuneStandingsDetailHeader({
         <p className="mt-3 flex items-start gap-2 rounded-lg border border-amber-300/50 bg-amber-50/80 px-3 py-1.5 text-[11px] text-amber-900 dark:bg-amber-950/20 dark:text-amber-200">
           <span className="font-bold">⚠</span>
           <span>
-            <strong>Absolut levering</strong> belønner store kommuner med meget areal — det siger lidt om indsats <em>ift. ansvar</em>.
+            <strong>Absolut levering</strong> belønner kommuner med meget landbrugsjord — det siger lidt om indsats <em>ift. kommunens andel af målet</em>.
           </span>
         </p>
       )}

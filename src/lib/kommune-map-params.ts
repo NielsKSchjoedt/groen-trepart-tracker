@@ -197,7 +197,7 @@ export function describeKommuneMapView(
 
   if (metric === 'extraction' || metric === 'afforestation') {
     if (state.fordelingViewMode === 'actual') {
-      parts.push(state.choroplethScale === 'ansvar' ? 'faktisk · ift. ansvar' : 'faktisk · absolut (ha)');
+      parts.push(state.choroplethScale === 'ansvar' ? 'faktisk · andel af ansvar' : 'faktisk · absolut (ha)');
     } else if (state.fordelingViewMode === 'simulated') {
       parts.push('fagligt forventet');
     } else {

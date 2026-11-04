@@ -31,7 +31,7 @@ import { ChapterSection } from '@/components/ChapterSection';
 import { scrollToPageTop, getKommuneListBackTarget, navigateToKommuneByKode } from '@/lib/kommune-navigation';
 import { kommuneToSlug } from '@/lib/kommune-slugs';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
-import { buildFilteredKommuner, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
+import { buildFilteredKommuner, METRIC_SUPPLEMENTS, NO_SUPPLEMENTS } from '@/lib/kommune-metrics';
 import { buildDynamicRanking } from '@/lib/kommune-ranking-dynamic';
 import type { StandingsMode } from '@/lib/kommune-ranking';
 import { decodeStandings, applyStandingsToParams } from '@/lib/permalink/slices/standings';
@@ -168,16 +168,23 @@ export default function KommuneDetailPage() {
     [kommuner, selectedPhases, activeSupplements],
   );
 
-  const effectiveRanking = useMemo(
-    () => (kommuneRanking ? buildDynamicRanking(kommuneRanking, kommunerFiltered) : null),
-    [kommuneRanking, kommunerFiltered],
+  // The ranking follows the phase filter but never the map's supplement toggles:
+  // it always counts MARS plus Klimaskovfonden forest from 2024 (see buildDynamicRanking).
+  const rankingKommuner = useMemo(
+    () => buildFilteredKommuner(kommuner, selectedPhases, NO_SUPPLEMENTS),
+    [kommuner, selectedPhases],
   );
 
-  const nationalPace = useMemo(() => (data ? computeNationalPace(data) : null), [data]);
-  const paceRatios = useMemo(
-    () => (nationalPace ? paceRatiosOf(nationalPace) : undefined),
-    [nationalPace],
+  const effectiveRanking = useMemo(
+    () => (kommuneRanking ? buildDynamicRanking(kommuneRanking, rankingKommuner) : null),
+    [kommuneRanking, rankingKommuner],
   );
+
+  const nationalPace = useMemo(
+    () => (data && effectiveRanking ? computeNationalPace(data, effectiveRanking) : null),
+    [data, effectiveRanking],
+  );
+  const paceRatios = useMemo(() => (data ? paceRatiosOf(data) : undefined), [data]);
 
   const ansvarIndexByKode = useMemo(() => {
     if (choroplethScale !== 'ansvar' || !activeMetric) return {};
@@ -451,7 +458,7 @@ export default function KommuneDetailPage() {
               nstProjects={nstForKommune}
               showPhaseFilter={showPhaseFilter}
               onPhasesChange={setSelectedPhases}
-              phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet og i nøgletal. Standard er forundersøgelse, godkendt og anlagt — skitser tæller ikke med."
+              phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet og i nøgletal. Standard er godkendt og anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan slås til."
               supplementSources={supplementSources}
               onSupplementsChange={setActiveSupplements}
               filterControls={

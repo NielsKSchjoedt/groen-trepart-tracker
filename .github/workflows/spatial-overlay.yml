@@ -33,7 +33,7 @@ jobs:
         run: python3 -m pip install -r etl/requirements-spatial.txt
 
       - name: Spatial overlay unit tests
-        run: python3 -m unittest test_spatial_overlay -v
+        run: python3 -m unittest test_spatial_overlay test_build_kommune_ansvar -v
         working-directory: etl
 
       - name: Restore Markkort 2026 kommune bbox cache
@@ -68,6 +68,18 @@ jobs:
 
       - name: Build kommune nature benchmarks
         run: python3 build_kommune_benchmark.py
+        working-directory: etl
+
+      - name: Restore kommune-ansvar cache (MARS plan geometries + kulstof WMS tiles)
+        uses: actions/cache@v5
+        with:
+          path: data/spatial-overlays/cache/kommune-ansvar
+          key: kommune-ansvar-v1-${{ github.run_id }}
+          restore-keys: |
+            kommune-ansvar-v1-
+
+      - name: Build kommune ansvar per goal
+        run: python3 build_kommune_ansvar.py
         working-directory: etl
 
       - name: Build kommune competition ranking

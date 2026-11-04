@@ -278,14 +278,14 @@ export function formatNatureMetricHeadline(
 export const KOMMUNE_PHASES: KommunePhase[] = ['sketch', 'preliminary', 'approved', 'established'];
 
 /**
- * Default phase selection — the live pipeline minus sketches:
- * forundersøgelse + godkendt + anlagt.
+ * Default phase selection — what is decided or in the ground: godkendt + anlagt.
  *
- * Sketches remain opt-in. The ranking JSON still stores an established-only
- * national block (`metadata.rankingPhases`); the UI does not treat that as
- * the current default — `buildDynamicRanking` recomputes from this set.
+ * Forundersøgelser and sketches are plans that may never happen, so they are
+ * opt-in; ranking on them rewarded paperwork rather than delivery. Matches the
+ * ranking JSON (`metadata.rankingPhases`); `buildDynamicRanking` recomputes from
+ * whatever the user selects.
  */
-export const DEFAULT_PHASES = new Set<KommunePhase>(['preliminary', 'approved', 'established']);
+export const DEFAULT_PHASES = new Set<KommunePhase>(['approved', 'established']);
 
 /** True when the phase selection differs from the default (pipeline minus skitse). */
 export function phasesDifferFromDefault(selected: Set<KommunePhase>): boolean {
@@ -303,6 +303,9 @@ export function phasesDifferFromDefault(selected: Set<KommunePhase>): boolean {
  * toggled on/off in the kommune view.
  */
 export type SupplementSource = 'ksf' | 'nst' | 'section3' | 'natura2000';
+
+/** Empty supplement set — for computations that must ignore the map's supplement toggles. */
+export const NO_SUPPLEMENTS: ReadonlySet<SupplementSource> = new Set();
 
 /** Which supplement sources are relevant for each metric. */
 export const METRIC_SUPPLEMENTS: Partial<Record<KommuneMetric, SupplementSource[]>> = {
@@ -470,7 +473,7 @@ export function buildFilteredKommuner(
     }
   >,
   selectedPhases: Set<KommunePhase>,
-  activeSupplements: Set<SupplementSource>,
+  activeSupplements: ReadonlySet<SupplementSource>,
 ): KommuneMetrics[] {
   return kommuner.map((km) => {
     const filtered = filterByPhases(km, selectedPhases);

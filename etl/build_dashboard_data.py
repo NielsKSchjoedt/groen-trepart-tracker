@@ -1531,7 +1531,12 @@ else:
             )
 
 # --- KSF per-kommune sums ---
-ksf_by_kommune: dict[str, dict[str, float]] = defaultdict(lambda: {"afforestationHa": 0.0, "lavbundHa": 0.0})
+# The kommune rankings count only forest from the agreement year on: KSF rounds
+# before 2024 (and NST state forests, which carry no planting date) predate it.
+KSF_AFTALE_FRA_AAR = 2024
+ksf_by_kommune: dict[str, dict[str, float]] = defaultdict(
+    lambda: {"afforestationHa": 0.0, "afforestationSinceAgreementHa": 0.0, "lavbundHa": 0.0}
+)
 if klimaskovfonden_projects:
     for kp in klimaskovfonden_projects:
         navn = kp.get("kommune")
@@ -1539,6 +1544,8 @@ if klimaskovfonden_projects:
             continue
         if kp.get("projekttyp") == "Skovrejsning":
             ksf_by_kommune[navn]["afforestationHa"] += kp.get("areaHa", 0) or 0
+            if (kp.get("year") or 0) >= KSF_AFTALE_FRA_AAR:
+                ksf_by_kommune[navn]["afforestationSinceAgreementHa"] += kp.get("areaHa", 0) or 0
         elif kp.get("projekttyp") == "Lavbund":
             ksf_by_kommune[navn]["lavbundHa"] += kp.get("areaHa", 0) or 0
 
@@ -1629,6 +1636,7 @@ for km in kommuner:
         "extractionKsfHa": round(extraction_ksf, 1),
         "afforestationMarsHa": round(afforestation_mars, 1),
         "afforestationKsfHa": round(afforestation_ksf, 1),
+        "afforestationKsfSinceAgreementHa": round(ksf_navn_data.get("afforestationSinceAgreementHa", 0.0), 1),
         "afforestationNstHa": round(afforestation_nst, 1),
         "afforestationNstOngoingHa": round(nst_ongoing_by_kommune.get(navn, 0.0), 1),
         "afforestationTotalHa": round(afforestation_mars + afforestation_ksf + afforestation_nst, 1),

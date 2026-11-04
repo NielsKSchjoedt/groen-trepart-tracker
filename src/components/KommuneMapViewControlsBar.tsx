@@ -116,21 +116,21 @@ export function KommuneMapViewControlsBar({
 
   const scaleTooltip = (
     <InfoTooltip
-      title="Absolut vs. ift. ansvar"
+      title="Absolut vs. andel af ansvar"
       content={
         <>
           <p><strong>Absolut (ha)</strong> — samlet areal fra valgte projektfaser (og evt. KSF). Farver skaleres mod den kommune med mest.</p>
-          <p><strong>Ift. ansvar</strong> — samme formel som ranglisten: (kommunens andel af landets levering) ÷ (kommunens andel af naturpotentiale). 1,0× = som forventet.</p>
+          <p><strong>Andel af ansvar</strong> — som ranglisten: de viste hektar ÷ kommunens egen andel af målet. 100 % = hele andelen.</p>
         </>
       }
-      source="MARS + DCE 30 % naturpotentiale"
+      source="MARS · DCA kulstofkort 2022 · Danmarks Statistik (AREALDK)"
       side="bottom"
       size={13}
     />
   );
 
   const phaseTooltipContent = phaseFilterTooltip
-    ?? 'Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet. Standard er forundersøgelse, godkendt og anlagt — skitser tæller ikke med.';
+    ?? 'Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet. Standard er godkendt og anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan slås til.';
 
   const natureOptions = NATURE_LAYER_OPTIONS.map((o) => ({ value: o.id, label: o.shortLabel }));
   const fordelingOptions = [
@@ -140,7 +140,7 @@ export function KommuneMapViewControlsBar({
   ];
   const scaleOptions = [
     { value: 'absolute' as const, label: 'Absolut (ha)' },
-    { value: 'ansvar' as const, label: 'Ift. ansvar' },
+    { value: 'ansvar' as const, label: 'Andel af ansvar' },
   ];
 
   const desktopControls = (

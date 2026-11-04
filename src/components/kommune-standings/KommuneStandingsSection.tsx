@@ -1,4 +1,4 @@
-import type { KommuneRankingData, KlimaregnskabData, KommuneBenchmarkData } from '@/lib/types';
+import type { KommuneRankingData } from '@/lib/types';
 import type { KommunePhase } from '@/lib/kommune-metrics';
 import type { MetricPaceRatios } from '@/lib/kommune-ranking';
 import type { NationalPaceContext } from '@/lib/kommune-goal-pace';
@@ -10,8 +10,6 @@ import { GoalPaceBanner } from './GoalPaceBanner';
 interface KommuneStandingsSectionProps {
   ranking: KommuneRankingData;
   standings: StandingsState;
-  klimaregnskab: KlimaregnskabData | null;
-  benchmark: KommuneBenchmarkData | null;
   selectedPhases: Set<KommunePhase>;
   onPhasesChange: (phases: Set<KommunePhase>) => void;
   selectedKode: string | null;
@@ -24,15 +22,13 @@ interface KommuneStandingsSectionProps {
 
 /**
  * Ranglister-chapter content. One cohesive unit: a single control bar (region +
- * måleenhed + fasefilter), then the five branded podium boards — each flippable
+ * måleenhed + fasefilter), then the three branded podium boards — each flippable
  * to see how that list's numbers work. The long master table lives in its own
  * chapter after the map and shares state through `useStandings`.
  */
 export function KommuneStandingsSection({
   ranking,
   standings,
-  klimaregnskab,
-  benchmark,
   selectedPhases,
   onPhasesChange,
   selectedKode,
@@ -52,7 +48,7 @@ export function KommuneStandingsSection({
       />
       {standings.mode === 'maal' && nationalPace && <GoalPaceBanner pace={nationalPace} />}
       <KommuneMiniBoards
-        ctx={{ ranking, klimaregnskab, benchmark, globalMode: standings.mode, paceRatios }}
+        ctx={{ ranking, globalMode: standings.mode, paceRatios }}
         region={standings.region}
         selectedKode={selectedKode}
         onSelect={onSelect}

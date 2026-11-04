@@ -17,6 +17,25 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.1.0 — 4. november 2026
+
+**Kommune-ranglisterne bygget om: hver kommune måles nu mod sin egen andel af målet og på det, der er besluttet eller anlagt**
+
+### Fejlrettelse
+- Kommuner uden levering eller uden andel af et mål stod med «Ingen data», som om tallene manglede. Fx stod Tårnby som nr. 1 på natur, men med «Ingen data» på alle tre mål. Nu står der, hvorfor: «Intet godkendt eller anlagt», «For lille andel af målet til at rangere» eller «Intet kvælstofkrav i kommunens oplande».
+
+### Metodeændring
+- Kommune-ranglisterne målte alle tre mål mod kommunens andel af landets naturpotentiale — et biodiversitetskort. Det gav ingen mening for kvælstof og lavbund, og små nævnere gav absurde vindere: Vallensbæk stod som landets bedste skovkommune på 16 ha. Nu måles hver kommune mod sin egen andel af hvert mål: kvælstof efter kravene i MARS-oplandene fordelt på landbrugsjorden, lavbund efter oplandenes lavbundspotentiale fordelt på den dyrkede kulstofrige jord, og skov efter andel af landets landbrugsareal. Kommuner med under 0,1 % af et mål rangeres ikke på det. (Teknisk: ny etl/build_kommune_ansvar.py; MARS-planernes mål, DCA kulstofkort 2022 og Danmarks Statistik AREALDK.)
+- Ranglisterne talte forundersøgelser med som levering, så kommuner med 0 ha anlagt kunne stå øverst som «udtaget». Standard er nu godkendt + anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan stadig slås til under projektfaser. Det gælder også kortet og kommunesiderne.
+- Skov på ranglisterne talte Naturstyrelsens statsskove og alle Klimaskovfondens projekter med, også skove plantet årtier før aftalen. Nu tæller MARS og Klimaskovfonden fra 2024; Naturstyrelsens skove tælles ikke, fordi kilden ikke angiver, hvornår de er plantet.
+
+### Forbedring
+- Tallene på ranglisterne viser nu, hvor stor en del af kommunens egen andel af målet der er godkendt eller anlagt (fx «54 % af kommunens andel») i stedet for et indeks som «7 gange forventet». «Mod målet» sætter samme andel over for, hvor meget af tiden til fristen der er gået, og landets tempo regnes nu på de samme faser som kommunernes.
+
+### Fjernet
+- Ranglisterne for beskyttet natur og CO₂ er fjernet. De målte tilstande, ikke trepart-indsats, og afhang mest af geografi og energiforsyning — Læsø stod fx som bedst på CO₂ med negativ udledning. Begge vises stadig på kortet og kommunesiderne.
+---
+
 ## v1.0.0 — 4. november 2026
 
 **Version 1.0: indsats adskilt fra effekt, tal der følger MARS, kommune-rangliste og nyt videnscenter**
@@ -41,6 +60,7 @@ Kommende ændringer noteres her løbende.
 - Baggrundskortet under alle kort viste teksten «API KEY REQUIRED» hen over Danmark, fordi kortleverandøren CARTO er begyndt at kræve en adgangsnøgle. Kortene bruger nu i stedet Esris lysegrå grundkort, som ikke kræver nøgle. Det gælder også den nuværende udgave af siden. (Teknisk: L.tileLayer skiftet fra basemaps.cartocdn.com til Esri World Light Gray Canvas.)
 - På kvælstof-siden skete der ingenting, når man slog kortlag som Markudledning eller Kystvande til i «Lag»-menuen — knappen sprang straks tilbage. Fejlen skyldtes bogstavet «æ» i sidens adresse og ramte kun kvælstof-siden. Rettet, så lagene nu tændes og slukkes som på de andre sider. (Teknisk: resolveRouteContext afkoder nu den procent-kodede sti /kv%C3%A6lstof.)
 - Farveforklaringen til kortlagene Markudledning, Drikkevandsinteresser og Kulstofrige lavbundsjorder passede ikke til farverne på kortet. Markudledning blev fx vist som en brun skala fra lav til høj, selvom kortet tegner grønne til blå klasser. Forklaringerne viser nu de samme klasser og farver som Miljøportalens egne kort. (Teknisk: farver hentet fra lagenes GetLegendGraphic.)
+- Sidens ikon (det lille billede i browserfanen, på Googles søgeresultater, som bogmærke på mobilen og i link-forhåndsvisninger) viste stadig det gamle spire-logo flere steder, selvom browserfanen viste det nye blad. Kun én af ikonfilerne var blevet opdateret. Nu viser alle steder det samme blad-ikon. Google og andre tjenester kan være et stykke tid om at hente det nye ikon. (Teknisk: favicon.ico, PNG-ikoner og apple-touch-icon gendannet fra favicon.svg; versionsparameter på ikon-URL'erne.)
 
 ### Metodeændring
 - «Tid gået siden aftalen» og alle fremskrivninger regner nu fra underskriftsdatoen 24. juni 2024 — ikke 1. januar 2024 — så det matcher sidens egen tekst om, hvornår aftalen blev indgået.

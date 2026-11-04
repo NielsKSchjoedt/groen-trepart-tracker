@@ -1,33 +1,23 @@
-import { formatDanishNumber } from '@/lib/format';
 import {
   standingsCell,
   type MetricPaceRatios,
   type StandingsLensKey,
   type StandingsMode,
 } from '@/lib/kommune-ranking';
-import type {
-  KlimaregnskabData,
-  KommuneBenchmarkData,
-  KommuneRankingData,
-} from '@/lib/types';
+import type { KommuneRankingData } from '@/lib/types';
 
 /**
- * Unified rangliste-board model. Five Trepart-mål share one podium UI:
+ * Rangliste-board model. The three Grøn Trepart delivery goals (lavbund, skov,
+ * kvælstof) share one podium UI and are all measured the same way: how much of
+ * the kommune's OWN part of the national goal is godkendt or anlagt.
  *
- * - Three "levering"-boards (lavbund, skov, kvælstof) are driven by the global
- *   Ift. ansvar/Absolut toggle — they measure delivery relative to a kommune's
- *   andel af naturpotentiale.
- * - Two "status"-boards (natur, CO₂) measure a current state rather than
- *   Trepart-levering, so they carry their own per-board måleenhed toggle.
- *
- * Each board produces a ranked list of {@link BoardEntry} so the podium and the
- * 4–10 list render identically regardless of the underlying data source.
+ * Natur and CO₂ used to have boards too, but they measure a state, not
+ * Trepart-delivery (Tårnby topped "natur" on geography; CO₂ was driven by
+ * energy plants and an accounting artefact on Læsø), so they are shown as
+ * context on the map and the kommune pages instead of being ranked.
  */
 
-export type BoardKey = 'lavbund' | 'skov' | 'kvaelstof' | 'natur' | 'co2';
-
-/** Whether a board ranks delivery-vs-responsibility or a current status. */
-export type BoardKind = 'levering' | 'status';
+export type BoardKey = 'lavbund' | 'skov' | 'kvaelstof';
 
 /**
  * Explicit, human-readable formula for a måleenhed. `ratio` renders as a visual
@@ -38,17 +28,15 @@ export type BoardFormula =
   | { kind: 'sum'; expr: string; result: string };
 
 export interface BoardOption {
-  id: string;
+  id: StandingsMode;
   /** Short label for the toggle pill. */
   label: string;
   /** Board subtitle shown for this option. */
   sub: string;
   /** Plain-language meaning of the måleenhed (what it tells you). */
   desc: string;
-  /** Concrete, visual formula — exactly which number is divided by / subtracted from which. */
+  /** Concrete, visual formula — exactly which number is divided by which. */
   formula: BoardFormula;
-  /** When true, a lower raw value means a better (higher) rank. */
-  lowerIsBetter?: boolean;
 }
 
 export interface BoardDef {
@@ -57,16 +45,52 @@ export interface BoardDef {
   full: string;
   /** Brand tone (hex) for the indsatsmål. */
   tone: string;
-  kind: BoardKind;
   /** Data source line shown in the explainer/tooltips. */
   source: string;
-  /**
-   * When true, the active option follows the GLOBAL Ift. ansvar/Absolut toggle
-   * instead of a per-board control. Also marks the board as sortable in the
-   * master table (its key maps to a StandingsLensKey).
-   */
-  global: boolean;
+  /** How the kommune's part of the goal is set — shown on the explainer. */
+  ansvarNote: string;
   options: BoardOption[];
+}
+
+/** The three måleenheder, shared by every board apart from wording, units and deadline. */
+function options(noun: string, goalNoun: string, unit: string, deadline: number): BoardOption[] {
+  return [
+    {
+      id: 'relativ',
+      label: 'Andel af ansvar',
+      sub: `Godkendt + anlagt ${noun} i % af kommunens andel`,
+      desc: `Hvor stor en del af kommunens egen andel af ${goalNoun} der er godkendt eller anlagt. Små og store kommuner sammenlignes på lige fod, fordi hver måles mod sin egen andel.`,
+      formula: {
+        kind: 'ratio',
+        top: `Godkendt + anlagt ${noun} i kommunen (${unit})`,
+        bottom: `Kommunens andel af det nationale mål (${unit})`,
+        result: '100 % = kommunen har hele sin andel godkendt eller anlagt.',
+      },
+    },
+    {
+      id: 'maal',
+      label: 'Mod målet',
+      sub: `Tempo mod ${deadline}`,
+      desc: `Om kommunen er i det tempo, dens andel kræver for at nå fristen i ${deadline} — ikke om den er foran de andre kommuner.`,
+      formula: {
+        kind: 'ratio',
+        top: 'Andel af kommunens ansvar, der er godkendt eller anlagt (%)',
+        bottom: `Andel af tiden fra aftalen til ${deadline}, der er gået (%)`,
+        result: '1,0× = præcis på sporet. Under 1,0× = bagud, uanset placering ift. naboerne.',
+      },
+    },
+    {
+      id: 'absolut',
+      label: 'Absolut',
+      sub: `Godkendt + anlagt ${noun} (${unit})`,
+      desc: `Den rå mængde ${noun} — uden hensyn til, hvor stor en del af målet kommunen har.`,
+      formula: {
+        kind: 'sum',
+        expr: `Sum af kommunens godkendte og anlagte ${noun} (${unit})`,
+        result: 'Intet divideres. Kommuner med meget landbrugsjord ligger naturligt højt.',
+      },
+    },
+  ];
 }
 
 export const BOARDS: BoardDef[] = [
@@ -75,230 +99,49 @@ export const BOARDS: BoardDef[] = [
     label: 'Lavbund',
     full: 'Lavbundsudtagning',
     tone: '#a16207',
-    kind: 'levering',
-    source: 'MARS-projektdata + naturpotentiale (DCE 30 %)',
-    global: true,
-    options: [
-      {
-        id: 'relativ',
-        label: 'Ift. ansvar',
-        sub: 'Udtaget lavbund ift. potentiale',
-        desc: 'Hvor meget lavbund kommunen har udtaget, sat i forhold til hvad dens andel af landet tilsiger.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens andel af alt udtaget lavbund i DK',
-          bottom: 'Kommunens andel af DK’s samlede naturpotentiale',
-          result: '1,0× = lige stor andel = som forventet. 2,0× = dobbelt så meget som ansvaret.',
-        },
-      },
-      {
-        id: 'absolut',
-        label: 'Absolut',
-        sub: 'Udtaget lavbund i hektar',
-        desc: 'Det rå antal hektar lavbund, der er udtaget — uden hensyn til kommunens størrelse.',
-        formula: {
-          kind: 'sum',
-          expr: 'Sum af kommunens egne udtagne hektar lavbund',
-          result: 'Intet divideres. Store kommuner ligger naturligt højt.',
-        },
-      },
-      {
-        id: 'maal',
-        label: 'Mod målet',
-        sub: 'Udtaget lavbund ift. 2030-tempo',
-        desc: 'Kommunens lavbundsudtagning målt mod det tempo, dens andel af 2030-målet kræver — ikke mod de andre kommuner.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens levering ift. ansvar (×)',
-          bottom: 'Det tempo 2030-målet kræver (landets pace-ratio)',
-          result: '1,0× = præcis på sporet mod 2030. Under 1,0× = bagud, uanset placering ift. naboerne.',
-        },
-      },
-    ],
+    source: 'MARS-projekter og -planer · DCA kulstofkort 2022 · Danmarks Statistik (AREALDK)',
+    ansvarNote:
+      'Kommunens andel af de 140.000 ha: MARS-oplandenes lavbundspotentiale fordelt efter, hvor den dyrkede kulstofrige jord ligger.',
+    options: options('lavbund', 'lavbundsmålet', 'ha', 2030),
   },
   {
     key: 'skov',
     label: 'Skov',
     full: 'Skovrejsning',
     tone: '#15803d',
-    kind: 'levering',
-    source: 'MARS + KSF + NST + naturpotentiale (DCE 30 %)',
-    global: true,
-    options: [
-      {
-        id: 'relativ',
-        label: 'Ift. ansvar',
-        sub: 'Ny skov ift. potentiale',
-        desc: 'Hvor meget ny skov kommunen har rejst, sat i forhold til hvad dens andel af landet tilsiger.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens andel af al ny skov i DK',
-          bottom: 'Kommunens andel af DK’s samlede naturpotentiale',
-          result: '1,0× = lige stor andel = som forventet. 2,0× = dobbelt så meget som ansvaret.',
-        },
-      },
-      {
-        id: 'absolut',
-        label: 'Absolut',
-        sub: 'Ny skov i hektar',
-        desc: 'Det rå antal hektar ny skov — uden hensyn til kommunens størrelse.',
-        formula: {
-          kind: 'sum',
-          expr: 'Sum af kommunens egne nye skovhektar',
-          result: 'Intet divideres. Store kommuner ligger naturligt højt.',
-        },
-      },
-      {
-        id: 'maal',
-        label: 'Mod målet',
-        sub: 'Ny skov ift. nødvendigt tempo',
-        desc: 'Kommunens skovrejsning målt mod det tempo, dens andel af målet kræver (skovfristen 2045) — ikke mod de andre kommuner.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens levering ift. ansvar (×)',
-          bottom: 'Det tempo målet kræver (landets pace-ratio)',
-          result: '1,0× = præcis på sporet mod fristen. Under 1,0× = bagud, uanset placering ift. naboerne.',
-        },
-      },
-    ],
+    source: 'MARS-projekter · Klimaskovfonden · Danmarks Statistik (AREALDK)',
+    ansvarNote:
+      'Kommunens andel af de 250.000 ha følger dens andel af landets landbrugsareal — skovmålet har ingen geografisk fordeling. Tæller MARS og Klimaskovfonden fra 2024; Naturstyrelsens skove har ingen plantedato og tælles ikke.',
+    options: options('skov', 'skovmålet', 'ha', 2045),
   },
   {
     key: 'kvaelstof',
     label: 'Kvælstof',
     full: 'Kvælstofreduktion',
     tone: '#0d9488',
-    kind: 'levering',
-    source: 'MARS-projektdata + naturpotentiale (DCE 30 %)',
-    global: true,
-    options: [
-      {
-        id: 'relativ',
-        label: 'Ift. ansvar',
-        sub: 'Reduceret N ift. potentiale',
-        desc: 'Hvor meget kvælstof kommunen har reduceret, sat i forhold til hvad dens andel af landet tilsiger.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens andel af al N-reduktion i DK',
-          bottom: 'Kommunens andel af DK’s samlede naturpotentiale',
-          result: '1,0× = lige stor andel = som forventet. 2,0× = dobbelt så meget som ansvaret.',
-        },
-      },
-      {
-        id: 'absolut',
-        label: 'Absolut',
-        sub: 'Reduceret N i ton',
-        desc: 'Det rå antal ton kvælstof reduceret — uden hensyn til kommunens behov.',
-        formula: {
-          kind: 'sum',
-          expr: 'Sum af kommunens egne reducerede ton N',
-          result: 'Intet divideres. Store kommuner ligger naturligt højt.',
-        },
-      },
-      {
-        id: 'maal',
-        label: 'Mod målet',
-        sub: 'Reduceret N ift. 2030-tempo',
-        desc: 'Kommunens kvælstofreduktion målt mod det tempo, dens andel af målet kræver — ikke mod de andre kommuner.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens levering ift. ansvar (×)',
-          bottom: 'Det tempo målet kræver (landets pace-ratio)',
-          result: '1,0× = præcis på sporet. Under 1,0× = bagud, uanset placering ift. naboerne.',
-        },
-      },
-    ],
-  },
-  {
-    key: 'natur',
-    label: 'Natur',
-    full: 'Beskyttet natur',
-    tone: '#4d7c0f',
-    kind: 'status',
-    source: 'Benchmark B2/B4 (§3, Natura 2000, fredninger, naturpotentiale)',
-    global: false,
-    options: [
-      {
-        id: 'beskyttet',
-        label: 'Beskyttet i dag',
-        sub: 'Andel af naturværdi beskyttet',
-        desc: 'Hvor stor en del af kommunens værdifulde natur der allerede er beskyttet i dag.',
-        formula: {
-          kind: 'ratio',
-          top: 'Beskyttet naturværdi-areal i kommunen (ha)',
-          bottom: 'Kommunens samlede naturværdi-areal (ha)',
-          result: 'Vises i %. Højere = mere af naturen er sikret (§3, Natura 2000, fredninger).',
-        },
-      },
-      {
-        id: 'projektnatur',
-        label: 'Natur berørt af projekter',
-        sub: 'Projektareal på kortlagt natur (ha)',
-        desc: 'Hvor mange hektar af kommunens trepart-projekter der ligger oven på kortlagt natur (biodiversitetskortet). Projekter er klippet til kommunegrænser, så areal ikke tælles dobbelt. Overlap er stedsspecifikt og ikke en ubetinget god indikator — projekter lagt hvor der allerede er natur kan ramme eksisterende beskyttelse, ikke ny natur.',
-        formula: {
-          kind: 'sum',
-          expr: 'Projektareal i kommunen der overlapper DCE-biodiversitetskortet (ha)',
-          result: 'Vises i hektar. Højere = projekterne rører mere kortlagt natur. Indikator, ikke garanti.',
-        },
-      },
-    ],
-  },
-  {
-    key: 'co2',
-    label: 'CO₂',
-    full: 'CO₂-udledning',
-    tone: '#525252',
-    kind: 'status',
-    source: 'Energistyrelsen — klimaregnskabet.dk (2018–2023). National CO₂ på forsiden måler mod 1990.',
-    global: false,
-    options: [
-      {
-        id: 'reduktion',
-        label: 'Reduktion',
-        sub: 'Fald i udledning 2018 → 2023',
-        desc: 'Hvor meget kommunen har skåret af sin samlede udledning siden 2018.',
-        formula: {
-          kind: 'ratio',
-          top: 'Udledning 2018 − udledning 2023 (ton CO₂e)',
-          bottom: 'Udledning 2018 (ton CO₂e)',
-          result: 'Vises i %. Højere = større fald. Dækker alle sektorer (scope 1+2).',
-        },
-      },
-      {
-        id: 'prCapita',
-        label: 'Pr. indbygger',
-        sub: 'Ton CO₂e pr. indbygger (2023)',
-        desc: 'Udledning pr. indbygger i 2023 — lavest placeres øverst.',
-        formula: {
-          kind: 'ratio',
-          top: 'Kommunens samlede udledning 2023 (ton CO₂e)',
-          bottom: 'Antal indbyggere i kommunen (2023)',
-          result: 'Vises i ton pr. person. Lavest = øverst på listen.',
-        },
-        lowerIsBetter: true,
-      },
-    ],
+    source: 'MARS-projekter og -planer · Danmarks Statistik (AREALDK)',
+    ansvarNote:
+      'Kommunens andel af de 12.776 t: hvert MARS-oplands reduktionskrav fordelt efter kommunens landbrugsareal i oplandet. Kommuner, hvis oplande ikke har et krav, rangeres ikke.',
+    options: options('kvælstof', 'kvælstofmålet', 't', 2027),
   },
 ];
 
-/** Master-table sort key for the three global (levering) boards. */
-const LENS_KEY: Record<'lavbund' | 'skov' | 'kvaelstof', StandingsLensKey> = {
+/** Master-table sort key per board. */
+const LENS_KEY: Record<BoardKey, StandingsLensKey> = {
   lavbund: 'idxLavbund',
   skov: 'idxSkov',
   kvaelstof: 'idxKvaelstof',
 };
 
-export function boardLensKey(key: BoardKey): StandingsLensKey | null {
-  if (key === 'lavbund' || key === 'skov' || key === 'kvaelstof') return LENS_KEY[key];
-  return null;
+export function boardLensKey(key: BoardKey): StandingsLensKey {
+  return LENS_KEY[key];
 }
 
 export interface BoardContext {
   ranking: KommuneRankingData;
-  klimaregnskab: KlimaregnskabData | null;
-  benchmark: KommuneBenchmarkData | null;
-  /** Drives the active option for global (levering) boards. */
+  /** Drives the active option on every board. */
   globalMode: StandingsMode;
-  /** Per-metric pace scalars — required for the "Mod målet" (maal) option. */
+  /** Per-metric scalars — required for the "Mod målet" option. */
   paceRatios?: MetricPaceRatios;
 }
 
@@ -306,107 +149,45 @@ export interface BoardEntry {
   kode: string;
   navn: string;
   region: string;
-  /** Higher = better placement (direction already normalised). */
+  /** Higher = better placement. */
   sort: number;
-  /** Display phrase, e.g. "6,7 gange forventet", "58 % beskyttet", "31 % ned". */
+  /** Display phrase, e.g. "34 % af kommunens andel", "1,2× nødvendigt tempo". */
   phrase: string;
-  /** Global rank (1-based) across all kommuner with data on this metric. */
+  /** Global rank (1-based) across all ranked kommuner. */
   rank: number;
 }
 
-/** Resolve the active option id for a board given the global mode. */
-export function activeOptionId(def: BoardDef, globalMode: StandingsMode, localId: string): string {
-  if (def.global) {
-    if (globalMode === 'absolut') return 'absolut';
-    if (globalMode === 'maal') return 'maal';
-    return 'relativ';
-  }
-  return localId;
-}
-
-interface RawValue {
-  value: number;
-  phrase: string;
-}
-
-function marsValue(
-  ctx: BoardContext,
-  kode: string,
-  lensKey: StandingsLensKey,
-  optionId: string,
-): RawValue | null {
-  const row = ctx.ranking.byKommune[kode];
-  if (!row) return null;
-  const mode: StandingsMode =
-    optionId === 'absolut' ? 'absolut' : optionId === 'maal' ? 'maal' : 'relativ';
-  const cell = standingsCell(row, lensKey, mode, ctx.paceRatios);
-  if (cell.sort < 0) return null;
-  return { value: cell.sort, phrase: cell.phrase };
-}
-
-function naturValue(ctx: BoardContext, kode: string, optionId: string): RawValue | null {
-  if (optionId === 'projektnatur') {
-    const ha = ctx.ranking.byKommune[kode]?.projektNaturBiodiversitetHa;
-    if (ha == null || Number.isNaN(ha)) return null;
-    return { value: ha, phrase: `${formatDanishNumber(Math.round(ha))} ha natur` };
-  }
-  const pct = ctx.benchmark?.b4?.byKommune[kode]?.pctVaerdiBeskyttet;
-  if (pct == null || Number.isNaN(pct)) return null;
-  return { value: pct, phrase: `${formatDanishNumber(Math.round(pct))} % beskyttet` };
-}
-
-function co2Value(ctx: BoardContext, kode: string, optionId: string): RawValue | null {
-  const km = ctx.klimaregnskab?.kommuner.find((k) => k.kommuneKode === kode);
-  if (!km) return null;
-  if (optionId === 'prCapita') {
-    const pcArr = km.udledningPrCapita;
-    const pc = pcArr[pcArr.length - 1];
-    if (pc == null || Number.isNaN(pc)) return null;
-    return { value: pc, phrase: `${formatDanishNumber(pc, 1)} t/pers.` };
-  }
-  const series = km.samletUdledning;
-  if (series.length < 2 || !series[0]) return null;
-  const red = ((series[0] - series[series.length - 1]) / series[0]) * 100;
-  const r = Math.round(red);
-  const phrase = r >= 0 ? `${formatDanishNumber(r)} % ned` : `${formatDanishNumber(-r)} % op`;
-  return { value: red, phrase };
-}
-
-function rawValueFor(def: BoardDef, ctx: BoardContext, kode: string, optionId: string): RawValue | null {
-  if (def.kind === 'levering') {
-    const lensKey = boardLensKey(def.key);
-    return lensKey ? marsValue(ctx, kode, lensKey, optionId) : null;
-  }
-  if (def.key === 'natur') return naturValue(ctx, kode, optionId);
-  return co2Value(ctx, kode, optionId);
-}
-
 /**
- * Build the full ranked list for a board + active option. Direction is
- * normalised so the returned `sort` is always "higher = better"; ranks are
- * assigned across all kommuner that have data, then the caller filters by
- * region for display.
+ * Build the ranked list for a board in the active mode. Only kommuner with a
+ * large enough part of the goal are ranked (see `isRankable`); ranks are
+ * assigned across the whole country and the caller filters by region.
  */
-export function buildBoardEntries(def: BoardDef, optionId: string, ctx: BoardContext): BoardEntry[] {
-  const option = def.options.find((o) => o.id === optionId) ?? def.options[0];
+export function buildBoardEntries(def: BoardDef, mode: StandingsMode, ctx: BoardContext): BoardEntry[] {
+  const lensKey = boardLensKey(def.key);
   const entries: BoardEntry[] = [];
 
   for (const row of ctx.ranking.kommuner) {
-    const raw = rawValueFor(def, ctx, row.kode, option.id);
-    if (!raw) continue;
+    const cell = standingsCell(row, lensKey, mode, ctx.paceRatios);
+    if (cell.sort < 0) continue;
     entries.push({
       kode: row.kode,
       navn: row.kommuneNavn,
       region: row.region,
-      sort: option.lowerIsBetter ? -raw.value : raw.value,
-      phrase: raw.phrase,
+      sort: cell.sort,
+      phrase: cell.phrase,
       rank: 0,
     });
   }
 
   entries.sort((a, b) => b.sort - a.sort);
   entries.forEach((e, i) => {
-    e.rank = i + 1;
+    // Ties share a rank, so a row of "0 %" does not read as 40th, 41st, 42nd …
+    e.rank = i > 0 && e.sort === entries[i - 1].sort ? entries[i - 1].rank : i + 1;
   });
   return entries;
+}
+
+/** Number of kommuner listed without a rank on this board (too small a part of the goal). */
+export function unrankedCount(def: BoardDef, ctx: BoardContext): number {
+  return ctx.ranking.kommuner.length - buildBoardEntries(def, 'relativ', ctx).length;
 }

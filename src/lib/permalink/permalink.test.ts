@@ -129,12 +129,12 @@ describe('permalink', () => {
     const ctx = resolveRouteContext('/kommuner');
     const params = toSearchParams(
       {
-        standings: { sort: 'idxSkov', mode: 'maal', region: 'Alle regioner' },
+        standings: { sort: 'idxSkov', mode: 'relativ', region: 'Alle regioner' },
       },
       ctx,
     );
     expect(params.get('sort')).toBe('skov');
-    // 'maal' is the default lens, so it is omitted from the URL.
+    // 'relativ' (Andel af ansvar) is the default lens, so it is omitted from the URL.
     expect(params.get('visning')).toBeNull();
   });
 
@@ -142,11 +142,11 @@ describe('permalink', () => {
     const ctx = resolveRouteContext('/kommuner');
     const params = toSearchParams(
       {
-        standings: { sort: 'idxLavbund', mode: 'relativ', region: 'Alle regioner' },
+        standings: { sort: 'idxLavbund', mode: 'maal', region: 'Alle regioner' },
       },
       ctx,
     );
-    expect(params.get('visning')).toBe('ansvar');
+    expect(params.get('visning')).toBe('maal');
   });
 
   it('resolves fane alias to section', () => {
