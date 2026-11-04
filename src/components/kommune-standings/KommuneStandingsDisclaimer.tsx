@@ -9,7 +9,7 @@ interface KommuneStandingsDisclaimerProps {
  * Prominent disclaimer for kommune competition framing (DN nuance).
  */
 export function KommuneStandingsDisclaimer({
-  text = 'Der findes ingen officiel kommunal fordeling af naturmålet. Ranglisten bruger naturpotentiale som fagligt stand-in for ansvar — ikke en politisk forpligtelse.',
+  text = 'Der findes ingen officiel kommunal fordeling af målene. Kommunens andel er MARS-oplandenes mål fordelt efter landbrugsjord og kulstofrig jord — en faglig fordeling, ikke en politisk forpligtelse.',
   compact = false,
 }: KommuneStandingsDisclaimerProps) {
   return (

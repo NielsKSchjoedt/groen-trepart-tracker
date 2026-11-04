@@ -885,22 +885,53 @@ export default function DataMetodePage() {
         <section id="kommune-ranking">
           <SectionHeader icon={MapPin} title="Sådan rangerer vi kommuner" />
           <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-            Kommunesiden viser fire <strong>parallelle</strong> ranglister — ikke ét samlet naturtal.
-            Formålet er at måle, om en kommune leverer indsats <em>i forhold til sit faglige ansvar</em>,
-            ikke om den er stor nok til at vinde på rå hektar.
+            Kommunesiden rangerer kommunerne på de tre virkemidler, treparten selv anlægger: lavbund, skov og
+            kvælstof. Hver kommune måles mod <em>sin egen andel af målet</em>, så en nordsjællandsk kommune med
+            lidt landbrugsjord og en stor jysk landbrugskommune kan sammenlignes på lige fod.
           </p>
           <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground mb-4">
             <li>
-              <strong>Ansvar</strong> — andel af nationalt naturpotentiale (DCE 30 % fra Arealdata om biodiversitet).
-              Det er et fagligt stand-in, fordi der ikke findes en officiel kommunal fordeling af naturmålet.
+              <strong>Kommunens andel af målet</strong> — der findes ingen officiel kommunal fordeling, men MARS
+              fordeler målene på 37 kystvandoplande. Vi fordeler hvert oplands tal videre til de kommuner, der
+              ligger i det:
+              <ul className="list-[circle] pl-5 mt-1 space-y-1">
+                <li>
+                  <em>Kvælstof:</em> oplandets reduktionskrav fordelt efter kommunens landbrugsareal i oplandet
+                  (Danmarks Statistik, AREALDK). Kommuner, hvis oplande ikke har et krav — fx København og
+                  Bornholm — rangeres ikke på kvælstof.
+                </li>
+                <li>
+                  <em>Lavbund:</em> oplandets lavbundspotentiale fordelt efter, hvor den kulstofrige jord ligger
+                  (DCA's kulstofkort 2022), vægtet med kommunens landbrugstæthed, så moser og naturreservater i
+                  bykommuner ikke tæller som dyrket lavbund. Andelen omregnes til en del af de 140.000 ha.
+                </li>
+                <li>
+                  <em>Skov:</em> skovmålet har ingen geografisk fordeling, så kommunens andel af de 250.000 ha
+                  følger dens andel af landets landbrugsareal.
+                </li>
+              </ul>
             </li>
             <li>
-              <strong>Levering</strong> — andel af national realiseret udtagning, skov og kvælstof fra MARS-projekter
-              i faserne forundersøgelse, godkendt og anlagt. Skitser tæller ikke med.
+              <strong>Levering</strong> — hektar og ton i MARS-projekter, der er <em>godkendt eller anlagt</em>.
+              Forundersøgelser og skitser tæller ikke med som standard, fordi mange af dem aldrig bliver til noget;
+              de kan slås til under projektfaser. Skov tæller også Klimaskovfondens projekter fra 2024.
+              Naturstyrelsens statsskove tæller ikke, fordi kilden ikke angiver, hvornår de er plantet — flere
+              «færdige» skove er plantet årtier før aftalen.
             </li>
             <li>
-              <strong>Index (×)</strong> — levering ÷ ansvar. Over 1,0× betyder, at kommunen leverer mere end
-              dens andel af naturpotentialet tilsiger.
+              <strong>Andel af ansvar</strong> — levering ÷ kommunens andel af målet. 100 % = hele andelen er
+              godkendt eller anlagt. <strong>Mod målet</strong> sætter samme andel over for, hvor meget af tiden
+              til fristen der er gået; 1,0× = på sporet.
+            </li>
+            <li>
+              <strong>Hvem rangeres</strong> — kommuner med under 0,1 % af et mål (fx 16 ha skov i en
+              forstadskommune) står på listen, men rangeres ikke: med næsten intet ansvar bliver selv små tal til
+              ekstreme procenter.
+            </li>
+            <li>
+              <strong>Ikke rangeret: natur og CO₂</strong> — andelen af beskyttet natur og kommunens CO₂-udledning
+              er tilstande, ikke trepart-indsats, og afhænger mest af geografi og energiforsyning. De vises på
+              kortet og kommunesiderne som kontekst.
             </li>
             <li>
               <strong>Naturkvalitet</strong> — B3: andel af Natura 2000-arealer, der reelt er landbrugsjord
@@ -908,14 +939,16 @@ export default function DataMetodePage() {
               bruger MARS-afgrødekoder (Afgkode-udelukkelse) når Markkort har koden. Høj procent = stort
               forbedringspotentiale, ikke en skammeliste.
             </li>
-            <li>
-              <strong>Oplande</strong> — spatial overlap mellem kommuner og kystvandsoplande (VP3) viser,
-              at kvælstofmålet er geografisk forankret, mens naturmålet ikke er det.
-            </li>
           </ul>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            <strong>Begrænsninger.</strong> Fordelingen inden for et opland antager, at landbrugsjorden ligger
+            jævnt fordelt i hver kommune. Et MARS-projekt tælles i den kommune, MARS knytter det til, også hvis det
+            krydser kommunegrænsen. Ranglisten er en faglig fordeling, ikke en politisk forpligtelse.
+          </p>
           <p className="text-xs text-muted-foreground">
-            Data: <code>kommune-ranking.json</code> og <code>kommune-oplande.json</code> (bygget månedligt
-            sammen med øvrige kommune-benchmarks). Vi bruger ikke DNI (naturindikator.dk) — ingen åben API.
+            Data: <code>kommune-ansvar.json</code>, <code>kommune-ranking.json</code> og{' '}
+            <code>kommune-oplande.json</code> (bygget månedligt sammen med øvrige kommune-benchmarks). Kode:{' '}
+            <a href={ghLink('etl/build_kommune_ansvar.py')} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">build_kommune_ansvar.py</a>.
           </p>
         </section>
 

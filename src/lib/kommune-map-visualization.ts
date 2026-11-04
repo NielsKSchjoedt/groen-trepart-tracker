@@ -80,8 +80,9 @@ export function showChoroplethScaleToggle(
 }
 
 /**
- * Compute delivery-vs-ansvar index for each kommune (same formula as ranglisten).
- * Uses the phase-filtered ha totals already applied in `kommuner`.
+ * Share of each kommune's own part of the goal that the mapped hectares cover
+ * (same idea as ranglisten). Uses the phase-filtered ha totals in `kommuner`,
+ * so it follows the map's phase and supplement choices.
  */
 export function computeAnsvarIndices(
   kommuner: Pick<KommuneMetrics, 'kode' | 'extractionHa' | 'afforestationTotalHa'>[],
@@ -90,23 +91,12 @@ export function computeAnsvarIndices(
 ): Record<string, number | null> {
   if (!ranking) return {};
 
-  const natTotal = kommuner.reduce(
-    (sum, km) => sum + (metric === 'extraction' ? km.extractionHa : km.afforestationTotalHa),
-    0,
-  );
-  if (natTotal <= 0) return {};
-
   const out: Record<string, number | null> = {};
   for (const km of kommuner) {
     const row = ranking.byKommune[km.kode];
-    const ansvar = row?.ansvarPct ?? 0;
+    const ansvarHa = (metric === 'extraction' ? row?.ansvarLavbundHa : row?.ansvarSkovHa) ?? 0;
     const delivery = metric === 'extraction' ? km.extractionHa : km.afforestationTotalHa;
-    if (ansvar <= 0 || delivery <= 0) {
-      out[km.kode] = null;
-      continue;
-    }
-    const leveringPct = (delivery / natTotal) * 100;
-    out[km.kode] = Math.round((leveringPct / ansvar) * 1000) / 1000;
+    out[km.kode] = ansvarHa > 0 ? Math.round((delivery / ansvarHa) * 1000) / 1000 : null;
   }
   return out;
 }
@@ -245,9 +235,9 @@ export function resolveKommuneMapValue(
     const metricLabel = ctx.activeMetric === 'afforestation' ? 'skovrejsning' : 'lavbund';
     return {
       value: idx ?? 0,
-      label: idx != null && idx > 0
-        ? `${formatDanishNumber(Math.round(idx * 10) / 10)}× ${metricLabel} ift. ansvar`
-        : 'Ingen levering eller ingen ansvarsbasis',
+      label: idx == null
+        ? `Ingen andel af ${metricLabel}smålet`
+        : `${formatDanishNumber(Math.round(idx * 100))} % af kommunens ${metricLabel}sandel`,
       usesDifferenceScale: false,
       usesSimulationScale: false,
       usesAnsvarScale: true,
@@ -325,16 +315,16 @@ export function metricSequentialColor(
   return lerpHex(stops[idx], stops[idx + 1], seg - idx);
 }
 
-/** Fixed threshold colours for ansvar index — matches ranglisten semantics and legend. */
+/** Fixed threshold colours for the share of a kommune's part of the goal (0,25 = 25 %). */
 export function ansvarIndexColor(
-  index: number,
+  share: number,
   metric: 'extraction' | 'afforestation',
 ): string {
-  if (index <= 0) return NO_DATA_COLOR;
+  if (share <= 0) return NO_DATA_COLOR;
   const stops = METRIC_COLOR_STOPS[metric];
-  if (index > 1.5) return stops[3];
-  if (index > 1.15) return stops[2];
-  if (index >= 0.85) return stops[1];
+  if (share >= 0.5) return stops[3];
+  if (share >= 0.25) return stops[2];
+  if (share >= 0.1) return stops[1];
   return stops[0];
 }
 
@@ -461,11 +451,11 @@ export function getKommuneMapLegendStops(ctx: KommuneMapVisualContext): LegendSt
       ? METRIC_COLOR_STOPS.afforestation
       : METRIC_COLOR_STOPS.extraction;
     return [
-      { color: stops[3], label: 'Meget over forventet (>1,5×)' },
-      { color: stops[2], label: 'Over forventet' },
-      { color: stops[1], label: 'Om forventet (~1×)' },
-      { color: stops[0], label: 'Under forventet' },
-      { color: NO_DATA_COLOR, label: 'Ingen levering' },
+      { color: stops[3], label: '50 % eller mere af andelen' },
+      { color: stops[2], label: '25–50 %' },
+      { color: stops[1], label: '10–25 %' },
+      { color: stops[0], label: 'Under 10 %' },
+      { color: NO_DATA_COLOR, label: 'Intet godkendt eller anlagt' },
     ];
   }
 
@@ -541,8 +531,8 @@ export function getKommuneMapLegendLabel(ctx: KommuneMapVisualContext): string {
     && (ctx.activeMetric === 'extraction' || ctx.activeMetric === 'afforestation')
   ) {
     return ctx.activeMetric === 'afforestation'
-      ? 'Skovrejsning — ift. ansvar (×)'
-      : 'Lavbund — ift. ansvar (×)';
+      ? 'Skovrejsning — andel af kommunens andel (%)'
+      : 'Lavbund — andel af kommunens andel (%)';
   }
 
   const labels: Record<KommuneMetric, string> = {

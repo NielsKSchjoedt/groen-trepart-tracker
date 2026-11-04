@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowLeft, Mountain, Trees, Droplets, Leaf, Factory } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Mountain, Trees, Droplets } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { type BoardDef, type BoardFormula, type BoardKey } from '@/lib/kommune-boards';
 
@@ -6,8 +6,6 @@ const BOARD_ICONS: Record<BoardKey, LucideIcon> = {
   lavbund: Mountain,
   skov: Trees,
   kvaelstof: Droplets,
-  natur: Leaf,
-  co2: Factory,
 };
 
 const ink = (hex: string) => `color-mix(in srgb, ${hex} 76%, black)`;
@@ -16,7 +14,7 @@ const tint = (hex: string, whiteShare: number) =>
 
 interface BoardExplainerPanelProps {
   def: BoardDef;
-  /** Shown on the natur board — DN nuance about no official kommune split. */
+  /** No official kommune split exists — shown on every board's back. */
   disclaimer?: string;
   onClose: () => void;
 }
@@ -45,7 +43,7 @@ export function BoardExplainerPanel({ def, disclaimer, onClose }: BoardExplainer
             Hvordan virker det?
           </span>
           <span className="block text-[10px] leading-tight truncate" style={{ color: def.tone }}>
-            {def.label} — {def.kind === 'levering' ? 'indsats ift. ansvar' : 'aktuel tilstand'}
+            {def.label} — indsats ift. kommunens andel af målet
           </span>
         </span>
         <button
@@ -60,9 +58,7 @@ export function BoardExplainerPanel({ def, disclaimer, onClose }: BoardExplainer
 
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
         <p className="text-[11px] text-muted-foreground leading-relaxed">
-          {def.kind === 'levering'
-            ? 'Måler kommunens indsats ift. dens andel af landets naturpotentiale — ikke en politisk forpligtelse per kommune.'
-            : 'Måler en aktuel tilstand i kommunen — ikke Trepart-levering direkte.'}
+          {def.ansvarNote}
         </p>
 
         <dl className="space-y-2.5">

@@ -1,5 +1,40 @@
 [
   {
+    "version": "v1.1.0",
+    "date": "2026-11-04",
+    "summary": "Kommune-ranglisterne bygget om: hver kommune måles nu mod sin egen andel af målet og på det, der er besluttet eller anlagt",
+    "changes": [
+      {
+        "type": "method",
+        "description": "Kommune-ranglisterne målte alle tre mål mod kommunens andel af landets naturpotentiale — et biodiversitetskort. Det gav ingen mening for kvælstof og lavbund, og små nævnere gav absurde vindere: Vallensbæk stod som landets bedste skovkommune på 16 ha. Nu måles hver kommune mod sin egen andel af hvert mål: kvælstof efter kravene i MARS-oplandene fordelt på landbrugsjorden, lavbund efter oplandenes lavbundspotentiale fordelt på den dyrkede kulstofrige jord, og skov efter andel af landets landbrugsareal. Kommuner med under 0,1 % af et mål rangeres ikke på det. (Teknisk: ny etl/build_kommune_ansvar.py; MARS-planernes mål, DCA kulstofkort 2022 og Danmarks Statistik AREALDK.)"
+      },
+      {
+        "type": "method",
+        "description": "Ranglisterne talte forundersøgelser med som levering, så kommuner med 0 ha anlagt kunne stå øverst som «udtaget». Standard er nu godkendt + anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan stadig slås til under projektfaser. Det gælder også kortet og kommunesiderne."
+      },
+      {
+        "type": "method",
+        "description": "Skov på ranglisterne talte Naturstyrelsens statsskove og alle Klimaskovfondens projekter med, også skove plantet årtier før aftalen. Nu tæller MARS og Klimaskovfonden fra 2024; Naturstyrelsens skove tælles ikke, fordi kilden ikke angiver, hvornår de er plantet."
+      },
+      {
+        "type": "improvement",
+        "description": "Tallene på ranglisterne viser nu, hvor stor en del af kommunens egen andel af målet der er godkendt eller anlagt (fx «54 % af kommunens andel») i stedet for et indeks som «7 gange forventet». «Mod målet» sætter samme andel over for, hvor meget af tiden til fristen der er gået, og landets tempo regnes nu på de samme faser som kommunernes."
+      },
+      {
+        "type": "fix",
+        "description": "Kommuner uden levering eller uden andel af et mål stod med «Ingen data», som om tallene manglede. Fx stod Tårnby som nr. 1 på natur, men med «Ingen data» på alle tre mål. Nu står der, hvorfor: «Intet godkendt eller anlagt», «For lille andel af målet til at rangere» eller «Intet kvælstofkrav i kommunens oplande»."
+      },
+      {
+        "type": "removed",
+        "description": "Ranglisterne for beskyttet natur og CO₂ er fjernet. De målte tilstande, ikke trepart-indsats, og afhang mest af geografi og energiforsyning — Læsø stod fx som bedst på CO₂ med negativ udledning. Begge vises stadig på kortet og kommunesiderne."
+      },
+      {
+        "type": "improvement",
+        "description": "På kommunesiderne var valget af delmål til kortet en grå rullemenu, der var svær at få øje på. Nu vælger du delmålet med farvede knapper direkte på kortet, og når et delmål er valgt, står det som en lille farvet knap over kortet."
+      }
+    ]
+  },
+  {
     "version": "v1.0.0",
     "date": "2026-11-04",
     "summary": "Version 1.0: indsats adskilt fra effekt, tal der følger MARS, kommune-rangliste og nyt videnscenter",

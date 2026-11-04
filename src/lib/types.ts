@@ -206,6 +206,8 @@ export interface KommuneMetrics {
   afforestationMarsHa: number;
   /** Afforestation area (ha) from Klimaskovfonden projects */
   afforestationKsfHa: number;
+  /** Klimaskovfonden afforestation (ha) from the agreement year (2024) on — counted in the rankings. */
+  afforestationKsfSinceAgreementHa?: number;
   /** Afforestation area (ha) from Naturstyrelsen projects */
   afforestationNstHa: number;
   /** Combined afforestation from all three sources */
@@ -910,12 +912,24 @@ export interface KommuneRankingRow {
   kode: string;
   kommuneNavn: string;
   region: string;
+  /** Share of national nature potential (DCE 30 %) — nature context, not a goal ansvar. */
   ansvarPct: number;
+  /** The kommune's share of each national goal (see etl/build_kommune_ansvar.py). */
+  ansvarLavbundHa: number;
+  ansvarLavbundPct: number;
+  ansvarSkovHa: number;
+  ansvarSkovPct: number;
+  ansvarKvaelstofT: number;
+  ansvarKvaelstofPct: number;
   ansvarKuPrio1Pct: number;
   ansvarKuPrio2Pct: number;
   leveringUdtagningPct: number | null;
   leveringSkovPct: number | null;
   leveringKvaelstofPct: number | null;
+  /**
+   * Share of the kommune's own part of each goal that is delivered in the selected
+   * phases (0,25 = a quarter). Null when the kommune has no part of that goal.
+   */
   idxLavbund: number | null;
   idxSkov: number | null;
   idxKvaelstof: number | null;

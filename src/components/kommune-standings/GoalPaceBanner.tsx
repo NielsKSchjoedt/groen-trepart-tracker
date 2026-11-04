@@ -5,7 +5,7 @@ const pct = (n: number) => `${Math.round(n)}%`;
 
 /**
  * National goal-pace context shown above the effort metrics whenever the
- * "Mod målet" lens is active. Anchors a kommune's standing to whether the
+ * "Mod målet" lens is active, computed on the same phases as the ranking. Anchors a kommune's standing to whether the
  * tripartite as a whole is on pace for 2030 — so "foran feltet" is never
  * mistaken for "on track to the goal".
  */
@@ -33,7 +33,8 @@ export function GoalPaceBanner({ pace }: { pace: NationalPaceContext }) {
       <Flag className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" strokeWidth={2.2} aria-hidden />
       <span>
         <strong>Landet samlet, mod målet:</strong> {parts.join(' · ')}. <strong>{verdict}</strong>{' '}
-        En placering her skal læses i det lys — 1,0× = på sporet mod fristen, ikke “bedst i feltet”.
+        Regnet på de valgte projektfaser — forsidens tal tæller kun anlagt. En placering her skal læses i det lys:
+        1,0× = på sporet mod fristen, ikke “bedst i feltet”.
       </span>
     </p>
   );

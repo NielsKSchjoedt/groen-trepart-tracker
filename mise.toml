@@ -73,6 +73,10 @@ run = "cd etl && PYTHONUNBUFFERED=1 python3 build_kommune_benchmark.py"
 description = "Build per-project nature overlap, attributed to kommune (GeoPandas spatial overlay)"
 run = "cd etl && PYTHONUNBUFFERED=1 python3 build_project_nature_overlap.py"
 
+[tasks.build-kommune-ansvar]
+description = "Build per-kommune ansvar for kvælstof, lavbund og skov (needs setup-spatial)"
+run = "cd etl && python3 build_kommune_ansvar.py"
+
 [tasks.build-kommune-ranking]
 description = "Build Sprint 6 kommune competition ranking JSON"
 run = "cd etl && python3 build_kommune_ranking.py"

@@ -20,13 +20,31 @@ class TestKommuneRankingArtifact(unittest.TestCase):
         self.assertEqual(len(data["byKommune"]), 98)
 
     @unittest.skipUnless(RANKING_PATH.exists() and B1_PATH.exists(), "ranking/b1 missing")
-    def test_ansvar_sums_near_hundred(self) -> None:
+    def test_naturpotentiale_sums_near_hundred(self) -> None:
         data = json.loads(RANKING_PATH.read_text(encoding="utf-8"))
         b1 = json.loads(B1_PATH.read_text(encoding="utf-8"))
         total = sum(row["ansvarPct"] for row in data["kommuner"])
         b1_total = sum(r["dce30PctOfNational"] for r in b1["byKommune"].values())
         self.assertAlmostEqual(total, b1_total, delta=0.5)
         self.assertAlmostEqual(total, 100.0, delta=2.0)
+
+    @unittest.skipUnless(RANKING_PATH.exists(), "kommune-ranking.json not built yet")
+    def test_goal_ansvar_sums_to_hundred(self) -> None:
+        data = json.loads(RANKING_PATH.read_text(encoding="utf-8"))
+        for key in ("ansvarLavbundPct", "ansvarSkovPct", "ansvarKvaelstofPct"):
+            total = sum(row[key] for row in data["kommuner"])
+            self.assertAlmostEqual(total, 100.0, delta=0.5, msg=key)
+
+    @unittest.skipUnless(RANKING_PATH.exists(), "kommune-ranking.json not built yet")
+    def test_idx_is_delivery_over_own_ansvar(self) -> None:
+        data = json.loads(RANKING_PATH.read_text(encoding="utf-8"))
+        for row in data["kommuner"]:
+            if row["ansvarLavbundHa"] > 0:
+                self.assertAlmostEqual(
+                    row["idxLavbund"], row["deliveryExtractionHa"] / row["ansvarLavbundHa"], delta=1e-3
+                )
+            else:
+                self.assertIsNone(row["idxLavbund"])
 
     @unittest.skipUnless(RANKING_PATH.exists(), "kommune-ranking.json not built yet")
     def test_levering_pct_sums_near_hundred(self) -> None:

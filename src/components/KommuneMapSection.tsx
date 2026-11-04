@@ -529,9 +529,9 @@ export function KommuneMapSection({
                           </p>
                         ) : choroplethScale === 'ansvar' ? (
                           <p>
-                            Farverne viser levering ift. ansvar (×). 1,0× betyder at kommunen leverer
-                            proportionalt med sit naturpotentiale. Det mørkeste område har højest index —
-                            ikke nødvendigvis flest hektar.
+                            Farverne viser, hvor stor en del af kommunens egen andel af målet de viste hektar
+                            dækker. Det mørkeste område er længst med sin andel — ikke nødvendigvis det med
+                            flest hektar.
                           </p>
                         ) : (
                           <p>

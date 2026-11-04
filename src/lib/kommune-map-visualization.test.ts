@@ -7,34 +7,33 @@ import {
 import type { KommuneRankingData } from '@/lib/types';
 
 describe('computeAnsvarIndices', () => {
-  it('matches ranglisten formula (levering % ÷ ansvar %)', () => {
+  it('divides mapped hectares by the kommune\'s own part of the goal', () => {
     const ranking = {
       byKommune: {
-        '0101': { ansvarPct: 1.2973 },
-        '0147': { ansvarPct: 2.0 },
+        '0101': { ansvarLavbundHa: 1000, ansvarSkovHa: 0 },
+        '0147': { ansvarLavbundHa: 0, ansvarSkovHa: 0 },
       },
     } as unknown as KommuneRankingData;
 
     const kommuner = [
-      { kode: '0101', extractionHa: 1976.4, afforestationTotalHa: 0 },
+      { kode: '0101', extractionHa: 250, afforestationTotalHa: 0 },
       { kode: '0147', extractionHa: 500, afforestationTotalHa: 0 },
     ];
 
-    const indices = computeAnsvarIndices(kommuner, 'extraction', ranking);
-    const natTotal = 2476.4;
-    const expected0101 = ((1976.4 / natTotal) * 100) / 1.2973;
-    expect(indices['0101']).toBeCloseTo(expected0101, 3);
-    expect(indices['0101']).toBeGreaterThan(1);
+    const shares = computeAnsvarIndices(kommuner, 'extraction', ranking);
+    expect(shares['0101']).toBeCloseTo(0.25, 5);
+    // No part of the goal → no share (not "infinitely ahead").
+    expect(shares['0147']).toBeNull();
   });
 });
 
 describe('ansvarIndexColor', () => {
-  it('uses fixed thresholds aligned with legend', () => {
+  it('uses fixed share bands aligned with the legend', () => {
     expect(ansvarIndexColor(0, 'extraction')).toBe('hsl(0 0% 92%)');
-    expect(ansvarIndexColor(0.5, 'extraction')).toBe('#fef3c7');
-    expect(ansvarIndexColor(1.0, 'extraction')).toBe('#fcd34d');
-    expect(ansvarIndexColor(1.3, 'extraction')).toBe('#a16207');
-    expect(ansvarIndexColor(2.0, 'extraction')).toBe('#78350f');
+    expect(ansvarIndexColor(0.05, 'extraction')).toBe('#fef3c7');
+    expect(ansvarIndexColor(0.15, 'extraction')).toBe('#fcd34d');
+    expect(ansvarIndexColor(0.3, 'extraction')).toBe('#a16207');
+    expect(ansvarIndexColor(0.6, 'extraction')).toBe('#78350f');
   });
 });
 

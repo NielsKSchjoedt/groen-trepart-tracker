@@ -1,17 +1,15 @@
-import { idxPhrase, type StandingsLensKey } from '@/lib/kommune-ranking';
+import { idxPhrase, paceIdx, type StandingsLensKey } from '@/lib/kommune-ranking';
+import { paceStatusOf } from '@/lib/kommune-goal-pace';
 
 /**
  * Shared model for the three Grøn Trepart "effort" goals (lavbund, skov,
- * kvælstof) — all measure progress against a kommune's forventede niveau, so
- * more is better. Single source of truth for both the kommune hero chips and
- * the detailed standings breakdown, so status wording AND the per-measure
- * explanations stay in sync.
+ * kvælstof). Single source of truth for both the kommune hero chips and the
+ * detailed standings breakdown, so status wording AND the per-measure
+ * explanations stay in sync with the rangliste boards in `kommune-boards.ts`.
  *
- * `explain`/`formula`/`source` mirror the canonical rangliste board
- * definitions in `kommune-boards.ts` (the "ift. ansvar" option) and feed the
- * per-line (i) tooltips on the kommune detail page. All three indices are
- * computed the same way: levering-andel ÷ andel af nationalt naturpotentiale
- * (DCE 30 %) — see `buildDynamicRanking` / `build_kommune_ranking.py`.
+ * Every goal is measured the same way: how much of the kommune's OWN part of
+ * the national goal is godkendt or anlagt — see `buildDynamicRanking` and
+ * `etl/build_kommune_ansvar.py` for how that part is set.
  */
 export const INDSATS_MAAL = [
   {
@@ -20,9 +18,9 @@ export const INDSATS_MAAL = [
     short: 'Lavbund',
     tone: '#a16207',
     absUnit: 'ha',
-    explain: 'Hvor meget lavbundsjord kommunen har taget ud af drift, sat ift. dens andel af landets naturpotentiale.',
-    formula: 'Andel af alt udtaget lavbund i DK ÷ andel af nationalt naturpotentiale (DCE 30 %)',
-    source: 'MARS-projektdata + naturpotentiale (DCE 30 %)',
+    explain: 'Hvor stor en del af kommunens andel af lavbundsmålet (140.000 ha) der er godkendt eller anlagt.',
+    formula: 'Godkendt + anlagt lavbund i kommunen ÷ kommunens andel af målet. Andelen er MARS-oplandenes lavbundspotentiale fordelt efter, hvor den dyrkede kulstofrige jord ligger.',
+    source: 'MARS-projekter og -planer · DCA kulstofkort 2022 · Danmarks Statistik (AREALDK)',
   },
   {
     key: 'idxSkov',
@@ -30,9 +28,9 @@ export const INDSATS_MAAL = [
     short: 'Skov',
     tone: '#15803d',
     absUnit: 'ha',
-    explain: 'Hvor meget ny skov kommunen har rejst, sat ift. dens andel af landets naturpotentiale. Inkluderer MARS, Klimaskovfonden og Naturstyrelsen.',
-    formula: 'Andel af al ny skov i DK ÷ andel af nationalt naturpotentiale (DCE 30 %)',
-    source: 'MARS + KSF + NST + naturpotentiale (DCE 30 %)',
+    explain: 'Hvor stor en del af kommunens andel af skovmålet (250.000 ha) der er godkendt eller plantet. Tæller MARS og Klimaskovfonden fra 2024 — ikke Naturstyrelsens skove, som ikke har en plantedato.',
+    formula: 'Godkendt + anlagt skov (MARS) + Klimaskovfonden fra 2024 ÷ kommunens andel af målet. Andelen følger kommunens andel af landets landbrugsareal.',
+    source: 'MARS-projekter · Klimaskovfonden · Danmarks Statistik (AREALDK)',
   },
   {
     key: 'idxKvaelstof',
@@ -40,9 +38,9 @@ export const INDSATS_MAAL = [
     short: 'Kvælstof',
     tone: '#0d9488',
     absUnit: 't',
-    explain: 'Hvor meget kvælstof kommunens projekter reducerer, sat ift. dens andel af landets naturpotentiale.',
-    formula: 'Andel af al N-reduktion i DK ÷ andel af nationalt naturpotentiale (DCE 30 %)',
-    source: 'MARS-projektdata + naturpotentiale (DCE 30 %)',
+    explain: 'Hvor stor en del af kommunens andel af kvælstofmålet (12.776 t) der er godkendt eller anlagt.',
+    formula: 'Kvælstofeffekt af godkendte + anlagte projekter ÷ kommunens andel af målet. Andelen er MARS-oplandenes reduktionskrav fordelt efter kommunens landbrugsareal i hvert opland.',
+    source: 'MARS-projekter og -planer · Danmarks Statistik (AREALDK)',
   },
 ] as const satisfies ReadonlyArray<{
   key: StandingsLensKey;
@@ -55,9 +53,9 @@ export const INDSATS_MAAL = [
   source: string;
 }>;
 
-/** Shared "1,0× = som forventet" framing, reused across the per-measure tooltips. */
-export const FORVENTET_NIVEAU_NOTE =
-  '1,0× = som forventet (de to andele er lige store). Højere = leverer mere end ansvaret tilsiger. Den lodrette streg på søjlen markerer 1,0×.';
+/** How to read a share-of-ansvar track, reused across the per-measure tooltips. */
+export const ANSVAR_NOTE =
+  'Søjlen er kommunens egen andel af målet; 100 % = hele andelen. Stregen viser, hvor langt kommunen burde være nu, hvis den skal nå sin andel til fristen.';
 
 export type StatusKind = 'over' | 'on' | 'under' | 'none';
 
@@ -68,17 +66,13 @@ export interface IndsatsStatus {
 }
 
 /**
- * Map a forventet-index (1,0× = som forventet) to a plain-language status.
- * Mirrors the thresholds used across the standings UI.
+ * Status for a share of the kommune's own part of a goal, judged against the
+ * time that has passed (`ratio` = 1 ÷ time elapsed). The detail line keeps the
+ * plain share ("34 % af kommunens andel").
  */
-export function statusOf(idx: number | null): IndsatsStatus {
-  if (idx == null) return { kind: 'none', word: 'Ingen data', detail: '' };
-  if (idx <= 0) return { kind: 'under', word: 'Ikke begyndt', detail: '' };
-  const detail = idxPhrase(idx);
-  if (idx >= 3) return { kind: 'over', word: 'Langt foran', detail };
-  if (idx >= 1.5) return { kind: 'over', word: 'Foran', detail };
-  if (idx >= 0.85) return { kind: 'on', word: 'På sporet', detail };
-  return { kind: 'under', word: 'Under forventet', detail };
+export function statusOf(share: number | null, ratio: number | null): IndsatsStatus {
+  const status = paceStatusOf(paceIdx(share, ratio));
+  return share != null && share > 0 ? { ...status, detail: idxPhrase(share) } : status;
 }
 
 /** Bar fill colour per status — used by the standings track. */

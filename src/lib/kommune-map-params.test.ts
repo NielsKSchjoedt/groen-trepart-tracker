@@ -46,10 +46,10 @@ describe('kommune-map-params', () => {
       fullscreen: false,
     });
     expect(caption).toContain('Lavbund');
-    expect(caption).toContain('ift. ansvar');
+    expect(caption).toContain('andel af ansvar');
   });
 
-  it('omits faser when the selection is the pipeline default', () => {
+  it('omits faser when the selection is the default (godkendt + anlagt)', () => {
     const params = new URLSearchParams('metric=lavbund');
     applyKommuneMapViewState(params, {
       fordelingViewMode: 'actual',
@@ -62,7 +62,7 @@ describe('kommune-map-params', () => {
     });
     expect(params.get('faser')).toBeNull();
     const parsed = parseKommuneMapViewState(new URLSearchParams());
-    expect(parsed.selectedPhases.has('preliminary')).toBe(true);
+    expect(parsed.selectedPhases.has('preliminary')).toBe(false);
     expect(parsed.selectedPhases.has('approved')).toBe(true);
     expect(parsed.selectedPhases.has('established')).toBe(true);
     expect(parsed.selectedPhases.has('sketch')).toBe(false);

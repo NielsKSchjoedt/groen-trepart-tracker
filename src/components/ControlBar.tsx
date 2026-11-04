@@ -77,7 +77,7 @@ interface ControlBarSegmentedProps<T extends string> {
   className?: string;
 }
 
-/** Segmented toggle — Mod målet / Ift. ansvar, grundkort, projekt-tal m.fl. */
+/** Segmented toggle — Andel af ansvar / Mod målet, grundkort, projekt-tal m.fl. */
 export function ControlBarSegmented<T extends string>({
   value,
   options,

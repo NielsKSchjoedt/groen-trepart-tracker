@@ -26,7 +26,7 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { useKommuneData } from '@/hooks/useKommuneData';
 import { consumeKommuneListReturnState, navigateToKommuneByKode, restoreKommuneListScroll } from '@/lib/kommune-navigation';
 import type { KommuneMetric, KommunePhase, SupplementSource } from '@/lib/kommune-metrics';
-import { buildFilteredKommuner, DEFAULT_PHASES, METRIC_SUPPLEMENTS } from '@/lib/kommune-metrics';
+import { buildFilteredKommuner, DEFAULT_PHASES, METRIC_SUPPLEMENTS, NO_SUPPLEMENTS } from '@/lib/kommune-metrics';
 import { buildDynamicRanking } from '@/lib/kommune-ranking-dynamic';
 import { computeNationalPace, paceRatiosOf } from '@/lib/kommune-goal-pace';
 import { enrichKommunerWithKsfLavbund } from '@/lib/kommune-ksf-lavbund';
@@ -77,7 +77,7 @@ export default function KommunePage() {
   const setMapOverlays = (overlays: typeof mapOverlays) => patchMapView({ mapOverlays: overlays });
   const setFullscreen = (open: boolean) => patchMapView({ fullscreen: open });
 
-  const { data, kommunerGeo, ksfProjects, nstProjects, kommuneRanking, kommuneBenchmark, klimaregnskab, fordelingSimulation, loadError, isLoading } = useKommuneData();
+  const { data, kommunerGeo, ksfProjects, nstProjects, kommuneRanking, kommuneBenchmark, fordelingSimulation, loadError, isLoading } = useKommuneData();
 
   const activeMetric: KommuneMetric | null = useMemo(
     () => parseKommuneMetricParam(searchParams),
@@ -96,18 +96,25 @@ export default function KommunePage() {
     [kommuner, selectedPhases, activeSupplements],
   );
 
+  // The ranking follows the phase filter but never the map's supplement toggles:
+  // it always counts MARS plus Klimaskovfonden forest from 2024 (see buildDynamicRanking).
+  const rankingKommuner = useMemo(
+    () => buildFilteredKommuner(kommuner, selectedPhases, NO_SUPPLEMENTS),
+    [kommuner, selectedPhases],
+  );
+
   const effectiveRanking = useMemo(
-    () => (kommuneRanking ? buildDynamicRanking(kommuneRanking, kommunerFiltered) : null),
-    [kommuneRanking, kommunerFiltered],
+    () => (kommuneRanking ? buildDynamicRanking(kommuneRanking, rankingKommuner) : null),
+    [kommuneRanking, rankingKommuner],
   );
 
   const standings = useStandings(effectiveRanking);
 
-  const nationalPace = useMemo(() => (data ? computeNationalPace(data) : null), [data]);
-  const paceRatios = useMemo(
-    () => (nationalPace ? paceRatiosOf(nationalPace) : undefined),
-    [nationalPace],
+  const nationalPace = useMemo(
+    () => (data && effectiveRanking ? computeNationalPace(data, effectiveRanking) : null),
+    [data, effectiveRanking],
   );
+  const paceRatios = useMemo(() => (data ? paceRatiosOf(data) : undefined), [data]);
 
   const kommuneChapterIds = useMemo(
     () => getKommuneChapters().map((c) => c.id),
@@ -203,8 +210,6 @@ export default function KommunePage() {
               <KommuneStandingsSection
                 ranking={effectiveRanking}
                 standings={standings}
-                klimaregnskab={klimaregnskab}
-                benchmark={kommuneBenchmark}
                 selectedPhases={selectedPhases}
                 onPhasesChange={setSelectedPhases}
                 selectedKode={null}
@@ -258,7 +263,7 @@ export default function KommunePage() {
             nstProjects={nstProjects}
             showPhaseFilter={showPhaseFilter}
             onPhasesChange={setSelectedPhases}
-            phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er forundersøgelse, godkendt og anlagt — skitser tæller ikke med. Ansvar-indekset (×) genberegnes efter valgte faser."
+            phaseFilterTooltip="Vælg hvilke MARS-projektfaser der tæller med i tallene på kortet, ranglisten og tabellen. Standard er godkendt og anlagt — det, der er besluttet eller i jorden. Forundersøgelser og skitser kan slås til. Andelen af kommunens ansvar genberegnes efter de valgte faser."
             supplementSources={supplementSources}
             onSupplementsChange={setActiveSupplements}
             isFullscreen={fullscreen}
@@ -336,8 +341,9 @@ export default function KommunePage() {
                 paceRatios={paceRatios}
               />
               <p className="text-[11px] text-muted-foreground leading-relaxed max-w-3xl">
-                Tallene viser realiseret indsats ift. kommunens andel af nationalt naturpotentiale. "Som forventet" = på niveau med ansvaret; flere gange = leverer mere end ansvaret tilsiger.
-                Skitser tæller ikke med i ranglisten. Beskyttet natur der dyrkes vises kun på kommunedetaljesiden — ikke som rangliste-akse.
+                Tallene viser, hvor stor en del af kommunens egen andel af hvert mål der er godkendt eller anlagt. Andelen er
+                MARS-oplandenes mål fordelt efter landbrugsjord og kulstofrig jord — en faglig fordeling, ikke en politisk forpligtelse.
+                Kommuner med under 0,1 % af et mål rangeres ikke på det. Beskyttet natur og CO₂ vises på kortet og kommunesiderne — ikke som ranglister.
               </p>
             </div>
           ) : (

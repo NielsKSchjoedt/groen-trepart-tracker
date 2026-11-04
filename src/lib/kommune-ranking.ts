@@ -12,9 +12,9 @@ export type StandingsLensKey = 'idxLavbund' | 'idxSkov' | 'idxKvaelstof';
 export type StandingsMode = 'relativ' | 'maal' | 'absolut';
 
 /**
- * Per-metric scalar that turns an "Ift. ansvar" index into a "Mod målet" index
- * (national progress fraction ÷ time elapsed fraction). Null when the metric
- * has no national pace data. See {@link computeNationalPace}.
+ * Per-metric scalar that turns a share-of-ansvar into a "Mod målet" index
+ * (1 ÷ time elapsed fraction). Null when the deadline is unknown.
+ * See `paceRatiosOf` in kommune-goal-pace.ts.
  */
 export interface MetricPaceRatios {
   idxLavbund: number | null;
@@ -38,7 +38,7 @@ export const STANDINGS_LENSES: StandingsLens[] = [
     full: 'Lavbundsudtagning',
     tone: '#a16207',
     kind: 'idx',
-    sub: 'Udtaget lavbund ift. potentiale',
+    sub: 'Andel af kommunens lavbundsansvar',
   },
   {
     key: 'idxSkov',
@@ -46,7 +46,7 @@ export const STANDINGS_LENSES: StandingsLens[] = [
     full: 'Skovrejsning',
     tone: '#15803d',
     kind: 'idx',
-    sub: 'Ny skov ift. potentiale',
+    sub: 'Andel af kommunens skovansvar',
   },
   {
     key: 'idxKvaelstof',
@@ -54,7 +54,7 @@ export const STANDINGS_LENSES: StandingsLens[] = [
     full: 'Kvælstofreduktion',
     tone: '#0d9488',
     kind: 'idx',
-    sub: 'Reduceret N ift. potentiale',
+    sub: 'Andel af kommunens kvælstofansvar',
   },
 ];
 
@@ -74,9 +74,9 @@ export interface StandingsRow extends KommuneRankingRow {
 
 export interface StandingsCell {
   sort: number;
-  /** Compact cell text (e.g. "7 gange", "90.038 ha"). */
+  /** Compact cell text (e.g. "34 %", "90.038 ha"). */
   txt: string;
-  /** Full plain-language phrase (e.g. "7 gange forventet"). */
+  /** Full plain-language phrase (e.g. "34 % af kommunens andel"). */
   phrase: string;
   idx?: number;
   behov?: boolean;
@@ -97,64 +97,97 @@ export function mergeStandingsRows(
   return out;
 }
 
-/** Format index multiplier for display (e.g. 1,9×). Kept for internal use. */
-export function fmtIdx(value: number | null | undefined): string {
-  if (value == null || Number.isNaN(value)) return '—';
-  return `${formatDanishNumber(value, 1)}×`;
+/**
+ * Kommuner whose part of a goal is below this share of the national goal (%)
+ * are listed but not ranked: with ~0 ansvar a handful of hectares turns into an
+ * extreme percentage (e.g. 16 ha of forest in a suburb). 0,1 % ≈ 140 ha lavbund,
+ * 250 ha skov or 13 t kvælstof.
+ */
+export const MIN_ANSVAR_PCT = 0.1;
+
+/** The kommune's share (%) of the national goal behind an axis. */
+export function ansvarPctForAxis(row: KommuneRankingRow, key: StandingsLensKey): number {
+  if (key === 'idxLavbund') return row.ansvarLavbundPct;
+  if (key === 'idxSkov') return row.ansvarSkovPct;
+  return row.ansvarKvaelstofPct;
 }
 
-/** Format a "gange"-multiplier: integers plain (7), fractions with one decimal (1,9). */
+/** The kommune's part of the national goal behind an axis, in ha or t. */
+export function ansvarUnitsForAxis(row: KommuneRankingRow, key: StandingsLensKey): number {
+  if (key === 'idxLavbund') return row.ansvarLavbundHa;
+  if (key === 'idxSkov') return row.ansvarSkovHa;
+  return row.ansvarKvaelstofT;
+}
+
+/** True when the kommune carries enough of the goal to be ranked on it. */
+export function isRankable(row: KommuneRankingRow, key: StandingsLensKey): boolean {
+  return row[key] != null && ansvarPctForAxis(row, key) >= MIN_ANSVAR_PCT;
+}
+
+/** Why a kommune is listed without a rank on an axis. */
+export function notRankablePhrase(row: KommuneRankingRow, key: StandingsLensKey): string {
+  if (ansvarPctForAxis(row, key) > 0) return 'For lille andel af målet til at rangere';
+  if (key === 'idxKvaelstof') return 'Intet kvælstofkrav i kommunens oplande';
+  if (key === 'idxLavbund') return 'Ingen dyrket lavbundsjord';
+  return 'Intet landbrugsareal';
+}
+
+/** "34 %", "0,4 %" — share of the kommune's own part of the goal. */
+function fmtSharePct(share: number): string {
+  const pct = share * 100;
+  if (pct > 0 && pct < 1) return `${formatDanishNumber(pct, 1)} %`;
+  return `${formatDanishNumber(Math.round(pct), 0)} %`;
+}
+
+/** Format a goal-pace multiplier: one decimal below 10 (0,4×), whole above. */
 function fmtTimes(value: number): string {
   const r = Math.round(value * 10) / 10;
   return Number.isInteger(r) ? formatDanishNumber(r, 0) : formatDanishNumber(r, 1);
 }
 
 /**
- * Full plain-language phrase for an index value — replaces the opaque "×".
- * The index = kommunens andel af national levering ÷ andel af naturpotentiale.
- * @example idxPhrase(7) // "7 gange forventet"
- * @example idxPhrase(1) // "Som forventet"
+ * Full phrase for a share of the kommune's own part of the goal.
+ * @example idxPhrase(0.34) // "34 % af kommunens andel"
+ * @example idxPhrase(0) // "Intet godkendt eller anlagt"
  */
 export function idxPhrase(value: number | null | undefined): string {
-  if (value == null || Number.isNaN(value)) return 'Ingen data';
-  if (value <= 0) return 'Intet anlagt endnu';
-  if (value >= 0.85 && value < 1.15) return 'Som forventet';
-  return `${fmtTimes(value)} gange forventet`;
+  if (value == null || Number.isNaN(value)) return 'Ingen andel af målet';
+  if (value <= 0) return 'Intet godkendt eller anlagt';
+  return `${fmtSharePct(value)} af kommunens andel`;
 }
 
-/** Compact plain-language form for dense tables (e.g. "7 gange", "som forventet"). */
+/** Compact form for dense tables (e.g. "34 %", "0 %"). */
 export function idxCompact(value: number | null | undefined): string {
   if (value == null || Number.isNaN(value)) return '—';
-  if (value <= 0) return 'intet';
-  if (value >= 0.85 && value < 1.15) return 'som forv.';
-  return `${fmtTimes(value)} gange`;
+  if (value <= 0) return '0 %';
+  return fmtSharePct(value);
 }
 
-/** Scale a peer ("Ift. ansvar") index into a goal-pace index. */
+/** Turn a share of ansvar into a goal-pace index (share ÷ time elapsed). */
 export function paceIdx(
-  peerIdx: number | null | undefined,
+  share: number | null | undefined,
   ratio: number | null | undefined,
 ): number | null {
-  if (peerIdx == null || Number.isNaN(peerIdx)) return null;
+  if (share == null || Number.isNaN(share)) return null;
   if (ratio == null || Number.isNaN(ratio)) return null;
-  if (peerIdx <= 0) return 0;
-  return Math.round(peerIdx * ratio * 10_000) / 10_000;
+  if (share <= 0) return 0;
+  return Math.round(share * ratio * 10_000) / 10_000;
 }
 
 /**
  * Full phrase for a goal-pace index (1,0× = on the trajectory needed).
- * @example paceIdxPhrase(1) // "På sporet (1,0× af nødvendigt tempo)"
+ * @example paceIdxPhrase(1.8) // "1,8× nødvendigt tempo"
  */
 export function paceIdxPhrase(value: number | null | undefined): string {
-  if (value == null || Number.isNaN(value)) return 'Ingen data';
-  if (value <= 0) return 'Intet anlagt endnu';
-  return `${fmtTimes(value)}× af nødvendigt tempo`;
+  if (value == null || Number.isNaN(value)) return 'Ingen andel af målet';
+  if (value <= 0) return 'Intet godkendt eller anlagt';
+  return `${fmtTimes(value)}× nødvendigt tempo`;
 }
 
 /** Compact goal-pace form for dense tables (e.g. "1,8× tempo"). */
 export function paceCompact(value: number | null | undefined): string {
   if (value == null || Number.isNaN(value)) return '—';
-  if (value <= 0) return 'intet';
+  if (value <= 0) return '0×';
   return `${fmtTimes(value)}× tempo`;
 }
 
@@ -185,16 +218,17 @@ export function standingsCell(
     return { sort: row.leveretHa, txt: t, phrase: t };
   }
   const idxKey = key as StandingsLensKey;
-  const v = row[idxKey];
-  // Goal-pace lens: scale the peer index by the national pace ratio. Order is
-  // preserved (constant multiplier), so when ratios are unavailable we fall
-  // back to the peer value purely for sorting.
+  if (!isRankable(row, idxKey)) {
+    return { sort: -1, txt: '—', phrase: notRankablePhrase(row, idxKey) };
+  }
+  const v = row[idxKey]!;
+  // Goal-pace lens: share ÷ time elapsed. Same order as the share (constant
+  // per-metric multiplier), so without ratios we fall back to the share.
   if (mode === 'maal' && paceRatios) {
     const pv = paceIdx(v, paceRatios[idxKey]);
-    if (pv == null) return { sort: -1, txt: '—', phrase: 'Ingen data' };
+    if (pv == null) return { sort: -1, txt: '—', phrase: 'Ingen frist' };
     return { sort: pv, txt: paceCompact(pv), phrase: paceIdxPhrase(pv), idx: pv };
   }
-  if (v == null) return { sort: -1, txt: '—', phrase: 'Ingen data' };
   return { sort: v, txt: idxCompact(v), phrase: idxPhrase(v), idx: v };
 }
 
@@ -254,6 +288,8 @@ export function standingsBarPct(
   const c = standingsCell(row, key, mode, paceRatios);
   if (c.sort < 0 || maxInSet <= 0) return 0;
   if (mode === 'absolut') return Math.min((c.sort / maxInSet) * 100, 100);
-  // relativ + maal share the fixed 2,5× track so 1,0× always sits at 40%.
+  // Share of ansvar: the track is the kommune's whole part of the goal.
+  if (mode === 'relativ') return Math.min(c.sort * 100, 100);
+  // Goal pace shares a fixed 2,5× track so 1,0× always sits at 40%.
   return Math.min((c.sort / 2.5) * 100, 100);
 }
