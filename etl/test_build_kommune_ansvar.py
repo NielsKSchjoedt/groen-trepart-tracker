@@ -35,7 +35,7 @@ class TestAllocate(unittest.TestCase):
         try:
             import numpy as np
             from build_kommune_ansvar import allocate
-        except SystemExit:
+        except (ImportError, SystemExit):
             self.skipTest("spatial dependencies not installed")
         weights = np.array([[1.0, 0.0], [3.0, 0.0]])
         fallback = np.array([[0.0, 1.0], [0.0, 1.0]])
