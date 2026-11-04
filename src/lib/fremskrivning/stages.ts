@@ -9,7 +9,7 @@ import type {
 
 const STAGE_ORDER: FremskrivningMarsStageId[] = ['anlagt', 'godkendt', 'forundersoegt', 'skitse'];
 
-const BASE_STAGES: Record<FremskrivningMarsStageId, Omit<FremskrivningStageMeta, 'description' | 'kind'> & { descriptions: Record<FremskrivningPillarId, string> }> = {
+const BASE_STAGES: Record<FremskrivningMarsStageId, Omit<FremskrivningStageMeta, 'description'> & { descriptions: Record<FremskrivningPillarId, string> }> = {
   anlagt: {
     id: 'anlagt',
     kind: 'mars',

@@ -1138,7 +1138,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       {/* Afforestation tab switcher */}
       {activePillar === 'afforestation' && (ksfProjects.length > 0 || nstProjects.length > 0) && (
         <div className="flex items-center gap-3 mb-5">
-          <ControlBarSegmented
+          <ControlBarSegmented<AfforestationTab>
             value={afforestationTab}
             options={AFFORESTATION_TABS.map((tab) => ({
               value: tab.id,
@@ -1178,7 +1178,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       {/* Extraction tab switcher */}
       {activePillar === 'extraction' && ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length > 0 && (
         <div className="flex items-center gap-3 mb-5">
-          <ControlBarSegmented
+          <ControlBarSegmented<ExtractionTab>
             value={extractionTab}
             options={EXTRACTION_TABS.map((tab) => ({
               value: tab.id,
@@ -1210,7 +1210,7 @@ export function DataTable({ plans, data, onSelectPlan }: DataTableProps) {
       )}
 
       {/* Tab content: MARS table (default for afforestation/extraction, always shown for other pillars except CO₂) */}
-      {activePillar !== 'co2' && (activePillar !== 'afforestation' || afforestationTab === 'mars') && (activePillar !== 'extraction' || extractionTab === 'mars' || ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length === 0) && (
+      {(activePillar !== 'afforestation' || afforestationTab === 'mars') && (activePillar !== 'extraction' || extractionTab === 'mars' || ksfProjects.filter((p) => p.projekttyp === 'Lavbund').length === 0) && (
         <>
           {/* Search */}
           <div className="relative mb-3 max-w-sm">

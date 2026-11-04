@@ -22,7 +22,8 @@ import {
   booleansToOverlays,
   useNationalMapPermalink,
 } from '@/lib/permalink/useNationalMapPermalink';
-import { clearGeoPanels, PROJECT_PARAM } from '@/lib/permalink/slices/panels';
+import { clearGeoPanels } from '@/lib/permalink/slices/panels';
+import { PROJECT_PARAM } from '@/lib/permalink/slices/project-open';
 import { MapLayersPanel, type LayerGroup, type LayerRow } from './MapLayersPanel';
 import { PhaseFilterPopover } from './PhaseFilterPopover';
 import { BIODIV_WMS_LAYERS, type BiodivWmsId } from '@/lib/biodiv-map';

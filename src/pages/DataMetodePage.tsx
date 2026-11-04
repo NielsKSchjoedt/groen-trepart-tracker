@@ -11,6 +11,7 @@ import { ViewSwitcher } from '@/components/ViewSwitcher';
 import { Footer } from '@/components/Footer';
 import { useQuery } from '@tanstack/react-query';
 import { loadDashboardData, loadEtlRunSummary } from '@/lib/data';
+import { formatDanishNumber } from '@/lib/format';
 import type { EtlDailyRun } from '@/lib/types';
 import { PipelineViz } from '@/components/PipelineViz';
 
@@ -588,9 +589,8 @@ export default function DataMetodePage() {
     year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit',
   });
 
-  const projectCount = data?.plans
-    ? data.plans.reduce((a: number, p: { projectCount?: number }) => a + (p.projectCount ?? 0), 0)
-    : '~1.200';
+  // Each MARS project counted once (plan rows repeat projects that span several plans).
+  const projectCount = data ? formatDanishNumber(data.national.projects.total) : '~1.200';
   const planCount = data?.plans?.length ?? 37;
 
   // Scroll to hash on mount (handles deep-links from InfoTooltips)

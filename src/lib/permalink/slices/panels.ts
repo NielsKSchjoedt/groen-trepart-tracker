@@ -31,5 +31,3 @@ export function clearGeoPanels(params: URLSearchParams): void {
   params.delete(PERMALINK_KEYS.plan);
   params.delete(PERMALINK_KEYS.kystvand);
 }
-
-export const PROJECT_PARAM = PERMALINK_KEYS.projekt;

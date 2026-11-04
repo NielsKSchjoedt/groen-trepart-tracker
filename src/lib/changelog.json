@@ -434,6 +434,14 @@
       {
         "type": "fix",
         "description": "Sidens ikon (det lille billede i browserfanen, på Googles søgeresultater, som bogmærke på mobilen og i link-forhåndsvisninger) viste stadig det gamle spire-logo flere steder, selvom browserfanen viste det nye blad. Kun én af ikonfilerne var blevet opdateret. Nu viser alle steder det samme blad-ikon. Google og andre tjenester kan være et stykke tid om at hente det nye ikon. (Teknisk: favicon.ico, PNG-ikoner og apple-touch-icon gendannet fra favicon.svg; versionsparameter på ikon-URL'erne.)"
+      },
+      {
+        "type": "fix",
+        "description": "Siden «Data & metode» viste «0 projekter» ved siden af datoen for seneste opdatering, fordi tallet blev lagt sammen fra et felt, der ikke findes i data. Nu vises det samlede antal MARS-projekter, hvor hvert projekt kun tælles én gang. (Teknisk: optælling skiftet til national.projects.total; fundet da typetjekket blev slået til igen.)"
+      },
+      {
+        "type": "fix",
+        "description": "I kommunetabellen havde kolonner uden data på kommuneniveau et lille advarselsikon, som skulle forklare det, når man holdt musen over. Forklaringen dukkede aldrig op. Nu vises teksten «Data ikke tilgængeligt på kommuneniveau», og skærmlæsere læser den også op. (Teknisk: title-attribut flyttet fra SVG-ikonet til et omgivende element.)"
       }
     ]
   },
