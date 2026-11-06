@@ -1,9 +1,18 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { escapeHtml } from '@/lib/html';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { X, Droplets, Mountain, Trees, Maximize2 } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
+import {
+  BASEMAP_ATTRIBUTION,
+  BASEMAP_TILE_MAX_NATIVE_ZOOM,
+  BASEMAP_TILE_MAX_ZOOM,
+  BASEMAP_TILE_URL,
+  PROJECT_OVERLAY_FIT_MAX_ZOOM,
+  PROJECT_OVERLAY_MAX_ZOOM,
+} from '@/lib/map-zoom';
 
 export interface ProjectMapInfo {
   name: string;
@@ -68,12 +77,14 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
       touchZoom: true,
       boxZoom: true,
       keyboard: true,
+      maxZoom: PROJECT_OVERLAY_MAX_ZOOM,
     });
 
     // Light basemap
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    L.tileLayer(BASEMAP_TILE_URL, {
+      maxZoom: BASEMAP_TILE_MAX_ZOOM,
+      maxNativeZoom: BASEMAP_TILE_MAX_NATIVE_ZOOM,
+      attribution: BASEMAP_ATTRIBUTION,
     }).addTo(map);
 
     // Draw the project polygon
@@ -95,7 +106,7 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
 
     // Fit to polygon bounds
     const bounds = polygon.getBounds();
-    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
+    map.fitBounds(bounds, { padding: [60, 60], maxZoom: PROJECT_OVERLAY_FIT_MAX_ZOOM });
 
     mapRef.current = map;
 
@@ -191,8 +202,8 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
 function buildPopupHtml(info: ProjectMapInfo): string {
   const lines: string[] = [];
   lines.push(`<div style="font-family:system-ui,sans-serif;font-size:12px;line-height:1.5">`);
-  lines.push(`<div style="font-weight:600;font-size:13px;margin-bottom:4px">${escHtml(info.name)}</div>`);
-  lines.push(`<div style="color:#666;margin-bottom:6px">${escHtml(info.phaseLabelDa)}${info.measureName ? ' · ' + escHtml(info.measureName) : ''}</div>`);
+  lines.push(`<div style="font-weight:600;font-size:13px;margin-bottom:4px">${escapeHtml(info.name)}</div>`);
+  lines.push(`<div style="color:#666;margin-bottom:6px">${escapeHtml(info.phaseLabelDa)}${info.measureName ? ' · ' + escapeHtml(info.measureName) : ''}</div>`);
 
   if ((info.areaHa ?? 0) > 0) {
     lines.push(`<div>Areal: <strong>${formatDanishNumber(info.areaHa!, 1)} ha</strong></div>`);
@@ -207,12 +218,8 @@ function buildPopupHtml(info: ProjectMapInfo): string {
     lines.push(`<div>Skov: <strong>${formatDanishNumber(info.afforestationHa!, 1)} ha</strong></div>`);
   }
   if (info.schemeName) {
-    lines.push(`<div style="margin-top:4px;color:#666">${escHtml(info.schemeName)}${info.schemeOrg ? ' (' + escHtml(info.schemeOrg) + ')' : ''}</div>`);
+    lines.push(`<div style="margin-top:4px;color:#666">${escapeHtml(info.schemeName)}${info.schemeOrg ? ' (' + escapeHtml(info.schemeOrg) + ')' : ''}</div>`);
   }
   lines.push('</div>');
   return lines.join('');
-}
-
-function escHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }

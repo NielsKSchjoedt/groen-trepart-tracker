@@ -1,14 +1,36 @@
 # Geographic Data Sources
 
-## DAGI / DAWA — Administrative Boundaries
+## DAGI — Administrative Boundaries (kommunegrænser)
 
-**DAGI** (Danmarks Administrative Geografiske Inddeling) from Klimadatastyrelsen. The authoritative source for all administrative boundaries.
+**DAGI** (Danmarks Administrative Geografiske Inddeling) from Klimadatastyrelsen is the authoritative
+source for all administrative boundaries.
 
-**DAWA REST API**: `api.dataforsyningen.dk/kommuner`
-- Reverse geocoding: coordinate → municipality
-- Formats: WFS, GeoJSON, JSON
-- Also provides: WGS84/EPSG:4326 output
-- Community-maintained GeoJSON on GitHub
+**DAWA is shut down** (2026, every `api.dataforsyningen.dk` DAWA endpoint answers HTTP 410). The tracker
+still writes the DAWA-era files (`data/dawa/kommuner.json`, `kommuner.geojson(.xz)`, same schema), but
+`etl/fetch_dawa.py` now reads DAGI from live official sources and uses the committed archive (last DAWA
+fetch 2026-09-11) only as fallback and reference:
+
+| Order | Source | Layer | Access | Notes |
+|---|---|---|---|---|
+| 1 | Datafordeleren DAGI WFS (`wfs.datafordeler.dk`) | `dagi_v001:kommuneinddeling` | Free API key, env `DATAFORDELER_API_KEY` (HTTP 401 `DAF-AUTH-0005` without) | Canonical. URL/layer overridable with `DATAFORDELER_DAGI_WFS_URL` / `DATAFORDELER_DAGI_TYPENAME`; not yet tested with a real key |
+| 2 | Plandata.dk GeoServer WFS (`geoserver.plandata.dk/geoserver/ows`) | `pdk:theme_pdk_kommuneplan_oversigt_vedtaget_v` | Open | Same DAGI geometry: 98 kommuner, identical vertex structure, every vertex within 0.5 mm of the archive. `komnr` is an integer (101 → "0101"). No Christiansø, region, bbox or visual centre |
+| 3 | Committed archive `data/dawa/kommuner.geojson.xz` | — | — | Fallback when no live source answers (ETL status `partial`) |
+
+How the merge works:
+
+- Each live kommune is compared with the archive. Geometry is "unchanged" when the ring structure is the
+  same and every vertex is within 1 cm. Unchanged kommuner keep the archive geometry and DAWA's own
+  `bbox`/`visueltcenter`, so a normal run changes no committed file except `data/dawa/summary.json`.
+- Only on a real boundary or name change are the archive, `kommuner.json` and the changed rows of
+  `kommuner.csv` rewritten. `bbox` is then computed like DAWA (WGS84 envelope of the four UTM bbox corners;
+  reproduces all 99 archived values to < 1e-6°) and `visueltcenter` as the pole of inaccessibility of the
+  largest polygon (median 4 m from DAWA's value; DAWA deviates for a few multi-part kommuner, e.g. Hillerød).
+- Region membership (`region`, `regionskode`) is static and always comes from the archive. Christiansø
+  (0411, not a kommune but listed by DAWA) always comes from the archive unless the live source has it.
+- A new kommune code (kommune reform) or a missing kommune rejects the live source; the archive is kept
+  and the reason is logged in `summary.json` → `source_errors`.
+- `data/dawa/summary.json` records `source`, `source_url`, `source_layer`, `verified_against_live_at` and
+  `changed_kommuner` for every run.
 
 ## Dataforsyningen — Base Geographic Data
 

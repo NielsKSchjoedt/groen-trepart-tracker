@@ -326,37 +326,16 @@ def main():
         total_area_km2 = total_area_ha / 100
         pct_of_land = total_area_km2 / DENMARK_LAND_AREA_KM2 * 100
 
-        type_names = {
-            "3110": "Sø (lake) — oligotrophic",
-            "3130": "Sø (lake) — nutrient-poor",
-            "3140": "Sø (lake) — calcareous",
-            "3150": "Sø (lake) — eutrophic",
-            "3160": "Sø (lake) — dystrophic",
-            "3210": "Vandløb (stream/river)",
-            "3220": "Vandløb (stream) — alpine",
-            "3260": "Vandløb — lowland to montane",
-            "4010": "Hede (wet heath)",
-            "4030": "Hede (dry heath)",
-            "4110": "Hede (heath) — common",
-            "4120": "Mose (bog/fen)",
-            "4210": "Overdrev (dry grassland)",
-            "5120": "Eng/Strandeng (meadow/salt marsh)",
-            "6230": "Overdrev — species-rich Nardus",
-            "6410": "Eng — Molinia meadow",
-            "7110": "Højmose (active raised bog)",
-            "7120": "Mose (degraded raised bog)",
-            "7140": "Mose (transition mire)",
-            "7150": "Mose — Rhynchosporion",
-            "7210": "Mose — calcareous fen",
-            "7220": "Mose — petrifying springs",
-            "7230": "Mose — alkaline fen",
-        }
+        # The WFS returns only a numeric `a_type`. Names used to come from a hand-made
+        # dictionary that borrowed EU Annex I habitat codes ("3220 — alpine" streams);
+        # it was never checked against the §3 codelist. Emit the code only until the
+        # official codelist is wired in — nothing renders these names today.
 
         type_breakdown = []
         for a_type, stats in sorted(type_totals.items(), key=lambda x: x[1]["area_ha"], reverse=True):
             type_breakdown.append({
                 "type": a_type,
-                "name": type_names.get(a_type, a_type),
+                "name": None,
                 "count": stats["count"],
                 "area_ha": round(stats["area_ha"], 1),
                 "area_km2": round(stats["area_ha"] / 100, 2),

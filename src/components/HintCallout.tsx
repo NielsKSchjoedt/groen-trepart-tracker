@@ -50,7 +50,7 @@ export function HintCallout({ icon: Icon, text, arrow, onDismiss, className = ''
     >
       <div className="relative hint-float-anim">
         {arrow !== 'none' && <span className={arrowClasses(arrow)} />}
-        <div className="bg-primary/[0.25] backdrop-blur-sm border border-primary/45 rounded-xl pl-3.5 pr-8 py-2.5 shadow-md flex items-center gap-2 max-w-[240px]">
+        <div className="bg-primary/[0.25] backdrop-blur-sm border border-primary/45 rounded-xl pl-3.5 pr-8 py-2.5 shadow-md flex items-center gap-2 max-w-full">
           <Icon className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={1.8} />
           <span className="text-xs font-medium text-primary leading-snug">{text}</span>
         </div>

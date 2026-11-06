@@ -62,8 +62,8 @@ export function LastUpdatedBadge({ fetchedAt }: LastUpdatedBadgeProps) {
   return (
     <div
       className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-border/60 bg-background/80 backdrop-blur-sm px-2.5 py-1 shadow-sm pointer-events-none select-none"
-      aria-label={`Data sidst opdateret ${label}`}
-      title={`Data hentet: ${new Date(fetchedAt).toLocaleString('da-DK')}`}
+      aria-label={`MARS-projektdata sidst opdateret ${label}`}
+      title={`MARS-projektdata hentet: ${new Date(fetchedAt).toLocaleString('da-DK')}. Øvrige kilder har egne datoer — se Data & metode.`}
     >
       {/* Blinking live dot */}
       <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
@@ -72,7 +72,7 @@ export function LastUpdatedBadge({ fetchedAt }: LastUpdatedBadgeProps) {
       </span>
 
       <span className="text-[10px] font-medium text-muted-foreground leading-none whitespace-nowrap">
-        Data sidst opdateret{' '}
+        MARS-data opdateret{' '}
         <span className="text-foreground/70">{label}</span>
       </span>
     </div>

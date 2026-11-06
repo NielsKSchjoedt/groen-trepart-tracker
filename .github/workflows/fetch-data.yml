@@ -5,13 +5,20 @@ on:
     # Run daily at 06:00 UTC (08:00 Danish time)
     - cron: '0 6 * * *'
   workflow_dispatch: # Allow manual trigger
+    inputs:
+      skip_plausibility:
+        description: 'Spring plausibilitetstjekket over (kun når et stort fald i tallene er ægte)'
+        type: boolean
+        default: false
 
 jobs:
   # ETL runs in its own job so the workflow can finish successfully and **save
   # Actions caches** even when the follow-up commit/merge job fails. GitHub only
   # persists cache entries when the job that used `actions/cache` completes
   # successfully; a failed `gh pr merge` in the same job used to prevent saves,
-  # so every run stayed cold (~38 min geocoding + ~20–38 min geometries).
+  # so every run stayed cold (~38 min geocoding + ~20–38 min geometries). MARS
+  # geometries now come from the official WFS in two bulk requests (~10 s); the
+  # WKT cache below only covers ids the WFS lacks and WFS outages.
   etl:
     runs-on: ubuntu-latest
     permissions:
@@ -20,7 +27,7 @@ jobs:
     outputs:
       changed: ${{ steps.changes.outputs.changed }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v7
         with:
@@ -34,19 +41,19 @@ jobs:
       # geometries via DAWA on every run (~38 min). The cache is keyed by run
       # so the latest entry is always restored via the restore-keys fallback.
       - name: Restore geocoding cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/geo-kommune-cache.json
           key: geo-kommune-cache-v1-${{ github.run_id }}
           restore-keys: |
             geo-kommune-cache-v1-
 
-      # Persist the MARS WKT geometry cache across runs.
-      # Without this, fetch_geometries.py re-fetches all ~6500 individual
-      # geometry API calls on every run (~20-38 min). With the cache, only
-      # newly added MARS projects are fetched (typically 0-50 per day).
+      # Persist the MARS WKT geometry cache across runs. Most polygons come from
+      # the official WFS in bulk, but ids the nightly WFS snapshot does not have
+      # yet are fetched one by one from REST — and on a WFS outage all of them
+      # (~6,700 calls, ~26 min). The cache keeps both cases to a small delta.
       - name: Restore MARS geometry cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/mars/geometries-wkt.json
           key: geometries-wkt-v1-${{ github.run_id }}
@@ -57,7 +64,7 @@ jobs:
       # and only re-fetch when a new data year becomes available (probed with
       # a single API call).
       - name: Restore Klimaregnskab raw data
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/klimaregnskab/noegletal_raw.json
           key: klimaregnskab-raw-v1-${{ github.run_id }}
@@ -68,7 +75,7 @@ jobs:
       # Coordinates that have already been geocoded are reused — only new
       # projects trigger API calls.
       - name: Restore Klimaskovfonden geocode cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/klimaskovfonden/geocode-cache.json
           key: klimaskov-geocode-v1-${{ github.run_id }}
@@ -76,7 +83,7 @@ jobs:
             klimaskov-geocode-v1-
 
       - name: Restore Naturstyrelsen geocode cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/naturstyrelsen-skov/geocode-cache.json
           key: naturstyrelsen-geocode-v1-${{ github.run_id }}
@@ -86,7 +93,7 @@ jobs:
       # §3 protected areas: skip 186K-feature WFS pagination when the total
       # feature count is unchanged since last run.
       - name: Restore §3 summary (for count-based skip)
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             data/section3/summary.json
@@ -98,7 +105,7 @@ jobs:
       # DAWA municipality boundaries: essentially static data, re-fetched
       # only when files are older than 30 days.
       - name: Restore DAWA data
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             data/dawa/kommuner.json
@@ -113,16 +120,19 @@ jobs:
         run: python3 fetch_mars.py
         working-directory: etl
 
-      - name: Fetch DAWA data
+      - name: Fetch kommune boundaries (DAGI)
         run: python3 fetch_dawa.py
         working-directory: etl
+        env:
+          # Optional: without it the open Plandata WFS (same DAGI geometry) is used.
+          DATAFORDELER_API_KEY: ${{ secrets.DATAFORDELER_API_KEY }}
 
       - name: Fetch MiljøGIS WFS data
         run: python3 fetch_miljoegis.py
         working-directory: etl
 
-      # Fetch project map polygons from MARS API.
-      # Only newly added projects are fetched (delta vs WKT cache above).
+      # Fetch project + sketch polygons from MARS' official WFS (two bulk
+      # requests); only ids newer than the nightly WFS refresh hit the REST API.
       - name: Fetch MARS project geometries
         run: python3 fetch_geometries.py
         working-directory: etl
@@ -165,6 +175,19 @@ jobs:
         env:
           KLIMAREGNSKAB_API_KEY: ${{ secrets.KLIMAREGNSKAB_API_KEY }}
 
+      # Arealdata: KU-prio 1+2 hver dag; DCE D1 er hits-only i CI (FULL_DCE=0).
+      # Den fulde 83k-polygonfil materialiseres manuelt/periodisk med FULL_DCE=1.
+      - name: Fetch Arealdata biodiversitet (WFS)
+        run: python3 fetch_arealdata_biodiversitet.py
+        working-directory: etl
+        env:
+          FULL_DCE: "0"
+          BIODIV_PAGE_SIZE: "2000"
+
+      - name: Fetch FVM Markkort (Vand, natur & skov 2026)
+        run: python3 fetch_markkort_natur_projekter.py
+        working-directory: etl
+
       - name: Build dashboard data
         run: python3 build_dashboard_data.py
         working-directory: etl
@@ -180,6 +203,14 @@ jobs:
       - name: Build ETL run summary
         run: python3 build_etl_summary.py
         working-directory: etl
+
+      # The data PR is approved, merged and deployed without a human, so stop here
+      # if a headline figure collapses (e.g. an upstream API answering empty).
+      - name: Check data plausibility
+        run: python3 check_data_plausibility.py
+        working-directory: etl
+        env:
+          SKIP_PLAUSIBILITY: ${{ inputs.skip_plausibility }}
 
       - name: Check for changes
         id: changes
@@ -200,11 +231,11 @@ jobs:
     if: needs.etl.outputs.changed == 'true'
     runs-on: ubuntu-latest
     permissions:
-      actions: read
+      actions: write
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/download-artifact@v8
         with:
@@ -253,3 +284,27 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge "$BRANCH" --squash --auto --delete-branch
+
+      # The auto-merge above is performed as GITHUB_TOKEN, and pushes made by
+      # GITHUB_TOKEN don't trigger ci.yml — so without this step the merged
+      # data never reaches production. workflow_dispatch is the one event
+      # GITHUB_TOKEN may trigger, so wait for the merge and dispatch CI on main.
+      - name: Deploy once merged
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for i in $(seq 1 60); do
+            STATE=$(gh pr view "$BRANCH" --json state --jq .state)
+            echo "PR state: $STATE"
+            if [ "$STATE" = "MERGED" ]; then
+              gh workflow run ci.yml --ref main
+              exit 0
+            fi
+            if [ "$STATE" = "CLOSED" ]; then
+              echo "::error::Data PR was closed without merging"
+              exit 1
+            fi
+            sleep 30
+          done
+          echo "::error::Data PR did not merge within 30 minutes; production not redeployed"
+          exit 1

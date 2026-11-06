@@ -1,867 +1,1552 @@
 {
-  "builtAt": "2026-07-20T08:49:13.235378+00:00",
+  "builtAt": "2026-11-06T20:52:54.703852+00:00",
   "windowDays": 30,
-  "totalChanges": 66,
+  "totalChanges": 125,
   "summary": {
-    "preliminary": 45,
-    "approved": 12,
-    "established": 9
+    "preliminary": 46,
+    "approved": 74,
+    "established": 5
   },
   "byDate": [
     {
-      "date": "2026-07-16",
+      "date": "2026-11-05",
       "entries": [
         {
-          "date": "2026-07-16",
-          "name": "9.277 Bankevej lavbund",
-          "projectId": "2b1ddedf-31dd-4598-87b0-c71732743564",
-          "planName": "Langelandssund",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "extractionHa": 4.33,
-          "areaHa": 4.33
+          "date": "2026-11-05",
+          "name": "Fuglsanggård Nyskov",
+          "projectId": "8550d456-6bad-43db-ab4f-f65bc18a5af9",
+          "planName": "Lillebælt, Snævringen",
+          "phase": "established",
+          "phaseLabelDa": "Nyligt anlagt",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.096,
+          "afforestationHa": 6.12,
+          "areaHa": 6.12
         },
         {
-          "date": "2026-07-16",
-          "name": "Elkærgrøften",
-          "projectId": "33ca6b5f-68f0-4f86-bfa7-b996feed931b",
-          "planName": "Nordlige Lillebælt",
+          "date": "2026-11-05",
+          "name": "Krydsmosen og Nivåen",
+          "projectId": "a4e5636d-ed9b-4460-a587-485b488511c5",
+          "planName": "Nordlige Øresund",
           "phase": "preliminary",
           "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 1.568,
-          "extractionHa": 3.65,
-          "areaHa": 17.42
+          "measureName": "Forundersøgelse VLP",
+          "extractionHa": 61.76,
+          "areaHa": 61.76
         },
         {
-          "date": "2026-07-16",
-          "name": "Elsehoved Lavbund",
-          "projectId": "b3ae0e2d-d725-46fa-9588-d03d65c7110e",
-          "planName": "Langelandssund",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "extractionHa": 42.72,
-          "areaHa": 42.72
-        },
-        {
-          "date": "2026-07-16",
-          "name": "Rohden Å Nord",
-          "projectId": "b341ec69-fc60-4916-b351-5f48770048fd",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 3.892,
-          "extractionHa": 3.93,
-          "areaHa": 43.24
-        }
-      ]
-    },
-    {
-      "date": "2026-07-15",
-      "entries": [
-        {
-          "date": "2026-07-15",
-          "name": "Barritskovvej",
-          "projectId": "b49fe642-f51b-4692-a447-f29823d9d71f",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 4.891,
-          "extractionHa": 0.27,
-          "areaHa": 54.34
-        },
-        {
-          "date": "2026-07-15",
-          "name": "Lille vådområde ved Honum",
-          "projectId": "71bdd2ee-123e-4a46-9b32-30ee1826a235",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.775,
-          "extractionHa": 0.15,
-          "areaHa": 3.55
-        }
-      ]
-    },
-    {
-      "date": "2026-07-14",
-      "entries": [
-        {
-          "date": "2026-07-14",
-          "name": "Alrø - vådområde - Uden lodsejerdialog",
-          "projectId": "b7abd2e2-3fc0-4aff-b36a-7d858f887a1c",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 8.247,
-          "extractionHa": 0.11,
-          "areaHa": 91.88
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Bedsted Bæk - KLA-Lavbund",
-          "projectId": "5ac5f908-2fb8-42a5-b805-15ca6213a0ef",
+          "date": "2026-11-05",
+          "name": "Skovlyvej 11",
+          "projectId": "57e6754c-622d-4b08-967e-cb405e17cfa9",
           "planName": "Smålandsfarvandet, åbne del",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 0.913,
-          "extractionHa": 22.81,
-          "areaHa": 22.81
+          "phase": "established",
+          "phaseLabelDa": "Nyligt anlagt",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.022,
+          "afforestationHa": 2.49,
+          "areaHa": 2.49
         },
         {
-          "date": "2026-07-14",
-          "name": "Benløse Bæk - KLA-Lavbund",
-          "projectId": "3dc63f6d-fa23-427a-b8e3-9509661c2cd2",
-          "planName": "Smålandsfarvandet, åbne del",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 0.732,
-          "extractionHa": 18.29,
-          "areaHa": 18.29
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Elev Enge",
-          "projectId": "6f58080b-cc87-49f4-8067-701ca4e34fb0",
-          "planName": "Hevring Bugt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.911,
-          "extractionHa": 0.26,
-          "areaHa": 10.12
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Fiskbæk vådområde",
-          "projectId": "fbc1e90a-b898-4ada-8f68-8d3e31b59ddb",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 2.773,
-          "extractionHa": 1.06,
-          "areaHa": 30.81
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Fårup Mose",
-          "projectId": "6c8d5798-974b-4a54-82cd-7b9473375b4e",
-          "planName": "Hevring Bugt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 2.086,
-          "extractionHa": 1.36,
-          "areaHa": 23.18
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Grøngrøftskov",
-          "projectId": "44ba3338-41e2-449c-96a8-d557b4d15598",
-          "planName": "Lillebælt, syd",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 3.286,
-          "extractionHa": 3.3,
-          "areaHa": 36.51
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Kragsø",
-          "projectId": "a5c690d4-3b8f-4aa6-9e9c-49106d7d01a9",
-          "planName": "Djursland Øst",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 28.075,
-          "extractionHa": 32.34,
-          "areaHa": 311.95
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Malskær Bæk, nedre - Vådområde - Uden lodsejerdial",
-          "projectId": "74cfcd24-59b5-4fcc-85d3-ee17b4118d51",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 2.341,
-          "extractionHa": 0.08,
-          "areaHa": 26.02
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Møllebækken - Vådområde - Uden lodsejerdialog",
-          "projectId": "82eda614-2ef0-4f1c-b9e9-850e4946a928",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.429,
-          "extractionHa": 0.41,
-          "areaHa": 4.77
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Nørre Mølle Å - KLAkvælstof - Forundersøgelse (F)",
-          "projectId": "89123b26-5caa-4b78-a468-6072919861f1",
-          "planName": "Hevring Bugt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 14.052,
-          "extractionHa": 25.79,
-          "areaHa": 156.14
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Nørre Mølle Å - KLAkvælstof - Forundersøgelse (F)",
-          "projectId": "89123b26-5caa-4b78-a468-6072919861f1",
-          "planName": "Nibe Bredning og Langerak",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.085,
-          "extractionHa": 0.16,
-          "areaHa": 0.94
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Odense Å v. Åsum",
-          "projectId": "3cdadd0b-a174-408e-bbf9-08c38fb54c34",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 10.474,
-          "extractionHa": 261.84,
-          "areaHa": 261.84
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Præstholmgrøften samlet - Vådområde",
-          "projectId": "4cfdf14b-a137-4f62-99e0-fb4c537c15a3",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 3.371,
-          "extractionHa": 2.15,
-          "areaHa": 37.46
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Saksild, småt vådområde - Uden lodsejerdialog",
-          "projectId": "f739c3d0-2334-4d0c-80be-1bb00d557619",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.43,
-          "extractionHa": 0.32,
-          "areaHa": 4.77
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Skurremosen - KLA-Lavbund",
-          "projectId": "c18122a7-db7b-463b-a036-e1b41d8b942a",
-          "planName": "Smålandsfarvandet, åbne del",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 0.954,
-          "extractionHa": 23.86,
-          "areaHa": 23.86
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Smedebæk",
-          "projectId": "6c846f5b-fc32-4e60-bbca-64815326f632",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 2.485,
-          "extractionHa": 5.93,
-          "areaHa": 27.61
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Storenord",
-          "projectId": "df19194a-7634-461e-b396-04ac17f919c1",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.404,
-          "extractionHa": 1.19,
-          "areaHa": 4.49
-        },
-        {
-          "date": "2026-07-14",
-          "name": "Tvenstrup, småt vådområde - Uden lodsejerdialog",
-          "projectId": "4e270056-47fd-4c12-8734-bb8af77a4fbd",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.442,
-          "extractionHa": 1.06,
-          "areaHa": 4.92
-        }
-      ]
-    },
-    {
-      "date": "2026-07-13",
-      "entries": [
-        {
-          "date": "2026-07-13",
-          "name": "1.2. Bøllemosen",
-          "projectId": "1a46c7b7-09b9-4f02-a124-baa8f9cb0632",
-          "planName": "Langelandssund",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "extractionHa": 135.1,
-          "areaHa": 135.1
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Bøstofte - KLA-Lavbund",
-          "projectId": "197afc43-bb59-413a-acdb-5a5168482e03",
-          "planName": "Smålandsfarvandet, åbne del",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 1.453,
-          "extractionHa": 36.32,
-          "areaHa": 36.32
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Dallerup sø lille vådområde",
-          "projectId": "f9cc60c8-4cd5-483c-96a8-9fb20e86d78c",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 1.257,
-          "extractionHa": 0.12,
-          "areaHa": 13.97
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Englemosen - KLA Lavbund",
-          "projectId": "3072d76b-7648-4297-bbba-105f6f32e2ab",
-          "planName": "Smålandsfarvandet, åbne del",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 2.849,
-          "extractionHa": 71.21,
-          "areaHa": 71.21
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Langekrogs udløbet",
-          "projectId": "20d6cf20-e002-4fa8-b8fa-7be621f5610f",
-          "planName": "Guldborgsund",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "extractionHa": 0.87,
-          "areaHa": 14.75
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Maltrup Enge",
-          "projectId": "3ee85f9e-937e-42e1-ab59-a51ab7de4ceb",
-          "planName": "Smålandsfarvandet, syd",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "extractionHa": 24.47,
-          "areaHa": 24.41
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Små vådområder Møllemark mose TH31",
-          "projectId": "4e27eaa3-719f-461e-a348-f615ead2938b",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.373,
-          "extractionHa": 0.02,
-          "areaHa": 4.14
-        },
-        {
-          "date": "2026-07-13",
-          "name": "Små vådområder Tryden TH24",
-          "projectId": "0ba0a8a0-af77-488d-9828-69b0b1ad4dd1",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.851,
-          "extractionHa": 0.19,
-          "areaHa": 9.45
-        }
-      ]
-    },
-    {
-      "date": "2026-07-10",
-      "entries": [
-        {
-          "date": "2026-07-10",
-          "name": "Albækvej 14",
-          "projectId": "44741ef8-2624-41de-9da5-6ef99d4ab2c5",
+          "date": "2026-11-05",
+          "name": "Skovrejsning Todbølvej 2, 7752 Snedsted",
+          "projectId": "a189e2dc-0ee9-40da-b59a-80c1a39a3867",
           "planName": "Nibe Bredning og Langerak",
           "phase": "established",
           "phaseLabelDa": "Nyligt anlagt",
           "measureName": "Skovrejsning",
-          "afforestationHa": 3.82,
-          "areaHa": 3.82
+          "nitrogenT": 0.005,
+          "afforestationHa": 1.8,
+          "areaHa": 1.8
         },
         {
-          "date": "2026-07-10",
-          "name": "Grydedalvej 24",
-          "projectId": "bab4fc49-b070-4504-8529-779fcc56bbf4",
+          "date": "2026-11-05",
+          "name": "Voldbro AMN 40 forundersøgelse 2026",
+          "projectId": "7f425997-3188-436a-9207-a03cfa0f9248",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.329,
+          "areaHa": 8.23
+        }
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "entries": [
+        {
+          "date": "2026-11-04",
+          "name": "Aunslev Hjulby Vest Øst",
+          "projectId": "bac5be64-acd1-44ea-ac2d-c2a9d055fc13",
+          "planName": "Langelandssund",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "areaHa": 13.51
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Brøns Å",
+          "projectId": "79a0186e-7c45-4161-8441-e6c4f4758121",
           "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 14.255,
+          "extractionHa": 96.48,
+          "areaHa": 356.36
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Drejet",
+          "projectId": "14803e20-0fdf-4b0a-9d51-9357566b8bd9",
+          "planName": "Storebælt, NV",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "afforestationHa": 4.1,
-          "areaHa": 4.1
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 2.82,
+          "areaHa": 4.0
         },
         {
-          "date": "2026-07-10",
-          "name": "Kvælstofvådområde Marbækrenden",
-          "projectId": "e7684ad9-bd53-4386-ad7a-8ce70034dd35",
-          "planName": "Jammerland Bugt og Musholm Bugt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 1.133,
-          "extractionHa": 0.11,
-          "areaHa": 12.59
-        },
-        {
-          "date": "2026-07-10",
-          "name": "Små vådområder Altona PJ29",
-          "projectId": "f8b5e544-a8c2-486e-b190-3a20c617a090",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.287,
-          "extractionHa": 0.04,
-          "areaHa": 3.19
-        },
-        {
-          "date": "2026-07-10",
-          "name": "Små vådområder Lykkesholm TH27",
-          "projectId": "e0baaa7a-912e-4723-aaf5-ac4099a5d56a",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 1.4,
-          "extractionHa": 0.11,
-          "areaHa": 15.55
-        }
-      ]
-    },
-    {
-      "date": "2026-07-09",
-      "entries": [
-        {
-          "date": "2026-07-09",
-          "name": "Haldrup Mølleå vådområde",
-          "projectId": "dcadf05d-a121-4216-b7ca-4c2163153860",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 12.002,
-          "extractionHa": 10.48,
-          "areaHa": 134.2
-        },
-        {
-          "date": "2026-07-09",
-          "name": "Kvælstofvådområde ved Flansbæk og Skullebæk",
-          "projectId": "d4393aa5-66aa-4a5c-8a99-b1e552572466",
-          "planName": "Nordlige Lillebælt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 9.149,
-          "extractionHa": 0.06,
-          "areaHa": 101.65
-        }
-      ]
-    },
-    {
-      "date": "2026-07-08",
-      "entries": [
-        {
-          "date": "2026-07-08",
-          "name": "Falling vådområde - Uden lodsejerdialog",
-          "projectId": "f708bf6f-5c69-4536-9a20-43a0b176e9dd",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 7.968,
-          "extractionHa": 11.64,
-          "areaHa": 88.53
-        },
-        {
-          "date": "2026-07-08",
-          "name": "Galten Enge",
-          "projectId": "11d8a8bc-55ac-49c3-b465-a500f764edf0",
+          "date": "2026-11-04",
+          "name": "Drostrup Enge",
+          "projectId": "3cb28e02-10ed-473f-b627-88ce08a3174a",
           "planName": "Hevring Bugt",
           "phase": "preliminary",
           "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 5.441,
-          "extractionHa": 136.04,
-          "areaHa": 136.04
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 1.679,
+          "extractionHa": 41.96,
+          "areaHa": 41.96
         },
         {
-          "date": "2026-07-08",
-          "name": "Spøttrup bæk - Vådområde - Uden lodsejerdialog",
-          "projectId": "c6f020e6-208b-4277-85de-605e6f1b8d42",
-          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "date": "2026-11-04",
+          "name": "Frisbæk og Ibsgårde Bæk",
+          "projectId": "f703fd3c-930a-42a8-8e02-59693bfa3128",
+          "planName": "Vesterhavet, nord",
           "phase": "preliminary",
           "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Kvælstofvådområder",
-          "nitrogenT": 0.658,
-          "extractionHa": 2.45,
-          "areaHa": 7.31
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 4.033,
+          "extractionHa": 18.35,
+          "areaHa": 100.82
         },
         {
-          "date": "2026-07-08",
-          "name": "lavbund lk",
-          "projectId": "0ee5309d-95ff-44fd-a21d-1c6de67a407d",
-          "planName": "Storebælt, SV",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
-          "measureName": "Lavbundsprojekter",
-          "nitrogenT": 6.106,
-          "extractionHa": 152.66,
-          "areaHa": 152.66
-        }
-      ]
-    },
-    {
-      "date": "2026-07-06",
-      "entries": [
-        {
-          "date": "2026-07-06",
-          "name": "Skovrejsning Hødeshøjvej 40",
-          "projectId": "c4d596b7-abf6-43a4-8812-21831c5b7e21",
-          "planName": "Nibe Bredning og Langerak",
+          "date": "2026-11-04",
+          "name": "Frudam vådområde",
+          "projectId": "01381032-531b-4af1-9c04-b5e29fce1254",
+          "planName": "Lillebælt, syd",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "afforestationHa": 1.75,
-          "areaHa": 1.75
-        }
-      ]
-    },
-    {
-      "date": "2026-07-03",
-      "entries": [
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 0.499,
+          "extractionHa": 2.94,
+          "areaHa": 4.6
+        },
         {
-          "date": "2026-07-03",
-          "name": "Granslev Ådal",
-          "projectId": "d070621b-0e04-41b1-a40b-71f7cefc47ca",
+          "date": "2026-11-04",
+          "name": "Fugsholm Bæk",
+          "projectId": "0f3deeba-b958-44d2-afc3-db55d85f11d2",
           "planName": "Hevring Bugt",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Lavbundsprojekter",
-          "nitrogenT": 15.725,
-          "extractionHa": 393.12,
-          "areaHa": 393.12
-        }
-      ]
-    },
-    {
-      "date": "2026-07-02",
-      "entries": [
+          "extractionHa": 25.36,
+          "areaHa": 25.36
+        },
         {
-          "date": "2026-07-02",
-          "name": "CRA - SEF",
-          "projectId": "d6cd999c-871c-4c5d-b931-cedfd6b49096",
+          "date": "2026-11-04",
+          "name": "Humlemaden",
+          "projectId": "79e7afdb-7bff-4404-8dd2-df7a843a04bb",
+          "planName": "Lillebælt, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "areaHa": 12.14
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Kajbæk",
+          "projectId": "5f6e4c53-34fd-4521-bd60-24ec8f34885d",
+          "planName": "Lillebælt, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 2.17,
+          "areaHa": 7.69
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Kattemose",
+          "projectId": "0bf9a8ed-56f5-459b-b5b0-36299bfc5c95",
           "planName": "Det sydfynske Øhav",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "nitrogenT": 0.084,
-          "afforestationHa": 5.94,
-          "areaHa": 5.94
-        },
-        {
-          "date": "2026-07-02",
-          "name": "Kragbæk skov",
-          "projectId": "0c029071-3ec8-4152-a49f-b0ea5f368f19",
-          "planName": "Vesterhavet, nord",
-          "phase": "approved",
-          "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "nitrogenT": 0.191,
-          "afforestationHa": 8.78,
-          "areaHa": 8.78
-        }
-      ]
-    },
-    {
-      "date": "2026-07-01",
-      "entries": [
-        {
-          "date": "2026-07-01",
-          "name": "Tomas Torp, Stendyssvej 2",
-          "projectId": "96b791ab-f0dd-45ac-8f35-3332ad11c9cb",
-          "planName": "Jammerland Bugt og Musholm Bugt",
-          "phase": "approved",
-          "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "nitrogenT": 0.024,
-          "afforestationHa": 2.0,
-          "areaHa": 2.0
-        }
-      ]
-    },
-    {
-      "date": "2026-06-30",
-      "entries": [
-        {
-          "date": "2026-06-30",
-          "name": "Gjerrild forland",
-          "projectId": "40263b28-ff86-4a73-bbb4-e5308fc67ac4",
-          "planName": "Djursland Øst",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
           "measureName": "Kvælstofvådområder",
-          "nitrogenT": 30.836,
-          "extractionHa": 75.04,
-          "areaHa": 344.64
+          "areaHa": 10.51
         },
         {
-          "date": "2026-06-30",
-          "name": "Glenstrup Enge",
-          "projectId": "f29d5d91-f930-402a-b3b0-0410362612d9",
-          "planName": "Nibe Bredning og Langerak",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
+          "date": "2026-11-04",
+          "name": "Knuthenlund og Jystedgård",
+          "projectId": "039d6905-c796-491f-a03a-6db86814ce99",
+          "planName": "Smålandsfarvandet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Lavbundsprojekter",
-          "nitrogenT": 1.224,
-          "extractionHa": 39.48,
-          "areaHa": 39.48
+          "extractionHa": 19.77,
+          "areaHa": 19.77
         },
         {
-          "date": "2026-06-30",
-          "name": "Jesper Junge, matr. 9l Filskov by, Filskov",
-          "projectId": "fbc05d66-7559-4e25-ad4e-fd372ce491aa",
-          "planName": "Vesterhavet, nord",
+          "date": "2026-11-04",
+          "name": "Koldingvej 41",
+          "projectId": "f00b36c8-3a5a-4216-bc58-bc0bdeed868b",
+          "planName": "Lillebælt, Snævringen",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 0.415,
+          "extractionHa": 11.35,
+          "areaHa": 11.35
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Kulemosen",
+          "projectId": "1f48e81a-3d3a-4e1b-bace-571b7d3ad154",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "areaHa": 16.05
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Lavbundsprojekt Dornæs ved Maribo",
+          "projectId": "01630be2-d1a5-44ab-b413-4cf8cd65e73b",
+          "planName": "Smålandsfarvandet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 41.06,
+          "areaHa": 41.06
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Lavbundsprojekt ved Spar-ES, krumbæk",
+          "projectId": "7755a162-077c-4a38-a1c2-2f5647ae95dc",
+          "planName": "Lillebælt, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 16.36,
+          "areaHa": 16.36
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Lumby Strand",
+          "projectId": "3f848197-7fa9-4f10-86e9-a6cbed8897ae",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "areaHa": 23.84
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Mariendal Skov",
+          "projectId": "3c081657-63dc-47ca-b721-09b851fbf9d9",
+          "planName": "Lillebælt, Bredningen",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Skovrejsning",
-          "nitrogenT": 0.239,
-          "afforestationHa": 7.16,
-          "areaHa": 7.16
+          "nitrogenT": 0.006,
+          "afforestationHa": 1.84,
+          "areaHa": 1.84
         },
         {
-          "date": "2026-06-30",
-          "name": "Kragesholm v. Stentoft",
-          "projectId": "de755171-cb46-47a7-90c8-aa2bfcd9af90",
+          "date": "2026-11-04",
+          "name": "Nagelsti Hoter",
+          "projectId": "115091c8-2857-446d-b742-4687eece98eb",
+          "planName": "Guldborgsund",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 23.95,
+          "areaHa": 23.95
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Skelde Vig",
+          "projectId": "de255ba1-4d59-4cc2-a70f-a02bd757a804",
+          "planName": "Lillebælt, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 9.51,
+          "areaHa": 10.44
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Snogbæk",
+          "projectId": "cee86c7f-e8e8-4871-86e4-ada1af19e1b3",
+          "planName": "Lillebælt, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 0.18,
+          "areaHa": 11.01
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Strandbjerggaard",
+          "projectId": "e4a26e7f-7213-4fa4-930c-4e16449828e7",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 0.04,
+          "areaHa": 3.38
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Svalebæk 2",
+          "projectId": "30a35c78-0181-49b1-8a6c-0a5956f9860d",
           "planName": "Smålandsfarvandet, åbne del",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "nitrogenT": 0.008,
-          "afforestationHa": 2.86,
-          "areaHa": 2.86
-        }
-      ]
-    },
-    {
-      "date": "2026-06-29",
-      "entries": [
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 76.78,
+          "areaHa": 76.78
+        },
         {
-          "date": "2026-06-29",
-          "name": "Karlskov - syd",
-          "projectId": "16f86b8b-586e-4059-9c33-e2b1439472fa",
+          "date": "2026-11-04",
+          "name": "Sylten ved Kædeby Has august 2022",
+          "projectId": "70ac17c2-62c7-40ba-ab87-1db0115f5c2f",
+          "planName": "Det sydfynske Øhav",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 0.85,
+          "areaHa": 10.87
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Ulleruplund 9 Give",
+          "projectId": "fcb037f7-1890-49ba-b14d-8d4a2a6ed254",
           "planName": "Vesterhavet, nord",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Skovrejsning",
-          "nitrogenT": 0.694,
-          "afforestationHa": 20.27,
-          "areaHa": 20.27
+          "nitrogenT": 0.003,
+          "afforestationHa": 10.91,
+          "areaHa": 10.91
         },
         {
-          "date": "2026-06-29",
-          "name": "Lejlighedsvej 2-2",
-          "projectId": "93be56f6-59ec-4f6d-b794-3165e13066df",
-          "planName": "Sejerø Bugt",
+          "date": "2026-11-04",
+          "name": "Volderslev, dahlsvej lille vådområde",
+          "projectId": "618fb934-ab47-46cd-9b1b-6cb005a8e407",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.6,
+          "extractionHa": 1.29,
+          "areaHa": 41.02
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Vådområde - Sandbankevej",
+          "projectId": "820a1a82-fd81-41d4-bb14-5fd0a8b4462c",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "areaHa": 3.64
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Vådområde Tuse Å",
+          "projectId": "c8f426f9-ea20-489c-a8d2-bb13e63fef0e",
+          "planName": "Kattegat, Nordsjælland",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 4.795,
+          "extractionHa": 20.03,
+          "areaHa": 119.87
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Åmosen, Hindemae",
+          "projectId": "840c9f34-edf7-4859-8b16-fcc99f0da840",
+          "planName": "Langelandssund",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 0.08,
+          "areaHa": 7.2
+        },
+        {
+          "date": "2026-11-04",
+          "name": "Åstrup Bæk",
+          "projectId": "99702eb8-d6df-4231-8060-f27e916df410",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "extractionHa": 0.09,
+          "areaHa": 8.59
+        }
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "entries": [
+        {
+          "date": "2026-11-03",
+          "name": "Bolmerod Fasttrack",
+          "projectId": "7fe79830-5280-41f1-9af5-913d609d8f51",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.092,
+          "extractionHa": 0.01,
+          "areaHa": 2.29
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Drengsted 1 og 2",
+          "projectId": "3785d208-1c41-4b41-b09a-b8c09dcbd90b",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "extractionHa": 192.18,
+          "areaHa": 192.18
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Dybdal skov",
+          "projectId": "d1306abb-f0d7-4cf5-aa16-26d8b4d6b373",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "established",
+          "phaseLabelDa": "Nyligt anlagt",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.082,
+          "afforestationHa": 9.05,
+          "areaHa": 9.05
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Dævidrød lavbundsområde",
+          "projectId": "0abcbb2e-d3b7-4cb0-a2d6-4518c3138c5e",
+          "planName": "Jammerland Bugt og Musholm Bugt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 1.152,
+          "extractionHa": 24.42,
+          "areaHa": 24.42
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Four Oaks",
+          "projectId": "e1dd7129-9ac0-4b02-b70b-9c20417254d7",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Skovrejsning",
           "nitrogenT": 0.061,
-          "afforestationHa": 5.54,
-          "areaHa": 5.54
-        }
-      ]
-    },
-    {
-      "date": "2026-06-25",
-      "entries": [
+          "afforestationHa": 9.07,
+          "areaHa": 9.07
+        },
         {
-          "date": "2026-06-25",
-          "name": "Andrupvej 8",
-          "projectId": "2d28d9e5-576e-4565-bc13-04b50e533002",
+          "date": "2026-11-03",
+          "name": "Fårevejle Huse",
+          "projectId": "33551be1-11e0-4d3d-916d-d3b048471526",
+          "planName": "Kattegat, Nordsjælland",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 2.947,
+          "extractionHa": 3.95,
+          "areaHa": 73.67
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Fårevejle Huse",
+          "projectId": "33551be1-11e0-4d3d-916d-d3b048471526",
+          "planName": "Sejerø Bugt",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.015,
+          "extractionHa": 0.02,
+          "areaHa": 0.36
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Havbrovej 78",
+          "projectId": "fafe7a59-95a1-4ef9-8159-a7ee35195f95",
           "planName": "Nibe Bredning og Langerak",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Skovrejsning",
-          "nitrogenT": 0.0,
-          "afforestationHa": 9.52,
-          "areaHa": 9.52
+          "afforestationHa": 7.77,
+          "areaHa": 7.77
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Hestehaven",
+          "projectId": "93ea722a-1cc8-4b0c-880e-e33299c93158",
+          "planName": "Fakse Bugt",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 2.673,
+          "extractionHa": 1.4,
+          "areaHa": 66.83
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Hestehaven",
+          "projectId": "93ea722a-1cc8-4b0c-880e-e33299c93158",
+          "planName": "Smålandsfarvandet, åbne del",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "extractionHa": 0.04,
+          "areaHa": 1.73
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Jens Oldenbjerg del 2",
+          "projectId": "37e4527a-2216-4da6-8465-829b7b6a88eb",
+          "planName": "Storebælt, SV",
+          "phase": "established",
+          "phaseLabelDa": "Nyligt anlagt",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.037,
+          "afforestationHa": 4.48,
+          "areaHa": 4.48
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Pindsenden 46 forundersøgelse 2026",
+          "projectId": "8bf83c57-7f77-4e15-b69a-0208af4b2974",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.33,
+          "areaHa": 8.25
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Sasserod Fasttrack",
+          "projectId": "46748c4a-9aec-4a5d-9437-2cc02ff81121",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.069,
+          "extractionHa": 0.01,
+          "areaHa": 1.74
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Smedebæk ved Agerskov",
+          "projectId": "b68e59f3-feb6-4c35-a055-5c85e46ce27e",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "extractionHa": 20.61,
+          "areaHa": 20.61
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Tastum Sø",
+          "projectId": "2453ec1c-993a-4e16-b9d3-024f133bbc41",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 55.348,
+          "extractionHa": 877.91,
+          "areaHa": 877.91
+        },
+        {
+          "date": "2026-11-03",
+          "name": "Vojel Kær",
+          "projectId": "b39d671f-436c-47d6-8713-f6efe91cc46c",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 2.851,
+          "extractionHa": 15.61,
+          "areaHa": 71.28
         }
       ]
     },
     {
-      "date": "2026-06-24",
+      "date": "2026-11-02",
       "entries": [
         {
-          "date": "2026-06-24",
-          "name": "Døvlingvej 7",
-          "projectId": "953d3ac9-069a-46a4-975e-50a104e029e9",
+          "date": "2026-11-02",
+          "name": "Astrup Bæk vådområde realisering",
+          "projectId": "930e54cc-a5c5-4d43-ba73-a7222962525a",
           "planName": "Vesterhavet, nord",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
-          "measureName": "Skovrejsning",
-          "nitrogenT": 0.002,
-          "afforestationHa": 4.45,
-          "areaHa": 4.45
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 3.381,
+          "extractionHa": 20.31,
+          "areaHa": 37.3
         },
         {
-          "date": "2026-06-24",
-          "name": "Privat Skovrejsning",
-          "projectId": "bf7846d6-a7b8-418e-bde6-e30f69ca4576",
-          "planName": "Vesterhavet, syd",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
-          "measureName": "Skovrejsning",
-          "nitrogenT": 0.026,
-          "afforestationHa": 2.26,
-          "areaHa": 2.26
-        }
-      ]
-    },
-    {
-      "date": "2026-06-22",
-      "entries": [
+          "date": "2026-11-02",
+          "name": "Kovad Bæk - Realisering",
+          "projectId": "245ba3fa-6a1d-46db-bdd8-cb66b10d3493",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 3.614,
+          "extractionHa": 35.09,
+          "areaHa": 72.93
+        },
         {
-          "date": "2026-06-22",
-          "name": "Benkær vådområdeprojekt",
-          "projectId": "e27431bf-8645-4d11-ae8d-9de419c05057",
+          "date": "2026-11-02",
+          "name": "Kvælstofvådområde ved Surkær Bæk",
+          "projectId": "58ff6ec2-7108-42e1-adc2-8513ca39b26c",
+          "planName": "Nordlige Lillebælt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 1.127,
+          "extractionHa": 0.26,
+          "areaHa": 13.81
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Lavbundsprojekt Engkrogen",
+          "projectId": "465d55b9-7e24-4fb0-9ce0-5540e864886d",
+          "planName": "Jammerland Bugt og Musholm Bugt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 2.106,
+          "extractionHa": 73.16,
+          "areaHa": 73.16
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Malling Enge",
+          "projectId": "1fd07d97-1f1f-430e-907b-09e041067106",
+          "planName": "Århus Bugt og Begtrup Vig",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 10.72,
+          "areaHa": 10.72
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Marksoe Kettingsoe",
+          "projectId": "0e6110f7-43b2-41ff-8573-c4608805d223",
+          "planName": "Femerbælt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 0.516,
+          "extractionHa": 17.2,
+          "areaHa": 17.2
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Næsgård Enge",
+          "projectId": "919f26a7-676c-47a6-8570-c8d245160bdb",
           "planName": "Nibe Bredning og Langerak",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Kvælstofvådområder",
-          "areaHa": 10.2
+          "nitrogenT": 2.178,
+          "extractionHa": 1.38,
+          "areaHa": 24.41
         },
         {
-          "date": "2026-06-22",
-          "name": "Fanefjordkirkevej",
-          "projectId": "8549dfd6-178d-4283-9142-6fd010b01d8a",
-          "planName": "Grønsund",
-          "phase": "preliminary",
-          "phaseLabelDa": "Ny forundersøgelse",
+          "date": "2026-11-02",
+          "name": "Oldermandsgyden",
+          "projectId": "bb48aa2f-5af9-4b0f-877b-580f0a551889",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Kvælstofvådområder",
-          "nitrogenT": 2.192,
-          "areaHa": 24.35
+          "nitrogenT": 0.425,
+          "areaHa": 15.9
         },
         {
-          "date": "2026-06-22",
-          "name": "Korreborg Bæk",
-          "projectId": "59cb7479-de50-4b1f-af85-71a6305b7194",
-          "planName": "Hevring Bugt",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
-          "measureName": "Kvælstofvådområder",
-          "extractionHa": 51.14,
-          "areaHa": 72.97
-        },
-        {
-          "date": "2026-06-22",
-          "name": "Lavbundsprojekt Trend Å, nedre del",
-          "projectId": "c85231ef-5008-469f-861b-b8f4190c2140",
+          "date": "2026-11-02",
+          "name": "Realisering Bredgård Sø og Fiskbæk Å",
+          "projectId": "cf2b9a07-ceec-4d10-a84b-d53754b8304c",
           "planName": "Nibe Bredning og Langerak",
           "phase": "approved",
           "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Lavbundsprojekter",
-          "nitrogenT": 32.462,
-          "extractionHa": 973.6,
-          "areaHa": 973.6
+          "nitrogenT": 7.836,
+          "extractionHa": 223.14,
+          "areaHa": 223.14
         },
         {
-          "date": "2026-06-22",
-          "name": "Privat Skovrejsning",
-          "projectId": "fc5c7b9d-0d61-476d-9f8b-8bea259e00e1",
+          "date": "2026-11-02",
+          "name": "Skærvad Å lavbundsprojekt",
+          "projectId": "3e8ca640-15bd-45c7-883e-ec791bbe3c2f",
+          "planName": "Djursland Øst",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 2.477,
+          "extractionHa": 68.92,
+          "areaHa": 68.92
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Vantore Lillesoe 2,0",
+          "projectId": "332b01f2-78a1-48a7-b1d4-36a7a554f4c0",
+          "planName": "Femerbælt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 2.648,
+          "extractionHa": 25.48,
+          "areaHa": 25.48
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Vantore Storsø",
+          "projectId": "8d9c3fb3-706b-4cf8-b8d1-51bb2f4ee2b8",
+          "planName": "Femerbælt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 0.938,
+          "extractionHa": 24.52,
+          "areaHa": 24.52
+        },
+        {
+          "date": "2026-11-02",
+          "name": "Vådområde Tvede Å's udløb",
+          "projectId": "740ded76-e506-4b43-b0d1-04a79b1e6606",
           "planName": "Hevring Bugt",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
-          "measureName": "Skovrejsning",
-          "afforestationHa": 2.4,
-          "areaHa": 2.4
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 11.866,
+          "extractionHa": 16.44,
+          "areaHa": 121.25
+        }
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "entries": [
+        {
+          "date": "2026-10-30",
+          "name": "Akkemose- Ålerenden",
+          "projectId": "5e6bd7a8-124e-4580-b89f-ffbd770116af",
+          "planName": "Storebælt, SV",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 4.259,
+          "extractionHa": 76.47,
+          "areaHa": 76.48
         },
         {
-          "date": "2026-06-22",
-          "name": "Privat Skovrejsning",
-          "projectId": "77330d10-37ab-47b0-bb07-3c8dd68faa56",
-          "planName": "Nibe Bredning og Langerak",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
-          "measureName": "Skovrejsning",
-          "afforestationHa": 2.45,
-          "areaHa": 2.45
-        },
-        {
-          "date": "2026-06-22",
-          "name": "Privat Skovrejsning",
-          "projectId": "0ef9faa3-87cd-48de-99e4-7df1850d9f56",
+          "date": "2026-10-30",
+          "name": "Morten og Gitte Fabrin, Højagervej 18, Ribe",
+          "projectId": "66475b7f-f674-4d6b-90c1-44ab16d6e588",
           "planName": "Vesterhavet, syd",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.047,
+          "afforestationHa": 2.06,
+          "areaHa": 2.06
+        },
+        {
+          "date": "2026-10-30",
+          "name": "N-vådområde Susgårde",
+          "projectId": "7f436e9d-993e-441f-b080-1fbccc5b5952",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 4.021,
+          "extractionHa": 10.21,
+          "areaHa": 65.93
+        },
+        {
+          "date": "2026-10-30",
+          "name": "Svingel Nord lavbundsprojekt - realisering",
+          "projectId": "12cccf6e-817f-42f1-8fe6-1fe047ce68a3",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 9.035,
+          "extractionHa": 252.08,
+          "areaHa": 252.08
+        },
+        {
+          "date": "2026-10-30",
+          "name": "Vestermosen",
+          "projectId": "8df3ac1c-7778-4545-8f09-a2337a6deaf7",
+          "planName": "Femerbælt",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 4.791,
+          "extractionHa": 115.39,
+          "areaHa": 115.39
+        }
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "entries": [
+        {
+          "date": "2026-10-29",
+          "name": "Dyrhøjvej AMN_12 forundersøgelse 2026",
+          "projectId": "216793c4-586b-42c2-8cec-c4126defdc80",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.897,
+          "extractionHa": 0.01,
+          "areaHa": 22.43
+        },
+        {
+          "date": "2026-10-29",
+          "name": "Helnæs Bugt, kvælstofvådområder pulje 2",
+          "projectId": "12c0dc3e-00df-46da-9697-298b3fdf4421",
+          "planName": "Lillebælt, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 2.218,
+          "extractionHa": 3.58,
+          "areaHa": 55.46
+        },
+        {
+          "date": "2026-10-29",
+          "name": "Kvælstofvådområde Ottestrup",
+          "projectId": "3859053c-8441-405f-94a1-7a5265ed1aca",
+          "planName": "Jammerland Bugt og Musholm Bugt",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.077,
+          "extractionHa": 0.02,
+          "areaHa": 1.93
+        },
+        {
+          "date": "2026-10-29",
+          "name": "Kvælstofvådområde Tude Å 24750-25820",
+          "projectId": "9c2bbb6c-90f2-4fdb-8bb6-ef1852924635",
+          "planName": "Jammerland Bugt og Musholm Bugt",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.881,
+          "extractionHa": 1.9,
+          "areaHa": 22.01
+        },
+        {
+          "date": "2026-10-29",
+          "name": "Lammefjord nordkanal",
+          "projectId": "89724298-ff6f-49b9-8f13-441a1fa024d8",
+          "planName": "Kattegat, Nordsjælland",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 8.393,
+          "extractionHa": 17.91,
+          "areaHa": 209.83
+        },
+        {
+          "date": "2026-10-29",
+          "name": "Oregaard-Løgsmosen forundersøgelse 2026",
+          "projectId": "ecddb9a3-44e0-494d-b1f0-65289a520c5c",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 4.815,
+          "extractionHa": 19.52,
+          "areaHa": 120.37
+        }
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "entries": [
+        {
+          "date": "2026-10-28",
+          "name": "Bent Truelsen, Øster Vejrupvej 14, Bramming",
+          "projectId": "918a13ca-6c00-4aef-8f01-f8780554e18e",
+          "planName": "Vesterhavet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.04,
+          "afforestationHa": 5.44,
+          "areaHa": 5.44
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Brede Å",
+          "projectId": "1092d6ab-1110-4242-87cd-d814a9779aa4",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "extractionHa": 831.49,
+          "areaHa": 831.49
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN- Klimapark Nees hede område 8",
+          "projectId": "0537b534-0a01-46c0-b930-dc02e8375d59",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.365,
+          "afforestationHa": 22.1,
+          "areaHa": 22.1
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN-Klimapark Nees hede Område 1",
+          "projectId": "624a6965-d54d-482a-bb12-5e1daafdc023",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.209,
+          "afforestationHa": 12.54,
+          "areaHa": 12.54
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN-Klimapark Nees hede Område 3",
+          "projectId": "e3007b4c-9476-400d-bfaa-77a81b716bfd",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.084,
+          "afforestationHa": 7.13,
+          "areaHa": 7.13
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN-Klimapark Nees hede Område 4",
+          "projectId": "f5224252-c3c0-4335-b1f4-e2db006a370e",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.04,
+          "afforestationHa": 4.91,
+          "areaHa": 4.91
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN-Klimapark Nees hede Område 6",
+          "projectId": "8a014a88-838a-4729-b286-06a84123374c",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.396,
+          "afforestationHa": 20.15,
+          "areaHa": 20.15
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN-Klimapark Nees hede område 5",
+          "projectId": "90f995e6-9753-4535-bfdc-af25427ca493",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.358,
+          "afforestationHa": 19.25,
+          "areaHa": 19.25
+        },
+        {
+          "date": "2026-10-28",
+          "name": "CRN-Klimapark Nees hede område 7",
+          "projectId": "ccbb8d72-b313-45b4-a81f-dc7dd0792215",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.127,
+          "afforestationHa": 8.52,
+          "areaHa": 8.52
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Harkengrøften",
+          "projectId": "27ae6fb7-b60f-4564-b0e3-6d6443c57546",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.679,
+          "areaHa": 16.98
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Leif Andersen F27",
+          "projectId": "7d0b94f8-d78d-4d1b-9d90-882deff6720d",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "afforestationHa": 1.63,
+          "areaHa": 1.63
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Museumsvej 1",
+          "projectId": "da73746b-6e5d-4e14-a5f6-2015172e208d",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.036,
+          "afforestationHa": 1.34,
+          "areaHa": 1.34
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Skal Å syd for Bjerregrav",
+          "projectId": "443b1e3f-ad98-4fb7-a833-4cc98f6b23e4",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 15.971,
+          "extractionHa": 582.97,
+          "areaHa": 582.98
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Sølbæk ved Bjørnkærvej",
+          "projectId": "3f77838c-5bb5-4ecf-be16-b2987c97f84c",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 4.531,
+          "extractionHa": 45.03,
+          "areaHa": 113.27
+        },
+        {
+          "date": "2026-10-28",
+          "name": "Åkær Enge",
+          "projectId": "3b0bb608-4a80-4fa7-a9b8-39665249825a",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 6.7,
+          "extractionHa": 276.6,
+          "areaHa": 276.6
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "entries": [
+        {
+          "date": "2026-10-27",
+          "name": "Fandens Mose Krarup",
+          "projectId": "f30a5378-6d70-4ba4-917c-e2a592d01b78",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 2.649,
+          "extractionHa": 66.23,
+          "areaHa": 66.23
+        },
+        {
+          "date": "2026-10-27",
+          "name": "Finn - Ravnshøjvej",
+          "projectId": "dfaf0435-d283-4d02-af64-8102eb099e3e",
+          "planName": "Kattegat, Nordsjælland",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.019,
+          "afforestationHa": 1.19,
+          "areaHa": 1.19
+        },
+        {
+          "date": "2026-10-27",
+          "name": "Fyle Bæk",
+          "projectId": "f382a2ed-475a-470d-9a86-10cfdd9d3b3a",
+          "planName": "Nordlige Lillebælt",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 13.158,
+          "extractionHa": 1.11,
+          "areaHa": 328.94
+        },
+        {
+          "date": "2026-10-27",
+          "name": "NAJO - Fristrupvej 54, 9440 Aabybro",
+          "projectId": "e30e48d7-fda0-489b-8262-93a35b897cb9",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "afforestationHa": 1.25,
+          "areaHa": 1.25
+        },
+        {
+          "date": "2026-10-27",
+          "name": "Odense Fjord, kvælstofvådområder pulje 2",
+          "projectId": "96d357b0-d7ff-49df-a463-1a3b4448867d",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 7.563,
+          "extractionHa": 37.87,
+          "areaHa": 189.08
+        },
+        {
+          "date": "2026-10-27",
+          "name": "Skovrejsning Hvidkilde",
+          "projectId": "c19600b6-4ad5-482c-8c32-2772d7eddd22",
+          "planName": "Kattegat, Nordsjælland",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.001,
+          "afforestationHa": 1.85,
+          "areaHa": 1.85
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "entries": [
+        {
+          "date": "2026-10-26",
+          "name": "Frøbjerg Vænge 11",
+          "projectId": "e820c7ba-1d1a-466c-bef2-a210ea459a8d",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.041,
+          "afforestationHa": 3.14,
+          "areaHa": 3.14
+        }
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "entries": [
+        {
+          "date": "2026-10-23",
+          "name": "CRN-Vestergrenevej 3 6880  Tarm",
+          "projectId": "6521c6c1-3d17-4930-993f-be8282ac25fb",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.28,
+          "afforestationHa": 14.6,
+          "areaHa": 14.6
+        },
+        {
+          "date": "2026-10-23",
+          "name": "Enge ved Kobbel Å",
+          "projectId": "d360302a-0450-4184-9db7-4d919bc9bfc6",
+          "planName": "Kattegat, Nordsjælland",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 458.86,
+          "areaHa": 458.86
+        },
+        {
+          "date": "2026-10-23",
+          "name": "Rolfsø",
+          "projectId": "b0e10634-ce98-4b4b-9174-75c86b2d08fc",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 453.42,
+          "areaHa": 453.42
+        }
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "entries": [
+        {
+          "date": "2026-10-22",
+          "name": "Karl og Dorte, Brændstrupvej 18, Gram",
+          "projectId": "24256e82-5de2-42de-b1f7-2077fe40926e",
+          "planName": "Vesterhavet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.056,
+          "afforestationHa": 2.41,
+          "areaHa": 2.41
+        }
+      ]
+    },
+    {
+      "date": "2026-10-21",
+      "entries": [
+        {
+          "date": "2026-10-21",
+          "name": "114. Fasttrack - Maeholm",
+          "projectId": "0c5bfa8f-08e5-4c74-86f2-17ee070ea5d6",
+          "planName": "Langelandssund",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 0.768,
+          "areaHa": 8.53
+        },
+        {
+          "date": "2026-10-21",
+          "name": "115. Vådområde - Sømose Alle",
+          "projectId": "fd3de20e-8606-4a74-9780-e7d7fae8b8ee",
+          "planName": "Langelandssund",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 0.35,
+          "areaHa": 3.89
+        },
+        {
+          "date": "2026-10-21",
+          "name": "116+176. Fasttrack vådområde - Tårup Nord 2",
+          "projectId": "3a37d57e-b3ee-41e9-a2e1-405a11bcc81d",
+          "planName": "Langelandssund",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 0.606,
+          "extractionHa": 0.02,
+          "areaHa": 6.74
+        },
+        {
+          "date": "2026-10-21",
+          "name": "16. Fasttrack - Åsvej Ravnholt-afløbet",
+          "projectId": "a3db665d-66ec-4cd7-bc42-a8f9f39a63c6",
+          "planName": "Langelandssund",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 0.945,
+          "areaHa": 10.5
+        },
+        {
+          "date": "2026-10-21",
+          "name": "49. Langæblevej (lavbund)",
+          "projectId": "6c482129-9f43-4642-a7e6-8782d6487e1c",
+          "planName": "Langelandssund",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 0.621,
+          "extractionHa": 0.58,
+          "areaHa": 6.89
+        },
+        {
+          "date": "2026-10-21",
+          "name": "Jydemarken - Stormosen",
+          "projectId": "1753a697-b9ec-40a6-a887-0795ebb81f46",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 4.499,
+          "extractionHa": 0.0,
+          "areaHa": 112.48
+        },
+        {
+          "date": "2026-10-21",
+          "name": "Lavbundsprojekt Sterup",
+          "projectId": "3c4d01ff-e834-4638-8b40-25f8ac264995",
+          "planName": "Skagerrak",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "extractionHa": 34.11,
+          "areaHa": 34.11
+        },
+        {
+          "date": "2026-10-21",
+          "name": "Nyborg Fjord, kvælstofvådområder pulje 2",
+          "projectId": "394f409f-4b8a-4515-b7bd-f7bef2038d7d",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 0.026,
+          "extractionHa": 0.03,
+          "areaHa": 0.64
+        },
+        {
+          "date": "2026-10-21",
+          "name": "Nyborg Fjord, kvælstofvådområder pulje 2",
+          "projectId": "394f409f-4b8a-4515-b7bd-f7bef2038d7d",
+          "planName": "Langelandssund",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 3.887,
+          "extractionHa": 3.84,
+          "areaHa": 97.17
+        },
+        {
+          "date": "2026-10-21",
+          "name": "Skovrejsning Gunderupvej 59, 9640 Farsø",
+          "projectId": "f6739f6a-6f13-4dbd-93bf-ffde7d96f0cf",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.018,
+          "afforestationHa": 3.42,
+          "areaHa": 3.42
+        },
+        {
+          "date": "2026-10-21",
+          "name": "Vedtofte AMN 5,27,33,38 forundersøgelse 2026",
+          "projectId": "46d582ad-8d44-40b3-83d5-f1e44e41a4ab",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 1.51,
+          "extractionHa": 6.44,
+          "areaHa": 37.74
+        }
+      ]
+    },
+    {
+      "date": "2026-10-20",
+      "entries": [
+        {
+          "date": "2026-10-20",
+          "name": "CRN-Gejlbjergvej 37 6933  Kibæk",
+          "projectId": "a3e36bf2-57ef-4fa4-bf4d-5a46404debfa",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.21,
+          "afforestationHa": 13.14,
+          "areaHa": 13.14
+        },
+        {
+          "date": "2026-10-20",
+          "name": "Johannes Christian Vyff, Kildager 37, Haderslev",
+          "projectId": "4dcf5ca5-e4e8-4e2b-a802-222dafb09908",
+          "planName": "Lillebælt, Bredningen",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.017,
+          "afforestationHa": 3.61,
+          "areaHa": 3.61
+        },
+        {
+          "date": "2026-10-20",
+          "name": "Klinte Strand - Ellebækken",
+          "projectId": "a961c43d-3ae4-4037-a1c5-812b614e1e15",
+          "planName": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 19.38,
+          "extractionHa": 83.44,
+          "areaHa": 484.98
+        }
+      ]
+    },
+    {
+      "date": "2026-10-19",
+      "entries": [
+        {
+          "date": "2026-10-19",
+          "name": "Skovrejsning Buen 2, 7752 Snedsted",
+          "projectId": "dfbb51d8-364e-4b2e-8085-3b0e6620efc7",
+          "planName": "Nibe Bredning og Langerak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.036,
+          "afforestationHa": 2.22,
+          "areaHa": 2.22
+        },
+        {
+          "date": "2026-10-19",
+          "name": "Skovrejsning Carsten Clausen",
+          "projectId": "36f2145c-96f8-4441-8ed9-c4c4997d1f98",
+          "planName": "Vesterhavet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
           "measureName": "Skovrejsning",
           "nitrogenT": 0.0,
-          "afforestationHa": 2.44,
-          "areaHa": 2.44
+          "afforestationHa": 2.16,
+          "areaHa": 2.16
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "entries": [
+        {
+          "date": "2026-10-15",
+          "name": "Kastrup Tiset Enge",
+          "projectId": "f5165e8b-f373-4560-a3fc-431ca8a1ec30",
+          "planName": "Vesterhavet, syd",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Kvælstofvådområder",
+          "nitrogenT": 383.87,
+          "extractionHa": 465.1,
+          "areaHa": 5612.94
+        }
+      ]
+    },
+    {
+      "date": "2026-10-12",
+      "entries": [
+        {
+          "date": "2026-10-12",
+          "name": "Lønstrupvej 97",
+          "projectId": "c2821e1d-c595-4426-bf6b-46459869c968",
+          "planName": "Skagerrak",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "afforestationHa": 3.98,
+          "areaHa": 3.98
+        }
+      ]
+    },
+    {
+      "date": "2026-10-09",
+      "entries": [
+        {
+          "date": "2026-10-09",
+          "name": "CRN-Fjelstrupvej 19 6920  Videbæk",
+          "projectId": "be6cccfa-45e3-4dc8-b93d-a9bd932ac3d9",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.008,
+          "afforestationHa": 1.91,
+          "areaHa": 1.91
         },
         {
-          "date": "2026-06-22",
-          "name": "Tange Å etablering",
-          "projectId": "1a25f73f-4bdc-482e-9ae4-ac5741021ae8",
+          "date": "2026-10-09",
+          "name": "Lavbund - Lyngbygaard Å",
+          "projectId": "468e44f3-1081-45cd-8db6-f2542c584acc",
+          "planName": "Århus Bugt og Begtrup Vig",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Lavbundsprojekter",
+          "extractionHa": 113.43,
+          "areaHa": 113.43
+        },
+        {
+          "date": "2026-10-09",
+          "name": "NAJO - Frøstrupvej 170, 6830 Nørre Nebel",
+          "projectId": "e2eb5149-edbe-4657-86cc-ef6ebaba549a",
+          "planName": "Vesterhavet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "afforestationHa": 1.31,
+          "areaHa": 1.31
+        },
+        {
+          "date": "2026-10-09",
+          "name": "Søbygård Lavbundsprojekt",
+          "projectId": "caa709bc-bd6d-4005-afbb-40e7af27811a",
           "planName": "Hevring Bugt",
-          "phase": "established",
-          "phaseLabelDa": "Nyligt anlagt",
-          "measureName": "Kvælstofvådområder",
-          "extractionHa": 32.9,
-          "areaHa": 71.32
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Forundersøgelse VLP",
+          "nitrogenT": 6.881,
+          "extractionHa": 172.07,
+          "areaHa": 172.07
+        },
+        {
+          "date": "2026-10-09",
+          "name": "Åmosen_Ulkestrup-Undløse",
+          "projectId": "1598704e-794c-4313-a3e9-25c640883d1d",
+          "planName": "Jammerland Bugt og Musholm Bugt",
+          "phase": "preliminary",
+          "phaseLabelDa": "Ny forundersøgelse",
+          "measureName": "Lavbundsprojekter",
+          "nitrogenT": 37.177,
+          "extractionHa": 929.42,
+          "areaHa": 929.42
+        }
+      ]
+    },
+    {
+      "date": "2026-10-08",
+      "entries": [
+        {
+          "date": "2026-10-08",
+          "name": "Carsten Petersen, Sommerstedvej 22, Sommersted",
+          "projectId": "bf22ceed-7b87-4181-9d36-fdf9570d5099",
+          "planName": "Vesterhavet, syd",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.047,
+          "afforestationHa": 2.04,
+          "areaHa": 2.04
+        },
+        {
+          "date": "2026-10-08",
+          "name": "Volsgård Nyskov - B. Lauridsen",
+          "projectId": "cf72022b-1f7e-45a7-87dd-0c4f040f8a57",
+          "planName": "Vesterhavet, nord",
+          "phase": "approved",
+          "phaseLabelDa": "Godkendt til anlæg",
+          "measureName": "Skovrejsning",
+          "nitrogenT": 0.021,
+          "afforestationHa": 4.03,
+          "areaHa": 4.03
         }
       ]
     }

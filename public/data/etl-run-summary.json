@@ -1,14 +1,205 @@
 {
-  "generatedAt": "2026-07-20T08:49:13.790666+00:00",
+  "generatedAt": "2026-11-05T13:50:32.287059+00:00",
   "recentRuns": [
     {
-      "date": "2026-07-20",
-      "runAt": "2026-07-20T08:41:54.219239+00:00",
+      "date": "2026-11-05",
+      "runAt": "2026-11-05T13:50:30.207536+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1565,
+          "projects": 1668,
+          "plans": 37,
+          "notes": "All endpoints OK"
+        },
+        "dawa": {
+          "status": "ok",
+          "municipalities": 99,
+          "notes": "Static boundaries (DAWA shut down — HTTP 410)"
+        },
+        "miljoegis": {
+          "status": "ok",
+          "notes": "6 layers fetched"
+        },
+        "natura2000": {
+          "status": "ok",
+          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
+        },
+        "klimaskovfonden": {
+          "status": "ok",
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
+        },
+        "section3": {
+          "status": "ok",
+          "notes": "186,628 §3 areas (skipped — count unchanged)"
+        },
+        "forest": {
+          "status": "ok",
+          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
+        },
+        "dst": {
+          "status": "ok",
+          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+        },
+        "vanda": {
+          "status": "ok",
+          "stations": 3114,
+          "notes": "3114 stations, 3114 with coordinates"
+        },
+        "arealdata-biodiversitet": {
+          "status": "ok",
+          "ku1": 239,
+          "ku2": 239,
+          "dce_hits": 83579,
+          "dce_fetched": 0,
+          "notes": "Arealdata WFS. FULL_DCE=False. KU+ audit."
+        },
+        "fvm-markkort-vns": {
+          "status": "ok",
+          "vns": 4213,
+          "municipalities_tagged": 83,
+          "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary"
+        }
+      }
+    },
+    {
+      "date": "2026-11-04",
+      "runAt": "2026-11-04T21:08:22.688310+00:00",
+      "status": "ok",
+      "sources": {
+        "mars": {
+          "status": "ok",
+          "projects": 1666,
+          "plans": 37,
+          "notes": "All endpoints OK"
+        },
+        "dawa": {
+          "status": "ok",
+          "municipalities": 99,
+          "notes": "Static boundaries (DAWA shut down — HTTP 410)"
+        },
+        "miljoegis": {
+          "status": "ok",
+          "notes": "6 layers fetched"
+        },
+        "dst": {
+          "status": "ok",
+          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+        },
+        "vanda": {
+          "status": "ok",
+          "stations": 3114,
+          "notes": "3114 stations, 3114 with coordinates"
+        },
+        "natura2000": {
+          "status": "ok",
+          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
+        },
+        "section3": {
+          "status": "ok",
+          "notes": "186,628 §3 areas (skipped — count unchanged)"
+        },
+        "forest": {
+          "status": "ok",
+          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
+        },
+        "klimaskovfonden": {
+          "status": "ok",
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
+        },
+        "arealdata-biodiversitet": {
+          "status": "ok",
+          "ku1": 239,
+          "ku2": 239,
+          "dce_hits": 83579,
+          "dce_fetched": 0,
+          "notes": "Arealdata WFS. FULL_DCE=False. KU+ audit."
+        },
+        "fvm-markkort-vns": {
+          "status": "ok",
+          "vns": 4213,
+          "municipalities_tagged": 83,
+          "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary"
+        }
+      }
+    },
+    {
+      "date": "2026-10-17",
+      "runAt": "2026-10-17T16:46:58.920783+00:00",
+      "status": "ok",
+      "sources": {
+        "mars": {
+          "status": "ok",
+          "projects": 1611,
+          "plans": 37,
+          "notes": "All endpoints OK"
+        },
+        "dawa": {
+          "status": "ok",
+          "municipalities": 99,
+          "notes": "Static boundaries (DAWA shut down — HTTP 410)"
+        },
+        "kommune-benchmark": {
+          "status": "ok",
+          "notes": "Sprint 4 B1/B2/B3 + B4 værdi-beskyttelse + national fordelings-simulering"
+        },
+        "kommune-ranking": {
+          "status": "ok",
+          "notes": "Sprint 6 kommune competition ranking"
+        },
+        "miljoegis": {
+          "status": "ok",
+          "notes": "6 layers fetched"
+        },
+        "dst": {
+          "status": "ok",
+          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
+        },
+        "vanda": {
+          "status": "ok",
+          "stations": 2947,
+          "notes": "2947 stations, 2947 with coordinates"
+        },
+        "natura2000": {
+          "status": "ok",
+          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
+        },
+        "section3": {
+          "status": "ok",
+          "notes": "186,628 §3 areas (skipped — count unchanged)"
+        },
+        "forest": {
+          "status": "ok",
+          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
+        },
+        "klimaskovfonden": {
+          "status": "ok",
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
+        },
+        "arealdata-biodiversitet": {
+          "status": "ok",
+          "ku1": 239,
+          "ku2": 239,
+          "dce_hits": 83579,
+          "dce_fetched": 0,
+          "notes": "Arealdata WFS. FULL_DCE=False. KU+ audit."
+        },
+        "fvm-markkort-vns": {
+          "status": "ok",
+          "vns": 4213,
+          "municipalities_tagged": 83,
+          "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary"
+        }
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "runAt": "2026-10-05T20:42:44.008989+00:00",
+      "status": "ok",
+      "sources": {
+        "mars": {
+          "status": "ok",
+          "projects": 1605,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -27,7 +218,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -43,19 +234,53 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2928,
+          "notes": "2928 stations, 2928 with coordinates"
+        },
+        "arealdata-biodiversitet": {
+          "status": "ok",
+          "ku1": 239,
+          "ku2": 239,
+          "dce_hits": 83579,
+          "dce_fetched": 83579,
+          "notes": "Arealdata WFS. FULL_DCE=True. KU+ audit."
+        },
+        "fvm-markkort-vns": {
+          "status": "ok",
+          "vns": 4213,
+          "municipalities_tagged": 83,
+          "notes": "Vand_Natur_og_Skovprojekter_2026 slim → public + summary"
+        },
+        "kommune-ranking": {
+          "status": "ok",
+          "notes": "Sprint 6 kommune competition ranking"
+        },
+        "markkort-marker-2026": {
+          "status": "ok",
+          "notes": "Marker_2026 per-kommune bbox fetch (0 errors)"
+        },
+        "section3-by-kommune": {
+          "status": "ok",
+          "notes": "§3 ais_par3 per-kommune bbox fetch (0 errors)"
+        },
+        "kommune-benchmark": {
+          "status": "ok",
+          "notes": "Sprint 4 B1/B2/B3 + B4 værdi-beskyttelse + national fordelings-simulering"
+        },
+        "kommune-oplande": {
+          "status": "ok",
+          "notes": "Sprint 6 kommune × opland crosswalk"
         }
       }
     },
     {
-      "date": "2026-07-19",
-      "runAt": "2026-07-19T08:00:44.900552+00:00",
+      "date": "2026-10-04",
+      "runAt": "2026-10-04T11:33:14.071459+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1565,
+          "projects": 1605,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -74,7 +299,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -90,19 +315,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2928,
+          "notes": "2928 stations, 2928 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-18",
-      "runAt": "2026-07-18T07:29:24.982970+00:00",
+      "date": "2026-10-03",
+      "runAt": "2026-10-03T10:50:22.455085+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1565,
+          "projects": 1605,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -121,7 +346,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -137,19 +362,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2928,
+          "notes": "2928 stations, 2928 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-17",
-      "runAt": "2026-07-17T07:54:29.749372+00:00",
+      "date": "2026-10-02",
+      "runAt": "2026-10-02T11:46:31.251772+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1565,
+          "projects": 1605,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -168,7 +393,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -184,19 +409,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2928,
+          "notes": "2928 stations, 2928 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-16",
-      "runAt": "2026-07-16T08:06:59.224687+00:00",
+      "date": "2026-10-01",
+      "runAt": "2026-10-01T12:05:29.789121+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1565,
+          "projects": 1612,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -215,7 +440,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -231,19 +456,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2907,
+          "notes": "2907 stations, 2907 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-15",
-      "runAt": "2026-07-15T07:52:59.836215+00:00",
+      "date": "2026-09-30",
+      "runAt": "2026-09-30T11:37:01.877323+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1561,
+          "projects": 1611,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -262,7 +487,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -278,19 +503,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-14",
-      "runAt": "2026-07-14T07:49:01.749695+00:00",
+      "date": "2026-09-29",
+      "runAt": "2026-09-29T11:50:02.784780+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1543,
+          "projects": 1593,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -309,7 +534,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -325,19 +550,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-13",
-      "runAt": "2026-07-13T08:49:36.499136+00:00",
+      "date": "2026-09-28",
+      "runAt": "2026-09-28T12:23:29.236196+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1533,
+          "projects": 1596,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -356,7 +581,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -372,19 +597,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-12",
-      "runAt": "2026-07-12T08:01:53.381369+00:00",
+      "date": "2026-09-27",
+      "runAt": "2026-09-27T11:03:27.188948+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1533,
+          "projects": 1597,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -403,7 +628,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -419,19 +644,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-11",
-      "runAt": "2026-07-11T07:42:32.079393+00:00",
+      "date": "2026-09-26",
+      "runAt": "2026-09-26T10:32:15.397319+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1533,
+          "projects": 1597,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -450,7 +675,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -466,19 +691,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-10",
-      "runAt": "2026-07-10T09:20:27.578691+00:00",
+      "date": "2026-09-25",
+      "runAt": "2026-09-25T11:00:41.257947+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1534,
+          "projects": 1596,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -497,7 +722,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -513,19 +738,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-09",
-      "runAt": "2026-07-09T09:33:16.098044+00:00",
+      "date": "2026-09-24",
+      "runAt": "2026-09-24T10:46:18.079320+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1528,
+          "projects": 1596,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -544,7 +769,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -560,19 +785,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2895,
+          "notes": "2895 stations, 2895 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-08",
-      "runAt": "2026-07-08T08:19:18.685498+00:00",
+      "date": "2026-09-23",
+      "runAt": "2026-09-23T10:29:16.053461+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1534,
+          "projects": 1595,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -591,7 +816,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -607,66 +832,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
+          "stations": 2893,
+          "notes": "2893 stations, 2893 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-07",
-      "runAt": "2026-07-07T09:25:40.923110+00:00",
+      "date": "2026-09-22",
+      "runAt": "2026-09-22T10:36:30.260997+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1532,
-          "plans": 37,
-          "notes": "All endpoints OK"
-        },
-        "dawa": {
-          "status": "ok",
-          "municipalities": 99,
-          "notes": "99 municipalities, 99 features"
-        },
-        "miljoegis": {
-          "status": "ok",
-          "notes": "6 layers fetched"
-        },
-        "natura2000": {
-          "status": "ok",
-          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
-        },
-        "klimaskovfonden": {
-          "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
-        },
-        "section3": {
-          "status": "ok",
-          "notes": "186,628 §3 areas (skipped — count unchanged)"
-        },
-        "forest": {
-          "status": "ok",
-          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
-        },
-        "dst": {
-          "status": "ok",
-          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
-        },
-        "vanda": {
-          "status": "ok",
-          "stations": 2837,
-          "notes": "2837 stations, 2837 with coordinates"
-        }
-      }
-    },
-    {
-      "date": "2026-07-05",
-      "runAt": "2026-07-05T08:41:53.502945+00:00",
-      "status": "ok",
-      "sources": {
-        "mars": {
-          "status": "ok",
-          "projects": 1531,
+          "projects": 1593,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -685,7 +863,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -701,19 +879,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-04",
-      "runAt": "2026-07-04T08:26:23.007566+00:00",
+      "date": "2026-09-21",
+      "runAt": "2026-09-21T11:27:56.587694+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1531,
+          "projects": 1594,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -732,7 +910,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -748,19 +926,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-03",
-      "runAt": "2026-07-03T08:50:28.929778+00:00",
+      "date": "2026-09-20",
+      "runAt": "2026-09-20T10:19:10.852099+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1530,
+          "projects": 1594,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -779,7 +957,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -795,19 +973,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-02",
-      "runAt": "2026-07-02T07:05:22.916833+00:00",
+      "date": "2026-09-19",
+      "runAt": "2026-09-19T09:58:43.734219+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1529,
+          "projects": 1594,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -826,7 +1004,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -842,19 +1020,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-07-01",
-      "runAt": "2026-07-01T07:36:50.226650+00:00",
+      "date": "2026-09-18",
+      "runAt": "2026-09-18T10:17:12.910653+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1528,
+          "projects": 1593,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -873,7 +1051,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -889,19 +1067,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-30",
-      "runAt": "2026-06-30T07:14:56.714538+00:00",
+      "date": "2026-09-17",
+      "runAt": "2026-09-17T10:52:11.760169+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1525,
+          "projects": 1592,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -920,7 +1098,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -936,19 +1114,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-29",
-      "runAt": "2026-06-29T07:37:01.754784+00:00",
+      "date": "2026-09-16",
+      "runAt": "2026-09-16T10:30:13.503047+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1523,
+          "projects": 1591,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -967,7 +1145,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -983,19 +1161,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-28",
-      "runAt": "2026-06-28T07:19:16.390479+00:00",
+      "date": "2026-09-15",
+      "runAt": "2026-09-15T10:42:19.882987+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1523,
+          "projects": 1667,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1014,7 +1192,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1030,19 +1208,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-27",
-      "runAt": "2026-06-27T07:03:30.292810+00:00",
+      "date": "2026-09-14",
+      "runAt": "2026-09-14T11:16:21.220993+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1523,
+          "projects": 1669,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1061,7 +1239,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1077,19 +1255,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-26",
-      "runAt": "2026-06-26T07:14:41.382317+00:00",
+      "date": "2026-09-13",
+      "runAt": "2026-09-13T10:50:05.597352+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1525,
+          "projects": 1669,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1108,7 +1286,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1124,19 +1302,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-25",
-      "runAt": "2026-06-25T07:09:31.134482+00:00",
+      "date": "2026-09-12",
+      "runAt": "2026-09-12T09:49:33.168996+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1524,
+          "projects": 1669,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1155,7 +1333,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1171,19 +1349,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-24",
-      "runAt": "2026-06-24T07:09:19.683580+00:00",
+      "date": "2026-09-11",
+      "runAt": "2026-09-11T10:15:24.261884+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1523,
+          "projects": 1668,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1202,7 +1380,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1218,19 +1396,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-23",
-      "runAt": "2026-06-23T07:26:00.727928+00:00",
+      "date": "2026-09-10",
+      "runAt": "2026-09-10T10:16:47.603903+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1523,
+          "projects": 1668,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1249,7 +1427,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1265,19 +1443,19 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2882,
+          "notes": "2882 stations, 2882 with coordinates"
         }
       }
     },
     {
-      "date": "2026-06-22",
-      "runAt": "2026-06-22T07:55:01.768655+00:00",
+      "date": "2026-09-09",
+      "runAt": "2026-09-09T10:35:33.872662+00:00",
       "status": "ok",
       "sources": {
         "mars": {
           "status": "ok",
-          "projects": 1533,
+          "projects": 1668,
           "plans": 37,
           "notes": "All endpoints OK"
         },
@@ -1296,7 +1474,7 @@
         },
         "klimaskovfonden": {
           "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
+          "notes": "283 projects, 3149.7 ha total (3119.2 ha afforestation)"
         },
         "section3": {
           "status": "ok",
@@ -1312,102 +1490,8 @@
         },
         "vanda": {
           "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
-        }
-      }
-    },
-    {
-      "date": "2026-06-21",
-      "runAt": "2026-06-21T07:35:06.147906+00:00",
-      "status": "ok",
-      "sources": {
-        "mars": {
-          "status": "ok",
-          "projects": 1533,
-          "plans": 37,
-          "notes": "All endpoints OK"
-        },
-        "dawa": {
-          "status": "ok",
-          "municipalities": 99,
-          "notes": "Skipped — files fresh (< 30 days old)"
-        },
-        "miljoegis": {
-          "status": "ok",
-          "notes": "6 layers fetched"
-        },
-        "natura2000": {
-          "status": "ok",
-          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
-        },
-        "klimaskovfonden": {
-          "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
-        },
-        "section3": {
-          "status": "ok",
-          "notes": "186,628 §3 areas (skipped — count unchanged)"
-        },
-        "forest": {
-          "status": "ok",
-          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
-        },
-        "dst": {
-          "status": "ok",
-          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
-        },
-        "vanda": {
-          "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
-        }
-      }
-    },
-    {
-      "date": "2026-06-20",
-      "runAt": "2026-06-20T07:17:49.838395+00:00",
-      "status": "ok",
-      "sources": {
-        "mars": {
-          "status": "ok",
-          "projects": 1533,
-          "plans": 37,
-          "notes": "All endpoints OK"
-        },
-        "dawa": {
-          "status": "ok",
-          "municipalities": 99,
-          "notes": "Skipped — files fresh (< 30 days old)"
-        },
-        "miljoegis": {
-          "status": "ok",
-          "notes": "6 layers fetched"
-        },
-        "natura2000": {
-          "status": "ok",
-          "notes": "250 Natura 2000 sites, terrestrial est. 772,809 ha (18.0% of land)"
-        },
-        "klimaskovfonden": {
-          "status": "ok",
-          "notes": "243 projects, 2889.8 ha total (2859.3 ha afforestation)"
-        },
-        "section3": {
-          "status": "ok",
-          "notes": "186,628 §3 areas (skipped — count unchanged)"
-        },
-        "forest": {
-          "status": "ok",
-          "notes": "Fredskov: 578949.8 ha; Skovkort: 61588 polygons"
-        },
-        "dst": {
-          "status": "ok",
-          "notes": "Tables: ARE207, SKOV1, FOND19, TILSKUD2"
-        },
-        "vanda": {
-          "status": "ok",
-          "stations": 2836,
-          "notes": "2836 stations, 2836 with coordinates"
+          "stations": 2871,
+          "notes": "2871 stations, 2871 with coordinates"
         }
       }
     }

@@ -142,15 +142,20 @@ def main():
     last_historic = 2023
 
     # --- Compute milestones ---
-    baseline_1990 = total_excl[0]
+    # The climate law's 70 % target is measured on NET emissions, i.e. including
+    # LULUCF: KF26 Del 1 — "nettoudledningerne i 2030 reduceres med ca. 70 pct. i
+    # forhold til 1990 … opfyldt med en margen på ca. 0,4 mio. ton". Measuring it
+    # excl. LULUCF turned KF25's stated +1,5 Mt margin into an apparent miss (69,8 %).
+    baseline_1990 = total_incl[0]
     target_2030 = round(baseline_1990 * 0.30, 2)  # 70% reduction = keep 30%
+    baseline_1990_excl = total_excl[0]
 
     def year_idx(y: int) -> int:
         return years.index(y)
 
     def reduction_pct(year: int) -> float:
         idx = year_idx(year)
-        return round((1 - total_excl[idx] / baseline_1990) * 100, 1)
+        return round((1 - total_incl[idx] / baseline_1990) * 100, 1)
 
     milestones = {
         "lastHistoricYear": last_historic,
@@ -160,6 +165,10 @@ def main():
         "reduction2035Pct": reduction_pct(2035),
         "totalExcl2023": total_excl[year_idx(2023)],
         "totalExcl2030": total_excl[year_idx(2030)],
+        "netEmissions2023": total_incl[year_idx(2023)],
+        "netEmissions2030": total_incl[year_idx(2030)],
+        # Positive = target met with this margin (KEFM's "margen"); negative = manko.
+        "margin2030Mt": round(target_2030 - total_incl[year_idx(2030)], 2),
         "agriculture2023": agriculture[year_idx(2023)],
         "agriculture2030": agriculture[year_idx(2030)],
         "lulucf2023": lulucf[year_idx(2023)],
@@ -184,8 +193,10 @@ def main():
             "inclLulucf": total_incl,
         },
         "targets": {
-            "baseline1990ExclLulucf": round(baseline_1990, 2),
-            "target2030ExclLulucf": target_2030,
+            "basis": "netto inkl. LULUCF (klimalovens opgørelse)",
+            "baseline1990Net": round(baseline_1990, 2),
+            "target2030Net": target_2030,
+            "baseline1990ExclLulucf": round(baseline_1990_excl, 2),
             "reductionPct": 70,
         },
         "agricultureBreakdown": ag_breakdown,
@@ -204,10 +215,10 @@ def main():
     print(f"\n  ✓ Wrote {OUTPUT_PATH.name} ({size_kb:.0f} KB)")
     print(f"\n  === Key Milestones ===")
     print(f"  1990 baseline (excl. LULUCF): {baseline_1990:.2f} mio ton CO₂e")
-    print(f"  2023 actual:  {milestones['totalExcl2023']:.2f} mio ton ({milestones['reduction2023Pct']}% reduction)")
+    print(f"  2023 actual:  {milestones['netEmissions2023']:.2f} mio ton net ({milestones['reduction2023Pct']}% reduction)")
     print(f"  2030 target:  {target_2030:.2f} mio ton (70% reduction)")
-    print(f"  2030 proj:    {milestones['totalExcl2030']:.2f} mio ton ({milestones['reduction2030Pct']}% reduction)")
-    print(f"  Gap to target: {milestones['totalExcl2030'] - target_2030:.2f} mio ton")
+    print(f"  2030 proj:    {milestones['netEmissions2030']:.2f} mio ton net ({milestones['reduction2030Pct']}% reduction)")
+    print(f"  Margin vs 70 % target: {milestones['margin2030Mt']:+.2f} mio ton (KF25 stated +1,5)")
     print(f"\n  Agriculture: {milestones['agriculture2023']:.2f} → {milestones['agriculture2030']:.2f} mio ton")
     print(f"  LULUCF:      {milestones['lulucf2023']:.2f} → {milestones['lulucf2030']:.2f} mio ton")
     print(f"\n  Duration: {elapsed:.1f}s")

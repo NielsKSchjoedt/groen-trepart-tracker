@@ -13,8 +13,6 @@ import { Check } from 'lucide-react';
 import type { KommunePhase } from '@/lib/kommune-metrics';
 import { PHASE_CONFIGS } from '@/lib/phase-config';
 
-export { KOMMUNE_PHASES } from '@/lib/kommune-metrics';
-
 interface PhaseFilterProps {
   /** Currently active (selected) phases */
   selected: Set<KommunePhase>;

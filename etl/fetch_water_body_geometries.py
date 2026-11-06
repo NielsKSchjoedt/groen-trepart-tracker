@@ -3,29 +3,39 @@
 ETL: Fetch actual coastal water body geometries from VP3 WFS.
 
 This fetches the REAL water body polygons (not the land-based catchment areas)
-from the VP3 tilstandsdata layer. These are the marine shapes that sit in the
-water around Denmark — fjords, bays, belts, etc.
+from the final revisited VP3 layer (Vandområdeplanerne 2021-2027 efter
+genbesøget, VP3-II, BEK nr. 1670 af 8. december 2025). These are the marine
+shapes that sit in the water around Denmark — fjords, bays, belts, etc.
 
-Endpoint: wfs2-miljoegis.mim.dk/vp3tilstand2021/ows
-Layer:    vp3tilstand2021:vp3tilstand2021_marin_samlet
+Endpoint: wfs2-miljoegis.mim.dk/vp3_2endelig2025/ows
+Layer:    vp3_2endelig2025:vp3_2e2025_marin_samlet
 
 Output: public/data/water-bodies.geojson (EPSG:4326)
         — simplified GeoJSON ready for Leaflet overlay
 
-We request CQL_FILTER=ov_type='Kystvand' to only get the 109 coastal waters,
-excluding the 14 territorial waters.
+All 123 features are fetched and filtered client-side on ov_kat == 'Kystvand'
+to keep the 109 coastal waters, excluding the 14 territorial waters.
 """
 
 import json
 import sys
 import time
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
-import requests
+USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 
-WFS_BASE = "https://wfs2-miljoegis.mim.dk/vp3tilstand2021/ows"
-LAYER = "vp3tilstand2021:vp3tilstand2021_marin_samlet"
+
+def fetch_json(url: str, timeout: int = 120) -> dict:
+    """GET a URL and parse JSON (stdlib only, per ETL golden rule)."""
+    req = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+    with urlopen(req, timeout=timeout) as resp:
+        return json.loads(resp.read())
+
+WFS_BASE = "https://wfs2-miljoegis.mim.dk/vp3_2endelig2025/ows"
+LAYER = "vp3_2endelig2025:vp3_2e2025_marin_samlet"
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "public" / "data" / "water-bodies.geojson"
 
 # First try WGS84 directly; fall back to native CRS + manual transform
@@ -57,33 +67,30 @@ def simplify_geometry(geom, tolerance=0.002):
 
 
 def main():
-    print(f"Fetching water body geometries from VP3 WFS...")
+    print(f"Fetching water body geometries from VP3-II (2025) WFS...")
     print(f"  Layer: {LAYER}")
-    print(f"  Filter: ov_type='Kystvand'")
+    print(f"  Filter (client-side): ov_kat='Kystvand'")
 
     t0 = time.time()
 
     # Try WGS84 first
     url = f"{WFS_BASE}?{urlencode(PARAMS)}"
     try:
-        resp = requests.get(url, timeout=120)
-        resp.raise_for_status()
+        data = fetch_json(url)
         needs_transform = False
-    except requests.RequestException:
+    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError):
         # Fall back to native CRS (EPSG:25832)
         print("  ⚠️  WGS84 request failed, trying native CRS (EPSG:25832)...")
         params_native = {**PARAMS, "srsName": "EPSG:25832"}
         url = f"{WFS_BASE}?{urlencode(params_native)}"
         try:
-            resp = requests.get(url, timeout=120)
-            resp.raise_for_status()
+            data = fetch_json(url)
             needs_transform = True
-        except requests.RequestException as e:
+        except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as e:
             print(f"  ❌ Request failed: {e}", file=sys.stderr)
             sys.exit(1)
 
     elapsed = time.time() - t0
-    data = resp.json()
 
     features = data.get("features", [])
     print(f"  ✅ {len(features)} features in {elapsed:.1f}s")
@@ -147,7 +154,7 @@ def main():
             .replace(" økologisk potentiale", "")  # heavily modified water bodies use "potentiale"
             .replace("Dårligt", "Dårlig")          # normalize adjective form
             .replace("Ikke anvendelig", "Ukendt")
-        ) if raw_status else "Ukendt"
+        ).strip() if raw_status else "Ukendt"
 
         out_features.append({
             "type": "Feature",
