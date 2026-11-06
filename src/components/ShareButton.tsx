@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { Share2, Check, Link2, Linkedin } from 'lucide-react';
+import { Share2, Check, Link2 } from 'lucide-react';
+import { LinkedinIcon } from './BrandIcons';
 
 interface ShareButtonProps {
   /** Danish label of the active pillar, shown in the share text and popover. */
@@ -122,7 +123,7 @@ export function ShareButton({ pillarLabel }: ShareButtonProps) {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 text-sm px-2 py-2 rounded-lg hover:bg-muted/60 transition-colors text-foreground"
             >
-              <Linkedin className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+              <LinkedinIcon className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
               Del på LinkedIn
             </a>
 
