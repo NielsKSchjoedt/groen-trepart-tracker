@@ -195,5 +195,21 @@ class MainTests(unittest.TestCase):
         self.assertEqual(json.loads((self.d / "kommuner.geojson").read_text()), fc)
 
 
+class SummaryChurnTests(unittest.TestCase):
+    def test_summary_rewritten_only_when_content_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "summary.json"
+            base = {"fetched_at": "2026-11-06T00:00:00+00:00", "verified_against_live_at": "2026-11-06T00:00:00+00:00",
+                    "source": "plandata", "changed_kommuner": []}
+            with mock.patch.object(fd, "SUMMARY_PATH", path):
+                self.assertTrue(fd.write_summary_if_changed(base))
+                later = {**base, "fetched_at": "2026-11-07T00:00:00+00:00",
+                         "verified_against_live_at": "2026-11-07T00:00:00+00:00"}
+                self.assertFalse(fd.write_summary_if_changed(later))
+                self.assertEqual(json.loads(path.read_text())["fetched_at"], base["fetched_at"])
+                self.assertTrue(fd.write_summary_if_changed({**later, "source": "archive"}))
+                self.assertEqual(json.loads(path.read_text())["source"], "archive")
+
+
 if __name__ == "__main__":
     unittest.main()

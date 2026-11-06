@@ -364,9 +364,9 @@ export function buildEffectDomains(
   const coastalGoodExcl = coastalEcoExcl
     ? (coastalEcoExcl.God ?? 0) + (coastalEcoExcl['Høj'] ?? 0)
     : null;
-  const coastalPlanLabel = coastalStatus?.plan
-    ? 'vandområdeplanerne efter genbesøget, december 2025'
-    : 'VP3';
+  // Label comes from the data, so a new plan generation relabels the card by itself.
+  const coastalPlanLabel =
+    coastalStatus?.plan?.labelDa ?? coastalStatus?.plan?.shortName ?? 'VP3';
 
   // Natur: krediter kun det aftalen skal flytte (mål − baseline), ikke den
   // bestand der allerede fandtes ved underskrift.

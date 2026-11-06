@@ -100,6 +100,14 @@ def build_projects(plans: list, master: dict) -> tuple[list | None, dict]:
     REST list entirely if the WFS is unreachable.
     """
     info: dict = {"source": "wfs", "wfsLayer": mars_wfs.LAYER_PROJECTS, "wfsUrl": mars_wfs.MARS_WFS}
+    if not plans:
+        # geoLocationId, applicationTimestamp and includedEffectRewetting come from the
+        # plans rows, and the snapshot-lag check needs them too: without plans the WFS
+        # rows would be written with empty geometry keys. Use the REST list instead.
+        print(f"    ✗ No REST plans this run — taking the project list from REST {PROJECTS_REST_PATH}")
+        rest = fetch_endpoint("projects (REST fallback)", PROJECTS_REST_PATH)
+        info.update(source="rest", error="REST plans unavailable")
+        return rest, info
     try:
         feats = mars_wfs.fetch_layer(mars_wfs.LAYER_PROJECTS)
         forest = mars_wfs.fetch_layer(mars_wfs.LAYER_FOREST)
@@ -121,7 +129,7 @@ def build_projects(plans: list, master: dict) -> tuple[list | None, dict]:
         pid = props.get("mars_id")
         wfs_rows[pid] = mars_wfs.wfs_project_row(props, lookups, plan_rows.get(pid), forest_by_id.get(pid))
 
-    stale = mars_wfs.stale_project_ids(wfs_rows, plan_rows) if plans else set()
+    stale = mars_wfs.stale_project_ids(wfs_rows, plan_rows)
     rest = None
     if stale:
         print(f"    {len(stale)} project(s) changed since the nightly WFS refresh — "

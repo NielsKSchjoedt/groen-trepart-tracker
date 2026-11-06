@@ -86,6 +86,13 @@ except (OSError, ValueError):
     _dawa_summary = {}
 
 
+def _latest_etl_run(source: str) -> str | None:
+    """Timestamp of the latest ok run of an ETL source in data/etl-log.json."""
+    log = _load_optional_json(f"{BASE}/data/etl-log.json") or {}
+    runs = [r for r in log.get("runs", []) if r.get("source") == source and r.get("status") == "ok"]
+    return max((r.get("timestamp") or "" for r in runs), default=None) or None
+
+
 def _load_optional_json(path: str):
     try:
         with open(path) as f:
@@ -739,7 +746,9 @@ dashboard_data = {
             "maintainer": "Klimadatastyrelsen (Danish Agency for Climate Data)",
             "license": "Public data (Danish public sector open data)",
             "coordinateSystem": "EPSG:25832",
-            "fetchedAt": _dawa_summary.get("verified_against_live_at"),
+            # summary.json is only rewritten when something changes, so the latest
+            # successful run comes from the ETL log.
+            "fetchedAt": _latest_etl_run("dawa") or _dawa_summary.get("verified_against_live_at"),
         },
         "natura2000": {
             "name": "Natura 2000 — EU Habitat & Birds Directive Protected Areas",

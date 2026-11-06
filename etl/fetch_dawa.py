@@ -57,6 +57,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from etl_log import log_etl_run
+from utm import utm32n_to_wgs84  # noqa: E402 — shared helper
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -327,33 +328,6 @@ def visual_centre(geom: dict) -> tuple[float, float]:
     return polylabel(largest)
 
 
-def utm32n_to_wgs84(easting: float, northing: float) -> tuple[float, float]:
-    """EPSG:25832 → WGS84 lon/lat (series expansion, sub-metre in Denmark)."""
-    k0, a, f = 0.9996, 6378137.0, 1 / 298.257223563
-    e2 = 2 * f - f * f
-    ep2 = e2 / (1 - e2)
-    x = easting - 500000.0
-    mu = northing / k0 / (a * (1 - e2 / 4 - 3 * e2 ** 2 / 64 - 5 * e2 ** 3 / 256))
-    e1 = (1 - math.sqrt(1 - e2)) / (1 + math.sqrt(1 - e2))
-    phi1 = (mu + (3 * e1 / 2 - 27 * e1 ** 3 / 32) * math.sin(2 * mu)
-            + (21 * e1 ** 2 / 16 - 55 * e1 ** 4 / 32) * math.sin(4 * mu)
-            + (151 * e1 ** 3 / 96) * math.sin(6 * mu)
-            + (1097 * e1 ** 4 / 512) * math.sin(8 * mu))
-    n1 = a / math.sqrt(1 - e2 * math.sin(phi1) ** 2)
-    t1 = math.tan(phi1) ** 2
-    c1 = ep2 * math.cos(phi1) ** 2
-    r1 = a * (1 - e2) / (1 - e2 * math.sin(phi1) ** 2) ** 1.5
-    d = x / (n1 * k0)
-    lat = phi1 - (n1 * math.tan(phi1) / r1) * (
-        d ** 2 / 2
-        - (5 + 3 * t1 + 10 * c1 - 4 * c1 ** 2 - 9 * ep2) * d ** 4 / 24
-        + (61 + 90 * t1 + 298 * c1 + 45 * t1 ** 2 - 252 * ep2 - 3 * c1 ** 2) * d ** 6 / 720
-    )
-    lon = math.radians(9.0) + (
-        d - (1 + 2 * t1 + c1) * d ** 3 / 6
-        + (5 - 2 * c1 + 28 * t1 - 3 * c1 ** 2 + 8 * ep2 + 24 * t1 ** 2) * d ** 5 / 120
-    ) / math.cos(phi1)
-    return (math.degrees(lon), math.degrees(lat))
 
 
 def wgs84_bbox(geom: dict) -> list[float]:
@@ -478,6 +452,28 @@ def write_outputs(archive_fc: dict, meta: list[dict], changed: set[str]) -> None
 # Main
 # ---------------------------------------------------------------------------
 
+# Timestamps that change on every run; the run itself is recorded in etl-log.json.
+_SUMMARY_RUN_FIELDS = ("fetched_at", "verified_against_live_at")
+
+
+def write_summary_if_changed(summary: dict) -> bool:
+    """Write summary.json only when something besides the run timestamps changed.
+
+    Avoids a committed diff on every daily run when the boundaries, source and
+    errors are all the same as last time. Returns True if the file was written.
+    """
+    try:
+        previous = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        previous = None
+    if isinstance(previous, dict):
+        strip = lambda d: {k: v for k, v in d.items() if k not in _SUMMARY_RUN_FIELDS}  # noqa: E731
+        if strip(previous) == strip(summary):
+            return False
+    SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return True
+
+
 def main() -> int:
     t0 = time.monotonic()
     now = datetime.now(timezone.utc)
@@ -550,7 +546,10 @@ def main() -> int:
         "geojson_features": feature_count,
         "coordinate_system": "EPSG:25832",
     }
-    SUMMARY_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if write_summary_if_changed(summary):
+        print(f"  Wrote {SUMMARY_PATH.name}")
+    else:
+        print(f"  {SUMMARY_PATH.name} unchanged apart from timestamps — not rewritten (run is in etl-log.json)")
 
     log_etl_run(
         source="dawa",

@@ -27,6 +27,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from utm import utm32n_to_wgs84 as _utm32n_to_wgs84  # noqa: E402 — shared helper
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -42,58 +43,9 @@ OUTPUT_SIZE_WARNING_KB = 600
 # ---------------------------------------------------------------------------
 
 def utm32n_to_wgs84(easting: float, northing: float) -> tuple[float, float]:
-    """
-    Approximate conversion from EPSG:25832 (ETRS89 / UTM zone 32N) to WGS84.
-
-    Accuracy: ~1 m for Denmark (sufficient for map display).
-
-    @param easting - UTM easting in metres
-    @param northing - UTM northing in metres
-    @returns (longitude, latitude) in decimal degrees (WGS84)
-
-    @example utm32n_to_wgs84(723996.4, 6181935.9)  # → (12.49, 55.70) approx
-    """
-    k0 = 0.9996
-    a = 6378137.0
-    f = 1 / 298.257223563
-    e = math.sqrt(2 * f - f * f)
-    e2 = e * e
-    e_prime2 = e2 / (1 - e2)
-
-    x = easting - 500000.0
-    y = northing
-
-    M = y / k0
-    mu = M / (a * (1 - e2 / 4 - 3 * e2 ** 2 / 64 - 5 * e2 ** 3 / 256))
-
-    e1 = (1 - math.sqrt(1 - e2)) / (1 + math.sqrt(1 - e2))
-    phi1 = (mu
-            + (3 * e1 / 2 - 27 * e1 ** 3 / 32) * math.sin(2 * mu)
-            + (21 * e1 ** 2 / 16 - 55 * e1 ** 4 / 32) * math.sin(4 * mu)
-            + (151 * e1 ** 3 / 96) * math.sin(6 * mu))
-
-    N1 = a / math.sqrt(1 - e2 * math.sin(phi1) ** 2)
-    T1 = math.tan(phi1) ** 2
-    C1 = e_prime2 * math.cos(phi1) ** 2
-    R1 = a * (1 - e2) / (1 - e2 * math.sin(phi1) ** 2) ** 1.5
-    D = x / (N1 * k0)
-
-    lat = phi1 - (N1 * math.tan(phi1) / R1) * (
-        D ** 2 / 2
-        - (5 + 3 * T1 + 10 * C1 - 4 * C1 ** 2 - 9 * e_prime2) * D ** 4 / 24
-        + (61 + 90 * T1 + 298 * C1 + 45 * T1 ** 2
-           - 252 * e_prime2 - 3 * C1 ** 2) * D ** 6 / 720
-    )
-
-    lon_central = math.radians(9.0)
-    lon = lon_central + (
-        D
-        - (1 + 2 * T1 + C1) * D ** 3 / 6
-        + (5 - 2 * C1 + 28 * T1 - 3 * C1 ** 2
-           + 8 * e_prime2 + 24 * T1 ** 2) * D ** 5 / 120
-    ) / math.cos(phi1)
-
-    return (round(math.degrees(lon), 6), round(math.degrees(lat), 6))
+    """EPSG:25832 → WGS84, rounded to 6 decimals (~0.1 m)."""
+    lon, lat = _utm32n_to_wgs84(easting, northing)
+    return (round(lon, 6), round(lat, 6))
 
 
 def _reproject_ring(ring: list) -> list:

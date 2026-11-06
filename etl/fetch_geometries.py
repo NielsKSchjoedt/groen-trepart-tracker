@@ -41,6 +41,7 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 
 import mars_wfs
+from utm import utm32n_to_wgs84 as _utm32n_to_wgs84  # noqa: E402 — shared helper
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -58,66 +59,9 @@ REQUEST_DELAY = 0.05  # 50ms between requests — polite rate limiting
 # --------------- UTM32N → WGS84 conversion ---------------
 
 def utm32n_to_wgs84(easting: float, northing: float) -> tuple[float, float]:
-    """Convert ETRS89/UTM zone 32N (EPSG:25832) to WGS84 (EPSG:4326).
-
-    Returns (longitude, latitude) in degrees.
-    Uses the Karney-style reverse UTM formulae with GRS80 ellipsoid.
-
-    Args:
-        easting: UTM easting coordinate (meters)
-        northing: UTM northing coordinate (meters)
-
-    Returns:
-        Tuple of (longitude, latitude) in decimal degrees
-
-    Example:
-        >>> utm32n_to_wgs84(574370, 6220600)
-        (10.0, 56.1...)
-    """
-    a = 6378137.0
-    f = 1 / 298.257222101
-    e2 = 2 * f - f * f
-    e = math.sqrt(e2)
-
-    k0 = 0.9996
-    lon0 = math.radians(9.0)  # Central meridian for zone 32
-
-    x = easting - 500000.0
-    y = northing
-
-    M = y / k0
-    mu = M / (a * (1 - e2/4 - 3*e2**2/64 - 5*e2**3/256))
-
-    e1 = (1 - math.sqrt(1 - e2)) / (1 + math.sqrt(1 - e2))
-
-    phi1 = mu + (3*e1/2 - 27*e1**3/32) * math.sin(2*mu)
-    phi1 += (21*e1**2/16 - 55*e1**4/32) * math.sin(4*mu)
-    phi1 += (151*e1**3/96) * math.sin(6*mu)
-    phi1 += (1097*e1**4/512) * math.sin(8*mu)
-
-    sin_phi1 = math.sin(phi1)
-    cos_phi1 = math.cos(phi1)
-    tan_phi1 = math.tan(phi1)
-
-    N1 = a / math.sqrt(1 - e2 * sin_phi1**2)
-    T1 = tan_phi1**2
-    C1 = (e2 / (1 - e2)) * cos_phi1**2
-    R1 = a * (1 - e2) / (1 - e2 * sin_phi1**2)**1.5
-    D = x / (N1 * k0)
-
-    lat = phi1 - (N1 * tan_phi1 / R1) * (
-        D**2/2
-        - (5 + 3*T1 + 10*C1 - 4*C1**2 - 9*(e2/(1-e2))) * D**4/24
-        + (61 + 90*T1 + 298*C1 + 45*T1**2 - 252*(e2/(1-e2)) - 3*C1**2) * D**6/720
-    )
-
-    lon = lon0 + (1/cos_phi1) * (
-        D
-        - (1 + 2*T1 + C1) * D**3/6
-        + (5 - 2*C1 + 28*T1 - 3*C1**2 + 8*(e2/(1-e2)) + 24*T1**2) * D**5/120
-    )
-
-    return (round(math.degrees(lon), 5), round(math.degrees(lat), 5))
+    """EPSG:25832 → WGS84, rounded to 5 decimals (~1 m) for the slim map geometries."""
+    lon, lat = _utm32n_to_wgs84(easting, northing)
+    return (round(lon, 5), round(lat, 5))
 
 
 # --------------- WKT parsing ---------------

@@ -49,7 +49,10 @@ jobs:
       - name: Restore spatial overlay cache
         uses: actions/cache@v5
         with:
-          path: data/spatial-overlays/cache
+          # kommune-ansvar has its own cache (above); don't store its ~50 MB twice.
+          path: |
+            data/spatial-overlays/cache
+            !data/spatial-overlays/cache/kommune-ansvar
           key: spatial-overlay-cache-v1-${{ github.run_id }}
           restore-keys: |
             spatial-overlay-cache-v1-

@@ -66,6 +66,7 @@ import time
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+import urllib.parse
 from urllib.parse import urlencode
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
@@ -77,6 +78,8 @@ WFS_BASE = "https://wfs2-miljoegis.mim.dk/vp3_2endelig2025/ows"
 LAYER = "vp3_2endelig2025:vp3_2e2025_marin_samlet"
 PLAN_NAME = "Vandområdeplanerne 2021-2027 efter genbesøget (VP3-II), endelig december 2025"
 PLAN_LEGAL_BASIS = "BEK nr. 1670 af 8. december 2025"
+# Short lower-case label used in running text on the site ("... kystvande (<label>)").
+PLAN_LABEL_DA = "vandområdeplanerne efter genbesøget, december 2025"
 SOURCE_LABEL = f"Miljøstyrelsen — {PLAN_NAME}"
 SOURCE_URL = "https://vandplandata.dk/vp3_2endelig2025"
 
@@ -130,9 +133,12 @@ def simplify_status(raw: str | None) -> str:
     # Heavily modified water bodies: "Maksimalt økologisk potentiale" ≙ høj.
     if raw.startswith("Maksimalt"):
         return "Høj"
-    # Supporting elements (ilt): "Understøtter god økologisk tilstand".
+    # Supporting elements (ilt, lys): "Understøtter god økologisk tilstand".
     if raw.startswith("Understøtter god"):
         return "God"
+    # A failing supporting element caps the status at moderat (WFD).
+    if raw.startswith("Understøtter ikke"):
+        return "Moderat"
     if raw.startswith("Ikke-god"):
         return "Ikke-god"
     if "Ikke relevant" in raw:
@@ -142,6 +148,10 @@ def simplify_status(raw: str | None) -> str:
     if raw.startswith("Ukendt"):
         return "Ukendt"
     return raw
+
+
+KNOWN_STATUSES = {"Høj", "God", "Moderat", "Ringe", "Dårlig", "Ikke-god", "Ukendt", "Ikke relevant"}
+VANDPLANDATA_HOSTS = {"vandplandata.dk", "www.vandplandata.dk"}
 
 
 def status_to_rank(status: str) -> int:
@@ -168,7 +178,30 @@ def status_excl_national_substances(props: dict) -> str:
     waters that Miljøstyrelsen's fact sheet reports as good when national
     specific substances are not counted.
     """
-    return worst_status([simplify_status(props.get(k)) for k in ECO_ELEMENTS_EXCL_NATIONAL_SUBSTANCES])
+    statuses = [simplify_status(props.get(k)) for k in ECO_ELEMENTS_EXCL_NATIONAL_SUBSTANCES]
+    unknown = [st for st in statuses if st not in KNOWN_STATUSES]
+    if unknown:
+        # An element label we don't recognise could be a failing grade; never let it
+        # silently drop out of the worst-of and make the water look better than it is.
+        print(f"    ⚠ {props.get('ov_navn')}: unrecognised element status {unknown} — excl. status set to Ukendt")
+        return "Ukendt"
+    return worst_status(statuses)
+
+
+def official_vandplandata_url(value: str | None) -> str | None:
+    """Keep a WFS link only if it points at vandplandata.dk over https.
+
+    The value is rendered as an official link on the site, so anything else
+    (another host, another scheme) is dropped rather than published.
+    """
+    if not value or not isinstance(value, str):
+        return None
+    value = value.strip()
+    parsed = urllib.parse.urlsplit(value)
+    if parsed.scheme == "https" and parsed.hostname in VANDPLANDATA_HOSTS:
+        return value
+    print(f"    ⚠ dropped non-vandplandata link: {value[:120]!r}")
+    return None
 
 
 def main():
@@ -241,8 +274,8 @@ def main():
             "ecologicalGoal": eco_goal,
             "chemicalStatus": chem_status,
             "chemicalGoal": chem_goal,
-            "vandplandataUrl": p.get("link") or None,
-            "exemptionsUrl": p.get("link_aarsag") or None,
+            "vandplandataUrl": official_vandplandata_url(p.get("link")),
+            "exemptionsUrl": official_vandplandata_url(p.get("link_aarsag")),
             "subIndicators": {
                 "phytoplankton": simplify_status(p.get("til_oko_fy")),
                 "angiosperms": simplify_status(p.get("til_oko_an")),
@@ -264,6 +297,7 @@ def main():
         "plan": {
             "name": PLAN_NAME,
             "shortName": "VP3-II",
+            "labelDa": PLAN_LABEL_DA,
             "legalBasis": PLAN_LEGAL_BASIS,
             "wfsEndpoint": WFS_BASE,
             "wfsLayer": LAYER,

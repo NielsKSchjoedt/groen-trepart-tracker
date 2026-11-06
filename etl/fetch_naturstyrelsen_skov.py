@@ -26,6 +26,7 @@ import urllib.request
 from datetime import datetime
 from urllib.request import urlopen, Request
 from kommune_lookup import find_kommune
+from utm import utm32n_to_wgs84  # noqa: E402 — shared helper
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'data', 'naturstyrelsen-skov')
 
@@ -184,53 +185,6 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
 # Coordinate transform: EPSG:25832 (UTM32N) → WGS84
 # ---------------------------------------------------------------------------
 
-def utm32n_to_wgs84(easting: float, northing: float) -> tuple[float, float]:
-    """
-    Approximate conversion from EPSG:25832 (ETRS89 / UTM zone 32N)
-    to WGS84 (lon, lat). Uses the inverse UTM equations.
-    Accuracy: ~1m for Denmark, which is fine for map display.
-    """
-    # UTM zone 32N parameters
-    k0 = 0.9996
-    a = 6378137.0           # WGS84 semi-major
-    f = 1 / 298.257223563   # WGS84 flattening
-    e = math.sqrt(2 * f - f * f)
-    e2 = e * e
-    e_prime2 = e2 / (1 - e2)
-
-    x = easting - 500000.0  # remove false easting
-    y = northing
-
-    M = y / k0
-    mu = M / (a * (1 - e2 / 4 - 3 * e2 ** 2 / 64 - 5 * e2 ** 3 / 256))
-
-    e1 = (1 - math.sqrt(1 - e2)) / (1 + math.sqrt(1 - e2))
-    phi1 = (mu + (3 * e1 / 2 - 27 * e1 ** 3 / 32) * math.sin(2 * mu)
-            + (21 * e1 ** 2 / 16 - 55 * e1 ** 4 / 32) * math.sin(4 * mu)
-            + (151 * e1 ** 3 / 96) * math.sin(6 * mu))
-
-    N1 = a / math.sqrt(1 - e2 * math.sin(phi1) ** 2)
-    T1 = math.tan(phi1) ** 2
-    C1 = e_prime2 * math.cos(phi1) ** 2
-    R1 = a * (1 - e2) / (1 - e2 * math.sin(phi1) ** 2) ** 1.5
-    D = x / (N1 * k0)
-
-    lat = phi1 - (N1 * math.tan(phi1) / R1) * (
-        D ** 2 / 2
-        - (5 + 3 * T1 + 10 * C1 - 4 * C1 ** 2 - 9 * e_prime2) * D ** 4 / 24
-        + (61 + 90 * T1 + 298 * C1 + 45 * T1 ** 2
-           - 252 * e_prime2 - 3 * C1 ** 2) * D ** 6 / 720
-    )
-
-    lon_central = math.radians(9.0)  # zone 32N central meridian
-    lon = lon_central + (
-        D
-        - (1 + 2 * T1 + C1) * D ** 3 / 6
-        + (5 - 2 * C1 + 28 * T1 - 3 * C1 ** 2
-           + 8 * e_prime2 + 24 * T1 ** 2) * D ** 5 / 120
-    ) / math.cos(phi1)
-
-    return (math.degrees(lon), math.degrees(lat))
 
 
 def polygon_centroid_utm(coords: list) -> tuple[float, float]:

@@ -745,6 +745,8 @@ export interface CoastalWaterStatusData {
   plan?: {
     name: string;
     shortName: string;
+    /** Short lower-case label for running text, e.g. "vandområdeplanerne efter genbesøget, december 2025" */
+    labelDa?: string;
     legalBasis: string;
     wfsEndpoint: string;
     wfsLayer: string;

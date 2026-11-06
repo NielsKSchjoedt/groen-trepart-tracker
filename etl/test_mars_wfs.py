@@ -174,5 +174,21 @@ class GeometryTest(unittest.TestCase):
         self.assertIsNone(geojson_to_wkt({"type": "Point", "coordinates": [1, 2]}))
 
 
+class BuildProjectsWithoutPlansTest(unittest.TestCase):
+    def test_missing_plans_uses_rest_list_not_wfs(self) -> None:
+        """Without REST plans the WFS rows would lack geoLocationId — REST list instead."""
+        from unittest import mock
+        import fetch_mars
+
+        rest_rows = [{"projectId": "p1", "geoLocationId": "g1"}]
+        with mock.patch.object(fetch_mars.mars_wfs, "fetch_layer") as wfs, \
+                mock.patch.object(fetch_mars, "fetch_endpoint", return_value=rest_rows) as rest:
+            rows, info = fetch_mars.build_projects(None, MASTER)
+        wfs.assert_not_called()
+        rest.assert_called_once()
+        self.assertEqual(rows, rest_rows)
+        self.assertEqual(info["source"], "rest")
+
+
 if __name__ == "__main__":
     unittest.main()
