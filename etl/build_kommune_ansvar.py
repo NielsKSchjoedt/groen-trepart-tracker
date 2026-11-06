@@ -13,27 +13,36 @@ figure is distributed to the kommuner that overlap it:
   N reduction comes from agricultural land, so urban overlap carries ~no weight.
 * Lavbund: plan extraction potential × the kommune's share of the plan's
   *carbon-rich soil* (DCA 2022 kulstofkort, 6–12 % and > 12 % classes), read
-  from the Miljøportal WMS at 50 m. Plans with no mapped carbon soil fall back
-  to the farmland weight.
+  as vector polygons from Miljøministeriet's official MiljøGIS WFS
+  (wfs2-miljoegis.mim.dk, natur:kulstof2022).
+  Plans with no mapped carbon soil fall back to the farmland weight.
 * Skov: the forest goal (250.000 ha) has no geographic split at all; new forest
   is planted on farmland, so ansvar = the kommune's share of national farmland.
 
-Everything is rasterised onto one 50 m grid (EPSG:25832), so overlaps are pixel
-counts: 1 px = 0,25 ha. That is far below the precision the allocation needs.
+All overlaps are exact vector areas in EPSG:25832: kommune × plan pieces (also
+used for the farmland weights, previously a 50 m raster) are intersected with the
+kulstofkort's 10 m polygons. (Until Nov 2026 the kulstofkort
+was read from a WMS *picture* and every pixel with any opacity counted as carbon
+soil; anti-aliased edges made that overcount 3–20× and unevenly between kommuner.)
+The 3–6 % class (natur:kulstof2022_3_6_pct) is deliberately left out: the map,
+legend and the agreement's lavbund target use ≥ 6 %. The farmland-density weight
+on carbon soil is unrelated to the old pixel artefact (it discounts bogs and
+reserves in urban/nature kommuner) and is kept unchanged.
 
 Output: kommune-ansvar.json (data/ + public/data/kommune-benchmark/).
 Runs in the monthly spatial-overlay workflow (needs requirements-spatial.txt).
 """
 from __future__ import annotations
 
-import io
 import json
+import re
 import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -44,9 +53,10 @@ if str(SCRIPT_DIR) not in sys.path:
 try:
     import geopandas as gpd
     import numpy as np
-    from PIL import Image, ImageDraw
+    import shapely
+    from shapely import STRtree
     from shapely import wkt as shapely_wkt
-    from shapely.geometry import MultiPolygon, Polygon
+    from shapely.geometry import MultiPolygon, Polygon, box, shape
 except ImportError as exc:  # pragma: no cover
     raise SystemExit("Run: mise run setup-spatial") from exc
 
@@ -61,7 +71,7 @@ CACHE_DIR = REPO / "data" / "spatial-overlays" / "cache" / "kommune-ansvar"
 OUT_DIR = REPO / "data" / "kommune-benchmark"
 PUBLIC_OUT_DIR = REPO / "public" / "data" / "kommune-benchmark"
 
-METHOD_VERSION = "ansvar-v1"
+METHOD_VERSION = "ansvar-v2"
 EXCLUDED_KODER = {"0411"}
 USER_AGENT = (
     "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; "
@@ -69,17 +79,17 @@ USER_AGENT = (
 )
 MARS_BASE = "https://mars.sgav.dk/api"
 DST_BASE = "https://api.statbank.dk/v1"
-KULSTOF_WMS = "https://miljoegis3.mim.dk/wms?servicename=vandprojekter_wms"
-KULSTOF_LAYER = "theme-kulstofrige_lavbund_2022_kulstof2022_i0"
+KULSTOF_WFS = "https://wfs2-miljoegis.mim.dk/natur/ows"
+KULSTOF_LAYER = "natur:kulstof2022"  # gridcode 12 = 6–12 % tørv, 60 = > 12 %
+KULSTOF_CLASSES = {12: "6til12", 60: "Over12"}
 
-# 50 m grid over Denmark incl. Bornholm, in 100 km WMS tiles.
-CELL_M = 50
+# Denmark incl. Bornholm as 100 km start tiles, split in quadrants until each
+# WFS request returns at most WFS_MAX_FEATURES polygons.
 TILE_M = 100_000
 GRID_X0, GRID_Y0 = 440_000, 6_040_000
 TILES_X, TILES_Y = 5, 4
-PX_PER_TILE = TILE_M // CELL_M
-WIDTH, HEIGHT = TILES_X * PX_PER_TILE, TILES_Y * PX_PER_TILE
-HA_PER_PX = CELL_M * CELL_M / 10_000
+WFS_MAX_FEATURES = 50_000
+SUBDIVIDE_M = 5_000
 
 
 def _http_get(url: str, accept: str = "application/json", timeout: int = 120) -> bytes:
@@ -129,8 +139,8 @@ def plan_geometry(geo_id: str) -> Polygon | MultiPolygon:
         payload = json.loads(_http_get(f"{MARS_BASE}/geometries/{geo_id}"))
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(payload["geometryWkt"], encoding="utf-8")
-    # Validity does not matter for rasterisation; buffer(0) chokes on some MARS rings.
-    return shapely_wkt.loads(path.read_text(encoding="utf-8"))
+    # make_valid, not buffer(0): buffer(0) drops parts of some self-touching MARS rings.
+    return _polygonal(shapely_wkt.loads(path.read_text(encoding="utf-8")))
 
 
 def load_landbrug_ha(refresh: bool) -> dict[str, float]:
@@ -192,57 +202,199 @@ def _http_post(url: str, body: dict[str, Any]) -> bytes:
         return resp.read()
 
 
-def kulstof_mask() -> np.ndarray:
-    """Boolean grid: True where the DCA 2022 kulstofkort marks carbon-rich soil."""
-    mask = np.zeros((HEIGHT, WIDTH), dtype=bool)
-    for ty in range(TILES_Y):
-        for tx in range(TILES_X):
-            x0 = GRID_X0 + tx * TILE_M
-            y0 = GRID_Y0 + ty * TILE_M
-            path = CACHE_DIR / "kulstof" / f"{x0}_{y0}.png"
-            if not path.exists():
-                url = (
-                    f"{KULSTOF_WMS}&service=WMS&request=GetMap&layers={KULSTOF_LAYER}"
-                    f"&styles=&format=image/png&transparent=true&version=1.3.0"
-                    f"&width={PX_PER_TILE}&height={PX_PER_TILE}&crs={METRIC_CRS}"
-                    f"&bbox={x0},{y0},{x0 + TILE_M},{y0 + TILE_M}"
-                )
-                data = _http_get(url, accept="image/png", timeout=180)
-                if not data.startswith(b"\x89PNG"):
-                    raise SystemExit(f"Kulstof WMS returned non-PNG for tile {x0},{y0}")
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(data)
-            alpha = np.asarray(Image.open(io.BytesIO(path.read_bytes())).convert("RGBA"))[:, :, 3]
-            # Image row 0 is the tile's north edge; grid row 0 is the grid's north edge.
-            row0 = (TILES_Y - 1 - ty) * PX_PER_TILE
-            col0 = tx * PX_PER_TILE
-            mask[row0 : row0 + PX_PER_TILE, col0 : col0 + PX_PER_TILE] = alpha > 0
-    return mask
+# --- Kulstofkort (WFS) ----------------------------------------------------------
 
 
-# --- Rasterisation ------------------------------------------------------------
+def _wfs_url(**params: Any) -> str:
+    base = {
+        "service": "WFS",
+        "version": "2.0.0",
+        "request": "GetFeature",
+        "typeNames": KULSTOF_LAYER,
+        "srsName": METRIC_CRS,
+    }
+    return f"{KULSTOF_WFS}?{urlencode({**base, **params})}"
 
 
-def _to_px(coords) -> list[tuple[float, float]]:
-    top = GRID_Y0 + TILES_Y * TILE_M
-    return [((x - GRID_X0) / CELL_M, (top - y) / CELL_M) for x, y, *_ in coords]
+def _bbox_param(bbox: tuple[int, int, int, int]) -> str:
+    return f"{bbox[0]},{bbox[1]},{bbox[2]},{bbox[3]},{METRIC_CRS}"
 
 
-def rasterise(geoms: list[Polygon | MultiPolygon]) -> np.ndarray:
-    """Label grid: value i+1 where geoms[i] covers the cell centre, 0 elsewhere."""
-    if len(geoms) > 254:
-        raise ValueError("uint8 label grid holds at most 254 features")
-    img = Image.new("L", (WIDTH, HEIGHT), 0)
-    draw = ImageDraw.Draw(img)
-    for i, geom in enumerate(geoms):
-        polys = geom.geoms if isinstance(geom, MultiPolygon) else [geom]
-        for poly in polys:
-            if poly.is_empty:
+def _wfs_hits(bbox: tuple[int, int, int, int]) -> int:
+    body = _http_get(_wfs_url(resultType="hits", bbox=_bbox_param(bbox)), accept="application/xml")
+    match = re.search(rb'numberMatched="(\d+)"', body)
+    if not match:
+        raise SystemExit(f"Kulstof WFS: no numberMatched for bbox {bbox}: {body[:300]!r}")
+    return int(match.group(1))
+
+
+def _leaf_tiles(bbox: tuple[int, int, int, int]) -> list[tuple[int, int, int, int]]:
+    """Split bbox into quadrants until each holds at most WFS_MAX_FEATURES features."""
+    n = _wfs_hits(bbox)
+    if n == 0:
+        return []
+    if n <= WFS_MAX_FEATURES:
+        return [bbox]
+    x0, y0, x1, y1 = bbox
+    xm, ym = (x0 + x1) // 2, (y0 + y1) // 2
+    out: list[tuple[int, int, int, int]] = []
+    for q in ((x0, y0, xm, ym), (xm, y0, x1, ym), (x0, ym, xm, y1), (xm, ym, x1, y1)):
+        out += _leaf_tiles(q)
+    return out
+
+
+def _fetch_tile(bbox: tuple[int, int, int, int], path: Path) -> None:
+    """One WFS GetFeature for a tile, stored as feature ids + gridcode + WKB (npz)."""
+    payload = json.loads(
+        _http_get(
+            _wfs_url(outputFormat="application/json", count=WFS_MAX_FEATURES, bbox=_bbox_param(bbox)),
+            timeout=600,
+        )
+    )
+    feats = payload["features"]
+    matched = payload.get("numberMatched")
+    if isinstance(matched, int) and matched != len(feats):
+        raise SystemExit(f"Kulstof WFS tile {bbox}: got {len(feats)} of {matched} features")
+    ids = np.array([int(f["id"].rsplit(".", 1)[1]) for f in feats], dtype=np.int64)
+    codes = np.array([int(f["properties"]["gridcode"]) for f in feats], dtype=np.int16)
+    wkb = shapely.to_wkb([shape(f["geometry"]) for f in feats])
+    offsets = np.cumsum([0] + [len(b) for b in wkb], dtype=np.int64)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp.npz")
+    np.savez_compressed(
+        tmp, ids=ids, codes=codes, offsets=offsets, wkb=np.frombuffer(b"".join(wkb), dtype=np.uint8)
+    )
+    tmp.replace(path)
+
+
+def kulstof_features() -> tuple[np.ndarray, np.ndarray]:
+    """DCA 2022 kulstofkort (>= 6 % organic carbon) as vector polygons + gridcode.
+
+    Fetched from the official WFS in quadtree tiles of at most WFS_MAX_FEATURES
+    features (one request per tile, so no reliance on server-side paging order),
+    cached as npz per tile. The map is static (2022), so cached tiles are reused
+    on every rerun; delete the cache dir to refetch. Polygons crossing a tile
+    border are returned for both tiles and are de-duplicated on feature id.
+    """
+    cache = CACHE_DIR / "kulstof-wfs"
+    index_path = cache / "tiles.json"
+    if index_path.exists():
+        tiles = [tuple(t) for t in json.loads(index_path.read_text(encoding="utf-8"))]
+    else:
+        print("  Kulstof WFS: planlægger fliser …")
+        tiles = []
+        for ty in range(TILES_Y):
+            for tx in range(TILES_X):
+                x0, y0 = GRID_X0 + tx * TILE_M, GRID_Y0 + ty * TILE_M
+                tiles += _leaf_tiles((x0, y0, x0 + TILE_M, y0 + TILE_M))
+        cache.mkdir(parents=True, exist_ok=True)
+        index_path.write_text(json.dumps(tiles), encoding="utf-8")
+
+    ids_all, codes_all, geoms_all = [], [], []
+    for i, bbox in enumerate(tiles):
+        path = cache / f"{bbox[0]}_{bbox[1]}_{bbox[2]}_{bbox[3]}.npz"
+        if not path.exists():
+            print(f"  Kulstof WFS: henter flise {i + 1}/{len(tiles)} {bbox}")
+            _fetch_tile(bbox, path)
+        with np.load(path) as z:
+            blob, offsets = z["wkb"].tobytes(), z["offsets"]
+            ids_all.append(z["ids"])
+            codes_all.append(z["codes"])
+        geoms_all.append(
+            shapely.from_wkb([blob[offsets[j] : offsets[j + 1]] for j in range(len(offsets) - 1)])
+        )
+    ids = np.concatenate(ids_all)
+    codes = np.concatenate(codes_all)
+    geoms = np.concatenate(geoms_all)
+    _, first = np.unique(ids, return_index=True)
+    geoms, codes = geoms[first], codes[first]
+    # ~3 % of the raster-derived rings self-touch at a corner; make_valid keeps the
+    # area unchanged but makes GEOS intersections reliable.
+    invalid = ~shapely.is_valid(geoms)
+    geoms[invalid] = [_polygonal(g) for g in geoms[invalid]]
+    print(f"  Kulstof WFS: {len(first):,} polygoner ({len(ids) - len(first):,} dubletter på flisegrænser fjernet, {int(invalid.sum()):,} gjort gyldige)")
+    return geoms, codes
+
+
+# --- Vector overlay -------------------------------------------------------------
+
+
+def _polygonal(geom):
+    """make_valid, keeping only the (multi)polygon part."""
+    geom = shapely.make_valid(geom)
+    if geom.geom_type in ("Polygon", "MultiPolygon"):
+        return geom
+    parts = [g for g in getattr(geom, "geoms", []) if g.geom_type in ("Polygon", "MultiPolygon")]
+    return shapely.union_all(parts) if parts else Polygon()
+
+
+def overlay_pieces(
+    kommune_geoms: list, plan_geoms: list
+) -> tuple[list[int], list[int], np.ndarray]:
+    """Kommune × plan intersection pieces, plus each kommune's area outside all plans.
+
+    Returns (kommune index, plan index, geometry) per piece; plan index == len(plan_geoms)
+    marks the residual "outside any MARS plan" piece.
+    """
+    plan_tree = STRtree(plan_geoms)
+    k_idx: list[int] = []
+    p_idx: list[int] = []
+    pieces: list = []
+    n_plans = len(plan_geoms)
+    for k, kg in enumerate(kommune_geoms):
+        covered = []
+        for p in plan_tree.query(kg, predicate="intersects"):
+            piece = _polygonal(shapely.intersection(kg, plan_geoms[p]))
+            if piece.is_empty or piece.area <= 0:
                 continue
-            draw.polygon(_to_px(poly.exterior.coords), fill=i + 1)
-            for hole in poly.interiors:
-                draw.polygon(_to_px(hole.coords), fill=0)
-    return np.asarray(img)
+            k_idx.append(k)
+            p_idx.append(int(p))
+            pieces.append(piece)
+            covered.append(piece)
+        rest = _polygonal(shapely.difference(kg, shapely.union_all(covered))) if covered else kg
+        if not rest.is_empty and rest.area > 0:
+            k_idx.append(k)
+            p_idx.append(n_plans)
+            pieces.append(rest)
+    return k_idx, p_idx, np.array(pieces, dtype=object)
+
+
+def _subdivide(pieces: np.ndarray, cell_m: int = SUBDIVIDE_M) -> tuple[np.ndarray, np.ndarray]:
+    """Cut pieces along a cell_m grid so each intersection test touches few vertices."""
+    parents: list[int] = []
+    parts: list = []
+    for i, geom in enumerate(pieces):
+        x0, y0, x1, y1 = geom.bounds
+        xs = range(int(x0 // cell_m) * cell_m, int(x1) + 1, cell_m)
+        ys = range(int(y0 // cell_m) * cell_m, int(y1) + 1, cell_m)
+        cells = [box(x, y, x + cell_m, y + cell_m) for x in xs for y in ys]
+        for cut in shapely.intersection(geom, cells):
+            cut = _polygonal(cut)
+            if not cut.is_empty and cut.area > 0:
+                parents.append(i)
+                parts.append(cut)
+    return np.array(parents), np.array(parts, dtype=object)
+
+
+def kulstof_area_by_piece(pieces: np.ndarray, feats: np.ndarray, codes: np.ndarray) -> dict[int, np.ndarray]:
+    """Hectares of each kulstof class (gridcode) inside each piece."""
+    parents, parts = _subdivide(pieces)
+    shapely.prepare(parts)
+    tree = STRtree(parts)
+    out = {int(c): np.zeros(len(pieces)) for c in np.unique(codes)}
+    chunk = 200_000
+    for s in range(0, len(feats), chunk):
+        f = feats[s : s + chunk]
+        fi, pj = tree.query(f, predicate=None)  # bbox candidates
+        inside = shapely.contains_properly(parts[pj], f[fi])
+        area = shapely.area(f[fi])
+        edge = ~inside
+        area[edge] = shapely.area(shapely.intersection(f[fi[edge]], parts[pj[edge]]))
+        c = codes[s : s + chunk][fi]
+        for code, acc in out.items():
+            sel = c == code
+            np.add.at(acc, parents[pj[sel]], area[sel] / 10_000)
+    return out
 
 
 # --- Allocation ---------------------------------------------------------------
@@ -286,22 +438,30 @@ def build(refresh_dst: bool = False) -> dict[str, int]:
     if missing:
         raise SystemExit(f"DST AREALDK mangler landbrugsareal for {missing}")
 
-    k_grid = rasterise(list(kommuner.geometry))
-    p_grid = rasterise(plan_geoms)
-    kulstof = kulstof_mask()
+    kommune_geoms = [_polygonal(g) for g in kommuner.geometry]
+    k_idx, p_idx, pieces = overlay_pieces(kommune_geoms, plan_geoms)
+    feats, codes = kulstof_features()
+    kul_by_class = kulstof_area_by_piece(pieces, feats, codes)
+    unknown = set(kul_by_class) - set(KULSTOF_CLASSES)
+    if unknown:
+        raise SystemExit(f"Kulstof WFS: ukendt gridcode {unknown}")
 
     nk, np_ = len(koder), len(plans)
-    # Pixel counts per (kommune, plan) for all land and for carbon-rich soil.
-    combo = k_grid.astype(np.int32) * (np_ + 1) + p_grid.astype(np.int32)
-    size = (nk + 1) * (np_ + 1)
-    area_px = np.bincount(combo.ravel(), minlength=size).reshape(nk + 1, np_ + 1)[1:, 1:]
-    kul_px = np.bincount(combo[kulstof], minlength=size).reshape(nk + 1, np_ + 1)[1:, 1:]
-    kommune_px = np.bincount(k_grid.ravel(), minlength=nk + 1)[1:]
+    # Hectares per (kommune, plan); the extra last column is land outside every plan.
+    area_ha = np.zeros((nk, np_ + 1))
+    np.add.at(area_ha, (k_idx, p_idx), shapely.area(pieces) / 10_000)
+    kul_class_ha = {code: np.zeros((nk, np_ + 1)) for code in KULSTOF_CLASSES}
+    for code, by_piece in kul_by_class.items():
+        np.add.at(kul_class_ha[code], (k_idx, p_idx), by_piece)
+    kul_all_ha = sum(kul_class_ha.values())
+    kommune_ha = area_ha.sum(axis=1)
+    nat_kul = float(kul_all_ha.sum())
+    print(f"  Kulstofrig jord (≥ 6 %) i kommunerne: {nat_kul:,.0f} ha ({float(kul_all_ha[:, :np_].sum()):,.0f} ha inden for MARS-planerne)")
 
     # Farmland in each (kommune, plan) overlap, assuming even density within a kommune.
-    density = np.array([landbrug[k] for k in koder]) / np.maximum(kommune_px * HA_PER_PX, 1)
-    farmland = area_px * HA_PER_PX * density[:, None]
-    kulstof_ha = kul_px * HA_PER_PX
+    density = np.array([landbrug[k] for k in koder]) / np.maximum(kommune_ha, 1)
+    farmland = area_ha[:, :np_] * density[:, None]
+    kulstof_ha = kul_all_ha[:, :np_]
     # The lavbund goal targets carbon-rich soil *in farming*; the kulstofkort also
     # maps bogs and reserves (e.g. Vestamager). Scale by farmland density so
     # unfarmed carbon soil in urban/nature kommuner carries little weight.
@@ -337,12 +497,14 @@ def build(refresh_dst: bool = False) -> dict[str, int]:
                 else 0.0,
             }
             for p in range(np_)
-            if area_px[i, p] * HA_PER_PX >= 1
+            if area_ha[i, p] >= 1
         ]
         by_kommune[kode] = {
             "kommuneNavn": navne[kode],
             "landbrugHa": landbrug[kode],
-            "kulstofrigJordHa": round(float(kulstof_ha[i].sum()), 1),
+            "kulstofrigJordHa": round(float(kul_all_ha[i].sum()), 1),
+            "kulstofrigJord6til12Ha": round(float(kul_class_ha[12][i].sum()), 1),
+            "kulstofrigJordOver12Ha": round(float(kul_class_ha[60][i].sum()), 1),
             "ansvarKvaelstofT": round(float(n_goal * ansvar_n[i] / n_total), 2),
             "ansvarKvaelstofPct": round(float(100 * ansvar_n[i] / n_total), 4),
             "ansvarLavbundHa": round(float(lavbund_goal * ansvar_l[i] / l_total), 1),
@@ -359,11 +521,11 @@ def build(refresh_dst: bool = False) -> dict[str, int]:
             "metadata": {
                 "generatedAt": datetime.now(timezone.utc).isoformat(),
                 "methodVersion": METHOD_VERSION,
-                "gridCellM": CELL_M,
+                "kulstofkort": f"{KULSTOF_WFS} ({KULSTOF_LAYER}, gridcode 12 og 60 = ≥ 6 % organisk kulstof)",
                 "sources": [
                     "MARS: planernes kvælstofreduktionsmål og lavbundspotentiale (37 kystvandoplande)",
                     "Danmarks Statistik AREALDK: landbrugsafgrøder pr. kommune",
-                    "DCA 2022 kulstofkort (Danmarks Miljøportal WMS): kulstofrige lavbundsjorder",
+                    "DCA 2022 kulstofkort (Miljøministeriets WFS, natur:kulstof2022): kulstofrige lavbundsjorder ≥ 6 % kulstof",
                     "DAGI kommunegrænser",
                 ],
                 "method": {
@@ -382,6 +544,7 @@ def build(refresh_dst: bool = False) -> dict[str, int]:
                 "lavbundMaalHa": lavbund_goal,
                 "skovMaalHa": skov_goal,
                 "lavbundPotentialeHa": round(l_total, 1),
+                "kulstofrigJordHa": round(nat_kul, 1),
                 "landbrugHa": round(farm_total, 1),
             },
             "byKommune": by_kommune,
@@ -396,7 +559,7 @@ def main() -> int:
     duration = time.time() - t0
     log_etl_run(
         source="kommune-ansvar",
-        endpoints=["mars/geometries", "dst/AREALDK", "miljoegis3/kulstof-wms"],
+        endpoints=["mars/geometries", "dst/AREALDK", "wfs2-miljoegis/natur:kulstof2022"],
         records=records,
         status="ok",
         notes="Per-kommune ansvar for kvælstof, lavbund og skov",

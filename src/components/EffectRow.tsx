@@ -146,6 +146,11 @@ function EcologicalSnapshotBody({
         </span>
         <span className="text-[10px] leading-tight text-muted-foreground">{r.valueLabel}</span>
       </div>
+      {r.exclNationalSubstancesLine && (
+        <p className="mt-1.5 text-[10px] leading-snug text-muted-foreground">
+          {r.exclNationalSubstancesLine}
+        </p>
+      )}
       {r.distributionLine && (
         <p className="mt-2 text-[9px] leading-snug text-muted-foreground">{r.distributionLine}</p>
       )}

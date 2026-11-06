@@ -14,7 +14,7 @@ echo
 
 FAILED=0
 
-echo "--- 1/12: MARS API (projects, plans, nitrogen data) ---"
+echo "--- 1/12: MARS (projects via official WFS; plans, nitrogen data via REST API) ---"
 python3 fetch_mars.py || { echo "⚠ MARS fetch failed"; FAILED=$((FAILED+1)); }
 
 echo
@@ -58,7 +58,7 @@ echo "--- 11/12: KF25 climate data (KEFM) ---"
 python3 fetch_kf25.py || { echo "⚠ KF25 fetch failed"; FAILED=$((FAILED+1)); }
 
 echo
-echo "--- 12/12: Project geometries (MARS API) ---"
+echo "--- 12/12: Project geometries (MARS official WFS) ---"
 python3 fetch_geometries.py || { echo "⚠ Geometry fetch failed"; FAILED=$((FAILED+1)); }
 
 echo

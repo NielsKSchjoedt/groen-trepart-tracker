@@ -702,7 +702,8 @@ export interface ProjectChangelog {
   byDate: { date: string; entries: ChangelogEntry[] }[];
 }
 
-// Coastal water ecological status from VP3 (EU Water Framework Directive)
+// Coastal water ecological status from the revisited river basin management
+// plans 2021–2027 (VP3-II, BEK nr. 1670 af 8. december 2025) — EU Water Framework Directive
 export type EcologicalStatus = 'Høj' | 'God' | 'Moderat' | 'Ringe' | 'Dårlig' | 'Ikke-god' | 'Ukendt' | 'Ikke relevant';
 
 export interface CoastalWaterEntry {
@@ -713,15 +714,25 @@ export interface CoastalWaterEntry {
   areaKm2: number;
   waterType: string;
   natureStatus: string;
+  /** Official aggregated ecological status (one out — all out) */
   ecologicalStatus: EcologicalStatus;
   ecologicalStatusRank: number;
+  /**
+   * Derived by the ETL: ecological status without "nationalt specifikke stoffer"
+   * (worst of the biological and supporting elements). Not an official field.
+   */
+  ecologicalStatusExclNationalSubstances?: EcologicalStatus;
   ecologicalGoal: EcologicalStatus;
   chemicalStatus: string;
+  chemicalGoal?: string;
+  /** Water body page on vandplandata.dk */
+  vandplandataUrl?: string | null;
+  /** Exemptions (undtagelser) page on vandplandata.dk */
+  exemptionsUrl?: string | null;
   subIndicators: {
     phytoplankton: EcologicalStatus;
     angiosperms: EcologicalStatus;
     benthicFauna: EcologicalStatus;
-    macroalgae: EcologicalStatus;
     nationalSubstances: EcologicalStatus;
     oxygenConditions: EcologicalStatus;
     lightConditions: EcologicalStatus;
@@ -731,10 +742,21 @@ export interface CoastalWaterEntry {
 export interface CoastalWaterStatusData {
   source: string;
   sourceUrl: string;
+  plan?: {
+    name: string;
+    shortName: string;
+    /** Short lower-case label for running text, e.g. "vandområdeplanerne efter genbesøget, december 2025" */
+    labelDa?: string;
+    legalBasis: string;
+    wfsEndpoint: string;
+    wfsLayer: string;
+  };
   fetchedAt: string;
   summary: {
     total: number;
     ecologicalStatus: Record<string, number>;
+    /** Derived: counts without "nationalt specifikke stoffer" (see CoastalWaterEntry) */
+    ecologicalStatusExclNationalSubstances?: Record<string, number>;
     chemicalStatus: Record<string, number>;
   };
   waters: Record<string, CoastalWaterEntry>;

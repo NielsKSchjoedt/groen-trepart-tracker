@@ -80,6 +80,8 @@ Tallene er manuelt kuraterede (ikke daglig ETL) — gen-verificér periodisk.
 
 **Hvad vi henter**: Projektdata, kvælstofreduktionsmål, vandoplandsaggregater, kystvandgruppeplaner.
 
+**Kilder**: Projektlisten (status, effekter, fasedatoer) og alle projekt- og skitsepolygoner hentes fra MARS' officielle WFS-tjeneste (`https://mars.sgav.dk/geo/wfs`, lagene `mars:projekter_samlet`, `mars:skitseprojekter` og `mars:projekter_tilskudsordning_skovrejsning`; opdateres hver nat). Planer, kommune- og oplandsopgørelser, stamdata og historik hentes fra MARS' åbne REST-API (`https://mars.sgav.dk/api`), som WFS'en ikke dækker. Projekter, der er oprettet eller har skiftet fase efter nattens opdatering, tages fra REST-API'et, så alle MARS-tal i en kørsel beskriver samme tidspunkt.
+
 **Licens**: Data stilles til rådighed under vilkår svarende til CC0/CC-BY, i henhold til PSI-loven (Lov om videreanvendelse af den offentlige sektors informationer).
 
 **Attribution**: "Indeholder data fra Danmarks Miljøportal (miljoeportal.dk)"
@@ -199,6 +201,8 @@ Al data i dette projekt stammer fra danske offentlige myndigheder og er underlag
 **Hvad vi henter**: Frivillige skovrejsnings- og lavbundsprojekter (~213 features, ~2.314 ha) med polygon-geometrier.
 
 **Licens**: CC0-lignende — offentligt WFS-endpoint.
+
+**Officiel status**: Endpointet er det, Danmarks Miljøportals datakatalog (og dermed Datavejviser) registrerer for datasættet. Domænenavnet indeholder "test", men det er ikke et uofficielt testmiljø (undersøgt november 2026, se [docs/data-sources/officielle-indgange-2026-11.md](docs/data-sources/officielle-indgange-2026-11.md)).
 
 **Attribution**: "Indeholder data fra Klimaskovfonden (klimaskovfonden.dk)"
 

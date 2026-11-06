@@ -450,7 +450,7 @@ export async function loadCO2Emissions(): Promise<CO2EmissionsData | null> {
   return cachedCO2Data;
 }
 
-/** Load actual water body polygons (marine shapes from VP3 tilstand layer) */
+/** Load actual water body polygons (marine shapes from the VP3-II 2025 status layer) */
 export async function loadWaterBodiesGeoJSON(): Promise<FeatureCollection<Geometry> | null> {
   if (cachedWaterBodiesGeo) return cachedWaterBodiesGeo;
   try {
@@ -489,7 +489,7 @@ export async function loadSection3MapGeo(): Promise<FeatureCollection<Geometry> 
   return cachedSection3MapGeo;
 }
 
-/** Load coastal water ecological status data (VP3 WFD assessment) */
+/** Load coastal water ecological status data (VP3-II 2025 WFD assessment) */
 export async function loadCoastalWaterStatus(): Promise<CoastalWaterStatusData | null> {
   if (cachedCoastalStatus) return cachedCoastalStatus;
   try {

@@ -1,21 +1,26 @@
 {
-  "fetchedAt": "2026-11-04T20:39:49.101083+00:00",
-  "builtAt": "2026-11-04T21:34:02.602612+00:00",
+  "fetchedAt": "2026-11-05T13:42:07.615269+00:00",
+  "builtAt": "2026-11-06T20:52:45.669691+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
       "url": "https://mars.sgav.dk/api",
+      "wfsUrl": "https://mars.sgav.dk/geo/wfs",
+      "projectsSource": null,
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
-      "fetchedAt": "2026-11-04T20:39:49.101083+00:00"
+      "fetchedAt": "2026-11-05T13:42:07.615269+00:00"
     },
     "dawa": {
-      "name": "DAWA — Danmarks Adressers Web API",
-      "url": "https://api.dataforsyningen.dk",
-      "description": "Municipality boundaries and metadata. DAWA was shut down in 2026 (HTTP 410); the tracker uses a static snapshot from the last live fetch (2026-09-11). Kommune figures come from MARS's own per-kommune view.",
-      "maintainer": "Klimadatastyrelsen (Danish Agency for Data Supply and Infrastructure)",
-      "license": "Public data (Danish public sector open data)"
+      "name": "DAGI — Danmarks Administrative Geografiske Inddeling (kommunegrænser)",
+      "url": "https://geoserver.plandata.dk/geoserver/ows",
+      "layer": "pdk:theme_pdk_kommuneplan_oversigt_vedtaget_v",
+      "description": "Municipality boundaries and metadata from DAGI. Read daily from Datafordeleren (with API key) or the open Plandata.dk WFS, which serves the same DAGI geometry, and checked against the archived copy from DAWA (shut down in 2026; last fetch 2026-09-11). Region membership and Christiansø come from the archive. Kommune figures come from MARS's own per-kommune view.",
+      "maintainer": "Klimadatastyrelsen (Danish Agency for Climate Data)",
+      "license": "Public data (Danish public sector open data)",
+      "coordinateSystem": "EPSG:25832",
+      "fetchedAt": "2026-11-05T13:42:08.666553+00:00"
     },
     "natura2000": {
       "name": "Natura 2000 — EU Habitat & Birds Directive Protected Areas",
@@ -26,7 +31,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "Marine/terrestrial classification is heuristic (name-based with area threshold). For precise split, a spatial overlay with coastline data would be needed.",
-      "fetchedAt": "2026-11-04T20:48:35.487317+00:00"
+      "fetchedAt": "2026-11-05T13:42:53.655088+00:00"
     },
     "section3": {
       "name": "§3-beskyttede naturtyper (Naturbeskyttelseslovens §3)",
@@ -51,7 +56,7 @@
       "license": "Public data (EU INSPIRE directive)",
       "coordinateSystem": "EPSG:25832",
       "disclaimer": "MARS tracks afforestation only within its water quality project system. Klimaskovfonden data is now fetched live from their WFS endpoint. The true national afforestation rate also includes state and private planting tracked by Naturstyrelsen and SGAV.",
-      "fetchedAt": "2026-11-04T21:00:42.120965+00:00"
+      "fetchedAt": "2026-11-05T13:43:44.095677+00:00"
     },
     "dst": {
       "name": "Danmarks Statistik (Statistics Denmark)",
@@ -69,7 +74,7 @@
       "description": "Voluntary afforestation and lowland projects tracked by the Danish Climate Forest Fund. Polygon geometries fetched via WFS; area computed from geometry.",
       "coordinateSystem": "EPSG:4326",
       "disclaimer": "Area is computed from WFS polygon geometry (Shoelace formula). May differ slightly from Klimaskovfonden's own registry figures. The WFS layer may lag behind the Power BI registry.",
-      "fetchedAt": "2026-11-04T20:48:38.728166+00:00"
+      "fetchedAt": "2026-11-05T13:42:56.855037+00:00"
     },
     "naturstyrelsenSkov": {
       "name": "Naturstyrelsen statslig skovrejsning",
@@ -80,7 +85,7 @@
       "coordinateSystem": "EPSG:25832 (UTM32N) → converted to WGS84",
       "disclaimer": "MARS has an 'NST Skovrejsning' subsidy scheme defined but with 0 projects registered. This data bridges that gap via WFS. Not all website-listed projects appear in the WFS yet.",
       "marsSchemeNote": "MARS scheme 'NST Skovrejsning' (5551b8e5-cc17-4e86-89a0-6e763f5594f0) exists but is empty. The ETL monitors it for future data.",
-      "fetchedAt": "2026-11-04T20:49:16.065145Z"
+      "fetchedAt": "2026-11-05T13:43:26.065769Z"
     }
   },
   "national": {
@@ -100,7 +105,7 @@
     "progress": {
       "nitrogen": {
         "goalT": 12776.4,
-        "totalT": 6359.7,
+        "totalT": 6360.0,
         "totalProgressPct": 49.8,
         "permanentEkstensivering": {
           "T": 45.0,
@@ -109,15 +114,15 @@
         },
         "byPhase": {
           "established": {
-            "T": 34.2,
+            "T": 34.4,
             "description": "Anlagt — projects actually constructed and operational"
           },
           "approved": {
-            "T": 703.3,
+            "T": 703.2,
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "T": 5577.2,
+            "T": 5577.5,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -126,7 +131,7 @@
       },
       "extraction": {
         "goalHa": 140000,
-        "totalHa": 105565.8,
+        "totalHa": 105627.6,
         "totalProgressPct": 75.4,
         "byPhase": {
           "established": {
@@ -138,7 +143,7 @@
             "description": "Etableringstilsagn — approved for construction, not yet built"
           },
           "preliminary": {
-            "ha": 76557.4,
+            "ha": 76619.1,
             "description": "Forundersøgelsestilsagn — preliminary investigation granted"
           }
         },
@@ -154,14 +159,14 @@
       "afforestation": {
         "goalHa": 250000,
         "marsTotal": {
-          "ha": 3582.5,
+          "ha": 3581.9,
           "byPhase": {
             "established": {
-              "ha": 691.2,
+              "ha": 701.6,
               "description": "Anlagt — forest actually planted through MARS projects"
             },
             "approved": {
-              "ha": 2891.2,
+              "ha": 2880.2,
               "description": "Etableringstilsagn — approved for planting, not yet planted"
             },
             "preliminary": {
@@ -317,7 +322,7 @@
       }
     },
     "projectPipeline": {
-      "total": 1666,
+      "total": 1668,
       "phases": {
         "sketches": {
           "count": 5017,
@@ -325,17 +330,17 @@
           "implemented": false
         },
         "assessed": {
-          "count": 730,
+          "count": 732,
           "description": "Forundersøgelsestilsagn",
           "implemented": false
         },
         "approved": {
-          "count": 801,
+          "count": 798,
           "description": "Etableringstilsagn — godkendt til anlæg",
           "implemented": false
         },
         "established": {
-          "count": 135,
+          "count": 138,
           "description": "Anlagt — physically implemented and operational",
           "implemented": true
         }
@@ -366,8 +371,8 @@
           }
         },
         "preliminary_grant": {
-          "count": 630,
-          "nitrogenT": 5577.2,
+          "count": 631,
+          "nitrogenT": 5577.5,
           "extractionHa": 53631.5,
           "afforestationHa": 0.0
         },
@@ -378,16 +383,16 @@
           "afforestationHa": 0.0
         },
         "establishment_grant": {
-          "count": 543,
-          "nitrogenT": 703.3,
+          "count": 540,
+          "nitrogenT": 703.2,
           "extractionHa": 12325.0,
-          "afforestationHa": 2538.2
+          "afforestationHa": 2527.3
         },
         "established": {
-          "count": 97,
-          "nitrogenT": 34.2,
+          "count": 100,
+          "nitrogenT": 34.4,
           "extractionHa": 63.9,
-          "afforestationHa": 593.0
+          "afforestationHa": 603.4
         }
       },
       "extraction": {
@@ -412,9 +417,9 @@
           }
         },
         "preliminary_grant": {
-          "count": 653,
+          "count": 654,
           "nitrogenT": 5440.5,
-          "extractionHa": 76557.4,
+          "extractionHa": 76619.1,
           "afforestationHa": 0.0
         },
         "preliminary_done": {
@@ -470,16 +475,16 @@
           "afforestationHa": 0.0
         },
         "establishment_grant": {
-          "count": 400,
-          "nitrogenT": 32.5,
+          "count": 397,
+          "nitrogenT": 32.3,
           "extractionHa": 0.0,
-          "afforestationHa": 2891.2
+          "afforestationHa": 2880.2
         },
         "established": {
-          "count": 104,
-          "nitrogenT": 7.8,
+          "count": 107,
+          "nitrogenT": 8.0,
           "extractionHa": 0.0,
-          "afforestationHa": 691.2
+          "afforestationHa": 701.6
         }
       }
     },
@@ -522,9 +527,9 @@
       {
         "year": 2026,
         "quarter": 4,
-        "preliminary": 730,
-        "approved": 801,
-        "established": 135
+        "preliminary": 732,
+        "approved": 798,
+        "established": 138
       }
     ],
     "cancelled": {
@@ -553,8 +558,8 @@
     },
     "byOwnerOrg": {
       "SGAV": {
-        "count": 1392,
-        "ha": 67067.7,
+        "count": 1394,
+        "ha": 67129.0,
         "byPipelinePhase": {
           "nitrogen": {
             "sketch": {
@@ -578,8 +583,8 @@
               }
             },
             "preliminary_grant": {
-              "count": 603,
-              "nitrogenT": 4109.1,
+              "count": 604,
+              "nitrogenT": 4109.4,
               "extractionHa": 39382.2,
               "afforestationHa": 0.0
             },
@@ -590,16 +595,16 @@
               "afforestationHa": 0.0
             },
             "establishment_grant": {
-              "count": 460,
-              "nitrogenT": 635.3,
+              "count": 457,
+              "nitrogenT": 635.2,
               "extractionHa": 10159.1,
-              "afforestationHa": 1637.4
+              "afforestationHa": 1626.4
             },
             "established": {
-              "count": 36,
-              "nitrogenT": 8.5,
+              "count": 39,
+              "nitrogenT": 8.6,
               "extractionHa": 63.9,
-              "afforestationHa": 121.5
+              "afforestationHa": 131.9
             }
           },
           "extraction": {
@@ -624,9 +629,9 @@
               }
             },
             "preliminary_grant": {
-              "count": 601,
+              "count": 602,
               "nitrogenT": 3972.5,
-              "extractionHa": 50170.4,
+              "extractionHa": 50232.2,
               "afforestationHa": 0.0
             },
             "preliminary_done": {
@@ -682,16 +687,16 @@
               "afforestationHa": 0.0
             },
             "establishment_grant": {
-              "count": 304,
-              "nitrogenT": 23.6,
+              "count": 301,
+              "nitrogenT": 23.5,
               "extractionHa": 0.0,
-              "afforestationHa": 1884.4
+              "afforestationHa": 1873.4
             },
             "established": {
-              "count": 28,
-              "nitrogenT": 2.1,
+              "count": 31,
+              "nitrogenT": 2.2,
               "extractionHa": 0.0,
-              "afforestationHa": 154.7
+              "afforestationHa": 165.1
             }
           }
         }
@@ -992,8 +997,8 @@
           "projectCount": 107
         },
         "municipal": {
-          "ha": 65029.37,
-          "projectCount": 806
+          "ha": 65091.13,
+          "projectCount": 807
         },
         "private": {
           "ha": 0.0,
@@ -1006,7 +1011,7 @@
           "projectCount": 0
         },
         "municipal": {
-          "ha": 2039.05,
+          "ha": 2038.5,
           "projectCount": 339
         },
         "private": {
@@ -1020,8 +1025,8 @@
           "projectCount": 33
         },
         "municipal": {
-          "ha": 4720.084,
-          "projectCount": 998
+          "ha": 4720.407,
+          "projectCount": 999
         },
         "private": {
           "ha": 47.393,
@@ -1080,8 +1085,8 @@
               "projectCount": 56
             },
             "municipal": {
-              "ha": 50170.42,
-              "projectCount": 615
+              "ha": 50232.18,
+              "projectCount": 616
             },
             "private": {
               "ha": 0.0,
@@ -1108,8 +1113,8 @@
               "projectCount": 27
             },
             "municipal": {
-              "ha": 4109.107,
-              "projectCount": 614
+              "ha": 4109.436,
+              "projectCount": 615
             },
             "private": {
               "ha": 0.0,
@@ -1138,8 +1143,8 @@
               "projectCount": 0
             },
             "municipal": {
-              "ha": 1884.35,
-              "projectCount": 309
+              "ha": 1873.39,
+              "projectCount": 306
             },
             "private": {
               "ha": 1006.83,
@@ -1152,8 +1157,8 @@
               "projectCount": 5
             },
             "municipal": {
-              "ha": 604.542,
-              "projectCount": 355
+              "ha": 604.413,
+              "projectCount": 352
             },
             "private": {
               "ha": 39.593,
@@ -1182,8 +1187,8 @@
               "projectCount": 0
             },
             "municipal": {
-              "ha": 154.7,
-              "projectCount": 30
+              "ha": 165.11,
+              "projectCount": 33
             },
             "private": {
               "ha": 536.49,
@@ -1196,8 +1201,8 @@
               "projectCount": 1
             },
             "municipal": {
-              "ha": 6.435,
-              "projectCount": 29
+              "ha": 6.558,
+              "projectCount": 32
             },
             "private": {
               "ha": 7.8,
@@ -1882,7 +1887,7 @@
         "kode": "0420",
         "navn": "Assens",
         "region": "Region Syddanmark",
-        "nitrogenT": 335.4,
+        "nitrogenT": 335.7,
         "extractionHa": 868.9,
         "extractionKsfHa": 0.0,
         "afforestationMarsHa": 675.4,
@@ -1895,10 +1900,10 @@
         "natura2000Ha": 1548.3,
         "naturePotentialHa": 4946.3,
         "co2EstimatedT": 339091.2,
-        "projectCount": 243,
+        "projectCount": 244,
         "projectsByPhase": {
           "sketches": 186,
-          "assessed": 33,
+          "assessed": 34,
           "approved": 21,
           "established": 3
         },
@@ -1910,10 +1915,10 @@
             "count": 186
           },
           "preliminary": {
-            "nitrogenT": 91.9,
+            "nitrogenT": 92.2,
             "extractionHa": 369.7,
             "afforestationHa": 0.0,
-            "count": 33
+            "count": 34
           },
           "approved": {
             "nitrogenT": 46.0,
@@ -2546,7 +2551,7 @@
         "navn": "Fredensborg",
         "region": "Region Hovedstaden",
         "nitrogenT": 0.3,
-        "extractionHa": 413.9,
+        "extractionHa": 475.6,
         "extractionKsfHa": 0.0,
         "afforestationMarsHa": 103.7,
         "afforestationKsfHa": 0.0,
@@ -2558,10 +2563,10 @@
         "natura2000Ha": 1469.6,
         "naturePotentialHa": 3620.0,
         "co2EstimatedT": 110893.7,
-        "projectCount": 15,
+        "projectCount": 16,
         "projectsByPhase": {
           "sketches": 14,
-          "assessed": 0,
+          "assessed": 1,
           "approved": 1,
           "established": 0
         },
@@ -2574,9 +2579,9 @@
           },
           "preliminary": {
             "nitrogenT": 0.0,
-            "extractionHa": 0.0,
+            "extractionHa": 61.8,
             "afforestationHa": 0.0,
-            "count": 0
+            "count": 1
           },
           "approved": {
             "nitrogenT": 0.0,
@@ -4894,12 +4899,12 @@
         "nitrogenT": 224.4,
         "extractionHa": 2697.6,
         "extractionKsfHa": 0.0,
-        "afforestationMarsHa": 104.4,
+        "afforestationMarsHa": 103.9,
         "afforestationKsfHa": 115.1,
         "afforestationKsfSinceAgreementHa": 104.5,
         "afforestationNstHa": 44.0,
         "afforestationNstOngoingHa": 0.0,
-        "afforestationTotalHa": 263.5,
+        "afforestationTotalHa": 263.0,
         "section3Ha": 4284.6,
         "natura2000Ha": 4403.8,
         "naturePotentialHa": 8688.4,
@@ -4908,8 +4913,8 @@
         "projectsByPhase": {
           "sketches": 68,
           "assessed": 6,
-          "approved": 10,
-          "established": 0
+          "approved": 9,
+          "established": 1
         },
         "byPhase": {
           "sketch": {
@@ -4925,16 +4930,16 @@
             "count": 6
           },
           "approved": {
-            "nitrogenT": 17.4,
+            "nitrogenT": 17.3,
             "extractionHa": 71.2,
-            "afforestationHa": 12.3,
-            "count": 10
+            "afforestationHa": 9.2,
+            "count": 9
           },
           "established": {
             "nitrogenT": 0.0,
             "extractionHa": 0.0,
-            "afforestationHa": 0.0,
-            "count": 0
+            "afforestationHa": 2.5,
+            "count": 1
           }
         }
       },
@@ -6081,8 +6086,8 @@
         "projectsByPhase": {
           "sketches": 123,
           "assessed": 16,
-          "approved": 30,
-          "established": 0
+          "approved": 29,
+          "established": 1
         },
         "byPhase": {
           "sketch": {
@@ -6100,14 +6105,14 @@
           "approved": {
             "nitrogenT": 18.8,
             "extractionHa": 912.1,
-            "afforestationHa": 87.2,
-            "count": 30
+            "afforestationHa": 85.4,
+            "count": 29
           },
           "established": {
             "nitrogenT": 0.0,
             "extractionHa": 0.0,
-            "afforestationHa": 0.0,
-            "count": 0
+            "afforestationHa": 1.8,
+            "count": 1
           }
         }
       },
@@ -6387,8 +6392,8 @@
         "projectsByPhase": {
           "sketches": 123,
           "assessed": 14,
-          "approved": 46,
-          "established": 11
+          "approved": 45,
+          "established": 12
         },
         "byPhase": {
           "sketch": {
@@ -6404,16 +6409,16 @@
             "count": 14
           },
           "approved": {
-            "nitrogenT": 30.5,
+            "nitrogenT": 30.4,
             "extractionHa": 868.7,
-            "afforestationHa": 342.9,
-            "count": 46
+            "afforestationHa": 336.8,
+            "count": 45
           },
           "established": {
-            "nitrogenT": 1.6,
+            "nitrogenT": 1.7,
             "extractionHa": 0.0,
-            "afforestationHa": 83.5,
-            "count": 11
+            "afforestationHa": 89.6,
+            "count": 12
           }
         }
       },
@@ -6856,8 +6861,8 @@
       },
       "afforestationAchievedHa": 558.5,
       "afforestationByPhase": {
-        "established": 86.9,
-        "approved": 471.7,
+        "established": 88.7,
+        "approved": 469.9,
         "preliminary": 0.0
       },
       "naturePotentialAreaHa": 10089.0,
@@ -6865,12 +6870,12 @@
       "projects": {
         "sketches": 639,
         "assessed": 138,
-        "approved": 170,
-        "established": 22,
+        "approved": 169,
+        "established": 23,
         "byStatus": {
           "preliminary": 117,
-          "approved": 92,
-          "established": 10
+          "approved": 91,
+          "established": 11
         }
       },
       "status": "Published"
@@ -7086,12 +7091,12 @@
       "geoLocationId": "3add49b7-bbf2-4e9b-a8de-5098f85903f9",
       "nameNormalized": "Lillebælt, Bredningen",
       "nitrogenGoalT": 426.2,
-      "nitrogenAchievedT": 142.6,
+      "nitrogenAchievedT": 142.9,
       "nitrogenProgressPct": 33.5,
       "nitrogenByPhase": {
         "established": 0.9,
         "approved": 55.1,
-        "preliminary": 86.4
+        "preliminary": 86.7
       },
       "extractionPotentialHa": 1907.0,
       "extractionAchievedHa": 811.6,
@@ -7110,11 +7115,11 @@
       "countNaturePotentials": 14,
       "projects": {
         "sketches": 448,
-        "assessed": 32,
+        "assessed": 33,
         "approved": 42,
         "established": 5,
         "byStatus": {
-          "preliminary": 31,
+          "preliminary": 32,
           "approved": 37,
           "established": 3
         }
@@ -7130,8 +7135,8 @@
       "nitrogenAchievedT": 66.3,
       "nitrogenProgressPct": 16.4,
       "nitrogenByPhase": {
-        "established": 0.4,
-        "approved": 4.3,
+        "established": 0.5,
+        "approved": 4.2,
         "preliminary": 61.1
       },
       "extractionPotentialHa": 982.6,
@@ -7143,8 +7148,8 @@
       },
       "afforestationAchievedHa": 31.6,
       "afforestationByPhase": {
-        "established": 10.3,
-        "approved": 21.3,
+        "established": 16.4,
+        "approved": 15.2,
         "preliminary": 0.0
       },
       "naturePotentialAreaHa": 4830.5,
@@ -7152,12 +7157,12 @@
       "projects": {
         "sketches": 100,
         "assessed": 26,
-        "approved": 19,
-        "established": 4,
+        "approved": 18,
+        "established": 5,
         "byStatus": {
           "preliminary": 26,
-          "approved": 18,
-          "established": 4
+          "approved": 17,
+          "established": 5
         }
       },
       "status": "Published"
@@ -7418,7 +7423,7 @@
       "nitrogenProgressPct": 51.3,
       "nitrogenByPhase": {
         "established": 0.1,
-        "approved": 19.6,
+        "approved": 19.5,
         "preliminary": 48.1
       },
       "extractionPotentialHa": 7607.8,
@@ -7428,10 +7433,10 @@
         "approved": 101.7,
         "preliminary": 1403.2
       },
-      "afforestationAchievedHa": 31.9,
+      "afforestationAchievedHa": 31.4,
       "afforestationByPhase": {
-        "established": 7.4,
-        "approved": 24.5,
+        "established": 9.9,
+        "approved": 21.5,
         "preliminary": 0.0
       },
       "naturePotentialAreaHa": 4647.5,
@@ -7439,12 +7444,12 @@
       "projects": {
         "sketches": 118,
         "assessed": 25,
-        "approved": 18,
-        "established": 2,
+        "approved": 17,
+        "established": 3,
         "byStatus": {
           "preliminary": 21,
-          "approved": 12,
-          "established": 1
+          "approved": 11,
+          "established": 2
         }
       },
       "status": "Published"
@@ -8160,11 +8165,11 @@
         "preliminary": 0.0
       },
       "extractionPotentialHa": 3890.7,
-      "extractionAchievedHa": 245.7,
+      "extractionAchievedHa": 307.5,
       "extractionByPhase": {
         "established": 0.0,
         "approved": 245.7,
-        "preliminary": 0.0
+        "preliminary": 61.8
       },
       "afforestationAchievedHa": 12.3,
       "afforestationByPhase": {
@@ -8176,7 +8181,7 @@
       "countNaturePotentials": 18,
       "projects": {
         "sketches": 63,
-        "assessed": 0,
+        "assessed": 1,
         "approved": 1,
         "established": 2,
         "byStatus": {
@@ -8477,14 +8482,14 @@
       "name": "Lillebælt/Fyn",
       "geoLocationId": "998c6c9d-c4cd-4c1f-b81f-575102a7d09e",
       "nameNormalized": "Lillebælt/Fyn",
-      "nitrogenAchievedT": 137.0,
+      "nitrogenAchievedT": 137.3,
       "extractionAchievedHa": 648.4,
       "afforestationAchievedHa": 20.4,
       "naturePotentialAreaHa": 5697.6,
       "countNaturePotentials": 15,
       "projects": {
         "sketches": 315,
-        "assessed": 65,
+        "assessed": 66,
         "approved": 28,
         "established": 6
       }
@@ -8502,8 +8507,8 @@
       "projects": {
         "sketches": 850,
         "assessed": 48,
-        "approved": 102,
-        "established": 16
+        "approved": 101,
+        "established": 17
       }
     },
     {
@@ -8519,8 +8524,8 @@
       "projects": {
         "sketches": 639,
         "assessed": 138,
-        "approved": 170,
-        "established": 22
+        "approved": 169,
+        "established": 23
       }
     },
     {
@@ -8630,16 +8635,16 @@
       "name": "Smålandsfarvandet",
       "geoLocationId": "8438dae5-5799-4b63-8474-48a2502a209f",
       "nameNormalized": "Smaalandsfarvandet",
-      "nitrogenAchievedT": 166.1,
+      "nitrogenAchievedT": 166.0,
       "extractionAchievedHa": 3601.0,
-      "afforestationAchievedHa": 52.5,
+      "afforestationAchievedHa": 52.0,
       "naturePotentialAreaHa": 7451.6,
       "countNaturePotentials": 70,
       "projects": {
         "sketches": 288,
         "assessed": 59,
-        "approved": 38,
-        "established": 5
+        "approved": 37,
+        "established": 6
       }
     },
     {
@@ -8716,13 +8721,13 @@
       "geoLocationId": "2fe44767-bfec-40a9-a023-d6b4c68e730b",
       "nameNormalized": "Oeresund",
       "nitrogenAchievedT": 20.3,
-      "extractionAchievedHa": 245.7,
+      "extractionAchievedHa": 307.5,
       "afforestationAchievedHa": 17.0,
       "naturePotentialAreaHa": 1529.7,
       "countNaturePotentials": 20,
       "projects": {
         "sketches": 80,
-        "assessed": 0,
+        "assessed": 1,
         "approved": 3,
         "established": 5
       }
@@ -9309,14 +9314,14 @@
     }
   ],
   "marsNature": {
-    "uniqueProjects": 1666,
+    "uniqueProjects": 1668,
     "naturePipelineProjects": 943,
     "lavbundProjects": 439,
     "afforestationProjects": 504,
-    "excludedProjects": 723,
+    "excludedProjects": 725,
     "uroertSkov": {
-      "projectCount": 10,
-      "geometryCount": 21,
+      "projectCount": 8,
+      "geometryCount": 17,
       "areaHa": 27.98,
       "typeId": "434633e0-4241-4f38-b451-f2b45b70ebd4",
       "note": "Kun SGAV-ordningen Skovrejsning kan registrere urørt skov. Privat Skovrejsning (LBST) og NST Skovrejsning har ingen geometri-type for det, så 26 ha er et underkantstal — ikke et filter vi kan bruge landsdækkende."

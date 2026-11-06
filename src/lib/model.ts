@@ -104,6 +104,13 @@ export type EffectReframe =
       goodCount: number;
       totalWaters: number;
       distributionLine: string;
+      /**
+       * Antal i god tilstand, hvis "nationalt specifikke stoffer" ikke medregnes
+       * (afledt i ETL'en; null når data mangler). Vises som sekundært tal.
+       */
+      goodCountExclNationalSubstances: number | null;
+      /** Kort neutral forklaring til det sekundære tal */
+      exclNationalSubstancesLine: string | null;
     };
 
 export interface EffectDomain {
@@ -350,8 +357,16 @@ export function buildEffectDomains(
 
   const coastalTotal = coastalStatus?.summary.total ?? 0;
   const coastalEco = coastalStatus?.summary.ecologicalStatus ?? {};
-  const coastalGood = coastalEco.God ?? 0;
+  // "God" eller bedre tæller som målopfyldelse.
+  const coastalGood = (coastalEco.God ?? 0) + (coastalEco['Høj'] ?? 0);
   const coastalGoodPct = coastalTotal > 0 ? (coastalGood / coastalTotal) * 100 : null;
+  const coastalEcoExcl = coastalStatus?.summary.ecologicalStatusExclNationalSubstances;
+  const coastalGoodExcl = coastalEcoExcl
+    ? (coastalEcoExcl.God ?? 0) + (coastalEcoExcl['Høj'] ?? 0)
+    : null;
+  // Label comes from the data, so a new plan generation relabels the card by itself.
+  const coastalPlanLabel =
+    coastalStatus?.plan?.labelDa ?? coastalStatus?.plan?.shortName ?? 'VP3';
 
   // Natur: krediter kun det aftalen skal flytte (mål − baseline), ikke den
   // bestand der allerede fandtes ved underskrift.
@@ -434,8 +449,8 @@ export function buildEffectDomains(
         kind: 'ecological-snapshot',
         how:
           coastalTotal > 0
-            ? `Samlet økologisk tilstand vurderes for ${formatDanishNumber(coastalTotal, 0)} kystvande (VP3) — ikke via kvælstof-ton alene.`
-            : 'Samlet økologisk tilstand vurderes for kystvandene (VP3) — ikke via kvælstof-ton alene.',
+            ? `Samlet økologisk tilstand vurderes for ${formatDanishNumber(coastalTotal, 0)} kystvande (${coastalPlanLabel}) — ikke via kvælstof-ton alene.`
+            : `Samlet økologisk tilstand vurderes for kystvandene (${coastalPlanLabel}) — ikke via kvælstof-ton alene.`,
         valueLabel:
           coastalTotal > 0
             ? `af ${formatDanishNumber(coastalTotal, 0)} kystvande i god økologisk tilstand (målet er god tilstand overalt senest 22.12.2027)`
@@ -451,6 +466,11 @@ export function buildEffectDomains(
         goodCount: coastalGood,
         totalWaters: coastalTotal,
         distributionLine: formatEcoDistributionLine(coastalEco),
+        goodCountExclNationalSubstances: coastalTotal > 0 ? coastalGoodExcl : null,
+        exclNationalSubstancesLine:
+          coastalTotal > 0 && coastalGoodExcl !== null
+            ? `${formatDanishNumber(coastalGoodExcl, 0)} af ${formatDanishNumber(coastalTotal, 0)}, hvis nationalt specifikke stoffer ikke medregnes. Det er miljøfarlige stoffer, som Danmark selv har fastsat grænseværdier for. De indgår i den officielle vurdering, og et kystvand kan kun være i god tilstand, hvis alle dele af vurderingen er gode.`
+            : null,
       },
       isDelmaal: true,
     },

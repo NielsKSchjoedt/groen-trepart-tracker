@@ -44,7 +44,7 @@ Kvælstofvirkemidlerne er sjældent rene kvælstofvirkemidler. Et lavbundsprojek
 Kvælstofmålet er det mål, hvor datagrundlaget i MARS er mest udbygget, men der er nogle forhold, man bør kende — alle baseret på de officielle kilder:
 
 - **Det er en beregnet effekt, ikke en måling i fjorden.** Den fremdrift, der opgøres, er den *modelberegnede* effekt af projekterne, ikke en direkte måling af kvælstof i vandet. Tilstanden i fjorden påvirkes også af vejr, tidligere års udledninger og forhold uden for arealomlægningen, og effekten indtræder forsinket.
-- **Tilstanden i kystvandene er fortsat langt fra målet.** Uafhængigt af trepartens fremdrift har myndighedernes overvågning vist, at kun et fåtal af de danske kystvande er i god økologisk tilstand. Reduktionen er et middel til at nærme sig den tilstand, ikke et bevis for, at den er nået.
+- **Tilstanden i kystvandene er fortsat langt fra målet.** Uafhængigt af trepartens fremdrift er ingen af de 109 danske kystvande i god økologisk tilstand i vandområdeplanerne efter genbesøget (december 2025). Ser man bort fra nationalt specifikke stoffer — miljøfarlige stoffer med danske grænseværdier — er det 6. Reduktionen er et middel til at nærme sig den tilstand, ikke et bevis for, at den er nået.
 - **Hovedmotoren er frivillig.** Om de 12.776 ton nås via omlægning afhænger af, hvor mange lodsejere der frivilligt søger. Markreguleringen er sikkerhedsnettet, hvis den frivillige indsats ikke rækker — arealomlægningen blev gjort op i foråret 2026 og indgår i de udledningsgrænser for 2027, som er meldt ud til landbrugerne i efteråret 2026.
 
 ## Relaterede artikler

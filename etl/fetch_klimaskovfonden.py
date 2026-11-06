@@ -9,6 +9,8 @@ through its water quality project system, while Klimaskovfonden tracks ~2,300 ha
 of *additional* voluntary afforestation projects nationwide.
 
 WFS endpoint: https://test.admin.gc2.io/ows/klimaskovfonden/public/
+  (registered as the official source in Danmarks Miljøportal's data catalogue;
+  the 'test' hostname is misleading — it is not an unofficial test environment)
 Feature types:
   - klimaskovfonden:public.klimaskovfondens_projekter (current, live)
   - klimaskovfonden:public.klimaskovfondens_projekter_april_2025 (snapshot)
