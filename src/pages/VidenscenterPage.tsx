@@ -35,7 +35,11 @@ export default function VidenscenterPage() {
   usePageMeta({
     title: article ? article.title : 'Videnscenter',
     description: article ? article.summary || `${article.title} — baggrund om Den Grønne Trepart.` : INDEX_DESCRIPTION,
-    path: article ? `/videnscenter/${article.slug}` : '/videnscenter',
+    // Until the article index has loaded, keep the canonical on the requested
+    // article URL rather than the overview, so crawlers don't see a duplicate.
+    path: article
+      ? `/videnscenter/${article.slug}`
+      : !index && articleSlug ? `/videnscenter/${articleSlug}` : '/videnscenter',
   });
 
   useEffect(() => {
