@@ -168,6 +168,7 @@ Some ETL fetchers require API keys. Keys are stored in `.env` locally (never com
 | Variable | Used by | How to obtain |
 |---|---|---|
 | `KLIMAREGNSKAB_API_KEY` | `etl/fetch_klimaregnskab.py` | Register at https://klimaregnskabet.dk/klimaregnskabet-api (free, name + email) |
+| `DATAFORDELER_API_KEY` (optional) | `etl/fetch_dawa.py` | Free user account + API key at https://datafordeler.dk. Without it, kommune boundaries come from the open Plandata WFS (same DAGI geometry) |
 
 See `.env.example` for the template. To set up locally:
 ```bash

@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """
-ETL: Fetch data from MARS REST API (mars.sgav.dk)
+ETL: Fetch data from MARS (mars.sgav.dk) — official WFS + REST API
 
-Fetches all public status endpoints and stores raw JSON responses
-in data/mars/ with timestamps. Designed to run on schedule via
+Stores raw JSON responses in data/mars/. Designed to run on schedule via
 GitHub Actions or manually.
 
-Endpoints:
+Flat project list (data/mars/projects.json) — official WFS (mars.sgav.dk/geo/wfs):
+  mars:projekter_samlet                     → every project in a formal phase, with
+                                              effects, status and phase dates
+  mars:projekter_tilskudsordning_skovrejsning → forest sub-polygons (supplementaryGeometries)
+  Mapped into the REST /api/status/projects row shape (see mars_wfs.py). Rows that
+  changed after the nightly WFS refresh are taken from REST /api/status/projects.
+
+REST endpoints (no official alternative for these aggregations):
   /api/master-data       → Subsidy schemes, project states, national goals
   /api/status/plans      → 37 kystvandgrupper with N-reduction targets + nested projects
-  /api/status/projects   → Individual projects (1,164+) with status and metrics
   /api/status/vos        → 23 vandopland (main catchments) aggregations
   /api/status/metadata   → National goals + plan definitions
+  /api/status/municipality, /permanent-ekstensivering, /projects/history
 
 All endpoints are public and require no authentication.
 """
@@ -26,6 +32,7 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 
 from etl_log import log_etl_run
+import mars_wfs
 
 # Configuration
 MARS_BASE = "https://mars.sgav.dk/api"
@@ -34,7 +41,6 @@ _THIS_YEAR = datetime.now(timezone.utc).year
 ENDPOINTS = {
     "master-data": "/master-data",
     "plans": "/status/plans",
-    "projects": "/status/projects",
     "vos": "/status/vos",
     "metadata": "/status/metadata",
     # Per-kommune aggregates with area-clipped project rows — MARS's own kommune view.
@@ -46,6 +52,10 @@ ENDPOINTS = {
     # Quarterly phase counts as they actually were (MARS keeps history from 2025-Q3).
     "projects-history": f"/status/projects/history?fromYear=2024&fromQuarter=1&toYear={_THIS_YEAR}&toQuarter=4",
 }
+
+# REST flat project list — only fetched as a fallback for rows the nightly WFS
+# snapshot does not have yet (see build_projects()).
+PROJECTS_REST_PATH = "/status/projects"
 
 # Output directory (relative to repo root)
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -81,6 +91,54 @@ def fetch_endpoint(name: str, path: str) -> dict | list | None:
     except json.JSONDecodeError as e:
         print(f"    ✗ Invalid JSON: {e}")
         return None
+
+
+def build_projects(plans: list, master: dict) -> tuple[list | None, dict]:
+    """Flat project list from the official WFS, reconciled against the live REST plans.
+
+    Returns (rows in REST /status/projects shape, provenance info). Falls back to the
+    REST list entirely if the WFS is unreachable.
+    """
+    info: dict = {"source": "wfs", "wfsLayer": mars_wfs.LAYER_PROJECTS, "wfsUrl": mars_wfs.MARS_WFS}
+    try:
+        feats = mars_wfs.fetch_layer(mars_wfs.LAYER_PROJECTS)
+        forest = mars_wfs.fetch_layer(mars_wfs.LAYER_FOREST)
+    except Exception as e:  # noqa: BLE001 — any WFS failure → REST as before
+        print(f"    ✗ WFS failed ({e}) — falling back to REST {PROJECTS_REST_PATH}")
+        rest = fetch_endpoint("projects (REST fallback)", PROJECTS_REST_PATH)
+        info.update(source="rest", error=str(e))
+        return rest, info
+    print(f"  WFS {mars_wfs.LAYER_PROJECTS}: {len(feats)} projects; {mars_wfs.LAYER_FOREST}: {len(forest)} rows")
+
+    lookups = mars_wfs.build_lookups(master or {})
+    plan_rows = mars_wfs.plan_rows_by_project(plans or [])
+    forest_by_id: dict[str, list] = {}
+    for f in forest:
+        forest_by_id.setdefault((f.get("properties") or {}).get("mars_id"), []).append(f)
+    wfs_rows = {}
+    for f in feats:
+        props = f.get("properties") or {}
+        pid = props.get("mars_id")
+        wfs_rows[pid] = mars_wfs.wfs_project_row(props, lookups, plan_rows.get(pid), forest_by_id.get(pid))
+
+    stale = mars_wfs.stale_project_ids(wfs_rows, plan_rows) if plans else set()
+    rest = None
+    if stale:
+        print(f"    {len(stale)} project(s) changed since the nightly WFS refresh — "
+              f"taking them from REST {PROJECTS_REST_PATH}")
+        rest = fetch_endpoint("projects (REST fallback)", PROJECTS_REST_PATH)
+        if rest is None:
+            info["fallbackError"] = "REST fallback failed; stale WFS rows kept"
+    rows = mars_wfs.merge_with_rest_fallback(wfs_rows, stale, rest)
+    info.update(
+        wfsCount=len(feats),
+        count=len(rows),
+        restFallbackCount=sum(1 for r in rows if r.get("source") == "rest-fallback"),
+        restFallbackIds=sorted(stale)[:50],
+        wfsUpdated=max((r.get("wfsUpdated") or "" for r in wfs_rows.values()), default=None),
+    )
+    print(f"    ✓ {len(rows)} projects ({info['restFallbackCount']} from REST fallback)")
+    return rows, info
 
 
 def compute_summary(data: dict) -> dict:
@@ -189,6 +247,14 @@ def main():
         print("\n✗ All endpoints failed. Aborting.")
         sys.exit(1)
 
+    # Flat project list: official WFS, reconciled against the live REST plans.
+    print("  Fetching projects: official WFS (mars:projekter_samlet)")
+    projects, projects_info = build_projects(fetched.get("plans"), fetched.get("master-data"))
+    if projects is not None:
+        fetched["projects"] = projects
+    else:
+        errors.append("projects")
+
     # Write raw JSON files
     print(f"\nWriting {len(fetched)} data files...")
     for name, data in fetched.items():
@@ -201,6 +267,7 @@ def main():
     # Write summary
     summary = compute_summary(fetched)
     summary["errors"] = errors
+    summary["projectsSource"] = projects_info
     summary_path = DATA_DIR / "summary.json"
     with open(summary_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
@@ -226,10 +293,13 @@ def main():
         record_counts[name] = len(d) if isinstance(d, list) else 1
     log_etl_run(
         source="mars",
-        endpoints=[f"{MARS_BASE}{path}" for path in ENDPOINTS.values()],
+        endpoints=[mars_wfs.wfs_url(mars_wfs.LAYER_PROJECTS), mars_wfs.wfs_url(mars_wfs.LAYER_FOREST)]
+        + [f"{MARS_BASE}{path}" for path in ENDPOINTS.values()],
         records=record_counts,
         status="ok" if not errors else ("partial" if fetched else "error"),
-        notes=f"Errors: {', '.join(errors)}" if errors else "All endpoints OK",
+        notes=(f"Errors: {', '.join(errors)}" if errors else "All endpoints OK")
+        + f"; projects from {projects_info.get('source')}"
+        + (f" ({projects_info.get('restFallbackCount')} REST fallback rows)" if projects_info.get("restFallbackCount") else ""),
         duration_seconds=time.monotonic() - t0,
     )
 

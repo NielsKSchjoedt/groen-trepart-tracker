@@ -54,9 +54,12 @@ jobs:
           restore-keys: |
             spatial-overlay-cache-v1-
 
-      - name: Fetch DAWA municipality boundaries
+      - name: Fetch DAGI municipality boundaries (archive fallback)
         run: python3 fetch_dawa.py
         working-directory: etl
+        env:
+          # Optional: without it the open Plandata WFS (same DAGI geometry) is used.
+          DATAFORDELER_API_KEY: ${{ secrets.DATAFORDELER_API_KEY }}
 
       - name: Fetch Arealdata biodiversity layers
         run: python3 fetch_arealdata_biodiversitet.py --full-dce
@@ -70,13 +73,15 @@ jobs:
         run: python3 build_kommune_benchmark.py
         working-directory: etl
 
-      - name: Restore kommune-ansvar cache (MARS plan geometries + kulstof WMS tiles)
+      # Kulstofkort (natur:kulstof2022, ~1,7 mio. polygoner, statisk 2022-data) is
+      # fetched once from the WFS and kept as compressed per-tile npz files.
+      - name: Restore kommune-ansvar cache (MARS plan geometries + kulstof WFS tiles)
         uses: actions/cache@v5
         with:
           path: data/spatial-overlays/cache/kommune-ansvar
-          key: kommune-ansvar-v1-${{ github.run_id }}
+          key: kommune-ansvar-v2-${{ github.run_id }}
           restore-keys: |
-            kommune-ansvar-v1-
+            kommune-ansvar-v2-
 
       - name: Build kommune ansvar per goal
         run: python3 build_kommune_ansvar.py

@@ -124,6 +124,15 @@ The primary source for project data, targets, and plans.
 - `/api/plans/all` — 37 coastal water group plans with nitrogen targets
 - `/api/projects/all` — ~1,200 projects with status, nitrogen, extraction, afforestation data
 
+**Official WFS (since 2026-11):** the flat project list (`data/mars/projects.json`) and all
+project/sketch polygons come from MARS' official WFS `https://mars.sgav.dk/geo/wfs`
+(`mars:projekter_samlet`, `mars:skitseprojekter`, `mars:projekter_tilskudsordning_skovrejsning`),
+mapped into the REST row shape by `etl/mars_wfs.py`. The WFS is refreshed nightly; rows that
+changed since (checked against the live `/status/plans`) are taken from REST `/status/projects`
+(`source: "rest-fallback"`). Plans, municipality, vos, master-data, metadata, ekstensivering and
+history stay on REST — the WFS has no per-kystvandgruppe split or nature-potential overlaps.
+See `docs/data-sources/mars-platform.md`.
+
 **Critical pattern — per-plan projects:** Plans from `/api/plans/all` contain nested `projects`
 arrays. When computing per-plan phase breakdowns, iterate `plan.get("projects", [])` — do NOT try
 to match projects to plans via `geoLocationId` (these IDs don't align between the two endpoints).

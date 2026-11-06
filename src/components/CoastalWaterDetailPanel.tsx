@@ -25,7 +25,6 @@ const SUB_INDICATOR_LABELS: Record<string, string> = {
   phytoplankton: 'Fytoplankton',
   angiosperms: 'Ålegræs',
   benthicFauna: 'Bundfauna',
-  macroalgae: 'Makroalger',
   nationalSubstances: 'Nat. specifikke stoffer',
   oxygenConditions: 'Iltforhold',
   lightConditions: 'Lysforhold',
@@ -101,6 +100,21 @@ export function CoastalWaterDetailPanel({ name, entry, onClose }: CoastalWaterDe
             </span>
           )}
         </div>
+        {entry.ecologicalStatusExclNationalSubstances &&
+          entry.ecologicalStatusExclNationalSubstances !== 'Ukendt' &&
+          entry.ecologicalStatusExclNationalSubstances !== entry.ecologicalStatus && (
+            <p className="mt-2 text-[11px] leading-snug text-muted-foreground">
+              Uden nationalt specifikke stoffer ville tilstanden være{' '}
+              <span
+                className="font-semibold"
+                style={{ color: getWfdStatusColor(entry.ecologicalStatusExclNationalSubstances) }}
+              >
+                {entry.ecologicalStatusExclNationalSubstances.toLowerCase()}
+              </span>
+              . Stofferne indgår i den officielle vurdering. (Beregnet af trackeren ud fra de øvrige
+              kvalitetselementer.)
+            </p>
+          )}
       </div>
 
       {/* Sub-indicators table */}
@@ -108,7 +122,7 @@ export function CoastalWaterDetailPanel({ name, entry, onClose }: CoastalWaterDe
         <div className="flex items-center gap-2 mb-2.5">
           <Info className="w-4 h-4 text-muted-foreground" />
           <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Biologiske kvalitetselementer
+            Kvalitetselementer
           </h3>
         </div>
         <div className="rounded-lg border border-border overflow-hidden">
@@ -142,7 +156,38 @@ export function CoastalWaterDetailPanel({ name, entry, onClose }: CoastalWaterDe
           </h3>
         </div>
         <StatusBadge status={entry.chemicalStatus} />
+        {entry.chemicalGoal && entry.chemicalGoal !== entry.chemicalStatus && (
+          <p className="mt-1.5 text-[11px] text-muted-foreground">
+            Mål: {entry.chemicalGoal.toLowerCase()} kemisk tilstand
+          </p>
+        )}
       </div>
+
+      {/* Official pages for this water body */}
+      {(entry.vandplandataUrl || entry.exemptionsUrl) && (
+        <div className="mb-5 flex flex-col gap-1.5 text-[11px]">
+          {entry.vandplandataUrl && (
+            <a
+              href={entry.vandplandataUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30 text-foreground"
+            >
+              Se kystvandet på vandplandata.dk <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
+          {entry.exemptionsUrl && (
+            <a
+              href={entry.exemptionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30 text-muted-foreground"
+            >
+              Undtagelser for kystvandet <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
+        </div>
+      )}
 
       {/* Metadata */}
       <div className="mb-5 p-3.5 rounded-lg bg-muted/40 border border-border/50">
@@ -185,17 +230,17 @@ export function CoastalWaterDetailPanel({ name, entry, onClose }: CoastalWaterDe
           <span>
             Data fra{' '}
             <a
-              href="https://mst.dk/erhverv/tilskud-miljoeviden-og-data/data-og-databaser/miljoegis-data-om-natur-og-miljoe-paa-webkort"
+              href="https://vandplandata.dk/vp3_2endelig2025"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-0.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
             >
-              Miljøstyrelsen VP3 <ExternalLink className="w-2.5 h-2.5" />
+              Miljøstyrelsen, vandplandata.dk <ExternalLink className="w-2.5 h-2.5" />
             </a>
           </span>
         </div>
         <p className="text-[10px] text-muted-foreground mt-1">
-          Vandområdeplanerne 2021–2027 (VP3) — EU Vandrammedirektivet
+          Vandområdeplanerne 2021–2027 efter genbesøget (endelig december 2025, BEK nr. 1670) — EU's vandrammedirektiv
         </p>
       </div>
     </div>

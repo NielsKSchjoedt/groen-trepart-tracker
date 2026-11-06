@@ -54,7 +54,7 @@ echo "=== All done ==="
 """
 
 [tasks.fetch-geometries]
-description = "Fetch project geometries from MARS API (resumable — saves every 25 fetches)"
+description = "Fetch project + sketch geometries from MARS official WFS (bulk; REST only for ids not yet in the nightly WFS)"
 run = "cd etl && python3 fetch_geometries.py"
 
 [tasks.fetch-marker2026]
@@ -91,7 +91,7 @@ run = "cd etl && python3 build_kommune_neighbors.py"
 
 [tasks.test-python]
 description = "Python stdlib ETL unit tests (WFS helpers m.m.)"
-run = "cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet test_kommune_attribution test_sprint1_merge_unittest -v"
+run = "cd etl && python3 -m unittest test_mars_wfs test_mars_pipeline_s2 test_fetch_biodiversitet test_kommune_attribution test_sprint1_merge_unittest -v"
 
 [tasks.check]
 description = "Run all checks: lint, typecheck, build, and tests"
@@ -109,7 +109,7 @@ echo "=== 4/5: Frontend tests ==="
 npm run test
 echo
 echo "=== 5/5: Python ETL tests ==="
-cd etl && python3 -m unittest test_mars_pipeline_s2 test_fetch_biodiversitet test_kommune_attribution test_sprint1_merge_unittest -v
+cd etl && python3 -m unittest test_mars_wfs test_mars_pipeline_s2 test_fetch_biodiversitet test_kommune_attribution test_sprint1_merge_unittest -v
 echo
 echo "=== All checks passed ==="
 """

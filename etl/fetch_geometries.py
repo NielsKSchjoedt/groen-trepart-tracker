@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
 """
-ETL: Fetch project geometries from MARS API and convert to GeoJSON.
+ETL: Fetch project + sketch geometries from MARS and convert to slim GeoJSON rings.
 
-Reads geoLocationIds from the plans data (projects + sketches),
-fetches WKT geometry from /api/geometries/{id}, converts from
-ETRS89/UTM32N (EPSG:25832) to WGS84 (EPSG:4326), simplifies
-using adaptive Douglas-Peucker tolerance, and outputs a single
-JSON lookup file.
+Reads geoLocationIds from the plans data (projects + sketches), takes their
+polygons from MARS' official WFS (mars.sgav.dk/geo/wfs, layers
+mars:projekter_samlet and mars:skitseprojekter — two bulk requests), converts
+from ETRS89/UTM32N (EPSG:25832) to WGS84 (EPSG:4326), simplifies using adaptive
+Douglas-Peucker tolerance, and outputs a single JSON lookup file.
+
+The WFS is keyed by mars_id (= REST projectId / sketchProjectId); the plans data
+maps those to the geoLocationId the rest of the pipeline and the frontend use.
+Verified 2026-11-06: every WFS polygon equals the REST /api/geometries/{id} WKT
+(shapely equals_exact, 1e-6 m) for all 6,484 ids present in both.
 
 Two-stage pipeline:
-  1. Fetch raw WKT from MARS → cache in data/mars/geometries-wkt.json
+  1. WFS polygons → WKT cache in data/mars/geometries-wkt.json (rebuilt every run,
+     so revised project boundaries are picked up). Ids the nightly WFS snapshot does
+     not have yet (created since ~01:00 UTC) are fetched one by one from the REST
+     endpoint /api/geometries/{geoLocationId}; those stay cached until the WFS has them.
   2. Process cached WKT (simplify + reproject) → public/data/project-geometries.json
 
-Caching behaviour:
-  The WKT cache is delta-based: only geoLocationIds not already in the cache
-  are fetched from MARS. This means new projects are always picked up, but if
-  an existing project's geometry is revised in MARS, the stale cached version
-  persists. This is an acceptable trade-off — project boundaries are set early
-  in the pipeline and rarely change. Use --force to re-fetch all geometries
-  from scratch if a correction is needed.
-
-Use --reprocess to re-simplify from cached WKT without re-fetching.
+Use --reprocess to re-simplify from cached WKT without network calls.
+Use --rest-only to use the old per-id REST path for everything (debug/comparison).
 
 Output: public/data/project-geometries.json
 Format: { "<geoLocationId>": [[lng,lat], [lng,lat], ...], ... }
@@ -38,6 +39,8 @@ import time
 from pathlib import Path
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
+
+import mars_wfs
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -326,15 +329,36 @@ def process_geometry(wkt: str) -> list[list[float]] | None:
 
 # --------------- Main ---------------
 
+def fetch_wfs_wkt(owner_geo: dict[str, str]) -> dict[str, str]:
+    """mars_id → geoLocationId map in; geoLocationId → WKT out, from the two WFS layers."""
+    out: dict[str, str] = {}
+    for layer in (mars_wfs.LAYER_PROJECTS, mars_wfs.LAYER_SKETCHES):
+        t = time.monotonic()
+        feats = mars_wfs.fetch_layer(layer)
+        hit = 0
+        for f in feats:
+            gid = owner_geo.get((f.get("properties") or {}).get("mars_id"))
+            wkt = mars_wfs.geojson_to_wkt(f.get("geometry"))
+            if gid and wkt:
+                out[gid] = wkt
+                hit += 1
+        print(f"  WFS {layer}: {len(feats)} features, {hit} matched to plan geoLocationIds "
+              f"({time.monotonic() - t:.1f}s)")
+    return out
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Fetch project geometries from MARS API")
-    parser.add_argument("--force", action="store_true", help="Re-fetch all geometries from MARS, ignoring WKT cache")
+    parser = argparse.ArgumentParser(description="Fetch project geometries from MARS (official WFS)")
+    parser.add_argument("--force", action="store_true",
+                        help="Drop the cached REST-fallback geometries and re-fetch them")
     parser.add_argument("--reprocess", action="store_true",
-                        help="Re-simplify from cached WKT without re-fetching from MARS")
+                        help="Re-simplify from cached WKT without network calls")
+    parser.add_argument("--rest-only", action="store_true",
+                        help="Old path: fetch every geometry one by one from the REST API")
     args = parser.parse_args()
 
     t0 = time.monotonic()
-    print("Geometry ETL — Fetching project polygons from MARS API")
+    print("Geometry ETL — Fetching project polygons from MARS (official WFS)")
 
     # Load plans to get all geoLocationIds
     plans_path = DATA_DIR / "plans.json"
@@ -375,52 +399,52 @@ def main():
         except (json.JSONDecodeError, IOError):
             pass
 
+    def save_wkt_cache():
+        WKT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        tmp = WKT_CACHE_PATH.with_suffix('.tmp')
+        with open(tmp, "w") as f:
+            json.dump(wkt_cache, f, separators=(",", ":"))
+        tmp.replace(WKT_CACHE_PATH)
+
     if args.reprocess:
         print("  --reprocess: re-simplifying from cached WKT (no API calls)")
         if not wkt_cache:
             print("  ✗ No WKT cache found. Run without --reprocess first to fetch from MARS.")
             sys.exit(1)
     else:
-        # Fetch missing WKT from MARS API
-        to_fetch = geo_ids - set(wkt_cache.keys()) if not args.force else geo_ids
-        if args.force:
+        wfs_wkt: dict[str, str] = {}
+        if not args.rest_only:
+            try:
+                wfs_wkt = fetch_wfs_wkt(project_geo_map)
+            except Exception as e:  # noqa: BLE001 — WFS down → per-id REST as before
+                print(f"  ✗ WFS failed ({e}) — falling back to REST /api/geometries per id")
+        if args.force or args.rest_only:
             wkt_cache = {}
-            print(f"  --force: re-fetching all {len(to_fetch)} geometries from MARS")
-        else:
-            print(f"  Need to fetch {len(to_fetch)} new geometries from MARS")
+        # Official WFS geometry wins; keep cached REST geometries only for ids the
+        # WFS does not have (yet). Ids no longer in plans are dropped.
+        wkt_cache = {gid: wfs_wkt.get(gid) or wkt_cache[gid]
+                     for gid in geo_ids if gid in wfs_wkt or gid in wkt_cache}
+        to_fetch = sorted(geo_ids - set(wkt_cache))
+        print(f"  {len(wfs_wkt)} from WFS; fetching {len(to_fetch)} missing from REST /api/geometries")
 
         fetched = 0
         errors = 0
-        SAVE_INTERVAL = 50
-
-        def save_wkt_cache():
-            WKT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-            tmp = WKT_CACHE_PATH.with_suffix('.tmp')
-            with open(tmp, "w") as f:
-                json.dump(wkt_cache, f, separators=(",", ":"))
-            tmp.replace(WKT_CACHE_PATH)
-
-        for i, geo_id in enumerate(sorted(to_fetch)):
+        for i, geo_id in enumerate(to_fetch):
             if i > 0 and i % 100 == 0:
                 print(f"  ... {i}/{len(to_fetch)} fetched ({errors} errors)")
-
+                save_wkt_cache()
             wkt = fetch_geometry(geo_id)
             if wkt:
                 wkt_cache[geo_id] = wkt
                 fetched += 1
             else:
                 errors += 1
-
-            if fetched > 0 and fetched % SAVE_INTERVAL == 0:
-                save_wkt_cache()
-                print(f"    💾 WKT checkpoint saved ({len(wkt_cache)} geometries)")
-
             time.sleep(REQUEST_DELAY)
 
         save_wkt_cache()
         wkt_size_kb = WKT_CACHE_PATH.stat().st_size / 1024
         print(f"  ✓ WKT cache: {len(wkt_cache)} geometries ({wkt_size_kb:.0f} KB)")
-        print(f"    Fetched {fetched} new, {errors} errors")
+        print(f"    REST: fetched {fetched}, {errors} errors")
 
     # Process all cached WKT → simplified GeoJSON
     print("  Processing geometries (adaptive simplification + reprojection)...")

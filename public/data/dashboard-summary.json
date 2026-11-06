@@ -1,21 +1,26 @@
 {
   "fetchedAt": "2026-11-05T13:42:07.615269+00:00",
-  "builtAt": "2026-11-05T13:50:30.777465+00:00",
+  "builtAt": "2026-11-06T20:38:03.539658+00:00",
   "sources": {
     "mars": {
       "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
       "url": "https://mars.sgav.dk/api",
+      "wfsUrl": "https://mars.sgav.dk/geo/wfs",
+      "projectsSource": null,
       "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
       "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
       "license": "Public data (Danish public sector open data)",
       "fetchedAt": "2026-11-05T13:42:07.615269+00:00"
     },
     "dawa": {
-      "name": "DAWA — Danmarks Adressers Web API",
-      "url": "https://api.dataforsyningen.dk",
-      "description": "Municipality boundaries and metadata. DAWA was shut down in 2026 (HTTP 410); the tracker uses a static snapshot from the last live fetch (2026-09-11). Kommune figures come from MARS's own per-kommune view.",
-      "maintainer": "Klimadatastyrelsen (Danish Agency for Data Supply and Infrastructure)",
-      "license": "Public data (Danish public sector open data)"
+      "name": "DAGI — Danmarks Administrative Geografiske Inddeling (kommunegrænser)",
+      "url": "https://geoserver.plandata.dk/geoserver/ows",
+      "layer": "pdk:theme_pdk_kommuneplan_oversigt_vedtaget_v",
+      "description": "Municipality boundaries and metadata from DAGI. Read daily from Datafordeleren (with API key) or the open Plandata.dk WFS, which serves the same DAGI geometry, and checked against the archived copy from DAWA (shut down in 2026; last fetch 2026-09-11). Region membership and Christiansø come from the archive. Kommune figures come from MARS's own per-kommune view.",
+      "maintainer": "Klimadatastyrelsen (Danish Agency for Climate Data)",
+      "license": "Public data (Danish public sector open data)",
+      "coordinateSystem": "EPSG:25832",
+      "fetchedAt": "2026-11-06T20:24:20.595830+00:00"
     },
     "natura2000": {
       "name": "Natura 2000 — EU Habitat & Birds Directive Protected Areas",
@@ -9315,8 +9320,8 @@
     "afforestationProjects": 504,
     "excludedProjects": 725,
     "uroertSkov": {
-      "projectCount": 10,
-      "geometryCount": 21,
+      "projectCount": 8,
+      "geometryCount": 17,
       "areaHa": 27.98,
       "typeId": "434633e0-4241-4f38-b451-f2b45b70ebd4",
       "note": "Kun SGAV-ordningen Skovrejsning kan registrere urørt skov. Privat Skovrejsning (LBST) og NST Skovrejsning har ingen geometri-type for det, så 26 ha er et underkantstal — ikke et filter vi kan bruge landsdækkende."

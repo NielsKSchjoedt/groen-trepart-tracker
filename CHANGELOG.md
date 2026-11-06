@@ -17,6 +17,23 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.0 — 6. november 2026
+
+**Flere tal hentes nu fra officielle kilder – og det rettede en fejl i kommunernes lavbundsandel**
+
+### Fejlrettelse
+- Kommunernes andel af lavbundsmålet byggede på en optælling af et kortbillede af de kulstofrige jorder, hvor kortets bløde kanter talte som fuld kulstofjord. Det gav 3-20 gange for meget kulstofjord og ramte kommunerne ujævnt, fx 5.803 ha i Lemvig mod reelt 1.417 ha og 30.008 ha i Tønder mod 9.637 ha. Nu bruger vi kortets egne polygoner fra Miljøministeriets officielle kortdata: landets kulstofrige jord (over 6 % tørv) er 219.900 ha, ikke 638.000 ha. Fordelingen af de 140.000 ha mellem kommunerne er ændret, og nogle kommuner flytter flere pladser på lavbundslisten, fx Thisted fra 14. til 7. plads og Fredericia fra 29. til 42. (Teknisk: build_kommune_ansvar.py bruger WFS-laget natur:kulstof2022 i stedet for WMS-pixeltælling.)
+- Urørt skov i MARS talte også tomme pladsholdere uden indtegnet areal med som projekter. Nu tælles kun projekter, hvor arealet faktisk er tegnet ind: 8 projekter i stedet for 10. Arealet er uændret.
+- Data & metode beskrev Klimaskovfondens data som hentet fra et uofficielt testdomæne. Det var forkert: adressen er den, Danmarks Miljøportals datakatalog selv angiver som officiel kilde – domænenavnet indeholder blot ordet «test». Beskrivelsen er rettet.
+
+### Metodeændring
+- Antallet af kystvande i god økologisk tilstand er faldet fra 5 til 0 af 109. Det skyldes ikke en fejl i trackeren: vi bruger nu myndighedernes opdaterede vurdering fra vandområdeplanerne efter genbesøget (endelig december 2025) i stedet for vurderingen fra 2021. Faldet skyldes især nationalt specifikke stoffer – miljøfarlige stoffer med danske grænseværdier. Ser man bort fra dem, er 6 kystvande i god tilstand; det tal vises nu også. Hvert kystvand på kortet har fået et link til vandplandata.dk, og makroalger er fjernet, da de ikke længere indgår i data. (Teknisk: WFS-lag vp3_2endelig2025:vp3_2e2025_marin_samlet.)
+
+### Forbedring
+- Projektlisten og projekternes kortomrids hentes nu fra MARS' officielle, dokumenterede kortservice i stedet for et udokumenteret API. Alle projekttal er uændrede. Kystvandgruppernes planer, mål og skitser hentes fortsat fra MARS' API, fordi kun dér er effekterne fordelt på kystvandgrupper. (Teknisk: WFS-lagene mars:projekter_samlet og mars:skitseprojekter.)
+- Kommunegrænserne hentes nu igen dagligt fra en officiel kilde (DAGI via Plandata.dk eller Datafordeleren) i stedet for en fastfrosset kopi fra DAWA, som er lukket. Grænserne er uændrede. (Teknisk: fetch_dawa.py med det gemte DAWA-udtræk som reserve.)
+---
+
 ## v1.1.0 — 4. november 2026
 
 **Kommune-ranglisterne bygget om: hver kommune måles nu mod sin egen andel af målet og på det, der er besluttet eller anlagt**
