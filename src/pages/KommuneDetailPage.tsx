@@ -210,14 +210,22 @@ export default function KommuneDetailPage() {
     navigateToKommuneByKode(navigate, kode, kommuner, search);
   };
 
+  // While data is loading, keep the canonical on this kommune's own URL.
+  // Falling back to '/kommuner' here made Google treat every kommune page as a
+  // duplicate of the overview when it rendered the page before data arrived.
+  const stillLoading = isLoading || !data;
   usePageMeta({
     title: kommune
       ? `${kommune.navn} kommune — status & kort`
-      : 'Kommune ikke fundet',
+      : stillLoading ? 'Kommune — status & kort' : 'Kommune ikke fundet',
     description: kommune
       ? `Se status for Den Grønne Trepart i ${kommune.navn} Kommune. Følg skovrejsning, lavbundsarealer, kvælstofreduktion og CO₂-udledning.`
-      : 'Kommune ikke fundet.',
-    path: kommune ? `/kommuner/${kommuneToSlug(kommune.navn)}` : '/kommuner',
+      : stillLoading
+        ? 'Se status for Den Grønne Trepart i kommunen. Følg skovrejsning, lavbundsarealer, kvælstofreduktion og CO₂-udledning.'
+        : 'Kommune ikke fundet.',
+    path: kommune
+      ? `/kommuner/${kommuneToSlug(kommune.navn)}`
+      : stillLoading && kommuneSlug ? `/kommuner/${kommuneSlug}` : '/kommuner',
   });
 
   const projectDetails = useMemo(() => {

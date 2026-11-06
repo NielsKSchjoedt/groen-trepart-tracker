@@ -17,6 +17,14 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.2 — 6. november 2026
+
+**Kommunesider og videnscenter-artikler kan nu findes på Google**
+
+### Fejlrettelse
+- Google viste næsten ingen af kommunesiderne og flere videnscenter-artikler i søgeresultaterne. Siderne fortalte nemlig Google, at de var en kopi af forsiden eller af oversigtssiden, så Google sprang dem over. Nu peger hver side på sin egen adresse, og de kan blive fundet på Google. (Teknisk: fjernet fast canonical-tag i index.html; usePageMeta bruger sidens egen adresse, mens data indlæses, på KommuneDetailPage og VidenscenterPage.)
+---
+
 ## v1.2.1 — 6. november 2026
 
 **Sikkerhed: navne fra eksterne kilder kan ikke længere indsætte kode på kortet, og forkerte data stopper før de går live**
