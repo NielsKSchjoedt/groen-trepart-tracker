@@ -206,6 +206,8 @@ export function KommuneMapSection({
 
   useEffect(() => {
     if (!projectOpen) {
+      // Syncs the selected project from the URL (projectOpen) — an external source.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedProject(undefined);
       return;
     }
@@ -236,6 +238,8 @@ export function KommuneMapSection({
 
   useEffect(() => {
     if (!selectedProject || selectedProject.source !== 'mars') {
+      // Clears stale geometry before the async geometry load below.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setProjectCoordinates(undefined);
       return;
     }
