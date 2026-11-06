@@ -15,14 +15,14 @@ jobs:
     outputs:
       changed: ${{ steps.changes.outputs.changed }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Cache pip wheels
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.cache/pip
           key: spatial-pip-v1-${{ runner.os }}-${{ hashFiles('etl/requirements-spatial.txt') }}
@@ -37,7 +37,7 @@ jobs:
         working-directory: etl
 
       - name: Restore Markkort 2026 kommune bbox cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             data/markkort/marker-2026
@@ -47,7 +47,7 @@ jobs:
             marker-2026-v1-
 
       - name: Restore spatial overlay cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           # kommune-ansvar has its own cache (above); don't store its ~50 MB twice.
           path: |
@@ -79,7 +79,7 @@ jobs:
       # Kulstofkort (natur:kulstof2022, ~1,7 mio. polygoner, statisk 2022-data) is
       # fetched once from the WFS and kept as compressed per-tile npz files.
       - name: Restore kommune-ansvar cache (MARS plan geometries + kulstof WFS tiles)
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: data/spatial-overlays/cache/kommune-ansvar
           key: kommune-ansvar-v2-${{ github.run_id }}
@@ -99,7 +99,7 @@ jobs:
         working-directory: etl
 
       - name: Restore §3 per-kommune cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             data/section3/by-kommune
@@ -151,7 +151,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/download-artifact@v4
         with:
