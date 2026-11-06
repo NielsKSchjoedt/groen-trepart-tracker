@@ -11,7 +11,9 @@ jobs:
   # Actions caches** even when the follow-up commit/merge job fails. GitHub only
   # persists cache entries when the job that used `actions/cache` completes
   # successfully; a failed `gh pr merge` in the same job used to prevent saves,
-  # so every run stayed cold (~38 min geocoding + ~20–38 min geometries).
+  # so every run stayed cold (~38 min geocoding + ~20–38 min geometries). MARS
+  # geometries now come from the official WFS in two bulk requests (~10 s); the
+  # WKT cache below only covers ids the WFS lacks and WFS outages.
   etl:
     runs-on: ubuntu-latest
     permissions:
@@ -41,10 +43,10 @@ jobs:
           restore-keys: |
             geo-kommune-cache-v1-
 
-      # Persist the MARS WKT geometry cache across runs.
-      # Without this, fetch_geometries.py re-fetches all ~6500 individual
-      # geometry API calls on every run (~20-38 min). With the cache, only
-      # newly added MARS projects are fetched (typically 0-50 per day).
+      # Persist the MARS WKT geometry cache across runs. Most polygons come from
+      # the official WFS in bulk, but ids the nightly WFS snapshot does not have
+      # yet are fetched one by one from REST — and on a WFS outage all of them
+      # (~6,700 calls, ~26 min). The cache keeps both cases to a small delta.
       - name: Restore MARS geometry cache
         uses: actions/cache@v5
         with:
@@ -113,16 +115,19 @@ jobs:
         run: python3 fetch_mars.py
         working-directory: etl
 
-      - name: Fetch DAWA data
+      - name: Fetch kommune boundaries (DAGI)
         run: python3 fetch_dawa.py
         working-directory: etl
+        env:
+          # Optional: without it the open Plandata WFS (same DAGI geometry) is used.
+          DATAFORDELER_API_KEY: ${{ secrets.DATAFORDELER_API_KEY }}
 
       - name: Fetch MiljøGIS WFS data
         run: python3 fetch_miljoegis.py
         working-directory: etl
 
-      # Fetch project map polygons from MARS API.
-      # Only newly added projects are fetched (delta vs WKT cache above).
+      # Fetch project + sketch polygons from MARS' official WFS (two bulk
+      # requests); only ids newer than the nightly WFS refresh hit the REST API.
       - name: Fetch MARS project geometries
         run: python3 fetch_geometries.py
         working-directory: etl

@@ -132,7 +132,7 @@ Most fetchers use Python stdlib only. Two exceptions: `build_co2_data.py` requir
 - **Skovrejsning** (210 projects, ~2,284 ha) → **Afforestation pillar** — counts towards the 250,000 ha new forest target
 - **Lavbund** (3 projects, ~30 ha) → **Extraction pillar** — counts towards the 140,000 ha lowland extraction target
 
-**Source**: WFS endpoint at `test.admin.gc2.io/ows/klimaskovfonden/public/` — layer `klimaskovfonden:public.klimaskovfondens_projekter`
+**Source**: WFS endpoint at `test.admin.gc2.io/ows/klimaskovfonden/public/` — layer `klimaskovfonden:public.klimaskovfondens_projekter` (this is the endpoint registered in Danmarks Miljøportal's data catalogue; despite the hostname it is the official source)
 
 **ETL**: `etl/fetch_klimaskovfonden.py` — fetches GML, computes area from polygon geometry (Shoelace formula on WGS84 coords), outputs `data/klimaskovfonden/summary.json` and `data/klimaskovfonden/projects.json`
 

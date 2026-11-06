@@ -81,10 +81,10 @@ const DATA_SOURCES: DataSourceDef[] = [
   {
     icon: Database,
     title: 'MARS API',
-    description: 'Multifunktionel ArealRegistrering — alle virkemiddelprojekter, vandplaner og kvælstofreduktionsmål inkl. projektstatus. Drives af SGAV (Styrelsen for Grøn Arealomlægning og Vandmiljø). 5 endpoints: plans, projects, vos, metadata og master-data.',
+    description: 'Multifunktionel ArealRegistrering — alle virkemiddelprojekter, vandplaner og kvælstofreduktionsmål inkl. projektstatus. Drives af SGAV (Styrelsen for Grøn Arealomlægning og Vandmiljø). Projektlisten og alle projekt- og skitsepolygoner hentes fra MARS\' officielle WFS-tjeneste (mars.sgav.dk/geo/wfs). Planer, kommune- og oplandsopgørelser, stamdata og historik hentes fra MARS\' åbne REST-API, fordi WFS\'en ikke indeholder dem.',
     url: 'https://mars.sgav.dk',
     urlLabel: 'mars.sgav.dk',
-    disclaimer: 'Projektdata opdeles efter fase: forundersøgelse, godkendt og anlagt. Kun anlagte projekter har realiseret effekt. REST API fundet via browser DevTools — ikke officielt dokumenteret.',
+    disclaimer: 'Projektdata opdeles efter fase: forundersøgelse, godkendt og anlagt. Kun anlagte projekter har realiseret effekt. WFS\'en opdateres hver nat; projekter, der er oprettet eller har skiftet fase siden, hentes fra REST-API\'et, så alle MARS-tal beskriver samme tidspunkt. REST-API\'et er åbent, men ikke officielt dokumenteret.',
     frequency: 'Dagligt (GitHub Actions, 06:00 UTC)',
     dataDir: 'data/mars/',
     fetchScript: 'etl/fetch_mars.py',
@@ -101,6 +101,18 @@ const DATA_SOURCES: DataSourceDef[] = [
     dataDir: 'data/miljoegis/',
     fetchScript: 'etl/fetch_miljoegis.py',
     pillars: ['Kort', 'Alle søjler'],
+  },
+  {
+    icon: FileCode2,
+    title: 'Kystvandenes tilstand (vandområdeplanerne)',
+    description: 'Økologisk og kemisk tilstand for alle 109 kystvande fra vandområdeplanerne 2021–2027 efter genbesøget, endelig december 2025 (BEK nr. 1670). Hentes fra Miljøstyrelsens WFS-lag vp3_2endelig2025:vp3_2e2025_marin_samlet — samme data som vandplandata.dk. Bruges til vandmiljø-kortet på forsiden, kystvandene på kortet og kommunernes kystvande.',
+    url: 'https://vandplandata.dk/vp3_2endelig2025',
+    urlLabel: 'vandplandata.dk',
+    disclaimer: 'Tallet "uden nationalt specifikke stoffer" er beregnet af trackeren som den dårligste af de øvrige kvalitetselementer — ikke en officiel vurdering. Indtil november 2026 brugte trackeren den oprindelige vurdering fra 2021.',
+    frequency: 'Manuelt, når planerne opdateres',
+    dataDir: 'public/data/coastal-water-status.json',
+    fetchScript: 'etl/fetch_coastal_status.py',
+    pillars: ['Kvælstof', 'Kort'],
   },
   {
     icon: Shield,
@@ -156,7 +168,7 @@ const DATA_SOURCES: DataSourceDef[] = [
     description: 'Fredskov (juridisk baseline, ~60.000 matrikler), digitalt skovkort 2022, og Klimaskovfondens projekter, hentet dagligt via WFS.',
     url: 'https://klimaskovfonden.dk/vores-standard/register',
     urlLabel: 'klimaskovfonden.dk',
-    disclaimer: 'Klimaskovfonden-data hentes fra en WFS på et testdomæne (test.admin.gc2.io) — det kan ændres uden varsel. Arealer beregnes fra polygongeometri (Shoelace-formel på WGS84). Fredskov er juridisk status, ikke faktisk trædække.',
+    disclaimer: 'Klimaskovfonden-data hentes fra den WFS, som Danmarks Miljøportals datakatalog selv angiver som officiel kilde (test.admin.gc2.io). Domænenavnet indeholder "test", men det er det registrerede endpoint. Arealer beregnes fra polygongeometri (Shoelace-formel på WGS84). Fredskov er juridisk status, ikke faktisk trædække.',
     frequency: 'Lokal kørsel (fetch_all.sh)',
     dataDir: 'data/klimaskovfonden/',
     fetchScript: 'etl/fetch_klimaskovfonden.py',
@@ -188,10 +200,10 @@ const DATA_SOURCES: DataSourceDef[] = [
   },
   {
     icon: MapPin,
-    title: 'DAWA (Dataforsyningen)',
-    description: 'Kommunegrænser og -metadata til kort og kommunelister. DAWA blev lukket i 2026; trackeren bruger et fast udtræk fra sidste hentning (11. september 2026). Kommunetal for MARS-projekter kommer fra MARS\' egen kommuneopgørelse.',
-    url: 'https://api.dataforsyningen.dk',
-    urlLabel: 'api.dataforsyningen.dk',
+    title: 'DAGI-kommunegrænser (Klimadatastyrelsen)',
+    description: 'Kommunegrænser og -metadata til kort og kommunelister. Hentes dagligt fra den officielle DAGI-inddeling via Datafordeleren eller Plandata.dk og sammenlignes med vores gemte kopi fra DAWA, som lukkede i 2026. Kommunetal for MARS-projekter kommer fra MARS\' egen kommuneopgørelse.',
+    url: 'https://www.plandata.dk/webservices',
+    urlLabel: 'plandata.dk',
     disclaimer: 'CC0-licens. Administrative grænser stemmer ikke nødvendigvis overens med miljøgeografiske opdelinger.',
     frequency: 'Dagligt (GitHub Actions)',
     dataDir: 'data/dawa/',
@@ -259,8 +271,8 @@ const QUALITY_ITEMS: QualityItem[] = [
     severity: 'low',
   },
   {
-    title: 'MARS REST API er ikke officielt dokumenteret',
-    description: 'API-endpointet blev opdaget via browser DevTools. Det returnerer korrekte data, men der er ingen garanti for langvarig stabilitet eller bagudkompatibilitet. ETL-pipelinen håndterer fejl gracefully.',
+    title: 'Dele af MARS-data kommer fra et udokumenteret API',
+    description: 'Projektlisten og projektpolygonerne kommer fra MARS\' officielle WFS-tjeneste. Planer, kommune- og oplandsopgørelser findes kun i MARS\' REST-API, som er åbent, men ikke officielt dokumenteret. Det returnerer korrekte data, men der er ingen garanti for langvarig stabilitet. ETL-pipelinen håndterer fejl og falder tilbage til REST-API\'et, hvis WFS\'en er nede.',
     severity: 'medium',
   },
 ];
@@ -382,6 +394,27 @@ const METHOD_SECTIONS = [
           ikke tilstrækkelige til god økologisk tilstand. Trackeren påstår ikke, at målet er
           udskudt ét år til 2028.
         </p>
+        <p>
+          <strong>Kystvandenes tilstand</strong> hentes fra den endelige udgave af
+          vandområdeplanerne 2021–2027 efter genbesøget (december 2025) — Miljøstyrelsens
+          kortlag <code>vp3_2endelig2025:vp3_2e2025_marin_samlet</code>, som også ligger bag
+          vandplandata.dk. Indtil november 2026 brugte vi den oprindelige vurdering fra 2021.
+          Ved skiftet var <strong>0 af 109</strong> kystvande i god økologisk tilstand i den
+          opdaterede vurdering (2021-vurderingen: 5). Faldet skyldes især nationalt specifikke
+          stoffer — miljøfarlige stoffer, som Danmark selv har fastsat grænseværdier for. De er nu
+          vurderet ikke-gode i 89 af 109 kystvande (2021: 15). Tre af de fem kystvande, der var i
+          god tilstand i 2021, er kun under god tilstand på grund af disse stoffer; for de to
+          andre er algemængden (fytoplankton) nu vurderet moderat.
+        </p>
+        <p>
+          Den samlede tilstand følger princippet om, at det dårligste kvalitetselement afgør
+          vurderingen. Ud over det officielle tal viser vi derfor, hvor mange kystvande der ville
+          være i god tilstand, hvis de nationalt specifikke stoffer ikke medregnes (6 af 109 ved
+          skiftet). Det tal beregner vi selv som den dårligste af de øvrige kvalitetselementer
+          (fytoplankton, ålegræs, bundfauna, ilt- og lysforhold); resultatet svarer til det tal,
+          Miljøstyrelsens faktaark om planerne angiver. Det er ikke en officiel tilstandsvurdering
+          for det enkelte kystvand.
+        </p>
       </>
     ),
   },
@@ -463,7 +496,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 const SOURCE_DISPLAY: Record<string, string> = {
   mars:                      'MARS',
-  dawa:                      'DAWA',
+  dawa:                      'DAGI',
   miljoegis:                 'MiljøGIS',
   dst:                       'DST',
   vanda:                     'VanDa',
@@ -673,7 +706,7 @@ export default function DataMetodePage() {
           <SectionHeader icon={Database} title="Datakilder" />
           <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
             Dashboardet henter data fra {DATA_SOURCES.length} offentlige kilder.
-            Næsten alle fetchers er Python-scripts uden eksterne dependencies (kun stdlib). Undtagelser: <code>build_co2_data.py</code> kræver <code>openpyxl</code>, og <code>fetch_water_body_geometries.py</code> bruger <code>requests</code>.
+            Næsten alle fetchers er Python-scripts uden eksterne dependencies (kun stdlib). Undtagelser: <code>build_co2_data.py</code> kræver <code>openpyxl</code>, og <code>fetch_water_body_geometries.py</code> bruger <code>shapely</code> til at forenkle kystvandenes polygoner.
             Rådata gemmes i git-versioneret <code>data/</code>-mappe.
           </p>
 
@@ -901,9 +934,14 @@ export default function DataMetodePage() {
                   Bornholm — rangeres ikke på kvælstof.
                 </li>
                 <li>
-                  <em>Lavbund:</em> oplandets lavbundspotentiale fordelt efter, hvor den kulstofrige jord ligger
-                  (DCA's kulstofkort 2022), vægtet med kommunens landbrugstæthed, så moser og naturreservater i
-                  bykommuner ikke tæller som dyrket lavbund. Andelen omregnes til en del af de 140.000 ha.
+                  <em>Lavbund:</em> oplandets lavbundspotentiale fordelt efter, hvor den kulstofrige jord ligger,
+                  vægtet med kommunens landbrugstæthed, så moser og naturreservater i bykommuner ikke tæller som
+                  dyrket lavbund. Andelen omregnes til en del af de 140.000 ha. Den kulstofrige jord er DCA's
+                  kulstofkort 2022 (jord med mindst 6 % organisk kulstof), hentet som kortets egne polygoner fra
+                  Miljøministeriets officielle WFS-tjeneste (<code>natur:kulstof2022</code>) og lagt præcist
+                  oven på kommune- og oplandsgrænserne. Indtil november 2026 aflæste vi i stedet et kortbillede,
+                  hvor de bløde kanter blev talt som fuld kulstofjord; det gav 3–20 gange for meget og ramte
+                  kommunerne ujævnt.
                 </li>
                 <li>
                   <em>Skov:</em> skovmålet har ingen geografisk fordeling, så kommunens andel af de 250.000 ha
@@ -1047,11 +1085,11 @@ export default function DataMetodePage() {
               <p className="text-sm font-semibold text-foreground mb-2">Automatisk (GitHub Actions)</p>
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">
                 Daglig kørsel kl. 06:00 UTC (kl. 7 eller 8 dansk tid, afhængigt af sommertid). Henter data fra
-                MARS, DAWA, MiljøGIS, Danmarks Statistik og VanDa. Bygger dashboard-JSON
+                MARS, DAGI, MiljøGIS, Danmarks Statistik og VanDa. Bygger dashboard-JSON
                 og committer ændringer til git automatisk.
               </p>
               <div className="flex flex-wrap gap-1.5">
-                {['MARS', 'DAWA', 'MiljøGIS', 'DST', 'VanDa'].map((s) => (
+                {['MARS', 'DAGI', 'MiljøGIS', 'DST', 'VanDa'].map((s) => (
                   <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-700 dark:text-green-400 font-medium">
                     {s}
                   </span>
@@ -1137,9 +1175,9 @@ export default function DataMetodePage() {
                 status: 'API identificeret — registrering påkrævet',
               },
               {
-                name: 'MARS GeoServer (autentificeret)',
-                desc: 'MiljøGIS-lag med projektgeometrier der kræver MARS-session. Ville give bedre geometridata end den nuværende fetch_geometries.py.',
-                status: 'Kræver forhandling med SGAV',
+                name: 'MARS WFS: naturpotentialer og hensigtserklæringer',
+                desc: 'MARS\' officielle WFS (mars.sgav.dk/geo/wfs) har også lag med naturpotentialer og hensigtserklæringer. Projekter og skitser hentes allerede herfra; de to øvrige lag bruges ikke endnu.',
+                status: 'Åben adgang — ikke taget i brug',
               },
               {
                 name: 'Energi- og CO₂-regnskabet (SparEnergi)',

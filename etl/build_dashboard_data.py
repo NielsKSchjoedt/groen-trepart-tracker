@@ -79,6 +79,18 @@ with open(f"{BASE}/data/mars/summary.json") as f:
     summary = json.load(f)
 with open(f"{BASE}/data/dawa/kommuner.json") as f:
     kommuner = json.load(f)
+try:
+    with open(f"{BASE}/data/dawa/summary.json") as f:
+        _dawa_summary = json.load(f)
+except (OSError, ValueError):
+    _dawa_summary = {}
+
+
+def _latest_etl_run(source: str) -> str | None:
+    """Timestamp of the latest ok run of an ETL source in data/etl-log.json."""
+    log = _load_optional_json(f"{BASE}/data/etl-log.json") or {}
+    runs = [r for r in log.get("runs", []) if r.get("source") == source and r.get("status") == "ok"]
+    return max((r.get("timestamp") or "" for r in runs), default=None) or None
 
 
 def _load_optional_json(path: str):
@@ -633,7 +645,10 @@ def build_mars_nature_summary() -> dict:
         mname = measure_lookup.get(p.get("mitigationMeasureId"), {}).get("name", "")
         measure_names[mname] += 1
         for g in p.get("supplementaryGeometries") or []:
-            if g.get("supplementaryGeometryTypeId") == UROERT_SKOV_TYPE_ID:
+            # Only drawn polygons count as documented urørt skov: MARS's REST list also
+            # carries empty "Urørt skov" placeholders (no polygon, no area); the official
+            # WFS forest layer — our source since 2026-11 — has polygons only.
+            if g.get("supplementaryGeometryTypeId") == UROERT_SKOV_TYPE_ID and (g.get("areaHa") or 0) > 0:
                 uroert_geoms += 1
                 uroert_ha += g.get("areaHa") or 0
                 uroert_projects.add(p.get("projectId"))
@@ -712,17 +727,28 @@ dashboard_data = {
         "mars": {
             "name": "MARS — Miljøstyrelsens Administrative Registrerings System",
             "url": "https://mars.sgav.dk/api",
+            # Flat project list + project/sketch polygons come from MARS's official WFS;
+            # plans, municipality/vos aggregates, master data and history from the REST API.
+            "wfsUrl": "https://mars.sgav.dk/geo/wfs",
+            "projectsSource": {
+                k: v for k, v in (summary.get("projectsSource") or {}).items() if k != "restFallbackIds"
+            } or None,
             "description": "Official project registry for nitrogen reduction, wetland extraction, and afforestation projects under the Danish Green Tripartite Agreement.",
             "maintainer": "Miljøstyrelsen (Danish Environmental Protection Agency)",
             "license": "Public data (Danish public sector open data)",
             "fetchedAt": summary.get("fetched_at"),
         },
         "dawa": {
-            "name": "DAWA — Danmarks Adressers Web API",
-            "url": "https://api.dataforsyningen.dk",
-            "description": "Municipality boundaries and metadata. DAWA was shut down in 2026 (HTTP 410); the tracker uses a static snapshot from the last live fetch (2026-09-11). Kommune figures come from MARS's own per-kommune view.",
-            "maintainer": "Klimadatastyrelsen (Danish Agency for Data Supply and Infrastructure)",
+            "name": "DAGI — Danmarks Administrative Geografiske Inddeling (kommunegrænser)",
+            "url": _dawa_summary.get("source_url") or "https://datafordeler.dk",
+            "layer": _dawa_summary.get("source_layer"),
+            "description": "Municipality boundaries and metadata from DAGI. Read daily from Datafordeleren (with API key) or the open Plandata.dk WFS, which serves the same DAGI geometry, and checked against the archived copy from DAWA (shut down in 2026; last fetch 2026-09-11). Region membership and Christiansø come from the archive. Kommune figures come from MARS's own per-kommune view.",
+            "maintainer": "Klimadatastyrelsen (Danish Agency for Climate Data)",
             "license": "Public data (Danish public sector open data)",
+            "coordinateSystem": "EPSG:25832",
+            # summary.json is only rewritten when something changes, so the latest
+            # successful run comes from the ETL log.
+            "fetchedAt": _latest_etl_run("dawa") or _dawa_summary.get("verified_against_live_at"),
         },
         "natura2000": {
             "name": "Natura 2000 — EU Habitat & Birds Directive Protected Areas",
