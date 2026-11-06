@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Leaf, Github, Heart, BookOpen } from 'lucide-react';
+import { Leaf, Heart, BookOpen } from 'lucide-react';
+import { GithubIcon } from './BrandIcons';
 import { CURRENT_VERSION, CHANGELOG_PATH } from '@/lib/changelog';
 
 const REPO_URL = 'https://github.com/NielsKSchjoedt/groen-trepart-tracker';
@@ -72,7 +73,7 @@ export function Footer({ fetchedAt }: FooterProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 underline underline-offset-2 hover:text-foreground transition-colors decoration-primary/30"
               >
-                <Github className="w-3.5 h-3.5" />
+                <GithubIcon className="w-3.5 h-3.5" />
                 GitHub
               </a>
             </p>
