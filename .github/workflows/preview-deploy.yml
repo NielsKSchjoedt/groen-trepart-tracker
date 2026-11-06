@@ -59,7 +59,7 @@ jobs:
       deployments: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ needs.resolve.outputs.ref }}
 
