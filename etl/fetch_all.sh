@@ -8,13 +8,13 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-echo "=== Den Grønne Trepart — Data Fetch (13 sources) ==="
+echo "=== Den Grønne Trepart — Data Fetch (inkl. biodiversitet) ==="
 echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC')"
 echo
 
 FAILED=0
 
-echo "--- 1/12: MARS API (projects, plans, nitrogen data) ---"
+echo "--- 1/12: MARS (projects via official WFS; plans, nitrogen data via REST API) ---"
 python3 fetch_mars.py || { echo "⚠ MARS fetch failed"; FAILED=$((FAILED+1)); }
 
 echo
@@ -58,12 +58,24 @@ echo "--- 11/12: KF25 climate data (KEFM) ---"
 python3 fetch_kf25.py || { echo "⚠ KF25 fetch failed"; FAILED=$((FAILED+1)); }
 
 echo
-echo "--- 12/12: Project geometries (MARS API) ---"
+echo "--- 12/12: Project geometries (MARS official WFS) ---"
 python3 fetch_geometries.py || { echo "⚠ Geometry fetch failed"; FAILED=$((FAILED+1)); }
 
 echo
 echo "--- 13/13: Klimaregnskab CO₂ per kommune (requires KLIMAREGNSKAB_API_KEY) ---"
 python3 fetch_klimaregnskab.py || { echo "⚠ Klimaregnskab fetch failed (check KLIMAREGNSKAB_API_KEY)"; FAILED=$((FAILED+1)); }
+
+echo
+echo "--- 14/17: Klimarådet (URL check + JSON timestamp) ---"
+python3 fetch_klimaraadet.py || { echo "⚠ Klimarådet fetch non-fatal"; }
+
+echo
+echo "--- 15/17: Arealdata — biodiversitet (WFS: KU-prioriteter, DCE valgfri) ---"
+python3 fetch_arealdata_biodiversitet.py || { echo "⚠ Arealdata biodiversitet failed"; FAILED=$((FAILED+1)); }
+
+echo
+echo "--- 16/17: FVM Markkort — Vand, natur & skov 2026 ---"
+python3 fetch_markkort_natur_projekter.py || { echo "⚠ FVM VNS 2026 failed"; FAILED=$((FAILED+1)); }
 
 echo
 echo "--- Building dashboard data ---"

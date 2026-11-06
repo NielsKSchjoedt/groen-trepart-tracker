@@ -25,10 +25,11 @@ import time
 import urllib.request
 from datetime import datetime
 from urllib.request import urlopen, Request
+from kommune_lookup import find_kommune
+from utm import utm32n_to_wgs84  # noqa: E402 — shared helper
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'data', 'naturstyrelsen-skov')
 
-DAWA_REVERSE_URL = "https://api.dataforsyningen.dk/kommuner/reverse"
 DAWA_TIMEOUT_SECONDS = 10
 USER_AGENT = "TrepartTracker/0.1 (https://github.com/NielsKSchjoedt/groen-trepart-tracker; open-source environmental monitor)"
 
@@ -109,25 +110,13 @@ KNOWN_PROJECTS = [
 
 def reverse_geocode_kommune(lon: float, lat: float) -> str | None:
     """
-    Resolve a WGS84 point to a Danish municipality name via DAWA reverse geocoding.
+    Kommune name for a WGS84 point — offline lookup in the committed kommune
+    polygons (DAWA's reverse geocoder was shut down in 2026, HTTP 410).
 
-    Returns the municipality name (e.g. "Vejle") or None on failure.
-    Uses Dataforsyningen's free, unauthenticated API.
-
-    @param lon - Longitude in WGS84
-    @param lat - Latitude in WGS84
-    @returns Municipality name or None
-
-    @example reverse_geocode_kommune(9.358, 55.733)  # → "Kolding"
+    @example reverse_geocode_kommune(9.358, 55.733)  # → "Vejle"
     """
-    url = f"{DAWA_REVERSE_URL}?x={lon}&y={lat}&srid=4326"
-    req = Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urlopen(req, timeout=DAWA_TIMEOUT_SECONDS) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            return data.get("navn")
-    except Exception:
-        return None
+    hit = find_kommune(lon, lat)
+    return hit["navn"] if hit else None
 
 
 GEOCODE_CACHE_PATH = os.path.join(OUT_DIR, "geocode-cache.json")
@@ -155,7 +144,7 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
     """
     Add a `kommune` field to each project that has a centroid via DAWA reverse geocoding.
 
-    Loads a persisted disk cache so only new/unseen coordinates hit the DAWA API.
+    Results are cached on disk; lookups are local (no network).
     Projects without a centroid receive `kommune: null`.
 
     @param projects - List of matched project dicts with optional 'centroid' [lon, lat]
@@ -175,12 +164,12 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
             continue
 
         lon, lat = centroid
-        cache_key = f"{lon:.2f},{lat:.2f}"
+        # Exact lookup per point (the old ~1 km rounded key could cross borders).
+        cache_key = f"{lon:.6f},{lat:.6f}"
 
         if cache_key not in cache:
             cache[cache_key] = reverse_geocode_kommune(lon, lat)
             api_calls += 1
-            time.sleep(0.05)
 
         proj["kommune"] = cache[cache_key]
         geocoded += 1
@@ -196,53 +185,6 @@ def geocode_projects(projects: list[dict]) -> list[dict]:
 # Coordinate transform: EPSG:25832 (UTM32N) → WGS84
 # ---------------------------------------------------------------------------
 
-def utm32n_to_wgs84(easting: float, northing: float) -> tuple[float, float]:
-    """
-    Approximate conversion from EPSG:25832 (ETRS89 / UTM zone 32N)
-    to WGS84 (lon, lat). Uses the inverse UTM equations.
-    Accuracy: ~1m for Denmark, which is fine for map display.
-    """
-    # UTM zone 32N parameters
-    k0 = 0.9996
-    a = 6378137.0           # WGS84 semi-major
-    f = 1 / 298.257223563   # WGS84 flattening
-    e = math.sqrt(2 * f - f * f)
-    e2 = e * e
-    e_prime2 = e2 / (1 - e2)
-
-    x = easting - 500000.0  # remove false easting
-    y = northing
-
-    M = y / k0
-    mu = M / (a * (1 - e2 / 4 - 3 * e2 ** 2 / 64 - 5 * e2 ** 3 / 256))
-
-    e1 = (1 - math.sqrt(1 - e2)) / (1 + math.sqrt(1 - e2))
-    phi1 = (mu + (3 * e1 / 2 - 27 * e1 ** 3 / 32) * math.sin(2 * mu)
-            + (21 * e1 ** 2 / 16 - 55 * e1 ** 4 / 32) * math.sin(4 * mu)
-            + (151 * e1 ** 3 / 96) * math.sin(6 * mu))
-
-    N1 = a / math.sqrt(1 - e2 * math.sin(phi1) ** 2)
-    T1 = math.tan(phi1) ** 2
-    C1 = e_prime2 * math.cos(phi1) ** 2
-    R1 = a * (1 - e2) / (1 - e2 * math.sin(phi1) ** 2) ** 1.5
-    D = x / (N1 * k0)
-
-    lat = phi1 - (N1 * math.tan(phi1) / R1) * (
-        D ** 2 / 2
-        - (5 + 3 * T1 + 10 * C1 - 4 * C1 ** 2 - 9 * e_prime2) * D ** 4 / 24
-        + (61 + 90 * T1 + 298 * C1 + 45 * T1 ** 2
-           - 252 * e_prime2 - 3 * C1 ** 2) * D ** 6 / 720
-    )
-
-    lon_central = math.radians(9.0)  # zone 32N central meridian
-    lon = lon_central + (
-        D
-        - (1 + 2 * T1 + C1) * D ** 3 / 6
-        + (5 - 2 * C1 + 28 * T1 - 3 * C1 ** 2
-           + 8 * e_prime2 + 24 * T1 ** 2) * D ** 5 / 120
-    ) / math.cos(phi1)
-
-    return (math.degrees(lon), math.degrees(lat))
 
 
 def polygon_centroid_utm(coords: list) -> tuple[float, float]:

@@ -1,5 +1,6 @@
 import { useMemo, useState, useCallback } from 'react';
 import { formatDanishNumber } from '@/lib/format';
+import { buildLinearProjectionHoverLabel } from '@/lib/projections';
 
 interface ArcGaugeProps {
   value: number;
@@ -213,9 +214,21 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
   // When a status pill is shown inside the gauge, shift the number + subtext block
   // upward so the three-element group (number / subtext / pill) is visually centered.
   const hasPill = !!statusLabel;
-  const numberY  = center + (hasPill ? -22 : -8);
-  const subTextY = center + (hasPill ? 12  : 26);
-  const pillTopY = center + 26;   // foreignObject top edge
+  const numberY  = center + (hasPill ? -26 : -8);
+  const subTextY = center + (hasPill ? 8  : 26);
+  const pillTopY = center + 30;   // foreignObject top edge
+  const resolvedSubText = projectionHovered
+    ? buildLinearProjectionHoverLabel()
+    : actualHovered
+      ? 'faktisk fremskridt'
+      : (subText ?? `${formatDanishNumber(value, 0)} af ${formatDanishNumber(max)} ${unit}`);
+  const projectionSubLines = projectionHovered
+    ? buildLinearProjectionHoverLabel().split('\n')
+    : null;
+  const useForeignSubText =
+    projectionHovered || actualHovered || (!!subText && subText.length > 14);
+  const foreignSubW = projectionHovered ? 168 : 144;
+  const foreignSubH = projectionHovered ? 44 : 40;
 
   return (
     <div className="flex flex-col items-center">
@@ -295,20 +308,47 @@ export function ArcGauge({ value, max, pct, unit, label, size = 300, subText, pr
             ? `~${projectedPct! > 0 && projectedPct! < 1 ? '< 1' : Math.round(projectedPct!)}%`
             : `${pct > 0 && pct < 1 ? '< 1' : Math.round(pct)}%`}
         </text>
-        <text
-          x={center}
-          y={subTextY}
-          textAnchor="middle"
-          dominantBaseline="central"
-          className="fill-muted-foreground"
-          style={{ fontSize: '0.875rem', fontFamily: "'Manrope', sans-serif" }}
-        >
-          {projectionHovered
-            ? 'forventet slutresultat'
-            : actualHovered
-              ? 'faktisk fremskridt'
-              : (subText ?? `${formatDanishNumber(value, 0)} af ${formatDanishNumber(max)} ${unit}`)}
-        </text>
+        {useForeignSubText ? (
+          <foreignObject
+            x={center - foreignSubW / 2}
+            y={subTextY - (projectionHovered ? 18 : 14)}
+            width={foreignSubW}
+            height={foreignSubH}
+          >
+            <div
+              // @ts-expect-error — xmlns is required on the root element inside foreignObject
+              xmlns="http://www.w3.org/1999/xhtml"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: projectionHovered ? '2px' : 0,
+                height: '100%',
+                textAlign: 'center',
+                fontSize: projectionHovered ? '0.7rem' : '0.65rem',
+                lineHeight: 1.25,
+                fontFamily: "'Manrope', sans-serif",
+                color: 'hsl(var(--muted-foreground))',
+              }}
+            >
+              {projectionSubLines
+                ? projectionSubLines.map((line) => <span key={line}>{line}</span>)
+                : resolvedSubText}
+            </div>
+          </foreignObject>
+        ) : (
+          <text
+            x={center}
+            y={subTextY}
+            textAnchor="middle"
+            dominantBaseline="central"
+            className="fill-muted-foreground"
+            style={{ fontSize: '0.875rem', fontFamily: "'Manrope', sans-serif" }}
+          >
+            {resolvedSubText}
+          </text>
+        )}
 
         {/* Status pill — only when not in hover mode so it doesn't clash with hover labels */}
         {hasPill && !projectionHovered && !actualHovered && (

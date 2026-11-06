@@ -1,4 +1,4 @@
-# MARS Platform (Miljø- og ArealRegistrerings Systemet)
+# MARS Platform (Multifunktionel Arealregistrering)
 
 **The single most critical data source for the tracker.** Built by SGAV in collaboration with Danmarks Miljøportal, launched January 29, 2025.
 
@@ -38,16 +38,55 @@ For each project/sketch project, MARS calculates:
 
 Nature projects tracked separately (no nitrogen contribution).
 
-## Access limitations (THE CRITICAL GAP)
+## Data access (public REST API + official WFS)
 
-**No public REST API exists.** This is the single largest bottleneck for an independent tracker.
+**Update (March 2026): a public, unauthenticated MARS REST JSON API was found** and is now the tracker's primary data source — what was previously documented here as "THE critical gap" is resolved. The status module is backed by JSON endpoints returning projects, plans, catchment aggregations and master data; `etl/fetch_mars.py` pulls them daily, and `etl/fetch_geometries.py` fetches full-resolution project polygons. See `docs/data-sources/investigation-results.md` and `docs/references/urls.md` for the concrete endpoints.
 
-Current options for data access:
-1. **Status module web views** — public, but no machine-readable export
-2. **CSV export from planning module** — requires authorized login
-3. **Shapefile export from planning module** — requires authorized login
-4. **PDF reports** — structured but not machine-readable
-5. **Web scraping** — technically possible but fragile (UI changes break scrapers)
+### Official WFS (since 2026-11 the source of the flat project list and all project/sketch polygons)
+
+MARS also publishes an **official, documented WFS** at `https://mars.sgav.dk/geo/wfs`
+(GeoServer, no key, refreshed nightly ~01:00 UTC). Layers:
+
+| Layer | Rows (2026-11-06) | Content |
+|---|---|---|
+| `mars:projekter_samlet` | 1,668 | Every project in a formal phase: `mars_id` (= REST `projectId`), titel, sags_id, areal_ha, tilskudsordning, status (name), ansoeger, ansoegningsrunde_aar, kvaelstofeffekt_t, udtagningseffekt_ha, skovrejsningseffekt_ha, forundersoegelsestilsagn_dato, etableringstilsagn_dato, anlaegelse_dato, virkemiddel, MultiPolygon |
+| `mars:projekter_status_forundersoegelsestilsagn` | 732 | Status-6 subset of the above (+ `medregnes`) |
+| `mars:skitseprojekter` | 5,012 | Sketches; `mars_id` = REST `sketchProjectId`; whole-sketch effects (not split per kystvandgruppe) |
+| `mars:naturpotentialer` | 258 | Nature potentials (no biodiversity / Natura 2000 overlaps) |
+| `mars:projekter_tilskudsordning_skovrejsning` | 1,185 rows / 540 projects | One row per forest sub-polygon (`geometri_type`: Projektpolygon, Tilskudsberettiget areal, Urørt skov, Lysåbne arealer, …); also projects not yet in a formal phase (Ansøgt, Høring) |
+| `mars:hensigtserklaeringer` | 278 | Hensigtserklæringer (midlertidig ekstensivering) |
+
+Same-day comparison against REST (2026-11-06): ids, names, effects, areal, scheme and
+measure (by name via master-data), status (by state name: 6 Forundersøgelsestilsagn,
+10 Etableringstilsagn, 15 Anlagt) identical for all 1,668 projects; `lastStateChanged`
+= the WFS date of the current phase for all 1,667 unchanged projects; every project and
+sketch polygon `equals_exact` (1e-6 m) the REST `/api/geometries/{geoLocationId}` WKT.
+
+How the tracker uses it (`etl/mars_wfs.py`):
+- `fetch_mars.py` builds `data/mars/projects.json` from `mars:projekter_samlet` (+ forest
+  sub-polygons as `supplementaryGeometries`) in the REST row shape, adding `sagsId`,
+  `ansoeger`, `ansoegningsrundeAar` and the three phase dates. `geoLocationId` and
+  `applicationTimestamp` (not in the WFS) come from the project's row in `/status/plans`.
+- The WFS is a nightly snapshot while `/status/plans` and `/status/municipality` are live.
+  Projects created or re-phased since the refresh (seen: 3 of 1,670 by evening; historically
+  ~1 % of state changes fall in the 01–06 UTC window before the daily run) are detected
+  against the live plans and taken from REST `/status/projects` (`source: "rest-fallback"`),
+  so one build never mixes two moments. `summary.json → projectsSource` records the counts.
+- `fetch_geometries.py` takes project and sketch polygons from two bulk WFS requests
+  (~10 s instead of ~6,700 single REST calls, 20–38 min cold) and only calls
+  `/api/geometries/{id}` for ids newer than the nightly refresh.
+- Known source differences: REST lists empty "Urørt skov"/"Ekstra tilskudsareal" placeholders
+  (no polygon, no area) that the WFS omits — urørt skov is therefore counted only where a
+  polygon exists (9 projects / 18 polygons / 30,7 ha, vs 11 / 22 / 30,7 ha incl. placeholders).
+
+Must stay on REST (no WFS equivalent): `/status/plans` (sketch and nature-potential effects
+split per kystvandgruppe; nature-potential biodiversity/§3/Natura 2000 overlaps),
+`/status/municipality`, `/status/vos`, `/master-data`, `/status/metadata`,
+`/status/permanent-ekstensivering`, `/status/projects/history`.
+
+Still login-gated (not required by the tracker):
+1. **CSV / shapefile export from the planning module** — authorized login
+2. **Planning module** detail data — negotiated access with SGAV
 
 ## Version history / updates
 
@@ -62,13 +101,12 @@ SGAV publishes release notes for MARS updates:
 - 236 nitrogen wetlands, 188 lowland, 170 climate-lowland, 255 afforestation
 - Status tracked through phases: skitseprojekt → forundersøgelse → etablering → anlagt
 
-## Strategy for accessing MARS data
+## Working with the MARS API
 
-**Short term**: Semi-automated scraping of public status module views; periodic manual screenshots/data collection for critical metrics.
-
-**Medium term**: Request open data exports or API access from SGAV/Danmarks Miljøportal. Note: MARS is described as being under continuous expansion with new export capabilities.
-
-**Long term**: Advocate for public API (reference: james-langridge/mars-vista-api on GitHub may contain clues about API structure: https://github.com/james-langridge/mars-vista-api/blob/main/openapi.json)
+The public REST API (above) is the primary path and removed the need for scraping. Ongoing practice:
+- **Track MARS release notes** for new endpoints, fields or data layers that change what can be harvested (see updates URL below).
+- **Re-validate the endpoints** when MARS ships a major version — field names and phase states have changed across releases.
+- For data still behind login (planning-module CSV/shapefile), request open exports from SGAV / Danmarks Miljøportal as needed.
 
 ## Key URLs
 

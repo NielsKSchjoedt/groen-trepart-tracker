@@ -38,6 +38,16 @@ Disse tre ting — kærligheden til dansk natur, troen på open source som demok
 
 Grøn Trepart Tracker er et non-profit, filantropisk projekt. Det er ikke finansieret af nogen organisation, virksomhed eller myndighed, og der er ingen kommercielle interesser bag. Open source betyder, at al kode er åben — non-profit betyder, at der heller ikke er nogen, der tjener penge på det. Projektet eksisterer udelukkende for at skabe transparens om den grønne omstilling i Danmark.
 
+## Brug af AI
+
+Trackeren er bygget med omfattende hjælp fra AI (Claude): kildekode, datascripts, tekster på siden og udkast til artiklerne i videnscentret.
+
+- **Tallene kommer ikke fra AI.** Tal, grafer, kort og ranglister beregnes af åben kode ud fra offentlige data.
+- **Vurderingerne er faste regler.** Formuleringer som "på sporet" kommer fra tærskler i koden (`src/lib/projections.ts`, `src/lib/kommune-indsats-status.ts`), ikke fra en sprogmodel.
+- **Teksterne er ikke fagligt gennemgået linje for linje.** Der kan være fejl. Tallene og de oprindelige kilder gælder. Fejl meldes som [issues](https://github.com/NielsKSchjoedt/groen-trepart-tracker/issues) og rettes åbent i ændringsloggen.
+
+Commits lavet med AI-hjælp markeres med traileren `Assisted-by:`. Se også [Sådan bruger vi AI](https://treparttracker.dk/data-og-metode#ai) på sitet.
+
 ## Centrale mål
 
 
@@ -61,7 +71,7 @@ Grøn Trepart Tracker er et non-profit, filantropisk projekt. Det er ikke finans
 
 ```bash
 git clone https://github.com/NielsKSchjoedt/groen-trepart-tracker.git
-cd trepart-tracker
+cd groen-trepart-tracker
 mise install            # installerer Python 3.12 + Node 22
 mise run setup          # installerer topojson CLI-værktøjer globalt
 ```
@@ -130,7 +140,7 @@ Alle opgaver er defineret i `mise.toml` og køres med `mise run <opgave>`:
 
 ## Datapipeline
 
-Data hentes dagligt af en GitHub Actions workflow (`.github/workflows/fetch-data.yml`, kører kl. 06:00 UTC) og committes til repoen. Alle Python-fetchere bruger kun standardbiblioteket — ingen pip-afhængigheder.
+Data hentes dagligt af en GitHub Actions workflow (`.github/workflows/fetch-data.yml`, kører kl. 06:00 UTC, dvs. kl. 7 eller 8 dansk tid) og committes til repoen. Alle Python-fetchere bruger kun standardbiblioteket — ingen pip-afhængigheder.
 
 1. **Hent** — Python-scripts trækker fra offentlige API'er (MARS, DAWA, MiljøGIS, Danmarks Statistik, KEFM)
 2. **Gem** — Rå JSON/Excel-svar lægges i `data/` og committes til git
@@ -162,6 +172,27 @@ Det her er et åbent projekt, og alle bidrag er velkomne — store som små. Du 
 - **Data** — hjælp med at finde nye åbne datakilder eller opdage fejl i vores metrikker
 - **Design** — vi vil gerne lave noget folk *vil* dele — idéer til visualiseringer og brugeroplevelse er meget velkomne
 - **Spred ordet** — jo flere øjne på fremdriften, jo bedre
+
+### Preview-deployments (Cloudflare Pages)
+
+Production deployer automatisk fra `main` til [treparttracker.dk](https://treparttracker.dk). Preview-deployments giver en separat live-URL uden at påvirke det offentlige site.
+
+| Trigger | Hvornår |
+| --- | --- |
+| **Pull request mod `main`** | Automatisk preview + kommentar med URL på PR'en |
+| **Push til `beta` eller `preview/*`** | Automatisk preview |
+| **Manuelt** | GitHub → Actions → *Deploy Preview* → Run workflow |
+
+Preview-URL'er ser typisk sådan ud: `https://<branch>.groen-trepart-tracker.pages.dev` (Cloudflare saniterer branch-navne, fx `/` → `-`).
+
+**Manuel deploy af din nuværende branch:**
+
+1. Push branchen til GitHub
+2. Gå til **Actions** → **Deploy Preview** → **Run workflow**
+3. Vælg din branch i dropdown'en → **Run workflow**
+4. Åbn URL'en i workflow-summaries (eller PR-kommentaren)
+
+`main` kan ikke deployes som preview — det er production.
 
 ### Tekniske noter for udviklere
 

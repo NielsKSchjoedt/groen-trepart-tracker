@@ -29,7 +29,7 @@ export function useFirstVisitHint(key: string, autoDismissMs = 10_000) {
     }
   });
 
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const dismiss = useCallback(() => {
     setVisible(false);

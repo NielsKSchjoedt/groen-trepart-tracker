@@ -5,7 +5,8 @@
 
 import type { DashboardData, CO2EmissionsData, PipelineScenarioKey } from './types';
 
-const AGREEMENT_START = new Date('2024-01-01');
+/** Tripartite agreement signature date — aligned with fremskrivning module. */
+export const AGREEMENT_START = new Date('2024-06-24T00:00:00');
 
 /**
  * Graduated goal-status tiers, ordered from most positive to most negative.
@@ -78,7 +79,7 @@ export function assessGoalStatus(
 }
 
 /**
- * Fraction of time elapsed from agreement start (Jan 2024) to a deadline year.
+ * Fraction of time elapsed from agreement start (24 Jun 2024) to a deadline year.
  * Returns a value in (0, 1] — clamped to avoid division by zero.
  *
  * @param deadlineYear - Target year for the pillar
@@ -92,6 +93,85 @@ export function timeElapsedFraction(deadlineYear: number): number {
   const total = deadline.getTime() - AGREEMENT_START.getTime();
   if (total <= 0) return 1;
   return Math.max(0.001, Math.min(1, elapsed / total));
+}
+
+/**
+ * Fraction of time elapsed, expressed as a 0–100 percentage.
+ *
+ * @example timeElapsedPct(2045) // ~11 in June 2026
+ */
+export function timeElapsedPct(deadlineYear: number): number {
+  return timeElapsedFraction(deadlineYear) * 100;
+}
+
+/**
+ * Sharper verdict label that factors in time pressure: a measure that is
+ * `behind` reads as "Kritisk bagud" once more than half its time is spent,
+ * otherwise "Langt bagud". Non-behind statuses keep their standard label.
+ *
+ * @example paceVerdictLabel('behind', 61) // "Kritisk bagud"
+ * @example paceVerdictLabel('behind', 11) // "Langt bagud"
+ * @example paceVerdictLabel('on-track', 30) // "Når målet"
+ */
+export function paceVerdictLabel(status: GoalStatus, timePct: number): string {
+  if (status === 'behind') {
+    return timePct >= 50 ? 'Kritisk bagud' : 'Langt bagud';
+  }
+  return GOAL_STATUS_META[status].label;
+}
+
+/**
+ * Danish label for calendar time since `start` (e.g. "1 år og 11 måneder").
+ * Uses whole calendar months — same approximation as projekttragten.
+ */
+export function formatElapsedPeriodDa(
+  start: Date = AGREEMENT_START,
+  end: Date = new Date(),
+): string {
+  const monthsTotal = Math.max(
+    0,
+    (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()),
+  );
+  const years = Math.floor(monthsTotal / 12);
+  const months = monthsTotal % 12;
+  if (years > 0) {
+    const monthPart =
+      months > 0 ? ` og ${months} måned${months > 1 ? 'er' : ''}` : '';
+    return `${years} år${monthPart}`;
+  }
+  return `${monthsTotal} måned${monthsTotal === 1 ? '' : 'er'}`;
+}
+
+/** Kort periode til hover-labels (fx "2 år, 5 mdr."). */
+export function formatElapsedPeriodCompactDa(
+  start: Date = AGREEMENT_START,
+  end: Date = new Date(),
+): string {
+  const monthsTotal = Math.max(
+    0,
+    (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()),
+  );
+  const years = Math.floor(monthsTotal / 12);
+  const months = monthsTotal % 12;
+  if (years > 0) {
+    return months > 0 ? `${years} år, ${months} mdr.` : `${years} år`;
+  }
+  return `${monthsTotal} mdr.`;
+}
+
+/**
+ * Sub-label for projected arc / bar hover (lineær fremskrivning).
+ * `multiline` = to linjer til måleren; `inline` = én linje til smalle kort.
+ */
+export function buildLinearProjectionHoverLabel(
+  end: Date = new Date(),
+  style: 'multiline' | 'inline' = 'multiline',
+): string {
+  const period = formatElapsedPeriodCompactDa(AGREEMENT_START, end);
+  if (style === 'inline') {
+    return `Hvis tempoet holder (${period} er gået)`;
+  }
+  return `Hvis tempoet holder\n${period} er gået`;
 }
 
 /**
@@ -110,7 +190,7 @@ export function projectEndPct(progressPct: number, deadlineYear: number): number
 
 /**
  * Extract pillar-specific achieved, target, deadline, and unit from DashboardData
- * for use in the CountdownProjection. Returns null for pillars without
+ * for use in pillar projection helpers. Returns null for pillars without
  * numeric targets or data.
  */
 export interface ProjectionData {

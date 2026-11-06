@@ -6,6 +6,18 @@ export function formatDanishNumber(value: number, decimals = 0): string {
   });
 }
 
+/**
+ * Format an amount (ha, ton) with one decimal below 10 and none above — rounding once.
+ * Pre-rounding to tenths and then formatting with 0 decimals both double-rounded
+ * (20,49 → "21") and erased small values (0,47 ton N → "0 ton N").
+ *
+ * @example formatDanishAmount(0.47) // "0,5"
+ * @example formatDanishAmount(8754.3) // "8.754"
+ */
+export function formatDanishAmount(value: number): string {
+  return formatDanishNumber(value, value !== 0 && Math.abs(value) < 10 ? 1 : 0);
+}
+
 /** Calculate days remaining until a date */
 export function daysUntil(dateStr: string): number {
   const target = new Date(dateStr);

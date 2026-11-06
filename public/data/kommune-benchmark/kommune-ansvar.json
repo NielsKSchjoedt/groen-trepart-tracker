@@ -1,0 +1,2742 @@
+{
+  "metadata": {
+    "generatedAt": "2026-11-06T20:36:56.462778+00:00",
+    "methodVersion": "ansvar-v2",
+    "kulstofkort": "https://wfs2-miljoegis.mim.dk/natur/ows (natur:kulstof2022, gridcode 12 og 60 = ≥ 6 % organisk kulstof)",
+    "sources": [
+      "MARS: planernes kvælstofreduktionsmål og lavbundspotentiale (37 kystvandoplande)",
+      "Danmarks Statistik AREALDK: landbrugsafgrøder pr. kommune",
+      "DCA 2022 kulstofkort (Miljøministeriets WFS, natur:kulstof2022): kulstofrige lavbundsjorder ≥ 6 % kulstof",
+      "DAGI kommunegrænser"
+    ],
+    "method": {
+      "kvaelstof": "Planens N-mål fordelt efter kommunens andel af planens landbrugsareal.",
+      "lavbund": "Planens lavbundspotentiale fordelt efter kommunens andel af planens kulstofrige jord, vægtet med kommunens landbrugstæthed (kun dyrket kulstofjord tæller fuldt).",
+      "skov": "Skovmålet (250.000 ha) fordelt efter kommunens andel af landets landbrugsareal."
+    },
+    "disclaimer": "Der findes ingen officiel kommunal fordeling af målene. Ansvaret er en faglig fordeling af MARS-planernes mål efter hvor landbrugsjorden og den kulstofrige jord ligger — ikke en politisk forpligtelse."
+  },
+  "national": {
+    "kvaelstofMaalT": 12776.0,
+    "lavbundMaalHa": 140000.0,
+    "skovMaalHa": 250000.0,
+    "lavbundPotentialeHa": 219994.9,
+    "kulstofrigJordHa": 219932.9,
+    "landbrugHa": 2543970.0
+  },
+  "byKommune": {
+    "0101": {
+      "kommuneNavn": "København",
+      "landbrugHa": 50.0,
+      "kulstofrigJordHa": 638.1,
+      "kulstofrigJord6til12Ha": 590.8,
+      "kulstofrigJordOver12Ha": 47.3,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 12.7,
+      "ansvarLavbundPct": 0.0091,
+      "lavbundPotentialeHa": 20.0,
+      "ansvarSkovHa": 4.9,
+      "ansvarSkovPct": 0.002,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.01,
+          "andelAfPlanKulstofPct": 0.08
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.54,
+          "andelAfPlanKulstofPct": 0.45
+        }
+      ]
+    },
+    "0147": {
+      "kommuneNavn": "Frederiksberg",
+      "landbrugHa": 0.0,
+      "kulstofrigJordHa": 2.9,
+      "kulstofrigJord6til12Ha": 2.8,
+      "kulstofrigJordOver12Ha": 0.1,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 0.0,
+      "ansvarLavbundPct": 0.0,
+      "lavbundPotentialeHa": 0.0,
+      "ansvarSkovHa": 0.0,
+      "ansvarSkovPct": 0.0,
+      "planer": [
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.0,
+          "andelAfPlanKulstofPct": 0.0
+        }
+      ]
+    },
+    "0151": {
+      "kommuneNavn": "Ballerup",
+      "landbrugHa": 380.0,
+      "kulstofrigJordHa": 154.7,
+      "kulstofrigJord6til12Ha": 128.2,
+      "kulstofrigJordOver12Ha": 26.6,
+      "ansvarKvaelstofT": 1.92,
+      "ansvarKvaelstofPct": 0.015,
+      "ansvarLavbundHa": 34.2,
+      "ansvarLavbundPct": 0.0244,
+      "lavbundPotentialeHa": 53.7,
+      "ansvarSkovHa": 37.3,
+      "ansvarSkovPct": 0.0149,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.2,
+          "andelAfPlanKulstofPct": 0.22
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 1.82,
+          "andelAfPlanKulstofPct": 0.63
+        }
+      ]
+    },
+    "0153": {
+      "kommuneNavn": "Brøndby",
+      "landbrugHa": 50.0,
+      "kulstofrigJordHa": 10.9,
+      "kulstofrigJord6til12Ha": 10.8,
+      "kulstofrigJordOver12Ha": 0.0,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 1.0,
+      "ansvarLavbundPct": 0.0007,
+      "lavbundPotentialeHa": 1.6,
+      "ansvarSkovHa": 4.9,
+      "ansvarSkovPct": 0.002,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.08,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.15,
+          "andelAfPlanKulstofPct": 0.04
+        }
+      ]
+    },
+    "0155": {
+      "kommuneNavn": "Dragør",
+      "landbrugHa": 460.0,
+      "kulstofrigJordHa": 115.3,
+      "kulstofrigJord6til12Ha": 113.4,
+      "kulstofrigJordOver12Ha": 1.8,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 63.2,
+      "ansvarLavbundPct": 0.0451,
+      "lavbundPotentialeHa": 99.3,
+      "ansvarSkovHa": 45.2,
+      "ansvarSkovPct": 0.0181,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.81,
+          "andelAfPlanKulstofPct": 1.89
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 1.0,
+          "andelAfPlanKulstofPct": 1.21
+        }
+      ]
+    },
+    "0157": {
+      "kommuneNavn": "Gentofte",
+      "landbrugHa": 0.0,
+      "kulstofrigJordHa": 108.5,
+      "kulstofrigJord6til12Ha": 89.9,
+      "kulstofrigJordOver12Ha": 18.6,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 0.0,
+      "ansvarLavbundPct": 0.0,
+      "lavbundPotentialeHa": 0.0,
+      "ansvarSkovHa": 0.0,
+      "ansvarSkovPct": 0.0,
+      "planer": [
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.0,
+          "andelAfPlanKulstofPct": 0.0
+        }
+      ]
+    },
+    "0159": {
+      "kommuneNavn": "Gladsaxe",
+      "landbrugHa": 20.0,
+      "kulstofrigJordHa": 123.0,
+      "kulstofrigJord6til12Ha": 121.1,
+      "kulstofrigJordOver12Ha": 1.9,
+      "ansvarKvaelstofT": 0.02,
+      "ansvarKvaelstofPct": 0.0002,
+      "ansvarLavbundHa": 3.6,
+      "ansvarLavbundPct": 0.0026,
+      "lavbundPotentialeHa": 5.7,
+      "ansvarSkovHa": 2.0,
+      "ansvarSkovPct": 0.0008,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.0,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.2,
+          "andelAfPlanKulstofPct": 0.13
+        }
+      ]
+    },
+    "0161": {
+      "kommuneNavn": "Glostrup",
+      "landbrugHa": 10.0,
+      "kulstofrigJordHa": 26.7,
+      "kulstofrigJord6til12Ha": 25.2,
+      "kulstofrigJordOver12Ha": 1.4,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 0.9,
+      "ansvarLavbundPct": 0.0006,
+      "lavbundPotentialeHa": 1.4,
+      "ansvarSkovHa": 1.0,
+      "ansvarSkovPct": 0.0004,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.01,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.07,
+          "andelAfPlanKulstofPct": 0.03
+        }
+      ]
+    },
+    "0163": {
+      "kommuneNavn": "Herlev",
+      "landbrugHa": 70.0,
+      "kulstofrigJordHa": 37.6,
+      "kulstofrigJord6til12Ha": 35.2,
+      "kulstofrigJordOver12Ha": 2.3,
+      "ansvarKvaelstofT": 0.18,
+      "ansvarKvaelstofPct": 0.0014,
+      "ansvarLavbundHa": 4.3,
+      "ansvarLavbundPct": 0.0031,
+      "lavbundPotentialeHa": 6.8,
+      "ansvarSkovHa": 6.9,
+      "ansvarSkovPct": 0.0028,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.02,
+          "andelAfPlanKulstofPct": 0.03
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.58,
+          "andelAfPlanKulstofPct": 0.08
+        }
+      ]
+    },
+    "0165": {
+      "kommuneNavn": "Albertslund",
+      "landbrugHa": 110.0,
+      "kulstofrigJordHa": 80.7,
+      "kulstofrigJord6til12Ha": 68.6,
+      "kulstofrigJordOver12Ha": 12.2,
+      "ansvarKvaelstofT": 0.11,
+      "ansvarKvaelstofPct": 0.0009,
+      "ansvarLavbundHa": 7.8,
+      "ansvarLavbundPct": 0.0056,
+      "lavbundPotentialeHa": 12.2,
+      "ansvarSkovHa": 10.8,
+      "ansvarSkovPct": 0.0043,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.01,
+          "andelAfPlanKulstofPct": 0.02
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.14,
+          "andelAfPlanKulstofPct": 0.14
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.4,
+          "andelAfPlanKulstofPct": 0.14
+        }
+      ]
+    },
+    "0167": {
+      "kommuneNavn": "Hvidovre",
+      "landbrugHa": 90.0,
+      "kulstofrigJordHa": 73.2,
+      "kulstofrigJord6til12Ha": 68.3,
+      "kulstofrigJordOver12Ha": 4.9,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 6.2,
+      "ansvarLavbundPct": 0.0044,
+      "lavbundPotentialeHa": 9.7,
+      "ansvarSkovHa": 8.8,
+      "ansvarSkovPct": 0.0035,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.06,
+          "andelAfPlanKulstofPct": 0.19
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.72,
+          "andelAfPlanKulstofPct": 0.11
+        }
+      ]
+    },
+    "0169": {
+      "kommuneNavn": "Høje-Taastrup",
+      "landbrugHa": 3210.0,
+      "kulstofrigJordHa": 396.9,
+      "kulstofrigJord6til12Ha": 203.7,
+      "kulstofrigJordOver12Ha": 193.2,
+      "ansvarKvaelstofT": 13.8,
+      "ansvarKvaelstofPct": 0.108,
+      "ansvarLavbundHa": 219.7,
+      "ansvarLavbundPct": 0.1569,
+      "lavbundPotentialeHa": 345.3,
+      "ansvarSkovHa": 315.5,
+      "ansvarSkovPct": 0.1262,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 1.4,
+          "andelAfPlanKulstofPct": 2.35
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 3.46,
+          "andelAfPlanKulstofPct": 1.38
+        }
+      ]
+    },
+    "0173": {
+      "kommuneNavn": "Lyngby-Taarbæk",
+      "landbrugHa": 190.0,
+      "kulstofrigJordHa": 399.4,
+      "kulstofrigJord6til12Ha": 391.8,
+      "kulstofrigJordOver12Ha": 7.6,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 88.2,
+      "ansvarLavbundPct": 0.063,
+      "lavbundPotentialeHa": 138.7,
+      "ansvarSkovHa": 18.7,
+      "ansvarSkovPct": 0.0075,
+      "planer": [
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 2.22,
+          "andelAfPlanKulstofPct": 3.56
+        }
+      ]
+    },
+    "0175": {
+      "kommuneNavn": "Rødovre",
+      "landbrugHa": 10.0,
+      "kulstofrigJordHa": 21.1,
+      "kulstofrigJord6til12Ha": 20.1,
+      "kulstofrigJordOver12Ha": 1.0,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 0.8,
+      "ansvarLavbundPct": 0.0006,
+      "lavbundPotentialeHa": 1.2,
+      "ansvarSkovHa": 1.0,
+      "ansvarSkovPct": 0.0004,
+      "planer": [
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 0.12,
+          "andelAfPlanKulstofPct": 0.03
+        }
+      ]
+    },
+    "0183": {
+      "kommuneNavn": "Ishøj",
+      "landbrugHa": 1010.0,
+      "kulstofrigJordHa": 103.1,
+      "kulstofrigJord6til12Ha": 73.6,
+      "kulstofrigJordOver12Ha": 29.5,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 58.8,
+      "ansvarLavbundPct": 0.042,
+      "lavbundPotentialeHa": 92.4,
+      "ansvarSkovHa": 99.3,
+      "ansvarSkovPct": 0.0397,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 2.15,
+          "andelAfPlanKulstofPct": 3.35
+        }
+      ]
+    },
+    "0185": {
+      "kommuneNavn": "Tårnby",
+      "landbrugHa": 360.0,
+      "kulstofrigJordHa": 805.2,
+      "kulstofrigJord6til12Ha": 792.8,
+      "kulstofrigJordOver12Ha": 12.5,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 94.5,
+      "ansvarLavbundPct": 0.0675,
+      "lavbundPotentialeHa": 148.5,
+      "ansvarSkovHa": 35.4,
+      "ansvarSkovPct": 0.0142,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.23,
+          "andelAfPlanKulstofPct": 2.93
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 2.95,
+          "andelAfPlanKulstofPct": 1.74
+        }
+      ]
+    },
+    "0187": {
+      "kommuneNavn": "Vallensbæk",
+      "landbrugHa": 60.0,
+      "kulstofrigJordHa": 68.9,
+      "kulstofrigJord6til12Ha": 53.6,
+      "kulstofrigJordOver12Ha": 15.3,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 6.5,
+      "ansvarLavbundPct": 0.0047,
+      "lavbundPotentialeHa": 10.2,
+      "ansvarSkovHa": 5.9,
+      "ansvarSkovPct": 0.0024,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 0.13,
+          "andelAfPlanKulstofPct": 0.37
+        }
+      ]
+    },
+    "0190": {
+      "kommuneNavn": "Furesø",
+      "landbrugHa": 870.0,
+      "kulstofrigJordHa": 849.4,
+      "kulstofrigJord6til12Ha": 731.1,
+      "kulstofrigJordOver12Ha": 118.3,
+      "ansvarKvaelstofT": 3.07,
+      "ansvarKvaelstofPct": 0.0241,
+      "ansvarLavbundHa": 416.1,
+      "ansvarLavbundPct": 0.2972,
+      "lavbundPotentialeHa": 653.9,
+      "ansvarSkovHa": 85.5,
+      "ansvarSkovPct": 0.0342,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.31,
+          "andelAfPlanKulstofPct": 0.86
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 5.98,
+          "andelAfPlanKulstofPct": 13.91
+        }
+      ]
+    },
+    "0201": {
+      "kommuneNavn": "Allerød",
+      "landbrugHa": 2170.0,
+      "kulstofrigJordHa": 481.5,
+      "kulstofrigJord6til12Ha": 316.0,
+      "kulstofrigJordOver12Ha": 165.5,
+      "ansvarKvaelstofT": 10.84,
+      "ansvarKvaelstofPct": 0.0849,
+      "ansvarLavbundHa": 478.4,
+      "ansvarLavbundPct": 0.3417,
+      "lavbundPotentialeHa": 751.8,
+      "ansvarSkovHa": 213.2,
+      "ansvarSkovPct": 0.0853,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 1.1,
+          "andelAfPlanKulstofPct": 1.11
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 10.6,
+          "andelAfPlanKulstofPct": 15.59
+        }
+      ]
+    },
+    "0210": {
+      "kommuneNavn": "Fredensborg",
+      "landbrugHa": 4380.0,
+      "kulstofrigJordHa": 504.1,
+      "kulstofrigJord6til12Ha": 444.1,
+      "kulstofrigJordOver12Ha": 60.0,
+      "ansvarKvaelstofT": 8.48,
+      "ansvarKvaelstofPct": 0.0664,
+      "ansvarLavbundHa": 820.4,
+      "ansvarLavbundPct": 0.586,
+      "lavbundPotentialeHa": 1289.1,
+      "ansvarSkovHa": 430.4,
+      "ansvarSkovPct": 0.1722,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.86,
+          "andelAfPlanKulstofPct": 0.34
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 39.64,
+          "andelAfPlanKulstofPct": 31.98
+        }
+      ]
+    },
+    "0217": {
+      "kommuneNavn": "Helsingør",
+      "landbrugHa": 3520.0,
+      "kulstofrigJordHa": 480.8,
+      "kulstofrigJord6til12Ha": 417.7,
+      "kulstofrigJordOver12Ha": 63.1,
+      "ansvarKvaelstofT": 23.47,
+      "ansvarKvaelstofPct": 0.1837,
+      "ansvarLavbundHa": 234.8,
+      "ansvarLavbundPct": 0.1677,
+      "lavbundPotentialeHa": 368.9,
+      "ansvarSkovHa": 345.9,
+      "ansvarSkovPct": 0.1384,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 2.38,
+          "andelAfPlanKulstofPct": 1.98
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 9.14,
+          "andelAfPlanKulstofPct": 2.84
+        }
+      ]
+    },
+    "0219": {
+      "kommuneNavn": "Hillerød",
+      "landbrugHa": 8430.0,
+      "kulstofrigJordHa": 1136.0,
+      "kulstofrigJord6til12Ha": 862.1,
+      "kulstofrigJordOver12Ha": 273.8,
+      "ansvarKvaelstofT": 68.8,
+      "ansvarKvaelstofPct": 0.5385,
+      "ansvarLavbundHa": 642.1,
+      "ansvarLavbundPct": 0.4586,
+      "lavbundPotentialeHa": 1008.9,
+      "ansvarSkovHa": 828.4,
+      "ansvarSkovPct": 0.3314,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 6.99,
+          "andelAfPlanKulstofPct": 6.96
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 4.8,
+          "andelAfPlanKulstofPct": 2.53
+        }
+      ]
+    },
+    "0223": {
+      "kommuneNavn": "Hørsholm",
+      "landbrugHa": 560.0,
+      "kulstofrigJordHa": 152.1,
+      "kulstofrigJord6til12Ha": 140.8,
+      "kulstofrigJordOver12Ha": 11.2,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 122.6,
+      "ansvarLavbundPct": 0.0875,
+      "lavbundPotentialeHa": 192.6,
+      "ansvarSkovHa": 55.0,
+      "ansvarSkovPct": 0.022,
+      "planer": [
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 6.54,
+          "andelAfPlanKulstofPct": 4.95
+        }
+      ]
+    },
+    "0230": {
+      "kommuneNavn": "Rudersdal",
+      "landbrugHa": 820.0,
+      "kulstofrigJordHa": 764.5,
+      "kulstofrigJord6til12Ha": 599.6,
+      "kulstofrigJordOver12Ha": 164.9,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 385.5,
+      "ansvarLavbundPct": 0.2753,
+      "lavbundPotentialeHa": 605.7,
+      "ansvarSkovHa": 80.6,
+      "ansvarSkovPct": 0.0322,
+      "planer": [
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 9.58,
+          "andelAfPlanKulstofPct": 15.57
+        }
+      ]
+    },
+    "0240": {
+      "kommuneNavn": "Egedal",
+      "landbrugHa": 6040.0,
+      "kulstofrigJordHa": 1575.6,
+      "kulstofrigJord6til12Ha": 893.5,
+      "kulstofrigJordOver12Ha": 682.0,
+      "ansvarKvaelstofT": 49.67,
+      "ansvarKvaelstofPct": 0.3887,
+      "ansvarLavbundHa": 1085.5,
+      "ansvarLavbundPct": 0.7754,
+      "lavbundPotentialeHa": 1705.8,
+      "ansvarSkovHa": 593.6,
+      "ansvarSkovPct": 0.2374,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 5.04,
+          "andelAfPlanKulstofPct": 11.71
+        },
+        {
+          "plan": "Nordlige Øresund",
+          "andelAfPlanLandbrugPct": 2.94,
+          "andelAfPlanKulstofPct": 4.45
+        }
+      ]
+    },
+    "0250": {
+      "kommuneNavn": "Frederikssund",
+      "landbrugHa": 13830.0,
+      "kulstofrigJordHa": 941.5,
+      "kulstofrigJord6til12Ha": 763.7,
+      "kulstofrigJordOver12Ha": 177.8,
+      "ansvarKvaelstofT": 118.24,
+      "ansvarKvaelstofPct": 0.9255,
+      "ansvarLavbundHa": 691.1,
+      "ansvarLavbundPct": 0.4936,
+      "lavbundPotentialeHa": 1086.0,
+      "ansvarSkovHa": 1359.1,
+      "ansvarSkovPct": 0.5436,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 12.01,
+          "andelAfPlanKulstofPct": 8.3
+        }
+      ]
+    },
+    "0253": {
+      "kommuneNavn": "Greve",
+      "landbrugHa": 2310.0,
+      "kulstofrigJordHa": 152.6,
+      "kulstofrigJord6til12Ha": 110.4,
+      "kulstofrigJordOver12Ha": 42.2,
+      "ansvarKvaelstofT": 1.75,
+      "ansvarKvaelstofPct": 0.0137,
+      "ansvarLavbundHa": 86.8,
+      "ansvarLavbundPct": 0.062,
+      "lavbundPotentialeHa": 136.3,
+      "ansvarSkovHa": 227.0,
+      "ansvarSkovPct": 0.0908,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.18,
+          "andelAfPlanKulstofPct": 0.02
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 4.52,
+          "andelAfPlanKulstofPct": 4.83
+        }
+      ]
+    },
+    "0259": {
+      "kommuneNavn": "Køge",
+      "landbrugHa": 13780.0,
+      "kulstofrigJordHa": 666.4,
+      "kulstofrigJord6til12Ha": 481.0,
+      "kulstofrigJordOver12Ha": 185.4,
+      "ansvarKvaelstofT": 4.07,
+      "ansvarKvaelstofPct": 0.0319,
+      "ansvarLavbundHa": 528.1,
+      "ansvarLavbundPct": 0.3772,
+      "lavbundPotentialeHa": 829.9,
+      "ansvarSkovHa": 1354.2,
+      "ansvarSkovPct": 0.5417,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.4,
+          "andelAfPlanKulstofPct": 0.28
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 28.31,
+          "andelAfPlanKulstofPct": 28.63
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 0.13,
+          "andelAfPlanKulstofPct": 0.02
+        }
+      ]
+    },
+    "0260": {
+      "kommuneNavn": "Halsnæs",
+      "landbrugHa": 3760.0,
+      "kulstofrigJordHa": 490.6,
+      "kulstofrigJord6til12Ha": 313.7,
+      "kulstofrigJordOver12Ha": 176.9,
+      "ansvarKvaelstofT": 32.01,
+      "ansvarKvaelstofPct": 0.2506,
+      "ansvarLavbundHa": 201.2,
+      "ansvarLavbundPct": 0.1437,
+      "lavbundPotentialeHa": 316.1,
+      "ansvarSkovHa": 369.5,
+      "ansvarSkovPct": 0.1478,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 3.25,
+          "andelAfPlanKulstofPct": 2.42
+        }
+      ]
+    },
+    "0265": {
+      "kommuneNavn": "Roskilde",
+      "landbrugHa": 11320.0,
+      "kulstofrigJordHa": 1085.4,
+      "kulstofrigJord6til12Ha": 716.2,
+      "kulstofrigJordOver12Ha": 369.2,
+      "ansvarKvaelstofT": 87.52,
+      "ansvarKvaelstofPct": 0.685,
+      "ansvarLavbundHa": 774.3,
+      "ansvarLavbundPct": 0.5531,
+      "lavbundPotentialeHa": 1216.7,
+      "ansvarSkovHa": 1112.4,
+      "ansvarSkovPct": 0.445,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 8.89,
+          "andelAfPlanKulstofPct": 8.98
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 2.4,
+          "andelAfPlanKulstofPct": 1.52
+        }
+      ]
+    },
+    "0269": {
+      "kommuneNavn": "Solrød",
+      "landbrugHa": 2140.0,
+      "kulstofrigJordHa": 239.4,
+      "kulstofrigJord6til12Ha": 138.6,
+      "kulstofrigJordOver12Ha": 100.8,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 189.5,
+      "ansvarLavbundPct": 0.1354,
+      "lavbundPotentialeHa": 297.8,
+      "ansvarSkovHa": 210.3,
+      "ansvarSkovPct": 0.0841,
+      "planer": [
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 4.62,
+          "andelAfPlanKulstofPct": 10.78
+        }
+      ]
+    },
+    "0270": {
+      "kommuneNavn": "Gribskov",
+      "landbrugHa": 11400.0,
+      "kulstofrigJordHa": 2126.6,
+      "kulstofrigJord6til12Ha": 1417.1,
+      "kulstofrigJordOver12Ha": 709.5,
+      "ansvarKvaelstofT": 97.75,
+      "ansvarKvaelstofPct": 0.7651,
+      "ansvarLavbundHa": 1155.4,
+      "ansvarLavbundPct": 0.8253,
+      "lavbundPotentialeHa": 1815.6,
+      "ansvarSkovHa": 1120.3,
+      "ansvarSkovPct": 0.4481,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 9.93,
+          "andelAfPlanKulstofPct": 13.88
+        }
+      ]
+    },
+    "0306": {
+      "kommuneNavn": "Odsherred",
+      "landbrugHa": 18960.0,
+      "kulstofrigJordHa": 1834.0,
+      "kulstofrigJord6til12Ha": 1404.5,
+      "kulstofrigJordOver12Ha": 429.5,
+      "ansvarKvaelstofT": 115.1,
+      "ansvarKvaelstofPct": 0.9009,
+      "ansvarLavbundHa": 1219.4,
+      "ansvarLavbundPct": 0.871,
+      "lavbundPotentialeHa": 1916.1,
+      "ansvarSkovHa": 1863.2,
+      "ansvarSkovPct": 0.7453,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 11.21,
+          "andelAfPlanKulstofPct": 10.41
+        },
+        {
+          "plan": "Sejerø Bugt",
+          "andelAfPlanLandbrugPct": 33.36,
+          "andelAfPlanKulstofPct": 26.61
+        }
+      ]
+    },
+    "0316": {
+      "kommuneNavn": "Holbæk",
+      "landbrugHa": 37480.0,
+      "kulstofrigJordHa": 3688.5,
+      "kulstofrigJord6til12Ha": 1846.7,
+      "kulstofrigJordOver12Ha": 1841.7,
+      "ansvarKvaelstofT": 296.25,
+      "ansvarKvaelstofPct": 2.3188,
+      "ansvarLavbundHa": 2861.0,
+      "ansvarLavbundPct": 2.0436,
+      "lavbundPotentialeHa": 4495.8,
+      "ansvarSkovHa": 3683.2,
+      "ansvarSkovPct": 1.4733,
+      "planer": [
+        {
+          "plan": "Jammerland Bugt og Musholm Bugt",
+          "andelAfPlanLandbrugPct": 17.12,
+          "andelAfPlanKulstofPct": 22.78
+        },
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 21.98,
+          "andelAfPlanKulstofPct": 20.66
+        },
+        {
+          "plan": "Sejerø Bugt",
+          "andelAfPlanLandbrugPct": 0.01,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 0.54,
+          "andelAfPlanKulstofPct": 1.34
+        }
+      ]
+    },
+    "0320": {
+      "kommuneNavn": "Faxe",
+      "landbrugHa": 25060.0,
+      "kulstofrigJordHa": 940.3,
+      "kulstofrigJord6til12Ha": 487.7,
+      "kulstofrigJordOver12Ha": 452.6,
+      "ansvarKvaelstofT": 50.65,
+      "ansvarKvaelstofPct": 0.3965,
+      "ansvarLavbundHa": 639.2,
+      "ansvarLavbundPct": 0.4566,
+      "lavbundPotentialeHa": 1004.4,
+      "ansvarSkovHa": 2462.7,
+      "ansvarSkovPct": 0.9851,
+      "planer": [
+        {
+          "plan": "Fakse Bugt",
+          "andelAfPlanLandbrugPct": 36.21,
+          "andelAfPlanKulstofPct": 18.27
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 19.45,
+          "andelAfPlanKulstofPct": 9.8
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 7.58,
+          "andelAfPlanKulstofPct": 7.37
+        }
+      ]
+    },
+    "0326": {
+      "kommuneNavn": "Kalundborg",
+      "landbrugHa": 36810.0,
+      "kulstofrigJordHa": 3785.8,
+      "kulstofrigJord6til12Ha": 2069.9,
+      "kulstofrigJordOver12Ha": 1715.9,
+      "ansvarKvaelstofT": 160.04,
+      "ansvarKvaelstofPct": 1.2527,
+      "ansvarLavbundHa": 2446.7,
+      "ansvarLavbundPct": 1.7476,
+      "lavbundPotentialeHa": 3844.7,
+      "ansvarSkovHa": 3617.4,
+      "ansvarSkovPct": 1.447,
+      "planer": [
+        {
+          "plan": "Jammerland Bugt og Musholm Bugt",
+          "andelAfPlanLandbrugPct": 28.96,
+          "andelAfPlanKulstofPct": 29.07
+        },
+        {
+          "plan": "Kalundborg Fjord",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        },
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.83,
+          "andelAfPlanKulstofPct": 0.31
+        },
+        {
+          "plan": "Sejerø Bugt",
+          "andelAfPlanLandbrugPct": 66.63,
+          "andelAfPlanKulstofPct": 73.39
+        }
+      ]
+    },
+    "0329": {
+      "kommuneNavn": "Ringsted",
+      "landbrugHa": 18670.0,
+      "kulstofrigJordHa": 1624.8,
+      "kulstofrigJord6til12Ha": 834.8,
+      "kulstofrigJordOver12Ha": 790.0,
+      "ansvarKvaelstofT": 34.0,
+      "ansvarKvaelstofPct": 0.2661,
+      "ansvarLavbundHa": 1043.8,
+      "ansvarLavbundPct": 0.7456,
+      "lavbundPotentialeHa": 1640.2,
+      "ansvarSkovHa": 1834.7,
+      "ansvarSkovPct": 0.7339,
+      "planer": [
+        {
+          "plan": "Jammerland Bugt og Musholm Bugt",
+          "andelAfPlanLandbrugPct": 1.88,
+          "andelAfPlanKulstofPct": 1.29
+        },
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 0.36,
+          "andelAfPlanKulstofPct": 0.11
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 1.95,
+          "andelAfPlanKulstofPct": 1.5
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 16.38,
+          "andelAfPlanKulstofPct": 19.57
+        }
+      ]
+    },
+    "0330": {
+      "kommuneNavn": "Slagelse",
+      "landbrugHa": 37650.0,
+      "kulstofrigJordHa": 1208.7,
+      "kulstofrigJord6til12Ha": 952.6,
+      "kulstofrigJordOver12Ha": 256.1,
+      "ansvarKvaelstofT": 185.81,
+      "ansvarKvaelstofPct": 1.4543,
+      "ansvarLavbundHa": 823.7,
+      "ansvarLavbundPct": 0.5884,
+      "lavbundPotentialeHa": 1294.4,
+      "ansvarSkovHa": 3699.9,
+      "ansvarSkovPct": 1.48,
+      "planer": [
+        {
+          "plan": "Jammerland Bugt og Musholm Bugt",
+          "andelAfPlanLandbrugPct": 36.47,
+          "andelAfPlanKulstofPct": 12.76
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 12.96,
+          "andelAfPlanKulstofPct": 4.56
+        }
+      ]
+    },
+    "0336": {
+      "kommuneNavn": "Stevns",
+      "landbrugHa": 18240.0,
+      "kulstofrigJordHa": 531.2,
+      "kulstofrigJord6til12Ha": 257.6,
+      "kulstofrigJordOver12Ha": 273.6,
+      "ansvarKvaelstofT": 16.81,
+      "ansvarKvaelstofPct": 0.1316,
+      "ansvarLavbundHa": 577.9,
+      "ansvarLavbundPct": 0.4128,
+      "lavbundPotentialeHa": 908.2,
+      "ansvarSkovHa": 1792.5,
+      "ansvarSkovPct": 0.717,
+      "planer": [
+        {
+          "plan": "Fakse Bugt",
+          "andelAfPlanLandbrugPct": 15.01,
+          "andelAfPlanKulstofPct": 0.76
+        },
+        {
+          "plan": "Køge Bugt",
+          "andelAfPlanLandbrugPct": 31.68,
+          "andelAfPlanKulstofPct": 32.61
+        }
+      ]
+    },
+    "0340": {
+      "kommuneNavn": "Sorø",
+      "landbrugHa": 17690.0,
+      "kulstofrigJordHa": 3275.3,
+      "kulstofrigJord6til12Ha": 1528.8,
+      "kulstofrigJordOver12Ha": 1746.5,
+      "ansvarKvaelstofT": 81.45,
+      "ansvarKvaelstofPct": 0.6375,
+      "ansvarLavbundHa": 1942.1,
+      "ansvarLavbundPct": 1.3872,
+      "lavbundPotentialeHa": 3051.8,
+      "ansvarSkovHa": 1738.4,
+      "ansvarSkovPct": 0.6954,
+      "planer": [
+        {
+          "plan": "Jammerland Bugt og Musholm Bugt",
+          "andelAfPlanLandbrugPct": 15.54,
+          "andelAfPlanKulstofPct": 34.09
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 7.21,
+          "andelAfPlanKulstofPct": 6.84
+        }
+      ]
+    },
+    "0350": {
+      "kommuneNavn": "Lejre",
+      "landbrugHa": 14620.0,
+      "kulstofrigJordHa": 938.7,
+      "kulstofrigJord6til12Ha": 723.1,
+      "kulstofrigJordOver12Ha": 215.5,
+      "ansvarKvaelstofT": 124.73,
+      "ansvarKvaelstofPct": 0.9763,
+      "ansvarLavbundHa": 759.3,
+      "ansvarLavbundPct": 0.5424,
+      "lavbundPotentialeHa": 1193.2,
+      "ansvarSkovHa": 1436.7,
+      "ansvarSkovPct": 0.5747,
+      "planer": [
+        {
+          "plan": "Kattegat, Nordsjælland",
+          "andelAfPlanLandbrugPct": 12.66,
+          "andelAfPlanKulstofPct": 9.04
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 0.09,
+          "andelAfPlanKulstofPct": 0.13
+        }
+      ]
+    },
+    "0360": {
+      "kommuneNavn": "Lolland",
+      "landbrugHa": 67430.0,
+      "kulstofrigJordHa": 2063.7,
+      "kulstofrigJord6til12Ha": 1533.8,
+      "kulstofrigJordOver12Ha": 529.9,
+      "ansvarKvaelstofT": 291.71,
+      "ansvarKvaelstofPct": 2.2833,
+      "ansvarLavbundHa": 1371.9,
+      "ansvarLavbundPct": 0.9799,
+      "lavbundPotentialeHa": 2155.8,
+      "ansvarSkovHa": 6626.5,
+      "ansvarSkovPct": 2.6506,
+      "planer": [
+        {
+          "plan": "Femerbælt",
+          "andelAfPlanLandbrugPct": 74.51,
+          "andelAfPlanKulstofPct": 43.83
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 0.7,
+          "andelAfPlanKulstofPct": 0.33
+        },
+        {
+          "plan": "Smålandsfarvandet, syd",
+          "andelAfPlanLandbrugPct": 61.81,
+          "andelAfPlanKulstofPct": 51.68
+        }
+      ]
+    },
+    "0370": {
+      "kommuneNavn": "Næstved",
+      "landbrugHa": 43960.0,
+      "kulstofrigJordHa": 3378.7,
+      "kulstofrigJord6til12Ha": 1655.9,
+      "kulstofrigJordOver12Ha": 1722.8,
+      "ansvarKvaelstofT": 68.23,
+      "ansvarKvaelstofPct": 0.534,
+      "ansvarLavbundHa": 2172.4,
+      "ansvarLavbundPct": 1.5517,
+      "lavbundPotentialeHa": 3413.7,
+      "ansvarSkovHa": 4320.0,
+      "ansvarSkovPct": 1.728,
+      "planer": [
+        {
+          "plan": "Fakse Bugt",
+          "andelAfPlanLandbrugPct": 10.71,
+          "andelAfPlanKulstofPct": 8.32
+        },
+        {
+          "plan": "Jammerland Bugt og Musholm Bugt",
+          "andelAfPlanLandbrugPct": 0.03,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 42.12,
+          "andelAfPlanKulstofPct": 43.84
+        }
+      ]
+    },
+    "0376": {
+      "kommuneNavn": "Guldborgsund",
+      "landbrugHa": 62060.0,
+      "kulstofrigJordHa": 3918.6,
+      "kulstofrigJord6til12Ha": 2163.8,
+      "kulstofrigJordOver12Ha": 1754.8,
+      "ansvarKvaelstofT": 212.08,
+      "ansvarKvaelstofPct": 1.66,
+      "ansvarLavbundHa": 2435.8,
+      "ansvarLavbundPct": 1.7398,
+      "lavbundPotentialeHa": 3827.5,
+      "ansvarSkovHa": 6098.7,
+      "ansvarSkovPct": 2.4395,
+      "planer": [
+        {
+          "plan": "Femerbælt",
+          "andelAfPlanLandbrugPct": 25.49,
+          "andelAfPlanKulstofPct": 56.17
+        },
+        {
+          "plan": "Grønsund",
+          "andelAfPlanLandbrugPct": 76.35,
+          "andelAfPlanKulstofPct": 89.31
+        },
+        {
+          "plan": "Guldborgsund",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        },
+        {
+          "plan": "Hjelm Bugt",
+          "andelAfPlanLandbrugPct": 45.15,
+          "andelAfPlanKulstofPct": 36.5
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 2.78,
+          "andelAfPlanKulstofPct": 1.05
+        },
+        {
+          "plan": "Smålandsfarvandet, syd",
+          "andelAfPlanLandbrugPct": 38.19,
+          "andelAfPlanKulstofPct": 48.32
+        }
+      ]
+    },
+    "0390": {
+      "kommuneNavn": "Vordingborg",
+      "landbrugHa": 40320.0,
+      "kulstofrigJordHa": 2804.8,
+      "kulstofrigJord6til12Ha": 1978.2,
+      "kulstofrigJordOver12Ha": 826.7,
+      "ansvarKvaelstofT": 172.21,
+      "ansvarKvaelstofPct": 1.348,
+      "ansvarLavbundHa": 1789.0,
+      "ansvarLavbundPct": 1.2778,
+      "lavbundPotentialeHa": 2811.2,
+      "ansvarSkovHa": 3962.3,
+      "ansvarSkovPct": 1.5849,
+      "planer": [
+        {
+          "plan": "Fakse Bugt",
+          "andelAfPlanLandbrugPct": 38.08,
+          "andelAfPlanKulstofPct": 72.65
+        },
+        {
+          "plan": "Grønsund",
+          "andelAfPlanLandbrugPct": 23.65,
+          "andelAfPlanKulstofPct": 10.69
+        },
+        {
+          "plan": "Hjelm Bugt",
+          "andelAfPlanLandbrugPct": 54.85,
+          "andelAfPlanKulstofPct": 63.5
+        },
+        {
+          "plan": "Smålandsfarvandet, åbne del",
+          "andelAfPlanLandbrugPct": 9.51,
+          "andelAfPlanKulstofPct": 14.95
+        },
+        {
+          "plan": "Stege Bugt",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        }
+      ]
+    },
+    "0400": {
+      "kommuneNavn": "Bornholm",
+      "landbrugHa": 34810.0,
+      "kulstofrigJordHa": 81.5,
+      "kulstofrigJord6til12Ha": 49.6,
+      "kulstofrigJordOver12Ha": 32.0,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 51.7,
+      "ansvarLavbundPct": 0.037,
+      "lavbundPotentialeHa": 81.3,
+      "ansvarSkovHa": 3420.8,
+      "ansvarSkovPct": 1.3683,
+      "planer": [
+        {
+          "plan": "Østersøen, Bornholm",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        }
+      ]
+    },
+    "0410": {
+      "kommuneNavn": "Middelfart",
+      "landbrugHa": 18390.0,
+      "kulstofrigJordHa": 824.2,
+      "kulstofrigJord6til12Ha": 512.3,
+      "kulstofrigJordOver12Ha": 311.9,
+      "ansvarKvaelstofT": 149.03,
+      "ansvarKvaelstofPct": 1.1665,
+      "ansvarLavbundHa": 530.8,
+      "ansvarLavbundPct": 0.3791,
+      "lavbundPotentialeHa": 834.1,
+      "ansvarSkovHa": 1807.2,
+      "ansvarSkovPct": 0.7229,
+      "planer": [
+        {
+          "plan": "Lillebælt, Bredningen",
+          "andelAfPlanLandbrugPct": 9.51,
+          "andelAfPlanKulstofPct": 12.39
+        },
+        {
+          "plan": "Lillebælt, Snævringen",
+          "andelAfPlanLandbrugPct": 17.15,
+          "andelAfPlanKulstofPct": 16.66
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 13.75,
+          "andelAfPlanKulstofPct": 20.89
+        }
+      ]
+    },
+    "0420": {
+      "kommuneNavn": "Assens",
+      "landbrugHa": 33050.0,
+      "kulstofrigJordHa": 1519.4,
+      "kulstofrigJord6til12Ha": 929.6,
+      "kulstofrigJordOver12Ha": 589.9,
+      "ansvarKvaelstofT": 201.54,
+      "ansvarKvaelstofPct": 1.5775,
+      "ansvarLavbundHa": 971.9,
+      "ansvarLavbundPct": 0.6942,
+      "lavbundPotentialeHa": 1527.2,
+      "ansvarSkovHa": 3247.9,
+      "ansvarSkovPct": 1.2992,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 4.96,
+          "andelAfPlanKulstofPct": 5.07
+        },
+        {
+          "plan": "Lillebælt, Bredningen",
+          "andelAfPlanLandbrugPct": 31.39,
+          "andelAfPlanKulstofPct": 39.87
+        },
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 14.5,
+          "andelAfPlanKulstofPct": 14.65
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 1.23,
+          "andelAfPlanKulstofPct": 1.33
+        }
+      ]
+    },
+    "0430": {
+      "kommuneNavn": "Faaborg-Midtfyn",
+      "landbrugHa": 40120.0,
+      "kulstofrigJordHa": 2411.7,
+      "kulstofrigJord6til12Ha": 1511.5,
+      "kulstofrigJordOver12Ha": 900.2,
+      "ansvarKvaelstofT": 191.77,
+      "ansvarKvaelstofPct": 1.501,
+      "ansvarLavbundHa": 1552.3,
+      "ansvarLavbundPct": 1.1088,
+      "lavbundPotentialeHa": 2439.3,
+      "ansvarSkovHa": 3942.7,
+      "ansvarSkovPct": 1.5771,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 18.91,
+          "andelAfPlanKulstofPct": 34.03
+        },
+        {
+          "plan": "Det sydfynske Øhav",
+          "andelAfPlanLandbrugPct": 16.52,
+          "andelAfPlanKulstofPct": 21.71
+        },
+        {
+          "plan": "Langelandssund",
+          "andelAfPlanLandbrugPct": 17.17,
+          "andelAfPlanKulstofPct": 7.13
+        },
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 7.07,
+          "andelAfPlanKulstofPct": 5.59
+        }
+      ]
+    },
+    "0440": {
+      "kommuneNavn": "Kerteminde",
+      "landbrugHa": 14020.0,
+      "kulstofrigJordHa": 373.2,
+      "kulstofrigJord6til12Ha": 244.4,
+      "kulstofrigJordOver12Ha": 128.7,
+      "ansvarKvaelstofT": 89.31,
+      "ansvarKvaelstofPct": 0.6991,
+      "ansvarLavbundHa": 251.8,
+      "ansvarLavbundPct": 0.1799,
+      "lavbundPotentialeHa": 395.7,
+      "ansvarSkovHa": 1377.8,
+      "ansvarSkovPct": 0.5511,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 5.28,
+          "andelAfPlanKulstofPct": 4.25
+        },
+        {
+          "plan": "Langelandssund",
+          "andelAfPlanLandbrugPct": 2.03,
+          "andelAfPlanKulstofPct": 3.84
+        },
+        {
+          "plan": "Storebælt, NV",
+          "andelAfPlanLandbrugPct": 64.37,
+          "andelAfPlanKulstofPct": 61.9
+        }
+      ]
+    },
+    "0450": {
+      "kommuneNavn": "Nyborg",
+      "landbrugHa": 18470.0,
+      "kulstofrigJordHa": 547.7,
+      "kulstofrigJord6til12Ha": 379.6,
+      "kulstofrigJordOver12Ha": 168.1,
+      "ansvarKvaelstofT": 78.47,
+      "ansvarKvaelstofPct": 0.6142,
+      "ansvarLavbundHa": 351.0,
+      "ansvarLavbundPct": 0.2507,
+      "lavbundPotentialeHa": 551.6,
+      "ansvarSkovHa": 1815.1,
+      "ansvarSkovPct": 0.726,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 0.2,
+          "andelAfPlanKulstofPct": 0.06
+        },
+        {
+          "plan": "Langelandssund",
+          "andelAfPlanLandbrugPct": 42.02,
+          "andelAfPlanKulstofPct": 41.13
+        },
+        {
+          "plan": "Storebælt, NV",
+          "andelAfPlanLandbrugPct": 35.63,
+          "andelAfPlanKulstofPct": 38.1
+        }
+      ]
+    },
+    "0461": {
+      "kommuneNavn": "Odense",
+      "landbrugHa": 12940.0,
+      "kulstofrigJordHa": 677.5,
+      "kulstofrigJord6til12Ha": 476.5,
+      "kulstofrigJordOver12Ha": 201.0,
+      "ansvarKvaelstofT": 66.51,
+      "ansvarKvaelstofPct": 0.5206,
+      "ansvarLavbundHa": 298.5,
+      "ansvarLavbundPct": 0.2132,
+      "lavbundPotentialeHa": 469.0,
+      "ansvarSkovHa": 1271.6,
+      "ansvarSkovPct": 0.5087,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 10.0,
+          "andelAfPlanKulstofPct": 8.29
+        },
+        {
+          "plan": "Langelandssund",
+          "andelAfPlanLandbrugPct": 0.11,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Lillebælt, Bredningen",
+          "andelAfPlanLandbrugPct": 0.08,
+          "andelAfPlanKulstofPct": 0.03
+        }
+      ]
+    },
+    "0479": {
+      "kommuneNavn": "Svendborg",
+      "landbrugHa": 25990.0,
+      "kulstofrigJordHa": 570.8,
+      "kulstofrigJord6til12Ha": 456.2,
+      "kulstofrigJordOver12Ha": 114.6,
+      "ansvarKvaelstofT": 140.43,
+      "ansvarKvaelstofPct": 1.0992,
+      "ansvarLavbundHa": 344.2,
+      "ansvarLavbundPct": 0.2458,
+      "lavbundPotentialeHa": 540.8,
+      "ansvarSkovHa": 2554.1,
+      "ansvarSkovPct": 1.0216,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 0.6,
+          "andelAfPlanKulstofPct": 0.13
+        },
+        {
+          "plan": "Det sydfynske Øhav",
+          "andelAfPlanLandbrugPct": 52.92,
+          "andelAfPlanKulstofPct": 27.59
+        },
+        {
+          "plan": "Langelandssund",
+          "andelAfPlanLandbrugPct": 29.92,
+          "andelAfPlanKulstofPct": 17.28
+        }
+      ]
+    },
+    "0480": {
+      "kommuneNavn": "Nordfyns",
+      "landbrugHa": 31800.0,
+      "kulstofrigJordHa": 1139.3,
+      "kulstofrigJord6til12Ha": 715.3,
+      "kulstofrigJordOver12Ha": 424.0,
+      "ansvarKvaelstofT": 156.28,
+      "ansvarKvaelstofPct": 1.2232,
+      "ansvarLavbundHa": 845.3,
+      "ansvarLavbundPct": 0.6038,
+      "lavbundPotentialeHa": 1328.3,
+      "ansvarSkovHa": 3125.0,
+      "ansvarSkovPct": 1.25,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 15.71,
+          "andelAfPlanKulstofPct": 14.23
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 18.4,
+          "andelAfPlanKulstofPct": 25.24
+        }
+      ]
+    },
+    "0482": {
+      "kommuneNavn": "Langeland",
+      "landbrugHa": 19860.0,
+      "kulstofrigJordHa": 2299.3,
+      "kulstofrigJord6til12Ha": 1374.9,
+      "kulstofrigJordOver12Ha": 924.5,
+      "ansvarKvaelstofT": 64.88,
+      "ansvarKvaelstofPct": 0.5078,
+      "ansvarLavbundHa": 1492.4,
+      "ansvarLavbundPct": 1.066,
+      "lavbundPotentialeHa": 2345.1,
+      "ansvarSkovHa": 1951.7,
+      "ansvarSkovPct": 0.7807,
+      "planer": [
+        {
+          "plan": "Det sydfynske Øhav",
+          "andelAfPlanLandbrugPct": 16.77,
+          "andelAfPlanKulstofPct": 45.34
+        },
+        {
+          "plan": "Langelandssund",
+          "andelAfPlanLandbrugPct": 8.74,
+          "andelAfPlanKulstofPct": 30.63
+        },
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 3.43,
+          "andelAfPlanKulstofPct": 11.84
+        },
+        {
+          "plan": "Storebælt, SV",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        }
+      ]
+    },
+    "0492": {
+      "kommuneNavn": "Ærø",
+      "landbrugHa": 6140.0,
+      "kulstofrigJordHa": 87.3,
+      "kulstofrigJord6til12Ha": 81.7,
+      "kulstofrigJordOver12Ha": 5.5,
+      "ansvarKvaelstofT": 33.27,
+      "ansvarKvaelstofPct": 0.2604,
+      "ansvarLavbundHa": 58.0,
+      "ansvarLavbundPct": 0.0414,
+      "lavbundPotentialeHa": 91.1,
+      "ansvarSkovHa": 603.4,
+      "ansvarSkovPct": 0.2414,
+      "planer": [
+        {
+          "plan": "Det sydfynske Øhav",
+          "andelAfPlanLandbrugPct": 13.8,
+          "andelAfPlanKulstofPct": 5.36
+        },
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 3.07,
+          "andelAfPlanKulstofPct": 0.86
+        }
+      ]
+    },
+    "0510": {
+      "kommuneNavn": "Haderslev",
+      "landbrugHa": 54990.0,
+      "kulstofrigJordHa": 2243.4,
+      "kulstofrigJord6til12Ha": 1602.0,
+      "kulstofrigJordOver12Ha": 641.3,
+      "ansvarKvaelstofT": 381.64,
+      "ansvarKvaelstofPct": 2.9871,
+      "ansvarLavbundHa": 1493.7,
+      "ansvarLavbundPct": 1.0669,
+      "lavbundPotentialeHa": 2347.2,
+      "ansvarSkovHa": 5404.0,
+      "ansvarSkovPct": 2.1616,
+      "planer": [
+        {
+          "plan": "Lillebælt, Bredningen",
+          "andelAfPlanLandbrugPct": 38.25,
+          "andelAfPlanKulstofPct": 24.83
+        },
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 11.4,
+          "andelAfPlanKulstofPct": 8.36
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 8.01,
+          "andelAfPlanKulstofPct": 5.68
+        }
+      ]
+    },
+    "0530": {
+      "kommuneNavn": "Billund",
+      "landbrugHa": 29480.0,
+      "kulstofrigJordHa": 2284.4,
+      "kulstofrigJord6til12Ha": 1953.4,
+      "kulstofrigJordOver12Ha": 331.0,
+      "ansvarKvaelstofT": 207.52,
+      "ansvarKvaelstofPct": 1.6243,
+      "ansvarLavbundHa": 1306.8,
+      "ansvarLavbundPct": 0.9334,
+      "lavbundPotentialeHa": 2053.5,
+      "ansvarSkovHa": 2897.0,
+      "ansvarSkovPct": 1.1588,
+      "planer": [
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 0.26,
+          "andelAfPlanKulstofPct": 0.26
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 3.72,
+          "andelAfPlanKulstofPct": 4.59
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 5.25,
+          "andelAfPlanKulstofPct": 3.32
+        }
+      ]
+    },
+    "0540": {
+      "kommuneNavn": "Sønderborg",
+      "landbrugHa": 32610.0,
+      "kulstofrigJordHa": 853.1,
+      "kulstofrigJord6til12Ha": 592.1,
+      "kulstofrigJordOver12Ha": 261.0,
+      "ansvarKvaelstofT": 101.01,
+      "ansvarKvaelstofPct": 0.7906,
+      "ansvarLavbundHa": 545.2,
+      "ansvarLavbundPct": 0.3895,
+      "lavbundPotentialeHa": 856.8,
+      "ansvarSkovHa": 3204.6,
+      "ansvarSkovPct": 1.2819,
+      "planer": [
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 42.15,
+          "andelAfPlanKulstofPct": 23.7
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 0.39,
+          "andelAfPlanKulstofPct": 0.44
+        }
+      ]
+    },
+    "0550": {
+      "kommuneNavn": "Tønder",
+      "landbrugHa": 82230.0,
+      "kulstofrigJordHa": 9637.4,
+      "kulstofrigJord6til12Ha": 8017.4,
+      "kulstofrigJordOver12Ha": 1620.0,
+      "ansvarKvaelstofT": 566.45,
+      "ansvarKvaelstofPct": 4.4337,
+      "ansvarLavbundHa": 6613.1,
+      "ansvarLavbundPct": 4.7236,
+      "lavbundPotentialeHa": 10391.8,
+      "ansvarSkovHa": 8080.9,
+      "ansvarSkovPct": 3.2323,
+      "planer": [
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 23.4,
+          "andelAfPlanKulstofPct": 36.54
+        }
+      ]
+    },
+    "0561": {
+      "kommuneNavn": "Esbjerg",
+      "landbrugHa": 49650.0,
+      "kulstofrigJordHa": 3200.6,
+      "kulstofrigJord6til12Ha": 2639.8,
+      "kulstofrigJordOver12Ha": 560.8,
+      "ansvarKvaelstofT": 342.84,
+      "ansvarKvaelstofPct": 2.6835,
+      "ansvarLavbundHa": 2071.0,
+      "ansvarLavbundPct": 1.4793,
+      "lavbundPotentialeHa": 3254.4,
+      "ansvarSkovHa": 4879.2,
+      "ansvarSkovPct": 1.9517,
+      "planer": [
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 14.16,
+          "andelAfPlanKulstofPct": 11.44
+        }
+      ]
+    },
+    "0563": {
+      "kommuneNavn": "Fanø",
+      "landbrugHa": 370.0,
+      "kulstofrigJordHa": 275.7,
+      "kulstofrigJord6til12Ha": 234.9,
+      "kulstofrigJordOver12Ha": 40.8,
+      "ansvarKvaelstofT": 2.29,
+      "ansvarKvaelstofPct": 0.0179,
+      "ansvarLavbundHa": 15.2,
+      "ansvarLavbundPct": 0.0108,
+      "lavbundPotentialeHa": 23.9,
+      "ansvarSkovHa": 36.4,
+      "ansvarSkovPct": 0.0145,
+      "planer": [
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 0.09,
+          "andelAfPlanKulstofPct": 0.08
+        }
+      ]
+    },
+    "0573": {
+      "kommuneNavn": "Varde",
+      "landbrugHa": 68000.0,
+      "kulstofrigJordHa": 6022.3,
+      "kulstofrigJord6til12Ha": 5047.9,
+      "kulstofrigJordOver12Ha": 974.3,
+      "ansvarKvaelstofT": 475.08,
+      "ansvarKvaelstofPct": 3.7185,
+      "ansvarLavbundHa": 3384.7,
+      "ansvarLavbundPct": 2.4176,
+      "lavbundPotentialeHa": 5318.7,
+      "ansvarSkovHa": 6682.5,
+      "ansvarSkovPct": 2.673,
+      "planer": [
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 4.68,
+          "andelAfPlanKulstofPct": 6.8
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 15.49,
+          "andelAfPlanKulstofPct": 12.95
+        }
+      ]
+    },
+    "0575": {
+      "kommuneNavn": "Vejen",
+      "landbrugHa": 55430.0,
+      "kulstofrigJordHa": 1861.9,
+      "kulstofrigJord6til12Ha": 1593.9,
+      "kulstofrigJordOver12Ha": 268.1,
+      "ansvarKvaelstofT": 390.81,
+      "ansvarKvaelstofPct": 3.059,
+      "ansvarLavbundHa": 1259.8,
+      "ansvarLavbundPct": 0.8999,
+      "lavbundPotentialeHa": 1979.6,
+      "ansvarSkovHa": 5447.2,
+      "ansvarSkovPct": 2.1789,
+      "planer": [
+        {
+          "plan": "Lillebælt, Snævringen",
+          "andelAfPlanLandbrugPct": 4.59,
+          "andelAfPlanKulstofPct": 4.06
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 0.94,
+          "andelAfPlanKulstofPct": 3.86
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 15.27,
+          "andelAfPlanKulstofPct": 6.54
+        }
+      ]
+    },
+    "0580": {
+      "kommuneNavn": "Aabenraa",
+      "landbrugHa": 61580.0,
+      "kulstofrigJordHa": 6843.7,
+      "kulstofrigJord6til12Ha": 2996.4,
+      "kulstofrigJordOver12Ha": 3847.3,
+      "ansvarKvaelstofT": 371.35,
+      "ansvarKvaelstofPct": 2.9066,
+      "ansvarLavbundHa": 4413.8,
+      "ansvarLavbundPct": 3.1527,
+      "lavbundPotentialeHa": 6935.8,
+      "ansvarSkovHa": 6051.6,
+      "ansvarSkovPct": 2.4206,
+      "planer": [
+        {
+          "plan": "Lillebælt, syd",
+          "andelAfPlanLandbrugPct": 18.39,
+          "andelAfPlanKulstofPct": 35.01
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 13.69,
+          "andelAfPlanKulstofPct": 20.58
+        }
+      ]
+    },
+    "0607": {
+      "kommuneNavn": "Fredericia",
+      "landbrugHa": 5760.0,
+      "kulstofrigJordHa": 470.4,
+      "kulstofrigJord6til12Ha": 218.8,
+      "kulstofrigJordOver12Ha": 251.5,
+      "ansvarKvaelstofT": 50.22,
+      "ansvarKvaelstofPct": 0.3931,
+      "ansvarLavbundHa": 217.7,
+      "ansvarLavbundPct": 0.1555,
+      "lavbundPotentialeHa": 342.0,
+      "ansvarSkovHa": 566.0,
+      "ansvarSkovPct": 0.2264,
+      "planer": [
+        {
+          "plan": "Lillebælt, Snævringen",
+          "andelAfPlanLandbrugPct": 8.99,
+          "andelAfPlanKulstofPct": 7.41
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 4.88,
+          "andelAfPlanKulstofPct": 12.96
+        }
+      ]
+    },
+    "0615": {
+      "kommuneNavn": "Horsens",
+      "landbrugHa": 29200.0,
+      "kulstofrigJordHa": 1619.8,
+      "kulstofrigJord6til12Ha": 757.6,
+      "kulstofrigJordOver12Ha": 862.2,
+      "ansvarKvaelstofT": 104.42,
+      "ansvarKvaelstofPct": 0.8174,
+      "ansvarLavbundHa": 968.6,
+      "ansvarLavbundPct": 0.6919,
+      "lavbundPotentialeHa": 1522.1,
+      "ansvarSkovHa": 2869.5,
+      "ansvarSkovPct": 1.1478,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 12.82,
+          "andelAfPlanKulstofPct": 13.34
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 6.58,
+          "andelAfPlanKulstofPct": 4.34
+        }
+      ]
+    },
+    "0621": {
+      "kommuneNavn": "Kolding",
+      "landbrugHa": 38200.0,
+      "kulstofrigJordHa": 1750.7,
+      "kulstofrigJord6til12Ha": 931.1,
+      "kulstofrigJordOver12Ha": 819.7,
+      "ansvarKvaelstofT": 392.1,
+      "ansvarKvaelstofPct": 3.069,
+      "ansvarLavbundHa": 1118.2,
+      "ansvarLavbundPct": 0.7987,
+      "lavbundPotentialeHa": 1757.2,
+      "ansvarSkovHa": 3754.0,
+      "ansvarSkovPct": 1.5016,
+      "planer": [
+        {
+          "plan": "Lillebælt, Bredningen",
+          "andelAfPlanLandbrugPct": 20.78,
+          "andelAfPlanKulstofPct": 22.88
+        },
+        {
+          "plan": "Lillebælt, Snævringen",
+          "andelAfPlanLandbrugPct": 55.88,
+          "andelAfPlanKulstofPct": 64.6
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 0.82,
+          "andelAfPlanKulstofPct": 0.42
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 3.13,
+          "andelAfPlanKulstofPct": 2.38
+        }
+      ]
+    },
+    "0630": {
+      "kommuneNavn": "Vejle",
+      "landbrugHa": 59970.0,
+      "kulstofrigJordHa": 1570.8,
+      "kulstofrigJord6til12Ha": 1229.7,
+      "kulstofrigJordOver12Ha": 341.1,
+      "ansvarKvaelstofT": 365.26,
+      "ansvarKvaelstofPct": 2.8589,
+      "ansvarLavbundHa": 969.9,
+      "ansvarLavbundPct": 0.6928,
+      "lavbundPotentialeHa": 1524.2,
+      "ansvarSkovHa": 5893.3,
+      "ansvarSkovPct": 2.3573,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 0.63,
+          "andelAfPlanKulstofPct": 0.1
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 1.92,
+          "andelAfPlanKulstofPct": 0.38
+        },
+        {
+          "plan": "Lillebælt, Snævringen",
+          "andelAfPlanLandbrugPct": 13.39,
+          "andelAfPlanKulstofPct": 7.27
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 41.77,
+          "andelAfPlanKulstofPct": 32.72
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 7.23,
+          "andelAfPlanKulstofPct": 2.86
+        },
+        {
+          "plan": "Vesterhavet, syd",
+          "andelAfPlanLandbrugPct": 1.12,
+          "andelAfPlanKulstofPct": 0.04
+        }
+      ]
+    },
+    "0657": {
+      "kommuneNavn": "Herning",
+      "landbrugHa": 76130.0,
+      "kulstofrigJordHa": 6494.1,
+      "kulstofrigJord6til12Ha": 5201.3,
+      "kulstofrigJordOver12Ha": 1292.8,
+      "ansvarKvaelstofT": 548.06,
+      "ansvarKvaelstofPct": 4.2898,
+      "ansvarLavbundHa": 4116.5,
+      "ansvarLavbundPct": 2.9404,
+      "lavbundPotentialeHa": 6468.7,
+      "ansvarSkovHa": 7481.4,
+      "ansvarSkovPct": 2.9926,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 1.55,
+          "andelAfPlanKulstofPct": 0.87
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 23.51,
+          "andelAfPlanKulstofPct": 24.88
+        }
+      ]
+    },
+    "0661": {
+      "kommuneNavn": "Holstebro",
+      "landbrugHa": 45900.0,
+      "kulstofrigJordHa": 3679.7,
+      "kulstofrigJord6til12Ha": 2656.8,
+      "kulstofrigJordOver12Ha": 1022.9,
+      "ansvarKvaelstofT": 321.49,
+      "ansvarKvaelstofPct": 2.5164,
+      "ansvarLavbundHa": 2271.4,
+      "ansvarLavbundPct": 1.6224,
+      "lavbundPotentialeHa": 3569.3,
+      "ansvarSkovHa": 4510.7,
+      "ansvarSkovPct": 1.8043,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 2.91,
+          "andelAfPlanKulstofPct": 2.91
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 11.11,
+          "andelAfPlanKulstofPct": 8.1
+        }
+      ]
+    },
+    "0665": {
+      "kommuneNavn": "Lemvig",
+      "landbrugHa": 31350.0,
+      "kulstofrigJordHa": 1416.8,
+      "kulstofrigJord6til12Ha": 1126.2,
+      "kulstofrigJordOver12Ha": 290.6,
+      "ansvarKvaelstofT": 217.33,
+      "ansvarKvaelstofPct": 1.701,
+      "ansvarLavbundHa": 939.6,
+      "ansvarLavbundPct": 0.6712,
+      "lavbundPotentialeHa": 1476.6,
+      "ansvarSkovHa": 3080.8,
+      "ansvarSkovPct": 1.2323,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 2.36,
+          "andelAfPlanKulstofPct": 0.52
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 6.98,
+          "andelAfPlanKulstofPct": 4.94
+        }
+      ]
+    },
+    "0671": {
+      "kommuneNavn": "Struer",
+      "landbrugHa": 17520.0,
+      "kulstofrigJordHa": 442.1,
+      "kulstofrigJord6til12Ha": 357.8,
+      "kulstofrigJordOver12Ha": 84.3,
+      "ansvarKvaelstofT": 113.71,
+      "ansvarKvaelstofPct": 0.89,
+      "ansvarLavbundHa": 336.0,
+      "ansvarLavbundPct": 0.24,
+      "lavbundPotentialeHa": 527.9,
+      "ansvarSkovHa": 1721.7,
+      "ansvarSkovPct": 0.6887,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 3.15,
+          "andelAfPlanKulstofPct": 0.75
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 1.09,
+          "andelAfPlanKulstofPct": 0.47
+        }
+      ]
+    },
+    "0706": {
+      "kommuneNavn": "Syddjurs",
+      "landbrugHa": 36840.0,
+      "kulstofrigJordHa": 6660.3,
+      "kulstofrigJord6til12Ha": 3021.0,
+      "kulstofrigJordOver12Ha": 3639.3,
+      "ansvarKvaelstofT": 61.07,
+      "ansvarKvaelstofPct": 0.478,
+      "ansvarLavbundHa": 4070.0,
+      "ansvarLavbundPct": 2.9071,
+      "lavbundPotentialeHa": 6395.6,
+      "ansvarSkovHa": 3620.3,
+      "ansvarSkovPct": 1.4481,
+      "planer": [
+        {
+          "plan": "Århus Bugt og Begtrup Vig",
+          "andelAfPlanLandbrugPct": 21.14,
+          "andelAfPlanKulstofPct": 15.71
+        },
+        {
+          "plan": "Djursland Øst",
+          "andelAfPlanLandbrugPct": 50.39,
+          "andelAfPlanKulstofPct": 67.73
+        },
+        {
+          "plan": "Ebeltoft Vig",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 3.19,
+          "andelAfPlanKulstofPct": 5.41
+        }
+      ]
+    },
+    "0707": {
+      "kommuneNavn": "Norddjurs",
+      "landbrugHa": 43420.0,
+      "kulstofrigJordHa": 4548.1,
+      "kulstofrigJord6til12Ha": 2514.0,
+      "kulstofrigJordOver12Ha": 2034.1,
+      "ansvarKvaelstofT": 83.91,
+      "ansvarKvaelstofPct": 0.6567,
+      "ansvarLavbundHa": 3094.3,
+      "ansvarLavbundPct": 2.2102,
+      "lavbundPotentialeHa": 4862.3,
+      "ansvarSkovHa": 4267.0,
+      "ansvarSkovPct": 1.7068,
+      "planer": [
+        {
+          "plan": "Anholt",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Djursland Øst",
+          "andelAfPlanLandbrugPct": 49.61,
+          "andelAfPlanKulstofPct": 32.27
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 11.3,
+          "andelAfPlanKulstofPct": 13.85
+        }
+      ]
+    },
+    "0710": {
+      "kommuneNavn": "Favrskov",
+      "landbrugHa": 33880.0,
+      "kulstofrigJordHa": 1500.4,
+      "kulstofrigJord6til12Ha": 808.5,
+      "kulstofrigJordOver12Ha": 691.9,
+      "ansvarKvaelstofT": 51.14,
+      "ansvarKvaelstofPct": 0.4003,
+      "ansvarLavbundHa": 1048.9,
+      "ansvarLavbundPct": 0.7492,
+      "lavbundPotentialeHa": 1648.3,
+      "ansvarSkovHa": 3329.4,
+      "ansvarSkovPct": 1.3318,
+      "planer": [
+        {
+          "plan": "Århus Bugt og Begtrup Vig",
+          "andelAfPlanLandbrugPct": 3.49,
+          "andelAfPlanKulstofPct": 3.05
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 16.93,
+          "andelAfPlanKulstofPct": 9.06
+        }
+      ]
+    },
+    "0727": {
+      "kommuneNavn": "Odder",
+      "landbrugHa": 15380.0,
+      "kulstofrigJordHa": 621.4,
+      "kulstofrigJord6til12Ha": 267.9,
+      "kulstofrigJordOver12Ha": 353.4,
+      "ansvarKvaelstofT": 76.06,
+      "ansvarKvaelstofPct": 0.5953,
+      "ansvarLavbundHa": 440.8,
+      "ansvarLavbundPct": 0.3148,
+      "lavbundPotentialeHa": 692.6,
+      "ansvarSkovHa": 1511.4,
+      "ansvarSkovPct": 0.6046,
+      "planer": [
+        {
+          "plan": "Århus Bugt og Begtrup Vig",
+          "andelAfPlanLandbrugPct": 0.13,
+          "andelAfPlanKulstofPct": 0.0
+        },
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 11.35,
+          "andelAfPlanKulstofPct": 12.18
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 0.38,
+          "andelAfPlanKulstofPct": 0.03
+        }
+      ]
+    },
+    "0730": {
+      "kommuneNavn": "Randers",
+      "landbrugHa": 49930.0,
+      "kulstofrigJordHa": 5984.6,
+      "kulstofrigJord6til12Ha": 2847.6,
+      "kulstofrigJordOver12Ha": 3137.1,
+      "ansvarKvaelstofT": 147.21,
+      "ansvarKvaelstofPct": 1.1522,
+      "ansvarLavbundHa": 4332.6,
+      "ansvarLavbundPct": 3.0947,
+      "lavbundPotentialeHa": 6808.2,
+      "ansvarSkovHa": 4906.7,
+      "ansvarSkovPct": 1.9627,
+      "planer": [
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 14.62,
+          "andelAfPlanKulstofPct": 22.09
+        },
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 11.69,
+          "andelAfPlanKulstofPct": 4.55
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 2.73,
+          "andelAfPlanKulstofPct": 4.05
+        }
+      ]
+    },
+    "0740": {
+      "kommuneNavn": "Silkeborg",
+      "landbrugHa": 38270.0,
+      "kulstofrigJordHa": 3054.6,
+      "kulstofrigJord6til12Ha": 1707.9,
+      "kulstofrigJordOver12Ha": 1346.7,
+      "ansvarKvaelstofT": 91.4,
+      "ansvarKvaelstofPct": 0.7154,
+      "ansvarLavbundHa": 1492.5,
+      "ansvarLavbundPct": 1.066,
+      "lavbundPotentialeHa": 2345.2,
+      "ansvarSkovHa": 3760.9,
+      "ansvarSkovPct": 1.5043,
+      "planer": [
+        {
+          "plan": "Århus Bugt og Begtrup Vig",
+          "andelAfPlanLandbrugPct": 2.06,
+          "andelAfPlanKulstofPct": 2.73
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 16.04,
+          "andelAfPlanKulstofPct": 10.8
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 1.1,
+          "andelAfPlanKulstofPct": 0.64
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 0.53,
+          "andelAfPlanKulstofPct": 0.16
+        }
+      ]
+    },
+    "0741": {
+      "kommuneNavn": "Samsø",
+      "landbrugHa": 7580.0,
+      "kulstofrigJordHa": 92.4,
+      "kulstofrigJord6til12Ha": 78.5,
+      "kulstofrigJordOver12Ha": 13.9,
+      "ansvarKvaelstofT": 38.2,
+      "ansvarKvaelstofPct": 0.299,
+      "ansvarLavbundHa": 63.1,
+      "ansvarLavbundPct": 0.0451,
+      "lavbundPotentialeHa": 99.2,
+      "ansvarSkovHa": 744.9,
+      "ansvarSkovPct": 0.298,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 5.79,
+          "andelAfPlanKulstofPct": 1.76
+        }
+      ]
+    },
+    "0746": {
+      "kommuneNavn": "Skanderborg",
+      "landbrugHa": 22580.0,
+      "kulstofrigJordHa": 1558.2,
+      "kulstofrigJord6til12Ha": 847.3,
+      "kulstofrigJordOver12Ha": 710.9,
+      "ansvarKvaelstofT": 28.07,
+      "ansvarKvaelstofPct": 0.2197,
+      "ansvarLavbundHa": 876.1,
+      "ansvarLavbundPct": 0.6258,
+      "lavbundPotentialeHa": 1376.7,
+      "ansvarSkovHa": 2219.0,
+      "ansvarSkovPct": 0.8876,
+      "planer": [
+        {
+          "plan": "Århus Bugt og Begtrup Vig",
+          "andelAfPlanLandbrugPct": 18.55,
+          "andelAfPlanKulstofPct": 14.45
+        },
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 0.39,
+          "andelAfPlanKulstofPct": 0.03
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 8.28,
+          "andelAfPlanKulstofPct": 6.6
+        }
+      ]
+    },
+    "0751": {
+      "kommuneNavn": "Aarhus",
+      "landbrugHa": 22780.0,
+      "kulstofrigJordHa": 1102.9,
+      "kulstofrigJord6til12Ha": 641.7,
+      "kulstofrigJordOver12Ha": 461.1,
+      "ansvarKvaelstofT": 13.08,
+      "ansvarKvaelstofPct": 0.1023,
+      "ansvarLavbundHa": 671.4,
+      "ansvarLavbundPct": 0.4795,
+      "lavbundPotentialeHa": 1055.0,
+      "ansvarSkovHa": 2238.6,
+      "ansvarSkovPct": 0.8955,
+      "planer": [
+        {
+          "plan": "Århus Bugt og Begtrup Vig",
+          "andelAfPlanLandbrugPct": 54.63,
+          "andelAfPlanKulstofPct": 64.06
+        },
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 0.86,
+          "andelAfPlanKulstofPct": 0.31
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 1.94,
+          "andelAfPlanKulstofPct": 0.73
+        }
+      ]
+    },
+    "0756": {
+      "kommuneNavn": "Ikast-Brande",
+      "landbrugHa": 38720.0,
+      "kulstofrigJordHa": 2972.0,
+      "kulstofrigJord6til12Ha": 2014.6,
+      "kulstofrigJordOver12Ha": 957.4,
+      "ansvarKvaelstofT": 263.87,
+      "ansvarKvaelstofPct": 2.0654,
+      "ansvarLavbundHa": 1715.5,
+      "ansvarLavbundPct": 1.2254,
+      "lavbundPotentialeHa": 2695.7,
+      "ansvarSkovHa": 3805.1,
+      "ansvarSkovPct": 1.522,
+      "planer": [
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 1.24,
+          "andelAfPlanKulstofPct": 0.71
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 1.03,
+          "andelAfPlanKulstofPct": 0.85
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 10.76,
+          "andelAfPlanKulstofPct": 8.71
+        }
+      ]
+    },
+    "0760": {
+      "kommuneNavn": "Ringkøbing-Skjern",
+      "landbrugHa": 89030.0,
+      "kulstofrigJordHa": 8946.8,
+      "kulstofrigJord6til12Ha": 7218.3,
+      "kulstofrigJordOver12Ha": 1728.6,
+      "ansvarKvaelstofT": 648.03,
+      "ansvarKvaelstofPct": 5.0722,
+      "ansvarLavbundHa": 5893.1,
+      "ansvarLavbundPct": 4.2094,
+      "lavbundPotentialeHa": 9260.4,
+      "ansvarSkovHa": 8749.1,
+      "ansvarSkovPct": 3.4996,
+      "planer": [
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 30.24,
+          "andelAfPlanKulstofPct": 38.48
+        }
+      ]
+    },
+    "0766": {
+      "kommuneNavn": "Hedensted",
+      "landbrugHa": 36520.0,
+      "kulstofrigJordHa": 1214.3,
+      "kulstofrigJord6til12Ha": 614.6,
+      "kulstofrigJordOver12Ha": 599.7,
+      "ansvarKvaelstofT": 150.44,
+      "ansvarKvaelstofPct": 1.1776,
+      "ansvarLavbundHa": 877.0,
+      "ansvarLavbundPct": 0.6264,
+      "lavbundPotentialeHa": 1378.1,
+      "ansvarSkovHa": 3588.9,
+      "ansvarSkovPct": 1.4356,
+      "planer": [
+        {
+          "plan": "Århus Bugt syd, Samsø og Nordlige Bælthav",
+          "andelAfPlanLandbrugPct": 12.5,
+          "andelAfPlanKulstofPct": 6.21
+        },
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 4.52,
+          "andelAfPlanKulstofPct": 5.51
+        },
+        {
+          "plan": "Nordlige Lillebælt",
+          "andelAfPlanLandbrugPct": 17.96,
+          "andelAfPlanKulstofPct": 2.32
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 0.14,
+          "andelAfPlanKulstofPct": 0.02
+        }
+      ]
+    },
+    "0773": {
+      "kommuneNavn": "Morsø",
+      "landbrugHa": 26630.0,
+      "kulstofrigJordHa": 1111.1,
+      "kulstofrigJord6til12Ha": 789.3,
+      "kulstofrigJordOver12Ha": 321.8,
+      "ansvarKvaelstofT": 167.78,
+      "ansvarKvaelstofPct": 1.3133,
+      "ansvarLavbundHa": 855.2,
+      "ansvarLavbundPct": 0.6109,
+      "lavbundPotentialeHa": 1343.9,
+      "ansvarSkovHa": 2617.0,
+      "ansvarSkovPct": 1.0468,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 5.85,
+          "andelAfPlanKulstofPct": 2.42
+        }
+      ]
+    },
+    "0779": {
+      "kommuneNavn": "Skive",
+      "landbrugHa": 45190.0,
+      "kulstofrigJordHa": 4164.3,
+      "kulstofrigJord6til12Ha": 2596.8,
+      "kulstofrigJordOver12Ha": 1567.5,
+      "ansvarKvaelstofT": 285.04,
+      "ansvarKvaelstofPct": 2.2311,
+      "ansvarLavbundHa": 2883.5,
+      "ansvarLavbundPct": 2.0597,
+      "lavbundPotentialeHa": 4531.1,
+      "ansvarSkovHa": 4440.9,
+      "ansvarSkovPct": 1.7764,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 9.94,
+          "andelAfPlanKulstofPct": 8.15
+        }
+      ]
+    },
+    "0787": {
+      "kommuneNavn": "Thisted",
+      "landbrugHa": 51840.0,
+      "kulstofrigJordHa": 3487.6,
+      "kulstofrigJord6til12Ha": 2704.0,
+      "kulstofrigJordOver12Ha": 783.6,
+      "ansvarKvaelstofT": 263.34,
+      "ansvarKvaelstofPct": 2.0612,
+      "ansvarLavbundHa": 1738.9,
+      "ansvarLavbundPct": 1.2421,
+      "lavbundPotentialeHa": 2732.6,
+      "ansvarSkovHa": 5094.4,
+      "ansvarSkovPct": 2.0378,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 9.17,
+          "andelAfPlanKulstofPct": 4.46
+        },
+        {
+          "plan": "Skagerrak",
+          "andelAfPlanLandbrugPct": 13.66,
+          "andelAfPlanKulstofPct": 4.5
+        },
+        {
+          "plan": "Vesterhavet, nord",
+          "andelAfPlanLandbrugPct": 0.01,
+          "andelAfPlanKulstofPct": 0.0
+        }
+      ]
+    },
+    "0791": {
+      "kommuneNavn": "Viborg",
+      "landbrugHa": 80570.0,
+      "kulstofrigJordHa": 10991.1,
+      "kulstofrigJord6til12Ha": 4110.7,
+      "kulstofrigJordOver12Ha": 6880.4,
+      "ansvarKvaelstofT": 388.66,
+      "ansvarKvaelstofPct": 3.0421,
+      "ansvarLavbundHa": 6686.8,
+      "ansvarLavbundPct": 4.7763,
+      "lavbundPotentialeHa": 10507.5,
+      "ansvarSkovHa": 7917.7,
+      "ansvarSkovPct": 3.1671,
+      "planer": [
+        {
+          "plan": "Hevring Bugt",
+          "andelAfPlanLandbrugPct": 13.04,
+          "andelAfPlanKulstofPct": 20.5
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 12.18,
+          "andelAfPlanKulstofPct": 12.37
+        }
+      ]
+    },
+    "0810": {
+      "kommuneNavn": "Brønderslev",
+      "landbrugHa": 43350.0,
+      "kulstofrigJordHa": 6503.8,
+      "kulstofrigJord6til12Ha": 3054.9,
+      "kulstofrigJordOver12Ha": 3448.9,
+      "ansvarKvaelstofT": 196.56,
+      "ansvarKvaelstofPct": 1.5385,
+      "ansvarLavbundHa": 4706.1,
+      "ansvarLavbundPct": 3.3615,
+      "lavbundPotentialeHa": 7395.1,
+      "ansvarSkovHa": 4260.1,
+      "ansvarSkovPct": 1.704,
+      "planer": [
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 21.64,
+          "andelAfPlanKulstofPct": 15.43
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 5.25,
+          "andelAfPlanKulstofPct": 8.91
+        },
+        {
+          "plan": "Skagerrak",
+          "andelAfPlanLandbrugPct": 3.38,
+          "andelAfPlanKulstofPct": 4.5
+        }
+      ]
+    },
+    "0813": {
+      "kommuneNavn": "Frederikshavn",
+      "landbrugHa": 30710.0,
+      "kulstofrigJordHa": 2715.0,
+      "kulstofrigJord6til12Ha": 2252.5,
+      "kulstofrigJordOver12Ha": 462.5,
+      "ansvarKvaelstofT": 20.03,
+      "ansvarKvaelstofPct": 0.1568,
+      "ansvarLavbundHa": 1502.3,
+      "ansvarLavbundPct": 1.073,
+      "lavbundPotentialeHa": 2360.7,
+      "ansvarSkovHa": 3017.9,
+      "ansvarSkovPct": 1.2072,
+      "planer": [
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 9.44,
+          "andelAfPlanKulstofPct": 4.27
+        },
+        {
+          "plan": "Nordlige Kattegat, Ålbæk Bugt",
+          "andelAfPlanLandbrugPct": 80.51,
+          "andelAfPlanKulstofPct": 58.94
+        },
+        {
+          "plan": "Skagerrak",
+          "andelAfPlanLandbrugPct": 2.45,
+          "andelAfPlanKulstofPct": 0.16
+        }
+      ]
+    },
+    "0820": {
+      "kommuneNavn": "Vesthimmerlands",
+      "landbrugHa": 50860.0,
+      "kulstofrigJordHa": 7261.1,
+      "kulstofrigJord6til12Ha": 2840.5,
+      "kulstofrigJordOver12Ha": 4420.6,
+      "ansvarKvaelstofT": 320.94,
+      "ansvarKvaelstofPct": 2.5121,
+      "ansvarLavbundHa": 5070.0,
+      "ansvarLavbundPct": 3.6214,
+      "lavbundPotentialeHa": 7966.9,
+      "ansvarSkovHa": 4998.1,
+      "ansvarSkovPct": 1.9992,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 11.19,
+          "andelAfPlanKulstofPct": 14.33
+        }
+      ]
+    },
+    "0825": {
+      "kommuneNavn": "Læsø",
+      "landbrugHa": 2450.0,
+      "kulstofrigJordHa": 204.4,
+      "kulstofrigJord6til12Ha": 156.9,
+      "kulstofrigJordOver12Ha": 47.6,
+      "ansvarKvaelstofT": 0.0,
+      "ansvarKvaelstofPct": 0.0,
+      "ansvarLavbundHa": 130.1,
+      "ansvarLavbundPct": 0.0929,
+      "lavbundPotentialeHa": 204.5,
+      "ansvarSkovHa": 240.8,
+      "ansvarSkovPct": 0.0963,
+      "planer": [
+        {
+          "plan": "Kattegat, Læsø",
+          "andelAfPlanLandbrugPct": 100.0,
+          "andelAfPlanKulstofPct": 100.0
+        }
+      ]
+    },
+    "0840": {
+      "kommuneNavn": "Rebild",
+      "landbrugHa": 39570.0,
+      "kulstofrigJordHa": 6171.4,
+      "kulstofrigJord6til12Ha": 2315.7,
+      "kulstofrigJordOver12Ha": 3855.7,
+      "ansvarKvaelstofT": 232.9,
+      "ansvarKvaelstofPct": 1.8229,
+      "ansvarLavbundHa": 4144.8,
+      "ansvarLavbundPct": 2.9606,
+      "lavbundPotentialeHa": 6513.2,
+      "ansvarSkovHa": 3888.6,
+      "ansvarSkovPct": 1.5554,
+      "planer": [
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 5.98,
+          "andelAfPlanKulstofPct": 9.38
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 7.68,
+          "andelAfPlanKulstofPct": 9.32
+        }
+      ]
+    },
+    "0846": {
+      "kommuneNavn": "Mariagerfjord",
+      "landbrugHa": 42320.0,
+      "kulstofrigJordHa": 5438.2,
+      "kulstofrigJord6til12Ha": 2760.1,
+      "kulstofrigJordOver12Ha": 2678.1,
+      "ansvarKvaelstofT": 161.95,
+      "ansvarKvaelstofPct": 1.2676,
+      "ansvarLavbundHa": 3369.7,
+      "ansvarLavbundPct": 2.4069,
+      "lavbundPotentialeHa": 5295.1,
+      "ansvarSkovHa": 4158.9,
+      "ansvarSkovPct": 1.6635,
+      "planer": [
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 37.08,
+          "andelAfPlanKulstofPct": 25.09
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 2.9,
+          "andelAfPlanKulstofPct": 3.11
+        }
+      ]
+    },
+    "0849": {
+      "kommuneNavn": "Jammerbugt",
+      "landbrugHa": 48050.0,
+      "kulstofrigJordHa": 6647.5,
+      "kulstofrigJord6til12Ha": 2841.1,
+      "kulstofrigJordOver12Ha": 3806.4,
+      "ansvarKvaelstofT": 242.57,
+      "ansvarKvaelstofPct": 1.8986,
+      "ansvarLavbundHa": 3885.1,
+      "ansvarLavbundPct": 2.7751,
+      "lavbundPotentialeHa": 6105.1,
+      "ansvarSkovHa": 4722.0,
+      "ansvarSkovPct": 1.8888,
+      "planer": [
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 8.46,
+          "andelAfPlanKulstofPct": 10.46
+        },
+        {
+          "plan": "Skagerrak",
+          "andelAfPlanLandbrugPct": 12.98,
+          "andelAfPlanKulstofPct": 5.21
+        }
+      ]
+    },
+    "0851": {
+      "kommuneNavn": "Aalborg",
+      "landbrugHa": 65810.0,
+      "kulstofrigJordHa": 14897.6,
+      "kulstofrigJord6til12Ha": 5432.1,
+      "kulstofrigJordOver12Ha": 9465.5,
+      "ansvarKvaelstofT": 380.37,
+      "ansvarKvaelstofPct": 2.9772,
+      "ansvarLavbundHa": 9117.9,
+      "ansvarLavbundPct": 6.5128,
+      "lavbundPotentialeHa": 14327.8,
+      "ansvarSkovHa": 6467.3,
+      "ansvarSkovPct": 2.5869,
+      "planer": [
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 12.26,
+          "andelAfPlanKulstofPct": 38.88
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 12.36,
+          "andelAfPlanKulstofPct": 15.84
+        }
+      ]
+    },
+    "0860": {
+      "kommuneNavn": "Hjørring",
+      "landbrugHa": 57370.0,
+      "kulstofrigJordHa": 6079.5,
+      "kulstofrigJord6til12Ha": 3853.4,
+      "kulstofrigJordOver12Ha": 2226.1,
+      "ansvarKvaelstofT": 9.52,
+      "ansvarKvaelstofPct": 0.0745,
+      "ansvarLavbundHa": 4048.5,
+      "ansvarLavbundPct": 2.8918,
+      "lavbundPotentialeHa": 6361.8,
+      "ansvarSkovHa": 5637.8,
+      "ansvarSkovPct": 2.2551,
+      "planer": [
+        {
+          "plan": "Kattegat, Aalborg Bugt",
+          "andelAfPlanLandbrugPct": 1.91,
+          "andelAfPlanKulstofPct": 2.4
+        },
+        {
+          "plan": "Nibe Bredning og Langerak",
+          "andelAfPlanLandbrugPct": 0.19,
+          "andelAfPlanKulstofPct": 0.04
+        },
+        {
+          "plan": "Nordlige Kattegat, Ålbæk Bugt",
+          "andelAfPlanLandbrugPct": 19.49,
+          "andelAfPlanKulstofPct": 41.06
+        },
+        {
+          "plan": "Skagerrak",
+          "andelAfPlanLandbrugPct": 67.53,
+          "andelAfPlanKulstofPct": 85.63
+        }
+      ]
+    }
+  }
+}
