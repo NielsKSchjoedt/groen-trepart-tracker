@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { escapeHtml } from '@/lib/html';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -201,8 +202,8 @@ export function ProjectMapOverlay({ coordinates, info, onClose }: ProjectMapOver
 function buildPopupHtml(info: ProjectMapInfo): string {
   const lines: string[] = [];
   lines.push(`<div style="font-family:system-ui,sans-serif;font-size:12px;line-height:1.5">`);
-  lines.push(`<div style="font-weight:600;font-size:13px;margin-bottom:4px">${escHtml(info.name)}</div>`);
-  lines.push(`<div style="color:#666;margin-bottom:6px">${escHtml(info.phaseLabelDa)}${info.measureName ? ' · ' + escHtml(info.measureName) : ''}</div>`);
+  lines.push(`<div style="font-weight:600;font-size:13px;margin-bottom:4px">${escapeHtml(info.name)}</div>`);
+  lines.push(`<div style="color:#666;margin-bottom:6px">${escapeHtml(info.phaseLabelDa)}${info.measureName ? ' · ' + escapeHtml(info.measureName) : ''}</div>`);
 
   if ((info.areaHa ?? 0) > 0) {
     lines.push(`<div>Areal: <strong>${formatDanishNumber(info.areaHa!, 1)} ha</strong></div>`);
@@ -217,12 +218,8 @@ function buildPopupHtml(info: ProjectMapInfo): string {
     lines.push(`<div>Skov: <strong>${formatDanishNumber(info.afforestationHa!, 1)} ha</strong></div>`);
   }
   if (info.schemeName) {
-    lines.push(`<div style="margin-top:4px;color:#666">${escHtml(info.schemeName)}${info.schemeOrg ? ' (' + escHtml(info.schemeOrg) + ')' : ''}</div>`);
+    lines.push(`<div style="margin-top:4px;color:#666">${escapeHtml(info.schemeName)}${info.schemeOrg ? ' (' + escapeHtml(info.schemeOrg) + ')' : ''}</div>`);
   }
   lines.push('</div>');
   return lines.join('');
-}
-
-function escHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }

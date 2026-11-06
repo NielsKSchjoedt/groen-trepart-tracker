@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { escapeHtml } from '@/lib/html';
 import { useSearchParams } from 'react-router-dom';
 import L from 'leaflet';
 import proj4 from 'proj4';
@@ -872,20 +873,20 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
     function getCoastalTooltip(plan: Plan): string {
       switch (activePillar) {
         case 'nitrogen':
-          return `${plan.name}: ${Math.round(plan.nitrogenProgressPct)}% af mål (anlagt og i pipeline)`;
+          return `${escapeHtml(plan.name)}: ${Math.round(plan.nitrogenProgressPct)}% af mål (anlagt og i pipeline)`;
         case 'extraction': {
           const totalHa = phaseTotal(plan.extractionByPhase);
           const pct = plan.extractionPotentialHa > 0
             ? Math.round((totalHa / plan.extractionPotentialHa) * 100)
             : 0;
-          return `${plan.name}: ${formatDanishNumber(Math.round(totalHa))} af ${formatDanishNumber(Math.round(plan.extractionPotentialHa))} ha (${pct}%)`;
+          return `${escapeHtml(plan.name)}: ${formatDanishNumber(Math.round(totalHa))} af ${formatDanishNumber(Math.round(plan.extractionPotentialHa))} ha (${pct}%)`;
         }
         case 'afforestation': {
           const totalHa = phaseTotal(plan.afforestationByPhase);
-          return `${plan.name}: ${formatDanishNumber(Math.round(totalHa))} ha (anlagt og i pipeline)`;
+          return `${escapeHtml(plan.name)}: ${formatDanishNumber(Math.round(totalHa))} ha (anlagt og i pipeline)`;
         }
         case 'nature':
-          return `${plan.name}: ${formatDanishNumber(Math.round(plan.naturePotentialAreaHa))} ha potentiale`;
+          return `${escapeHtml(plan.name)}: ${formatDanishNumber(Math.round(plan.naturePotentialAreaHa))} ha potentiale`;
         default:
           return plan.name;
       }
@@ -900,15 +901,15 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
       const formatted = formatDanishNumber(Math.round(val));
       switch (activePillar) {
         case 'nitrogen':
-          return `${name}: ${formatted} ton N (anlagt og i pipeline)`;
+          return `${escapeHtml(name)}: ${formatted} ton N (anlagt og i pipeline)`;
         case 'extraction':
-          return `${name}: ${formatted} ha (anlagt og i pipeline)`;
+          return `${escapeHtml(name)}: ${formatted} ha (anlagt og i pipeline)`;
         case 'afforestation':
-          return `${name}: ${formatted} ha (anlagt og i pipeline)`;
+          return `${escapeHtml(name)}: ${formatted} ha (anlagt og i pipeline)`;
         case 'nature':
-          return `${name}: ${formatted} ha potentiale`;
+          return `${escapeHtml(name)}: ${formatted} ha potentiale`;
         default:
-          return `${name}: ${formatted}`;
+          return `${escapeHtml(name)}: ${formatted}`;
       }
     }
 
@@ -957,7 +958,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
           if (plan) {
             path.bindTooltip(getCoastalTooltip(plan), { sticky: true, className: 'map-tooltip' });
           } else {
-            path.bindTooltip(`${name || 'Ukendt'}: Ingen separat plan`, { sticky: true, className: 'map-tooltip' });
+            path.bindTooltip(`${escapeHtml(name || 'Ukendt')}: Ingen separat plan`, { sticky: true, className: 'map-tooltip' });
           }
         } else {
           const catchment = findCatchmentForFeature(name, data.catchments, lookup);
@@ -965,7 +966,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
             const val = getNumericField(catchment as unknown as Record<string, unknown>, dataField);
             path.bindTooltip(getCatchmentTooltip(catchment.name, val), { sticky: true, className: 'map-tooltip' });
           } else {
-            path.bindTooltip(name || 'Ukendt', { sticky: true, className: 'map-tooltip' });
+            path.bindTooltip(escapeHtml(name || 'Ukendt'), { sticky: true, className: 'map-tooltip' });
           }
         }
 
@@ -1055,11 +1056,11 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         if (row) {
           const pctLabel = formatDanishNumber(Math.round(row.pctVaerdiBeskyttet * 10) / 10);
           path.bindTooltip(
-            `${navn}: ${formatDanishNumber(Math.round(row.overlapHa))} ha af ${formatDanishNumber(Math.round(row.naturvaerdiHa))} ha kortlagt naturværdi har §3-/Natura 2000-status (${pctLabel} %)`,
+            `${escapeHtml(navn)}: ${formatDanishNumber(Math.round(row.overlapHa))} ha af ${formatDanishNumber(Math.round(row.naturvaerdiHa))} ha kortlagt naturværdi har §3-/Natura 2000-status (${pctLabel} %)`,
             { sticky: true, className: 'map-tooltip' },
           );
         } else {
-          path.bindTooltip(navn, { sticky: true, className: 'map-tooltip' });
+          path.bindTooltip(escapeHtml(navn), { sticky: true, className: 'map-tooltip' });
         }
         path.on({
           mouseover: () => {
@@ -1114,7 +1115,7 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         const ecoStatus = feature.properties?.eco_status || 'Ukendt';
         const path = featureLayer as L.Path;
 
-        path.bindTooltip(`${name}: ${ecoStatus} tilstand`, {
+        path.bindTooltip(`${escapeHtml(name)}: ${escapeHtml(ecoStatus)} tilstand`, {
           sticky: true,
           className: 'map-tooltip',
         });
@@ -1381,9 +1382,9 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
         : Math.round(proj.areaHa).toLocaleString('da-DK');
       const typeLabel = isSkov ? 'Skovrejsning' : 'Lavbundsprojekt';
       const statusLabel = isSkov ? 'Anlagt (frivillig skovrejsning)' : 'Anlagt (lavbundsudtag)';
-      const kommuneStr = proj.kommune ? ` · ${proj.kommune}` : '';
+      const kommuneStr = proj.kommune ? ` · ${escapeHtml(proj.kommune)}` : '';
       marker.bindTooltip(
-        `<strong>Klimaskovfonden ${proj.sagsnummer}</strong><br/>${typeLabel} · ${areaStr} ha${kommuneStr} · ${proj.aargang}<br/><span style="opacity:0.7">${statusLabel}</span>`,
+        `<strong>Klimaskovfonden ${escapeHtml(proj.sagsnummer)}</strong><br/>${typeLabel} · ${areaStr} ha${kommuneStr} · ${escapeHtml(proj.aargang)}<br/><span style="opacity:0.7">${statusLabel}</span>`,
         { sticky: true, className: 'map-tooltip' },
       );
 
@@ -1450,10 +1451,10 @@ export function DenmarkMap({ data }: DenmarkMapProps) {
           : Math.round(area).toLocaleString('da-DK')
         : 'ukendt';
       const statusLabel = isOngoing ? 'Igangværende' : 'Afsluttet';
-      const districtStr = proj.district ? ` · ${proj.district}` : '';
+      const districtStr = proj.district ? ` · ${escapeHtml(proj.district)}` : '';
 
       marker.bindTooltip(
-        `<strong>${proj.name}</strong><br/>Naturstyrelsen${districtStr} · ${areaStr} ha<br/><span style="opacity:0.7">${statusLabel}</span>`,
+        `<strong>${escapeHtml(proj.name)}</strong><br/>Naturstyrelsen${districtStr} · ${areaStr} ha<br/><span style="opacity:0.7">${statusLabel}</span>`,
         { sticky: true, className: 'map-tooltip' },
       );
 

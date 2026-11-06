@@ -1,0 +1,12 @@
+# Cloudflare Pages response headers.
+#
+# The Content-Security-Policy is a second line of defence for the map tooltips,
+# which render names from external sources (MARS, Klimaskovfonden,
+# Naturstyrelsen) as HTML: even if one slips past escapeHtml, no inline or
+# third-party script can run. Runtime needs: own JS/JSON, Google Fonts, and map
+# images (tiles + WMS) from several public HTTPS hosts. frame-ancestors is left
+# open on purpose so the tracker can be embedded.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
