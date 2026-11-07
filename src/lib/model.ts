@@ -91,7 +91,10 @@ export type EffectReframe =
       totalLabel: string;
       /** Stort tal: andel af trepartens bidrag der er anlagt */
       headline: string;
+      /** Kort tekst ved det store tal */
       headlineSub: string;
+      /** Uddybning af hvad tallet dækker (vises under en udfoldelig overskrift) */
+      headlineDetail: string;
       verdictLabel: string;
       caveat: string;
     }
@@ -422,7 +425,8 @@ export function buildEffectDomains(
         remainingPct: co2RemainingOfTotalPct,
         totalLabel: `i alt ~${formatDanishNumber(Math.round(co2RemainingMt))} mio. ton`,
         headline: formatPctHeadline(climateBuildPct),
-        headlineSub: `af skov- og lavbundsarealet er anlagt — to af tiltagene bag aftalens skønnede klimabidrag på ~${formatDanishNumber(TREPART_CO2_EFFECT_MT_2030, 1)} mio. ton i 2030 (der også omfatter bl.a. CO₂e-afgift på husdyr)`,
+        headlineSub: 'af skov- og lavbundsarealet er anlagt',
+        headlineDetail: `Skov og lavbund er to af tiltagene bag aftalens skønnede klimabidrag på ~${formatDanishNumber(TREPART_CO2_EFFECT_MT_2030, 1)} mio. ton i 2030. Bidraget omfatter også bl.a. CO₂e-afgift på husdyr.`,
         verdictLabel: 'Nationalt nær mål',
         caveat:
           'KF26 (høringsversion): 70 %-målet nås med kun ~0,4 mio. ton margen. Landbruget skal nå 55–65 % i 2030; KF26 forventer 52 %. Klimarådet: væsentlig risiko.',
@@ -453,7 +457,7 @@ export function buildEffectDomains(
             : `Samlet økologisk tilstand vurderes for kystvandene (${coastalPlanLabel}) — ikke via kvælstof-ton alene.`,
         valueLabel:
           coastalTotal > 0
-            ? `af ${formatDanishNumber(coastalTotal, 0)} kystvande i god økologisk tilstand (målet er god tilstand overalt senest 22.12.2027)`
+            ? `af ${formatDanishNumber(coastalTotal, 0)} kystvande i god økologisk tilstand`
             : 'kystvande i god økologisk tilstand',
         note:
           'Treparten leverer ton kvælstof — og de ton er ikke nok til at bringe vandområderne i god økologisk tilstand. Fristen kan for enkelte vandområder være forlænget eller målet lempet efter vandplanlægningsloven §§ 10–11; det skal i så fald være begrundet. Kilde: lovbekendtgørelse nr. 126 af 26. januar 2017 § 7 stk. 2 nr. 2 og § 10 stk. 3; BEK nr. 1670 af 8. december 2025.',

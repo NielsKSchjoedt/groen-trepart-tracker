@@ -17,6 +17,14 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.3 — 7. november 2026
+
+**Effektkortene på forsiden er lettere at overskue**
+
+### Forbedring
+- Kortene for klima, vandmiljø og natur på forsiden viste mange lange forklaringer på én gang og var tunge at læse. Nu viser hvert kort kun hovedtallet og bjælken, mens forklaringer, forbehold og kilder ligger under korte overskrifter, man kan klikke på for at folde ud. Indholdet er det samme. (Teknisk: udfoldelige DetailToggle-rækker i EffectRow.)
+---
+
 ## v1.2.2 — 6. november 2026
 
 **Kommunesider og videnscenter-artikler kan nu findes på Google**
