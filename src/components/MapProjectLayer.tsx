@@ -66,7 +66,9 @@ export function MapProjectLayer({
 
     if (!map.getPane(paneName)) {
       const pane = map.createPane(paneName);
-      pane.style.zIndex = '660';
+      // Above markerPane (600) so dots sit over overlay markers, but below
+      // Leaflet's tooltipPane (650) so hover boxes are never hidden by dots.
+      pane.style.zIndex = '640';
     }
 
     const group = L.layerGroup();
