@@ -17,6 +17,14 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.4 — 7. november 2026
+
+**Hover-boksen på kortene skjules ikke længere bag projektprikkerne**
+
+### Fejlrettelse
+- Når man holdt musen over en kommune på kortet, lagde projektprikkerne sig oven på hover-boksen, så teksten var svær eller umulig at læse. Nu ligger hover-boksen altid øverst. (Teknisk: projektlagets z-index sænket fra 660 til 640, under Leaflets tooltip-lag.)
+---
+
 ## v1.2.3 — 7. november 2026
 
 **Effektkortene på forsiden er lettere at overskue**
