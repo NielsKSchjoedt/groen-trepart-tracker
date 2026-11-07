@@ -1,0 +1,118 @@
+name: Clean up previews
+
+# Cloudflare Pages keeps every preview deployment forever: closing or merging a
+# PR does not remove it, and its branch alias URL keeps serving the last build.
+# This workflow deletes preview deployments that are no longer needed:
+#   - pull_request closed: deployments of that PR's branch
+#   - schedule / manual run: deployments of every branch without an open PR
+#     (catches PRs whose close event could not reach the secrets, e.g. forks)
+# Production deployments (branch main) are never touched.
+
+on:
+  pull_request:
+    types: [closed]
+  schedule:
+    - cron: '30 3 * * 1'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Only list what would be deleted'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: preview-cleanup-${{ github.event.pull_request.number || 'sweep' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  cleanup:
+    name: Delete stale preview deployments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete preview deployments
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          # Branch names are attacker-controlled text: pass through env only.
+          RAW_BRANCH: ${{ github.event.pull_request.head.ref }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          PROJECT: groen-trepart-tracker
+        run: |
+          set -euo pipefail
+
+          if [ -z "${CF_API_TOKEN}" ] || [ -z "${CF_ACCOUNT_ID}" ]; then
+            echo "::warning::Cloudflare secrets are not available to this run (fork or Dependabot PR). The weekly sweep will clean up instead."
+            exit 0
+          fi
+
+          API="https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/${PROJECT}/deployments"
+
+          # Same reduction as preview-deploy.yml, so names match what wrangler got.
+          sanitize() { printf '%s' "$1" | tr -c 'A-Za-z0-9._/-' '-'; }
+
+          # Collect all preview deployments first (deleting while paging shifts pages).
+          : > deployments.tsv
+          page=1
+          while :; do
+            resp=$(curl -fsS -H "Authorization: Bearer ${CF_API_TOKEN}" "${API}?env=preview&per_page=25&page=${page}")
+            count=$(jq '.result | length' <<<"$resp")
+            [ "$count" -eq 0 ] && break
+            jq -r '.result[] | [.id, (.deployment_trigger.metadata.branch // ""), .created_on] | @tsv' <<<"$resp" >> deployments.tsv
+            total_pages=$(jq '.result_info.total_pages // 1' <<<"$resp")
+            [ "$page" -ge "$total_pages" ] && break
+            page=$((page + 1))
+          done
+          echo "Found $(wc -l < deployments.tsv | tr -d ' ') preview deployments."
+
+          # Decide which branches are stale.
+          : > keep.txt
+          if [ "$EVENT" = "pull_request" ]; then
+            target=$(sanitize "$RAW_BRANCH")
+            should_delete() { [ "$1" = "$target" ]; }
+            # Another open PR from the same branch name still needs its preview.
+            gh pr list --repo "$REPO" --state open --limit 500 --json headRefName --jq '.[].headRefName' \
+              | while IFS= read -r b; do sanitize "$b"; echo; done > keep.txt
+          else
+            gh pr list --repo "$REPO" --state open --limit 500 --json headRefName --jq '.[].headRefName' \
+              | while IFS= read -r b; do sanitize "$b"; echo; done > keep.txt
+            # Branches pushed directly (beta, preview/**) are kept while the branch exists.
+            gh api "repos/${REPO}/branches" --paginate --jq '.[].name' \
+              | grep -E '^(beta|preview/.+)$' \
+              | while IFS= read -r b; do sanitize "$b"; echo; done >> keep.txt || true
+            should_delete() { true; }
+          fi
+
+          deleted=0
+          failed=0
+          while IFS=$'\t' read -r id branch created; do
+            [ -z "$branch" ] && continue
+            [ "$branch" = "main" ] && continue
+            should_delete "$branch" || continue
+            grep -qxF -- "$branch" keep.txt && continue
+
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "Would delete ${id} (${branch}, ${created})"
+              continue
+            fi
+            if curl -fsS -X DELETE -H "Authorization: Bearer ${CF_API_TOKEN}" "${API}/${id}?force=true" > /dev/null; then
+              echo "Deleted ${id} (${branch}, ${created})"
+              deleted=$((deleted + 1))
+            else
+              echo "::warning::Could not delete ${id} (${branch})"
+              failed=$((failed + 1))
+            fi
+          done < deployments.tsv
+
+          {
+            echo "### Preview cleanup"
+            echo ""
+            echo "Deleted: ${deleted}, failed: ${failed}, dry run: ${DRY_RUN}"
+          } >> "$GITHUB_STEP_SUMMARY"
