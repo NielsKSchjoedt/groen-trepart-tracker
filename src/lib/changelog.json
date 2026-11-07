@@ -1,5 +1,16 @@
 [
   {
+    "version": "v1.2.3",
+    "date": "2026-11-07",
+    "summary": "Effektkortene på forsiden er lettere at overskue",
+    "changes": [
+      {
+        "type": "improvement",
+        "description": "Kortene for klima, vandmiljø og natur på forsiden viste mange lange forklaringer på én gang og var tunge at læse. Nu viser hvert kort kun hovedtallet og bjælken, mens forklaringer, forbehold og kilder ligger under korte overskrifter, man kan klikke på for at folde ud. Indholdet er det samme. (Teknisk: udfoldelige DetailToggle-rækker i EffectRow.)"
+      }
+    ]
+  },
+  {
     "version": "v1.2.2",
     "date": "2026-11-06",
     "summary": "Kommunesider og videnscenter-artikler kan nu findes på Google",

@@ -2,7 +2,8 @@ import type { EffectDomain, EffectDomainId, MeasureId, EffectReframe } from '@/l
 import type { PillarId } from '@/lib/pillars';
 import type { KlimaraadetData } from '@/lib/types';
 import { GOAL_STATUS_META } from '@/lib/projections';
-import { Check, AlertTriangle } from 'lucide-react';
+import { useId, useState, type ReactNode } from 'react';
+import { Check, AlertTriangle, ChevronDown } from 'lucide-react';
 import { KlimaraadetBadge } from './KlimaraadetBadge';
 
 interface EffectRowProps {
@@ -39,13 +40,48 @@ function VerdictPill({ label, color, className = '' }: { label: string; color: s
   );
 }
 
-function CaveatBox({ text }: { text: string }) {
+/** Udfoldelig overskrift med uddybende tekst. Klik/tast åbner kun detaljen — ikke kortet. */
+function DetailToggle({ title, warn = false, children }: { title: string; warn?: boolean; children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
   return (
-    <p className="mt-2 flex items-start gap-1 rounded-md bg-muted/50 px-2 py-1.5 text-[9px] leading-snug text-muted-foreground">
-      <AlertTriangle className="mt-px h-2.5 w-2.5 shrink-0 text-amber-600" strokeWidth={2} aria-hidden="true" />
-      <span>{text}</span>
-    </p>
+    <div className="border-t border-border/70 first:border-t-0">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((o) => !o);
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+        className="flex w-full items-center gap-1.5 rounded py-1.5 text-left text-[10px] font-semibold text-foreground/75 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {warn && (
+          <AlertTriangle className="h-2.5 w-2.5 shrink-0 text-amber-600" strokeWidth={2} aria-hidden="true" />
+        )}
+        <span className="flex-1">{title}</span>
+        <ChevronDown
+          className={`h-3 w-3 shrink-0 text-muted-foreground transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          strokeWidth={2}
+          aria-hidden="true"
+        />
+      </button>
+      {open && (
+        <div
+          id={panelId}
+          className="cursor-text space-y-1.5 pb-2 text-[10px] leading-snug text-muted-foreground"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {children}
+        </div>
+      )}
+    </div>
   );
+}
+
+function DetailList({ children }: { children: ReactNode }) {
+  return <div className="mt-3 border-y border-border/70">{children}</div>;
 }
 
 function LegendDot({ color, label }: { color: string; label: string }) {
@@ -86,7 +122,11 @@ function BaselineGapBody({ r, accent }: { r: Extract<EffectReframe, { kind: 'bas
         </span>
         <span className="text-[10px] leading-tight text-muted-foreground">{r.deltaSub}</span>
       </div>
-      <CaveatBox text={r.caveat} />
+      <DetailList>
+        <DetailToggle title="Forbehold ved tallet" warn>
+          <p>{r.caveat}</p>
+        </DetailToggle>
+      </DetailList>
     </>
   );
 }
@@ -119,7 +159,14 @@ function AttributionBody({ r }: { r: Extract<EffectReframe, { kind: 'attribution
         </span>
         <span className="text-[10px] leading-tight text-muted-foreground">{r.headlineSub}</span>
       </div>
-      <CaveatBox text={r.caveat} />
+      <DetailList>
+        <DetailToggle title="Hvad dækker tallet?">
+          <p>{r.headlineDetail}</p>
+        </DetailToggle>
+        <DetailToggle title="Risiko for at nå 70 %-målet" warn>
+          <p>{r.caveat}</p>
+        </DetailToggle>
+      </DetailList>
     </>
   );
 }
@@ -135,8 +182,7 @@ function EcologicalSnapshotBody({
   const meta = GOAL_STATUS_META[d.status];
   return (
     <>
-      <p className="mb-1.5 text-[11px] leading-snug text-muted-foreground">{d.means}</p>
-      <p className="mb-2 text-[10px] leading-snug text-muted-foreground">{r.how}</p>
+      <p className="mb-2.5 text-[11px] leading-snug text-muted-foreground">{d.means}</p>
       <div className="flex items-baseline gap-1.5">
         <span
           className="text-2xl font-black leading-none tabular-nums"
@@ -146,15 +192,22 @@ function EcologicalSnapshotBody({
         </span>
         <span className="text-[10px] leading-tight text-muted-foreground">{r.valueLabel}</span>
       </div>
-      {r.exclNationalSubstancesLine && (
-        <p className="mt-1.5 text-[10px] leading-snug text-muted-foreground">
-          {r.exclNationalSubstancesLine}
-        </p>
-      )}
-      {r.distributionLine && (
-        <p className="mt-2 text-[9px] leading-snug text-muted-foreground">{r.distributionLine}</p>
-      )}
-      <p className="mt-1.5 text-[9px] italic leading-snug text-muted-foreground">{r.note}</p>
+      <DetailList>
+        <DetailToggle title="Sådan vurderes tilstanden">
+          <p>{r.how}</p>
+          {r.distributionLine && <p>{r.distributionLine}</p>}
+        </DetailToggle>
+        {r.exclNationalSubstancesLine && r.goodCountExclNationalSubstances !== null && (
+          <DetailToggle
+            title={`${r.goodCountExclNationalSubstances.toLocaleString('da-DK')} i god tilstand uden nationalt specifikke stoffer`}
+          >
+            <p>{r.exclNationalSubstancesLine}</p>
+          </DetailToggle>
+        )}
+        <DetailToggle title="Kvælstof alene er ikke nok">
+          <p>{r.note}</p>
+        </DetailToggle>
+      </DetailList>
       <p className="mt-2.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
         {d.goalFooter}
       </p>
