@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-09T14:40:55.392816+00:00",
+  "fetched_at": "2026-11-10T13:56:55.205745+00:00",
   "endpoints": {
     "master-data": {
       "subsidy_schemes": 24,
@@ -12,23 +12,23 @@
       }
     },
     "projects": {
-      "total_count": 1670,
+      "total_count": 1676,
       "by_status": {
-        "6": 733,
-        "10": 798,
+        "6": 738,
+        "10": 799,
         "15": 139
       },
-      "total_nitrogen_reduction_T": 6429.493,
-      "total_extraction_effort_ha": 105631.29
+      "total_nitrogen_reduction_T": 6435.788,
+      "total_extraction_effort_ha": 105648.197
     },
     "plans": {
       "total_plans": 37,
       "nitrogen_goal_T": 12776.437,
-      "nitrogen_achieved_T": 6353.392,
-      "nitrogen_progress_pct": 49.7,
+      "nitrogen_achieved_T": 6366.359,
+      "nitrogen_progress_pct": 49.8,
       "established_projects": 145,
-      "establishment_grant_projects": 810,
-      "preliminary_grant_projects": 759,
+      "establishment_grant_projects": 811,
+      "preliminary_grant_projects": 764,
       "sketch_projects": 5172
     },
     "vos": {
@@ -44,10 +44,18 @@
     "source": "wfs",
     "wfsLayer": "mars:projekter_samlet",
     "wfsUrl": "https://mars.sgav.dk/geo/wfs",
-    "wfsCount": 1670,
-    "count": 1670,
-    "restFallbackCount": 0,
-    "restFallbackIds": [],
-    "wfsUpdated": "2026-11-09T01:00:00.001000+00:00"
+    "wfsCount": 1671,
+    "count": 1676,
+    "restFallbackCount": 6,
+    "restFallbackIds": [
+      "0fc450a4-3d0e-4734-a8f4-99d9cc98e7ee",
+      "284b0850-3116-4c77-8081-166def2afcbe",
+      "2b29d9e0-9b09-464b-8416-26b9891e9b8a",
+      "4f40ac40-59c5-4825-8648-b9570f9e0646",
+      "4f58565b-b461-4a63-9265-379eca3246da",
+      "91a2c0c8-f86d-4117-b928-94e10210a84e",
+      "cd27dae0-d54f-41de-ae4f-7c0b35bf0508"
+    ],
+    "wfsUpdated": "2026-11-10T01:00:00.001000+00:00"
   }
 }
