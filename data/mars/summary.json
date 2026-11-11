@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-10T13:56:55.205745+00:00",
+  "fetched_at": "2026-11-11T13:11:37.007385+00:00",
   "endpoints": {
     "master-data": {
       "subsidy_schemes": 24,
@@ -12,23 +12,23 @@
       }
     },
     "projects": {
-      "total_count": 1676,
+      "total_count": 1693,
       "by_status": {
-        "6": 738,
+        "6": 755,
         "10": 799,
         "15": 139
       },
-      "total_nitrogen_reduction_T": 6435.788,
-      "total_extraction_effort_ha": 105648.197
+      "total_nitrogen_reduction_T": 6655.674,
+      "total_extraction_effort_ha": 106297.663
     },
     "plans": {
       "total_plans": 37,
       "nitrogen_goal_T": 12776.437,
-      "nitrogen_achieved_T": 6366.359,
-      "nitrogen_progress_pct": 49.8,
+      "nitrogen_achieved_T": 6586.245,
+      "nitrogen_progress_pct": 51.5,
       "established_projects": 145,
       "establishment_grant_projects": 811,
-      "preliminary_grant_projects": 764,
+      "preliminary_grant_projects": 782,
       "sketch_projects": 5172
     },
     "vos": {
@@ -44,18 +44,28 @@
     "source": "wfs",
     "wfsLayer": "mars:projekter_samlet",
     "wfsUrl": "https://mars.sgav.dk/geo/wfs",
-    "wfsCount": 1671,
-    "count": 1676,
-    "restFallbackCount": 6,
+    "wfsCount": 1676,
+    "count": 1693,
+    "restFallbackCount": 17,
     "restFallbackIds": [
-      "0fc450a4-3d0e-4734-a8f4-99d9cc98e7ee",
-      "284b0850-3116-4c77-8081-166def2afcbe",
-      "2b29d9e0-9b09-464b-8416-26b9891e9b8a",
-      "4f40ac40-59c5-4825-8648-b9570f9e0646",
-      "4f58565b-b461-4a63-9265-379eca3246da",
-      "91a2c0c8-f86d-4117-b928-94e10210a84e",
-      "cd27dae0-d54f-41de-ae4f-7c0b35bf0508"
+      "0b050a17-9ee5-429d-9a2c-28b904538df1",
+      "141b7e1e-9311-4431-8f93-b80c9f9a06d4",
+      "260b40de-353e-4260-a9bb-7263a8d6d9e9",
+      "58fb9010-8d23-416e-95f7-8d3ffba38dfb",
+      "6283c8d2-feb7-47bf-b0d3-a572f6a75ca7",
+      "786962f3-aca2-4302-a97c-34ae858e5068",
+      "9ecac4ee-6794-440e-9979-9865cd489dce",
+      "a3e76d9a-593b-43b8-a350-6d02424d73a1",
+      "a7b3a827-8cb6-4bb5-874c-5b2001161d42",
+      "a999ddeb-352e-4347-934a-912669a72a94",
+      "b89b8633-17a6-4d01-85e1-d9fc6e10603e",
+      "b9e879f8-8330-4be8-9003-432397d53a4f",
+      "cf9d4ad9-a393-459c-97e8-2ce9f29a0f79",
+      "d34bb493-3a6f-49c1-9901-49ba2ca49896",
+      "dca1241e-d982-4927-b8cc-c7ed74e345dd",
+      "dd687f91-064b-4a4f-abbf-e821ca09aeef",
+      "df8373fd-e41c-41a8-b64d-54db7f564260"
     ],
-    "wfsUpdated": "2026-11-10T01:00:00.001000+00:00"
+    "wfsUpdated": "2026-11-11T01:00:00.005000+00:00"
   }
 }
