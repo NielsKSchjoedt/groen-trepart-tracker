@@ -42,20 +42,32 @@
     {
       "id": "HOMR",
       "text": "hovedområder",
-      "elimination": false,
+      "elimination": true,
       "time": false,
       "values": [
         {
+          "id": "4008",
+          "text": "Natur-, klima- og miljøformål i alt"
+        },
+        {
+          "id": "4009",
+          "text": "Forebyggelse af klimaforandringer i alt"
+        },
+        {
           "id": "4010",
-          "text": "Forebyggelse af klimaforandringer i form af CO2 reducerende formål"
+          "text": "CO2e reducerende indsatser"
         },
         {
           "id": "4015",
-          "text": "Øvrige forbyggende formål af klimaforandringer"
+          "text": "Andre forebyggende indsatser"
         },
         {
           "id": "4020",
-          "text": "Klimatilpasning"
+          "text": "Klimatilpasning i alt"
+        },
+        {
+          "id": "4023",
+          "text": "Miljø-, natur- og ressourceformål i alt"
         },
         {
           "id": "4025",
@@ -71,7 +83,7 @@
         },
         {
           "id": "4040",
-          "text": "Andre formål"
+          "text": "Andre natur-, klima- og miljøformål"
         }
       ]
     },

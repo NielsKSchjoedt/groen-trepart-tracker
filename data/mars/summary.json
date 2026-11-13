@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-12T14:14:42.737928+00:00",
+  "fetched_at": "2026-11-13T13:37:57.596531+00:00",
   "endpoints": {
     "master-data": {
       "subsidy_schemes": 24,
@@ -12,23 +12,23 @@
       }
     },
     "projects": {
-      "total_count": 1699,
+      "total_count": 1706,
       "by_status": {
-        "6": 761,
-        "10": 799,
-        "15": 139
+        "6": 767,
+        "10": 797,
+        "15": 142
       },
-      "total_nitrogen_reduction_T": 6669.116,
-      "total_extraction_effort_ha": 106499.547
+      "total_nitrogen_reduction_T": 6692.44,
+      "total_extraction_effort_ha": 106533.496
     },
     "plans": {
       "total_plans": 37,
       "nitrogen_goal_T": 12776.437,
-      "nitrogen_achieved_T": 6599.687,
-      "nitrogen_progress_pct": 51.7,
-      "established_projects": 145,
-      "establishment_grant_projects": 811,
-      "preliminary_grant_projects": 788,
+      "nitrogen_achieved_T": 6623.011,
+      "nitrogen_progress_pct": 51.8,
+      "established_projects": 148,
+      "establishment_grant_projects": 809,
+      "preliminary_grant_projects": 794,
       "sketch_projects": 5172
     },
     "vos": {
@@ -44,17 +44,17 @@
     "source": "wfs",
     "wfsLayer": "mars:projekter_samlet",
     "wfsUrl": "https://mars.sgav.dk/geo/wfs",
-    "wfsCount": 1693,
-    "count": 1699,
+    "wfsCount": 1703,
+    "count": 1706,
     "restFallbackCount": 6,
     "restFallbackIds": [
-      "148ebc8f-7939-41c5-a5e5-99f758ad6ec7",
-      "237d5dbf-bb08-4213-af67-c0115afc2a2f",
-      "57a612d7-1894-409e-a75f-0b78e7d6c8f9",
-      "8a3f84b6-efad-4a4d-8480-ec062c65071c",
-      "ac7b08f5-b107-4b2a-bc5b-412c572c501b",
-      "da2c73f8-c9e6-400f-a57e-2a4741c2e641"
+      "8c2d59b4-6dd9-45d1-8337-fb7797c6686c",
+      "8d5d43eb-96c3-4fbe-b408-0c837ed52855",
+      "9da0d2f6-e9a5-4017-8b80-e44014de9907",
+      "bc43c330-152d-4ec9-a37a-cb7d3b51460c",
+      "c374f268-d1f8-44e0-b33b-ed05a8db0933",
+      "db807f2d-a5a6-4a72-b1c7-34a9b3ec4e80"
     ],
-    "wfsUpdated": "2026-11-12T01:00:00.130000+00:00"
+    "wfsUpdated": "2026-11-13T01:00:00.134000+00:00"
   }
 }
