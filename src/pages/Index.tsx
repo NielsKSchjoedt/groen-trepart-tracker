@@ -27,20 +27,31 @@ import {
   CO2DATA_CHAPTER,
 } from '@/lib/chapters';
 import { useHashScroll } from '@/lib/permalink/useHashScroll';
-import { ProjectsSection } from '@/components/ProjectsSection';
-import { DataSourceSection } from '@/components/DataSourceSection';
-import { ScenarioBuilderSection } from '@/components/ScenarioBuilderSection';
 import { Footer } from '@/components/Footer';
 import { ScrollPrompt } from '@/components/ScrollPrompt';
 import { StickyNav } from '@/components/StickyNav';
 import { SiteTopBadges } from '@/components/SiteTopBadges';
 import { withNationalEffects } from '@/lib/pillar-projects';
 
-// Heavy components lazy-loaded so they split into separate JS chunks.
-// Leaflet (~300 kB) and Recharts (~200 kB) are the main contributors.
-const CO2Section  = lazy(() => import('@/components/CO2Section').then((m) => ({ default: m.CO2Section })));
-const DenmarkMap  = lazy(() => import('@/components/DenmarkMap').then((m) => ({ default: m.DenmarkMap })));
-const DataTable   = lazy(() => import('@/components/DataTable').then((m) => ({ default: m.DataTable })));
+// Everything below the hero is lazy-loaded so it splits into separate JS
+// chunks. The front page only needs the hero to paint; Leaflet + proj4 (map),
+// Recharts (charts) and the delmål chapters load afterwards. Each loader is a
+// named function so we can start the downloads early (see prefetch below).
+const loadProjectsSection = () => import('@/components/ProjectsSection');
+const loadScenarioBuilder = () => import('@/components/ScenarioBuilderSection');
+const loadDataSource = () => import('@/components/DataSourceSection');
+const loadDenmarkMap = () => import('@/components/DenmarkMap');
+const loadDataTable = () => import('@/components/DataTable');
+const loadCO2Section = () => import('@/components/CO2Section');
+
+const CO2Section = lazy(() => loadCO2Section().then((m) => ({ default: m.CO2Section })));
+const DenmarkMap = lazy(() => loadDenmarkMap().then((m) => ({ default: m.DenmarkMap })));
+const DataTable = lazy(() => loadDataTable().then((m) => ({ default: m.DataTable })));
+const ProjectsSection = lazy(() => loadProjectsSection().then((m) => ({ default: m.ProjectsSection })));
+const ScenarioBuilderSection = lazy(() =>
+  loadScenarioBuilder().then((m) => ({ default: m.ScenarioBuilderSection })),
+);
+const DataSourceSection = lazy(() => loadDataSource().then((m) => ({ default: m.DataSourceSection })));
 
 /** Per-pillar meta descriptions for Google and social sharing. */
 const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
@@ -55,6 +66,14 @@ const PILLAR_DESCRIPTIONS: Record<PillarId, string> = {
   nature:
     'Kort og status over beskyttet natur i Danmark. Se fremskridt mod 20 %-målet for beskyttet natur inden 2030.',
 };
+
+/**
+ * Placeholder shown while a lazy section's JS chunk downloads. Sized close to
+ * the real section so the page below doesn't jump when it arrives.
+ */
+function SectionFallback({ className = '' }: { className?: string }) {
+  return <div aria-hidden="true" className={`mx-4 my-6 animate-pulse rounded-2xl bg-muted/30 ${className}`} />;
+}
 
 const OVERVIEW_DESCRIPTION =
   'Kort og status over implementeringen af Danmarks Grønne Trepart-aftale — kvælstofreduktion, lavbundsarealer, skovrejsning, CO₂ og natur.';
@@ -112,6 +131,27 @@ const Index = () => {
     path: activePillar ? `/${pillarToSlug(activePillar)}` : '/',
   });
 
+  // Start downloading the delmål chapters as soon as a delmål is chosen, in
+  // parallel with the project data, so they arrive together. Hash links such
+  // as /kvælstof#kort wait for these chunks (see useHashScroll below): if they
+  // scrolled first, sections loading in above the target would push it away.
+  const [chaptersLoadedFor, setChaptersLoadedFor] = useState<PillarId | null>(null);
+  useEffect(() => {
+    if (!activePillar) return;
+    let cancelled = false;
+    const chunks: Promise<unknown>[] = [loadProjectsSection(), loadScenarioBuilder(), loadDataSource()];
+    if (activePillar === 'co2') chunks.push(loadCO2Section());
+    else chunks.push(loadDenmarkMap(), loadDataTable());
+    // A failed chunk still lets the hash scroll run; React's error handling
+    // deals with the section itself.
+    Promise.allSettled(chunks).then(() => {
+      if (!cancelled) setChaptersLoadedFor(activePillar);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [activePillar]);
+
   useEffect(() => {
     loadDashboardData().then(setData);
     loadKlimaskovfondenProjects().then(setKsfProjects);
@@ -144,7 +184,7 @@ const Index = () => {
 
   useHashScroll({
     chapterIds,
-    ready: !!data,
+    ready: !!data && (!activePillar || chaptersLoadedFor === activePillar),
   });
 
   /**
@@ -193,7 +233,7 @@ const Index = () => {
       >
         <StickyNav sentinelRef={heroSentinelRef} />
         <SiteTopBadges fetchedAt={data.fetchedAt} />
-        <div className="max-w-6xl mx-auto">
+        <main className="max-w-6xl mx-auto">
           <HeroSection data={data} heroSentinelRef={heroSentinelRef} />
           <ScrollPrompt />
 
@@ -216,13 +256,15 @@ const Index = () => {
                   accentColor={config.accentColor}
                   intro="De udfordringer aftalen skal løse, bliver til konkrete projekter — vådområder, skovrejsning og lavbundsudtag — der styres gennem en fast proces. Her kan du følge hvor mange projekter der er, hvor store de er, og hvilken fase de er nået til: fra første skitse til færdigt anlæg."
                 >
-                  <ProjectsSection
-                    data={data}
-                    activePillar={activePillar as Exclude<PillarId, 'co2'>}
-                    pillarProjects={pillarProjects}
-                    pillarKsfProjects={pillarKsfProjects}
-                    pillarNstProjects={pillarNstProjects}
-                  />
+                  <Suspense fallback={<SectionFallback className="min-h-[1200px]" />}>
+                    <ProjectsSection
+                      data={data}
+                      activePillar={activePillar as Exclude<PillarId, 'co2'>}
+                      pillarProjects={pillarProjects}
+                      pillarKsfProjects={pillarKsfProjects}
+                      pillarNstProjects={pillarNstProjects}
+                    />
+                  </Suspense>
                 </ChapterSection>
               )}
 
@@ -239,7 +281,9 @@ const Index = () => {
                       <CO2Section />
                     </Suspense>
                   </section>
-                  <ScenarioBuilderSection data={data} />
+                  <Suspense fallback={<SectionFallback className="min-h-[900px]" />}>
+                    <ScenarioBuilderSection data={data} />
+                  </Suspense>
                 </ChapterSection>
               )}
 
@@ -273,14 +317,18 @@ const Index = () => {
                   question={FREMSKRIVNING_CHAPTER.question}
                   accentColor={config.accentColor}
                 >
-                  <ScenarioBuilderSection data={data} />
+                  <Suspense fallback={<SectionFallback className="min-h-[900px]" />}>
+                    <ScenarioBuilderSection data={data} />
+                  </Suspense>
                 </ChapterSection>
               )}
 
-              <DataSourceSection fetchedAt={data.fetchedAt} />
+              <Suspense fallback={<SectionFallback className="min-h-[600px]" />}>
+                <DataSourceSection fetchedAt={data.fetchedAt} />
+              </Suspense>
             </>
           )}
-        </div>
+        </main>
         <Footer fetchedAt={data.fetchedAt} />
       </div>
     </PillarContext.Provider>

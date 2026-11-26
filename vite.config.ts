@@ -13,6 +13,12 @@ export default defineConfig({
     },
   },
   plugins: [react(), tailwindcss()],
+  build: {
+    // Public source maps: lets browsers and PageSpeed map minified code back to
+    // source. The repo is open source, so nothing is exposed that isn't
+    // already on GitHub. Maps are only fetched when DevTools is open.
+    sourcemap: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

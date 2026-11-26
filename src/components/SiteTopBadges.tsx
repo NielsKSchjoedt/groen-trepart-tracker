@@ -1,12 +1,8 @@
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, X } from 'lucide-react';
-import {
-  CHANGELOG_PATH,
-  CURRENT_VERSION,
-  changelog,
-  formatChangelogDate,
-} from '@/lib/changelog';
+import { CHANGELOG_PATH, CURRENT_VERSION, LATEST_RELEASE } from '@/lib/changelog-latest';
+import { formatChangelogDate } from '@/lib/format-changelog-date';
 import { LastUpdatedBadge } from '@/components/LastUpdatedBadge';
 
 const SEEN_VERSION_KEY = 'seen-site-version';
@@ -28,7 +24,7 @@ function VersionBadge() {
 }
 
 function NewVersionNotice() {
-  const latest = changelog[0];
+  const latest = LATEST_RELEASE.date ? LATEST_RELEASE : null;
   const [visible, setVisible] = useState(() => {
     if (!latest) return false;
     try {

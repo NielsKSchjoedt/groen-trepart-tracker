@@ -1,13 +1,18 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import type { FeatureCollection, Geometry } from 'geojson';
 import { ChapterSection } from '@/components/ChapterSection';
-import { KommuneMapSection } from '@/components/KommuneMapSection';
 import { loadKommunerGeoJSON } from '@/lib/data';
 import { GEOGRAFI_CHAPTER } from '@/lib/chapters';
 import { DEFAULT_KOMMUNE_MAP_OVERLAYS } from '@/lib/kommune-map-overlays';
 import { buildFilteredKommuner, DEFAULT_PHASES } from '@/lib/kommune-metrics';
 import type { PillarId } from '@/lib/pillars';
 import type { DashboardData } from '@/lib/types';
+
+// The map pulls in Leaflet + proj4 (~280 kB). It sits below the hero, so load
+// it after the first paint instead of making the hero wait for it.
+const KommuneMapSection = lazy(() =>
+  import('@/components/KommuneMapSection').then((m) => ({ default: m.KommuneMapSection })),
+);
 
 interface DelmaalVaelgKortProps {
   data: DashboardData;
@@ -53,6 +58,9 @@ export function DelmaalVaelgKort({ data, onSelect }: DelmaalVaelgKortProps) {
       className="pb-2"
     >
       <div className="mx-auto max-w-6xl px-4">
+        <Suspense
+          fallback={<div aria-hidden="true" className="h-[700px] animate-pulse rounded-2xl bg-muted/30" />}
+        >
         <KommuneMapSection
           activeMetric={null}
           kommunerGeo={kommunerGeo}
@@ -82,6 +90,7 @@ export function DelmaalVaelgKort({ data, onSelect }: DelmaalVaelgKortProps) {
           readOnly
           inlineMapHeight="580px"
         />
+        </Suspense>
       </div>
     </ChapterSection>
   );

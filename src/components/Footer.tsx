@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Leaf, Heart, BookOpen } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
-import { CURRENT_VERSION, CHANGELOG_PATH } from '@/lib/changelog';
+import { CURRENT_VERSION, CHANGELOG_PATH } from '@/lib/changelog-latest';
 
 const REPO_URL = 'https://github.com/NielsKSchjoedt/groen-trepart-tracker';
 
