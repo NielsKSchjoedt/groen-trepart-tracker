@@ -277,13 +277,19 @@ export function EffectRow({
             tabIndex={isDelmaal ? 0 : undefined}
             aria-label={isDelmaal ? `${d.label} — se detaljer` : `${d.label} — effekt, ikke et delmål`}
             aria-pressed={isDelmaal ? isSelected : undefined}
-            className={`flex flex-col overflow-hidden rounded-xl border px-4 py-4 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-              isDelmaal ? 'cursor-pointer hover:shadow-md' : 'cursor-default border-dashed opacity-75 saturate-[0.45]'
+            className={`flex flex-col overflow-hidden rounded-2xl border px-4 py-4 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transform-none ${
+              isDelmaal
+                ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-lg'
+                : 'cursor-default border-dashed opacity-75 saturate-[0.45]'
             } ${
-              isSelected || isFocused ? 'shadow-md' : 'border-border shadow-sm'
+              isSelected || isFocused
+                ? 'shadow-lg'
+                : isDelmaal
+                  ? 'border-border/70 shadow-md'
+                  : 'border-border shadow-none'
             } ${dimmed ? 'opacity-35' : isDelmaal ? 'opacity-100' : 'opacity-75'}`}
             style={{
-              backgroundColor: isDelmaal ? 'hsl(210 25% 97%)' : 'hsl(210 10% 93%)',
+              backgroundColor: isDelmaal ? 'hsl(var(--card))' : 'hsl(210 10% 95%)',
               ...(isSelected
                 ? { borderColor: d.accent, borderWidth: 2, boxShadow: `0 0 0 3px ${d.accent}33` }
                 : isFocused

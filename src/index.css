@@ -6,14 +6,14 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Warm cream/nature palette */
-  --background: 40 33% 97%;
+  /* White canvas; cards are white surfaces lifted by soft shadows (see --shadow-* below). */
+  --background: 0 0% 100%;
   --foreground: 150 20% 18%;
 
-  --card: 40 30% 95%;
+  --card: 0 0% 100%;
   --card-foreground: 150 20% 18%;
 
-  --popover: 40 33% 97%;
+  --popover: 0 0% 100%;
   --popover-foreground: 150 20% 18%;
 
   --primary: 152 44% 38%;
@@ -58,6 +58,15 @@
 }
 
 @theme inline {
+  /* Elevation scale — soft, layered, green-tinted shadows so cards read as
+     surfaces lifted off the page instead of flat outlined boxes. Overrides
+     Tailwind's defaults, so every shadow-sm/md/lg in the app picks it up. */
+  --shadow-xs: 0 1px 2px hsl(150 20% 18% / 0.05);
+  --shadow-sm: 0 1px 2px hsl(150 20% 18% / 0.05), 0 8px 24px -14px hsl(150 20% 18% / 0.22);
+  --shadow-md: 0 1px 3px hsl(150 20% 18% / 0.06), 0 14px 32px -14px hsl(150 20% 18% / 0.28);
+  --shadow-lg: 0 2px 6px hsl(150 20% 18% / 0.06), 0 22px 44px -18px hsl(150 20% 18% / 0.32);
+  --shadow-xl: 0 4px 10px hsl(150 20% 18% / 0.07), 0 32px 64px -20px hsl(150 20% 18% / 0.36);
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 

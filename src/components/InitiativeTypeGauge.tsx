@@ -1,3 +1,4 @@
+import { SURFACE_CARD } from '@/lib/surface';
 import { useMemo, useState } from 'react';
 import { Users } from 'lucide-react';
 import { formatDanishNumber } from '@/lib/format';
@@ -128,7 +129,8 @@ export function InitiativeTypeGauge({ data, mode = 'area' }: InitiativeTypeGauge
   if (!activePillar || isCo2) return null;
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-4 pt-4 pb-10 relative overflow-hidden">
+    <section className="w-full max-w-5xl mx-auto px-4 pt-4 pb-10 relative">
+      <div className={`${SURFACE_CARD} relative overflow-hidden p-5 sm:p-7`}>
       <div className="flex items-center gap-2.5 mb-2">
         <Users className="w-5 h-5 text-primary" />
         <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
@@ -245,6 +247,7 @@ export function InitiativeTypeGauge({ data, mode = 'area' }: InitiativeTypeGauge
           </p>
         </>
       )}
+      </div>
     </section>
   );
 }
