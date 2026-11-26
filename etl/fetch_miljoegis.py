@@ -55,6 +55,25 @@ LARGE_LAYERS = [
 SAMPLE_SIZE = 100
 
 
+def _feature_sort_key(feature: dict) -> tuple:
+    """Stable order for WFS features: by numeric suffix of the id ("layer.176"), then the id."""
+    fid = str(feature.get("id", ""))
+    suffix = fid.rsplit(".", 1)[-1]
+    return (0, int(suffix), fid) if suffix.isdigit() else (1, 0, fid)
+
+
+def sort_features(geojson: dict) -> dict:
+    """Sort a FeatureCollection's features in place by id and return it.
+
+    The WFS server does not guarantee feature order, so without this a reordering
+    upstream rewrites the whole file and produces a huge, noisy git diff.
+    """
+    features = geojson.get("features")
+    if isinstance(features, list):
+        features.sort(key=_feature_sort_key)
+    return geojson
+
+
 def wfs_get_feature(layer: str, max_features: int | None = None, start_index: int = 0) -> bytes | None:
     """Fetch a WFS GetFeature request and return raw bytes."""
     params = {
@@ -146,7 +165,7 @@ def main():
         raw = wfs_get_feature(layer)
         if raw:
             try:
-                geojson = json.loads(raw)
+                geojson = sort_features(json.loads(raw))
                 features = geojson.get("features", [])
                 feature_count = len(features)
 
@@ -189,7 +208,7 @@ def main():
         raw = wfs_get_feature(layer, max_features=SAMPLE_SIZE)
         if raw:
             try:
-                geojson = json.loads(raw)
+                geojson = sort_features(json.loads(raw))
                 features = geojson.get("features", [])
 
                 filepath = DATA_DIR / f"{layer}_sample.geojson"
