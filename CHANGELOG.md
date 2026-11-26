@@ -17,6 +17,16 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.6 — 26. november 2026
+
+**Lysere og mere overskuelig side: hvid baggrund, kort med dybde og en tydeligere «Kort sagt»-boks**
+
+### Forbedring
+- Forsiden havde en grå baggrund, og bokse og kort lå fladt oven på den, så siden virkede tung og avisagtig. Nu er baggrunden hvid, og kort, grafer og paneler i hele trackeren står som lyse flader med en blød skygge, så det er lettere at se, hvad der hører sammen. Kortene for virkemidler og effekter løfter sig let, når man holder musen over dem, for at vise at de kan klikkes. (Teknisk: hvid --background/--card, nyt skyggeniveau i index.css, SURFACE_CARD til projekt-tragt og grafer.)
+- «Kort sagt»-boksen på forsiden var en lang tekst, hvor man skulle læse sig frem til, hvordan det enkelte virkemiddel og den enkelte effekt står. Nu viser boksen konklusionen øverst og derunder to overskuelige lister: «Det vi vil gøre» med status for skovrejsning, lavbund og kvælstof-vådområder, og «Det vi vil opnå» med klima, natur og vandmiljø, hver med en farvet statusprik. Tallene og vurderingerne er de samme. (Teknisk: buildHeroConclusion returnerer statusrækker.)
+- Nedtællingen til næste frist vises nu i små felter, så tallene er lettere at aflæse.
+---
+
 ## v1.2.5 — 26. november 2026
 
 **Tallene på siden blev ikke opdateret fra 19. til 26. november**

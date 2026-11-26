@@ -65,12 +65,12 @@ export function CountdownTimer({ deadline, title = 'Tid til deadline' }: Countdo
           <div key={tu.label} className="flex items-center gap-2">
             <div className="flex flex-col items-center">
               <span
-                className="text-2xl md:text-3xl font-bold tabular-nums text-foreground leading-none"
+                className="min-w-[3.25rem] rounded-xl border border-border/70 bg-card px-2.5 py-2 text-center text-2xl md:text-3xl font-bold tabular-nums text-foreground leading-none shadow-sm"
                 style={{ fontFamily: "'Fraunces', serif" }}
               >
                 {tu.label === 'dage' ? formatDanishNumber(tu.value) : pad(tu.value)}
               </span>
-              <span className="text-[10px] text-muted-foreground mt-1">{tu.label}</span>
+              <span className="text-[10px] text-muted-foreground mt-1.5">{tu.label}</span>
             </div>
             {i < timeUnits.length - 1 && (
               <span className="text-lg text-muted-foreground/40 font-light -mt-3">:</span>

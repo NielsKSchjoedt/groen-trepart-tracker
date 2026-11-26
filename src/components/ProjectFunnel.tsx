@@ -1,3 +1,4 @@
+import { SURFACE_CARD } from '@/lib/surface';
 import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import { formatDanishNumber } from '@/lib/format';
 import type {
@@ -529,6 +530,7 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
 
   return (
     <section id="pipeline-status" className="w-full max-w-5xl mx-auto px-4 pt-4 pb-10 relative">
+      <div className={`${SURFACE_CARD} p-5 sm:p-7`}>
       <div className="flex items-center gap-2.5 mb-2">
         <GitPullRequestArrow className="w-5 h-5 text-primary" />
         <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>
@@ -854,6 +856,7 @@ export function ProjectFunnel({ data, mode = 'area' }: ProjectFunnelProps) {
           onClose={() => setOverlayData(null)}
         />
       )}
+      </div>
     </section>
   );
 }

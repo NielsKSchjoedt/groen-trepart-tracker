@@ -1,3 +1,4 @@
+import { SURFACE_CARD } from '@/lib/surface';
 import { Hash, Ruler } from 'lucide-react';
 import type { DashboardData, ProjectDetail, KlimaskovfondenProject, NaturstyrelsenSkovProject } from '@/lib/types';
 import type { PillarId } from '@/lib/pillars';
@@ -71,7 +72,8 @@ export function ProjectsSection({
 
       <ProjectFunnel data={data} mode={mode} />
 
-      <section className="w-full max-w-4xl mx-auto px-4 pb-2">
+      <section className="w-full max-w-5xl mx-auto px-4 pb-6">
+        <div className={`${SURFACE_CARD} p-5 sm:p-7`}>
         <ProjectActivityChart
           projectDetails={pillarProjects}
           ksfProjects={pillarKsfProjects}
@@ -86,6 +88,7 @@ export function ProjectsSection({
           unit={cfg.unit}
           decimals={cfg.decimals}
         />
+        </div>
       </section>
 
       <InitiativeTypeGauge data={data} mode={mode} />

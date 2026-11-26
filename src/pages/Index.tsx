@@ -170,7 +170,7 @@ const Index = () => {
     );
   }
 
-  const backgroundTint = pillarSelected ? config.backgroundTint : 'hsl(0 0% 96%)';
+  const backgroundTint = pillarSelected ? config.backgroundTint : 'hsl(0 0% 100%)';
 
   return (
     <PillarContext.Provider value={pillarContextValue}>

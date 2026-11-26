@@ -59,8 +59,8 @@ export function IndsatsRow({
             tabIndex={0}
             aria-label={`${m.label} — se detaljer`}
             aria-pressed={isSelected}
-            className={`flex cursor-pointer flex-col overflow-hidden rounded-xl border bg-card px-4 py-3 text-left transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-              isSelected || isFocused ? 'shadow-md' : 'border-border shadow-sm'
+            className={`flex cursor-pointer flex-col overflow-hidden rounded-2xl border bg-card px-4 py-3 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transform-none ${
+              isSelected || isFocused ? 'shadow-lg' : 'border-border/70 shadow-md'
             } ${dimmed ? 'opacity-35' : 'opacity-100'}`}
             style={cardStyle}
             onMouseEnter={() => onHover(m.id)}

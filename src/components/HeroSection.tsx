@@ -14,7 +14,7 @@ import {
   type MeasureId,
   type EffectDomainId,
 } from '@/lib/model';
-import { buildHeroConclusion } from '@/lib/hero-conclusion';
+import { buildHeroConclusion, type ConclusionStatusItem } from '@/lib/hero-conclusion';
 import { DELMAAL_CHAPTER } from '@/lib/chapters';
 import type { DashboardData, CO2EmissionsData, CoastalWaterStatusData } from '@/lib/types';
 import { Leaf, TreePine, Hand } from 'lucide-react';
@@ -185,53 +185,65 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
       </div>
 
       {/* "Kort sagt" — dynamisk hovedkonklusion, genereret fra live-tallene. */}
-      <div
-        className="mx-auto mb-10 max-w-xl rounded-2xl bg-muted/40 px-5 py-4 text-left"
-        style={{ borderLeft: `3px solid ${conclusion.color}` }}
+      <section
+        aria-label="Kort sagt"
+        className="relative z-10 mx-auto mb-12 max-w-2xl overflow-hidden rounded-2xl border border-border/70 bg-card text-left shadow-md"
       >
-        <p
-          className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
-          style={{ color: conclusion.color }}
-        >
-          Kort sagt
-        </p>
-        <p
-          className="mb-2.5 text-xl leading-snug text-foreground"
-          style={{ fontFamily: "'Fraunces', serif" }}
-        >
-          {conclusion.verdict}
-        </p>
-        <div className="space-y-2 text-sm leading-relaxed text-muted-foreground">
-          {conclusion.indsatsParagraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-          <ul className="list-disc space-y-1 pl-4 marker:text-muted-foreground/60">
-            {conclusion.effectItems.map((item) => (
-              <li key={item}>{item}</li>
+        <div aria-hidden className="h-1" style={{ backgroundColor: conclusion.color }} />
+        <div className="px-5 py-5 sm:px-7 sm:py-6">
+          <div className="flex items-start justify-between gap-3">
+            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 rounded-full"
+                style={{ backgroundColor: conclusion.color }}
+              />
+              Kort sagt
+            </p>
+            <InfoTooltip
+              title="Hvordan er konklusionen regnet?"
+              content={
+                <>
+                  <p>
+                    Baseret på faktisk implementering (anlagt) og lineær fremskrivning til hvert
+                    virkemiddels deadline. Skovrejsning, lavbundsarealer og kvælstof-vådområder
+                    vurderes hver for sig — ikke som ét gennemsnit på tværs af CO₂ og beskyttet
+                    natur.
+                  </p>
+                  <p>
+                    Effekterne (klima, natur, vandmiljø) er forsinkede og delvist drevet udefra og
+                    vejes aldrig sammen til ét tal — de beskrives hver for sig.
+                  </p>
+                </>
+              }
+              articleLink="saadan-maaler-vi"
+              methodLink="#metode"
+              size={14}
+              className="-mr-1 -mt-0.5 shrink-0"
+            />
+          </div>
+          <p
+            className="mt-2 text-2xl leading-tight text-foreground sm:text-[28px]"
+            style={{ fontFamily: "'Fraunces', serif" }}
+          >
+            {conclusion.verdict}
+          </p>
+          <div className="mt-3 space-y-1.5 text-[15px] leading-relaxed text-foreground/75">
+            {conclusion.summary.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
             ))}
-          </ul>
-          <InfoTooltip
-            title="Hvordan er konklusionen regnet?"
-            content={
-              <>
-                <p>
-                  Baseret på faktisk implementering (anlagt) og lineær fremskrivning til hvert
-                  virkemiddels deadline. Skovrejsning, lavbundsarealer og kvælstof-vådområder
-                  vurderes hver for sig — ikke som ét gennemsnit på tværs af CO₂ og beskyttet natur.
-                </p>
-                <p>
-                  Effekterne (klima, natur, vandmiljø) er forsinkede og delvist drevet udefra og
-                  vejes aldrig sammen til ét tal — de beskrives hver for sig.
-                </p>
-              </>
-            }
-            articleLink="saadan-maaler-vi"
-            methodLink="#metode"
-            size={12}
-            className="ml-1 align-middle"
-          />
+          </div>
+
+          <div className="mt-5 grid gap-6 border-t border-border/60 pt-5 sm:grid-cols-2 sm:gap-8">
+            <ConclusionStatusList
+              title="Det vi vil gøre"
+              items={conclusion.measureItems}
+              emphasiseText
+            />
+            <ConclusionStatusList title="Det vi vil opnå" items={conclusion.effectItems} />
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Flow: virkemidler → effekter. This is now the canonical "delmaal" chapter
           — each card drills into its official pillar and carries the Klimarådet badge. */}
@@ -370,5 +382,51 @@ export function HeroSection({ data, heroSentinelRef }: HeroSectionProps) {
         );
       })()}
     </section>
+  );
+}
+
+/**
+ * One column in the "Kort sagt" box: a labelled list of virkemidler or effekter,
+ * each with a status dot. `emphasiseText` colours the (short) status text itself.
+ */
+function ConclusionStatusList({
+  title,
+  items,
+  emphasiseText = false,
+}: {
+  title: string;
+  items: ConclusionStatusItem[];
+  emphasiseText?: boolean;
+}) {
+  return (
+    <div>
+      <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary">
+        {title}
+      </p>
+      {items.length === 0 ? (
+        <p className="text-sm text-muted-foreground animate-pulse">Indlæses…</p>
+      ) : (
+        <ul className="space-y-2.5">
+          {items.map((item) => (
+            <li key={item.id} className="flex gap-2.5">
+              <span
+                aria-hidden
+                className="mt-[7px] h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: item.color }}
+              />
+              <div className="min-w-0 text-sm leading-snug">
+                <p className="font-semibold text-foreground">{item.label}</p>
+                <p
+                  className={emphasiseText ? 'font-medium' : 'text-muted-foreground'}
+                  style={emphasiseText ? { color: item.color } : undefined}
+                >
+                  {item.text}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
