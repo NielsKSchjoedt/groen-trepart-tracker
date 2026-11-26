@@ -72,6 +72,10 @@ export function DelmaalVaelgKort({ data, onSelect }: DelmaalVaelgKortProps) {
           onMetricChange={(metric) => onSelect(metric as PillarId)}
           metricPickHint="Projekter, kort og fremskrivninger vises, når du har valgt et delmål."
           dashboard={data}
+          // Projects appear once a delmål is chosen (see metricPickHint). The
+          // overview data has no project rows anyway, so skip the ~4 MB
+          // geometry download.
+          showProjectLayer={false}
           selectedPhases={DEFAULT_PHASES}
           mapOverlays={DEFAULT_KOMMUNE_MAP_OVERLAYS}
           onMapOverlaysChange={() => {}}

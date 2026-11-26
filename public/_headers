@@ -10,3 +10,13 @@
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Vite build output: filenames carry a content hash, so a URL never changes
+# content. Safe to cache for a year.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Data files keep their names across daily ETL refreshes. Serve from cache for
+# 5 minutes, then revalidate in the background so repeat visits stay fast.
+/data/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
