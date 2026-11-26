@@ -17,6 +17,17 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.5 — 26. november 2026
+
+**Tallene på siden blev ikke opdateret fra 19. til 26. november**
+
+### Fejlrettelse
+- Fra 19. til 26. november viste trackeren data fra 18. november, selvom der blev hentet nye data hver dag. Den daglige opdatering blev standset undervejs, inden de nye tal nåede ud på siden. Opdateringen er rettet, og de nyeste data er lagt ud. (Teknisk: GitHub svarede med fejl 502, når PR'en med de nye data blev oprettet, selvom PR'en blev oprettet; trinnet tjekker nu om PR'en findes og prøver igen.)
+
+### Forbedring
+- Når Miljøstyrelsens kortserver leverer projektforslagene i en anden rækkefølge end dagen før, bliver det ikke længere talt som en ændring. Det holder de daglige opdateringer små, så de ikke går i stå. (Teknisk: features i MiljøGIS-lagene sorteres efter id i fetch_miljoegis.py.)
+---
+
 ## v1.2.4 — 7. november 2026
 
 **Hover-boksen på kortene skjules ikke længere bag projektprikkerne**

@@ -260,12 +260,33 @@ jobs:
       - name: Create PR
         env:
           GH_TOKEN: ${{ secrets.AUTO_APPROVE_PAT }}
+        # GitHub can answer `gh pr create` with HTTP 502 on a large data diff
+        # even though the PR was created (19–25 Nov 2026 this stopped every
+        # run before approve/merge/deploy). So check for the PR before each
+        # attempt, retry, and only fail if no PR exists in the end.
         run: |
-          gh pr create \
-            --title "data: update tracker data ($DATE)" \
-            --body "Automated daily data refresh from GitHub Actions (run #${{ github.run_number }})." \
-            --base main \
-            --head "$BRANCH"
+          pr_exists() { gh pr view "$BRANCH" --json number --jq .number >/dev/null 2>&1; }
+          for attempt in 1 2 3 4; do
+            if pr_exists; then
+              echo "PR for $BRANCH exists"
+              exit 0
+            fi
+            if gh pr create \
+              --title "data: update tracker data ($DATE)" \
+              --body "Automated daily data refresh from GitHub Actions (run #${{ github.run_number }})." \
+              --base main \
+              --head "$BRANCH"; then
+              exit 0
+            fi
+            echo "::warning::gh pr create failed (attempt $attempt); checking whether the PR was created anyway"
+            sleep $((attempt * 15))
+          done
+          if pr_exists; then
+            echo "PR for $BRANCH exists"
+            exit 0
+          fi
+          echo "::error::Could not create a data PR for $BRANCH"
+          exit 1
 
       # Approve with GITHUB_TOKEN (github-actions[bot]) — this is a different
       # identity from the PR author (the PAT owner), so it counts as a valid
