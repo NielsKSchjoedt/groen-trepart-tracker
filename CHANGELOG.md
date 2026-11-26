@@ -17,6 +17,15 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.8 — 26. november 2026
+
+**Forsiden vises hurtigere på mobil, fordi kort og grafer først hentes, når de skal bruges**
+
+### Forbedring
+- Før forsiden kunne vise noget som helst, skulle telefonen hente og køre al koden til kort, grafer og alle delmålenes afsnit, også dem man ikke havde åbnet endnu. Nu hentes kun det, der skal til for at vise toppen af siden. Kortet, graferne og afsnittene om projekter, fremskrivning og datakilder hentes lige bagefter eller først, når man vælger et delmål. Den kode, forsiden venter på, er dermed under det halve af før. Indholdet og tallene er de samme. (Teknisk: React.lazy for ProjectsSection, ScenarioBuilderSection, DataSourceSection og kortet i DelmaalVaelgKort; versionsmærket læser ikke længere hele changelog.json. Kritisk JS for / gik fra ca. 1.378 kB til 556 kB, brotli fra 370 kB til 159 kB.)
+- Skærmlæsere kan nu springe direkte til sidens hovedindhold, fordi forsiden har fået et markeret hovedområde. Fejlmeddelelser i browseren peger nu på den rigtige kodelinje, hvilket gør fejl lettere at finde og rette. (Teknisk: <main>-landmark i Index og build.sourcemap: true.)
+---
+
 ## v1.2.7 — 26. november 2026
 
 **Forsiden indlæses hurtigere på mobil, og den skjulte topmenu forstyrrer ikke længere tastatur og skærmlæser**
