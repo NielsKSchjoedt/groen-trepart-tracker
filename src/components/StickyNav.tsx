@@ -249,6 +249,7 @@ export function StickyNav({ sentinelRef, chapters: chaptersOverride, contextLabe
   return (
     <div
       aria-hidden={!visible}
+      inert={!visible}
       className={`fixed top-0 left-0 right-0 z-[1100] max-w-[100vw] overflow-x-hidden transition-transform duration-300 ease-in-out ${
         visible ? 'translate-y-0' : '-translate-y-full'
       }`}

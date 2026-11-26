@@ -114,10 +114,23 @@ const Index = () => {
 
   useEffect(() => {
     loadDashboardData().then(setData);
-    ensureDashboardProjectDetails().then(setData);
     loadKlimaskovfondenProjects().then(setKsfProjects);
     loadNaturstyrelsenSkovProjects().then(setNstProjects);
   }, []);
+
+  // The per-project drill-down (~14 MB raw) is only read by the delmål
+  // chapters (projects, map, table). The overview never shows it, so don't
+  // make every front-page visitor download and parse it.
+  useEffect(() => {
+    if (!pillarSelected) return;
+    let cancelled = false;
+    ensureDashboardProjectDetails().then((full) => {
+      if (!cancelled) setData(full);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [pillarSelected]);
 
   const allProjects = useMemo(
     () => uniqueByProjectId(data?.plans.flatMap((p) => p.projectDetails) ?? []).map(withNationalEffects),

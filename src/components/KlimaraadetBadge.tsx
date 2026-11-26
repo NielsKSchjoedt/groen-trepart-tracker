@@ -35,7 +35,7 @@ export function KlimaraadetBadge({ vurdering, rapportUrl, compact }: Klimaraadet
           type="button"
           aria-label={`${label} — læs vurdering fra Statusrapport 2026`}
           className={cn(
-            'inline-flex max-w-full items-center gap-1.5 rounded-md border border-border/40',
+            'inline-flex min-h-6 max-w-full items-center gap-1.5 rounded-md border border-border/40',
             'bg-muted/25 px-2 py-1 text-left text-[9px] leading-snug text-muted-foreground',
             'transition-colors hover:border-border/70 hover:bg-muted/40 hover:text-foreground/90',
             compact && 'w-full',

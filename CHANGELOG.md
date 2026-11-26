@@ -17,6 +17,18 @@ Kommende ændringer noteres her løbende.
 
 ---
 
+## v1.2.7 — 26. november 2026
+
+**Forsiden indlæses hurtigere på mobil, og den skjulte topmenu forstyrrer ikke længere tastatur og skærmlæser**
+
+### Fejlrettelse
+- Når topmenuen var skjult (før man scroller ned), kunne man stadig tabbe ind i dens knapper med tastaturet, selvom de var usynlige og skjult for skærmlæsere. Nu kan man kun nå menuen, når den er synlig. Klimarådets små vurderingsknapper var også for små at ramme med en finger; de er nu mindst 24 pixel høje. (Teknisk: inert på StickyNav, min-h-6 på KlimaraadetBadge; fundet via PageSpeed Insights.)
+
+### Forbedring
+- Forsiden hentede omkring 3 MB projektdata og projekternes kortomrids, før man overhovedet havde valgt et delmål. Det gjorde siden langsom at åbne på mobil. Nu hentes de først, når man vælger et delmål. Samtidig holder oversigtskortet op med at tegne kvælstofprojekter efter et par sekunder: teksten under kortet har hele tiden sagt, at projekter vises, når man har valgt et delmål, og det gør de nu også kun. Tallene på siden er de samme. (Teknisk: ensureDashboardProjectDetails kaldes kun med en valgt søjle; showProjectLayer={false} på oversigtens KommuneMapSection.)
+- Skrifttyperne blev hentet i et ekstra trin efter sidens stylesheet, så teksten dukkede senere op. De hentes nu parallelt med resten af siden. Filer, der aldrig ændrer sig, bliver nu husket af browseren i et år, og datafilerne i fem minutter, så gentagne besøg går hurtigere. (Teknisk: Google Fonts flyttet fra CSS-@import til <link> i index.html; Cache-Control i public/_headers.)
+---
+
 ## v1.2.6 — 26. november 2026
 
 **Lysere og mere overskuelig side: hvid baggrund, kort med dybde og en tydeligere «Kort sagt»-boks**

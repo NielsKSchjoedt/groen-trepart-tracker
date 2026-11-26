@@ -66,6 +66,8 @@ interface KommuneMapSectionProps {
   metricPickHint?: string;
   /** Tier 1: MARS project overlay. */
   dashboard?: DashboardData | null;
+  /** Draw MARS project polygons (default true). Off also skips the geometry download. */
+  showProjectLayer?: boolean;
   selectedPhases?: Set<KommunePhase>;
   activeSupplements?: Set<SupplementSource>;
   mapOverlays: Set<KommuneMapOverlayToken>;
@@ -119,6 +121,7 @@ export function KommuneMapSection({
   onMetricChange,
   metricPickHint,
   dashboard = null,
+  showProjectLayer = true,
   selectedPhases = new Set(DEFAULT_PHASES),
   activeSupplements = new Set(),
   mapOverlays,
@@ -499,6 +502,7 @@ export function KommuneMapSection({
               onSelect={readOnly ? () => {} : onSelect}
               dashboard={dashboard}
               selectedPhases={selectedPhases}
+              showProjectLayer={showProjectLayer}
               onProjectClick={handleProjectClick}
               fillContainer
               onMapReady={handleMapReady}
